@@ -9,15 +9,18 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ReferenceComponentComponent } from './components/reference-component/reference-component.component';
+import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
 
 const appRoutes: Routes = [
   { path: '', component: ReferenceComponentComponent },
   {path:'reference', component:ReferenceComponentComponent},
+  {path:'admin-sidebar', component:AdminSidebarComponent},
 ]
 @NgModule({
   declarations: [
     AppComponent,
-    ReferenceComponentComponent
+    ReferenceComponentComponent,
+    AdminSidebarComponent
   ],
   imports: [
     BrowserModule,
