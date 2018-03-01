@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 /*Main CSS*/
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+/*@import '@angular/material/prebuilt-themes/indigo-pink.css';  */
+
 
 body{overflow-x:hidden;}
 /*Login Signup Page*/
@@ -18,7 +21,8 @@ a:focus,a:hover,a{
     font-size: 18px;
 }
 .bg-image {
-    /* background: url(../images/background-login.jpg) no-repeat 0 0 / cover; */
+    /* background: url(../images/background-login.jpg) no-repeat 0 0 / cover;
+     */
     position: relative;
     width: 100%;
     height: 100vh;
@@ -590,6 +594,7 @@ header {
 .modal{
     top: 20%; 
 }
+
 .modal-header .close {
     margin-top: 2px;
 }
@@ -617,6 +622,14 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
 .navbar-toggle{background-color: #ccc;}
 .navbar-collapse.collapse.in {
   display: block!important;
+}
+.bg-lightgray {
+     background-color: #f3f3f5;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: block;
+    border-top: 1px solid #e8e8e8;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{background:none;}
 @media (min-width: 768px){
@@ -762,48 +775,83 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
 }
 .navbar-collapse.collapse{display:block !important;}	
 }
-@media only screen and (min-device-width:998px) and (max-device-width: 1350px){
-        #navigation .logo img {
-    max-width: 130px;
-    padding: 16px 0 17px;
-    width: 100%;
-}
-}
 @media only screen and (max-width : 1920px) {
-    
-    
-    
-    }
-    
-    @media only screen and (max-width : 1600px) {
-    
-    }
-    
-    
-    @media only screen and (max-width : 1366px) {
-    
-    }
-    
-    @media only screen and (max-width : 1280px) {
-    
-    }
-    
-    @media only screen and (max-width : 1024px) {
-    
-    }
-    @media only screen and (max-width : 768px) {
-    
-    }
-    @media only screen and (max-width : 767px) {
-    .logo{float:right;}
-    .navbar-default{float:left;}
-    
-    }
-    
-    @media only screen and (max-width : 480px) {
-    .logo{display:none;}
-    }
-    
-    @media only screen and (max-width : 320px) {
-    
-    }
+
+.navbar-default{    min-height: 959px;}
+
+}
+
+@media only screen and (max-width : 1600px) {
+.navbar-default{min-height:690px;}
+}
+
+
+@media only screen and (max-width : 1366px) {
+.navbar-default {
+    min-height: 596px;
+}
+}
+
+@media only screen and (max-width : 1280px) {
+
+}
+
+@media only screen and (max-width : 1024px) {
+.navbar-default {
+    min-height: 669px;
+}
+}
+@media only screen and (max-width : 768px) {
+.navbar-default {
+       min-height: 912px;
+}
+}
+@media only screen and (max-width : 767px) {
+.navbar-default {
+    min-height: 0px;
+}
+}
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width : 480px) {
+header .header-top li{    padding-left: 6px !important;}
+#navigation{background:inherit;border:none;}
+.display-table-cell{display:block;}
+.logo{background:#fff;}
+.navbar-nav {
+    margin: 8.75px -15px;
+    position: absolute;
+    z-index: 100;
+    background: #fff;
+}
+.navbar-header .navbar-toggle{    top: -61px;
+    left: 41px;}
+.navbar{    margin-bottom: -6px;}
+#navigation .navi a {
+    font-size: 9px;
+padding: 8px;}
+.navi i {
+    margin-right: -3px;
+    color: #6d6d6d;
+    margin: 0 auto;
+    display: table;
+    width: 24px;
+    height: 20px;
+margin-bottom: 4px;
+}
+}
+
+@media only screen and (max-width : 320px) {
+
+}
+
+
+
+
