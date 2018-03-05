@@ -36,4 +36,10 @@ router.post('/create', function(req, res) {
   module.exports = router;
   return router;
   }
+
+  router.post('/addplan', (req, res, next) => {
+
+
+    
+  });
   module.exports = returnRouter;

@@ -1,0 +1,224 @@
+<body class="home">
+        <div class="container-fluid display-table">
+            <div class="row display-table-row">
+              <div class="col-md-1 col-xs-2 display-table-cell v-align box" id="navigation">
+              <admin-sidebar></admin-sidebar>
+              <!-- <nav class="nav-sidebar">
+                    <ul class="nav tabs buttonleft"> -->
+                          <!-- <li > -->
+                           
+                          <!-- </li> -->
+                          
+                         
+                          <!-- <li [ngClass]="{'active1': viewComp == 'Active'}"><a (click)="updateView('Active')" href="#tab4" data-toggle="tab">Active Users</a></li> 
+                          <li [ngClass]="{'active1': viewComp == 'Blocked'}"><a (click)="updateView('Blocked')" href="#tab2" data-toggle="tab">Blocked Users</a></li>
+                          <li [ngClass]="{'active1': viewComp == 'Delete'}"><a (click)="updateView('Delete')" href="#tab3" data-toggle="tab">Delete Users</a></li>   -->
+                                                       
+                    <!-- </ul>
+                  </nav> -->
+              </div>
+              <admin-topbar></admin-topbar>
+
+                <div class="col-md-12 col-xs-9">
+                    <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+                    <div class="row">
+                       
+                      
+      
+                      <div class="example-container mat-elevation-z8">
+                            <div class="example-header">
+                              <mat-form-field>
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                              </mat-form-field>
+                            </div>
+                          
+                            <mat-table #table [dataSource]="dataSource">
+                          
+                              <!-- Position Column -->
+                              <ng-container matColumnDef="s/no">
+                                <mat-header-cell *matHeaderCellDef> S/No </mat-header-cell>
+                                <mat-cell *matCellDef="let element">  </mat-cell>
+                              </ng-container>
+                          
+                              <!-- Name Column -->
+                              <ng-container matColumnDef="planname">
+                                <mat-header-cell *matHeaderCellDef> Plan Name </mat-header-cell>
+                                <mat-cell *matCellDef="let element">  </mat-cell>
+                              </ng-container>
+                          
+                              <!-- Weight Column -->
+                              <ng-container matColumnDef="price">
+                                <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> </mat-cell>
+                              </ng-container>
+                          
+                              <!-- Symbol Column -->
+                              <ng-container matColumnDef="noprojects">
+                                <mat-header-cell *matHeaderCellDef> No of projects </mat-header-cell>
+                                <mat-cell *matCellDef="let element">  </mat-cell>
+                              </ng-container>
+                              <ng-container matColumnDef="nomembers">
+                                    <mat-header-cell *matHeaderCellDef> No of Members </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">  </mat-cell>
+                                  </ng-container>
+                                  <ng-container matColumnDef="nomodules">
+                                        <mat-header-cell *matHeaderCellDef> No of Modules </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">  </mat-cell>
+                                      </ng-container>
+                          
+                                      <ng-container matColumnDef="notasks">
+                                            <mat-header-cell *matHeaderCellDef> No of Tasks </mat-header-cell>
+                                            <mat-cell *matCellDef="let element">  </mat-cell>
+                                          </ng-container>
+                                          <ng-container matColumnDef="action">
+                                              <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
+                                              <mat-cell *matCellDef="let element">  </mat-cell>
+                                            </ng-container>
+                              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                          </div>
+                    </div>
+                </div>
+                            <div class="add-button">
+                              <button type="button" class="add-project" data-toggle="modal" data-target="#addModal" data-backdrop="static">+</button>
+                            </div>
+
+
+          <!-- -------------------------------------------------------------add new----------------------------------------------------------------------------- -->
+          <div id="addModal"  class="modal fade">
+              <div class="modal-dialog">
+              
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+                    <h4 class="modal-title">Add New Plan</h4>
+                  </div>
+                  <div class="modal-body">
+                    
+                <form  role="form"  #f="ngForm" (ngSubmit)="addPlan(newPlan);" novalidate >
+                
+                    <div  >
+                      <div class="example-container">
+                        <mat-form-field>
+                          <input matInput placeholder="Plan Name"  name ="planname" [(ngModel)]="newPlan.planname"  required>
+                        </mat-form-field>
+                      
+                        <mat-form-field>
+                          <span matPrefix>₹&nbsp;</span>
+                          <input matInput placeholder="Price" type="number" min="1"  class="example-right-align"  name ="planprice" [(ngModel)]="newPlan.planprice"  required>
+                          
+                          <!-- <span matSuffix>.00</span> -->
+                        </mat-form-field>
+                      
+                        <mat-form-field>
+
+                          <mat-select placeholder="No of projects"  name="surveyno"  [(ngModel)]="newPlan.surveyno" required>
+
+                            <mat-option value="Unlimited">Unlimited</mat-option>
+                            <mat-option value="limited">limited</mat-option>
+                          
+                          </mat-select>
+                        </mat-form-field>
+
+                        
+                          
+                        <mat-form-field *ngIf="newPlan.surveyno == 'limited'" >
+                            <input  matInput placeholder="value" type="number" name="value1"  [(ngModel)]="newPlan.value1" min="1" oninput="validity.valid||(value='');">
+                          </mat-form-field>
+                        
+                        <mat-form-field>
+                          <mat-select placeholder="No of Members"  name="surveyqtno"  [(ngModel)]="newPlan.surveyqtno" required>
+                            <mat-option value="Unlimited">Unlimited</mat-option>
+                            <mat-option value="limited">limited</mat-option>
+                          
+                          </mat-select>
+
+                        </mat-form-field>
+                        <mat-form-field *ngIf="newPlan.surveyqtno == 'limited'" >
+                            <input  matInput placeholder="value" type="number"name="value2"  [(ngModel)]="newPlan.value2" min="1" oninput="validity.valid||(value='');">
+                          </mat-form-field>
+                        <mat-form-field>
+                            <mat-select placeholder="No of Modules"   name="surveyattno"  [(ngModel)]="newPlan.surveyattno" required>
+                              <mat-option value="Unlimited">Unlimited</mat-option>
+                              <mat-option value="limited">limited</mat-option>
+                            
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field *ngIf="newPlan.surveyattno == 'limited'" >
+                              <input  matInput placeholder="value" type="number" name="value3"  [(ngModel)]="newPlan.value3" min="1" oninput="validity.valid||(value='');">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-select placeholder="No of Tasks"   name="surveyattno"  [(ngModel)]="newPlan.surveyattno" required>
+                                  <mat-option value="Unlimited">Unlimited</mat-option>
+                                  <mat-option value="limited">limited</mat-option>
+                                
+                                </mat-select>
+                              </mat-form-field>
+                              <mat-form-field *ngIf="newPlan.surveyattno == 'limited'" >
+                                  <input  matInput placeholder="value" type="number" name="value4"  [(ngModel)]="newPlan.value4" min="1" oninput="validity.valid||(value='');">
+                                </mat-form-field>
+                   
+
+                      </div>
+                          
+                    </div>
+                    <br>
+                    <!-- <div *ngIf="showSpinner">
+                        <mat-spinner></mat-spinner>
+                       </div> -->
+                   
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button type= "submit" [disabled]="btnDisbled" class="add-project" >Submit</button>
+                
+                              </div>
+                              <div class="col-md-8" *ngIf="showSpinner" >
+                                     <svg class="svgclass" version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                     width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                                 <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+                                   <animateTransform attributeType="xml"
+                                     attributeName="transform"
+                                     type="rotate"
+                                     from="0 25 25"
+                                     to="360 25 25"
+                                     dur="0.6s"
+                                     repeatCount="indefinite"/>
+                                   </path>
+                                 </svg>
+                              </div>
+                               
+                            </div>
+                   
+                </form>
+                  </div>
+                  <div class="modal-footer">
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+    
+      <!-- Modal -->
+    
+     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+     
+    
+    </body>
+    

@@ -1,9 +1,8 @@
-<div class="col-md-1 col-xs-2 display-table-cell v-align box" id="navigation">
-  <div class="logo">
-      <a href="home.html"><img src="img/logo.jpg" alt="" class="">
-         
-      </a>
-  </div>
+<div class="logo">
+    <a href="home.html"><img src="./assets/images/logo.jpg" alt="" class="">
+       
+    </a>
+</div>
 
 <nav class="navbar navbar-default">
 
@@ -21,15 +20,19 @@
 <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse navi" id="bs-example-navbar-collapse-1">
 <ul class="zx nav navbar-nav">
-<li class="active"><a href="#"><i class="fa fa-home" aria-hidden="true"></i><span class="">Dashboard</span></a></li>
-<li><a href="#"><i class="fa fa-users fa-2x text-purple"></i> Company</a></li>
-<li><a href="#"><i class="fa fa-user" aria-hidden="true"></i><span class="">Plan</span></a></li>
+ 
+  <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+    <a  routerLink="/admin-dashboard"><i class="fa fa-desktop" aria-hidden="true"></i><span class="">Dashboard</span></a></li>
+  
+    <li  [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+    <a  routerLink="/admin-company-list"><i class="fa fa-building-o"></i> Company</a></li>
+  
+    <li  [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+    <a  routerLink="/admin-plan"><i class="fa fa-file-text" aria-hidden="true"></i><span class="">Plan</span></a></li>
+    
 </ul>
 
 
 </div><!-- /.navbar-collapse -->
 
 </nav>
-
-
-</div>

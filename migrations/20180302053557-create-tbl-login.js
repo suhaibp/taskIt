@@ -20,24 +20,36 @@ module.exports = {
       google_token: {
         type: Sequelize.STRING
       },
+      fb_id: {
+        type: Sequelize.INTEGER
+      },
+      fb_token: {
+        type: Sequelize.STRING
+      },
       is_verified: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       block_status: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       delete_status: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       profile_image: {
         type: Sequelize.STRING
       },
+      cmp_status: {
+        type: Sequelize.STRING
+      },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       role_id: {
@@ -47,7 +59,8 @@ module.exports = {
           key: 'id',
           as: 'role_id',
         },
-      },
+      }
+
     });
   },
   down: (queryInterface, Sequelize) => {

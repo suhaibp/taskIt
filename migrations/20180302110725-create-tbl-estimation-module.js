@@ -1,30 +1,35 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('tbl_roles', {
+    return queryInterface.createTable('tbl_estimation_modules', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      role: {
+      module_name: {
         type: Sequelize.STRING
       },
-      is_visible: {
-        type: Sequelize.BOOLEAN
-      },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
+      },
+      estimation_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'tbl_estimations',
+          key: 'id',
+          as: 'estimation_id',
+        },
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('tbl_roles');
+    return queryInterface.dropTable('tbl_estimation_modules');
   }
 };
