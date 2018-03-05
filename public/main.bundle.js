@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n <router-outlet></router-outlet>"
+module.exports = "\n <router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -89,15 +89,16 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_reference_component_reference_component_component__ = __webpack_require__("../../../../../src/app/components/reference-component/reference-component.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_admin_sidebar_admin_sidebar_component__ = __webpack_require__("../../../../../src/app/components/admin-sidebar/admin-sidebar.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_admin_topbar_admin_topbar_component__ = __webpack_require__("../../../../../src/app/components/admin-topbar/admin-topbar.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_admin_dashboard_admin_dashboard_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_admin_company_admin_company_component__ = __webpack_require__("../../../../../src/app/components/admin-company/admin-company.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_admin_all_companies_admin_all_companies_component__ = __webpack_require__("../../../../../src/app/components/admin-all-companies/admin-all-companies.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_admin_subscribed_admin_subscribed_component__ = __webpack_require__("../../../../../src/app/components/admin-subscribed/admin-subscribed.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_admin_trial_admin_trial_component__ = __webpack_require__("../../../../../src/app/components/admin-trial/admin-trial.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_admin_not_verified_admin_not_verified_component__ = __webpack_require__("../../../../../src/app/components/admin-not-verified/admin-not-verified.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_admin_expired_admin_expired_component__ = __webpack_require__("../../../../../src/app/components/admin-expired/admin-expired.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_admin_footer_admin_footer_component__ = __webpack_require__("../../../../../src/app/components/admin-footer/admin-footer.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_admin_dashboard_admin_dashboard_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_admin_company_admin_company_component__ = __webpack_require__("../../../../../src/app/components/admin-company/admin-company.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_admin_all_companies_admin_all_companies_component__ = __webpack_require__("../../../../../src/app/components/admin-all-companies/admin-all-companies.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_admin_subscribed_admin_subscribed_component__ = __webpack_require__("../../../../../src/app/components/admin-subscribed/admin-subscribed.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_admin_trial_admin_trial_component__ = __webpack_require__("../../../../../src/app/components/admin-trial/admin-trial.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_admin_not_verified_admin_not_verified_component__ = __webpack_require__("../../../../../src/app/components/admin-not-verified/admin-not-verified.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_admin_expired_admin_expired_component__ = __webpack_require__("../../../../../src/app/components/admin-expired/admin-expired.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -122,22 +123,62 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var appRoutes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_6__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */] },
     { path: 'reference', component: __WEBPACK_IMPORTED_MODULE_6__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */] },
     { path: 'admin-sidebar', component: __WEBPACK_IMPORTED_MODULE_7__components_admin_sidebar_admin_sidebar_component__["a" /* AdminSidebarComponent */] },
     { path: 'admin-topbar', component: __WEBPACK_IMPORTED_MODULE_8__components_admin_topbar_admin_topbar_component__["a" /* AdminTopbarComponent */] },
-    { path: 'admin-dashboard', component: __WEBPACK_IMPORTED_MODULE_9__components_admin_dashboard_admin_dashboard_component__["a" /* AdminDashboardComponent */] },
-    { path: 'admin-company', component: __WEBPACK_IMPORTED_MODULE_10__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */] },
-    { path: 'admin-all-companies', component: __WEBPACK_IMPORTED_MODULE_13__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */] },
-    { path: 'admin-subscribed', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */] },
-    { path: 'admin-trial', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */] },
-    { path: 'admin-NotVerified', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */] },
-    { path: 'admin-expired', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */] },
+    { path: 'admin-footer', component: __WEBPACK_IMPORTED_MODULE_9__components_admin_footer_admin_footer_component__["a" /* AdminFooterComponent */] },
+    { path: 'admin-dashboard', component: __WEBPACK_IMPORTED_MODULE_10__components_admin_dashboard_admin_dashboard_component__["a" /* AdminDashboardComponent */] },
+    { path: 'admin-company', component: __WEBPACK_IMPORTED_MODULE_11__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */] },
+    { path: 'admin-all-companies', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */] },
+    { path: 'admin-subscribed', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */] },
+    { path: 'admin-trial', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */] },
+    { path: 'admin-NotVerified', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */] },
+    { path: 'admin-expired', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
     }
+    DemoMaterialModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["K" /* NgModule */])({
+            exports: [
+                __WEBPACK_IMPORTED_MODULE_13__angular_cdk_table__["m" /* CdkTableModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["a" /* MatAutocompleteModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["b" /* MatButtonModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["c" /* MatButtonToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["d" /* MatCardModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["e" /* MatCheckboxModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["f" /* MatChipsModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["A" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["g" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["h" /* MatDialogModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["i" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["j" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["k" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["l" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["m" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["n" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["o" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["p" /* MatPaginatorModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["q" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["r" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["s" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["t" /* MatRippleModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["u" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["v" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["x" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["w" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["y" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["z" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["B" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["C" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["D" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_material__["E" /* MatTooltipModule */],
+            ],
+        })
+    ], DemoMaterialModule);
     return DemoMaterialModule;
 }());
 
@@ -146,61 +187,26 @@ var AppModule = (function () {
     }
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["K" /* NgModule */])({
-            exports: [
-                __WEBPACK_IMPORTED_MODULE_12__angular_cdk_table__["m" /* CdkTableModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["a" /* MatAutocompleteModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["b" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["c" /* MatButtonToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["d" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["e" /* MatCheckboxModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["f" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["A" /* MatStepperModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["g" /* MatDatepickerModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["h" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["i" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["j" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["k" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["l" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["m" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["n" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["o" /* MatNativeDateModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["p" /* MatPaginatorModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["q" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["r" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["s" /* MatRadioModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["t" /* MatRippleModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["u" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["v" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["x" /* MatSliderModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["w" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["y" /* MatSnackBarModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["z" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["B" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["C" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["D" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_11__angular_material__["E" /* MatTooltipModule */],
-            ],
-        }),
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["K" /* NgModule */])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_6__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */],
                 __WEBPACK_IMPORTED_MODULE_7__components_admin_sidebar_admin_sidebar_component__["a" /* AdminSidebarComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__components_admin_topbar_admin_topbar_component__["a" /* AdminTopbarComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__components_admin_dashboard_admin_dashboard_component__["a" /* AdminDashboardComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */],
-                __WEBPACK_IMPORTED_MODULE_13__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */],
-                __WEBPACK_IMPORTED_MODULE_14__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */],
-                __WEBPACK_IMPORTED_MODULE_15__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */],
-                __WEBPACK_IMPORTED_MODULE_16__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */],
-                __WEBPACK_IMPORTED_MODULE_17__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */]
+                __WEBPACK_IMPORTED_MODULE_9__components_admin_footer_admin_footer_component__["a" /* AdminFooterComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__components_admin_dashboard_admin_dashboard_component__["a" /* AdminDashboardComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */],
+                __WEBPACK_IMPORTED_MODULE_14__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */],
+                __WEBPACK_IMPORTED_MODULE_17__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */]
             ],
             imports: [
+                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* RouterModule */].forRoot(appRoutes),
                 __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_forms__["h" /* ReactiveFormsModule */],
-                DemoMaterialModule,
-                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */]
+                DemoMaterialModule
             ],
             providers: [],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
@@ -234,7 +240,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-all-companies/admin-all-companies.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  admin-all-companies works!\r\n</p>\r\n"
+module.exports = "<p>\n  admin-all-companies works!\n</p>\n"
 
 /***/ }),
 
@@ -295,7 +301,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-company/admin-company.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <admin-sidebar></admin-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <admin-topbar></admin-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                \r\n                \r\n                <div class=\"user-dashboard\">\r\n                 <h1>Hello, JS</h1>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-2 col-sm-2 col-xs-12 gutter\">\r\n\r\n                            <ul class=\"nav tabs\">\r\n                                <li [ngClass]=\"{'active1': viewComp == 'AllCompanies'}\"><a (click)=\"updateView('AllCompanies')\" href=\"#tab1\" data-toggle=\"tab\">All Companies</a></li>\r\n                                <li [ngClass]=\"{'active1': viewComp == 'Subscribed'}\"><a (click)=\"updateView('Subscribed')\" href=\"#tab2\" data-toggle=\"tab\">Subscribed</a></li> \r\n                                <li [ngClass]=\"{'active1': viewComp == 'Trial'}\"><a (click)=\"updateView('Trial')\" href=\"#tab3\" data-toggle=\"tab\">Trial</a></li>\r\n                                <li [ngClass]=\"{'active1': viewComp == 'NotVerified'}\"><a (click)=\"updateView('NotVerified')\" href=\"#tab4\" data-toggle=\"tab\">Not Verified</a></li>  \r\n                                <li [ngClass]=\"{'active1': viewComp == 'Expired'}\"><a (click)=\"updateView('Expired')\" href=\"#tab5\" data-toggle=\"tab\">Expired</a></li>\r\n                                              \r\n                          </ul>\r\n                        </div>\r\n                        <div class=\"col-md-7 col-sm-7 col-xs-12 gutter\">\r\n\r\n                            <div *ngIf=\"viewComp == 'AllCompanies'\">\r\n                                <admin-all-companies></admin-all-companies>\r\n                              </div>\r\n                              <div *ngIf=\"viewComp == 'Subscribed'\">\r\n                                  <admin-subscribed></admin-subscribed>\r\n                                </div>\r\n                              <div *ngIf=\"viewComp == 'Trial'\">\r\n                                <admin-trial></admin-trial>\r\n                              </div>\r\n                              <div *ngIf=\"viewComp == 'NotVerified'\">\r\n                                <admin-not-verified></admin-not-verified>\r\n                              </div>\r\n                              <div *ngIf=\"viewComp == 'Expired'\">\r\n                                <admin-expired></admin-expired>\r\n                              </div>\r\n                            \r\n\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n                <admin-footer></admin-footer>\r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
+module.exports = "<body class=\"home\">\n    <div class=\"container-fluid display-table\">\n        <div class=\"row display-table-row\">\n      \n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\n                 <!-- sidebar-->\n               \n                 <admin-sidebar></admin-sidebar> \n                 <!-- end sidebar-->\n            </div>\n            \n            <div class=\"col-md-12 col-xs-12\">\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n                <!-- topbar-->\n                <admin-topbar></admin-topbar> \n                \n                    <!-- end topbar-->\n                \n                \n                <div class=\"user-dashboard\">\n                 <h1>Hello, JS</h1>\n                    <div class=\"row\">\n                        <div class=\"col-md-2 col-sm-2 col-xs-12 gutter\">\n\n                            <ul class=\"nav tabs\">\n                                <li [ngClass]=\"{'active1': viewComp == 'AllCompanies'}\"><a (click)=\"updateView('AllCompanies')\" href=\"#tab1\" data-toggle=\"tab\">All Companies</a></li>\n                                <li [ngClass]=\"{'active1': viewComp == 'Subscribed'}\"><a (click)=\"updateView('Subscribed')\" href=\"#tab2\" data-toggle=\"tab\">Subscribed</a></li> \n                                <li [ngClass]=\"{'active1': viewComp == 'Trial'}\"><a (click)=\"updateView('Trial')\" href=\"#tab3\" data-toggle=\"tab\">Trial</a></li>\n                                <li [ngClass]=\"{'active1': viewComp == 'NotVerified'}\"><a (click)=\"updateView('NotVerified')\" href=\"#tab4\" data-toggle=\"tab\">Not Verified</a></li>  \n                                <li [ngClass]=\"{'active1': viewComp == 'Expired'}\"><a (click)=\"updateView('Expired')\" href=\"#tab5\" data-toggle=\"tab\">Expired</a></li>\n                                              \n                          </ul>\n                        </div>\n                        <div class=\"col-md-7 col-sm-7 col-xs-12 gutter\">\n\n                            <div *ngIf=\"viewComp == 'AllCompanies'\">\n                                <admin-all-companies></admin-all-companies>\n                              </div>\n                              <div *ngIf=\"viewComp == 'Subscribed'\">\n                                  <admin-subscribed></admin-subscribed>\n                                </div>\n                              <div *ngIf=\"viewComp == 'Trial'\">\n                                <admin-trial></admin-trial>\n                              </div>\n                              <div *ngIf=\"viewComp == 'NotVerified'\">\n                                <admin-not-verified></admin-not-verified>\n                              </div>\n                              <div *ngIf=\"viewComp == 'Expired'\">\n                                <admin-expired></admin-expired>\n                              </div>\n                            \n\n                        </div>\n                    </div>\n                </div>\n                \n            </div>\n                <!-- footer-->\n                <admin-footer></admin-footer>\n       <!-- end footer-->\n        </div>\n         </div>\n        <!-- Modal -->\n     </body>"
 
 /***/ }),
 
@@ -365,7 +371,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <admin-sidebar></admin-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <admin-topbar></admin-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                \r\n                \r\n                <div class=\"user-dashboard\">\r\n                    <h1>Hello, JS</h1>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-5 col-sm-5 col-xs-12 gutter\">\r\n\r\n                            <div class=\"sales\">\r\n                                <h2>Your Sale</h2>\r\n\r\n                                <div class=\"btn-group\">\r\n                                    <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                                        <span>Period:</span> Last Year\r\n                                    </button>\r\n                                    <div class=\"dropdown-menu\">\r\n                                        <a href=\"#\">2012</a>\r\n                                        <a href=\"#\">2014</a>\r\n                                        <a href=\"#\">2015</a>\r\n                                        <a href=\"#\">2016</a>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-7 col-sm-7 col-xs-12 gutter\">\r\n\r\n                            <div class=\"sales report\">\r\n                                <h2>Report</h2>\r\n                                <div class=\"btn-group\">\r\n                                    <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                                        <span>Period:</span> Last Year\r\n                                    </button>\r\n                                    <div class=\"dropdown-menu\">\r\n                                        <a href=\"#\">2012</a>\r\n                                        <a href=\"#\">2014</a>\r\n                                        <a href=\"#\">2015</a>\r\n                                        <a href=\"#\">2016</a>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n                <admin-footer></admin-footer>\r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
+module.exports = "<body class=\"home\">\n    <div class=\"container-fluid display-table\">\n        <div class=\"row display-table-row\">\n      \n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\n                 <!-- sidebar-->\n               \n                 <admin-sidebar></admin-sidebar> \n                 <!-- end sidebar-->\n            </div>\n            \n            <div class=\"col-md-12 col-xs-12\">\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n                <!-- topbar-->\n                <admin-topbar></admin-topbar> \n                \n                    <!-- end topbar-->\n                \n                \n                <div class=\"user-dashboard\">\n                    <h1>Hello, JS</h1>\n                    <div class=\"row\">\n                        <div class=\"col-md-5 col-sm-5 col-xs-12 gutter\">\n\n                            <div class=\"sales\">\n                                <h2>Your Sale</h2>\n\n                                <div class=\"btn-group\">\n                                    <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                        <span>Period:</span> Last Year\n                                    </button>\n                                    <div class=\"dropdown-menu\">\n                                        <a href=\"#\">2012</a>\n                                        <a href=\"#\">2014</a>\n                                        <a href=\"#\">2015</a>\n                                        <a href=\"#\">2016</a>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"col-md-7 col-sm-7 col-xs-12 gutter\">\n\n                            <div class=\"sales report\">\n                                <h2>Report</h2>\n                                <div class=\"btn-group\">\n                                    <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                        <span>Period:</span> Last Year\n                                    </button>\n                                    <div class=\"dropdown-menu\">\n                                        <a href=\"#\">2012</a>\n                                        <a href=\"#\">2014</a>\n                                        <a href=\"#\">2015</a>\n                                        <a href=\"#\">2016</a>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                \n            </div>\n                <!-- footer-->\n                <admin-footer></admin-footer>\n       <!-- end footer-->\n        </div>\n         </div>\n        <!-- Modal -->\n     </body>"
 
 /***/ }),
 
@@ -426,7 +432,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-expired/admin-expired.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  admin-expired works!\r\n</p>\r\n"
+module.exports = "<p>\n  admin-expired works!\n</p>\n"
 
 /***/ }),
 
@@ -466,6 +472,67 @@ var AdminExpiredComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/admin-footer/admin-footer.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/admin-footer/admin-footer.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<footer class=\"container-fluid text-center bg-lightgray\">\n    \n                            <div class=\"copyrights\" style=\"margin-top:25px;\">\n                                <p>Taskit © 2018, All Rights Reserved\n                                    <br>\n                                    \n                                \n                            </div>\n                    </footer> "
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/admin-footer/admin-footer.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminFooterComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var AdminFooterComponent = (function () {
+    function AdminFooterComponent() {
+    }
+    AdminFooterComponent.prototype.ngOnInit = function () {
+    };
+    AdminFooterComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'admin-footer',
+            template: __webpack_require__("../../../../../src/app/components/admin-footer/admin-footer.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/admin-footer/admin-footer.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], AdminFooterComponent);
+    return AdminFooterComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/admin-not-verified/admin-not-verified.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -487,7 +554,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-not-verified/admin-not-verified.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  admin-not-verified works!\r\n</p>\r\n"
+module.exports = "<p>\n  admin-not-verified works!\n</p>\n"
 
 /***/ }),
 
@@ -548,7 +615,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-sidebar/admin-sidebar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"logo\">\r\n    <a href=\"\"><img src=\"./assets/images/logo.jpg\" alt=\"\" class=\"\">\r\n   \r\n</a>\r\n</div>\r\n\r\n<nav class=\"navbar navbar-default\">\r\n\r\n<!-- Brand and toggle get grouped for better mobile display -->\r\n<div class=\"navbar-header\">\r\n  <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\r\n    <span class=\"sr-only\">Toggle navigation</span>\r\n    <span class=\"icon-bar\"></span>\r\n    <span class=\"icon-bar\"></span>\r\n    <span class=\"icon-bar\"></span>\r\n  </button>\r\n \r\n</div>\r\n\r\n<!-- Collect the nav links, forms, and other content for toggling -->\r\n<div class=\"collapse navbar-collapse navi\" id=\"bs-example-navbar-collapse-1\">\r\n    <ul class=\"zx nav navbar-nav\">\r\n        <li  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/admin-dashboard\"><i class=\"fa fa-desktop\" aria-hidden=\"true\"></i><span class=\"\">Dashboard</span></a></li>\r\n        <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/admin-company\"><i class=\"fa fa-building-o\"></i> Company</a></li>\r\n        <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"\"><i class=\"fa fa-file-text\" aria-hidden=\"true\"></i><span class=\"\">Plan</span></a></li>\r\n    </ul>\r\n \r\n \r\n</div><!-- /.navbar-collapse -->\r\n\r\n</nav>"
+module.exports = "<div class=\"logo\">\n    <a href=\"\"><img src=\"./assets/images/logo.jpg\" alt=\"\" class=\"\">\n   \n</a>\n</div>\n\n<nav class=\"navbar navbar-default\">\n\n<!-- Brand and toggle get grouped for better mobile display -->\n<div class=\"navbar-header\">\n  <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n    <span class=\"sr-only\">Toggle navigation</span>\n    <span class=\"icon-bar\"></span>\n    <span class=\"icon-bar\"></span>\n    <span class=\"icon-bar\"></span>\n  </button>\n \n</div>\n\n<!-- Collect the nav links, forms, and other content for toggling -->\n<div class=\"collapse navbar-collapse navi\" id=\"bs-example-navbar-collapse-1\">\n    <ul class=\"zx nav navbar-nav\">\n        <li  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\n          <a routerLink=\"/admin-dashboard\"><i class=\"fa fa-desktop\" aria-hidden=\"true\"></i><span class=\"\">Dashboard</span></a></li>\n        <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\n          <a routerLink=\"/admin-company\"><i class=\"fa fa-building-o\"></i> Company</a></li>\n        <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\n          <a routerLink=\"\"><i class=\"fa fa-file-text\" aria-hidden=\"true\"></i><span class=\"\">Plan</span></a></li>\n    </ul>\n \n \n</div><!-- /.navbar-collapse -->\n\n</nav>"
 
 /***/ }),
 
@@ -609,7 +676,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-subscribed/admin-subscribed.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  admin-subscribed works!\r\n</p>\r\n"
+module.exports = "<p>\n  admin-subscribed works!\n</p>\n"
 
 /***/ }),
 
@@ -670,7 +737,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-topbar/admin-topbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n        <header>\r\n            \r\n            <div class=\"col-md-5 pull-right\">\r\n                <div class=\"header-rightside\">\r\n                    <ul class=\"list-inline header-top pull-right\">\r\n                        <li class=\"\"><a href=\"#\" class=\"add-project\">Add Project</a></li>\r\n                        \r\n                        <li>\r\n                            <a href=\"#\" class=\"icon-info\">\r\n                                <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\r\n                                <span class=\"label label-primary\">3</span>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"dropdown\">\r\n                            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                                <b class=\"caret\"></b></a>\r\n                            <ul class=\"dropdown-menu\">\r\n                                <li>\r\n                                    <div class=\"navbar-content\">\r\n                                        <span>JS Krishna</span>\r\n                                        <p class=\"text-muted small\">\r\n                                            me@jskrishna.com\r\n                                        </p>\r\n                                        <div class=\"divider\">\r\n                                        </div>\r\n                                        <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\r\n                                    </div>\r\n                                </li>\r\n                            </ul>\r\n                        </li>\r\n                        <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </header>\r\n    </div>\r\n"
+module.exports = "<div class=\"row\">\n        <header>\n            \n            <div class=\"col-md-5 pull-right\">\n                <div class=\"header-rightside\">\n                    <ul class=\"list-inline header-top pull-right\">\n                        <li class=\"\"><a href=\"#\" class=\"add-project\">Add Project</a></li>\n                        \n                        <li>\n                            <a href=\"#\" class=\"icon-info\">\n                                <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\n                                <span class=\"label label-primary\">3</span>\n                            </a>\n                        </li>\n                        <li class=\"dropdown\">\n                            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\n                                <b class=\"caret\"></b></a>\n                            <ul class=\"dropdown-menu\">\n                                <li>\n                                    <div class=\"navbar-content\">\n                                        <span>JS Krishna</span>\n                                        <p class=\"text-muted small\">\n                                            me@jskrishna.com\n                                        </p>\n                                        <div class=\"divider\">\n                                        </div>\n                                        <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\n                                    </div>\n                                </li>\n                            </ul>\n                        </li>\n                        <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\n                    </ul>\n                </div>\n            </div>\n        </header>\n    </div>"
 
 /***/ }),
 
@@ -731,7 +798,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-trial/admin-trial.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  admin-trial works!\r\n</p>\r\n"
+module.exports = "<p>\n  admin-trial works!\n</p>\n"
 
 /***/ }),
 
@@ -779,7 +846,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "\r\n.home {\r\n    background: #f6f7fa;\r\n    height: 100%;\r\n}", ""]);
+exports.push([module.i, "\n.home {\n    background: #f6f7fa;\n    height: 100%;\n}", ""]);
 
 // exports
 
@@ -792,7 +859,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/reference-component/reference-component.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n        <div class=\"container-fluid display-table\">\r\n            <div class=\"row display-table-row\">\r\n          \r\n                <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                     <!-- sidebar-->\r\n                   \r\n                     <admin-sidebar></admin-sidebar> \r\n                     <!-- end sidebar-->\r\n                </div>\r\n                \r\n                <div class=\"col-md-12 col-xs-12\">\r\n                    <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                    <!-- topbar-->\r\n                    <admin-topbar></admin-topbar> \r\n                    \r\n                        <!-- end topbar-->\r\n                    \r\n                    \r\n                    <div class=\"user-dashboard\">\r\n                        <h1>Hello, JS</h1>\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-5 col-sm-5 col-xs-12 gutter\">\r\n    \r\n                                <div class=\"sales\">\r\n                                    <h2>Your Sale</h2>\r\n    \r\n                                    <div class=\"btn-group\">\r\n                                        <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                                            <span>Period:</span> Last Year\r\n                                        </button>\r\n                                        <div class=\"dropdown-menu\">\r\n                                            <a href=\"#\">2012</a>\r\n                                            <a href=\"#\">2014</a>\r\n                                            <a href=\"#\">2015</a>\r\n                                            <a href=\"#\">2016</a>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-7 col-sm-7 col-xs-12 gutter\">\r\n    \r\n                                <div class=\"sales report\">\r\n                                    <h2>Report</h2>\r\n                                    <div class=\"btn-group\">\r\n                                        <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                                            <span>Period:</span> Last Year\r\n                                        </button>\r\n                                        <div class=\"dropdown-menu\">\r\n                                            <a href=\"#\">2012</a>\r\n                                            <a href=\"#\">2014</a>\r\n                                            <a href=\"#\">2015</a>\r\n                                            <a href=\"#\">2016</a>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    \r\n                </div>\r\n                    <!-- footer-->\r\n                    <admin-footer></admin-footer>\r\n           <!-- end footer-->\r\n            </div>\r\n             </div>\r\n            <!-- Modal -->\r\n         </body>"
+module.exports = "<body class=\"home\">\n        <div class=\"container-fluid display-table\">\n            <div class=\"row display-table-row\">\n          \n                <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\n                     <!-- sidebar-->\n                   \n                     <admin-sidebar></admin-sidebar> \n                     <!-- end sidebar-->\n                </div>\n                \n                <div class=\"col-md-12 col-xs-12\">\n                    <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n                    <!-- topbar-->\n                    <admin-topbar></admin-topbar> \n                    \n                        <!-- end topbar-->\n                    \n                    \n                    <div class=\"user-dashboard\">\n                        <h1>Hello, JS</h1>\n                        <div class=\"row\">\n                            <div class=\"col-md-5 col-sm-5 col-xs-12 gutter\">\n    \n                                <div class=\"sales\">\n                                    <h2>Your Sale</h2>\n    \n                                    <div class=\"btn-group\">\n                                        <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                            <span>Period:</span> Last Year\n                                        </button>\n                                        <div class=\"dropdown-menu\">\n                                            <a href=\"#\">2012</a>\n                                            <a href=\"#\">2014</a>\n                                            <a href=\"#\">2015</a>\n                                            <a href=\"#\">2016</a>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                            <div class=\"col-md-7 col-sm-7 col-xs-12 gutter\">\n    \n                                <div class=\"sales report\">\n                                    <h2>Report</h2>\n                                    <div class=\"btn-group\">\n                                        <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                            <span>Period:</span> Last Year\n                                        </button>\n                                        <div class=\"dropdown-menu\">\n                                            <a href=\"#\">2012</a>\n                                            <a href=\"#\">2014</a>\n                                            <a href=\"#\">2015</a>\n                                            <a href=\"#\">2016</a>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    \n                </div>\n                    <!-- footer-->\n                    <admin-footer></admin-footer>\n           <!-- end footer-->\n            </div>\n             </div>\n            <!-- Modal -->\n         </body>"
 
 /***/ }),
 

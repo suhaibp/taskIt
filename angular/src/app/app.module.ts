@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { ReferenceComponentComponent } from './components/reference-component/reference-component.component';
 import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
 import { AdminTopbarComponent } from './components/admin-topbar/admin-topbar.component';
+import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminCompanyComponent } from './components/admin-company/admin-company.component';
 
@@ -62,6 +63,7 @@ const appRoutes: Routes = [
   {path:'reference', component:ReferenceComponentComponent},
   {path:'admin-sidebar', component:AdminSidebarComponent},
   {path:'admin-topbar', component:AdminTopbarComponent},
+  {path:'admin-footer', component:AdminFooterComponent},
   {path:'admin-dashboard', component:AdminDashboardComponent},
   {path:'admin-company', component:AdminCompanyComponent},
   {path:'admin-all-companies', component:AdminAllCompaniesComponent},
@@ -69,8 +71,10 @@ const appRoutes: Routes = [
   {path:'admin-trial', component:AdminTrialComponent},
   {path:'admin-NotVerified', component:AdminNotVerifiedComponent},
   {path:'admin-expired', component:AdminExpiredComponent},
+ 
 ] 
-export class DemoMaterialModule {}
+
+
 @NgModule({
   exports: [
     CdkTableModule,
@@ -105,16 +109,17 @@ export class DemoMaterialModule {}
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-
   ],
+ 
 })
-
+export class DemoMaterialModule {}
 @NgModule({
   declarations: [
     AppComponent,
     ReferenceComponentComponent,
     AdminSidebarComponent,
     AdminTopbarComponent,
+    AdminFooterComponent,
     AdminDashboardComponent,
     AdminCompanyComponent,
     AdminAllCompaniesComponent,
@@ -125,12 +130,11 @@ export class DemoMaterialModule {}
   
   ],
   imports: [
-    
+    BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
-    DemoMaterialModule,
-    BrowserModule
+    DemoMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

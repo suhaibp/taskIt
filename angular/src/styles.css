@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /*Main CSS*/
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
-@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 /*@import '@angular/material/prebuilt-themes/indigo-pink.css';  */
 
 
@@ -170,7 +169,7 @@ a:focus,a:hover,a{
 }
 
 .form-btn::before {
-    content: "?";
+    content: "";
     font-family: FontAwesome;
     position: absolute;
     right: 17px;
@@ -488,7 +487,7 @@ header {
 }
 
 .sales button::before {
-    content: "?";
+    content: "";
     font-family: FontAwesome;
     position: absolute;
     right: 12px;
@@ -543,15 +542,15 @@ header {
     opacity: 1;
     text-shadow: none;
 }
-/* .modal-body input {
-   
+.modal-body input {
+    border: 1px solid #d4d9e3;
     font-size: 14px;
     font-weight: 300;
     margin: 5px 0;
     padding: 14px 10px;
     width: 100%;
     color: #8492af;
-} */
+}
 .modal-body textarea {
     border: 1px solid #d4d9e3;
     font-size: 14px;
@@ -638,7 +637,7 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
     display: none;
 }
 .navbar-collapse.collapse{display:block !important;}
-.navbar-nav{width:100%;}
+
 }
 @media only screen and (max-device-width: 767px) {
     .login-logo img {
@@ -812,6 +811,14 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
     min-height: 0px;
 }
 }
+
+
+
+
+
+
+
+
 
 @media only screen and (max-width : 480px) {
 header .header-top li{    padding-left: 6px !important;}
