@@ -9,7 +9,7 @@ const server = http.Server(app);
 const io = socketIo(server);
 
 const path = require("path");
-//const users = require("./routes/user");
+const admin = require("./routes/admin")(io);
 //const products = require("./routes/products")(io);
 
 const bodyParser = require("body-parser");
@@ -22,14 +22,12 @@ const config = require("./config/config");
 app.use(cors());
 app.use(bodyParser.json());
 
-//app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true, cookie: { secure: true } }));
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 // require('./config/passport')(passport);
 
 app.use(express.static(path.join(__dirname,"public")));
-
+app.use('/admin',admin);
 app.use('*',(req, res)=>{
     res.sendFile(path.join(__dirname,'public/index.html'));
 });
