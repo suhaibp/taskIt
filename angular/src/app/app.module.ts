@@ -14,6 +14,7 @@ import { AdminTopbarComponent } from './components/admin-topbar/admin-topbar.com
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminCompanyComponent } from './components/admin-company/admin-company.component';
+import {Config} from './config/config';
 
 
 import {
@@ -56,6 +57,9 @@ import { AdminSubscribedComponent } from './components/admin-subscribed/admin-su
 import { AdminTrialComponent } from './components/admin-trial/admin-trial.component';
 import { AdminNotVerifiedComponent } from './components/admin-not-verified/admin-not-verified.component';
 import { AdminExpiredComponent } from './components/admin-expired/admin-expired.component';
+import { AdminService } from './services/admin.service'
+import { SuperAdminService } from './services/super-admin.service';
+import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/admin-dashboard-pie.component'
 
 
 const appRoutes: Routes = [
@@ -110,6 +114,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
+  declarations: [],
  
 })
 export class DemoMaterialModule {}
@@ -126,17 +131,18 @@ export class DemoMaterialModule {}
     AdminSubscribedComponent,
     AdminTrialComponent,
     AdminNotVerifiedComponent,
-    AdminExpiredComponent
-  
+    AdminExpiredComponent,
+    AdminDashboardPieComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [AdminService,SuperAdminService, Config],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
