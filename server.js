@@ -10,7 +10,7 @@ const io = socketIo(server);
 
 const path = require("path");
 //const users = require("./routes/user");
-const admin = require("./routes/super_admin")(io);
+const admin = require("./routes/admin")(io);
 
 const bodyParser = require("body-parser");
 const passport = require('passport');

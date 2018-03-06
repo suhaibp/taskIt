@@ -870,9 +870,47 @@ margin-bottom: 4px;
 .cnts{
     background-color: #fff;
     min-height: 88px;
-    margin-left: 40px;
+    /* margin-left: 40px; */
 }
 .cnts .lh{
     background-color: #fe6a07;
     color: #fff;
 }
+
+
+
+
+
+.pie {
+    top: 50%;
+    left: 50%;
+  }
+  
+  .data-path:hover {
+    cursor: pointer;
+  }
+  
+  .data-text {
+    -webkit-transition: -webkit-transform .2s ease-in-out;
+    transition: -webkit-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+  }
+  .data-text__value {
+    font-size: 7rem;
+    -webkit-transform: translateY(-0.5rem);
+            transform: translateY(-0.5rem);
+    opacity: 0;
+  }
+  .data-text__name {
+    font-size: 2rem;
+    -webkit-transform: translateY(0.5rem);
+            transform: translateY(0.5rem);
+    opacity: 0;
+  }
+  .data-text--show {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation: fadeGraphTextIn 0.5s forwards;
+            animation: fadeGraphTextIn 0.5s forwards;
+  }

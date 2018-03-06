@@ -14,7 +14,7 @@ export class AdminDashboardPieComponent implements OnInit {
   constructor(private superAdminService : SuperAdminService) { }
 
   ngOnInit() {
-    this.drawPie()
+    this.drawPie();
   }
 
 
@@ -37,7 +37,7 @@ export class AdminDashboardPieComponent implements OnInit {
             svgHeight = viewHeight,
             thickness = 40,
             colorArray = data.map(k => k.color),
-            el = d3.select('body'),
+            el = d3.select('.pie-gr'),
             radius = Math.min(svgWidth, svgHeight) / 2,
             color = d3.scaleOrdinal()
               .range(colorArray);
