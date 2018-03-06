@@ -1,6 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 /*Main CSS*/
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';  
 
+/*@import '@angular/material/prebuilt-themes/indigo-pink.css';  */
+/*Main CSS*/
+
+
+
+button, input, optgroup, select, textarea{outline:none;}
 body{overflow-x:hidden;}
 /*Login Signup Page*/
 a:focus,a:hover,a{
@@ -24,7 +32,35 @@ a:focus,a:hover,a{
     height: 100vh;
     display: table;
 }
-.dropdown:hover .dropdown-menu {
+.round-button {
+    border-radius: 20px;
+    margin: 0;
+    float: left;
+    background: #f37600;
+    color: #fff;
+    padding: 7px 15px;
+    -webkit-transition: background 2s;
+    transition: background 2s;
+    margin-bottom: 15px;
+}
+.round-button:hover {
+    background: #ffaa05;
+    color: #fff;
+}
+.style {
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+.label2 {
+    color: #909090;
+    font-size: 15px;
+}
+.style2 {
+    border: none;
+    border-bottom: 1px solid #ccc;
+	width:100%;
+}
+nav .dropdown:hover .dropdown-menu {
     display: block !important;
     margin-top: 0;
  }
@@ -469,26 +505,10 @@ header {
     background: #ffffff none repeat scroll 0 0;
     border: 1px solid #d4d9e3;
     display: inline-block;
-    padding: 15px;
+        padding: 33px 15px;
     width: 100%;
 }
-.sales button {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: 1px solid #dadee7;
-    border-radius: 100px;
-    font-size: 15px;
-    letter-spacing: 0.5px;
-    padding-right: 32px;
-    color: #0e1a35;
-}
 
-.sales button::before {
-    content: "";
-    font-family: FontAwesome;
-    position: absolute;
-    right: 12px;
-    top: 11px;
-}
 .sales  .btn-group {
     float: right;
 }
@@ -590,6 +610,7 @@ header {
 .modal{
     top: 20%; 
 }
+
 .modal-header .close {
     margin-top: 2px;
 }
@@ -609,8 +630,9 @@ header {
 ul.navi li.dropdown:hover > ul.dropdown-menu {
     display: block !important;    
 }
-.dropdown-menu{border:none;    top: 0%;
+nav .dropdown-menu{border:none;    top: 0%;
     left: 97%;}
+
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{    background-color: #fe6907;color:#fff;}
 .dropdown-menu>li>a{text-align:left !important;font-size:12px !important;}
 /*Main CSS*/
@@ -618,6 +640,33 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
 .navbar-collapse.collapse.in {
   display: block!important;
 }
+.bg-lightgray {
+     background-color: #f3f3f5;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: block;
+    border-top: 1px solid #e8e8e8;
+}
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 25px;
+    color: #333333;
+    white-space: nowrap;
+}
+.white {
+    background: #ffffff none repeat scroll 0 0;
+    
+    display: inline-block;
+    padding: 33px 25px;
+    width: 100%;
+	margin-bottom:20px;
+}
+label{color:#4a4a4a;font-size:15px;}
+.label2{color:#909090;font-size:15px;}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{background:none;}
 @media (min-width: 768px){
 .navbar-toggle {
@@ -672,6 +721,7 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
         border-left: none;
         display: block;
         padding-left: 20px;
+		color:#fff;
     }
     header .header-top img {
         max-width: 38px !important;
@@ -724,6 +774,8 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
 }
 .navbar-collapse.collapse{display:none !important;}
 }
+.mat-select-panel{z-index:1000000000000000000000 !important;}
+.cdk-overlay-pane{z-index:1000000000000000000000 !important;}
 
 @media only screen and (max-device-width: 992px) {
     header .header-top li {
@@ -762,48 +814,99 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
 }
 .navbar-collapse.collapse{display:block !important;}	
 }
-@media only screen and (min-device-width:998px) and (max-device-width: 1350px){
-        #navigation .logo img {
-    max-width: 130px;
-    padding: 16px 0 17px;
-    width: 100%;
-}
-}
 @media only screen and (max-width : 1920px) {
-    
-    
-    
-    }
-    
-    @media only screen and (max-width : 1600px) {
-    
-    }
-    
-    
-    @media only screen and (max-width : 1366px) {
-    
-    }
-    
-    @media only screen and (max-width : 1280px) {
-    
-    }
-    
-    @media only screen and (max-width : 1024px) {
-    
-    }
-    @media only screen and (max-width : 768px) {
-    
-    }
-    @media only screen and (max-width : 767px) {
-    .logo{float:right;}
-    .navbar-default{float:left;}
-    
-    }
-    
-    @media only screen and (max-width : 480px) {
-    .logo{display:none;}
-    }
-    
-    @media only screen and (max-width : 320px) {
-    
-    }
+
+.navbar-default{    min-height: 959px;}
+
+}
+
+@media only screen and (max-width : 1600px) {
+.navbar-default{min-height:690px;}
+}
+
+
+@media only screen and (max-width : 1366px) {
+.navbar-default {
+    min-height: 596px;
+}
+}
+
+@media only screen and (max-width : 1280px) {
+
+}
+
+@media only screen and (max-width : 1024px) {
+.navbar-default {
+    min-height: 669px;
+}
+}
+@media only screen and (max-width : 768px) {
+.navbar-default {
+       min-height: 912px;
+}
+}
+@media only screen and (max-width : 767px) {
+.navbar-default {
+    min-height: 0px;
+}
+#navigation{background:inherit;border:none;}
+.display-table-cell{display:block;}
+.logo{background:#fff;}
+.navbar-nav {
+    margin: 8.75px -15px;
+    position: absolute;
+    z-index: 100;
+    background: #fff;
+}
+.navbar-header .navbar-toggle{    top: -61px;
+    left: 41px;}
+.navbar{    margin-bottom: -6px;}
+#navigation .navi a {
+    font-size: 9px;
+padding: 8px;}
+.navi i {
+    margin-right: -3px;
+    color: #6d6d6d;
+    margin: 0 auto;
+    display: table;
+    width: 24px;
+    height: 20px;
+margin-bottom: 4px;
+}
+.bg-lightgray{position:inherit;}
+.user-dashboard{padding:0;}
+}
+
+
+@media only screen and (max-width : 480px) {
+header .header-top li{    padding-left: 6px !important;}
+#navigation{background:inherit;border:none;}
+.display-table-cell{display:block;}
+.logo{background:#fff;}
+.navbar-nav {
+    margin: 8.75px -15px;
+    position: absolute;
+    z-index: 100;
+    background: #fff;
+}
+.navbar-header .navbar-toggle{    top: -61px;
+    left: 41px;}
+.navbar{    margin-bottom: -6px;}
+#navigation .navi a {
+    font-size: 9px;
+padding: 8px;}
+.navi i {
+    margin-right: -3px;
+    color: #6d6d6d;
+    margin: 0 auto;
+    display: table;
+    width: 24px;
+    height: 20px;
+margin-bottom: 4px;
+}
+}
+
+@media only screen and (max-width : 320px) {
+
+}
+

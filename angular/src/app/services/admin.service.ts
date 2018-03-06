@@ -29,7 +29,6 @@ export class AdminService {
 // Last Modified   : 01-03-2018, Rinsha
   // Desc          : Admin login
   adminLogin(admin) {
-    console.log("here");
     let h = this.setHeader();
     return this.http.post(this.serviceUrl + "login", admin, { headers: h })
       .map(res => res.json());
@@ -41,8 +40,8 @@ export class AdminService {
   // Params        : Token, admin id and role
   // Returns       : 
   // Author        : Rinsha
-  // Date          : 27-12-2017
-  // Last Modified : 27-12-2017, Rinsha
+  // Date          : 05-03-2018
+  // Last Modified : 05-03-2018, Rinsha
   // Desc          : To locally store admin data
 
   storeUserData(token, admin) {
@@ -53,5 +52,41 @@ export class AdminService {
   }
   // ---------------------------------------End--------------------------------------------
 
+// ---------------------------------Start-------------------------------------------
+  // Function      : get all plans
+  // Params        : 
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 05-03-2018
+  // Last Modified : 05-03-2018, Rinsha
+  // Desc          : getAllplans
+
+  getAllplans() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.serviceUrl + 'allplans', { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+// ---------------------------------Start-------------------------------------------
+  // Function      : get all plans without default
+  // Params        : 
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, Rinsha
+  // Desc          : getAllplans without default
+
+  getPlansWithoutDefault() {
+    console.log("here");
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.serviceUrl + 'allPlansWithoutDefault', { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
 }
 

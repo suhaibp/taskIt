@@ -1,10 +1,10 @@
 {
   "name": "taskit",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -34,5 +34,6 @@
   },
   "devDependencies": {
     "@angular/cli": "^1.7.1"
-  }
+  },
+  "description": ""
 }
