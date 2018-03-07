@@ -27,7 +27,7 @@ var returnRouter = function (io) {
     // Last Modified : 06-3-2018, Jooshifa
     // Desc          : company and user direct login with username and password
 
-
+// esfasfasd
     router.post('/authenticate', (req, res) => {
         comparePassword = function (candPass, hash, callback) {
             bcrypt.compare(candPass, hash, (err, isMatch) => {
