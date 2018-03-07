@@ -11,15 +11,15 @@ module.exports = (sequelize, DataTypes) => {
     });
     tbl_project.belongsTo(models.tbl_user_profile, {
       foreignKey: 'pm_id',
-      as: 'pm_id'
+      as: 'Pm_id'
     });
     tbl_project.belongsTo(models.tbl_user_profile, {
       foreignKey: 'assignee_id',
-      as: 'assignee_id'
+      as: 'Assignee_id'
     });
     tbl_project.belongsTo(models.tbl_company, {
       foreignKey: 'cmp_id',
-      as: 'cmp_id'
+      as: 'Cmp_id'
     });
     tbl_project.hasMany(models.tbl_project_notification, {
       foreignKey: 'project_id',

@@ -50,6 +50,9 @@ module.exports = (sequelize, DataTypes) => {
     tbl_company.hasMany(models.tbl_team_assoc, {
       foreignKey: 'cmp_id',
     });
+    tbl_company.hasMany(models.tbl_login, {
+      foreignKey: 'cmp_id',
+    });
   };
   return tbl_company;
 };

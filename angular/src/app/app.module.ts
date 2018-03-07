@@ -1,11 +1,12 @@
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
 import 'hammerjs';
 import { AppComponent } from './app.component';
 import { ReferenceComponentComponent } from './components/reference-component/reference-component.component';
@@ -14,8 +15,8 @@ import { AdminTopbarComponent } from './components/admin-topbar/admin-topbar.com
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminCompanyComponent } from './components/admin-company/admin-company.component';
-
-
+import { CompanyService} from './services/company.service';
+import {Config} from './config/config';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -56,6 +57,7 @@ import { AdminSubscribedComponent } from './components/admin-subscribed/admin-su
 import { AdminTrialComponent } from './components/admin-trial/admin-trial.component';
 import { AdminNotVerifiedComponent } from './components/admin-not-verified/admin-not-verified.component';
 import { AdminExpiredComponent } from './components/admin-expired/admin-expired.component';
+import { CompanyLoginComponent } from './components/company-login/company-login.component';
 
 
 const appRoutes: Routes = [
@@ -71,6 +73,8 @@ const appRoutes: Routes = [
   {path:'admin-trial', component:AdminTrialComponent},
   {path:'admin-NotVerified', component:AdminNotVerifiedComponent},
   {path:'admin-expired', component:AdminExpiredComponent},
+  {path:'company-login', component:CompanyLoginComponent},
+  
  
 ] 
 
@@ -110,6 +114,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
+
  
 })
 export class DemoMaterialModule {}
@@ -126,17 +131,20 @@ export class DemoMaterialModule {}
     AdminSubscribedComponent,
     AdminTrialComponent,
     AdminNotVerifiedComponent,
-    AdminExpiredComponent
-  
+    AdminExpiredComponent,
+    CompanyLoginComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
-    DemoMaterialModule
+    RouterModule.forRoot(appRoutes),
+    DemoMaterialModule,
+    HttpModule,
+    BrowserAnimationsModule
+  
   ],
-  providers: [],
+  providers: [Config,CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

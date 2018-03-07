@@ -48,6 +48,14 @@ module.exports = {
           as: 'role_id',
         },
       },
+      cmp_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'tbl_companies',
+          key: 'id',
+          as: 'cmp_id',
+        },
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
