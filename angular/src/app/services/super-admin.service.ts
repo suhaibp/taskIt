@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import { Config } from '../config/config';
 
 @Injectable()
-export class AdminService {
+export class SuperAdminService {
   serviceUrl: string;
   constructor(private http: Http, private config: Config) {
     this.serviceUrl = config.siteUrl + '/admin/';

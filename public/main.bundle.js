@@ -372,7 +372,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".count-txt{\r\n    font-weight: 700;\r\n}\r\n.count-sub-txt{\r\n    font-size: 14px;\r\n}", ""]);
 
 // exports
 
@@ -385,7 +385,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n    <div class=\"container-fluid display-table\">\n        <div class=\"row display-table-row\">\n      \n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\n                 <!-- sidebar-->\n               \n                 <admin-sidebar></admin-sidebar> \n                 <!-- end sidebar-->\n            </div>\n            \n            <div class=\"col-md-12 col-xs-12\">\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n                <!-- topbar-->\n                <admin-topbar></admin-topbar> \n                \n                    <!-- end topbar-->\n                \n                \n                <div class=\"user-dashboard\">\n                    <h1>Hello, JS</h1>\n                    <div class=\"row\">\n                        <div class=\"col-md-5 col-sm-5 col-xs-12 gutter\">\n\n                            <div class=\"sales\">\n                                <h2>Your Sale</h2>\n\n                                <div class=\"btn-group\">\n                                    <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                        <span>Period:</span> Last Year\n                                    </button>\n                                    <div class=\"dropdown-menu\">\n                                        <a href=\"#\">2012</a>\n                                        <a href=\"#\">2014</a>\n                                        <a href=\"#\">2015</a>\n                                        <a href=\"#\">2016</a>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"col-md-7 col-sm-7 col-xs-12 gutter\">\n\n                            <div class=\"sales report\">\n                                <h2>Report</h2>\n                                <div class=\"btn-group\">\n                                    <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                        <span>Period:</span> Last Year\n                                    </button>\n                                    <div class=\"dropdown-menu\">\n                                        <a href=\"#\">2012</a>\n                                        <a href=\"#\">2014</a>\n                                        <a href=\"#\">2015</a>\n                                        <a href=\"#\">2016</a>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                \n            </div>\n                <!-- footer-->\n                <admin-footer></admin-footer>\n       <!-- end footer-->\n        </div>\n         </div>\n        <!-- Modal -->\n     </body>"
+module.exports = "<body class=\"home\" *ngIf=\"counts\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n\r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                <!-- sidebar-->\r\n\r\n                <admin-sidebar></admin-sidebar>\r\n                <!-- end sidebar-->\r\n            </div>\r\n\r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <admin-topbar></admin-topbar>\r\n\r\n                <!-- end topbar-->\r\n\r\n\r\n                <div class=\"user-dashboard\">\r\n                    <!-- <h1>Hello, JS</h1> -->\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-9 col-sm-5 col-xs-12 gutter ad-tp\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"fa fa-users\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.users}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Users</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-industry\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.companies}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Companies</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-code-fork\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.projects}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Projects</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-6\">\r\n                                <app-admin-dashboard-pie></app-admin-dashboard-pie>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                \r\n\r\n            </div>\r\n            <!-- footer-->\r\n            <admin-footer></admin-footer>\r\n            <!-- end footer-->\r\n        </div>\r\n    </div>\r\n    <!-- Modal -->\r\n</body>"
 
 /***/ }),
 
@@ -395,6 +395,7 @@ module.exports = "<body class=\"home\">\n    <div class=\"container-fluid displa
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminDashboardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__ = __webpack_require__("../../../../../src/app/services/super-admin.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -405,10 +406,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var AdminDashboardComponent = (function () {
-    function AdminDashboardComponent() {
+    function AdminDashboardComponent(superAdminService) {
+        this.superAdminService = superAdminService;
     }
     AdminDashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.superAdminService.getPieDataforAdminDashboard().subscribe(function (resCounts) {
+            console.log(resCounts);
+            _this.counts = resCounts;
+        });
     };
     AdminDashboardComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -416,7 +424,7 @@ var AdminDashboardComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__["a" /* SuperAdminService */]])
     ], AdminDashboardComponent);
     return AdminDashboardComponent;
 }());
@@ -1098,6 +1106,77 @@ var CompanyService = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_2__config_config__["a" /* Config */]])
     ], CompanyService);
     return CompanyService;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/super-admin.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SuperAdminService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var SuperAdminService = (function () {
+    function SuperAdminService(http, config) {
+        this.http = http;
+        this.config = config;
+        this.serviceUrl = config.siteUrl + '/admin/';
+    }
+    SuperAdminService.prototype.setHeader = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return (headers);
+    };
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getCountsforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 02-03-2018
+    // Last Modified : 02-03-2018, Jooshifa 
+    // Desc          : for getting count of companies,projects,users
+    SuperAdminService.prototype.getCountsforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getPieDataforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, 
+    // Desc          : get piegraph data
+    SuperAdminService.prototype.getPieDataforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    SuperAdminService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__config_config__["a" /* Config */]])
+    ], SuperAdminService);
+    return SuperAdminService;
 }());
 
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
+import { SuperAdminService } from './../../services/super-admin.service'
 
 @Component({
   selector: 'admin-dashboard',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
-
-  constructor() { }
+  counts: any;
+  constructor(private superAdminService : SuperAdminService) { }
 
   ngOnInit() {
+    this.superAdminService.getPieDataforAdminDashboard().subscribe(resCounts =>{
+      console.log(resCounts)
+      this.counts = resCounts;
+    });
   }
 
 }

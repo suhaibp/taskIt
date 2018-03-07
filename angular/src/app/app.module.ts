@@ -114,7 +114,6 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
-
  
 })
 export class DemoMaterialModule {}

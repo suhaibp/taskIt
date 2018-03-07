@@ -21,6 +21,16 @@ if (config.use_env_variable) {
 }
 
 var returnRouter = function (io) {
+
+//  ---------------------------------Start-------------------------------------------
+// Function      : get_counts_for_dashboard
+// Params        : 
+// Returns       : 
+// Author        : Manu Prasad
+// Date          : 02-03-2018
+// Last Modified : 02-03-2018, Jooshifa 
+// Desc          : for getting count of companies,projects,users
+
 router.post('/get_counts_for_dashboard', function(req, res) {
     var userCount;
     var cmpCount;
@@ -60,6 +70,20 @@ router.post('/get_counts_for_dashboard', function(req, res) {
     // })
    
   });
+//  ---------------------------------End-------------------------------------------
+
+
+
+
+ //  ---------------------------------Start-------------------------------------------
+  // Function      : super_admin_pie_graph
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get piegraph data
+
 
   router.get('/super_admin_pie_graph', function(req, res) {
       console.log('y')
@@ -108,6 +132,7 @@ router.post('/get_counts_for_dashboard', function(req, res) {
         
       })
   });
+//  ---------------------------------End-------------------------------------------
 
   module.exports = router;
   return router;
