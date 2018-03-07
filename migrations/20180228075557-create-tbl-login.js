@@ -40,6 +40,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      
       role_id: {
         type: Sequelize.INTEGER,
         references: {
