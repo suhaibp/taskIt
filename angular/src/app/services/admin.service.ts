@@ -62,8 +62,7 @@ export class AdminService {
   // Desc          : getAllplans
 
   getAllplans() {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeader();
     return this.http.get(this.serviceUrl + 'allplans', { headers: headers })
       .map(res => res.json());
 
@@ -80,8 +79,7 @@ export class AdminService {
   // Desc          : getAllplans without default
 
   getPlansWithoutDefault() {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeader();
     return this.http.get(this.serviceUrl + 'allPlansWithoutDefault', { headers: headers })
       .map(res => res.json());
 
@@ -135,8 +133,7 @@ export class AdminService {
   // Desc          : add plan 
 
   addPlan(plan) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeader();
     return this.http.post(this.serviceUrl + 'addPlan', plan, { headers: headers })
       .map(res => res.json());
 
@@ -153,8 +150,7 @@ export class AdminService {
   // Desc          : to change a plan to best
 
   bestPlan(id, value) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeader();
     return this.http.post(this.serviceUrl + 'bestPlan/' + id, { status: value }, { headers: headers })
       .map(res => res.json());
   }
@@ -170,8 +166,7 @@ export class AdminService {
   // Desc          : to delete a plan which is'nt used by any company
 
   deletePlan(id) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeader();
     return this.http.get(this.serviceUrl + 'deletePlan/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -187,8 +182,7 @@ export class AdminService {
   // Desc          : getplan
 
   getPlan(id) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeader();
     return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
       .map(res => res.json());
 
@@ -206,8 +200,7 @@ export class AdminService {
 
   updatePlan(plan) {
     // console.log(plan);
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeader();
     return this.http.post(this.serviceUrl + 'updatePlan', plan, { headers: headers })
       .map(res => res.json());
   }

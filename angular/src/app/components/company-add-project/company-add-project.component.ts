@@ -12,7 +12,9 @@ import { MatSnackBar } from '@angular/material';
 export class CompanyAddProjectComponent implements OnInit {
   formGroup: any;
   pm: any;
+  entity : any;
   categories : any;
+  showPMlist : Boolean = true;
   project = {
     project_name: '',
     project_type: '',
@@ -25,6 +27,22 @@ export class CompanyAddProjectComponent implements OnInit {
   constructor(public snackBar: MatSnackBar, private companyService: CompanyService, private routes: Router, private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 08-03-2018
+    // Last Modified : 08-03-2018, Rinsha
+    // Desc          :  
+    this.companyService.getLoggedinEntity().subscribe(data => {
+      this.entity = data;
+      if(this.entity.role_id == 3){
+        this.showPMlist = false;
+      }
+    });
+    // -----------------------------------End------------------------------------------
     this.formGroup = this._formBuilder.group({
       project_nameValidation: ['', Validators.required],
       project_typeValidation: ['', Validators.required],
@@ -52,9 +70,12 @@ export class CompanyAddProjectComponent implements OnInit {
   }
 
   addProject(project) {
+    if(this.entity.role_id == 3){
+      this.project.pm_id = this.entity.id;
+    }
     if (project.pm_id == '') {
       if (confirm("Do you select yourself as the Project Manager? ")) {
-        project.pm_id = LOGIN_ID;
+        project.pm_id = this.entity.id;
       }
     }
     // console.log(project);
@@ -71,7 +92,7 @@ export class CompanyAddProjectComponent implements OnInit {
         duration: 3000
       });
       if (data.success == true) {
-        if(project.pm_id == LOGIN_ID){
+        if(project.pm_id == this.entity.id){
           this.routes.navigate(['/assign-project']);
         }
         else{

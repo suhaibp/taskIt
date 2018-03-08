@@ -14,26 +14,41 @@ module.exports = (sequelize, DataTypes) => {
     profile_image: DataTypes.STRING,
     cmp_status: DataTypes.STRING
   }, {});
-  tbl_login.associate = function(models) {
-// associations can be defined here
+  tbl_login.associate = function (models) {
+    // associations can be defined here
     tbl_login.belongsTo(models.tbl_role, {
       foreignKey: 'role_id',
-      });
-
-      tbl_login.hasMany(models.tbl_company, {
-        foreignKey: 'login_id',
-      });
-      tbl_login.hasMany(models.tbl_user_profile, {
-        foreignKey: 'login_id',
-      });
-      tbl_login.hasMany(models.tbl_project, {
-        foreignKey: 'pm_id',
-        as: 'pm_id',
-      });
-      tbl_login.hasMany(models.tbl_project, {
-        foreignKey: 'assignee_id',
-        as: 'assignee_id',
-      });
+    });
+    tbl_login.hasMany(models.tbl_company, {
+      foreignKey: 'login_id',
+    });
+    tbl_login.hasMany(models.tbl_user_profile, {
+      foreignKey: 'login_id',
+    });
+    tbl_login.belongsTo(models.tbl_company, {
+      foreignKey: 'cmp_id',
+    });
+    tbl_login.hasMany(models.tbl_project, {
+      foreignKey: 'pm_id',
+      as: 'pm_id',
+    });
+    tbl_login.hasMany(models.tbl_project, {
+      foreignKey: 'assignee_id',
+      as: 'assignee_id',
+    });
   };
+
+
   return tbl_login;
+
+  module.exports.getCompanyById = function (id, callback) {
+    Company.findById(id, callback);
+  }
+
+  module.exports.comparePassword = function (candPass, hash, callback) {
+    bcrypt.compare(candPass, hash, (err, isMatch) => {
+      if (err) throw err;
+      callback(null, isMatch);
+    })
+  }
 };

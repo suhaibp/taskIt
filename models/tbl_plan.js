@@ -1,5 +1,5 @@
 'use strict';
-const Sequelize = require('sequelize');
+var Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   var tbl_plan = sequelize.define('tbl_plan', {
     id: {

@@ -1,10 +1,10 @@
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {Config} from './config/config';
 import 'hammerjs';
@@ -15,7 +15,6 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
 import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
 import { AdminTopbarComponent } from './components/admin-topbar/admin-topbar.component';
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminCompanyComponent } from './components/admin-company/admin-company.component';
 import { AdminAllCompaniesComponent } from './components/admin-all-companies/admin-all-companies.component';
 import { AdminSubscribedComponent } from './components/admin-subscribed/admin-subscribed.component';
@@ -30,6 +29,8 @@ import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/adm
 import { CompanyAddProjectComponent } from './components/company-add-project/company-add-project.component'
 import { CompanyProjectComponent } from './components/company-project/company-project.component';
 import { AssignProjectComponent } from './components/assign-project/assign-project.component';
+import { CompanyLoginComponent } from './components/company-login/company-login.component';
+import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 
 import { AdminService} from './services/admin.service';
 import { CompanyService} from './services/company.service';
@@ -77,7 +78,6 @@ const appRoutes: Routes = [
   {path:'admin-sidebar', component:AdminSidebarComponent},
   {path:'admin-topbar', component:AdminTopbarComponent},
   {path:'admin-footer', component:AdminFooterComponent},
-  {path:'admin-dashboard', component:AdminDashboardComponent},
   {path:'admin-company', component:AdminCompanyComponent},
   {path:'admin-all-companies', component:AdminAllCompaniesComponent},
   {path:'admin-subscribed', component:AdminSubscribedComponent},
@@ -91,8 +91,9 @@ const appRoutes: Routes = [
   {path:'add-project', component:CompanyAddProjectComponent},
   {path:'project', component:CompanyProjectComponent},
   {path:'assign-project', component:AssignProjectComponent},
+  {path:'company-login', component:CompanyLoginComponent},
+  {path:'email-verification/:id', component:EmailVerificationComponent},
 ] 
-
 @NgModule({
   exports: [
     CdkTableModule,
@@ -140,7 +141,6 @@ export class DemoMaterialModule {}
     AdminSidebarComponent,
     AdminTopbarComponent,
     AdminFooterComponent,
-    AdminDashboardComponent,
     AdminCompanyComponent,
     AdminAllCompaniesComponent,
     AdminSubscribedComponent,
@@ -154,7 +154,9 @@ export class DemoMaterialModule {}
     AdminDashboardPieComponent,
     CompanyAddProjectComponent,
     CompanyProjectComponent,
-    AssignProjectComponent
+    AssignProjectComponent,
+    CompanyLoginComponent,
+    EmailVerificationComponent
   ],
   imports: [
     BrowserModule,

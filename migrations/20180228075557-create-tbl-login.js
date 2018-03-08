@@ -20,38 +20,27 @@ module.exports = {
       google_token: {
         type: Sequelize.STRING
       },
-      fb_id: {
-        type: Sequelize.INTEGER
-      },
-      fb_token: {
-        type: Sequelize.STRING
-      },
       is_verified: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+        type: Sequelize.BOOLEAN
       },
       block_status: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+        type: Sequelize.BOOLEAN
       },
       delete_status: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+        type: Sequelize.BOOLEAN
       },
       profile_image: {
         type: Sequelize.STRING
       },
-      cmp_status: {
-        type: Sequelize.STRING
-      },
       createdAt: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE
       },
+      
       role_id: {
         type: Sequelize.INTEGER,
         references: {
@@ -59,12 +48,18 @@ module.exports = {
           key: 'id',
           as: 'role_id',
         },
-      }
-
+      },
+      cmp_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'tbl_companies',
+          key: 'id',
+          as: 'cmp_id',
+        },
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('tbl_logins');
   }
-  
 };

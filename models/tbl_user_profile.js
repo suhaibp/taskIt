@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     l_name: DataTypes.STRING,
     contact_no: DataTypes.STRING,
     join_date: DataTypes.DATE,
-    gender: DataTypes.STRING
+    gender: DataTypes.STRING,
+    email: DataTypes.STRING,
+    status: DataTypes.BOOLEAN
   }, {});
   tbl_user_profile.associate = function (models) {
     // associations can be defined here

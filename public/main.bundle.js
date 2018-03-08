@@ -79,11 +79,11 @@ var AppComponent = (function () {
 "use strict";
 /* unused harmony export DemoMaterialModule */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/esm5/animations.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/esm5/animations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_hammerjs__ = __webpack_require__("../../../../hammerjs/hammer.js");
@@ -94,31 +94,33 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_admin_sidebar_admin_sidebar_component__ = __webpack_require__("../../../../../src/app/components/admin-sidebar/admin-sidebar.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_admin_topbar_admin_topbar_component__ = __webpack_require__("../../../../../src/app/components/admin-topbar/admin-topbar.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_admin_footer_admin_footer_component__ = __webpack_require__("../../../../../src/app/components/admin-footer/admin-footer.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_admin_dashboard_admin_dashboard_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_admin_company_admin_company_component__ = __webpack_require__("../../../../../src/app/components/admin-company/admin-company.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_admin_all_companies_admin_all_companies_component__ = __webpack_require__("../../../../../src/app/components/admin-all-companies/admin-all-companies.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_admin_subscribed_admin_subscribed_component__ = __webpack_require__("../../../../../src/app/components/admin-subscribed/admin-subscribed.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_admin_trial_admin_trial_component__ = __webpack_require__("../../../../../src/app/components/admin-trial/admin-trial.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_admin_not_verified_admin_not_verified_component__ = __webpack_require__("../../../../../src/app/components/admin-not-verified/admin-not-verified.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_admin_expired_admin_expired_component__ = __webpack_require__("../../../../../src/app/components/admin-expired/admin-expired.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_admin_plan_admin_plan_component__ = __webpack_require__("../../../../../src/app/components/admin-plan/admin-plan.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_home_home_component__ = __webpack_require__("../../../../../src/app/components/home/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_company_upgrade_company_upgrade_component__ = __webpack_require__("../../../../../src/app/components/company-upgrade/company-upgrade.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_company_planlist_company_planlist_component__ = __webpack_require__("../../../../../src/app/components/company-planlist/company-planlist.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_admin_dashboard_pie_admin_dashboard_pie_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_company_add_project_company_add_project_component__ = __webpack_require__("../../../../../src/app/components/company-add-project/company-add-project.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_company_project_company_project_component__ = __webpack_require__("../../../../../src/app/components/company-project/company-project.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_assign_project_assign_project_component__ = __webpack_require__("../../../../../src/app/components/assign-project/assign-project.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_admin_company_admin_company_component__ = __webpack_require__("../../../../../src/app/components/admin-company/admin-company.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_admin_all_companies_admin_all_companies_component__ = __webpack_require__("../../../../../src/app/components/admin-all-companies/admin-all-companies.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_admin_subscribed_admin_subscribed_component__ = __webpack_require__("../../../../../src/app/components/admin-subscribed/admin-subscribed.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_admin_trial_admin_trial_component__ = __webpack_require__("../../../../../src/app/components/admin-trial/admin-trial.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_admin_not_verified_admin_not_verified_component__ = __webpack_require__("../../../../../src/app/components/admin-not-verified/admin-not-verified.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_admin_expired_admin_expired_component__ = __webpack_require__("../../../../../src/app/components/admin-expired/admin-expired.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_admin_plan_admin_plan_component__ = __webpack_require__("../../../../../src/app/components/admin-plan/admin-plan.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_home_home_component__ = __webpack_require__("../../../../../src/app/components/home/home.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_company_upgrade_company_upgrade_component__ = __webpack_require__("../../../../../src/app/components/company-upgrade/company-upgrade.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_company_planlist_company_planlist_component__ = __webpack_require__("../../../../../src/app/components/company-planlist/company-planlist.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_admin_dashboard_pie_admin_dashboard_pie_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_company_add_project_company_add_project_component__ = __webpack_require__("../../../../../src/app/components/company-add-project/company-add-project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_company_project_company_project_component__ = __webpack_require__("../../../../../src/app/components/company-project/company-project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_assign_project_assign_project_component__ = __webpack_require__("../../../../../src/app/components/assign-project/assign-project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__ = __webpack_require__("../../../../../src/app/components/company-login/company-login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__ = __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -160,59 +162,60 @@ var appRoutes = [
     { path: 'admin-sidebar', component: __WEBPACK_IMPORTED_MODULE_11__components_admin_sidebar_admin_sidebar_component__["a" /* AdminSidebarComponent */] },
     { path: 'admin-topbar', component: __WEBPACK_IMPORTED_MODULE_12__components_admin_topbar_admin_topbar_component__["a" /* AdminTopbarComponent */] },
     { path: 'admin-footer', component: __WEBPACK_IMPORTED_MODULE_13__components_admin_footer_admin_footer_component__["a" /* AdminFooterComponent */] },
-    { path: 'admin-dashboard', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_dashboard_admin_dashboard_component__["a" /* AdminDashboardComponent */] },
-    { path: 'admin-company', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */] },
-    { path: 'admin-all-companies', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */] },
-    { path: 'admin-subscribed', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */] },
-    { path: 'admin-trial', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */] },
-    { path: 'admin-NotVerified', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */] },
-    { path: 'admin-expired', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */] },
-    { path: 'admin-plan', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_plan_admin_plan_component__["a" /* AdminPlanComponent */] },
-    { path: 'home', component: __WEBPACK_IMPORTED_MODULE_22__components_home_home_component__["a" /* HomeComponent */] },
-    { path: 'planlist', component: __WEBPACK_IMPORTED_MODULE_24__components_company_planlist_company_planlist_component__["a" /* CompanyPlanlistComponent */] },
-    { path: 'upgrade/:id', component: __WEBPACK_IMPORTED_MODULE_23__components_company_upgrade_company_upgrade_component__["a" /* CompanyUpgradeComponent */] },
-    { path: 'add-project', component: __WEBPACK_IMPORTED_MODULE_26__components_company_add_project_company_add_project_component__["a" /* CompanyAddProjectComponent */] },
-    { path: 'project', component: __WEBPACK_IMPORTED_MODULE_27__components_company_project_company_project_component__["a" /* CompanyProjectComponent */] },
-    { path: 'assign-project', component: __WEBPACK_IMPORTED_MODULE_28__components_assign_project_assign_project_component__["a" /* AssignProjectComponent */] },
+    { path: 'admin-company', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */] },
+    { path: 'admin-all-companies', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */] },
+    { path: 'admin-subscribed', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */] },
+    { path: 'admin-trial', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */] },
+    { path: 'admin-NotVerified', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */] },
+    { path: 'admin-expired', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */] },
+    { path: 'admin-plan', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_plan_admin_plan_component__["a" /* AdminPlanComponent */] },
+    { path: 'home', component: __WEBPACK_IMPORTED_MODULE_21__components_home_home_component__["a" /* HomeComponent */] },
+    { path: 'planlist', component: __WEBPACK_IMPORTED_MODULE_23__components_company_planlist_company_planlist_component__["a" /* CompanyPlanlistComponent */] },
+    { path: 'upgrade/:id', component: __WEBPACK_IMPORTED_MODULE_22__components_company_upgrade_company_upgrade_component__["a" /* CompanyUpgradeComponent */] },
+    { path: 'add-project', component: __WEBPACK_IMPORTED_MODULE_25__components_company_add_project_company_add_project_component__["a" /* CompanyAddProjectComponent */] },
+    { path: 'project', component: __WEBPACK_IMPORTED_MODULE_26__components_company_project_company_project_component__["a" /* CompanyProjectComponent */] },
+    { path: 'assign-project', component: __WEBPACK_IMPORTED_MODULE_27__components_assign_project_assign_project_component__["a" /* AssignProjectComponent */] },
+    { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
+    { path: 'email-verification/:id', component: __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
     }
     DemoMaterialModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["K" /* NgModule */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
             exports: [
-                __WEBPACK_IMPORTED_MODULE_32__angular_cdk_table__["m" /* CdkTableModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["a" /* MatAutocompleteModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["b" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["c" /* MatButtonToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["d" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["e" /* MatCheckboxModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["f" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["D" /* MatStepperModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["g" /* MatDatepickerModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["h" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["i" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["j" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["k" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["l" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["m" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["n" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["o" /* MatNativeDateModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["q" /* MatPaginatorModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["r" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["s" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["t" /* MatRadioModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["u" /* MatRippleModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["v" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["w" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["y" /* MatSliderModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["x" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["A" /* MatSnackBarModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["C" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["F" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["G" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["H" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material__["I" /* MatTooltipModule */],
+                __WEBPACK_IMPORTED_MODULE_33__angular_cdk_table__["m" /* CdkTableModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["a" /* MatAutocompleteModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["b" /* MatButtonModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["c" /* MatButtonToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["d" /* MatCardModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["e" /* MatCheckboxModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["f" /* MatChipsModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["D" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["g" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["h" /* MatDialogModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["i" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["j" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["k" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["l" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["m" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["n" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["o" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["q" /* MatPaginatorModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["r" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["s" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["t" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["u" /* MatRippleModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["v" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["w" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["y" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["x" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["A" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["C" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["F" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["G" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["H" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material__["I" /* MatTooltipModule */],
             ],
         })
     ], DemoMaterialModule);
@@ -223,7 +226,7 @@ var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["K" /* NgModule */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_9__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */],
@@ -231,33 +234,34 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_11__components_admin_sidebar_admin_sidebar_component__["a" /* AdminSidebarComponent */],
                 __WEBPACK_IMPORTED_MODULE_12__components_admin_topbar_admin_topbar_component__["a" /* AdminTopbarComponent */],
                 __WEBPACK_IMPORTED_MODULE_13__components_admin_footer_admin_footer_component__["a" /* AdminFooterComponent */],
-                __WEBPACK_IMPORTED_MODULE_14__components_admin_dashboard_admin_dashboard_component__["a" /* AdminDashboardComponent */],
-                __WEBPACK_IMPORTED_MODULE_15__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */],
-                __WEBPACK_IMPORTED_MODULE_16__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */],
-                __WEBPACK_IMPORTED_MODULE_17__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */],
-                __WEBPACK_IMPORTED_MODULE_18__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */],
-                __WEBPACK_IMPORTED_MODULE_19__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */],
-                __WEBPACK_IMPORTED_MODULE_21__components_admin_plan_admin_plan_component__["a" /* AdminPlanComponent */],
-                __WEBPACK_IMPORTED_MODULE_22__components_home_home_component__["a" /* HomeComponent */],
-                __WEBPACK_IMPORTED_MODULE_24__components_company_planlist_company_planlist_component__["a" /* CompanyPlanlistComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__components_company_upgrade_company_upgrade_component__["a" /* CompanyUpgradeComponent */],
-                __WEBPACK_IMPORTED_MODULE_25__components_admin_dashboard_pie_admin_dashboard_pie_component__["a" /* AdminDashboardPieComponent */],
-                __WEBPACK_IMPORTED_MODULE_26__components_company_add_project_company_add_project_component__["a" /* CompanyAddProjectComponent */],
-                __WEBPACK_IMPORTED_MODULE_27__components_company_project_company_project_component__["a" /* CompanyProjectComponent */],
-                __WEBPACK_IMPORTED_MODULE_28__components_assign_project_assign_project_component__["a" /* AssignProjectComponent */]
+                __WEBPACK_IMPORTED_MODULE_14__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */],
+                __WEBPACK_IMPORTED_MODULE_17__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */],
+                __WEBPACK_IMPORTED_MODULE_19__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */],
+                __WEBPACK_IMPORTED_MODULE_20__components_admin_plan_admin_plan_component__["a" /* AdminPlanComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__components_home_home_component__["a" /* HomeComponent */],
+                __WEBPACK_IMPORTED_MODULE_23__components_company_planlist_company_planlist_component__["a" /* CompanyPlanlistComponent */],
+                __WEBPACK_IMPORTED_MODULE_22__components_company_upgrade_company_upgrade_component__["a" /* CompanyUpgradeComponent */],
+                __WEBPACK_IMPORTED_MODULE_24__components_admin_dashboard_pie_admin_dashboard_pie_component__["a" /* AdminDashboardPieComponent */],
+                __WEBPACK_IMPORTED_MODULE_25__components_company_add_project_company_add_project_component__["a" /* CompanyAddProjectComponent */],
+                __WEBPACK_IMPORTED_MODULE_26__components_company_project_company_project_component__["a" /* CompanyProjectComponent */],
+                __WEBPACK_IMPORTED_MODULE_27__components_assign_project_assign_project_component__["a" /* AssignProjectComponent */],
+                __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */],
+                __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */]
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_animations__["b" /* NoopAnimationsModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser_animations__["b" /* NoopAnimationsModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_http__["c" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_forms__["e" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_forms__["j" /* ReactiveFormsModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
+                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["e" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["j" /* ReactiveFormsModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
                 DemoMaterialModule
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_6__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_29__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_30__services_company_service__["a" /* CompanyService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_6__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_30__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_31__services_company_service__["a" /* CompanyService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -571,75 +575,6 @@ var AdminDashboardPieComponent = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__["a" /* SuperAdminService */]])
     ], AdminDashboardPieComponent);
     return AdminDashboardPieComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".count-txt{\r\n    font-weight: 700;\r\n}\r\n.count-sub-txt{\r\n    font-size: 14px;\r\n}", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<body class=\"home\" *ngIf=\"counts\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n\r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                <!-- sidebar-->\r\n\r\n                <admin-sidebar></admin-sidebar>\r\n                <!-- end sidebar-->\r\n            </div>\r\n\r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <admin-topbar></admin-topbar>\r\n\r\n                <!-- end topbar-->\r\n\r\n\r\n                <div class=\"user-dashboard\">\r\n                    <!-- <h1>Hello, JS</h1> -->\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-9 col-sm-5 col-xs-12 gutter ad-tp\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"fa fa-users\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.users}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Users</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-industry\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.companies}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Companies</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-code-fork\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.projects}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Projects</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-6\">\r\n                                <app-admin-dashboard-pie></app-admin-dashboard-pie>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                \r\n\r\n            </div>\r\n            <!-- footer-->\r\n            <admin-footer></admin-footer>\r\n            <!-- end footer-->\r\n        </div>\r\n    </div>\r\n    <!-- Modal -->\r\n</body>"
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminDashboardComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__ = __webpack_require__("../../../../../src/app/services/super-admin.service.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var AdminDashboardComponent = (function () {
-    function AdminDashboardComponent(superAdminService) {
-        this.superAdminService = superAdminService;
-    }
-    AdminDashboardComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.superAdminService.getPieDataforAdminDashboard().subscribe(function (resCounts) {
-            console.log(resCounts);
-            _this.counts = resCounts;
-        });
-    };
-    AdminDashboardComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'admin-dashboard',
-            template: __webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.css")]
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__["a" /* SuperAdminService */]])
-    ], AdminDashboardComponent);
-    return AdminDashboardComponent;
 }());
 
 
@@ -1529,7 +1464,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-add-project/company-add-project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <admin-topbar></admin-topbar>\n        <br>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n              <h3>Add Project</h3>\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <input matInput [(ngModel)]=\"project.project_name\" name=\"project_name\" autofocus required formControlName=\"project_nameValidation\">\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Type :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"project_type\" [(ngModel)]=\"project.project_type\" required formControlName=\"project_typeValidation\">\n                      <mat-option value=\"Billable\">Billable</mat-option>\n                      <mat-option value=\"Non-billable\">Non-billable</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select [(ngModel)]=\"project.category_id\" name=\"category_id\" required formControlName=\"category_idValidation\">\n                      <mat-option *ngFor=\"let item of categories\" [value]=\"item.id\">\n                        {{ item.category_name }}\n                      </mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"priority\" [(ngModel)]=\"project.priority\" required formControlName=\"priorityValidation\">\n                      <mat-option value=\"Low\">Low</mat-option>\n                      <mat-option value=\"Medium\">Medium</mat-option>\n                      <mat-option value=\"High\">High</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <textarea matInput [(ngModel)]=\"project.description\" name=\"description\" required formControlName=\"descriptionValidation\"\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Assigned To :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select [(ngModel)]=\"project.pm_id\" name=\"pm_id\" required formControlName=\"pm_idValidation\">\n                      <mat-option *ngFor=\"let item of pm\" [value]=\"item.id\">\n                        {{ item.f_name }} {{ item.l_name }}\n                      </mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"addProject(project)\" class=\"btn round-button center-bt\">Submit</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <admin-topbar></admin-topbar>\n        <br>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n              <h3>Add Project</h3>\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <input matInput [(ngModel)]=\"project.project_name\" name=\"project_name\" autofocus required formControlName=\"project_nameValidation\">\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Type :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"project_type\" [(ngModel)]=\"project.project_type\" required formControlName=\"project_typeValidation\">\n                      <mat-option value=\"Billable\">Billable</mat-option>\n                      <mat-option value=\"Non-billable\">Non-billable</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select [(ngModel)]=\"project.category_id\" name=\"category_id\" required formControlName=\"category_idValidation\">\n                      <mat-option *ngFor=\"let item of categories\" [value]=\"item.id\">\n                        {{ item.category_name }}\n                      </mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"priority\" [(ngModel)]=\"project.priority\" required formControlName=\"priorityValidation\">\n                      <mat-option value=\"Low\">Low</mat-option>\n                      <mat-option value=\"Medium\">Medium</mat-option>\n                      <mat-option value=\"High\">High</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <textarea matInput [(ngModel)]=\"project.description\" name=\"description\" required formControlName=\"descriptionValidation\"\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div *ngIf=\"showPMlist\">\n                  <div class=\"col-md-4 col-xs-6\"><label>Assigned To :</label></div>\n                  <div class=\"col-md-7 col-xs-6\">\n                    <mat-form-field [formGroup]=\"formGroup\">\n                      <mat-select [(ngModel)]=\"project.pm_id\" name=\"pm_id\" required formControlName=\"pm_idValidation\">\n                        <mat-option *ngFor=\"let item of pm\" [value]=\"item.id\">\n                          {{ item.f_name }} {{ item.l_name }}\n                        </mat-option>\n                      </mat-select>\n                    </mat-form-field>\n                  </div>\n                </div>\n                <br>\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"addProject(project)\" class=\"btn round-button center-bt\">Submit</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
 
 /***/ }),
 
@@ -1563,6 +1498,7 @@ var CompanyAddProjectComponent = (function () {
         this.companyService = companyService;
         this.routes = routes;
         this._formBuilder = _formBuilder;
+        this.showPMlist = true;
         this.project = {
             project_name: '',
             project_type: '',
@@ -1574,6 +1510,21 @@ var CompanyAddProjectComponent = (function () {
     }
     CompanyAddProjectComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getLoggedinEntity().subscribe(function (data) {
+            _this.entity = data;
+            if (_this.entity.role_id == 3) {
+                _this.showPMlist = false;
+            }
+        });
+        // -----------------------------------End------------------------------------------
         this.formGroup = this._formBuilder.group({
             project_nameValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
             project_typeValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
@@ -1600,9 +1551,12 @@ var CompanyAddProjectComponent = (function () {
     };
     CompanyAddProjectComponent.prototype.addProject = function (project) {
         var _this = this;
+        if (this.entity.role_id == 3) {
+            this.project.pm_id = this.entity.id;
+        }
         if (project.pm_id == '') {
             if (confirm("Do you select yourself as the Project Manager? ")) {
-                project.pm_id = LOGIN_ID;
+                project.pm_id = this.entity.id;
             }
         }
         // console.log(project);
@@ -1619,7 +1573,7 @@ var CompanyAddProjectComponent = (function () {
                 duration: 3000
             });
             if (data.success == true) {
-                if (project.pm_id == LOGIN_ID) {
+                if (project.pm_id == _this.entity.id) {
                     _this.routes.navigate(['/assign-project']);
                 }
                 else {
@@ -1638,6 +1592,132 @@ var CompanyAddProjectComponent = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */]])
     ], CompanyAddProjectComponent);
     return CompanyAddProjectComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-login/company-login.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\r\n.logn{height:100%;overflow-x:hidden;background:#fff;}\r\n.logn-img{height:100%;width:100%;position:relative;overflow:hidden;}\r\n.paragraph{width:60%;left:10%;bottom:10%;z-index:100;min-height:20px;color:#fff;text-align:left;font-size:14px;position:absolute;}\r\n.social-login{\r\n  position:relative;\r\n  float: none;\r\n  margin:0 auto;\r\n  height:auto;\r\n  padding: 10px 0 15px 0;\r\n  border-bottom: 1px solid #eee;\r\n  display: table;\r\n      width: 79%;\r\n}\r\n\r\n.social-login a{\r\n     position: relative;\r\n    float: left;\r\n    width: 48%;\r\n    text-decoration: none;\r\n    color: #fff;\r\n    border: 1px solid rgba(0,0,0,0.05);\r\n    padding: 7px 12px;\r\n    border-radius: 12px;\r\n    font-size: 12px;\r\n   \r\n        margin: 0px 1%;\r\n    text-align: center;\r\n}\r\n.social-login a i{\r\n  position: relative;\r\n  float: left;\r\n  width: 20px;\r\n  top: 2px;\r\n}\r\n.social-login a:first-child{\r\n  background-color: #49639F;\r\n}\r\n.social-login a:last-child{\r\n  background-color: #DF4A32;\r\n}\r\n.email-login,.email-signup{\r\n  position:relative;\r\n  float: left;\r\n  width: 100%;\r\n  height:auto;\r\n  margin-top: 20px;\r\n  text-align:center;\r\n}\r\nbody {\r\n  background: #e9e9e9;\r\n  color: #666666;\r\n  font-family: 'RobotoDraft', 'Roboto', sans-serif;\r\n  font-size: 14px;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n}\r\n\r\n/* Pen Title */\r\n.pen-title {\r\n  padding: 20px 0;\r\n  text-align: center;\r\n  letter-spacing: 2px;\r\n}\r\n.pen-title h1 {\r\n  margin: 0 0 20px;\r\n  font-size: 40px;\r\n  font-weight: 300;\r\n}\r\n.pen-title span {\r\n  font-size: 12px;\r\n}\r\n.pen-title span .fa {\r\n  color: #ed2553;\r\n}\r\n.pen-title span a {\r\n  color: #ed2553;\r\n  font-weight: 600;\r\n  text-decoration: none;\r\n}\r\n\r\n/* Rerun */\r\n.rerun {\r\n  margin: 0 0 30px;\r\n  text-align: center;\r\n}\r\n.rerun a {\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  background: #ed2553;\r\n  border-radius: 3px;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  padding: 10px 20px;\r\n  color: #ffffff;\r\n  text-decoration: none;\r\n  transition: 0.3s ease;\r\n}\r\n.rerun a:hover {\r\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* Scroll To Bottom */\r\n#codepen, #portfolio {\r\n  position: fixed;\r\n  bottom: 30px;\r\n  right: 30px;\r\n  background: #ec2652;\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 100%;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  transition: 0.3s ease;\r\n  color: #ffffff;\r\n  text-align: center;\r\n}\r\n#codepen i, #portfolio i {\r\n  line-height: 56px;\r\n}\r\n#codepen:hover, #portfolio:hover {\r\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* CodePen */\r\n#portfolio {\r\n  bottom: 96px;\r\n  right: 36px;\r\n  background: #ec2652;\r\n  width: 44px;\r\n  height: 44px;\r\n  animation: buttonFadeInUp 1s ease;\r\n}\r\n#portfolio i {\r\n  line-height: 44px;\r\n}\r\n\r\n/* Container */\r\n.container {\r\n  position: relative;\r\n  max-width: 460px;\r\n  width: 100%;\r\n  margin: 0 auto 100px;\r\n}\r\n.container.active .card:first-child {\r\n  background: #f2f2f2;\r\n  margin: 0 15px;\r\n}\r\n.container.active .card:nth-child(2) {\r\n  background: #fafafa;\r\n  margin: 0 10px;\r\n}\r\n.container.active .card.alt {\r\n  top: 20px;\r\n  right: 0;\r\n  width: 100%;\r\n  min-width: 100%;\r\n  height: auto;\r\n  border-radius: 5px;\r\n  padding: 60px 0 40px;\r\n  overflow: hidden;\r\n}\r\n.container.active .card.alt .toggle {\r\n  position: absolute;\r\n  top: 40px;\r\n  right: -70px;\r\n  box-shadow: none;\r\n  transform: scale(15);\r\n  transition: transform .5s ease;\r\n}\r\n.container.active .card.alt .toggle:before {\r\n  content: '';\r\n}\r\n.container.active .card.alt .title,\r\n.container.active .card.alt .input-container,\r\n.container.active .card.alt .button-container {\r\n  left: 0;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  transition: .3s ease;\r\n}\r\n.container.active .card.alt .title {\r\n  transition-delay: .3s;\r\n}\r\n.container.active .card.alt .input-container {\r\n  transition-delay: .4s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(2) {\r\n  transition-delay: .5s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(3) {\r\n  transition-delay: .6s;\r\n}\r\n.container.active .card.alt .button-container {\r\n  transition-delay: .7s;\r\n}\r\n\r\n/* Card */\r\n.card {\r\n \r\n}\r\n.card:first-child {\r\n\r\n}\r\n.card .title {\r\n      position: relative;\r\n    z-index: 1;\r\n    /* border-left: 5px solid #ec2652; */\r\n    margin: 0 0 35px;\r\n        padding: 20% 0 6% 0;\r\n    color: #f37501;\r\n    font-size: 32px;\r\n    font-weight: 600;\r\n    text-transform: uppercase;\r\n    text-align: center;\r\n}\r\ninput:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{background-color:none !important;}\r\n.card .input-container {\r\n        position: relative;\r\n    margin: 0 60px 34px;\r\n    /* overflow: hidden; */\r\n    display: inline-block;\r\n\t\r\n}\r\n.card .input-container input {\r\n  outline: none;\r\n  z-index: 1;\r\n  position: relative;\r\n  background: none;\r\n  width: 100%;\r\n  height: 54px;\r\n  border: 0;\r\n  color: #212121;\r\n  font-size: 20px;\r\n  font-weight: 400;\r\n}\r\n.card .input-container input:focus ~ label {\r\n  color: #9d9d9d;\r\n  transform: translate(-12%, -50%) scale(0.75);\r\n}\r\n.card .input-container input:focus ~ .bar:before, .card .input-container input:focus ~ .bar:after {\r\n  width: 50%;\r\n}\r\n.card .input-container input:valid ~ label {\r\n  color: #9d9d9d;\r\n  transform: translate(-12%, -50%) scale(0.75);\r\n}\r\n.card .input-container label {\r\n  position: absolute;\r\n  top: 0;\r\n      left: 20px;\r\n  color: #757575;\r\n      font-size: 18px;\r\n  font-weight: 300;\r\n  line-height: 60px;\r\n  transition: 0.2s ease;\r\n}\r\n.card .fa{     padding-top: 19px;\r\n    font-size: 28px;color:#f37600;}\r\n.card .input-container .bar {\r\n  position: absolute;\r\n      left: -4%;\r\n  bottom: 0;\r\n  background: #757575;\r\n  width: 100%;\r\n  height: 1px;\r\n}\r\n.card .input-container .bar:before, .card .input-container .bar:after {\r\n  content: '';\r\n  position: absolute;\r\n      background: #f47453;\r\n  width: 0;\r\n  height: 2px;\r\n  transition: .2s ease;\r\n}\r\n.card .input-container .bar:before {\r\n  left: 50%;\r\n}\r\n.card .input-container .bar:after {\r\n  right: 50%;\r\n}\r\n.card .button-container {\r\n  margin: 0 60px;\r\n  text-align: center;\r\n}\r\n.card .button-container button {\r\n  outline: 0;\r\n  cursor: pointer;\r\n  position: relative;\r\n  display: inline-block;\r\n  background: 0;\r\n  width: 240px;\r\n  border: 2px solid #e3e3e3;\r\n  padding: 20px 0;\r\n  font-size: 24px;\r\n  font-weight: 600;\r\n  line-height: 1;\r\n  text-transform: uppercase;\r\n  overflow: hidden;\r\n  transition: .3s ease;\r\n}\r\n.card .button-container button span {\r\n  position: relative;\r\n  z-index: 1;\r\n  color: #ddd;\r\n  transition: .3s ease;\r\n}\r\n.card .button-container button:before {\r\n  content: '';\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  display: block;\r\n  background: #ec2652;\r\n  width: 30px;\r\n  height: 30px;\r\n  border-radius: 100%;\r\n  margin: -15px 0 0 -15px;\r\n  opacity: 0;\r\n  transition: .3s ease;\r\n}\r\n.card .button-container button:hover, .card .button-container button:active, .card .button-container button:focus {\r\n  border-color: #ec2652;\r\n}\r\n.card .button-container button:hover span, .card .button-container button:active span, .card .button-container button:focus span {\r\n  color: #ec2652;\r\n}\r\n.card .button-container button:active span, .card .button-container button:focus span {\r\n  color: #ffffff;\r\n}\r\n.card .button-container button:active:before, .card .button-container button:focus:before {\r\n  opacity: 1;\r\n  transform: scale(10);\r\n}\r\n.card .footer {\r\n  margin: 6px 0 9%;\r\n  color: #d3d3d3;\r\n  font-size: 24px;\r\n  font-weight: 300;\r\n  text-align: center;\r\n}\r\n.card .footer a {\r\n      color: inherit;\r\n    text-decoration: none;\r\n    transition: .3s ease;\r\n    font-size: 15px;\r\n    color: #111;\r\n}\r\n.card .footer a:hover {\r\n  color: #bababa;\r\n}\r\n.card.alt {\r\n  position: absolute;\r\n  top: 40px;\r\n  right: -70px;\r\n  z-index: 10;\r\n  width: 100px;\r\n  height: 100px;\r\n  background: none;\r\n  border-radius: 100%;\r\n  box-shadow: none;\r\n  padding: 0;\r\n  transition: .3s ease;\r\n  /* Toggle */\r\n  /* Title */\r\n  /* Input */\r\n  /* Button */\r\n}\r\n.card.alt .toggle {\r\n  position: relative;\r\n  background: #ec2652;\r\n  width: 100px;\r\n  height: 100px;\r\n  border-radius: 100%;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  color: #ffffff;\r\n  font-size: 42px;\r\n  line-height: 100px;\r\n  text-align: center;\r\n  cursor: pointer;\r\n}\r\n.card.alt .toggle:before {\r\n  content: '\\F067';\r\n  display: inline-block;\r\n  font: normal normal normal 14px/1 FontAwesome;\r\n  font-size: inherit;\r\n  text-rendering: auto;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  transform: translate(0, 0);\r\n}\r\n.card.alt .title,\r\n.card.alt .input-container,\r\n.card.alt .button-container {\r\n  left: 100px;\r\n  opacity: 0;\r\n  visibility: hidden;\r\n}\r\n.card.alt .title {\r\n  position: relative;\r\n  border-color: #ffffff;\r\n  color: #ffffff;\r\n}\r\n.card.alt .title .close {\r\n  cursor: pointer;\r\n  position: absolute;\r\n  top: 0;\r\n  right: 60px;\r\n  display: inline;\r\n  color: #ffffff;\r\n  font-size: 58px;\r\n  font-weight: 400;\r\n}\r\n.card.alt .title .close:before {\r\n  content: '\\D7';\r\n}\r\n.card.alt .input-container input {\r\n  color: #ffffff;\r\n}\r\n.card.alt .input-container input:focus ~ label {\r\n  color: #ffffff;\r\n}\r\n.card.alt .input-container input:focus ~ .bar:before, .card.alt .input-container input:focus ~ .bar:after {\r\n  background: #ffffff;\r\n}\r\n.card.alt .input-container input:valid ~ label {\r\n  color: #ffffff;\r\n}\r\n.card.alt .input-container label {\r\n  color: rgba(255, 255, 255, 0.8);\r\n}\r\n.card.alt .input-container .bar {\r\n  background: rgba(255, 255, 255, 0.8);\r\n}\r\n.card.alt .button-container button {\r\n  width: 100%;\r\n  background: #ffffff;\r\n  border-color: #ffffff;\r\n}\r\n.card.alt .button-container button span {\r\n  color: #ec2652;\r\n}\r\n.card.alt .button-container button:hover {\r\n  background: rgba(255, 255, 255, 0.9);\r\n}\r\n.card.alt .button-container button:active:before, .card.alt .button-container button:focus:before {\r\n  display: none;\r\n}\r\n\r\n/* Keyframes */\r\n@keyframes buttonFadeInUp {\r\n  0% {\r\n    bottom: 30px;\r\n    opacity: 0;\r\n  }\r\n}\r\n.g-recaptcha {\r\n    transform:scale(0.89);\r\n    transform-origin:0 0;\r\n}\r\n.round-button{border-radius:20px;margin:0 auto;float:none;background:#f37600;color:#fff;    padding: 10px 32px; /* Safari */\r\n    transition: background 2s;}\r\n.round-button:hover{background:#ffaa05;color:#fff;}\r\n.padd-lft{padding-left:20px;}\r\n@media only screen and (max-width : 768px) {\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n}\r\n\r\n@media only screen and (max-width : 480px)  { \r\n.card .input-container{    margin: 12px;}\r\n.logn-img{display:none;}\r\nform{text-align:center;}\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n.logn-img img{width:100%;}\r\n}\r\n@media only screen and (max-width : 320px) { \r\n\t.card .input-container{    width: 74%;\r\n        margin: 24px auto;\r\n    float: none;}\r\n\t.card .input-container .bar{left: 3%;}\r\n\t.container{max-width:100%;}\r\n\tform{text-align:center;}\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-login/company-login.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!DOCTYPE html>\r\n\r\n<html>\r\n\r\n<head>\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n\t<title>Taskit</title>\r\n\t<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\r\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\r\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\r\n\t<!------ Include the above in your HEAD tag ---------->\r\n\r\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\r\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">\r\n\r\n</head>\r\n\r\n<body class=\"logn\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-md-8\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"logn-img\">\r\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\r\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\r\n\t\t\t\t\t<!-- <div class=\"paragraph\">\r\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\r\n\t\t\t\t\t</div> -->\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-4\">\r\n\t\t\t<div class=\"row\">\r\n\r\n\t\t\t\t<!-- Mixins-->\r\n\t\t\t\t<!-- Pen Title-->\r\n\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"card\"></div>\r\n\t\t\t\t\t<div class=\"card\">\r\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\r\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"login()\" novalidate>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newLogin.email\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Username</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"password\" id=\"Password\" name=\"password\" [(ngModel)]=\"newLogin.password\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Password\">Password</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t<!-- <div class=\"form-group\"> -->\r\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"g-recaptcha\" data-sitekey=\"6LeCaEsUAAAAAO21B0h-bnp7YmIFWVFCaBxvtHAE\"></div> -->\r\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"g-recaptcha\" data-sitekey=\"6LdpvDEUAAAAAMy8x0y8PS99j4BavfO2oBdVTQGZ\"></div> -->\r\n\t\t\t\t\t\t\t<!-- </div> -->\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<!-- <div class=\"col-xs-10 padd-lft\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"g-recaptcha\" data-sitekey=\"6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU\">\r\n\t\t\t\t\t\t\t\t\t\t<div style=\"width: 304px; height: 78px;\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<iframe src=\"https://www.google.com/recaptcha/api2/anchor?k=6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU&amp;co=aHR0cDovL3d3dy50c3MtYWR2LmNvbTo4MA..&amp;hl=en&amp;v=v1518566665321&amp;size=normal&amp;cb=ri090lbnphd5\"\r\n\t\t\t\t\t\t\t\t\t\t\t\t width=\"304\" height=\"78\" role=\"presentation\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>\r\n\t\t\t\t\t\t\t\t\t\t\t</div><textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; \"></textarea></div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"footer\"><a href=\"#\">Forgot your password?</a></div>\r\n\t\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign in</button></div>\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"social-login\">\r\n\t\t\t\t<a href=\"#\">\r\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\r\n\t\t\t\tLogin in with facebook\r\n\t\t\t  </a>\r\n\t\t\t\t<a href=\"#\">\r\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\r\n\t\t\t\tlog in with Google\r\n\t\t\t  </a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!-- Modal -->\r\n\r\n\t<script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\r\n\t<script src=\"js/bootstrap.min.js\"></script>\r\n\r\n\r\n</body>\r\n\r\n\r\n</html>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-login/company-login.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyLoginComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+// import {GoogleRecaptchaDirective} from '../directives/googlerecaptcha.directive';
+var CompanyLoginComponent = (function () {
+    function CompanyLoginComponent(companyService, routes, snackBar) {
+        this.companyService = companyService;
+        this.routes = routes;
+        this.snackBar = snackBar;
+        this.newLogin = {
+            email: '',
+            password: '',
+        };
+    }
+    CompanyLoginComponent.prototype.ngOnInit = function () {
+        // this.companyService.getLoggedUSerDetails().subscribe(info => {
+        //   if (info == null || info == '') {
+        //     this.routes.navigate(['/company-login']);
+        //   }
+        //   if (info.role_id == 1) {
+        //     if (info.delete_status == true || info.block_status == true || info.cmp_status == "Not Verified") {
+        //       this.routes.navigate(['/company-login']);
+        //     }
+        //     if (info.cmp_status == "Expired") {
+        //       // this.routes.navigate(['/expired']); expired
+        //     }
+        //     if (info.is_profile_completed == false) {
+        //       // this.routes.navigate(['/additnInfo', info._id]); additional info
+        //     }
+        //     // this.routes.navigate(['/dashboard']); dashboard
+        //   }
+        //   if (info.role_id == 3 || info.role_id == 4) {
+        //     if (info.delete_status == true || info.block_status == true) {
+        //       // this.routes.navigate(['/404']); 404
+        //     }
+        //     // this.routes.navigate(['/dashboard]);  user(team leader/ team member) dashboard
+        //   }
+        // });
+    };
+    CompanyLoginComponent.prototype.login = function () {
+        var _this = this;
+        this.companyService.authenticateCompany(this.newLogin).subscribe(function (data) {
+            console.log(data);
+            if (data.success) {
+                if (data.login.status == "Expired") {
+                    var json = data.login;
+                    var key = "status";
+                    delete json[key];
+                    _this.companyService.storeUserData(data.token, data.login);
+                    //  this.routes.navigate(['/expired']); expired
+                }
+                else {
+                    var json = data.login;
+                    var key = "status";
+                    delete json[key];
+                    _this.companyService.storeUserData(data.token, data.login);
+                    //  this.routes.navigate(['/dashboard']); dashboard 
+                }
+            }
+            else {
+                _this.msg = data.msg;
+                var snackBarRef = _this.snackBar.open(_this.msg, '', {
+                    duration: 2000
+                });
+            }
+        });
+    };
+    CompanyLoginComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'company-login',
+            template: __webpack_require__("../../../../../src/app/components/company-login/company-login.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-login/company-login.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["z" /* MatSnackBar */]])
+    ], CompanyLoginComponent);
+    return CompanyLoginComponent;
 }());
 
 
@@ -1985,6 +2065,111 @@ var CompanyUpgradeComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/email-verification/email-verification.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/email-verification/email-verification.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\r\n\r\n</p>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/email-verification/email-verification.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EmailVerificationComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var EmailVerificationComponent = (function () {
+    function EmailVerificationComponent(route, companyService, snackBar, routes) {
+        this.route = route;
+        this.companyService = companyService;
+        this.snackBar = snackBar;
+        this.routes = routes;
+    }
+    EmailVerificationComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Company verification
+        // Params        : verification id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 29-12-2017
+        // Last Modified : 29-12-2017, Rinsha
+        // Desc          : 
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.companyService.verifyCompany(params.id).subscribe(function (data) {
+                _this.msg = data.msg;
+                if (data.success) {
+                    // this._flashMessagesService.show('Success...', { cssClass: 'alert-success', timeout: 4000 });
+                    _this.companyService.storeUserData(data.token, data.login);
+                    var snackBarRef = _this.snackBar.open(_this.msg, '', {
+                        duration: 2000
+                    });
+                    // this.routes.navigate(['/dashboard']); dashboard
+                    // setTimeout(() => {  
+                    // }, 2000);
+                }
+                else {
+                    // this._flashMessagesService.show('Error...', { cssClass: 'alert-danger', timeout: 4000 });
+                    var snackBarRef = _this.snackBar.open(_this.msg, '', {
+                        duration: 2000
+                    });
+                    // this.routes.navigate(['/home']); home
+                    setTimeout(function () {
+                    }, 2000);
+                }
+            });
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    EmailVerificationComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'email-verification',
+            template: __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
+    ], EmailVerificationComponent);
+    return EmailVerificationComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/home/home.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2224,8 +2409,7 @@ var AdminService = (function () {
     // Last Modified : 05-03-2018, Rinsha
     // Desc          : getAllplans
     AdminService.prototype.getAllplans = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'allplans', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2239,8 +2423,7 @@ var AdminService = (function () {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : getAllplans without default
     AdminService.prototype.getPlansWithoutDefault = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'allPlansWithoutDefault', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2282,8 +2465,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : add plan 
     AdminService.prototype.addPlan = function (plan) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.post(this.serviceUrl + 'addPlan', plan, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2297,8 +2479,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : to change a plan to best
     AdminService.prototype.bestPlan = function (id, value) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.post(this.serviceUrl + 'bestPlan/' + id, { status: value }, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2312,8 +2493,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : to delete a plan which is'nt used by any company
     AdminService.prototype.deletePlan = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'deletePlan/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2327,8 +2507,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : getplan
     AdminService.prototype.getPlan = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2343,8 +2522,7 @@ var AdminService = (function () {
     // Desc          : update a plan
     AdminService.prototype.updatePlan = function (plan) {
         // console.log(plan);
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.post(this.serviceUrl + 'updatePlan', plan, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2392,6 +2570,16 @@ var CompanyService = (function () {
         headers.append('Content-Type', 'application/json');
         return (headers);
     };
+    CompanyService.prototype.setHeaderWithAuthorization = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return (headers);
+    };
+    CompanyService.prototype.loadToken = function () {
+        this.authToken = localStorage.getItem('id_token');
+    };
     // ---------------------------------Start-------------------------------------------
     // Function      : get plan by id
     // Params        : id
@@ -2401,8 +2589,7 @@ var CompanyService = (function () {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : getplan
     CompanyService.prototype.getPlan = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2416,8 +2603,7 @@ var CompanyService = (function () {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : upgrade
     CompanyService.prototype.upgrade = function (id, data) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.post(this.serviceUrl + 'upgrade/' + id, data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2431,8 +2617,7 @@ var CompanyService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : getAllProjects 
     CompanyService.prototype.getAllProject = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'getAllProject', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2446,8 +2631,7 @@ var CompanyService = (function () {
     // Last Modified : 08-03-2018, Rinsha
     // Desc          : 
     CompanyService.prototype.getAllPm = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'getAllPm', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2461,8 +2645,7 @@ var CompanyService = (function () {
     // Last Modified : 08-03-2018, Rinsha
     // Desc          : 
     CompanyService.prototype.getAllProjectCategory = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'getAllProjectCategory', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2476,9 +2659,79 @@ var CompanyService = (function () {
     // Last Modified : 08-03-2018, Rinsha
     // Desc          :  
     CompanyService.prototype.addProject = function (project) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeader();
         return this.http.post(this.serviceUrl + 'addProject', project, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : Login
+    // Params        : username and password
+    // Returns       : token, company details and company status
+    // Author        : Jooshifa
+    // Date          : 05-03-2018
+    // Last Modified : 05-03-2018, jooshifa
+    // Desc          : 
+    CompanyService.prototype.authenticateCompany = function (company) {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "authenticate", company, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Store User Data
+    // Params        : Token, id and role
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 05-03-2018
+    // Last Modified : 05-03-2018, jooshifa
+    // Desc          : To locally store  data
+    CompanyService.prototype.storeUserData = function (token, company) {
+        localStorage.setItem('id_token', token);
+        localStorage.setItem('company', JSON.stringify(company));
+        this.authToken = token;
+        this.company = company;
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : Get logged user details
+    // Params        : 
+    // Returns       : get details of logged in entity
+    // Author        : Jooshifa
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.getLoggedUSerDetails = function () {
+        var h = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : Company verification
+    // Params        : verification id
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.verifyCompany = function (verif_id) {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "companyVerification/" + verif_id, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 08-03-2018
+    // Last Modified : 08-03-2018, Rinsha
+    // Desc          :  
+    CompanyService.prototype.getLoggedinEntity = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     CompanyService = __decorate([

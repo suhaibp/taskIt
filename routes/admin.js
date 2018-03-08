@@ -10,6 +10,47 @@ var Company = models.tbl_company;
 
 var returnRouter = function (io) {
 
+//  ---------------------------------Start-------------------------------------------
+// Function      : get_counts_for_dashboard
+// Params        : 
+// Returns       : 
+// Author        : Manu Prasad
+// Date          : 02-03-2018
+// Last Modified : 02-03-2018, Jooshifa 
+// Desc          : for getting count of companies,projects,users
+
+router.post('/get_counts_for_dashboard', function(req, res) {
+    var userCount;
+    var cmpCount;
+    var projectCount;
+    sequelize.query("select count(*) from tbl_logins where block_status != :status and delete_status != :status",{replacements:{status: true}}).spread((myTableRows1) => {
+      // res.json(myTableRows)
+      userCount = myTableRows1[0].count;
+      sequelize.query("select count(*) from tbl_companies").spread(myTableRows2 => {
+        // res.json(myTableRows)
+        cmpCount = myTableRows2[0].count;
+        sequelize.query("select count(*) from tbl_projects").spread(myTableRows3 => {
+          // res.json(myTableRows)
+          projectCount = myTableRows3[0].count;
+          res.json({
+            users:userCount,
+            companies:cmpCount,
+            projects:projectCount
+          })
+        })
+      })
+    })
+   /*___________________COUNT IN MODEL EXAMPLE______________________*/ 
+    // Login.findAndCountAll({
+    //   where: {
+    //     block_status: {
+    //       [Op.ne]:true
+    //     }
+    //   }
+    // }).then(projects => {
+    //   res.json(projects);
+    // })
+  });
   // ---------------------------------Start-------------------------------------------
   // Function      : Admin Login
   // Params        : admin, contains username and password

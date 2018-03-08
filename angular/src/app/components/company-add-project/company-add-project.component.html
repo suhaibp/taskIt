@@ -66,15 +66,17 @@
                 </div>
                 <br>
 
-                <div class="col-md-4 col-xs-6"><label>Assigned To :</label></div>
-                <div class="col-md-7 col-xs-6">
-                  <mat-form-field [formGroup]="formGroup">
-                    <mat-select [(ngModel)]="project.pm_id" name="pm_id" required formControlName="pm_idValidation">
-                      <mat-option *ngFor="let item of pm" [value]="item.id">
-                        {{ item.f_name }} {{ item.l_name }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                <div *ngIf="showPMlist">
+                  <div class="col-md-4 col-xs-6"><label>Assigned To :</label></div>
+                  <div class="col-md-7 col-xs-6">
+                    <mat-form-field [formGroup]="formGroup">
+                      <mat-select [(ngModel)]="project.pm_id" name="pm_id" required formControlName="pm_idValidation">
+                        <mat-option *ngFor="let item of pm" [value]="item.id">
+                          {{ item.f_name }} {{ item.l_name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </div>
                 <br>
 
