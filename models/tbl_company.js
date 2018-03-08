@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     cmp_name: DataTypes.STRING,
     cmp_code: DataTypes.STRING,
     contact_no: DataTypes.STRING,
+    verification_code: DataTypes.STRING,
     why_choosen: DataTypes.TEXT
   }, {});
   tbl_company.associate = function(models) {

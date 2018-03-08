@@ -13,7 +13,6 @@ import { ReferenceComponentComponent } from './components/reference-component/re
 import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
 import { AdminTopbarComponent } from './components/admin-topbar/admin-topbar.component';
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminCompanyComponent } from './components/admin-company/admin-company.component';
 import { CompanyService} from './services/company.service';
 import {Config} from './config/config';
@@ -58,6 +57,7 @@ import { AdminTrialComponent } from './components/admin-trial/admin-trial.compon
 import { AdminNotVerifiedComponent } from './components/admin-not-verified/admin-not-verified.component';
 import { AdminExpiredComponent } from './components/admin-expired/admin-expired.component';
 import { CompanyLoginComponent } from './components/company-login/company-login.component';
+import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 
 
 const appRoutes: Routes = [
@@ -66,7 +66,6 @@ const appRoutes: Routes = [
   {path:'admin-sidebar', component:AdminSidebarComponent},
   {path:'admin-topbar', component:AdminTopbarComponent},
   {path:'admin-footer', component:AdminFooterComponent},
-  {path:'admin-dashboard', component:AdminDashboardComponent},
   {path:'admin-company', component:AdminCompanyComponent},
   {path:'admin-all-companies', component:AdminAllCompaniesComponent},
   {path:'admin-subscribed', component:AdminSubscribedComponent},
@@ -74,11 +73,8 @@ const appRoutes: Routes = [
   {path:'admin-NotVerified', component:AdminNotVerifiedComponent},
   {path:'admin-expired', component:AdminExpiredComponent},
   {path:'company-login', component:CompanyLoginComponent},
-  
- 
+  {path:'email-verification/:id', component:EmailVerificationComponent},
 ] 
-
-
 @NgModule({
   exports: [
     CdkTableModule,
@@ -114,6 +110,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
+  declarations: [EmailVerificationComponent],
  
 })
 export class DemoMaterialModule {}
@@ -124,7 +121,6 @@ export class DemoMaterialModule {}
     AdminSidebarComponent,
     AdminTopbarComponent,
     AdminFooterComponent,
-    AdminDashboardComponent,
     AdminCompanyComponent,
     AdminAllCompaniesComponent,
     AdminSubscribedComponent,

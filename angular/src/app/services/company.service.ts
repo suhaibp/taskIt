@@ -17,8 +17,17 @@ export class CompanyService {
       headers.append('Content-Type', 'application/json');
       return (headers);
     }
-  
+    setHeaderWithAuthorization() {
+      let headers = new Headers();
+      this.loadToken();
+      headers.append('Authorization', this.authToken);
+      headers.append('Content-Type', 'application/json');
+      return (headers);
+    }
 
+    loadToken() {
+      this.authToken = localStorage.getItem('id_token');
+    }
   // ---------------------------------Start------------------------------------------------
   // Function      : Login
   // Params        : username and password
@@ -50,6 +59,36 @@ export class CompanyService {
     localStorage.setItem('company', JSON.stringify(company));
     this.authToken = token;
     this.company = company;
+  }
+  // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+
+  // Function      : Get logged user details
+  // Params        : 
+  // Returns       : get details of logged in entity
+  // Author        : Jooshifa
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Jooshifa
+  // Desc          : 
+  getLoggedUSerDetails() {
+    let h = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: h })
+      .map(res => res.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+  
+  // ---------------------------------Start------------------------------------------------
+  // Function      : Company verification
+  // Params        : verification id
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Jooshifa
+  // Desc          : 
+  verifyCompany(verif_id) {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "companyVerification/" + verif_id, { headers: h })
+      .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
 }

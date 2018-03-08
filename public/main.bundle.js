@@ -92,18 +92,18 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_admin_sidebar_admin_sidebar_component__ = __webpack_require__("../../../../../src/app/components/admin-sidebar/admin-sidebar.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_admin_topbar_admin_topbar_component__ = __webpack_require__("../../../../../src/app/components/admin-topbar/admin-topbar.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_admin_footer_admin_footer_component__ = __webpack_require__("../../../../../src/app/components/admin-footer/admin-footer.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_admin_dashboard_admin_dashboard_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_admin_company_admin_company_component__ = __webpack_require__("../../../../../src/app/components/admin-company/admin-company.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_admin_all_companies_admin_all_companies_component__ = __webpack_require__("../../../../../src/app/components/admin-all-companies/admin-all-companies.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_admin_subscribed_admin_subscribed_component__ = __webpack_require__("../../../../../src/app/components/admin-subscribed/admin-subscribed.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_admin_trial_admin_trial_component__ = __webpack_require__("../../../../../src/app/components/admin-trial/admin-trial.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_admin_not_verified_admin_not_verified_component__ = __webpack_require__("../../../../../src/app/components/admin-not-verified/admin-not-verified.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_admin_expired_admin_expired_component__ = __webpack_require__("../../../../../src/app/components/admin-expired/admin-expired.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_company_login_company_login_component__ = __webpack_require__("../../../../../src/app/components/company-login/company-login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_admin_company_admin_company_component__ = __webpack_require__("../../../../../src/app/components/admin-company/admin-company.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_admin_all_companies_admin_all_companies_component__ = __webpack_require__("../../../../../src/app/components/admin-all-companies/admin-all-companies.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_admin_subscribed_admin_subscribed_component__ = __webpack_require__("../../../../../src/app/components/admin-subscribed/admin-subscribed.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_admin_trial_admin_trial_component__ = __webpack_require__("../../../../../src/app/components/admin-trial/admin-trial.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_admin_not_verified_admin_not_verified_component__ = __webpack_require__("../../../../../src/app/components/admin-not-verified/admin-not-verified.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_admin_expired_admin_expired_component__ = __webpack_require__("../../../../../src/app/components/admin-expired/admin-expired.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_company_login_company_login_component__ = __webpack_require__("../../../../../src/app/components/company-login/company-login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_email_verification_email_verification_component__ = __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -140,14 +140,14 @@ var appRoutes = [
     { path: 'admin-sidebar', component: __WEBPACK_IMPORTED_MODULE_9__components_admin_sidebar_admin_sidebar_component__["a" /* AdminSidebarComponent */] },
     { path: 'admin-topbar', component: __WEBPACK_IMPORTED_MODULE_10__components_admin_topbar_admin_topbar_component__["a" /* AdminTopbarComponent */] },
     { path: 'admin-footer', component: __WEBPACK_IMPORTED_MODULE_11__components_admin_footer_admin_footer_component__["a" /* AdminFooterComponent */] },
-    { path: 'admin-dashboard', component: __WEBPACK_IMPORTED_MODULE_12__components_admin_dashboard_admin_dashboard_component__["a" /* AdminDashboardComponent */] },
-    { path: 'admin-company', component: __WEBPACK_IMPORTED_MODULE_13__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */] },
-    { path: 'admin-all-companies', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */] },
-    { path: 'admin-subscribed', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */] },
-    { path: 'admin-trial', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */] },
-    { path: 'admin-NotVerified', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */] },
-    { path: 'admin-expired', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */] },
-    { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_23__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
+    { path: 'admin-company', component: __WEBPACK_IMPORTED_MODULE_12__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */] },
+    { path: 'admin-all-companies', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */] },
+    { path: 'admin-subscribed', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */] },
+    { path: 'admin-trial', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */] },
+    { path: 'admin-NotVerified', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */] },
+    { path: 'admin-expired', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */] },
+    { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_22__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
+    { path: 'email-verification/:id', component: __WEBPACK_IMPORTED_MODULE_23__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
@@ -155,39 +155,40 @@ var DemoMaterialModule = (function () {
     DemoMaterialModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
             exports: [
-                __WEBPACK_IMPORTED_MODULE_17__angular_cdk_table__["m" /* CdkTableModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["a" /* MatAutocompleteModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["b" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["c" /* MatButtonToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["d" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["e" /* MatCheckboxModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["f" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["B" /* MatStepperModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["g" /* MatDatepickerModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["h" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["i" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["j" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["k" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["l" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["m" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["n" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["o" /* MatNativeDateModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["p" /* MatPaginatorModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["q" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["r" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["s" /* MatRadioModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["t" /* MatRippleModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["u" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["v" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["x" /* MatSliderModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["w" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["z" /* MatSnackBarModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["A" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["C" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["D" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["E" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_material__["F" /* MatTooltipModule */],
+                __WEBPACK_IMPORTED_MODULE_16__angular_cdk_table__["m" /* CdkTableModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["a" /* MatAutocompleteModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["b" /* MatButtonModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["c" /* MatButtonToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["d" /* MatCardModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["e" /* MatCheckboxModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["f" /* MatChipsModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["B" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["g" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["h" /* MatDialogModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["i" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["j" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["k" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["l" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["m" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["n" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["o" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["p" /* MatPaginatorModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["q" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["r" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["s" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["t" /* MatRippleModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["u" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["v" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["x" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["w" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["z" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["A" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["C" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["D" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["E" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["F" /* MatTooltipModule */],
             ],
+            declarations: [__WEBPACK_IMPORTED_MODULE_23__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */]],
         })
     ], DemoMaterialModule);
     return DemoMaterialModule;
@@ -204,25 +205,24 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_9__components_admin_sidebar_admin_sidebar_component__["a" /* AdminSidebarComponent */],
                 __WEBPACK_IMPORTED_MODULE_10__components_admin_topbar_admin_topbar_component__["a" /* AdminTopbarComponent */],
                 __WEBPACK_IMPORTED_MODULE_11__components_admin_footer_admin_footer_component__["a" /* AdminFooterComponent */],
-                __WEBPACK_IMPORTED_MODULE_12__components_admin_dashboard_admin_dashboard_component__["a" /* AdminDashboardComponent */],
-                __WEBPACK_IMPORTED_MODULE_13__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */],
-                __WEBPACK_IMPORTED_MODULE_18__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */],
-                __WEBPACK_IMPORTED_MODULE_19__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */],
-                __WEBPACK_IMPORTED_MODULE_21__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */],
-                __WEBPACK_IMPORTED_MODULE_22__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__components_company_login_company_login_component__["a" /* CompanyLoginComponent */]
+                __WEBPACK_IMPORTED_MODULE_12__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */],
+                __WEBPACK_IMPORTED_MODULE_17__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */],
+                __WEBPACK_IMPORTED_MODULE_19__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */],
+                __WEBPACK_IMPORTED_MODULE_20__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */],
+                __WEBPACK_IMPORTED_MODULE_22__components_company_login_company_login_component__["a" /* CompanyLoginComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["h" /* ReactiveFormsModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* RouterModule */].forRoot(appRoutes),
+                __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
                 DemoMaterialModule,
                 __WEBPACK_IMPORTED_MODULE_5__angular_http__["c" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */]
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_15__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_14__services_company_service__["a" /* CompanyService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_14__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_13__services_company_service__["a" /* CompanyService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -355,78 +355,9 @@ var AdminCompanyComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/admin-company/admin-company.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/admin-company/admin-company.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
     ], AdminCompanyComponent);
     return AdminCompanyComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".count-txt{\r\n    font-weight: 700;\r\n}\r\n.count-sub-txt{\r\n    font-size: 14px;\r\n}", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<body class=\"home\" *ngIf=\"counts\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n\r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                <!-- sidebar-->\r\n\r\n                <admin-sidebar></admin-sidebar>\r\n                <!-- end sidebar-->\r\n            </div>\r\n\r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <admin-topbar></admin-topbar>\r\n\r\n                <!-- end topbar-->\r\n\r\n\r\n                <div class=\"user-dashboard\">\r\n                    <!-- <h1>Hello, JS</h1> -->\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-9 col-sm-5 col-xs-12 gutter ad-tp\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"fa fa-users\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.users}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Users</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-industry\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.companies}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Companies</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-code-fork\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.projects}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Projects</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-6\">\r\n                                <app-admin-dashboard-pie></app-admin-dashboard-pie>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                \r\n\r\n            </div>\r\n            <!-- footer-->\r\n            <admin-footer></admin-footer>\r\n            <!-- end footer-->\r\n        </div>\r\n    </div>\r\n    <!-- Modal -->\r\n</body>"
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminDashboardComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__ = __webpack_require__("../../../../../src/app/services/super-admin.service.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var AdminDashboardComponent = (function () {
-    function AdminDashboardComponent(superAdminService) {
-        this.superAdminService = superAdminService;
-    }
-    AdminDashboardComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.superAdminService.getPieDataforAdminDashboard().subscribe(function (resCounts) {
-            console.log(resCounts);
-            _this.counts = resCounts;
-        });
-    };
-    AdminDashboardComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'admin-dashboard',
-            template: __webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.css")]
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__["a" /* SuperAdminService */]])
-    ], AdminDashboardComponent);
-    return AdminDashboardComponent;
 }());
 
 
@@ -881,7 +812,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-login/company-login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n<html>\n\n<head>\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n\t<title>Taskit</title>\n\t<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\n\t<!------ Include the above in your HEAD tag ---------->\n\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">\n\n</head>\n\n<body class=\"logn\">\n\t<div class=\"row\">\n\t\t<div class=\"col-md-8\">\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"logn-img\">\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\n\t\t\t\t\t<!-- <div class=\"paragraph\">\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\n\t\t\t\t\t</div> -->\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-md-4\">\n\t\t\t<div class=\"row\">\n\n\t\t\t\t<!-- Mixins-->\n\t\t\t\t<!-- Pen Title-->\n\n\t\t\t\t<div class=\"container\">\n\t\t\t\t\t<div class=\"card\"></div>\n\t\t\t\t\t<div class=\"card\">\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"login()\" novalidate>\n\t\t\t\t\t\t\t<div class=\"input-container\">\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newLogin.email\" required/>\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Username</label>\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\t<div class=\"input-container\">\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t\t<input type=\"password\" id=\"Password\" name=\"password\" [(ngModel)]=\"newLogin.password\" required/>\n\t\t\t\t\t\t\t\t\t<label for=\"Password\">Password</label>\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"input-container\">\n\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10 padd-lft\">\n\t\t\t\t\t\t\t\t\t<div class=\"g-recaptcha\" data-sitekey=\"6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU\">\n\t\t\t\t\t\t\t\t\t\t<div style=\"width: 304px; height: 78px;\">\n\t\t\t\t\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t\t\t\t\t<iframe src=\"https://www.google.com/recaptcha/api2/anchor?k=6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU&amp;co=aHR0cDovL3d3dy50c3MtYWR2LmNvbTo4MA..&amp;hl=en&amp;v=v1518566665321&amp;size=normal&amp;cb=ri090lbnphd5\"\n\t\t\t\t\t\t\t\t\t\t\t\t width=\"304\" height=\"78\" role=\"presentation\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>\n\t\t\t\t\t\t\t\t\t\t\t</div><textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; \"></textarea></div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\t<div class=\"footer\"><a href=\"#\">Forgot your password?</a></div>\n\t\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign in</button></div>\n\t\t\t\t\t\t</form>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\t\t\t<div class=\"social-login\">\n\t\t\t\t<a href=\"#\">\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\n\t\t\t\tLogin in with facebook\n\t\t\t  </a>\n\t\t\t\t<a href=\"#\">\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\n\t\t\t\tlog in with Google\n\t\t\t  </a>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<!-- Modal -->\n\n\t<script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\n\t<script src=\"js/bootstrap.min.js\"></script>\n\n\n</body>\n\n\n</html>"
+module.exports = "<!DOCTYPE html>\n\n<html>\n\n<head>\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n\t<title>Taskit</title>\n\t<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\n\t<!------ Include the above in your HEAD tag ---------->\n\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">\n\n</head>\n\n<body class=\"logn\">\n\t<div class=\"row\">\n\t\t<div class=\"col-md-8\">\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"logn-img\">\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\n\t\t\t\t\t<!-- <div class=\"paragraph\">\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\n\t\t\t\t\t</div> -->\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-md-4\">\n\t\t\t<div class=\"row\">\n\n\t\t\t\t<!-- Mixins-->\n\t\t\t\t<!-- Pen Title-->\n\n\t\t\t\t<div class=\"container\">\n\t\t\t\t\t<div class=\"card\"></div>\n\t\t\t\t\t<div class=\"card\">\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"login()\" novalidate>\n\t\t\t\t\t\t\t<div class=\"input-container\">\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newLogin.email\" required/>\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Username</label>\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\t<div class=\"input-container\">\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t\t<input type=\"password\" id=\"Password\" name=\"password\" [(ngModel)]=\"newLogin.password\" required/>\n\t\t\t\t\t\t\t\t\t<label for=\"Password\">Password</label>\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"input-container\">\n\t\t\t\t\t\t\t<!-- <div class=\"form-group\"> -->\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"g-recaptcha\" data-sitekey=\"6LeCaEsUAAAAAO21B0h-bnp7YmIFWVFCaBxvtHAE\"></div> -->\n\t\t\t\t\t\t\t\t\t<div class=\"g-recaptcha\" data-sitekey=\"6LdpvDEUAAAAAMy8x0y8PS99j4BavfO2oBdVTQGZ\"></div>\n\t\t\t\t\t\t\t<!-- </div> -->\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<!-- <div class=\"col-xs-10 padd-lft\">\n\t\t\t\t\t\t\t\t\t<div class=\"g-recaptcha\" data-sitekey=\"6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU\">\n\t\t\t\t\t\t\t\t\t\t<div style=\"width: 304px; height: 78px;\">\n\t\t\t\t\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t\t\t\t\t<iframe src=\"https://www.google.com/recaptcha/api2/anchor?k=6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU&amp;co=aHR0cDovL3d3dy50c3MtYWR2LmNvbTo4MA..&amp;hl=en&amp;v=v1518566665321&amp;size=normal&amp;cb=ri090lbnphd5\"\n\t\t\t\t\t\t\t\t\t\t\t\t width=\"304\" height=\"78\" role=\"presentation\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>\n\t\t\t\t\t\t\t\t\t\t\t</div><textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; \"></textarea></div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div> -->\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\t<div class=\"footer\"><a href=\"#\">Forgot your password?</a></div>\n\t\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign in</button></div>\n\t\t\t\t\t\t</form>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\t\t\t<div class=\"social-login\">\n\t\t\t\t<a href=\"#\">\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\n\t\t\t\tLogin in with facebook\n\t\t\t  </a>\n\t\t\t\t<a href=\"#\">\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\n\t\t\t\tlog in with Google\n\t\t\t  </a>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<!-- Modal -->\n\t<script src='https://www.google.com/recaptcha/api.js'></script>\n\t<script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\n\t<script src=\"js/bootstrap.min.js\"></script>\n\n\n</body>\n\n\n</html>"
 
 /***/ }),
 
@@ -907,6 +838,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+// import {GoogleRecaptchaDirective} from '../directives/googlerecaptcha.directive';
 var CompanyLoginComponent = (function () {
     function CompanyLoginComponent(companyService, routes, snackBar) {
         this.companyService = companyService;
@@ -917,24 +849,49 @@ var CompanyLoginComponent = (function () {
             password: '',
         };
     }
+    CompanyLoginComponent.prototype.ngOnInit = function () {
+        // this.companyService.getLoggedUSerDetails().subscribe(info => {
+        //   if (info == null || info == '') {
+        //     this.routes.navigate(['/company-login']);
+        //   }
+        //   if (info.role_id == 1) {
+        //     if (info.delete_status == true || info.block_status == true || info.cmp_status == "Not Verified") {
+        //       this.routes.navigate(['/company-login']);
+        //     }
+        //     if (info.cmp_status == "Expired") {
+        //       // this.routes.navigate(['/expired']); expired
+        //     }
+        //     if (info.is_profile_completed == false) {
+        //       // this.routes.navigate(['/additnInfo', info._id]); additional info
+        //     }
+        //     // this.routes.navigate(['/dashboard']); dashboard
+        //   }
+        //   if (info.role_id == 3 || info.role_id == 4) {
+        //     if (info.delete_status == true || info.block_status == true) {
+        //       // this.routes.navigate(['/404']); 404
+        //     }
+        //     // this.routes.navigate(['/dashboard]);  user(team leader/ team member) dashboard
+        //   }
+        // });
+    };
     CompanyLoginComponent.prototype.login = function () {
         var _this = this;
         this.companyService.authenticateCompany(this.newLogin).subscribe(function (data) {
-            console.log(data.login);
+            console.log(data);
             if (data.success) {
                 if (data.login.status == "Expired") {
                     var json = data.login;
                     var key = "status";
                     delete json[key];
                     _this.companyService.storeUserData(data.token, data.login);
-                    //  this.routes.navigate(['/expired']);
+                    //  this.routes.navigate(['/expired']); expired
                 }
                 else {
                     var json = data.login;
                     var key = "status";
                     delete json[key];
                     _this.companyService.storeUserData(data.token, data.login);
-                    //  this.routes.navigate(['/dashboard']);
+                    //  this.routes.navigate(['/dashboard']); dashboard 
                 }
             }
             else {
@@ -945,17 +902,120 @@ var CompanyLoginComponent = (function () {
             }
         });
     };
-    CompanyLoginComponent.prototype.ngOnInit = function () {
-    };
     CompanyLoginComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'company-login',
             template: __webpack_require__("../../../../../src/app/components/company-login/company-login.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/company-login/company-login.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["y" /* MatSnackBar */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["y" /* MatSnackBar */]])
     ], CompanyLoginComponent);
     return CompanyLoginComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/email-verification/email-verification.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/email-verification/email-verification.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/email-verification/email-verification.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EmailVerificationComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var EmailVerificationComponent = (function () {
+    function EmailVerificationComponent(route, companyService, snackBar, routes) {
+        this.route = route;
+        this.companyService = companyService;
+        this.snackBar = snackBar;
+        this.routes = routes;
+    }
+    EmailVerificationComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Company verification
+        // Params        : verification id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 29-12-2017
+        // Last Modified : 29-12-2017, Rinsha
+        // Desc          : 
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.companyService.verifyCompany(params.id).subscribe(function (data) {
+                _this.msg = data.msg;
+                if (data.success) {
+                    // this._flashMessagesService.show('Success...', { cssClass: 'alert-success', timeout: 4000 });
+                    _this.companyService.storeUserData(data.token, data.login);
+                    var snackBarRef = _this.snackBar.open(_this.msg, '', {
+                        duration: 2000
+                    });
+                    // this.routes.navigate(['/dashboard']); dashboard
+                    // setTimeout(() => {  
+                    // }, 2000);
+                }
+                else {
+                    // this._flashMessagesService.show('Error...', { cssClass: 'alert-danger', timeout: 4000 });
+                    var snackBarRef = _this.snackBar.open(_this.msg, '', {
+                        duration: 2000
+                    });
+                    // this.routes.navigate(['/home']); home
+                    setTimeout(function () {
+                    }, 2000);
+                }
+            });
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    EmailVerificationComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'email-verification',
+            template: __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["y" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
+    ], EmailVerificationComponent);
+    return EmailVerificationComponent;
 }());
 
 
@@ -1073,6 +1133,16 @@ var CompanyService = (function () {
         headers.append('Content-Type', 'application/json');
         return (headers);
     };
+    CompanyService.prototype.setHeaderWithAuthorization = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return (headers);
+    };
+    CompanyService.prototype.loadToken = function () {
+        this.authToken = localStorage.getItem('id_token');
+    };
     // ---------------------------------Start------------------------------------------------
     // Function      : Login
     // Params        : username and password
@@ -1101,82 +1171,39 @@ var CompanyService = (function () {
         this.authToken = token;
         this.company = company;
     };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : Get logged user details
+    // Params        : 
+    // Returns       : get details of logged in entity
+    // Author        : Jooshifa
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.getLoggedUSerDetails = function () {
+        var h = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : Company verification
+    // Params        : verification id
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.verifyCompany = function (verif_id) {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "companyVerification/" + verif_id, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
     CompanyService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_2__config_config__["a" /* Config */]])
     ], CompanyService);
     return CompanyService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../../../../src/app/services/super-admin.service.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SuperAdminService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var SuperAdminService = (function () {
-    function SuperAdminService(http, config) {
-        this.http = http;
-        this.config = config;
-        this.serviceUrl = config.siteUrl + '/admin/';
-    }
-    SuperAdminService.prototype.setHeader = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
-        return (headers);
-    };
-    //  ---------------------------------Start-------------------------------------------
-    // Function      : getCountsforAdminDashboard
-    // Params        : 
-    // Returns       : 
-    // Author        : Manu Prasad
-    // Date          : 02-03-2018
-    // Last Modified : 02-03-2018, Jooshifa 
-    // Desc          : for getting count of companies,projects,users
-    SuperAdminService.prototype.getCountsforAdminDashboard = function () {
-        var h = this.setHeader();
-        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
-            .map(function (res) { return res.json(); });
-    };
-    //  ---------------------------------End-------------------------------------------
-    //  ---------------------------------Start-------------------------------------------
-    // Function      : getPieDataforAdminDashboard
-    // Params        : 
-    // Returns       : 
-    // Author        : Manu Prasad
-    // Date          : 06-03-2018
-    // Last Modified : 06-03-2018, 
-    // Desc          : get piegraph data
-    SuperAdminService.prototype.getPieDataforAdminDashboard = function () {
-        var h = this.setHeader();
-        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
-            .map(function (res) { return res.json(); });
-    };
-    SuperAdminService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__config_config__["a" /* Config */]])
-    ], SuperAdminService);
-    return SuperAdminService;
 }());
 
 

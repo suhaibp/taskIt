@@ -2,6 +2,8 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
+
+
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -19,6 +21,14 @@ module.exports = {
           model: "tbl_companies",
           key: "id" 
         }
+      }
+    )
+    return queryInterface.addColumn(
+      'tbl_companies',
+      'verification_code',
+      {
+        type: Sequelize.STRING,
+        allowNull: true
       }
     )
   },
