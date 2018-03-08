@@ -105,16 +105,24 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_home_home_component__ = __webpack_require__("../../../../../src/app/components/home/home.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_company_upgrade_company_upgrade_component__ = __webpack_require__("../../../../../src/app/components/company-upgrade/company-upgrade.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_company_planlist_company_planlist_component__ = __webpack_require__("../../../../../src/app/components/company-planlist/company-planlist.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_admin_dashboard_pie_admin_dashboard_pie_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_company_add_project_company_add_project_component__ = __webpack_require__("../../../../../src/app/components/company-add-project/company-add-project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_company_project_company_project_component__ = __webpack_require__("../../../../../src/app/components/company-project/company-project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_assign_project_assign_project_component__ = __webpack_require__("../../../../../src/app/components/assign-project/assign-project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
+
 
 
 
@@ -163,6 +171,9 @@ var appRoutes = [
     { path: 'home', component: __WEBPACK_IMPORTED_MODULE_22__components_home_home_component__["a" /* HomeComponent */] },
     { path: 'planlist', component: __WEBPACK_IMPORTED_MODULE_24__components_company_planlist_company_planlist_component__["a" /* CompanyPlanlistComponent */] },
     { path: 'upgrade/:id', component: __WEBPACK_IMPORTED_MODULE_23__components_company_upgrade_company_upgrade_component__["a" /* CompanyUpgradeComponent */] },
+    { path: 'add-project', component: __WEBPACK_IMPORTED_MODULE_26__components_company_add_project_company_add_project_component__["a" /* CompanyAddProjectComponent */] },
+    { path: 'project', component: __WEBPACK_IMPORTED_MODULE_27__components_company_project_company_project_component__["a" /* CompanyProjectComponent */] },
+    { path: 'assign-project', component: __WEBPACK_IMPORTED_MODULE_28__components_assign_project_assign_project_component__["a" /* AssignProjectComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
@@ -170,38 +181,38 @@ var DemoMaterialModule = (function () {
     DemoMaterialModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["K" /* NgModule */])({
             exports: [
-                __WEBPACK_IMPORTED_MODULE_28__angular_cdk_table__["m" /* CdkTableModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["a" /* MatAutocompleteModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["b" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["c" /* MatButtonToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["d" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["e" /* MatCheckboxModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["f" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["C" /* MatStepperModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["g" /* MatDatepickerModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["h" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["i" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["j" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["k" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["l" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["m" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["n" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["o" /* MatNativeDateModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["q" /* MatPaginatorModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["r" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["s" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["t" /* MatRadioModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["u" /* MatRippleModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["v" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["w" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["y" /* MatSliderModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["x" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["z" /* MatSnackBarModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["B" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["E" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["F" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["G" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_27__angular_material__["H" /* MatTooltipModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_cdk_table__["m" /* CdkTableModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["a" /* MatAutocompleteModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["b" /* MatButtonModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["c" /* MatButtonToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["d" /* MatCardModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["e" /* MatCheckboxModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["f" /* MatChipsModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["D" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["g" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["h" /* MatDialogModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["i" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["j" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["k" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["l" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["m" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["n" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["o" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["q" /* MatPaginatorModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["r" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["s" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["t" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["u" /* MatRippleModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["v" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["w" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["y" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["x" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["A" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["C" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["F" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["G" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["H" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material__["I" /* MatTooltipModule */],
             ],
         })
     ], DemoMaterialModule);
@@ -230,7 +241,11 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_21__components_admin_plan_admin_plan_component__["a" /* AdminPlanComponent */],
                 __WEBPACK_IMPORTED_MODULE_22__components_home_home_component__["a" /* HomeComponent */],
                 __WEBPACK_IMPORTED_MODULE_24__components_company_planlist_company_planlist_component__["a" /* CompanyPlanlistComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__components_company_upgrade_company_upgrade_component__["a" /* CompanyUpgradeComponent */]
+                __WEBPACK_IMPORTED_MODULE_23__components_company_upgrade_company_upgrade_component__["a" /* CompanyUpgradeComponent */],
+                __WEBPACK_IMPORTED_MODULE_25__components_admin_dashboard_pie_admin_dashboard_pie_component__["a" /* AdminDashboardPieComponent */],
+                __WEBPACK_IMPORTED_MODULE_26__components_company_add_project_company_add_project_component__["a" /* CompanyAddProjectComponent */],
+                __WEBPACK_IMPORTED_MODULE_27__components_company_project_company_project_component__["a" /* CompanyProjectComponent */],
+                __WEBPACK_IMPORTED_MODULE_28__components_assign_project_assign_project_component__["a" /* AssignProjectComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -242,7 +257,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
                 DemoMaterialModule
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_6__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_25__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_26__services_company_service__["a" /* CompanyService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_6__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_29__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_30__services_company_service__["a" /* CompanyService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -384,6 +399,184 @@ var AdminCompanyComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "html, body {\r\n    height: 100%;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n  }\r\n  \r\n  .pie-gr {\r\n    background: linear-gradient(to bottom, #606c88 0%, #3f4c6b 100%);\r\n    font-family: 'Source Sans Pro', sans-serif;\r\n  }\r\n  \r\n  .pie {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    -webkit-filter: drop-shadow(0 2px 0px #333);\r\n            filter: drop-shadow(0 2px 0px #333);\r\n  }\r\n  \r\n  .data-path:hover {\r\n    cursor: pointer;\r\n  }\r\n  \r\n  .data-text {\r\n    transition: transform .2s ease-in-out;\r\n    fill: #fff;\r\n  }\r\n  .data-text__value {\r\n    font-size: 7rem;\r\n    transform: translateY(-0.5rem);\r\n    opacity: 0;\r\n  }\r\n  .data-text__name {\r\n    font-size: 2rem;\r\n    transform: translateY(0.5rem);\r\n    opacity: 0;\r\n  }\r\n  .data-text--show {\r\n    transform: translateY(0);\r\n    animation: fadeGraphTextIn 0.5s forwards;\r\n  }\r\n  .data-text:hover {\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n  }\r\n  \r\n  .legend-text {\r\n    fill: #fff;\r\n  }\r\n  \r\n  @keyframes fadeGraphTextIn {\r\n    from {\r\n      opacity: 0;\r\n    }\r\n    to {\r\n      opacity: 1;\r\n    }\r\n  }\r\n  ", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"pie-gr\"></div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminDashboardPieComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__ = __webpack_require__("../../../../../src/app/services/super-admin.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var $;
+var AdminDashboardPieComponent = (function () {
+    function AdminDashboardPieComponent(superAdminService) {
+        this.superAdminService = superAdminService;
+    }
+    AdminDashboardPieComponent.prototype.ngOnInit = function () {
+        this.drawPie();
+    };
+    AdminDashboardPieComponent.prototype.drawPie = function () {
+        var pieData = [
+            { name: 'Running', value: 40, color: '#18FFFF' },
+            { name: 'Paused', value: 26, color: '#0288D1' },
+            { name: 'Stopped', value: 7, color: '#BF360C' },
+            { name: 'Failed', value: 13, color: '#F4511E' },
+            { name: 'Unknown', value: 19, color: '#F9A825' },
+        ];
+        bakeDonut(pieData);
+        function bakeDonut(d) {
+            var activeSegment;
+            var data = d.sort(function (a, b) { return b['value'] - a['value']; }), viewWidth = 500, viewHeight = 300, svgWidth = viewHeight, svgHeight = viewHeight, thickness = 40, colorArray = data.map(function (k) { return k.color; }), el = d3.select('.pie-gr'), radius = Math.min(svgWidth, svgHeight) / 2, color = d3.scaleOrdinal()
+                .range(colorArray);
+            var max = d3.max(data, function (maxData) { return maxData.value; });
+            var svg = el.append('svg')
+                .attr('viewBox', "0 0 " + (viewWidth + thickness) + " " + (viewHeight + thickness))
+                .attr('class', 'pie')
+                .attr('width', viewWidth)
+                .attr('height', svgHeight);
+            var g = svg.append('g')
+                .attr('transform', "translate( " + ((svgWidth / 2) + (thickness / 2)) + ", " + ((svgHeight / 2) + (thickness / 2)) + ")");
+            var arc = d3.arc()
+                .innerRadius(radius - thickness)
+                .outerRadius(radius);
+            var arcHover = d3.arc()
+                .innerRadius(radius - (thickness + 5))
+                .outerRadius(radius + 8);
+            var pie = d3.pie()
+                .value(function (pieData) { return pieData.value; })
+                .sort(null);
+            var path = g.selectAll('path')
+                .attr('class', 'data-path')
+                .data(pie(data))
+                .enter()
+                .append('g')
+                .attr('class', 'data-group')
+                .each(function (pathData, i) {
+                var group = d3.select(this);
+                group.append('text')
+                    .text("" + pathData.data.value)
+                    .attr('class', 'data-text data-text__value')
+                    .attr('text-anchor', 'middle')
+                    .attr('dy', '1rem');
+                group.append('text')
+                    .text("" + pathData.data.name)
+                    .attr('class', 'data-text data-text__name')
+                    .attr('text-anchor', 'middle')
+                    .attr('dy', '3.5rem');
+                // Set default active segment
+                if (pathData.value === max) {
+                    var textVal = d3.select(this).select('.data-text__value')
+                        .classed('data-text--show', true);
+                    var textName = d3.select(this).select('.data-text__name')
+                        .classed('data-text--show', true);
+                }
+            })
+                .append('path')
+                .attr('d', arc)
+                .attr('fill', function (fillData, i) { return color(fillData.data.name); })
+                .attr('class', 'data-path')
+                .on('mouseover', function () {
+                var _thisPath = this, parentNode = _thisPath.parentNode;
+                if (_thisPath !== activeSegment) {
+                    activeSegment = _thisPath;
+                    var dataTexts = d3.selectAll('.data-text')
+                        .classed('data-text--show', false);
+                    var paths = d3.selectAll('.data-path')
+                        .transition()
+                        .duration(250)
+                        .attr('d', arc);
+                    d3.select(_thisPath)
+                        .transition()
+                        .duration(250)
+                        .attr('d', arcHover);
+                    var thisDataValue = d3.select(parentNode).select('.data-text__value')
+                        .classed('data-text--show', true);
+                    var thisDataText = d3.select(parentNode).select('.data-text__name')
+                        .classed('data-text--show', true);
+                }
+            })
+                .each(function (v, i) {
+                if (v.value === max) {
+                    var maxArc = d3.select(this)
+                        .attr('d', arcHover);
+                    activeSegment = this;
+                }
+                this._current = i;
+            });
+            var legendRectSize = 15;
+            var legendSpacing = 10;
+            var legend = svg.selectAll('.legend')
+                .data(color.domain())
+                .enter()
+                .append('g')
+                .attr('class', 'legend')
+                .attr('transform', function (legendData, i) {
+                var itemHeight = legendRectSize + legendSpacing;
+                var offset = legendRectSize * color.domain().length;
+                var horz = svgWidth + 80;
+                var vert = (i * itemHeight) + legendRectSize + (svgHeight - offset) / 2;
+                return "translate(" + horz + ", " + vert + ")";
+            });
+            legend.append('circle')
+                .attr('r', legendRectSize / 2)
+                .style('fill', color);
+            legend.append('text')
+                .attr('x', legendRectSize + legendSpacing)
+                .attr('y', legendRectSize - legendSpacing)
+                .attr('class', 'legend-text')
+                .text(function (legendData) { return legendData; });
+        }
+    };
+    AdminDashboardPieComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-admin-dashboard-pie',
+            template: __webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__["a" /* SuperAdminService */]])
+    ], AdminDashboardPieComponent);
+    return AdminDashboardPieComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -392,7 +585,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".count-txt{\r\n    font-weight: 700;\r\n}\r\n.count-sub-txt{\r\n    font-size: 14px;\r\n}", ""]);
 
 // exports
 
@@ -405,7 +598,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <admin-sidebar></admin-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <admin-topbar></admin-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                \r\n                \r\n                <div class=\"user-dashboard\">\r\n                    <h1>Hello, JS</h1>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-5 col-sm-5 col-xs-12 gutter\">\r\n\r\n                            <div class=\"sales\">\r\n                                <h2>Your Sale</h2>\r\n\r\n                                <div class=\"btn-group\">\r\n                                    <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                                        <span>Period:</span> Last Year\r\n                                    </button>\r\n                                    <div class=\"dropdown-menu\">\r\n                                        <a href=\"#\">2012</a>\r\n                                        <a href=\"#\">2014</a>\r\n                                        <a href=\"#\">2015</a>\r\n                                        <a href=\"#\">2016</a>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-7 col-sm-7 col-xs-12 gutter\">\r\n\r\n                            <div class=\"sales report\">\r\n                                <h2>Report</h2>\r\n                                <div class=\"btn-group\">\r\n                                    <button class=\"btn btn-secondary btn-lg dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                                        <span>Period:</span> Last Year\r\n                                    </button>\r\n                                    <div class=\"dropdown-menu\">\r\n                                        <a href=\"#\">2012</a>\r\n                                        <a href=\"#\">2014</a>\r\n                                        <a href=\"#\">2015</a>\r\n                                        <a href=\"#\">2016</a>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n                <admin-footer></admin-footer>\r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
+module.exports = "<body class=\"home\" *ngIf=\"counts\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n\r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                <!-- sidebar-->\r\n\r\n                <admin-sidebar></admin-sidebar>\r\n                <!-- end sidebar-->\r\n            </div>\r\n\r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <admin-topbar></admin-topbar>\r\n\r\n                <!-- end topbar-->\r\n\r\n\r\n                <div class=\"user-dashboard\">\r\n                    <!-- <h1>Hello, JS</h1> -->\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-9 col-sm-5 col-xs-12 gutter ad-tp\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"fa fa-users\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.users}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Users</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-industry\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.companies}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Companies</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-code-fork\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.projects}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Projects</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-6\">\r\n                                <app-admin-dashboard-pie></app-admin-dashboard-pie>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                \r\n\r\n            </div>\r\n            <!-- footer-->\r\n            <admin-footer></admin-footer>\r\n            <!-- end footer-->\r\n        </div>\r\n    </div>\r\n    <!-- Modal -->\r\n</body>"
 
 /***/ }),
 
@@ -415,6 +608,7 @@ module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid disp
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminDashboardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__ = __webpack_require__("../../../../../src/app/services/super-admin.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -425,10 +619,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var AdminDashboardComponent = (function () {
-    function AdminDashboardComponent() {
+    function AdminDashboardComponent(superAdminService) {
+        this.superAdminService = superAdminService;
     }
     AdminDashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.superAdminService.getPieDataforAdminDashboard().subscribe(function (resCounts) {
+            console.log(resCounts);
+            _this.counts = resCounts;
+        });
     };
     AdminDashboardComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -436,7 +637,7 @@ var AdminDashboardComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__["a" /* SuperAdminService */]])
     ], AdminDashboardComponent);
     return AdminDashboardComponent;
 }());
@@ -588,7 +789,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-login/admin-login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<body class=\"logn\">\n    <div class=\"row\">\n\t   <div class=\"col-md-8\">\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"logn-img\">\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\"/>\n\t\t\t\t\t<div class=\"paragraph\">\n\t\t\t\t\t\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t   </div>\n\t   <div class=\"col-md-4\">\n\t\t\t<div class=\"row\">\n\t\t\t\t\t\n\t\t\t<!-- Mixins-->\n\t\t\t<!-- Pen Title-->\n\t\t\t\n\t\t\t<div class=\"container admin-logn\">\n\t\t\t  <div class=\"card\"></div>\n\t\t\t  <div class=\"card\">\n        <h1 class=\"title\">Login</h1>\n        \n\t\t\t\t<form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"f.form.valid && login()\" novalidate>\n\t\t\t\t  <div class=\"input-container\">\n\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\n\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t<input type=\"text\" id=\"Username\" [(ngModel)]=\"newLogin.email\" name=\"email\" #email=\"ngModel\"/>\n\t\t\t\t\t<label for=\"Username\">Username</label>\n\t\t\t\t\t<div class=\"bar\"></div>\n\t\t\t\t\t</div>\n\t\t\t\t  </div>\n\t\t\t\t  <div class=\"clearfix\"></div>\n\t\t\t\t  <div class=\"input-container\">\n\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\n\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t<input type=\"password\" id=\"Password\" [(ngModel)]=\"newLogin.password\" name=\"password\" #password=\"ngModel\"/>\n\t\t\t\t\t<label for=\"Password\">Password</label>\n\t\t\t\t\t<div class=\"bar\"></div>\n\t\t\t\t\t</div>\n\t\t\t\t  </div>\n\t\t\t\t  <!-- <div class=\"input-container\">\n\t\t\t\t\t \n\t\t\t\t\t  <div class=\"col-xs-10 padd-lft\">\n\t\t\t\t\t  <div class=\"g-recaptcha\" data-sitekey=\"6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU\"><div style=\"width: 304px; height: 78px;\"><div><iframe src=\"https://www.google.com/recaptcha/api2/anchor?k=6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU&amp;co=aHR0cDovL3d3dy50c3MtYWR2LmNvbTo4MA..&amp;hl=en&amp;v=v1518566665321&amp;size=normal&amp;cb=ri090lbnphd5\" width=\"304\" height=\"78\" role=\"presentation\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe></div><textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; \"></textarea></div></div>\n\t\t\t\t\t  </div>\n\t\t\t\t  </div> -->\n\t\t\t\t  <div class=\"clearfix\"></div>\n\t\t\t\t  <!-- <div class=\"footer\"><a href=\"#\">Forgot your password?</a></div> -->\n\t\t\t\t  <div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign up</button></div>\n\t\t\t\t   <div *ngIf= \"showError\">\n\t\t\t\t\t\t <label>{{Error}}</label>\n\t\t\t\t\t </div>\n\t\t\t\t  \n\t\t\t\t</form>\n\t\t\t  </div>\n\t\t\t \n\t\t\t</div>\n\t\t\t\n\t\t   </div>\n<!-- \t\t\t\n\t\t  <div class=\"social-login\">\n\t\t\t  <a href=\"#\">\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\n\t\t\t\tLogin in with facebook\n\t\t\t  </a>\n\t\t\t  <a href=\"#\">\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\n\t\t\t\tlog in with Google\n\t\t\t  </a>\n\t\t\t</div> -->\n\t   </div>\n   </div>\n\n    <!-- Modal -->\n\n</body>\n"
+module.exports = "<body class=\"logn\">\n\t<div class=\"row\">\n\t\t<div class=\"col-md-8\">\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"logn-img\">\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" />\n\t\t\t\t\t<div class=\"paragraph\">\n\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi\n\t\t\t\t\t\ttristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-md-4\">\n\t\t\t<div class=\"row\">\n\n\t\t\t\t<!-- Mixins-->\n\t\t\t\t<!-- Pen Title-->\n\n\t\t\t\t<div class=\"container admin-logn\">\n\t\t\t\t\t<div class=\"card\"></div>\n\t\t\t\t\t<div class=\"card\">\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\n\n\t\t\t\t\t\t<form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"f.form.valid && login()\" novalidate>\n\t\t\t\t\t\t\t<div class=\"input-container\">\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" [(ngModel)]=\"newLogin.email\" name=\"email\" #email=\"ngModel\" />\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Username</label>\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\t<div class=\"input-container\">\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t\t<input type=\"password\" id=\"Password\" [(ngModel)]=\"newLogin.password\" name=\"password\" #password=\"ngModel\" />\n\t\t\t\t\t\t\t\t\t<label for=\"Password\">Password</label>\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<!-- <div class=\"input-container\">\n\t\t\t\t\t \n\t\t\t\t\t  <div class=\"col-xs-10 padd-lft\">\n\t\t\t\t\t  <div class=\"g-recaptcha\" data-sitekey=\"6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU\"><div style=\"width: 304px; height: 78px;\"><div><iframe src=\"https://www.google.com/recaptcha/api2/anchor?k=6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU&amp;co=aHR0cDovL3d3dy50c3MtYWR2LmNvbTo4MA..&amp;hl=en&amp;v=v1518566665321&amp;size=normal&amp;cb=ri090lbnphd5\" width=\"304\" height=\"78\" role=\"presentation\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe></div><textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; \"></textarea></div></div>\n\t\t\t\t\t  </div>\n\t\t\t\t  </div> -->\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\t<!-- <div class=\"footer\"><a href=\"#\">Forgot your password?</a></div> -->\n\t\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign up</button></div>\n\t\t\t\t\t\t</form>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t</div>\n\t\t\t<!-- \t\t\t\n\t\t  <div class=\"social-login\">\n\t\t\t  <a href=\"#\">\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\n\t\t\t\tLogin in with facebook\n\t\t\t  </a>\n\t\t\t  <a href=\"#\">\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\n\t\t\t\tlog in with Google\n\t\t\t  </a>\n\t\t\t</div> -->\n\t\t</div>\n\t</div>\n\n\t<!-- Modal -->\n\n</body>"
 
 /***/ }),
 
@@ -600,6 +801,7 @@ module.exports = "\n<body class=\"logn\">\n    <div class=\"row\">\n\t   <div cl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -612,13 +814,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-// import {MatSnackBar} from '@angular/material';
+
 var AdminLoginComponent = (function () {
-    function AdminLoginComponent(adminService, routes
-        // ,public snackBar: MatSnackBar
-    ) {
+    function AdminLoginComponent(adminService, routes, snackBar) {
         this.adminService = adminService;
         this.routes = routes;
+        this.snackBar = snackBar;
         this.newLogin = {
             email: '',
             password: '',
@@ -645,15 +846,12 @@ var AdminLoginComponent = (function () {
             // console.log(data);
             if (data.success == false) {
                 //  this.showSpinner =false;
-                _this.showError = true;
-                _this.Error = data.msg;
-                //    let snackBarRef =  this.snackBar.open('* User Not Found...!', '', {
-                //      duration: 2000
-                //  });
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 3000
+                });
             }
             if (data.success) {
                 //  this.showSpinner =false
-                _this.showError = false;
                 _this.adminService.storeUserData(data.token, data.admin);
                 //  this.routes.navigate(['/admin-dashboard']);
             }
@@ -665,9 +863,7 @@ var AdminLoginComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/admin-login/admin-login.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/admin-login/admin-login.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]
-            // ,public snackBar: MatSnackBar
-        ])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["z" /* MatSnackBar */]])
     ], AdminLoginComponent);
     return AdminLoginComponent;
 }());
@@ -745,7 +941,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".example-container {\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-direction: column;\r\n        flex-direction: column;\r\n    min-width: 300px;\r\n  }\r\n  \r\n  .example-header {\r\n    min-height: 64px;\r\n    padding: 8px 24px 0;\r\n  }\r\n  \r\n \r\n  .mat-form-field {\r\n    /* font-size: 14px; */\r\n    width: 100%;\r\n  }\r\n  \r\n  .mat-table {\r\n    overflow: auto;\r\n    max-height: 500px;\r\n  }\r\n  .example-container {\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-direction: column;\r\n        flex-direction: column;\r\n  }\r\n  .modal{top:0;}\r\n  .example-container > * {\r\n    width: 100%;\r\n  }\r\n  .add-project{\r\n    float: right;\r\n    margin-right: 50px;\r\n    margin-top: 50px;\r\n    border: none;\r\n    width: 40px;\r\n    height: 40px;\r\n    border-radius: 50%;\r\n    padding: 0;\r\n    font-size: 28px;\r\n    line-height: 42px;\r\n    box-shadow: 4px 7px 31px #ffbb8e;\r\n  }\r\n  .modal-header {\r\n    padding: 10px 30px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #fe6a07;\r\n}\r\n.modal-content{\r\n  box-shadow:none;\r\n  border-radius: 9px;\r\n  overflow: hidden;\r\n\r\n}\r\n.modal-title{color:#fff;}\r\n.modal-body{    padding:20px 30px;}\r\n.modal-body input{border:none;}\r\n.modal-body input{padding: 0;}\r\n.mat-form-field-infix {\r\n  display: block;\r\n  position: relative;\r\n  -ms-flex: auto;\r\n      flex: auto;\r\n  min-width: 0;\r\n  width: 180px;\r\n}\r\n\r\n\r\n\r\n.mat-form-field-infix {\r\n  padding-top: 0px;\r\n}\r\n/* .mat-select-panel:not{z-index:10000000000000 !important;} */\r\n\r\n\r\nbody { \r\n  font-family: Roboto, Arial, sans-serif;\r\n  margin: 0;\r\n}\r\n\r\n.basic-container {\r\n  padding: 5px;\r\n}\r\n\r\n.version-info {\r\n  font-size: 8pt;\r\n  float: right;\r\n}", ""]);
+exports.push([module.i, ".example-container {\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-direction: column;\r\n        flex-direction: column;\r\n    min-width: 300px;\r\n  }\r\n  \r\n  .example-header {\r\n    min-height: 64px;\r\n    padding: 8px 24px 0;\r\n  }\r\n  \r\n \r\n  .mat-form-field {\r\n    /* font-size: 14px; */\r\n    width: 100%;\r\n  }\r\n  \r\n  .mat-table {\r\n    overflow: auto;\r\n    max-height: 500px;\r\n  }\r\n  .modal{top:0;}\r\n  .example-container > * {\r\n    width: 100%;\r\n  }\r\n  .add-project{\r\n    float: right;\r\n    margin-right: 50px;\r\n    margin-top: 50px;\r\n    border: none;\r\n    width: 40px;\r\n    height: 40px;\r\n    border-radius: 50%;\r\n    padding: 0;\r\n    font-size: 28px;\r\n    line-height: 42px;\r\n    box-shadow: 4px 7px 31px #ffbb8e;\r\n  }\r\n  .modal-header {\r\n    padding: 10px 30px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #fe6a07;\r\n}\r\n.modal-content{\r\n  box-shadow:none;\r\n  border-radius: 9px;\r\n  overflow: hidden;\r\n\r\n}\r\n.modal-title{color:#fff;}\r\n.modal-body{    padding:20px 30px;}\r\n.modal-body input{border:none;}\r\n.modal-body input{padding: 0;}\r\n.mat-form-field-infix {\r\n  display: block;\r\n  position: relative;\r\n  -ms-flex: auto;\r\n      flex: auto;\r\n  min-width: 0;\r\n  width: 180px;\r\n}\r\n\r\n\r\n\r\n.mat-form-field-infix {\r\n  padding-top: 0px;\r\n}\r\n/* .mat-select-panel:not{z-index:10000000000000 !important;} */\r\n\r\n\r\nbody { \r\n  font-family: Roboto, Arial, sans-serif;\r\n  margin: 0;\r\n}\r\n\r\n.basic-container {\r\n  padding: 5px;\r\n}\r\n\r\n.version-info {\r\n  font-size: 8pt;\r\n  float: right;\r\n}\r\n.round-button{\r\n  float:none !important;\r\n}\r\n.center-bt {\r\n    margin: 20px auto 10px auto;\r\n    float: none;\r\n}", ""]);
 
 // exports
 
@@ -758,7 +954,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-plan/admin-plan.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n        <!-- <nav class=\"nav-sidebar\">\n                      <ul class=\"nav tabs buttonleft\"> -->\n        <!-- <li > -->\n\n        <!-- </li> -->\n\n\n        <!-- <li [ngClass]=\"{'active1': viewComp == 'Active'}\"><a (click)=\"updateView('Active')\" href=\"#tab4\" data-toggle=\"tab\">Active Users</a></li> \n                            <li [ngClass]=\"{'active1': viewComp == 'Blocked'}\"><a (click)=\"updateView('Blocked')\" href=\"#tab2\" data-toggle=\"tab\">Blocked Users</a></li>\n                            <li [ngClass]=\"{'active1': viewComp == 'Delete'}\"><a (click)=\"updateView('Delete')\" href=\"#tab3\" data-toggle=\"tab\">Delete Users</a></li>   -->\n\n        <!-- </ul>\n                    </nav> -->\n      </div>\n      <admin-topbar></admin-topbar>\n\n      <div class=\"col-md-12 col-xs-9\">\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n        <div class=\"row\">\n\n\n\n          <div class=\"example-container mat-elevation-z8\">\n            <div class=\"example-header\">\n              <mat-form-field>\n                <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n              </mat-form-field>\n            </div>\n            <mat-table [dataSource]=\"dataSource\" matSort>\n              <ng-container matColumnDef=\"slno\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\n                <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"planname\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> PLAN NAME</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"> {{row.plan_name}}</mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"price\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> PRICE</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"> {{row.plan_price}}</mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"bestvalue\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> BEST VALUE</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\">\n\n                  <mat-slide-toggle class=\"example-margin\" name=\"best\" [(ngModel)]=\"row.is_best_value\" (change)=\"onChange(row._id,row.is_best_value)\"\n                    [checked]=\"row.is_best_value\">\n\n                  </mat-slide-toggle>\n                </mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"action\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\n                  <mat-menu #menu=\"matMenu\">\n                    <!-- <button mat-menu-item disabled *ngIf=\"row.status==false\" (click)=\"getEditId(row._id)\" data-toggle=\"modal\" data-target=\"#myModal2\">\n                                                                <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                                                                <span>Edit</span>\n                                                                </button> -->\n                    <button mat-menu-item (click)=\"getEditId(row._id)\" data-toggle=\"modal\" data-target=\"#myModal2\">\n                                                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                                                            <span>Edit</span>\n                                                            </button>\n\n\n                    <button mat-menu-item (click)=\"getId(row._id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \n                                                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\n                                                            <span>Delete</span>\n                                                        </button>\n                  </mat-menu>\n                </mat-cell>\n\n              </ng-container>\n\n\n\n              <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n              <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\n              </mat-row>\n            </mat-table>\n            <!-- <div class=\"col-md-15 \"> -->\n            <!-- <div *ngIf=\"showSpinnerDelete\" class=\"deletespinner\">\n                          <mat-spinner></mat-spinner>\n                       </div> -->\n\n            <!-- </div> -->\n\n            <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n              <div class=\"col-md-4 col-md-offset-4\">\n                <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n              </div>\n            </div>\n            <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n          </div>\n        </div>\n      </div>\n      <div class=\"add-button\">\n        <button type=\"button\" class=\"add-project\" data-toggle=\"modal\" data-target=\"#addModal\" data-backdrop=\"static\">+</button>\n      </div>\n      <!-- -------------------------Modal -add plan------------------------------ -->\n\n      <div id=\"addModal\" class=\"modal fade\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\n              <h4 class=\"modal-title\">Add New Plan</h4>\n            </div>\n            <div class=\"modal-body\">\n\n              <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addPlan(newPlan);\" novalidate>\n\n                <div>\n                  <div class=\"example-container\">\n                    <mat-form-field>\n                      <input matInput placeholder=\"Plan Name\" name=\"planname\" [(ngModel)]=\"newPlan.planname\" required>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <span matPrefix>₹&nbsp;</span>\n                      <input matInput placeholder=\"Price\" type=\"number\" min=\"1\" class=\"example-right-align\" name=\"planprice\" [(ngModel)]=\"newPlan.planprice\"\n                        required>\n\n                      <!-- <span matSuffix>.00</span> -->\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n\n                      <mat-select placeholder=\"No of projects\" name=\"surveyno\" [(ngModel)]=\"newPlan.surveyno\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n\n\n                    <mat-form-field *ngIf=\"newPlan.surveyno == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"newPlan.value1\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Members\" name=\"surveyqtno\" [(ngModel)]=\"newPlan.surveyqtno\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.surveyqtno == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value2\" [(ngModel)]=\"newPlan.value2\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Modules\" name=\"surveyattno\" [(ngModel)]=\"newPlan.surveyattno\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.surveyattno == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"newPlan.value3\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Tasks\" name=\"surveyattno\" [(ngModel)]=\"newPlan.surveyattno\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.surveyattno == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value4\" [(ngModel)]=\"newPlan.value4\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n\n                  </div>\n\n                </div>\n                <br>\n                <!-- <div *ngIf=\"showSpinner\">\n                                    <mat-spinner></mat-spinner>\n                                   </div> -->\n\n\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button\">Submit</button>\n\n                  </div>\n                  <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                    <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                      x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\"\n                      xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div> -->\n\n                </div>\n\n              </form>\n            </div>\n            <div class=\"modal-footer\">\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n\n      <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\n      <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Delete </h4>\n            </div>\n            <!-- <div class=\"modal-header\"> -->\n            <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n            <!-- </div> -->\n            <div class=\"modal-body\">\n              <h4 class=\"textalign\">Are you sure to delete?</h4>\n\n            </div>\n\n            <div class=\"modal-footer\">\n              <button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button>\n              <button type=\"button\" (click)=\"deletePlan(id)\" class=\"btn btn-danger\" data-dismiss=\"modal\">Delete</button>\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n\n\n      <!-- ----------------------------------------------------------------------Edit modal-------------------------------------------------------------------------- -->\n      <div id=\"myModal2\" class=\"modal fade\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\n              <h4 class=\"modal-title\">update plan</h4>\n            </div>\n            <div class=\"modal-body\">\n\n              <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"f.form.valid && updatePlan(plan);\" novalidate>\n\n                <div class=\"form-group\">\n                  <div class=\"example-container\">\n\n                    <mat-form-field>\n                      <input matInput placeholder=\"Plan Name\" name=\"plan_name\" [(ngModel)]=\"plan.plan_name\" required>\n                    </mat-form-field>\n                    <div *ngIf=\"!disablePrice\">\n                      <mat-form-field class=\"inputfileds\">\n\n                        <input matInput placeholder=\"Price\" type=\"number\" min=\"1\" class=\"example-right-align\" name=\"plan_price\" [(ngModel)]=\"plan.plan_price\"\n                          required>\n                        <span matPrefix>₹&nbsp;</span>\n                        <!-- <span matSuffix>.00</span> -->\n\n                      </mat-form-field>\n                    </div>\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of survey\" name=\"no_survey\" [(ngModel)]=\"plan.numofsurvey\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.numofsurvey == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"plan.no_survey\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of survey Question\" name=\"no_question\" [(ngModel)]=\"plan.numofqtn\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.numofqtn == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value2\" [(ngModel)]=\"plan.no_question\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of Survey Attenders\" name=\"no_survey_attenders\" [(ngModel)]=\"plan.numofsurveyattn\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.numofsurveyattn == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"plan.no_survey_attenders\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <section class=\"example-section\">\n                      Excel import\n                      <mat-slide-toggle class=\"example-margin\" name=\"eximport\" [(ngModel)]=\"plan.excel_import\" [checked]=\"plan.excel_import\"></mat-slide-toggle>\n\n\n\n                    </section>\n                    <section class=\"example-section\">\n                      Survey Logic\n                      <mat-slide-toggle class=\"example-margin\" name=\"skip\" [(ngModel)]=\"plan.survey_logic\" [checked]=\"plan.survey_logic\">\n\n                      </mat-slide-toggle>\n                    </section>\n\n                  </div>\n                </div>\n                <!-- <div *ngIf=\"showSpinner\">\n            <mat-spinner></mat-spinner>\n           </div> -->\n                <br>\n\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" class=\"btn btn-danger ourbutton\">Update</button>\n\n                  </div>\n                  <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                    <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                      x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\"\n                      xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div>\n\n                </div>\n\n              </form>\n            </div>\n            <div class=\"modal-footer\">\n            </div>\n          </div>\n\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- <footer></footer>  -->\n\n</body>"
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <admin-topbar></admin-topbar>\n<br>\n      <div class=\"col-md-12 col-xs-9\">\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n\n\n          <div class=\"example-container mat-elevation-z8\">\n            <div class=\"example-header\">\n              <mat-form-field>\n                <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n              </mat-form-field>\n            </div>\n            <mat-table [dataSource]=\"dataSource\" matSort>\n              <ng-container matColumnDef=\"slno\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\n                <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"planname\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> PLAN NAME</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"> {{row.plan_name}}</mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"price\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> PRICE</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"> {{row.plan_price}}</mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"bestvalue\">\n                <mat-header-cell *matHeaderCellDef > BEST VALUE</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\">\n\n                  <mat-slide-toggle class=\"example-margin\" name=\"best\" [(ngModel)]=\"row.is_best_value\" (change)=\"onChange(row.id,row.is_best_value)\"\n                    [checked]=\"row.is_best_value\">\n\n                  </mat-slide-toggle>\n                </mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"action\">\n                <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\n                  <mat-menu #menu=\"matMenu\">\n                    <!-- <button mat-menu-item disabled *ngIf=\"row.status==false\" (click)=\"getEditId(row._id)\" data-toggle=\"modal\" data-target=\"#myModal2\">\n                                                                <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                                                                <span>Edit</span>\n                                                                </button> -->\n                    <button mat-menu-item (click)=\"getEditId(row.id)\" data-toggle=\"modal\" data-target=\"#myModal2\">\n                                                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                                                            <span>Edit</span>\n                                                            </button>\n\n\n                    <button mat-menu-item (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \n                                                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\n                                                            <span>Delete</span>\n                                                        </button>\n                  </mat-menu>\n                </mat-cell>\n\n              </ng-container>\n\n\n\n              <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n              <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\n              </mat-row>\n            </mat-table>\n            <!-- <div class=\"col-md-15 \"> -->\n            <!-- <div *ngIf=\"showSpinnerDelete\" class=\"deletespinner\">\n                          <mat-spinner></mat-spinner>\n                       </div> -->\n\n            <!-- </div> -->\n\n            <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n              <div class=\"col-md-4 col-md-offset-4\">\n                <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n              </div>\n            </div>\n            <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n          </div>\n        </div>\n        </div>\n      </div>\n      <div class=\"add-button\">\n        <button type=\"button\" class=\"add-project\" data-toggle=\"modal\" data-target=\"#addModal\" data-backdrop=\"static\">+</button>\n      </div>\n      <!-- -------------------------Modal -add plan------------------------------ -->\n\n      <div id=\"addModal\" class=\"modal fade\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\n              <h4 class=\"modal-title\">Add New Plan</h4>\n            </div>\n            <div class=\"modal-body\">\n\n              <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addPlan(newPlan);\" novalidate>\n\n                <div>\n                  <div class=\"example-container\">\n                    <mat-form-field>\n                      <input matInput placeholder=\"Plan Name\" name=\"plan_name\" [(ngModel)]=\"newPlan.plan_name\" required>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <span matPrefix>₹&nbsp;</span>\n                      <input matInput placeholder=\"Price\" type=\"number\" min=\"1\" class=\"example-right-align\" name=\"plan_price\" [(ngModel)]=\"newPlan.plan_price\"\n                        required>\n\n                      <!-- <span matSuffix>.00</span> -->\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n\n                      <mat-select placeholder=\"No of projects\" name=\"no_projects\" [(ngModel)]=\"newPlan.no_projects\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n\n\n                    <mat-form-field *ngIf=\"newPlan.no_projects == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"newPlan.value1\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Members\" name=\"no_members\" [(ngModel)]=\"newPlan.no_members\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.no_members == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value2\" [(ngModel)]=\"newPlan.value2\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Modules\" name=\"no_modules\" [(ngModel)]=\"newPlan.no_modules\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.no_modules == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"newPlan.value3\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Tasks\" name=\"no_tasks\" [(ngModel)]=\"newPlan.no_tasks\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.no_tasks == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value4\" [(ngModel)]=\"newPlan.value4\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n\n                  </div>\n\n                </div>\n                <br>\n                <!-- <div *ngIf=\"showSpinner\">\n                                    <mat-spinner></mat-spinner>\n                                   </div> -->\n\n\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button\">Submit</button>\n\n                  </div>\n                  <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                    <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                      x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\"\n                      xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div> -->\n\n                </div>\n\n              </form>\n            </div>\n            <div class=\"modal-footer\">\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n\n      <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\n      <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Delete </h4>\n            </div>\n            <!-- <div class=\"modal-header\"> -->\n            <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n            <!-- </div> -->\n            <div class=\"modal-body delete-popup\">\n              <i class=\"fa fa-exclamation\"></i>\n\n\n              <h4 class=\"textalign\">Are you sure?</h4>\n\n            </div>\n\n            <div class=\"modal-footer\" style=\"text-align:center;\">\n              <button type=\"button\" (click)=\"deletePlan(planId)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n      <!-- ----------------------------------------------------------------------Edit modal-------------------------------------------------------------------------- -->\n      <div id=\"myModal2\" class=\"modal fade\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\n              <h4 class=\"modal-title\">Update Plan</h4>\n            </div>\n            <div class=\"modal-body\">\n\n              <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"f.form.valid && updatePlan(plan);\" novalidate>\n\n                <div class=\"form-group\">\n                  <div class=\"example-container\">\n\n                    <mat-form-field>\n                      <input matInput placeholder=\"Plan Name\" name=\"plan_name\" [(ngModel)]=\"plan.plan_name\" required>\n                    </mat-form-field>\n                    <div *ngIf=\"!disablePrice\">\n                      <mat-form-field class=\"inputfileds\">\n\n                        <input matInput placeholder=\"Price\" type=\"number\" min=\"1\" class=\"example-right-align\" name=\"plan_price\" [(ngModel)]=\"plan.plan_price\"\n                          required>\n                        <span matPrefix>₹&nbsp;</span>\n                        <!-- <span matSuffix>.00</span> -->\n\n                      </mat-form-field>\n                    </div>\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of projects\" name=\"noprojects\" [(ngModel)]=\"plan.noprojects\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.noprojects != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"plan.no_projects\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <!-- <mat-form-field *ngIf=\"newPlan.no_projects == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"newPlan.value1\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field> -->\n\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of members\" name=\"no_members\" [(ngModel)]=\"plan.nomembers\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.nomembers != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value2\" [(ngModel)]=\"plan.no_members\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of modules\" name=\"no_modules\" [(ngModel)]=\"plan.nomodules\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.nomodules != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"plan.no_modules\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of tasks\" name=\"no_tasks\" [(ngModel)]=\"plan.notasks\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.notasks != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"plan.no_tasks\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    \n\n                  </div>\n                </div>\n                <!-- <div *ngIf=\"showSpinner\">\n            <mat-spinner></mat-spinner>\n           </div> -->\n                <br>\n\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button\">Update</button>\n\n                  </div>\n                  <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                    <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                      x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\"\n                      xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div> -->\n\n                </div>\n\n              </form>\n            </div>\n            <div class=\"modal-footer\">\n            </div>\n          </div>\n\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- <footer></footer>  -->\n\n</body>"
 
 /***/ }),
 
@@ -784,10 +980,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AdminPlanComponent = (function () {
-    function AdminPlanComponent(adminService, routes) {
+    function AdminPlanComponent(adminService, routes, snackBar) {
         this.adminService = adminService;
         this.routes = routes;
+        this.snackBar = snackBar;
         this.displayedColumns = ['slno', 'planname', 'price', 'bestvalue', 'action'];
         this.notExist = false;
         this.disablePrice = false;
@@ -796,26 +994,24 @@ var AdminPlanComponent = (function () {
         this.plan = {
             plan_name: '',
             plan_price: '',
-            no_survey: '',
-            numofsurvey: '',
-            no_question: '',
-            numofqtn: '',
-            no_survey_attenders: '',
-            numofsurveyattn: '',
-            excel_import: '',
-            survey_logic: ''
+            no_projects: '',
+            no_members: '',
+            no_modules: '',
+            no_tasks: '',
+            noprojects: '',
+            nomembers: '',
+            nomodules: '',
+            notasks: '',
         };
         this.newPlan = {
-            planname: '',
-            planprice: '',
-            surveyno: '',
-            surveyqtno: '',
-            surveyattno: '',
+            plan_name: '',
+            plan_price: '',
+            no_projects: '',
+            no_members: '',
+            no_modules: '',
             value1: '',
             value2: '',
-            value3: '',
-            skip: false,
-            eximport: false
+            value3: ''
         };
     }
     AdminPlanComponent.prototype.ngOnInit = function () {
@@ -824,17 +1020,157 @@ var AdminPlanComponent = (function () {
     AdminPlanComponent.prototype.getPlan = function () {
         var _this = this;
         var users = [];
+        // ---------------------------------Start-------------------------------------------
+        // Function      : get all plans
+        // Params        : 
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 05-03-2018
+        // Last Modified : 05-03-2018, Rinsha
+        // Desc          : getAllplans 
         this.adminService.getAllplans().subscribe(function (data) {
             _this.showSpinnerDelete = false;
-            console.log(data);
+            // console.log(data);
             if (data.length == 0) {
                 _this.notExist = true;
             }
-            _this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["D" /* MatTableDataSource */](data);
-            console.log(_this.dataSource);
+            _this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["E" /* MatTableDataSource */](data);
+            // console.log(this.dataSource);
             _this.dataSource.paginator = _this.paginator;
             _this.dataSource.sort = _this.sort;
         });
+        // ---------------------------------End-------------------------------------------
+    };
+    AdminPlanComponent.prototype.addPlan = function (plan) {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : add plan
+        // Params        : data from form
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 07-03-2018
+        // Last Modified : 07-03-2018, Rinsha
+        // Desc          : add plan 
+        // console.log(plan);
+        this.adminService.addPlan(plan).subscribe(function (data) {
+            if (data.success == true) {
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 3000
+                });
+                _this.closeBtn.nativeElement.click();
+                _this.getPlan();
+            }
+            else {
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 3000
+                });
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    AdminPlanComponent.prototype.applyFilter = function (filterValue) {
+        filterValue = filterValue.trim(); // Remove whitespace
+        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+        this.dataSource.filter = filterValue;
+    };
+    AdminPlanComponent.prototype.onChange = function (id, value) {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : best plan
+        // Params        : id and value
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 07-03-2018
+        // Last Modified : 07-03-2018, Rinsha
+        // Desc          : to change a plan to best
+        this.adminService.bestPlan(id, value).subscribe(function (data2) {
+            if (data2.success == true) {
+                _this.getPlan();
+            }
+            else {
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    AdminPlanComponent.prototype.deletePlan = function (id) {
+        var _this = this;
+        // console.log(id);
+        // ---------------------------------Start-------------------------------------------
+        // Function      : delete plan
+        // Params        : id 
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 07-03-2018
+        // Last Modified : 07-03-2018, Rinsha
+        // Desc          : to delete a plan which is'nt used by any company
+        this.adminService.deletePlan(id).subscribe(function (data2) {
+            if (data2.success == true) {
+                var snackBarRef = _this.snackBar.open(data2.msg, '', {
+                    duration: 2000
+                });
+                _this.getPlan();
+            }
+            else {
+                var snackBarRef = _this.snackBar.open(data2.msg, '', {
+                    duration: 2000
+                });
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    AdminPlanComponent.prototype.getId = function (id) {
+        this.planId = id;
+    };
+    AdminPlanComponent.prototype.getEditId = function (id) {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : get plan by id
+        // Params        : id
+        // Returns       : plan
+        // Author        : Rinsha
+        // Date          : 07-03-2018
+        // Last Modified : 07-03-2018, Rinsha
+        // Desc          : getplan
+        this.adminService.getPlan(id).subscribe(function (res) {
+            // console.log(res);
+            _this.plan = res;
+            _this.plan.noprojects = (res.no_projects != 'Unlimited') ? "limited" : "Unlimited";
+            _this.plan.nomembers = (res.no_members != 'Unlimited') ? "limited" : "Unlimited";
+            _this.plan.nomodules = (res.no_modules != 'Unlimited') ? "limited" : "Unlimited";
+            _this.plan.notasks = (res.no_tasks != 'Unlimited') ? "limited" : "Unlimited";
+            if (res.is_defualt == true) {
+                _this.disablePrice = true;
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    AdminPlanComponent.prototype.updatePlan = function (plan) {
+        var _this = this;
+        // console.log(plan);
+        // ---------------------------------Start-------------------------------------------
+        // Function      : update plan
+        // Params        : value from form
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 07-03-2018
+        // Last Modified : 07-03-2018, Rinsha
+        // Desc          : update a plan
+        this.adminService.updatePlan(plan).subscribe(function (data) {
+            // console.log(data);
+            if (data.success == true) {
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 3000
+                });
+                _this.closeBtn1.nativeElement.click();
+                _this.getPlan();
+            }
+            else {
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 3000
+                });
+            }
+        });
+        // ---------------------------------End-------------------------------------------
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])('closeBtn'),
@@ -849,8 +1185,8 @@ var AdminPlanComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatPaginator */])
     ], AdminPlanComponent.prototype, "paginator", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["A" /* MatSort */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["A" /* MatSort */])
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["B" /* MatSort */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["B" /* MatSort */])
     ], AdminPlanComponent.prototype, "sort", void 0);
     AdminPlanComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -858,7 +1194,7 @@ var AdminPlanComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/admin-plan/admin-plan.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/admin-plan/admin-plan.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_material__["z" /* MatSnackBar */]])
     ], AdminPlanComponent);
     return AdminPlanComponent;
 }());
@@ -1010,7 +1346,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-topbar/admin-topbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n        <header>\r\n            \r\n            <div class=\"col-md-5 pull-right\">\r\n                <div class=\"header-rightside\">\r\n                    <ul class=\"list-inline header-top pull-right\">\r\n                        <li class=\"\"><a href=\"#\" class=\"add-project\">Add Project</a></li>\r\n                        \r\n                        <li>\r\n                            <a href=\"#\" class=\"icon-info\">\r\n                                <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\r\n                                <span class=\"label label-primary\">3</span>\r\n                            </a>\r\n                        </li>\r\n                        <li class=\"dropdown\">\r\n                            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                                <b class=\"caret\"></b></a>\r\n                            <ul class=\"dropdown-menu\">\r\n                                <li>\r\n                                    <div class=\"navbar-content\">\r\n                                        <span>JS Krishna</span>\r\n                                        <p class=\"text-muted small\">\r\n                                            me@jskrishna.com\r\n                                        </p>\r\n                                        <div class=\"divider\">\r\n                                        </div>\r\n                                        <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\r\n                                    </div>\r\n                                </li>\r\n                            </ul>\r\n                        </li>\r\n                        <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </header>\r\n    </div>"
+module.exports = "<div class=\"row\">\r\n    <header>\r\n\r\n        <div class=\"col-md-5 pull-right\">\r\n            <div class=\"header-rightside\">\r\n                <ul class=\"list-inline header-top pull-right\">\r\n                    <li class=\"\"><a [routerLink]=\"['/planlist']\" class=\"add-project\">Upgrade</a></li>\r\n                    <li class=\"\"><a href=\"#\" class=\"add-project\">Add Project</a></li>\r\n\r\n                    <li>\r\n                        <a href=\"#\" class=\"icon-info\">\r\n                                <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\r\n                                <span class=\"label label-primary\">3</span>\r\n                            </a>\r\n                    </li>\r\n                    <li class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                                <b class=\"caret\"></b></a>\r\n                        <ul class=\"dropdown-menu\">\r\n                            <li>\r\n                                <div class=\"navbar-content\">\r\n                                    <span>JS Krishna</span>\r\n                                    <p class=\"text-muted small\">\r\n                                        me@jskrishna.com\r\n                                    </p>\r\n                                    <div class=\"divider\">\r\n                                    </div>\r\n                                    <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\r\n                                </div>\r\n                            </li>\r\n                        </ul>\r\n                    </li>\r\n                    <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </header>\r\n</div>"
 
 /***/ }),
 
@@ -1111,6 +1447,203 @@ var AdminTrialComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/assign-project/assign-project.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/assign-project/assign-project.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  assign-project works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/assign-project/assign-project.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AssignProjectComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var AssignProjectComponent = (function () {
+    function AssignProjectComponent() {
+    }
+    AssignProjectComponent.prototype.ngOnInit = function () {
+    };
+    AssignProjectComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-assign-project',
+            template: __webpack_require__("../../../../../src/app/components/assign-project/assign-project.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/assign-project/assign-project.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], AssignProjectComponent);
+    return AssignProjectComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-add-project/company-add-project.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".panel-body {\r\n    padding: 50px;\r\n}\r\n.mrg-top label{padding-top: 20px;}\r\n.round-button{\r\n    float:none !important;\r\n  }\r\n  .center-bt {\r\n      margin: 20px auto 10px auto;\r\n      float: none;\r\n  }", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-add-project/company-add-project.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <admin-topbar></admin-topbar>\n        <br>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n              <h3>Add Project</h3>\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <input matInput [(ngModel)]=\"project.project_name\" name=\"project_name\" autofocus required formControlName=\"project_nameValidation\">\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Type :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"project_type\" [(ngModel)]=\"project.project_type\" required formControlName=\"project_typeValidation\">\n                      <mat-option value=\"Billable\">Billable</mat-option>\n                      <mat-option value=\"Non-billable\">Non-billable</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select [(ngModel)]=\"project.category_id\" name=\"category_id\" required formControlName=\"category_idValidation\">\n                      <mat-option *ngFor=\"let item of categories\" [value]=\"item.id\">\n                        {{ item.category_name }}\n                      </mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"priority\" [(ngModel)]=\"project.priority\" required formControlName=\"priorityValidation\">\n                      <mat-option value=\"Low\">Low</mat-option>\n                      <mat-option value=\"Medium\">Medium</mat-option>\n                      <mat-option value=\"High\">High</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <textarea matInput [(ngModel)]=\"project.description\" name=\"description\" required formControlName=\"descriptionValidation\"\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Assigned To :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select [(ngModel)]=\"project.pm_id\" name=\"pm_id\" required formControlName=\"pm_idValidation\">\n                      <mat-option *ngFor=\"let item of pm\" [value]=\"item.id\">\n                        {{ item.f_name }} {{ item.l_name }}\n                      </mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"addProject(project)\" class=\"btn round-button center-bt\">Submit</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-add-project/company-add-project.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyAddProjectComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var CompanyAddProjectComponent = (function () {
+    function CompanyAddProjectComponent(snackBar, companyService, routes, _formBuilder) {
+        this.snackBar = snackBar;
+        this.companyService = companyService;
+        this.routes = routes;
+        this._formBuilder = _formBuilder;
+        this.project = {
+            project_name: '',
+            project_type: '',
+            priority: '',
+            description: '',
+            pm_id: '',
+            category_id: '',
+        };
+    }
+    CompanyAddProjectComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.formGroup = this._formBuilder.group({
+            project_nameValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            project_typeValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            priorityValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            descriptionValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            pm_idValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            category_idValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+        });
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get All pm, project category in a company
+        // Params        : 
+        // Returns       : All pm, project category in a company
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getAllPm().subscribe(function (res) {
+            _this.pm = res;
+        });
+        this.companyService.getAllProjectCategory().subscribe(function (res) {
+            _this.categories = res;
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    CompanyAddProjectComponent.prototype.addProject = function (project) {
+        var _this = this;
+        if (project.pm_id == '') {
+            if (confirm("Do you select yourself as the Project Manager? ")) {
+                project.pm_id = LOGIN_ID;
+            }
+        }
+        // console.log(project);
+        // ---------------------------------Start-------------------------------------------
+        // Function      : add project
+        // Params        : data from form
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.addProject(project).subscribe(function (data) {
+            var snackBarRef = _this.snackBar.open(data.msg, '', {
+                duration: 3000
+            });
+            if (data.success == true) {
+                if (project.pm_id == LOGIN_ID) {
+                    _this.routes.navigate(['/assign-project']);
+                }
+                else {
+                    _this.routes.navigate(['/project']);
+                }
+            }
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    CompanyAddProjectComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-add-project',
+            template: __webpack_require__("../../../../../src/app/components/company-add-project/company-add-project.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-add-project/company-add-project.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */]])
+    ], CompanyAddProjectComponent);
+    return CompanyAddProjectComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/company-planlist/company-planlist.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1204,6 +1737,119 @@ var CompanyPlanlistComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/company-project/company-project.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".side-bar-menu{background:#fff;}\r\n.side-bar-menu li{    border-bottom: 1px solid #e4e4e4;}\r\n.side-bar-menu li a{color:#111;text-align:left;padding: 20px 23px;}\r\n.side-bar-menu li a:hover{background-color: #fe6a07;color:#fff;}\r\n.side-bar-menu li>a:focus{background-color: #fe6a07;color:#fff;}\r\n.side-bar-menu li>a:active{background-color: #fe6a07;color:#fff;}\r\n\r\nul.breadcrumb {\r\n    padding: 10px 0;\r\n    list-style: none;\r\n\r\n    text-align: left;\r\n    color: #d68956;\r\n}\r\nul.breadcrumb li {\r\n    display: inline;\r\n    font-size: 15px;\r\n}\r\nul.breadcrumb li+li:before {\r\n    padding: 8px;\r\n    color: black;\r\n    content: \"/\\A0\";\r\n}\r\nul.breadcrumb li a {\r\n    color: #bbbbbb;\r\n    text-decoration: none;\r\n}\r\nul.breadcrumb li a:hover {\r\n    color: #d68956;\r\n    text-decoration: none;\r\n\r\n}\r\n.breadcrumb{    background-color: #f6f7fa;}\r\n\r\n\r\n.example-container {\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -ms-flex-direction: column;\r\n        flex-direction: column;\r\n    min-width: 300px;\r\n  }\r\n  \r\n  .example-header {\r\n    min-height: 64px;\r\n    padding: 8px 24px 0;\r\n  }\r\n  \r\n  .mat-form-field {\r\n    font-size: 14px;\r\n    width: 100%;\r\n  }\r\n  \r\n  .mat-table {\r\n    overflow: auto;\r\n    max-height: 500px;\r\n  }\r\n  .example-tooltip-host {\r\n    display: -ms-inline-flexbox;\r\n    display: inline-flex;\r\n    -ms-flex-align: center;\r\n        align-items: center;\r\n    margin: 50px;\r\n  }\r\n  \r\n  .example-select {\r\n    margin: 0 10px;\r\n  }\r\n  .filter{\r\n    /* width: 5%; */\r\n    /* float: right;\r\n    clear: left; */\r\n    /* padding-bottom: 25px; */\r\n    margin-top: 10px;\r\n   \r\n  }\r\n  /* h4{\r\n    text-align: center;\r\n} */\r\n.noItemFound{\r\n  text-align: center;\r\n  background-color: #ffffff;\r\n  border-bottom: 1px solid lightgray;\r\n\r\n}\r\n.back-color{\r\n  color: #757575;\r\n  background-color: #ffffff;\r\n}\r\nsvg path,\r\nsvg rect{\r\n  fill: #EC0C0C;\r\n}\r\n.modal-content{border-radius:0;box-shadow:none;}\r\n.modal-header {\r\n    padding: 7px 15px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #da524f;\r\n}\r\n.modal-title {\r\n    margin: 0;\r\n    line-height: 26px;\r\n    font-size: 15px;\r\n    color: #fff;\r\n}\r\n.close {\r\n   \r\n    font-size: 21px;\r\n    font-weight: 400;\r\n    line-height: 28px;\r\n    color: #fff;\r\n    text-shadow: none;\r\n    filter: alpha(opacity=20);\r\n    opacity: inherit;\r\n    padding-top:0px;\r\n}\r\n.optionz{background:#fff;}\r\n.mat-select-panel{margin-top:39px;}\r\n\r\n.example-container {\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -ms-flex-direction: column;\r\n      flex-direction: column;\r\n  min-width: 300px;\r\n}\r\n\r\n.example-header {\r\n  min-height: 64px;\r\n  padding: 8px 24px 0;\r\n}\r\n\r\n\r\n.mat-form-field {\r\n  /* font-size: 14px; */\r\n  width: 100%;\r\n}\r\n\r\n.mat-table {\r\n  overflow: auto;\r\n  max-height: 500px;\r\n}\r\n.example-container {\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -ms-flex-direction: column;\r\n      flex-direction: column;\r\n}\r\n.modal{top:0;}\r\n.example-container > * {\r\n  width: 100%;\r\n}\r\n.add-project{\r\n  float: right;\r\n  margin-right: 50px;\r\n  margin-top: 50px;\r\n  border: none;\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\r\n  padding: 0;\r\n  font-size: 28px;\r\n  line-height: 42px;\r\n  box-shadow: 4px 7px 31px #ffbb8e;\r\n}\r\n.modal-header {\r\n  padding: 10px 30px;\r\n  border-bottom: 1px solid #e5e5e5;\r\n  background: #fe6a07;\r\n}\r\n.modal-content{\r\nbox-shadow:none;\r\nborder-radius: 9px;\r\noverflow: hidden;\r\n\r\n}\r\n.modal-title{color:#fff;}\r\n.modal-body{    padding:20px 30px;}\r\n.modal-body input{border:none;}\r\n.modal-body input{padding: 0;}\r\n.mat-form-field-infix {\r\ndisplay: block;\r\nposition: relative;\r\n-ms-flex: auto;\r\n    flex: auto;\r\nmin-width: 0;\r\nwidth: 180px;\r\n}\r\n\r\n\r\n\r\n.mat-form-field-infix {\r\npadding-top: 0px;\r\n}\r\n/* .mat-select-panel:not{z-index:10000000000000 !important;} */\r\n\r\n\r\nbody { \r\nfont-family: Roboto, Arial, sans-serif;\r\nmargin: 0;\r\n}\r\n\r\n.basic-container {\r\npadding: 5px;\r\n}\r\n\r\n.version-info {\r\nfont-size: 8pt;\r\nfloat: right;\r\n}\r\n.round-button{\r\nfloat:none !important;\r\n}\r\n.center-bt {\r\n  margin: 20px auto 10px auto;\r\n  float: none;\r\n}\r\n.round-button {\r\n  border-radius: 20px;\r\n  margin: 0;\r\n  float: left;\r\n  background: #f37600;\r\n  color: #fff;\r\n  padding: 7px 15px;\r\n  transition: background 2s;\r\n  margin-bottom: 15px;\r\n}\r\n.round-button:hover {\r\n  background: #ffaa05;\r\n  color: #fff;}\r\n  .fa-exclamation {\r\n    text-align: center;\r\n    font-size: 36px !important;\r\n    color: #d9534f;\r\n    border-radius: 50%;\r\n    border: 3px solid;\r\n    margin-top: 23px;\r\n    width: 60px;\r\n    height: 60px;\r\n    padding-top: 10px;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-project/company-project.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <!-- topbar-->\n        <admin-topbar></admin-topbar>\n\n        <!-- end topbar-->\n\n\n        <div class=\"user-dashboard\">\n\n          <div class=\"row\">\n            <!-----------------------------------------------------------------table-------------------------------------->\n\n            <div class=\"col-md-12\">\n              <div class=\"row\">\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\n                  <div class=\"\">\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div>\n                </div> -->\n\n\n                <div class=\"col-md-12 optionz\">\n                  <div class=\"row\">\n                    <div class=\"col-md-6\">\n                      <div class=\"example-header\">\n                        <mat-form-field>\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                        </mat-form-field>\n                      </div>\n                    </div>\n                    <div class=\"col-md-2 pull-right\">\n                      <div>\n                        <mat-form-field class=\"filter\">\n\n                          <mat-select (change)=\"getPlan()\" [(value)]=\"selected\">\n                            <mat-option value=\"all\">All</mat-option>\n                            <mat-option value=\"Active\">In Progress</mat-option>\n                            <mat-option value=\"Block\">Drafted</mat-option>\n                            <mat-option value=\"Block\">Planned</mat-option>\n                            <mat-option value=\"Block\">Completed</mat-option>\n                            <mat-option value=\"Block\">Cancelled</mat-option>\n                            <!-- <mat-option value=\"Delete\">Delete </mat-option> -->\n                          </mat-select>\n                        </mat-form-field>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"example-container mat-elevation-z8\">\n                  <mat-table [dataSource]=\"dataSource\" matSort>\n                    <ng-container matColumnDef=\"slno\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"project\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"startdate\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTUAL/PLANNED START DATE</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.planned_start_date}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"enddate\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTUAL/PLANNED END DATE</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.planned_start_date}}</mat-cell>\n                    </ng-container>\n\n                    <ng-container matColumnDef=\"action\">\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\n                        <mat-menu #menu=\"matMenu\">\n                          <button mat-menu-item (click)=\"getEditId(row.id)\" data-toggle=\"modal\" data-target=\"#myModal2\">\n                                                        <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                                                        <span>Edit</span>\n                          </button>\n\n\n                          <button mat-menu-item (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \n                                                        <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\n                                                        <span>Delete</span>\n                          </button>\n                        </mat-menu>\n                      </mat-cell>\n\n                    </ng-container>\n\n\n\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\n                    </mat-row>\n                  </mat-table>\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n                    <div class=\"col-md-4 col-md-offset-4\">\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n                    </div>\n                  </div>\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n                </div>\n\n\n              </div>\n            </div>\n            <div class=\"add-button\">\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\n            </div>\n            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\n\n            <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                    <h4 class=\"modal-title\">Delete </h4>\n                  </div>\n                  <!-- <div class=\"modal-header\"> -->\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                  <!-- </div> -->\n                  <div class=\"modal-body delete-popup\">\n                    <i class=\"fa fa-exclamation\"></i>\n\n\n                    <h4 class=\"textalign\">Are you sure?</h4>\n\n                  </div>\n\n                  <div class=\"modal-footer\">\n                    <button type=\"button\" (click)=\"deleteUser(id)\" class=\"btn round-button\" data-dismiss=\"modal\">Delete</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n            <!-----------------------------------------------------------------delete modal-------------------------------------->\n            <!-----------------------------------------------------------------add modal-------------------------------------->\n            <div id=\"addModal\" class=\"modal fade\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\n                    <h4 class=\"modal-title\">Add New User</h4>\n                  </div>\n                  <div class=\"modal-body\">\n\n                  </div>\n                  <div class=\"modal-footer\">\n                  </div>\n                </div>\n\n              </div>\n            </div>\n            <!----------------------------------------addModal------------------------------>\n            <!-----------------------------------------------------------------end table-------------------------------------->\n          </div>\n        </div>\n\n      </div>\n      <!-- footer-->\n      <!-- <company-footer></company-footer> -->\n      <!-- end footer-->\n    </div>\n  </div>\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-project/company-project.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyProjectComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var CompanyProjectComponent = (function () {
+    function CompanyProjectComponent(companyService, routes, snackBar) {
+        this.companyService = companyService;
+        this.routes = routes;
+        this.snackBar = snackBar;
+        this.displayedColumns = ['slno', 'project', 'startdate', 'enddate', 'action'];
+        this.notExist = false;
+    }
+    CompanyProjectComponent.prototype.ngOnInit = function () {
+        this.getProject();
+    };
+    CompanyProjectComponent.prototype.getProject = function () {
+        var _this = this;
+        var users = [];
+        // ---------------------------------Start-------------------------------------------
+        // Function      : get all projects
+        // Params        : 
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 07-03-2018
+        // Last Modified : 07-03-2018, Rinsha
+        // Desc          : getAllProjects 
+        this.companyService.getAllProject().subscribe(function (data) {
+            // console.log(data);
+            if (data.length == 0) {
+                _this.notExist = true;
+            }
+            _this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["E" /* MatTableDataSource */](data);
+            // console.log(this.dataSource);
+            _this.dataSource.paginator = _this.paginator;
+            _this.dataSource.sort = _this.sort;
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyProjectComponent.prototype.applyFilter = function (filterValue) {
+        filterValue = filterValue.trim(); // Remove whitespace
+        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+        this.dataSource.filter = filterValue;
+    };
+    CompanyProjectComponent.prototype.open = function () {
+        this.routes.navigate(['/add-project']);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatPaginator */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatPaginator */])
+    ], CompanyProjectComponent.prototype, "paginator", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["B" /* MatSort */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["B" /* MatSort */])
+    ], CompanyProjectComponent.prototype, "sort", void 0);
+    CompanyProjectComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-project',
+            template: __webpack_require__("../../../../../src/app/components/company-project/company-project.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-project/company-project.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_material__["z" /* MatSnackBar */]])
+    ], CompanyProjectComponent);
+    return CompanyProjectComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/company-upgrade/company-upgrade.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1225,7 +1871,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-upgrade/company-upgrade.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <admin-topbar></admin-topbar>\n      <br>\n      <br>\n      <div class=\"container\">\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Payment Method</div>\n          <div class=\"panel-body\">\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.cardnum\" name=\"cardnum\" autofocus placeholder=\"Card Number\" required formControlName=\"cardnumValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.cardname\" name=\"cardname\" placeholder=\"Name on Card\" required formControlName=\"cardnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input type=\"number\" matInput [(ngModel)]=\"payment.cvv\" name=\"cvv\" placeholder=\"CVV\" required formControlName=\"cvvValidation\">\n            </mat-form-field>\n            <br>\n          </div>\n        </div>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Billing Details</div>\n          <div class=\"panel-body\">\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.fname\" name=\"fname\" placeholder=\"First Name\" required formControlName=\"fnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.lname\" name=\"lname\" placeholder=\"Last Name\" required formControlName=\"lnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.addr\" name=\"addr\" placeholder=\"Address\" required formControlName=\"addrValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.no\" name=\"no\" placeholder=\"Phone Number\" required formControlName=\"noValidation\">\n            </mat-form-field>\n            <br>\n          </div>\n        </div>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Review and Confirm</div>\n          <div class=\"panel-body\">\n            <table>\n              <tr>\n                <td>Plan </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_name}}</b></td>\n              </tr>\n              <br>\n              <tr>\n                <td>No. of Months </td>\n                <td>:</td>\n                <td>\n                  <mat-form-field [formGroup]=\"formGroup\"><input type=\"number\" min=\"1\" matInput [(ngModel)]=\"payment.no_months\" name=\"no_months\" required formControlName=\"no_monthsValidation\">\n                  </mat-form-field>\n                </td>\n              </tr>\n              <br>\n              <tr>\n                <td>Price </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_price}}</b></td>\n              </tr>\n              <br>\n              <tr>\n                <td>Amount </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_price * payment.no_months}} </b></td>\n              </tr>\n              <br>\n            </table>\n\n            <div class=\"row\">\n              <div class=\"col-md-3\">\n                <button type=\"submit\" class=\"btn round-button\" (click)=\"confirm(selectedId)\">Confirm</button>\n              </div>\n              <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                  x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                  <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                    <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                    />\n                  </path>\n                </svg>\n              </div> -->\n\n            </div>\n\n            <br>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <admin-topbar></admin-topbar>\n      <br>\n      <br>\n      <div class=\"container\">\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Payment Method</div>\n          <div class=\"panel-body\">\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.cardnum\" name=\"cardnum\" autofocus placeholder=\"Card Number\" required formControlName=\"cardnumValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.cardname\" name=\"cardname\" placeholder=\"Name on Card\" required formControlName=\"cardnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input type=\"number\" matInput [(ngModel)]=\"payment.cvv\" min=\"1\" max=\"3\" name=\"cvv\" placeholder=\"CVV\" required formControlName=\"cvvValidation\">\n            </mat-form-field>\n            <br>\n          </div>\n        </div>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Billing Details</div>\n          <div class=\"panel-body\">\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.fname\" name=\"fname\" placeholder=\"First Name\" required formControlName=\"fnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.lname\" name=\"lname\" placeholder=\"Last Name\" required formControlName=\"lnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.addr\" name=\"addr\" placeholder=\"Address\" required formControlName=\"addrValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.no\" name=\"no\" placeholder=\"Phone Number\" required formControlName=\"noValidation\">\n            </mat-form-field>\n            <br>\n          </div>\n        </div>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Review and Confirm</div>\n          <div class=\"panel-body\">\n            <table>\n              <tr>\n                <td>Plan </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_name}}</b></td>\n              </tr>\n              <br>\n              <tr>\n                <td>No. of Months </td>\n                <td>:</td>\n                <td>\n                  <mat-form-field [formGroup]=\"formGroup\"><input type=\"number\" min=\"1\" matInput [(ngModel)]=\"payment.no_months\" name=\"no_months\" required formControlName=\"no_monthsValidation\">\n                  </mat-form-field>\n                </td>\n              </tr>\n              <br>\n              <tr>\n                <td>Price </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_price}}</b></td>\n              </tr>\n              <br>\n              <tr>\n                <td>Amount </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_price * payment.no_months}} </b></td>\n              </tr>\n              <br>\n            </table>\n\n            <div class=\"row\">\n              <div class=\"col-md-3\">\n                <button type=\"submit\" class=\"btn round-button\" (click)=\"confirm(plan?.id)\">Confirm</button>\n              \n              </div>\n            \n             \n              <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                  x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                  <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                    <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                    />\n                  </path>\n                </svg>\n              </div> -->\n\n            </div>\n           \n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
 
 /***/ }),
 
@@ -1238,6 +1884,7 @@ module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1251,12 +1898,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var CompanyUpgradeComponent = (function () {
-    function CompanyUpgradeComponent(companyService, _formBuilder, routes, route) {
+    function CompanyUpgradeComponent(companyService, _formBuilder, routes, route, snackBar) {
         this.companyService = companyService;
         this._formBuilder = _formBuilder;
         this.routes = routes;
         this.route = route;
+        this.snackBar = snackBar;
         this.payment = {
             cardnum: '',
             cardname: '',
@@ -1274,14 +1923,13 @@ var CompanyUpgradeComponent = (function () {
             _this.plan_id = params.id;
             // ---------------------------------Start-------------------------------------------
             // Function      : get plan by id
-            // Params        : 
-            // Returns       : 
+            // Params        : id
+            // Returns       : plan
             // Author        : Rinsha
             // Date          : 06-03-2018
             // Last Modified : 06-03-2018, Rinsha
             // Desc          : getplan
             _this.companyService.getPlan(_this.plan_id).subscribe(function (res) {
-                console.log(res);
                 _this.plan = res;
             });
             // ---------------------------------End-------------------------------------------
@@ -1297,13 +1945,38 @@ var CompanyUpgradeComponent = (function () {
             no_monthsValidation: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["k" /* Validators */].required],
         });
     };
+    CompanyUpgradeComponent.prototype.confirm = function (id) {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : upgrade
+        // Params        : data from form
+        // Returns       : message
+        // Author        : Rinsha
+        // Date          : 06-03-2018
+        // Last Modified : 06-03-2018, Rinsha
+        // Desc          : upgrade
+        this.companyService.upgrade(id, this.payment).subscribe(function (res) {
+            if (res.success == true) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 3000
+                });
+                // this.routes.navigate(['/dashboard']);
+            }
+            else {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 3000
+                });
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
     CompanyUpgradeComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-company-upgrade',
             template: __webpack_require__("../../../../../src/app/components/company-upgrade/company-upgrade.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/company-upgrade/company-upgrade.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["z" /* MatSnackBar */]])
     ], CompanyUpgradeComponent);
     return CompanyUpgradeComponent;
 }());
@@ -1566,10 +2239,113 @@ var AdminService = (function () {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : getAllplans without default
     AdminService.prototype.getPlansWithoutDefault = function () {
-        console.log("here");
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
         return this.http.get(this.serviceUrl + 'allPlansWithoutDefault', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getCountsforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 02-03-2018
+    // Last Modified : 02-03-2018, Jooshifa 
+    // Desc          : for getting count of companies,projects,users
+    AdminService.prototype.getCountsforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getPieDataforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, 
+    // Desc          : get piegraph data
+    AdminService.prototype.getPieDataforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : add plan
+    // Params        : data from form
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Rinsha
+    // Desc          : add plan 
+    AdminService.prototype.addPlan = function (plan) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(this.serviceUrl + 'addPlan', plan, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : best plan
+    // Params        : id and value
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Rinsha
+    // Desc          : to change a plan to best
+    AdminService.prototype.bestPlan = function (id, value) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(this.serviceUrl + 'bestPlan/' + id, { status: value }, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : delete plan
+    // Params        : id 
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Rinsha
+    // Desc          : to delete a plan which is'nt used by any company
+    AdminService.prototype.deletePlan = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(this.serviceUrl + 'deletePlan/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get plan by id
+    // Params        : id
+    // Returns       : plan
+    // Author        : Rinsha
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Rinsha
+    // Desc          : getplan
+    AdminService.prototype.getPlan = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : update plan
+    // Params        : value from form
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Rinsha
+    // Desc          : update a plan
+    AdminService.prototype.updatePlan = function (plan) {
+        // console.log(plan);
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(this.serviceUrl + 'updatePlan', plan, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AdminService = __decorate([
@@ -1618,8 +2394,8 @@ var CompanyService = (function () {
     };
     // ---------------------------------Start-------------------------------------------
     // Function      : get plan by id
-    // Params        : 
-    // Returns       : 
+    // Params        : id
+    // Returns       : plan
     // Author        : Rinsha
     // Date          : 06-03-2018
     // Last Modified : 06-03-2018, Rinsha
@@ -1630,11 +2406,157 @@ var CompanyService = (function () {
         return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : upgrade
+    // Params        : data from form
+    // Returns       : message
+    // Author        : Rinsha
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, Rinsha
+    // Desc          : upgrade
+    CompanyService.prototype.upgrade = function (id, data) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(this.serviceUrl + 'upgrade/' + id, data, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get all projects
+    // Params        : 
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Rinsha
+    // Desc          : getAllProjects 
+    CompanyService.prototype.getAllProject = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(this.serviceUrl + 'getAllProject', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Get All pm in a company
+    // Params        : 
+    // Returns       : All pm in a company
+    // Author        : Rinsha
+    // Date          : 08-03-2018
+    // Last Modified : 08-03-2018, Rinsha
+    // Desc          : 
+    CompanyService.prototype.getAllPm = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(this.serviceUrl + 'getAllPm', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Get All project category in a company
+    // Params        : 
+    // Returns       : All project category in a company
+    // Author        : Rinsha
+    // Date          : 08-03-2018
+    // Last Modified : 08-03-2018, Rinsha
+    // Desc          : 
+    CompanyService.prototype.getAllProjectCategory = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(this.serviceUrl + 'getAllProjectCategory', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : add project
+    // Params        : data from form
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 08-03-2018
+    // Last Modified : 08-03-2018, Rinsha
+    // Desc          :  
+    CompanyService.prototype.addProject = function (project) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(this.serviceUrl + 'addProject', project, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     CompanyService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_2__config_config__["a" /* Config */]])
     ], CompanyService);
     return CompanyService;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/super-admin.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SuperAdminService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var SuperAdminService = (function () {
+    function SuperAdminService(http, config) {
+        this.http = http;
+        this.config = config;
+        this.serviceUrl = config.siteUrl + '/admin/';
+    }
+    SuperAdminService.prototype.setHeader = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return (headers);
+    };
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getCountsforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 02-03-2018
+    // Last Modified : 02-03-2018, Jooshifa 
+    // Desc          : for getting count of companies,projects,users
+    SuperAdminService.prototype.getCountsforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getPieDataforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, 
+    // Desc          : get piegraph data
+    SuperAdminService.prototype.getPieDataforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    SuperAdminService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__config_config__["a" /* Config */]])
+    ], SuperAdminService);
+    return SuperAdminService;
 }());
 
 

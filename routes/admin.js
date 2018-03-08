@@ -6,6 +6,7 @@ const Op = Sequelize.Op;
 var env = process.env.NODE_ENV || 'development';
 var config = require(__dirname + '/../config/config.json')[env];
 var Plans = models.tbl_plan;
+var Company = models.tbl_company;
 
 var returnRouter = function (io) {
 
@@ -94,11 +95,285 @@ var returnRouter = function (io) {
       }
     }).then(plans => {
       res.json(plans);
-
     });
   });
   // -----------------------------------End-----------------------------------------------
 
+  // ---------------------------------Start-------------------------------------------
+  // Function      : add plan
+  // Params        : data from form
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : add plan 
+  router.post('/addPlan', function (req, res) {
+    // console.log(req.body);
+    planName = myTrim(req.body.plan_name);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Plans.findAll().then(plans => {
+      if (plans.length >= 4) {
+        res.json({ success: false, msg: "Cant Add, Maximum number of plan reached" });
+      }
+      else {
+        Plans.findAll({
+          where: {
+            plan_name: req.body.plan_name
+          }
+        }).then(plans => {
+          if (plans.length != 0) {
+            res.json({ success: false, msg: "Plan Name Already Exists" });
+          }
+          else if (req.body.plan_name == '' || req.body.plan_price == '' || req.body.plan_price == null || req.body.no_projects == '' || req.body.no_members == '' || req.body.no_modules == '' || req.body.no_tasks == '') {
+            res.json({ success: false, msg: "All fields are required" });
+          }
+          else if (planName.length > 10 || planName.length < 3) {
+            res.json({ success: false, msg: "Plan Name between 3-10 characters" });
+          }
+          else {
+            if (req.body.no_projects == 'Unlimited') {
+              no_projects = req.body.no_projects;
+            } else {
+              no_projects = req.body.value1;
+            }
+            if (req.body.no_members == 'Unlimited') {
+              no_members = req.body.no_members;
+            } else {
+              no_members = req.body.value2;
+            }
+            if (req.body.no_modules == 'Unlimited') {
+              no_modules = req.body.no_modules;
+            } else {
+              no_modules = req.body.value3;
+            }
+            if (req.body.no_tasks == 'Unlimited') {
+              no_tasks = req.body.no_tasks;
+            } else {
+              no_tasks = req.body.value4;
+            }
+            const plan = Plans.build({
+              plan_name: req.body.plan_name,
+              plan_price: req.body.plan_price,
+              no_projects: no_projects,
+              no_members: no_members,
+              no_modules: no_modules,
+              no_tasks: no_tasks
+            })
+            plan.save().then(function (newPlan) {
+              // console.log(newPlan);
+              res.json({ success: true, msg: "Plan Created Successfully" });
+            })
+          }
+        });
+      }
+    });
+  });
+  // -----------------------------------End-----------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : myTrim
+  // Params        : string
+  // Returns       : string
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : For removing unwanted space from left and right
+
+  function myTrim(x) {
+    return x.replace(/^\s+|\s+$/gm, '');
+  }
+
+  // ----------------------------------End-------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : best plan
+  // Params        : id and value
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : to change a plan to best
+  router.post('/bestPlan/:id', function (req, res) {
+    // console.log(req.params.id + ":id," + req.body.status +":status")
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Plans.update({
+      is_best_value: false
+    }, {
+        where: {
+          id: {
+            [Op.ne]: req.params.id
+          }
+        }
+      }).then(data => {
+        Plans.update({
+          is_best_value: req.body.status
+        }, {
+            where: {
+              id: req.params.id
+            }
+          }).then(data1 => {
+            if (data1 == 1) {
+              res.json({ success: true, msg: "Success" });
+            }
+            else {
+              res.json({ success: false, msg: "Failed" });
+            }
+          });
+      });
+  });
+  // -----------------------------------End-----------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : delete plan
+  // Params        : id 
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : to delete a plan which is'nt used by any company
+  router.get('/deletePlan/:id', function (req, res) {
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      where: {
+        plan_id: req.params.id
+      }
+    }).then(company => {
+      if (company.length != 0) {
+        res.json({ success: false, msg: "Cant delete plan" });
+      }
+      else {
+        Plans.findById(req.params.id).then(plans => {
+          if (plans.is_defualt == true) {
+            res.json({ success: false, msg: "Default plan can't delete" });
+          }
+          else {
+            Plans.destroy({
+              where: {
+                id: req.params.id
+              }
+            }).then(plan => {
+              res.json({ success: true, msg: "Success" });
+            });
+          }
+        });
+      }
+    });
+  });
+  // -----------------------------------End-----------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get plan by id
+  // Params        : 
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : getplan
+  router.get('/planById/:id', function (req, res) {
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Plans.findById(req.params.id).then(plans => {
+      res.json(plans);
+    });
+  });
+  // -----------------------------------End------------------------------------------
+
+  // Function      : update plan
+  // Params        : value from form
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : update a plan
+  router.post('/updatePlan', function (req, res) {
+    console.log(req.body);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    planName = myTrim(req.body.plan_name);
+    Plans.findAll({
+      where: {
+        plan_name: req.body.plan_name,
+        id: {
+          [Op.ne]: req.body.id
+        }
+      }
+    }).then(plans => {
+      if (plans.length != 0) {
+        res.json({ success: false, msg: "Plan Name Already Exists" });
+      }
+      else if (req.body.plan_name == '') {
+        res.json({ success: false, msg: "All fields are required" });
+      }
+      else if (req.body.is_defualt == true) {
+        if (req.body.plan_price == '' || req.body.plan_price == null ) {
+          res.json({ success: false, msg: "All fields are required" });
+        }
+      }
+      else if (planName.length > 10 || planName.length < 3) {
+        res.json({ success: false, msg: "Plan Name between 3-10 characters" });
+      }
+      else {
+        if (req.body.noprojects == 'Unlimited') {
+          no_projects = req.body.noprojects;
+        } else {
+          no_projects = req.body.no_projects;
+        }
+        if (req.body.nomembers == 'Unlimited') {
+          no_members = req.body.nomembers;
+        } else {
+          no_members = req.body.no_members;
+        }
+        if (req.body.notasks == 'Unlimited') {
+          no_tasks = req.body.notasks;
+        } else {
+          no_tasks = req.body.no_tasks;
+        }
+        if (req.body.nomodules == 'Unlimited') {
+          no_modules = req.body.nomodules;
+        } else {
+          no_modules = req.body.no_modules;
+        }
+        Plans.update({
+          plan_name: req.body.plan_name,
+          plan_price: req.body.plan_price,
+          no_projects: no_projects,
+          no_members: no_members,
+          no_tasks: req.no_tasks,
+          no_modules: no_modules,
+        }, {
+            where: {
+              id: req.body.id
+            }
+          }).then(data1 => {
+            if (data1 == 1) {
+              res.json({ success: true, msg: "Success" });
+            }
+            else {
+              res.json({ success: false, msg: "Failed" });
+            }
+          });
+      }
+    });
+  });
+  // -----------------------------------End------------------------------------------
 
   module.exports = router;
   return router;

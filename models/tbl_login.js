@@ -26,6 +26,14 @@ module.exports = (sequelize, DataTypes) => {
       tbl_login.hasMany(models.tbl_user_profile, {
         foreignKey: 'login_id',
       });
+      tbl_login.hasMany(models.tbl_project, {
+        foreignKey: 'pm_id',
+        as: 'pm_id',
+      });
+      tbl_login.hasMany(models.tbl_project, {
+        foreignKey: 'assignee_id',
+        as: 'assignee_id',
+      });
   };
   return tbl_login;
 };

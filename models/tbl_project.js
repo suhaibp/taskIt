@@ -1,7 +1,23 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var tbl_project = sequelize.define('tbl_project', {
-    project_name: DataTypes.STRING
+    project_name: DataTypes.STRING,
+    project_type: DataTypes.STRING,
+    project_code: DataTypes.STRING,
+    status: DataTypes.STRING,
+    priority: DataTypes.STRING,
+    description: DataTypes.STRING,
+    requirement_summary: DataTypes.STRING,
+    requirement_attatchment: DataTypes.STRING,
+    is_estimation_completed: DataTypes.BOOLEAN,
+    is_pm_viewed: DataTypes.BOOLEAN,
+    is_admin_viewed: DataTypes.BOOLEAN,
+    is_approved: DataTypes.BOOLEAN,
+    planned_start_date: DataTypes.DATE,
+    planned_end_date: DataTypes.DATE,
+    is_estimation_resubmitted: DataTypes.BOOLEAN,
+    project_cost: DataTypes.FLOAT,
+    total_estimated_hour: DataTypes.FLOAT
   }, {});
   tbl_project.associate = function (models) {
     // associations can be defined here
@@ -9,13 +25,13 @@ module.exports = (sequelize, DataTypes) => {
     tbl_project.belongsTo(models.tbl_project_category, {
       foreignKey: 'category_id',
     });
-    tbl_project.belongsTo(models.tbl_user_profile, {
+    tbl_project.belongsTo(models.tbl_login, {
       foreignKey: 'pm_id',
-      as: 'Pmid'
+      as: 'Pm_id'
     });
-    tbl_project.belongsTo(models.tbl_user_profile, {
+    tbl_project.belongsTo(models.tbl_login, {
       foreignKey: 'assignee_id',
-      as: 'Assigneeid'
+      as: 'Assignee_id'
     });
     tbl_project.belongsTo(models.tbl_company, {
       foreignKey: 'cmp_id',

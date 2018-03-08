@@ -26,6 +26,10 @@ import { AdminPlanComponent } from './components/admin-plan/admin-plan.component
 import { HomeComponent } from './components/home/home.component';
 import { CompanyUpgradeComponent } from './components/company-upgrade/company-upgrade.component';
 import { CompanyPlanlistComponent } from './components/company-planlist/company-planlist.component';
+import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/admin-dashboard-pie.component';
+import { CompanyAddProjectComponent } from './components/company-add-project/company-add-project.component'
+import { CompanyProjectComponent } from './components/company-project/company-project.component';
+import { AssignProjectComponent } from './components/assign-project/assign-project.component';
 
 import { AdminService} from './services/admin.service';
 import { CompanyService} from './services/company.service';
@@ -84,6 +88,9 @@ const appRoutes: Routes = [
   {path:'home', component:HomeComponent},
   {path:'planlist', component:CompanyPlanlistComponent},
   {path:'upgrade/:id', component:CompanyUpgradeComponent},
+  {path:'add-project', component:CompanyAddProjectComponent},
+  {path:'project', component:CompanyProjectComponent},
+  {path:'assign-project', component:AssignProjectComponent},
 ] 
 
 @NgModule({
@@ -122,6 +129,7 @@ const appRoutes: Routes = [
     MatTooltipModule,
     
   ],
+ 
 })
 export class DemoMaterialModule {}
 @NgModule({
@@ -142,7 +150,11 @@ export class DemoMaterialModule {}
     AdminPlanComponent,
     HomeComponent,
     CompanyPlanlistComponent,
-    CompanyUpgradeComponent
+    CompanyUpgradeComponent,
+    AdminDashboardPieComponent,
+    CompanyAddProjectComponent,
+    CompanyProjectComponent,
+    AssignProjectComponent
   ],
   imports: [
     BrowserModule,

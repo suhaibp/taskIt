@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import { tokenNotExpired } from 'angular2-jwt'; 
+import { tokenNotExpired } from 'angular2-jwt';
 import { Config } from '../config/config';
 import 'rxjs/add/operator/map';
 @Injectable()
@@ -25,8 +25,8 @@ export class AdminService {
   // Params        : admin, contains username and password
   // Returns       : Token, admin id and role
   // Author        : Rinsha
-// Date            : 01-03-2018
-// Last Modified   : 01-03-2018, Rinsha
+  // Date            : 01-03-2018
+  // Last Modified   : 01-03-2018, Rinsha
   // Desc          : Admin login
   adminLogin(admin) {
     let h = this.setHeader();
@@ -52,7 +52,7 @@ export class AdminService {
   }
   // ---------------------------------------End--------------------------------------------
 
-// ---------------------------------Start-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
   // Function      : get all plans
   // Params        : 
   // Returns       : 
@@ -70,7 +70,7 @@ export class AdminService {
   }
   // -----------------------------------End------------------------------------------
 
-// ---------------------------------Start-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
   // Function      : get all plans without default
   // Params        : 
   // Returns       : 
@@ -80,12 +80,136 @@ export class AdminService {
   // Desc          : getAllplans without default
 
   getPlansWithoutDefault() {
-    console.log("here");
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.serviceUrl + 'allPlansWithoutDefault', { headers: headers })
       .map(res => res.json());
 
+  }
+  // -----------------------------------End------------------------------------------
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getCountsforAdminDashboard
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 02-03-2018
+  // Last Modified : 02-03-2018, Jooshifa 
+  // Desc          : for getting count of companies,projects,users
+
+
+  getCountsforAdminDashboard() {
+    let h = this.setHeader();
+    return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+      .map(res => res.json());
+
+  }
+  //  ---------------------------------End-------------------------------------------
+
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getPieDataforAdminDashboard
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get piegraph data
+
+
+  getPieDataforAdminDashboard() {
+    let h = this.setHeader();
+    return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+      .map(res => res.json());
+
+  }
+  //  ---------------------------------End-------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : add plan
+  // Params        : data from form
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : add plan 
+
+  addPlan(plan) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.serviceUrl + 'addPlan', plan, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : best plan
+  // Params        : id and value
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : to change a plan to best
+
+  bestPlan(id, value) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.serviceUrl + 'bestPlan/' + id, { status: value }, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : delete plan
+  // Params        : id 
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : to delete a plan which is'nt used by any company
+
+  deletePlan(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.serviceUrl + 'deletePlan/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+  
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get plan by id
+  // Params        : id
+  // Returns       : plan
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : getplan
+
+  getPlan(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : update plan
+    // Params        : value from form
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 07-03-2018
+    // Last Modified : 07-03-2018, Rinsha
+    // Desc          : update a plan
+
+  updatePlan(plan) {
+    // console.log(plan);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.serviceUrl + 'updatePlan', plan, { headers: headers })
+      .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CanActivate, Router, ActivatedRoute } from '@angular/router';
 import { CompanyService } from './../../services/company.service';
 import { FormBuilder, FormGroup, Validators, FormControl, FormGroupDirective, NgForm, } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-company-upgrade',
@@ -11,7 +12,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormGroupDirective, Ng
 export class CompanyUpgradeComponent implements OnInit {
   private sub: any;
   plan_id: any;
-  plan : any;
+  plan: any;
   formGroup: any;
   payment = {
     cardnum: '',
@@ -24,21 +25,20 @@ export class CompanyUpgradeComponent implements OnInit {
     no_months: ''
   }
 
-  constructor(private companyService: CompanyService, private _formBuilder: FormBuilder, private routes: Router, private route: ActivatedRoute) { }
+  constructor(private companyService: CompanyService, private _formBuilder: FormBuilder, private routes: Router, private route: ActivatedRoute, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.plan_id = params.id;
       // ---------------------------------Start-------------------------------------------
       // Function      : get plan by id
-      // Params        : 
-      // Returns       : 
+      // Params        : id
+      // Returns       : plan
       // Author        : Rinsha
       // Date          : 06-03-2018
       // Last Modified : 06-03-2018, Rinsha
       // Desc          : getplan
       this.companyService.getPlan(this.plan_id).subscribe(res => {
-        console.log(res);
         this.plan = res;
       });
       // ---------------------------------End-------------------------------------------
@@ -56,4 +56,28 @@ export class CompanyUpgradeComponent implements OnInit {
     });
   }
 
+  confirm(id) {
+    // ---------------------------------Start-------------------------------------------
+    // Function      : upgrade
+    // Params        : data from form
+    // Returns       : message
+    // Author        : Rinsha
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, Rinsha
+    // Desc          : upgrade
+    this.companyService.upgrade(id, this.payment).subscribe(res => {
+      if (res.success == true) {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+        // this.routes.navigate(['/dashboard']);
+      }
+      else {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+      }
+    });
+    // ---------------------------------End-------------------------------------------
+  }
 }

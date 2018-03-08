@@ -424,8 +424,8 @@ header {
     background: #fe6a07;
    
     border-radius: 50%;
-    font-size: 31px;
-	    padding-top: 8%;
+    font-size: 22px;
+	    padding-top: 11%;
 	
 	
 }
@@ -444,8 +444,8 @@ header {
     color: #fff;
     background: #fe6a07;
     border-radius: 50%;
-    font-size: 31px;
-    padding-top: 8%;
+    font-size: 22px;
+    padding-top: 11%;
 }
 .navi .active a {
    
@@ -667,6 +667,12 @@ nav .dropdown-menu{border:none;    top: 0%;
 }
 label{color:#4a4a4a;font-size:15px;}
 .label2{color:#909090;font-size:15px;}
+.navbar-nav {
+    width: 100%;
+}
+.navi i {
+    font-size: 25px;
+}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{background:none;}
 @media (min-width: 768px){
 .navbar-toggle {
@@ -888,6 +894,7 @@ header .header-top li{    padding-left: 6px !important;}
     position: absolute;
     z-index: 100;
     background: #fff;
+    
 }
 .navbar-header .navbar-toggle{    top: -61px;
     left: 41px;}
@@ -910,3 +917,73 @@ margin-bottom: 4px;
 
 }
 
+.cnts i{
+    font-size: 30px;
+    padding: 29px 0px;
+}
+
+.ad-tp{
+    margin-top: 86px;
+}
+.cnts{
+    background-color: #fff;
+    min-height: 88px;
+    /* margin-left: 40px; */
+}
+.cnts .lh{
+    background-color: #fe6a07;
+    color: #fff;
+}
+
+
+
+
+
+.pie {
+    top: 50%;
+    left: 50%;
+  }
+  
+  .data-path:hover {
+    cursor: pointer;
+  }
+  
+  .data-text {
+    -webkit-transition: -webkit-transform .2s ease-in-out;
+    transition: -webkit-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+  }
+  .data-text__value {
+    font-size: 7rem;
+    -webkit-transform: translateY(-0.5rem);
+            transform: translateY(-0.5rem);
+    opacity: 0;
+  }
+  .data-text__name {
+    font-size: 2rem;
+    -webkit-transform: translateY(0.5rem);
+            transform: translateY(0.5rem);
+    opacity: 0;
+  }
+  .data-text--show {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation: fadeGraphTextIn 0.5s forwards;
+            animation: fadeGraphTextIn 0.5s forwards;
+  }
+  .cdk-overlay-container {
+    z-index: 1052 !important;
+}
+.fa-exclamation{    text-align: center;
+    font-size: 36px;
+    color: #d9534f;
+    border-radius: 50%;
+    border: 3px solid;
+    margin-top: 23px;}
+.delete-popup{text-align:center;}
+.center-bt {
+    margin: 20px auto 10px auto;
+    float: none;
+}
+.input-style{float:left;}

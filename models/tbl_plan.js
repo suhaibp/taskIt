@@ -1,5 +1,5 @@
 'use strict';
-var Sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   var tbl_plan = sequelize.define('tbl_plan', {
     id: {
@@ -21,16 +21,16 @@ module.exports = (sequelize, DataTypes) => {
       type: Sequelize.BOOLEAN
     },
     no_projects: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     no_members: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     no_tasks: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     no_modules: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     createdAt: {
       allowNull: false,

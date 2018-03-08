@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     tbl_role.hasMany(models.tbl_access_rights_assoc, {
       foreignKey: 'role_id',
     });
+    tbl_role.hasMany(models.tbl_user_profile, {
+      foreignKey: 'role_id',
+    });
   };
   return tbl_role;
 };
