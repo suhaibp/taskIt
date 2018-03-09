@@ -9,7 +9,7 @@ const server = http.Server(app);
 const io = socketIo(server);
 
 const path = require("path");
-//const users = require("./routes/user");
+const superadmin = require("./routes/super_admin")(io);
 //const products = require("./routes/products")(io);
 
 const bodyParser = require("body-parser");
@@ -30,6 +30,7 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname,"public")));
 
+app.use('/admin',superadmin);
 app.use('*',(req, res)=>{
     res.sendFile(path.join(__dirname,'public/index.html'));
 });

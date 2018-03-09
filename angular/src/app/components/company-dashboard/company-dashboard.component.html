@@ -1,0 +1,102 @@
+<body class="home">
+  <div class="container-fluid display-table">
+      <div class="row display-table-row">
+    
+          <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
+               <!-- sidebar-->
+             
+               <admin-sidebar></admin-sidebar> 
+               <!-- end sidebar-->
+          </div>
+          
+          <div class="col-md-12 col-xs-12">
+              <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+              <!-- topbar-->
+              <admin-topbar></admin-topbar> 
+              
+                  <!-- end topbar-->
+              
+              
+              <div class="user-dashboard">
+                    <company-progress-graph></company-progress-graph>
+                  <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12 ">
+                          <div class="sales">
+                              
+                          <company-task-vs-status></company-task-vs-status>
+                          </div>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12 ">
+                          <div class="sales">
+                          <company-resoure-vs-hour></company-resoure-vs-hour>
+                          </div>
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-12 ">
+                          <div class="sales">
+                          <company-project-vs-hour></company-project-vs-hour>
+                          </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12 ">
+                            <div class="sales">
+                            <company-project-vs-status></company-project-vs-status>
+                            </div>
+                        </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12 ">
+                            <div class="sales">
+                                <div class="row">
+                                    <div class="col-md-3 bg-g">*Select Project</div>
+                                    <div class="col-md-3 bg-hash">
+                                      <select>
+                                        <option>Taskit</option>
+                                        <option>Survey</option>
+                                      </select>
+                                    </div> 
+                                    <div class="col-md-3">
+                                      Total 7 Milestone
+                                    </div> 
+                                </div>
+                                <ul class="graph-ul">
+                                    <li >
+                                        <div >Module-1</div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6">Planned Hour <br>100</div>
+                                            <div class="col-md-6">Actual Hour<br> 20 </div>
+                                            <company-progress-graph></company-progress-graph>
+                                        </div>
+                                    </li>
+                                    <li >
+                                        <div >Module-2</div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6">Planned Hour <br>100</div>
+                                            <div class="col-md-6">Actual Hour<br> 20 </div>
+                                        </div>
+                                    </li>
+                                    <li >
+                                        <div >Module-3</div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-6">Planned Hour <br>100</div>
+                                            <div class="col-md-6">Actual Hour<br> 20 </div>
+                                        </div>
+                                    </li>
+                                   
+                                   
+                                   
+                                </ul>
+                            </div>
+                           
+                        </div>
+                      
+                  </div>
+              </div>
+              
+          </div>
+              <!-- footer-->
+              <admin-footer></admin-footer>
+     <!-- end footer-->
+      </div>
+       </div>
+      <!-- Modal -->
+   </body>

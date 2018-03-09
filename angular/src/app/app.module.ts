@@ -56,6 +56,12 @@ import { AdminSubscribedComponent } from './components/admin-subscribed/admin-su
 import { AdminTrialComponent } from './components/admin-trial/admin-trial.component';
 import { AdminNotVerifiedComponent } from './components/admin-not-verified/admin-not-verified.component';
 import { AdminExpiredComponent } from './components/admin-expired/admin-expired.component';
+import { CompanyDashboardComponent } from './components/company-dashboard/company-dashboard.component';
+import { CompanyTaskVsStatusComponent } from './components/company-task-vs-status/company-task-vs-status.component';
+import { CompanyResoureVsHourComponent } from './components/company-resoure-vs-hour/company-resoure-vs-hour.component';
+import { CompanyProjectVsHourComponent } from './components/company-project-vs-hour/company-project-vs-hour.component';
+import { CompanyProjectVsStatusComponent } from './components/company-project-vs-status/company-project-vs-status.component';
+import { CompanyProgressGraphComponent } from './components/company-progress-graph/company-progress-graph.component';
 
 
 const appRoutes: Routes = [
@@ -71,6 +77,7 @@ const appRoutes: Routes = [
   {path:'admin-trial', component:AdminTrialComponent},
   {path:'admin-NotVerified', component:AdminNotVerifiedComponent},
   {path:'admin-expired', component:AdminExpiredComponent},
+  {path:'company-dashboard', component:CompanyDashboardComponent},
  
 ] 
 
@@ -126,7 +133,13 @@ export class DemoMaterialModule {}
     AdminSubscribedComponent,
     AdminTrialComponent,
     AdminNotVerifiedComponent,
-    AdminExpiredComponent
+    AdminExpiredComponent,
+    CompanyDashboardComponent,
+    CompanyTaskVsStatusComponent,
+    CompanyResoureVsHourComponent,
+    CompanyProjectVsHourComponent,
+    CompanyProjectVsStatusComponent,
+    CompanyProgressGraphComponent
   
   ],
   imports: [

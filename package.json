@@ -29,7 +29,7 @@
     "passport-jwt": "^3.0.1",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.34.1",
+    "sequelize": "^4.35.1",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {

@@ -625,11 +625,12 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
 }
 .bg-lightgray {
      background-color: #f3f3f5;
-    position: absolute;
+
     bottom: 0;
     width: 100%;
-    display: block;
+    display: inherit;
     border-top: 1px solid #e8e8e8;
+    position: relative;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{background:none;}
 @media (min-width: 768px){
@@ -853,5 +854,91 @@ margin-bottom: 4px;
 }
 
 
+.pie {
+    top: 50%;
+    left: 50%;
+  }
+  
+  .data-path:hover {
+    cursor: pointer;
+  }
+  
+  .data-text {
+    -webkit-transition: -webkit-transform .2s ease-in-out;
+    transition: -webkit-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+  }
+  .data-text__value {
+    font-size: 7rem;
+    -webkit-transform: translateY(-0.5rem);
+            transform: translateY(-0.5rem);
+    opacity: 0;
+  }
+  .data-text__name {
+    font-size: 2rem;
+    -webkit-transform: translateY(0.5rem);
+            transform: translateY(0.5rem);
+    opacity: 0;
+  }
+  .data-text--show {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation: fadeGraphTextIn 1.5s forwards;
+            animation: fadeGraphTextIn 1.5s forwards;
+  }
+  
 
+  /* .tooltip{
+    opacity: 0.7 !important;
+} */
+
+
+  text {
+    font: 15px sans-serif;
+  }
+  
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  
+  #stacked-bar-chart-container {
+    position: relative;
+
+    width: 510px;
+  }
+  
+  /* form {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  } */
+  
+  div.tooltip { 
+    position: absolute;     
+    min-width: 60px;          
+    padding: 4px;       
+    font: 12px sans-serif;    
+    background: lightsteelblue; 
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;     
+  }
+  
+  .grid line {
+    stroke: white;
+    stroke-opacity: 0.3;
+    shape-rendering: crispEdges;
+  }
+  
+  g.grid {
+    stroke-opacity: 0;
+  }
+
+  .barGraphLegend{
+    font-size: 12px !important;
+}
 
