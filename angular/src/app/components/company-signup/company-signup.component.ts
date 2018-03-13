@@ -59,7 +59,10 @@ cmpSize :any;
 errMessage = '';
 counter = 0;
 progressBarWidth =0;
-passMessage ="Must be of 8letters! Contain atleast 1 character, 1 number & 1 special character!"
+registr = false;
+ssMsg='';
+showLoader = false;
+passMessage ="Must be of 8 letters! Contain atleast 1 character, 1 number & 1 special character!"
 reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	
     verification_code= this.timestamp + Math.floor(100000 + Math.random() * 900000);
@@ -71,15 +74,18 @@ reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 		this.getIndustries();
 		this.getCompanySize();
   }
-
 	register(){
 		
 			if(this.questions[7].ans == this.questions[8].ans){
 			this.errMessage = "";
-				
+			this.registr = true;
+			
+				this.showLoader = true;
 				this.questions.push({question:'verification',type:'text',ans:this.verification_code})
 				this.companyService.registerCompany(this.questions).subscribe(resData =>{
+					this.showLoader = false;
 					
+					this.ssMsg = resData.message;
    				 });
 					
 			}
@@ -95,7 +101,7 @@ reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 		this.companyService.getIndustries().subscribe(resData =>{
       // console.log(resData)
 			this.industry = resData;
-			console.log(this.industry)
+			// console.log(this.industry)
       
     });
 	}
@@ -129,7 +135,7 @@ ValidateEmail(mail)
 		this.counter = this.counter+1;
 		
 		this.progressBarWidth = (this.counter/8)*100;
-		console.log(this.progressBarWidth );
+		// console.log(this.progressBarWidth );
 
 	}
 

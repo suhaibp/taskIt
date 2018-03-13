@@ -64,6 +64,7 @@ import { AdminDashboardBarComponent } from './components/admin-dashboard-bar/adm
 import { CompanySignupComponent } from './components/company-signup/company-signup.component'
 import { CompanyLoginComponent } from './components/company-login/company-login.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 const appRoutes: Routes = [
@@ -82,6 +83,7 @@ const appRoutes: Routes = [
  
   {path:'company-login', component:CompanyLoginComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
+  {path:'spinner', component:SpinnerComponent},//To check component
 ] 
 @NgModule({
   exports: [
@@ -118,7 +120,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
-  declarations: [EmailVerificationComponent],
+  declarations: [EmailVerificationComponent,],
  
 })
 export class DemoMaterialModule {}
@@ -138,7 +140,8 @@ export class DemoMaterialModule {}
     AdminDashboardPieComponent,
     AdminDashboardBarComponent,
     CompanySignupComponent,
-    CompanyLoginComponent
+    CompanyLoginComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
