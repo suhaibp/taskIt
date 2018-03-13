@@ -46,9 +46,68 @@ export class AdminService {
 
   getPieDataforAdminDashboard() {
     let h = this.setHeader();
-    return this.http.post(this.serviceUrl + "/get_counts_for_dashboard",{}, { headers: h })
+    return this.http.get(this.serviceUrl + "/super_admin_pie_graph",{ headers: h })
       .map(res => res.json());
 
   } 
   //  ---------------------------------End-------------------------------------------
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getBarDataforAdminDashboard
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get piegraph data
+
+
+  getBarDataforAdminDashboard() {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/super_admin_bar_graph",{ headers: h })
+      .map(res => res.json());
+
+  } 
+  //  ---------------------------------End-------------------------------------------
+
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getBarDataforAdminDashboard
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get piegraph data
+
+
+  getIndustries() {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/get_industries",{ headers: h })
+      .map(res => res.json());
+
+  } 
+  //  ---------------------------------End-------------------------------------------
+
+
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getBarDataforAdminDashboard
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get piegraph data
+
+
+  getCompanySize() {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/get_cmp_size",{ headers: h })
+      .map(res => res.json());
+
+  } 
+  //  ---------------------------------End-------------------------------------------
+
+
 }

@@ -6,7 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
-
+import { ReCaptchaModule } from 'angular2-recaptcha';
 import 'hammerjs';
 import { AppComponent } from './app.component';
 import { ReferenceComponentComponent } from './components/reference-component/reference-component.component';
@@ -15,6 +15,7 @@ import { AdminTopbarComponent } from './components/admin-topbar/admin-topbar.com
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
 import { AdminCompanyComponent } from './components/admin-company/admin-company.component';
 import { CompanyService} from './services/company.service';
+import { AdminService } from './services/admin.service'
 import {Config} from './config/config';
 import {
   MatAutocompleteModule,
@@ -58,6 +59,8 @@ import { AdminNotVerifiedComponent } from './components/admin-not-verified/admin
 import { AdminExpiredComponent } from './components/admin-expired/admin-expired.component';
 import { CompanyLoginComponent } from './components/company-login/company-login.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import { CompayAditninfoComponent } from './components/compay-aditninfo/compay-aditninfo.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 
 const appRoutes: Routes = [
@@ -73,7 +76,9 @@ const appRoutes: Routes = [
   {path:'admin-NotVerified', component:AdminNotVerifiedComponent},
   {path:'admin-expired', component:AdminExpiredComponent},
   {path:'company-login', component:CompanyLoginComponent},
+  {path:'compay-aditninfo/:id', component:CompayAditninfoComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
+  {path:'forgot-password', component:ForgotPasswordComponent},
 ] 
 @NgModule({
   exports: [
@@ -110,7 +115,8 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
-  declarations: [EmailVerificationComponent],
+
+
  
 })
 export class DemoMaterialModule {}
@@ -127,7 +133,10 @@ export class DemoMaterialModule {}
     AdminTrialComponent,
     AdminNotVerifiedComponent,
     AdminExpiredComponent,
-    CompanyLoginComponent
+    CompanyLoginComponent,
+    EmailVerificationComponent,
+    CompayAditninfoComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -136,10 +145,11 @@ export class DemoMaterialModule {}
     RouterModule.forRoot(appRoutes),
     DemoMaterialModule,
     HttpModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReCaptchaModule
   
   ],
-  providers: [Config,CompanyService],
+  providers: [Config,CompanyService,AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

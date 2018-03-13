@@ -12,22 +12,22 @@ export class CompanyService {
   constructor(private http: Http, private config: Config) {
     this.serviceUrl = config.siteUrl + '/company/';
   }
-    setHeader() {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      return (headers);
-    }
-    setHeaderWithAuthorization() {
-      let headers = new Headers();
-      this.loadToken();
-      headers.append('Authorization', this.authToken);
-      headers.append('Content-Type', 'application/json');
-      return (headers);
-    }
+  setHeader() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return (headers);
+  }
+  setHeaderWithAuthorization() {
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return (headers);
+  }
 
-    loadToken() {
-      this.authToken = localStorage.getItem('id_token');
-    }
+  loadToken() {
+    this.authToken = localStorage.getItem('id_token');
+  }
   // ---------------------------------Start------------------------------------------------
   // Function      : Login
   // Params        : username and password
@@ -39,9 +39,9 @@ export class CompanyService {
   authenticateCompany(company) {
 
     let h = this.setHeader();
-    return this.http.post(this.serviceUrl + "authenticate",company, { headers: h })
+    return this.http.post(this.serviceUrl + "authenticate", company, { headers: h })
       .map(res => res.json());
-      
+
   }
   // ---------------------------------------End--------------------------------------------
 
@@ -61,7 +61,7 @@ export class CompanyService {
     this.company = company;
   }
   // ---------------------------------------End--------------------------------------------
-    // ---------------------------------Start------------------------------------------------
+  // ---------------------------------Start------------------------------------------------
 
   // Function      : Get logged user details
   // Params        : 
@@ -76,7 +76,7 @@ export class CompanyService {
       .map(res => res.json());
   }
   // ---------------------------------------End--------------------------------------------
-  
+
   // ---------------------------------Start------------------------------------------------
   // Function      : Company verification
   // Params        : verification id
@@ -91,4 +91,58 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getBarDataforAdminDashboard
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get piegraph data
+
+
+  registerCompany(details) {
+    let h = this.setHeader();
+    return this.http.post(this.serviceUrl + "/register_company", details, { headers: h })
+      .map(res => res.json());
+
+  }
+  //  ---------------------------------End-------------------------------------------
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : registerCompanyFromadtninfo
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 12-03-2018
+  // Last Modified : 12-03-2018, 
+  // Desc          : 
+
+
+  registerCompanyFromadtninfo(details) {
+    let h = this.setHeader();
+    return this.http.post(this.serviceUrl + "/register_company", details, { headers: h })
+      .map(res => res.json());
+
+  }
+  //  ---------------------------------End-------------------------------------------
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : forgotPassword
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 12-03-2018
+  // Last Modified : 12-03-2018, 
+  // Desc          : 
+
+  forgotPassword(newPassword) {
+    // console.log("here..."  +  newPassword.email)
+    let h = this.setHeader();
+    return this.http.post(this.serviceUrl + "/forgotPassword", newPassword, { headers: h })
+      .map(res => res.json());
+  }
+    //  ---------------------------------End-------------------------------------------
+ 
 }
