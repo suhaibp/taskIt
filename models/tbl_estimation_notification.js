@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     tbl_estimation_notification.belongsTo(models.tbl_user_profile, {
       foreignKey: 'from_id',
-      as: 'Fromid',
+      as: 'From_id',
     });
     tbl_estimation_notification.belongsTo(models.tbl_user_profile, {
       foreignKey: 'to_id',

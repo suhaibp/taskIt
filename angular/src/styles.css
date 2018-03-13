@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /*Main CSS*/
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 /*@import '@angular/material/prebuilt-themes/indigo-pink.css';  */
 
 
@@ -859,6 +860,22 @@ margin-bottom: 4px;
 
 }
 
+.basic-container {
+    padding: 5px;
+  }
+  
+  .version-info {
+    font-size: 8pt;
+    float: right;
+  }
+  
+  .mat-simple-snackbar{
+    line-height: 32px;
+  }
+  .cdk-global-overlay-wrapper {
+    align-items: flex-start !important;
+    justify-content: flex-center !important
+  }
 .cnts i{
     font-size: 30px;
     padding: 29px 0px;

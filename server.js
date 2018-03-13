@@ -9,9 +9,10 @@ const server = http.Server(app);
 const io = socketIo(server);
 
 const path = require("path");
+const company = require("./routes/company")(io);
 //const users = require("./routes/user");
 const admin = require("./routes/admin")(io);
-const company = require("./routes/company")(io);
+// const company = require("./routes/company")(io);
 
 const bodyParser = require("body-parser");
 const passport = require('passport');
@@ -31,7 +32,7 @@ app.use(passport.session());
 // require('./config/passport')(passport);
 
 app.use(express.static(path.join(__dirname,"public")));
-
+// app.use('/company',company);
 app.use('*',(req, res)=>{
     res.sendFile(path.join(__dirname,'public/index.html'));
 });

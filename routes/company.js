@@ -111,7 +111,7 @@ var returnRouter = function (io) {
           
         }
       else{
-        if(typeof req.body.id !== 'undefined'){
+        if(typeof req.body.id == 'undefined'){
           Login.findAll(
             {where: {email: req.body[0].ans}}
                 
@@ -124,7 +124,7 @@ var returnRouter = function (io) {
   
                   bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(req.body[7].ans, salt, (err, hash) => {
-                      console.log(hash);
+                      // console.log(hash);
                         if (err) throw err;
                         newPassword = hash;
                         let newLogin = Login.build({
@@ -211,6 +211,24 @@ var returnRouter = function (io) {
             is_admin_viewed: false,
             verification_code: req.body[9].ans
           })
+
+          Company.update({
+            cmp_name: req.body[1].ans,
+            cmp_code:req.body[2].ans,
+            contact_no:req.body[4].ans,
+            why_choosen: req.body[7].ans,
+            login_id: resLogin.id,
+            cmp_size_id: req.body[5].ans,
+            industry_id: req.body[3].ans,
+            plan_id: resPlan.id,
+            no_months:1,
+            is_admin_viewed: false
+          }, {
+              where: {
+                id: req.body[10].ans
+              }
+            }).then(data1 => {
+            })  
           
         }
         
