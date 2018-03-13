@@ -1,0 +1,129 @@
+<body class="logn">
+    <div class="row">
+	   <div class="col-md-8">
+			<div class="row">
+				<div class="logn-img">
+					<img src="./assets/images/sign.jpg" class="img-responsive"/>
+					<div class="paragraph">
+						<div class="col-md-12" style="text-align:center;">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.
+						</div>
+					</div>
+				</div>
+			</div>
+	   </div>
+	   <div class="col-md-4 bgz">
+			<h3>Registration</h3>
+			<section>
+				<form id="theForm" class="simform" autocomplete="off">
+					<div class="simform-inner">
+						<!-- <ol class="questions">
+							<li>
+								<span><label for="q1">What's your Email?</label></span>
+								<input class="inp" id="q1" name="q1" type="text" [(ngModel)]="newReg.email"/>
+							</li>
+							<li>
+								<span><label for="q2">What's your Company Name?</label></span>
+								<input class="inp" id="q2" name="q2" type="text" [(ngModel)]="newReg.company_name"/>
+							</li>
+							<li>
+								<span><label for="q3">Your Company Code?</label></span>
+								<input class="inp" id="q3" name="q3" type="text" [(ngModel)]="newReg.company_code"/>
+							</li>
+							<li>
+								<span><label for="q4">Industry?</label></span>
+								<select class="inp" id="q4" name="q4" [(ngModel)]="newReg.industry">
+									<option>Select Industry</option>
+									<option>Health</option>
+									<option>It</option>
+								</select>
+							</li>
+							<li>
+								<span><label for="q5">Your Contact Number ?</label></span>
+								<input class="inp" id="q5" name="q5" type="text" [(ngModel)]="newReg.contact_no"/>
+							</li>
+							<li>
+								<span><label for="q6">Company Size?</label></span>
+								<select class="inp" id="q6" name="q6" [(ngModel)]="newReg.company_strength">
+									<option>Select Company Size</option>
+									<option>1-10</option>
+									<option>1-20</option>
+								</select>
+							</li>
+							<li>
+								<span><label for="q7">Why are you looking for task managment software?</label></span>
+								<input class="inp" id="q7" name="q7" type="text" [(ngModel)]="newReg.why_choosen"/>
+							</li>
+							<li>
+								<span><label for="q8">Your Password</label></span>
+								<input class="inp" id="q8" name="q8" type="password" [(ngModel)]="newReg.password"/>
+							</li>
+							
+							<li>
+								<span><label for="q9">Confirm Password</label></span>
+								<input class="inp" id="q9" name="q9" type="password" [(ngModel)]="confirmPass"/>
+							</li>
+						</ol>/questions -->
+						<div  *ngFor="let item of questions;let i=index;" class="nxt-cntainer">
+							<ng-container *ngIf="counter == i">
+									<label class="inp-hd" >{{item.question}}</label>
+									<input type="text" *ngIf="item.type == 'text' else password" [(ngModel)]="item.ans" name="item.ans">
+									<ng-template #password>
+										<input type="password" *ngIf="item.type == 'password' else multiple" [(ngModel)]="item.ans" name="item.ans">
+										<ng-template #multiple>
+												<select class="inp"  [(ngModel)]="item.ans" name="item.ans">
+														<ng-container *ngIf="i == 3 else size" >
+															<ng-container *ngFor="let c of industry">
+																	<option  value="{{c.id}}">{{c.industry}}</option>
+					
+															</ng-container>
+															
+														</ng-container>
+														<ng-template #size>
+																<ng-container *ngFor="let s of cmpSize">																
+																	<option  value="{{s.id}}">{{s.size_range}}</option>
+																</ng-container>
+														</ng-template>
+														<!-- <option>Select Company Size</option>
+														<option>1-10</option>
+														<option>1-20</option> -->
+													</select>
+										</ng-template>
+										
+									</ng-template>
+							<button *ngIf="counter != 8" class="btn-nxt" type="submit" (click)="validate(i)" [ngClass]="{'inp-top': counter==6}"><i class="la la-arrow-right"></i></button>
+									
+							</ng-container>
+						</div>
+						<div class="progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="70"
+								aria-valuemin="0" aria-valuemax="100" [style.width.%]="progressBarWidth">
+								  <span class="sr-only">70% Complete</span>
+								</div>
+							  </div>
+						<div class="errMsg" *ngIf="counter == 8|| counter == 7">{{passMessage}}</div>
+							  
+						<div class="errMsg">{{errMessage}}</div>
+						
+						<button *ngIf="counter == 8" class="submit-form" type="submit" (click)="register()"><i class="la la-arrow-right"></i></button>
+						
+					</div><!-- /simform-inner -->
+					<span class="final-message"></span>
+				</form><!-- /simform -->			
+			</section>
+			
+			
+			
+		</div>
+			
+		  
+	   
+   </div>
+
+    <!-- Modal -->
+ 
+		<script>
+			
+		</script>
+
+</body>

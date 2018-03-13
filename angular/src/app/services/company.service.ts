@@ -2,56 +2,62 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Config } from '../config/config';
-
 @Injectable()
-export class AdminService {
+export class CompanyService {
   serviceUrl: string;
-  constructor(private http: Http, private config: Config) {
-    this.serviceUrl = config.siteUrl + '/admin/';
-   }
 
-   setHeader() {
+  constructor(private http: Http, private config: Config) { 
+    this.serviceUrl = config.siteUrl + '/company/';
+    
+  }
+
+
+  
+  setHeader() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return (headers);
   }
-  //  ---------------------------------Start-------------------------------------------
-  // Function      : getCountsforAdminDashboard
-  // Params        : 
-  // Returns       : 
-  // Author        : Manu Prasad
-  // Date          : 02-03-2018
-  // Last Modified : 02-03-2018, Jooshifa 
-  // Desc          : for getting count of companies,projects,users
-
-
-  getCountsforAdminDashboard() {
-    let h = this.setHeader();
-    return this.http.post(this.serviceUrl + "/get_counts_for_dashboard",{}, { headers: h })
-      .map(res => res.json());
-
-  } 
-  //  ---------------------------------End-------------------------------------------
-  
 
   //  ---------------------------------Start-------------------------------------------
-  // Function      : getPieDataforAdminDashboard
+  // Function      : getIndustries
   // Params        : 
   // Returns       : 
   // Author        : Manu Prasad
   // Date          : 06-03-2018
   // Last Modified : 06-03-2018, 
-  // Desc          : get piegraph data
+  // Desc          : get Ind=ustries list from DB
 
 
-  getPieDataforAdminDashboard() {
+  getIndustries() {
     let h = this.setHeader();
-    return this.http.get(this.serviceUrl + "/super_admin_pie_graph",{ headers: h })
+    return this.http.get(this.serviceUrl + "/get_industries",{ headers: h })
       .map(res => res.json());
 
   } 
   //  ---------------------------------End-------------------------------------------
 
+
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getCompanySize
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get Company size list from DB
+
+
+  getCompanySize() {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/get_cmp_size",{ headers: h })
+      .map(res => res.json());
+
+  } 
+  //  ---------------------------------End-------------------------------------------
+
+    
   //  ---------------------------------Start-------------------------------------------
   // Function      : getBarDataforAdminDashboard
   // Params        : 
@@ -62,16 +68,11 @@ export class AdminService {
   // Desc          : get piegraph data
 
 
-  getBarDataforAdminDashboard() {
+  registerCompany(details) {
     let h = this.setHeader();
-    return this.http.get(this.serviceUrl + "/super_admin_bar_graph",{ headers: h })
+    return this.http.post(this.serviceUrl + "/register_company",details,{ headers: h })
       .map(res => res.json());
 
   } 
   //  ---------------------------------End-------------------------------------------
-
-
-
-
-
 }

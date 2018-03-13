@@ -57,10 +57,12 @@ import { AdminSubscribedComponent } from './components/admin-subscribed/admin-su
 import { AdminTrialComponent } from './components/admin-trial/admin-trial.component';
 import { AdminNotVerifiedComponent } from './components/admin-not-verified/admin-not-verified.component';
 import { AdminExpiredComponent } from './components/admin-expired/admin-expired.component';
-import { AdminService } from './services/admin.service'
+import { AdminService } from './services/admin.service';
+import { CompanyService } from './services/company.service';
 import { SuperAdminService } from './services/super-admin.service';
-import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/admin-dashboard-pie.component'
-
+import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/admin-dashboard-pie.component';
+import { AdminDashboardBarComponent } from './components/admin-dashboard-bar/admin-dashboard-bar.component';
+import { CompanySignupComponent } from './components/company-signup/company-signup.component'
 
 const appRoutes: Routes = [
   { path: '', component: ReferenceComponentComponent },
@@ -75,6 +77,7 @@ const appRoutes: Routes = [
   {path:'admin-trial', component:AdminTrialComponent},
   {path:'admin-NotVerified', component:AdminNotVerifiedComponent},
   {path:'admin-expired', component:AdminExpiredComponent},
+  {path:'company-signup', component:CompanySignupComponent},
  
 ] 
 
@@ -132,7 +135,9 @@ export class DemoMaterialModule {}
     AdminTrialComponent,
     AdminNotVerifiedComponent,
     AdminExpiredComponent,
-    AdminDashboardPieComponent
+    AdminDashboardPieComponent,
+    AdminDashboardBarComponent,
+    CompanySignupComponent
   ],
   imports: [
     BrowserModule,
@@ -142,7 +147,7 @@ export class DemoMaterialModule {}
     DemoMaterialModule,
     HttpModule
   ],
-  providers: [AdminService,SuperAdminService, Config],
+  providers: [AdminService,SuperAdminService,CompanyService, Config],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

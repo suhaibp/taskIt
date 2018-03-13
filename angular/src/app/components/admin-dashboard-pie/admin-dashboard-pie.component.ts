@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import { SuperAdminService } from './../../services/super-admin.service'
+import { AdminService } from './../../services/admin.service'
 var $:any;
 declare var d3: any;
 
@@ -10,23 +10,30 @@ declare var d3: any;
   styleUrls: ['./admin-dashboard-pie.component.css']
 })
 export class AdminDashboardPieComponent implements OnInit {
-
-  constructor(private superAdminService : SuperAdminService) { }
+  pieData:any;
+  constructor(private superAdminService : AdminService) { }
 
   ngOnInit() {
-    this.drawPie();
+    this.loadDetails();
+  }
+  loadDetails(){
+    this.superAdminService.getPieDataforAdminDashboard().subscribe(resData =>{
+      // console.log(resData)
+      this.pieData = resData;
+      this.drawPie();
+      
+    });
   }
 
-
   drawPie(){
-    const pieData = [
-      {name: 'Running', value: 40, color: '#18FFFF'},
-      {name: 'Paused', value: 26, color: '#0288D1'},
-      {name: 'Stopped', value: 7, color: '#BF360C'},
-      {name: 'Failed', value: 13, color: '#F4511E'},
-      {name: 'Unknown', value: 19, color: '#F9A825'},
-    ];
-    bakeDonut(pieData);
+    // const pieData = [
+    //   {name: 'Running', value: 40, color: '#18FFFF'},
+    //   {name: 'Paused', value: 40, color: '#0288D1'},
+    //   {name: 'Stopped', value: 7, color: '#BF360C'},
+    //   {name: 'Failed', value: 13, color: '#F4511E'},
+    //   {name: 'Unknown', value: 19, color: '#F9A825'},
+    // ];
+    bakeDonut(this.pieData);
     
     function bakeDonut(d) {
       let activeSegment;
@@ -65,7 +72,8 @@ export class AdminDashboardPieComponent implements OnInit {
       .value(function(pieData) { return pieData.value; })
       .sort(null);
     
-    
+      var maxAssigned = false;
+      var maxArcAssigned = false;
       const path = g.selectAll('path')
       .attr('class', 'data-path')
       .data(pie(data))
@@ -79,21 +87,22 @@ export class AdminDashboardPieComponent implements OnInit {
           .text(`${pathData.data.value}`)
           .attr('class', 'data-text data-text__value')
           .attr('text-anchor', 'middle')
-          .attr('dy', '1rem')
+          .attr('dy', '0em')
     
         group.append('text')
           .text(`${pathData.data.name}`)
           .attr('class', 'data-text data-text__name')
           .attr('text-anchor', 'middle')
-          .attr('dy', '3.5rem')
+          .attr('dy', '1.5em')
     
         // Set default active segment
-        if (pathData.value === max) {
+        if (pathData.value === max && !maxAssigned) {
           const textVal = d3.select(this).select('.data-text__value')
           .classed('data-text--show', true);
     
           const textName = d3.select(this).select('.data-text__name')
           .classed('data-text--show', true);
+          maxAssigned = true;
         }
     
       })
@@ -131,10 +140,11 @@ export class AdminDashboardPieComponent implements OnInit {
     
       })
       .each(function(v, i) {
-        if (v.value === max) {
+        if (v.value === max && !maxArcAssigned) {
           const maxArc = d3.select(this)
           .attr('d', arcHover);
           activeSegment = this;
+          maxArcAssigned = true;
         }
         this._current = i;
       });
@@ -164,9 +174,7 @@ export class AdminDashboardPieComponent implements OnInit {
         .attr('y', legendRectSize - legendSpacing)
         .attr('class', 'legend-text')
         .text( (legendData) => legendData )
-    }
-    
   }
-
+  }
 
 }

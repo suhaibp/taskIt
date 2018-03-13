@@ -7,7 +7,11 @@ var Models = require('./../models');
 var Projects = Models.tbl_project;
 var Users = Models.tbl_user_profile;
 var Login = Models.tbl_login;
+var Company = Models.tbl_company;
+var Industries = Models.tbl_industry;
+var CompanySize = Models.tbl_company_size;
 const Op = Sequelize.Op
+Projects.belongsTo(Company, {foreignKey: 'cmp_id'}); // Adds fk_company to User
 // var login = require('../models/login');
 
 // const student = models.student.build({
@@ -90,12 +94,11 @@ router.post('/get_counts_for_dashboard', function(req, res) {
       count = [];
     Login.findAndCountAll({
         where: {
-          is_verified: {
-            [Op.ne]:false
-          }
+          cmp_status:'Not Verified'
+
         }
       }).then(dbres => {
-        count.push({"Not verified":dbres.count}) ;
+        count.push({name:'Not verified', value:dbres.count, color:'#E35594'}) ;
         Login.findAndCountAll({
           where: {
             is_verified: {
@@ -104,7 +107,7 @@ router.post('/get_counts_for_dashboard', function(req, res) {
             cmp_status:'Trial'
           }
         }).then(dbres2 => {
-          count.push({"Trial":dbres2.count}) ;
+          count.push({name: 'Trial', value:dbres2.count, color:'#E55537'}) ;
           
           Login.findAndCountAll({
             where: {
@@ -112,14 +115,14 @@ router.post('/get_counts_for_dashboard', function(req, res) {
               cmp_status:'Subscribed'
             }
           }).then(dbres3 => {
-            count.push({"Subscribed":dbres3.count}) ;
+            count.push({name: 'Subscribed', value:dbres3.count, color:'#12AB60'}) ;
             
             Login.findAndCountAll({
               where: {
                 cmp_status:'Expired'
               }
             }).then(dbres4 => {
-              count.push({"Expired":dbres4.count}) ;
+              count.push({name: 'Expired', value:dbres4.count, color:'#00B0D9'}) ;
               
             res.json(count);
               
@@ -133,6 +136,64 @@ router.post('/get_counts_for_dashboard', function(req, res) {
       })
   });
 //  ---------------------------------End-------------------------------------------
+
+//  ---------------------------------Start-------------------------------------------
+  // Function      : super_admin_pie_graph
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get piegraph data
+
+
+  router.get('/super_admin_bar_graph', function(req, res) {
+    console.log('y')
+    count = [];
+  
+      // Projects.findAll({
+      //   include: [{
+      //     model: Company
+      //   }],
+      // }).then(dbres2 => {
+      //   res.json(dbres2)
+      // })
+    
+
+Company.findAll({
+  include: [{
+    model: Projects
+    // where: {id: Sequelize.col('login.role_id')}
+  
+   }]
+}).then(companies => {
+  //console.log(projects);
+  res.json(companies);
+});
+
+
+    //   if (config.use_env_variable) {
+    //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    //   } else {
+    //     var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    //   }
+      
+    //   sequelize.query("select * from GetAllSt();").spread(
+    //     function (actualres, settingName2) {
+    //       console.log(actualres);
+    //       console.log(settingName2);
+    //       res.json(actualres);
+    // });
+    
+});
+//  ---------------------------------End-------------------------------------------
+
+
+
+
+
+
+
 
   module.exports = router;
   return router;
