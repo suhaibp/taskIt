@@ -71,43 +71,7 @@ export class AdminService {
   //  ---------------------------------End-------------------------------------------
 
 
-  //  ---------------------------------Start-------------------------------------------
-  // Function      : getBarDataforAdminDashboard
-  // Params        : 
-  // Returns       : 
-  // Author        : Manu Prasad
-  // Date          : 06-03-2018
-  // Last Modified : 06-03-2018, 
-  // Desc          : get piegraph data
 
-
-  getIndustries() {
-    let h = this.setHeader();
-    return this.http.get(this.serviceUrl + "/get_industries",{ headers: h })
-      .map(res => res.json());
-
-  } 
-  //  ---------------------------------End-------------------------------------------
-
-
-
-  //  ---------------------------------Start-------------------------------------------
-  // Function      : getBarDataforAdminDashboard
-  // Params        : 
-  // Returns       : 
-  // Author        : Manu Prasad
-  // Date          : 06-03-2018
-  // Last Modified : 06-03-2018, 
-  // Desc          : get piegraph data
-
-
-  getCompanySize() {
-    let h = this.setHeader();
-    return this.http.get(this.serviceUrl + "/get_cmp_size",{ headers: h })
-      .map(res => res.json());
-
-  } 
-  //  ---------------------------------End-------------------------------------------
 
 
 }

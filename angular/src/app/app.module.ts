@@ -57,10 +57,16 @@ import { AdminSubscribedComponent } from './components/admin-subscribed/admin-su
 import { AdminTrialComponent } from './components/admin-trial/admin-trial.component';
 import { AdminNotVerifiedComponent } from './components/admin-not-verified/admin-not-verified.component';
 import { AdminExpiredComponent } from './components/admin-expired/admin-expired.component';
+// import { CompanyService } from './services/company.service';
+import { SuperAdminService } from './services/super-admin.service';
+import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/admin-dashboard-pie.component';
+import { AdminDashboardBarComponent } from './components/admin-dashboard-bar/admin-dashboard-bar.component';
+import { CompanySignupComponent } from './components/company-signup/company-signup.component'
 import { CompanyLoginComponent } from './components/company-login/company-login.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { CompayAditninfoComponent } from './components/compay-aditninfo/compay-aditninfo.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 const appRoutes: Routes = [
@@ -75,10 +81,13 @@ const appRoutes: Routes = [
   {path:'admin-trial', component:AdminTrialComponent},
   {path:'admin-NotVerified', component:AdminNotVerifiedComponent},
   {path:'admin-expired', component:AdminExpiredComponent},
+  {path:'company-signup', component:CompanySignupComponent},
+ 
   {path:'company-login', component:CompanyLoginComponent},
   {path:'compay-aditninfo/:id', component:CompayAditninfoComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
   {path:'forgot-password', component:ForgotPasswordComponent},
+  {path:'spinner', component:SpinnerComponent},//To check component
 ] 
 @NgModule({
   exports: [
@@ -116,7 +125,6 @@ const appRoutes: Routes = [
     MatTooltipModule,
   ],
 
-
  
 })
 export class DemoMaterialModule {}
@@ -136,7 +144,11 @@ export class DemoMaterialModule {}
     CompanyLoginComponent,
     EmailVerificationComponent,
     CompayAditninfoComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    AdminDashboardPieComponent,
+    AdminDashboardBarComponent,
+    CompanySignupComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -149,7 +161,7 @@ export class DemoMaterialModule {}
     ReCaptchaModule
   
   ],
-  providers: [Config,CompanyService,AdminService],
+  providers: [Config,CompanyService,AdminService,SuperAdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

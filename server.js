@@ -12,6 +12,7 @@ const path = require("path");
 const company = require("./routes/company")(io);
 //const users = require("./routes/user");
 const admin = require("./routes/admin")(io);
+// const company = require("./routes/company")(io);
 
 const bodyParser = require("body-parser");
 const passport = require('passport');

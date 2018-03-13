@@ -1,4 +1,3 @@
-
 import { Injectable, Component, OnInit } from '@angular/core';
 import { Http, Headers, Response, Request, RequestMethod, URLSearchParams, RequestOptions } from "@angular/http";
 import { Observable } from 'rxjs/Rx';
@@ -9,8 +8,9 @@ export class CompanyService {
   serviceUrl: string;
   authToken: any;
   company: any;
-  constructor(private http: Http, private config: Config) {
+  constructor(private http: Http, private config: Config) { 
     this.serviceUrl = config.siteUrl + '/company/';
+    
   }
   setHeader() {
     let headers = new Headers();
@@ -28,7 +28,46 @@ export class CompanyService {
   loadToken() {
     this.authToken = localStorage.getItem('id_token');
   }
-  // ---------------------------------Start------------------------------------------------
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getIndustries
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get Ind=ustries list from DB
+
+
+  getIndustries() {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/get_industries",{ headers: h })
+      .map(res => res.json());
+
+  } 
+  //  ---------------------------------End-------------------------------------------
+
+
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getCompanySize
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get Company size list from DB
+
+
+  getCompanySize() {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/get_cmp_size",{ headers: h })
+      .map(res => res.json());
+
+  } 
+  //  ---------------------------------End-------------------------------------------
+
+  
+// ---------------------------------Start------------------------------------------------
   // Function      : Login
   // Params        : username and password
   // Returns       : token, company details and company status

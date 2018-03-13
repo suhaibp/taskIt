@@ -6,9 +6,11 @@ html, body {
   }
   
   .pie-gr {
-    background: -webkit-gradient(linear, left top, left bottom, from(#606c88), to(#3f4c6b));
-    background: linear-gradient(to bottom, #606c88 0%, #3f4c6b 100%);
+    /* background: -webkit-gradient(linear, left top, left bottom, from(#606c88), to(#3f4c6b));
+    background: linear-gradient(to bottom, #606c88 0%, #3f4c6b 100%); */
+    background-color: #fff;
     font-family: 'Source Sans Pro', sans-serif;
+    padding: 80px;
   }
   
   .pie {

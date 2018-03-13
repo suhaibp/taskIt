@@ -193,48 +193,7 @@ Company.findAll({
 
 
 
-//  ---------------------------------Start-------------------------------------------
-  // Function      : get_industries
-  // Params        : 
-  // Returns       : 
-  // Author        : Manu Prasad
-  // Date          : 09-03-2018
-  // Last Modified : 09-03-2018, 
-  // Desc          : get industry list
 
-
-  router.get('/get_industries', function(req, res) {
- 
-  
-    Industries.findAll().then(industries => {
-      //console.log(projects);
-      res.json(industries);
-    });
-      
-  });
-  //  ---------------------------------End-------------------------------------------
-
-
-  //  ---------------------------------Start-------------------------------------------
-  // Function      : get_industries
-  // Params        : 
-  // Returns       : 
-  // Author        : Manu Prasad
-  // Date          : 09-03-2018
-  // Last Modified : 09-03-2018, 
-  // Desc          : get industry list
-
-
-  router.get('/get_cmp_size', function(req, res) {
- 
-  
-    CompanySize.findAll().then(companieSize => {
-      //console.log(projects);
-      res.json(companieSize);
-    });
-      
-  });
-  //  ---------------------------------End-------------------------------------------
 
   module.exports = router;
   return router;
