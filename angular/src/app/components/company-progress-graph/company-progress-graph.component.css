@@ -16,7 +16,7 @@ body {
 .svg-container {
   margin: 3em auto 0;
   width: 250px;
-  height: 250px;
+  /* height: 250px; */
 }
 
 svg {

@@ -147,138 +147,17 @@
     </div> -->
   </div>
   <script type="text/javascript">
-  // CP BAR CHART
-  // Setup svg using Bostock's margin convention
-  var margin = {top: 20, right: 160, bottom: 35, left: 30};
-  var width = 700 - margin.left - margin.right,
-      height = 400 - margin.top - margin.bottom;
-  var svg = d3.select("#cpchart")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  /* Data in strings like it would be if imported from a csv */
-  var data = [
-    { year: "2009", struck: "07", severe: "05", killed: "0"},
-    { year: "2010", struck: "06", severe: "04", killed: "0"},
-    { year: "2011", struck: "07", severe: "02", killed: "0"},
-    { year: "2012", struck: "07", severe: "04", killed: "0"},
-    { year: "2013", struck: "06", severe: "03", killed: "0"},
-    { year: "2014", struck: "14", severe: "07", killed: "3"},
-    { year: "2015", struck: "04", severe: "03", killed: "0"},
-    { year: "2016", struck: "04", severe: "01", killed: "0",},
-  ];
-  var parse = d3.time.format("%Y").parse;
-    
-    alert(parse)
-    //var parse = '2018';
-  // Transpose the data into layers
-  var dataset = d3.layout.stack()(["struck", "severe", "killed"].map(function(peds) {
-    return data.map(function(d) {
-      return {x: parse(d.year), y: +d[peds]};
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
     });
-  }));
-  //console.log(dataset);
-  // Set x, y and colors
-  var x = d3.scale.ordinal()
-    .domain(dataset[0].map(function(d) { return d.x; }))
-    .rangeRoundBands([10, width-10], 0.02);
-  var y = d3.scale.linear()
-    .domain([0, 30])
-    .range([height, 0]);
-  var colors = ["#fbd603", "#b8b8b8", "#e51937"];
-  // Define and draw axes
-  var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .ticks(5)
-    .tickSize(-width, 0, 0)
-    .tickFormat( function(d) { return d } );
-  var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-    .tickFormat(d3.time.format("%Y"));
-  svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis);
-  svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-  // Create groups for each series, rects for each segment 
-  var groups = svg.selectAll("g.cost")
-    .data(dataset)
-    .enter().append("g")
-    .attr("class", "cost")
-    .style("fill", function(d, i) { return colors[i]; });
-  var rect = groups.selectAll("rect")
-    .data(function(d) { return d; })
-    .enter()
-    .append("rect")
-    .attr("x", function(d) { return x(d.x); })
-    .attr("y", function(d) { return y(d.y0 + d.y); })
-    .attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); })
-    .attr("width", x.rangeBand())
-    .on("mouseover", function() { tooltip.style("display", null); })
-    .on("mouseout", function() { tooltip.style("display", "none"); })
-    .on("mousemove", function(d) {
-      var xPosition = d3.mouse(this)[0] - 15;
-      var yPosition = d3.mouse(this)[1] - 25;
-      tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-      tooltip.select("text").text(d.y);
-    });
-  // Draw legend
-  var legend = svg.selectAll(".legend")
-    .data(colors)
-    .enter().append("g")
-    .attr("class", "legend")
-    .attr("transform", function(d, i) { return "translate(30," + i * 19 + ")"; });
-   
-  legend.append("rect")
-    .attr("x", width - 18)
-    .attr("width", 18)
-    .attr("height", 18)
-    .style("fill", function(d, i) {return colors.slice().reverse()[i];});
-   
-  legend.append("text")
-    .attr("x", width + 5)
-    .attr("y", 9)
-    .attr("dy", ".35em")
-    .attr("font-family", "Poppins")
-    .style("text-anchor", "start")
-    .text(function(d, i) { 
-      switch (i) {
-        case 0: return "killed";
-        case 1: return "severely injured";
-        case 2: return "struck";
-      }
-    });
-  var aspect = width / height,
-      chart = d3.select('#cpchart');
-  d3.select(window)
-    .on("resize", function() {
-      var targetWidth = chart.node().getBoundingClientRect().width;
-      chart.attr("width", targetWidth);
-      chart.attr("height", targetWidth / aspect);
-    });
-  // Prep the tooltip bits, initial display is hidden
-  var tooltip = svg.append("g")
-    .attr("class", "tooltip")
-    .style("display", "none");
-      
-  tooltip.append("rect")
-    .attr("width", 30)
-    .attr("height", 20)
-    .attr("fill", "white")
-    .style("opacity", 0.5);
-  tooltip.append("text")
-    .attr("x", 15)
-    .attr("dy", "1.2em")
-    .style("text-anchor", "middle")
-    .attr("font-family", "Poppins")
-    .attr("font-size", "12px")
-    .attr("font-weight", "bold");
+  }
   </script>
   </body>
   </html>

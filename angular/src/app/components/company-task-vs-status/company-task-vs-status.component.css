@@ -10,9 +10,11 @@ html, body {
     background: linear-gradient(to bottom, #606c88 0%, #3f4c6b 100%);
     font-family: 'Source Sans Pro', sans-serif;
   }
-  .bg-g{background:#17a88f;color:#fff;}
-  .bg-hash{background:#E9E9E9;}
-  .bg-hash select{background:none;border:none;}
+  .bg-g{background:#17a88f;color:#fff; padding: 10px;margin-bottom:10px;}
+  .bg-hash{background:#E9E9E9;padding: 10px;margin-bottom:10px;}
+  .bg-hash select{background:none;border:none;width:100%;}
+  .total{font-weight:700;padding-top: 20px; line-height: 36px;}
+  .widget{margin-top:9%;}
   .tasklabel{       background: #efefef;
     padding: 25px 30px;
     text-align: center;
@@ -67,7 +69,8 @@ html, body {
         -ms-user-select: none;
             user-select: none;
   }
-  
+h1{text-align:center;}
+.sales{margin-bottom: 25px;}
   .legend-text {
     fill: #fff;
   }
@@ -89,4 +92,4 @@ html, body {
       opacity: 1;
     }
   }
-  
+  .sales{    margin-bottom: 20px;}

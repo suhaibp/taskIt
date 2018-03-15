@@ -187,8 +187,8 @@ export class CompanyProjectVsHourComponent implements OnInit {
     svg.append("g")     
       .attr("class", "grid")
       .call(d3.axisLeft(y)
-        .ticks(10)
-        .tickSize(-width)
+        .ticks(25)
+        //  .tickSize(-width)
         .tickFormat("")
       )
     

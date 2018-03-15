@@ -1,21 +1,21 @@
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
 import 'hammerjs';
 import { AppComponent } from './app.component';
 import { ReferenceComponentComponent } from './components/reference-component/reference-component.component';
 import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
 import { AdminTopbarComponent } from './components/admin-topbar/admin-topbar.component';
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminCompanyComponent } from './components/admin-company/admin-company.component';
-
-
+import { CompanyService} from './services/company.service';
+import {Config} from './config/config';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -62,6 +62,10 @@ import { CompanyResoureVsHourComponent } from './components/company-resoure-vs-h
 import { CompanyProjectVsHourComponent } from './components/company-project-vs-hour/company-project-vs-hour.component';
 import { CompanyProjectVsStatusComponent } from './components/company-project-vs-status/company-project-vs-status.component';
 import { CompanyProgressGraphComponent } from './components/company-progress-graph/company-progress-graph.component';
+import { CompanyLoginComponent } from './components/company-login/company-login.component';
+import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import { CompanyStatusGraphComponent } from './components/company-status-graph/company-status-graph.component';
+import { CompanyBarGraphComponent } from './components/company-bar-graph/company-bar-graph.component';
 
 
 const appRoutes: Routes = [
@@ -70,7 +74,6 @@ const appRoutes: Routes = [
   {path:'admin-sidebar', component:AdminSidebarComponent},
   {path:'admin-topbar', component:AdminTopbarComponent},
   {path:'admin-footer', component:AdminFooterComponent},
-  {path:'admin-dashboard', component:AdminDashboardComponent},
   {path:'admin-company', component:AdminCompanyComponent},
   {path:'admin-all-companies', component:AdminAllCompaniesComponent},
   {path:'admin-subscribed', component:AdminSubscribedComponent},
@@ -79,9 +82,9 @@ const appRoutes: Routes = [
   {path:'admin-expired', component:AdminExpiredComponent},
   {path:'company-dashboard', component:CompanyDashboardComponent},
  
+  {path:'company-login', component:CompanyLoginComponent},
+  {path:'email-verification/:id', component:EmailVerificationComponent},
 ] 
-
-
 @NgModule({
   exports: [
     CdkTableModule,
@@ -127,7 +130,6 @@ export class DemoMaterialModule {}
     AdminSidebarComponent,
     AdminTopbarComponent,
     AdminFooterComponent,
-    AdminDashboardComponent,
     AdminCompanyComponent,
     AdminAllCompaniesComponent,
     AdminSubscribedComponent,
@@ -139,17 +141,23 @@ export class DemoMaterialModule {}
     CompanyResoureVsHourComponent,
     CompanyProjectVsHourComponent,
     CompanyProjectVsStatusComponent,
-    CompanyProgressGraphComponent
-  
+    CompanyProgressGraphComponent,
+   CompanyLoginComponent,
+   EmailVerificationComponent,
+   CompanyStatusGraphComponent,
+   CompanyBarGraphComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
-    DemoMaterialModule
+    RouterModule.forRoot(appRoutes),
+    DemoMaterialModule,
+    HttpModule,
+    BrowserAnimationsModule
+  
   ],
-  providers: [],
+  providers: [Config,CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

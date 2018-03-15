@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CompanyService} from './../../services/company.service';
 declare var d3: any;
 declare var $:any;
 @Component({
@@ -7,10 +8,14 @@ declare var $:any;
   styleUrls: ['./company-task-vs-status.component.css']
 })
 export class CompanyTaskVsStatusComponent implements OnInit {
-
-  constructor() { }
+projects = [];
+users = [];
+  constructor(private companyService : CompanyService) { }
 
   ngOnInit() {
+    
+    this.getAllProjects();
+    
 
     const pieData = [
       {name: 'New - Yet to Start', value: 3, color: '#2778a7'},
@@ -21,6 +26,23 @@ export class CompanyTaskVsStatusComponent implements OnInit {
       {name: 'Un Planned', value: 1, color: '#4d5d6e'},
     ];
     this.bakeDonut(pieData);
+  }
+  
+  getAllProjects(){
+    this.companyService.getAllProject().subscribe(data=>{
+      console.log(data);
+      this.projects = data;
+      if(this.projects.length == 0){
+        this.users = [];
+      }else{
+        this.getUsers(this.projects[0].id);
+      }
+    });
+  }
+  getUsers(projId){
+    this.companyService.getUsers(projId).subscribe(data=>{
+      this.users = data;
+    });
   }
 
   bakeDonut(d) {
