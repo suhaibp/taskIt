@@ -65,6 +65,9 @@ import { CompanySignupComponent } from './components/company-signup/company-sign
 import { CompanyLoginComponent } from './components/company-login/company-login.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { CompanyManageTeamComponent } from './components/company-manage-team/company-manage-team.component';
+import { CompanyTopbarComponent } from './components/company-topbar/company-topbar.component';
+import { CompanySidebarComponent } from './components/company-sidebar/company-sidebar.component';
 
 
 const appRoutes: Routes = [
@@ -82,6 +85,7 @@ const appRoutes: Routes = [
   {path:'company-signup', component:CompanySignupComponent},
  
   {path:'company-login', component:CompanyLoginComponent},
+  {path:'company-team', component:CompanyManageTeamComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
   {path:'spinner', component:SpinnerComponent},//To check component
 ] 
@@ -141,7 +145,10 @@ export class DemoMaterialModule {}
     AdminDashboardBarComponent,
     CompanySignupComponent,
     CompanyLoginComponent,
-    SpinnerComponent
+    SpinnerComponent, 
+    CompanyManageTeamComponent, 
+    CompanyTopbarComponent, 
+    CompanySidebarComponent,
   ],
   imports: [
     BrowserModule,

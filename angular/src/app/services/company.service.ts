@@ -151,4 +151,55 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getTeams
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, 
+  // Desc          : get team names and strength from db
+  getTeams(){
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getTeams", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getTeamMembers
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, 
+  // Desc          : get team members based on id passed from db
+  getTeamMembers(id){
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getMembers/"+id, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getTeamMembers
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, 
+  // Desc          : get team members based on id passed from db
+  assignTeam(members,head,teamId){
+    let h = this.setHeader();
+    let data = [];
+    data.push(members);
+    data.push(head);
+    data.push(teamId);
+    return this.http.post(this.serviceUrl + "assignMemebers/",data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
 }
