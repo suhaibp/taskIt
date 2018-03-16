@@ -66,6 +66,13 @@ import { CompanyLoginComponent } from './components/company-login/company-login.
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { CompanyStatusGraphComponent } from './components/company-status-graph/company-status-graph.component';
 import { CompanyBarGraphComponent } from './components/company-bar-graph/company-bar-graph.component';
+import { AdminService } from './services/admin.service';
+// import { CompanyService } from './services/company.service';
+import { SuperAdminService } from './services/super-admin.service';
+import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/admin-dashboard-pie.component';
+import { AdminDashboardBarComponent } from './components/admin-dashboard-bar/admin-dashboard-bar.component';
+import { CompanySignupComponent } from './components/company-signup/company-signup.component'
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 const appRoutes: Routes = [
@@ -81,9 +88,11 @@ const appRoutes: Routes = [
   {path:'admin-NotVerified', component:AdminNotVerifiedComponent},
   {path:'admin-expired', component:AdminExpiredComponent},
   {path:'company-dashboard', component:CompanyDashboardComponent},
+  {path:'company-signup', component:CompanySignupComponent},
  
   {path:'company-login', component:CompanyLoginComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
+  {path:'spinner', component:SpinnerComponent},//To check component
 ] 
 @NgModule({
   exports: [
@@ -145,7 +154,12 @@ export class DemoMaterialModule {}
    CompanyLoginComponent,
    EmailVerificationComponent,
    CompanyStatusGraphComponent,
-   CompanyBarGraphComponent
+   CompanyBarGraphComponent,
+    AdminDashboardPieComponent,
+    AdminDashboardBarComponent,
+    CompanySignupComponent,
+    CompanyLoginComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -157,7 +171,7 @@ export class DemoMaterialModule {}
     BrowserAnimationsModule
   
   ],
-  providers: [Config,CompanyService],
+  providers: [AdminService,SuperAdminService,CompanyService, Config],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

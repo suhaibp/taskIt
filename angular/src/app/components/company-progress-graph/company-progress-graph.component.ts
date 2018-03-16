@@ -10,7 +10,7 @@ declare var $:any;
 })
 export class CompanyProgressGraphComponent implements OnInit {
 containerId:String;
-progper:Number;
+progper:any;
   constructor() { }
 
   ngOnInit() {

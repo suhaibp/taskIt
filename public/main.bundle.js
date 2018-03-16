@@ -112,6 +112,12 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__ = __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_company_status_graph_company_status_graph_component__ = __webpack_require__("../../../../../src/app/components/company-status-graph/company-status-graph.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_company_bar_graph_company_bar_graph_component__ = __webpack_require__("../../../../../src/app/components/company-bar-graph/company-bar-graph.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__services_super_admin_service__ = __webpack_require__("../../../../../src/app/services/super-admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_admin_dashboard_pie_admin_dashboard_pie_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_admin_dashboard_bar_admin_dashboard_bar_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-bar/admin-dashboard-bar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_company_signup_company_signup_component__ = __webpack_require__("../../../../../src/app/components/company-signup/company-signup.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_spinner_spinner_component__ = __webpack_require__("../../../../../src/app/components/spinner/spinner.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -150,6 +156,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+// import { CompanyService } from './services/company.service';
+
+
+
+
+
 var appRoutes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_8__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */] },
     { path: 'reference', component: __WEBPACK_IMPORTED_MODULE_8__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */] },
@@ -163,8 +176,10 @@ var appRoutes = [
     { path: 'admin-NotVerified', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */] },
     { path: 'admin-expired', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */] },
     { path: 'company-dashboard', component: __WEBPACK_IMPORTED_MODULE_22__components_company_dashboard_company_dashboard_component__["a" /* CompanyDashboardComponent */] },
+    { path: 'company-signup', component: __WEBPACK_IMPORTED_MODULE_36__components_company_signup_company_signup_component__["a" /* CompanySignupComponent */] },
     { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
     { path: 'email-verification/:id', component: __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */] },
+    { path: 'spinner', component: __WEBPACK_IMPORTED_MODULE_37__components_spinner_spinner_component__["a" /* SpinnerComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
@@ -236,7 +251,12 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */],
                 __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */],
                 __WEBPACK_IMPORTED_MODULE_30__components_company_status_graph_company_status_graph_component__["a" /* CompanyStatusGraphComponent */],
-                __WEBPACK_IMPORTED_MODULE_31__components_company_bar_graph_company_bar_graph_component__["a" /* CompanyBarGraphComponent */]
+                __WEBPACK_IMPORTED_MODULE_31__components_company_bar_graph_company_bar_graph_component__["a" /* CompanyBarGraphComponent */],
+                __WEBPACK_IMPORTED_MODULE_34__components_admin_dashboard_pie_admin_dashboard_pie_component__["a" /* AdminDashboardPieComponent */],
+                __WEBPACK_IMPORTED_MODULE_35__components_admin_dashboard_bar_admin_dashboard_bar_component__["a" /* AdminDashboardBarComponent */],
+                __WEBPACK_IMPORTED_MODULE_36__components_company_signup_company_signup_component__["a" /* CompanySignupComponent */],
+                __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */],
+                __WEBPACK_IMPORTED_MODULE_37__components_spinner_spinner_component__["a" /* SpinnerComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
@@ -247,7 +267,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_5__angular_http__["c" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */]
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_14__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_13__services_company_service__["a" /* CompanyService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_32__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_33__services_super_admin_service__["a" /* SuperAdminService */], __WEBPACK_IMPORTED_MODULE_13__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_14__config_config__["a" /* Config */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -383,6 +403,366 @@ var AdminCompanyComponent = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
     ], AdminCompanyComponent);
     return AdminCompanyComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/admin-dashboard-bar/admin-dashboard-bar.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\r\n.domain,\r\n.tick,\r\n.tick line {\r\n  stroke: #62D2E7;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/admin-dashboard-bar/admin-dashboard-bar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\r\n<!-- <h1>{{title}}</h1> -->\r\n<!-- <h2>{{subtitle}}</h2> -->\r\n<div  class=\"col-md-12 no-g-data\">\r\n    <!-- <svg  width=\"960\" height=\"500\"></svg> -->\r\n    <div id=\"chart\"></div>\r\n\r\n</div>\r\n    \r\n<ng-template #empty>\r\n    <div class=\"col-md-12 no-g-data\">\r\n        <!-- <img src=\"assets/images/sad.png\" alt=\"sad\"> -->\r\n        <h4>No Data Available!</h4>\r\n    </div>\r\n</ng-template>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/admin-dashboard-bar/admin-dashboard-bar.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminDashboardBarComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var $;
+var AdminDashboardBarComponent = (function () {
+    function AdminDashboardBarComponent(superAdminService) {
+        this.superAdminService = superAdminService;
+        // public barchart: count[] =[ ] ;
+        this.graphData = true;
+        this.title = 'Company vs Survey';
+        this.margin = { top: 20, right: 20, bottom: 30, left: 40 };
+    }
+    AdminDashboardBarComponent.prototype.ngOnInit = function () {
+        this.refresh();
+    };
+    AdminDashboardBarComponent.prototype.refresh = function () {
+        //     this.superAdminService.getBarDataforAdminDashboard().subscribe(data=>{
+        //      console.log(data.length)
+        //      if(data.length <= 0){
+        //      }
+        //      // console.log(this.graphData)
+        //    this.barchart= [];
+        //    data.forEach(elm =>{
+        //     //  console.log(elm);
+        //      if (elm.tbl_projects.length != 0){
+        //       this.graphData = true;
+        //        this.barchart.push({label: elm.cmp_name, value:(elm.tbl_projects.length)});
+        //        // this.initSvg();
+        //        // this.initAxis();
+        //        // this.drawAxis();
+        //        // this.drawBars();
+        //      }
+        //    });
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.barchart.push({label: "elm.cmp_name", value:5});
+        //    this.drawBar();
+        //   //  console.log(data);
+        //   });
+        //   }
+        //   /*_____________________________________BAR CHART____________________________________*/
+        // drawBar(){
+        //   var bardata = [];
+        // for (var i = 0; i < 100; i++) {
+        //   bardata.push(Math.round(Math.random()*30) +1)
+        // };
+        // var height = 500,
+        // 		width = 800		
+        // var yScale = d3.scaleLinear()
+        //     .domain([0, d3.max(bardata)])
+        //     .range([0, height]);
+        // var xScale = d3.scaleBand()
+        //     .domain(d3.range(0, bardata.length))
+        //     .range([0, width]);
+        // var colors = d3.scaleLinear()
+        //     .domain([0, d3.max(bardata)])
+        //     .range(['#ffeb3b', '#d20f53']);
+        // var tooltip = d3.select('body').append('div')
+        // 		.style('position', 'absolute')
+        // 		.style('background', '#fff')
+        // 		.style('padding', '5px')
+        // 		.style('border', '1px #000 solid')
+        // 		.style('border-radius', '5px')
+        // 		.style('opacity', '0');
+        // var myChart = d3.select('#chart').append('svg')
+        // 					.attr('width', width)
+        // 					.attr('height', height)
+        // 					.style('background', '#fdf6e3')
+        // 					.selectAll('rect').data(bardata)
+        // 					.enter().append('rect')
+        // 						.style('fill', colors)
+        // 						.attr('width', xScale.bandwidth())
+        // 						.attr('height', 0)
+        // 						.attr('x', function(d,i) {
+        // 							return (i * xScale.bandwidth()) + 1;
+        // 						})
+        // 						.attr('y', height)
+        // 				.on('mouseover', function(d) {
+        //           d3.select(this).style('opacity', '0.3')	
+        // 					tooltip.style('opacity', '1').html(d)
+        // 						.style('left', (d3.event.pageX)+'px')
+        // 						.style('top', (d3.event.pageY)+'px')	
+        // 				})
+        // 				.on('mouseout', function(d) {
+        //           d3.select(this).style('opacity', '1')
+        // 					tooltip.style('opacity', '0')
+        // 				});
+        // 	myChart.transition()
+        // 		.attr('height', function(d){
+        // 			return yScale(d);
+        // 		})
+        // 		.attr('y', function(d){
+        // 			return height - yScale(d);
+        // 		})
+        // 		.duration(800)
+        // 		.delay(function(d,i) {
+        // 			return i * 20;
+        // 		});
+    };
+    AdminDashboardBarComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-admin-dashboard-bar',
+            template: __webpack_require__("../../../../../src/app/components/admin-dashboard-bar/admin-dashboard-bar.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/admin-dashboard-bar/admin-dashboard-bar.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */]])
+    ], AdminDashboardBarComponent);
+    return AdminDashboardBarComponent;
+}());
+
+// export interface count {
+//   company: string,
+//   count: number
+// } 
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "html, body {\r\n    height: 100%;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n  }\r\n  \r\n  .pie-gr {\r\n    /* background: -webkit-gradient(linear, left top, left bottom, from(#606c88), to(#3f4c6b));\r\n    background: linear-gradient(to bottom, #606c88 0%, #3f4c6b 100%); */\r\n    background-color: #fff;\r\n    font-family: 'Source Sans Pro', sans-serif;\r\n    padding: 80px;\r\n  }\r\n  \r\n  .pie {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    -webkit-filter: drop-shadow(0 2px 0px #333);\r\n            filter: drop-shadow(0 2px 0px #333);\r\n  }\r\n  \r\n  .data-path:hover {\r\n    cursor: pointer;\r\n  }\r\n  \r\n  .data-text {\r\n    transition: transform .2s ease-in-out;\r\n    fill: #fff;\r\n  }\r\n  .data-text__value {\r\n    font-size: 7rem;\r\n    transform: translateY(-0.5rem);\r\n    opacity: 0;\r\n  }\r\n  .data-text__name {\r\n    font-size: 2rem;\r\n    transform: translateY(0.5rem);\r\n    opacity: 0;\r\n  }\r\n  .data-text--show {\r\n    transform: translateY(0);\r\n    animation: fadeGraphTextIn 0.5s forwards;\r\n  }\r\n  .data-text:hover {\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n  }\r\n  \r\n  .legend-text {\r\n    fill: #fff;\r\n  }\r\n  \r\n  @keyframes fadeGraphTextIn {\r\n    from {\r\n      opacity: 0;\r\n    }\r\n    to {\r\n      opacity: 1;\r\n    }\r\n  }\r\n  ", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"pie-gr\"></div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminDashboardPieComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var $;
+var AdminDashboardPieComponent = (function () {
+    function AdminDashboardPieComponent(superAdminService) {
+        this.superAdminService = superAdminService;
+    }
+    AdminDashboardPieComponent.prototype.ngOnInit = function () {
+        this.loadDetails();
+    };
+    AdminDashboardPieComponent.prototype.loadDetails = function () {
+        var _this = this;
+        this.superAdminService.getPieDataforAdminDashboard().subscribe(function (resData) {
+            // console.log(resData)
+            _this.pieData = resData;
+            _this.drawPie();
+        });
+    };
+    AdminDashboardPieComponent.prototype.drawPie = function () {
+        // const pieData = [
+        //   {name: 'Running', value: 40, color: '#18FFFF'},
+        //   {name: 'Paused', value: 40, color: '#0288D1'},
+        //   {name: 'Stopped', value: 7, color: '#BF360C'},
+        //   {name: 'Failed', value: 13, color: '#F4511E'},
+        //   {name: 'Unknown', value: 19, color: '#F9A825'},
+        // ];
+        bakeDonut(this.pieData);
+        function bakeDonut(d) {
+            var activeSegment;
+            var data = d.sort(function (a, b) { return b['value'] - a['value']; }), viewWidth = 500, viewHeight = 300, svgWidth = viewHeight, svgHeight = viewHeight, thickness = 40, colorArray = data.map(function (k) { return k.color; }), el = d3.select('.pie-gr'), radius = Math.min(svgWidth, svgHeight) / 2, color = d3.scaleOrdinal()
+                .range(colorArray);
+            var max = d3.max(data, function (maxData) { return maxData.value; });
+            var svg = el.append('svg')
+                .attr('viewBox', "0 0 " + (viewWidth + thickness) + " " + (viewHeight + thickness))
+                .attr('class', 'pie')
+                .attr('width', viewWidth)
+                .attr('height', svgHeight);
+            var g = svg.append('g')
+                .attr('transform', "translate( " + ((svgWidth / 2) + (thickness / 2)) + ", " + ((svgHeight / 2) + (thickness / 2)) + ")");
+            var arc = d3.arc()
+                .innerRadius(radius - thickness)
+                .outerRadius(radius);
+            var arcHover = d3.arc()
+                .innerRadius(radius - (thickness + 5))
+                .outerRadius(radius + 8);
+            var pie = d3.pie()
+                .value(function (pieData) { return pieData.value; })
+                .sort(null);
+            var maxAssigned = false;
+            var maxArcAssigned = false;
+            var path = g.selectAll('path')
+                .attr('class', 'data-path')
+                .data(pie(data))
+                .enter()
+                .append('g')
+                .attr('class', 'data-group')
+                .each(function (pathData, i) {
+                var group = d3.select(this);
+                group.append('text')
+                    .text("" + pathData.data.value)
+                    .attr('class', 'data-text data-text__value')
+                    .attr('text-anchor', 'middle')
+                    .attr('dy', '0em');
+                group.append('text')
+                    .text("" + pathData.data.name)
+                    .attr('class', 'data-text data-text__name')
+                    .attr('text-anchor', 'middle')
+                    .attr('dy', '1.5em');
+                // Set default active segment
+                if (pathData.value === max && !maxAssigned) {
+                    var textVal = d3.select(this).select('.data-text__value')
+                        .classed('data-text--show', true);
+                    var textName = d3.select(this).select('.data-text__name')
+                        .classed('data-text--show', true);
+                    maxAssigned = true;
+                }
+            })
+                .append('path')
+                .attr('d', arc)
+                .attr('fill', function (fillData, i) { return color(fillData.data.name); })
+                .attr('class', 'data-path')
+                .on('mouseover', function () {
+                var _thisPath = this, parentNode = _thisPath.parentNode;
+                if (_thisPath !== activeSegment) {
+                    activeSegment = _thisPath;
+                    var dataTexts = d3.selectAll('.data-text')
+                        .classed('data-text--show', false);
+                    var paths = d3.selectAll('.data-path')
+                        .transition()
+                        .duration(250)
+                        .attr('d', arc);
+                    d3.select(_thisPath)
+                        .transition()
+                        .duration(250)
+                        .attr('d', arcHover);
+                    var thisDataValue = d3.select(parentNode).select('.data-text__value')
+                        .classed('data-text--show', true);
+                    var thisDataText = d3.select(parentNode).select('.data-text__name')
+                        .classed('data-text--show', true);
+                }
+            })
+                .each(function (v, i) {
+                if (v.value === max && !maxArcAssigned) {
+                    var maxArc = d3.select(this)
+                        .attr('d', arcHover);
+                    activeSegment = this;
+                    maxArcAssigned = true;
+                }
+                this._current = i;
+            });
+            var legendRectSize = 15;
+            var legendSpacing = 10;
+            var legend = svg.selectAll('.legend')
+                .data(color.domain())
+                .enter()
+                .append('g')
+                .attr('class', 'legend')
+                .attr('transform', function (legendData, i) {
+                var itemHeight = legendRectSize + legendSpacing;
+                var offset = legendRectSize * color.domain().length;
+                var horz = svgWidth + 80;
+                var vert = (i * itemHeight) + legendRectSize + (svgHeight - offset) / 2;
+                return "translate(" + horz + ", " + vert + ")";
+            });
+            legend.append('circle')
+                .attr('r', legendRectSize / 2)
+                .style('fill', color);
+            legend.append('text')
+                .attr('x', legendRectSize + legendSpacing)
+                .attr('y', legendRectSize - legendSpacing)
+                .attr('class', 'legend-text')
+                .text(function (legendData) { return legendData; });
+        }
+    };
+    AdminDashboardPieComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-admin-dashboard-pie',
+            template: __webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */]])
+    ], AdminDashboardPieComponent);
+    return AdminDashboardPieComponent;
 }());
 
 
@@ -739,6 +1119,39 @@ var AdminTopbarComponent = (function () {
     function AdminTopbarComponent() {
     }
     AdminTopbarComponent.prototype.ngOnInit = function () {
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/assets/sw.js').then(function (registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+        this.displayNotification();
+    };
+    AdminTopbarComponent.prototype.displayNotification = function () {
+        this.notification = Notification.requestPermission(function (status) {
+            console.log('Notification permission status:', status);
+        });
+        // alert('dd');
+        if (this.notification.permission == 'granted') {
+            alert('dd');
+            navigator.serviceWorker.getRegistration().then(function (reg) {
+                var options = {
+                    body: 'Here is a notification body!',
+                    icon: 'sample.jpg',
+                    vibrate: [100, 50, 100],
+                    data: {
+                        dateOfArrival: Date.now(),
+                        primaryKey: 1
+                    }
+                };
+                reg.showNotification('Hello world!', options);
+            });
+        }
     };
     AdminTopbarComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -1075,7 +1488,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-login/company-login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n\r\n<html>\r\n\r\n<head>\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n\t<title>Taskit</title>\r\n\t<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\r\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\r\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\r\n\t<!------ Include the above in your HEAD tag ---------->\r\n\r\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\r\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">\r\n\r\n</head>\r\n\r\n<body class=\"logn\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-md-8\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"logn-img\">\r\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\r\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\r\n\t\t\t\t\t<!-- <div class=\"paragraph\">\r\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\r\n\t\t\t\t\t</div> -->\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-4\">\r\n\t\t\t<div class=\"row\">\r\n\r\n\t\t\t\t<!-- Mixins-->\r\n\t\t\t\t<!-- Pen Title-->\r\n\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"card\"></div>\r\n\t\t\t\t\t<div class=\"card\">\r\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\r\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"login()\" novalidate>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newLogin.email\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Username</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"password\" id=\"Password\" name=\"password\" [(ngModel)]=\"newLogin.password\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Password\">Password</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t<!-- <div class=\"form-group\"> -->\r\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"g-recaptcha\" data-sitekey=\"6LeCaEsUAAAAAO21B0h-bnp7YmIFWVFCaBxvtHAE\"></div> -->\r\n\t\t\t\t\t\t\t\t\t<div class=\"g-recaptcha\" data-sitekey=\"6LdpvDEUAAAAAMy8x0y8PS99j4BavfO2oBdVTQGZ\"></div>\r\n\t\t\t\t\t\t\t<!-- </div> -->\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<!-- <div class=\"col-xs-10 padd-lft\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"g-recaptcha\" data-sitekey=\"6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU\">\r\n\t\t\t\t\t\t\t\t\t\t<div style=\"width: 304px; height: 78px;\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<iframe src=\"https://www.google.com/recaptcha/api2/anchor?k=6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU&amp;co=aHR0cDovL3d3dy50c3MtYWR2LmNvbTo4MA..&amp;hl=en&amp;v=v1518566665321&amp;size=normal&amp;cb=ri090lbnphd5\"\r\n\t\t\t\t\t\t\t\t\t\t\t\t width=\"304\" height=\"78\" role=\"presentation\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>\r\n\t\t\t\t\t\t\t\t\t\t\t</div><textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; \"></textarea></div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"footer\"><a href=\"#\">Forgot your password?</a></div>\r\n\t\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign in</button></div>\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"social-login\">\r\n\t\t\t\t<a href=\"#\">\r\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\r\n\t\t\t\tLogin in with facebook\r\n\t\t\t  </a>\r\n\t\t\t\t<a href=\"#\">\r\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\r\n\t\t\t\tlog in with Google\r\n\t\t\t  </a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!-- Modal -->\r\n\t<script src='https://www.google.com/recaptcha/api.js'></script>\r\n\t<script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\r\n\t<script src=\"js/bootstrap.min.js\"></script>\r\n\r\n\r\n</body>\r\n\r\n\r\n</html>"
+module.exports = "<!DOCTYPE html>\r\n\r\n<html>\r\n\r\n<head>\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n\t<title>Taskit</title>\r\n\t<!-- <link rel=\"stylesheet\" href=\"css/bootstrap.css\">\r\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\r\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\r\n\t<!------ Include the above in your HEAD tag ---------->\r\n<!-- \r\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\r\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">  -->\r\n\r\n</head>\r\n\r\n<body class=\"logn\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-md-8\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"logn-img\">\r\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\r\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\r\n\t\t\t\t\t<!-- <div class=\"paragraph\">\r\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\r\n\t\t\t\t\t</div> -->\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-4\">\r\n\t\t\t<div class=\"row\">\r\n\r\n\t\t\t\t<!-- Mixins-->\r\n\t\t\t\t<!-- Pen Title-->\r\n\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"card\"></div>\r\n\t\t\t\t\t<div class=\"card\">\r\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\r\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"login()\" novalidate>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newLogin.email\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Username</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"password\" id=\"Password\" name=\"password\" [(ngModel)]=\"newLogin.password\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Password\">Password</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<!-- <div class=\"input-container\"> -->\r\n\t\t\t\t\t\t\t<!-- <div class=\"form-group\"> -->\r\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"g-recaptcha\" data-sitekey=\"6LeCaEsUAAAAAO21B0h-bnp7YmIFWVFCaBxvtHAE\"></div> -->\r\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"g-recaptcha\" data-sitekey=\"6LdpvDEUAAAAAMy8x0y8PS99j4BavfO2oBdVTQGZ\"></div> -->\r\n\t\t\t\t\t\t\t<!-- </div> -->\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<!-- <div class=\"col-xs-10 padd-lft\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"g-recaptcha\" data-sitekey=\"6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU\">\r\n\t\t\t\t\t\t\t\t\t\t<div style=\"width: 304px; height: 78px;\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<iframe src=\"https://www.google.com/recaptcha/api2/anchor?k=6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU&amp;co=aHR0cDovL3d3dy50c3MtYWR2LmNvbTo4MA..&amp;hl=en&amp;v=v1518566665321&amp;size=normal&amp;cb=ri090lbnphd5\"\r\n\t\t\t\t\t\t\t\t\t\t\t\t width=\"304\" height=\"78\" role=\"presentation\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>\r\n\t\t\t\t\t\t\t\t\t\t\t</div><textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; \"></textarea></div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t\t\t<!-- </div> -->\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"footer\"><a href=\"#\">Forgot your password?</a></div>\r\n\t\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign in</button></div>\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"social-login\">\r\n\t\t\t\t<a href=\"#\">\r\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\r\n\t\t\t\tLogin in with facebook\r\n\t\t\t  </a>\r\n\t\t\t\t<a href=\"#\">\r\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\r\n\t\t\t\tlog in with Google\r\n\t\t\t  </a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!-- Modal -->\r\n\t<!-- <script src='https://www.google.com/recaptcha/api.js'></script>\r\n\t<script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\r\n\t<script src=\"js/bootstrap.min.js\"></script> -->\r\n\r\n\r\n</body>\r\n\r\n\r\n</html>"
 
 /***/ }),
 
@@ -2232,6 +2645,215 @@ var CompanyResoureVsHourComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/company-signup/company-signup.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "button, select{outline:none;}\r\n.logn{height:100%;overflow-x:hidden;background:#fff;}\r\n.logn-img{height:100%;width:100%;position:relative;overflow:hidden;}\r\n.paragraph{    width: 56%;\r\n    left: 22%;\r\n    bottom: 10%;\r\n    z-index: 100;\r\n    min-height: 20px;\r\n    color: #fff;\r\n    text-align: left;\r\n    font-size: 14px;\r\n    position: absolute;\r\n    line-height: 22px;}\r\n.social-login{\r\n  position:relative;\r\n  float: none;\r\n  margin:0 auto;\r\n  height:auto;\r\n  padding: 10px 0 15px 0;\r\n  border-bottom: 1px solid #eee;\r\n  display: table;\r\n      width: 79%;\r\n}\r\n\r\n.social-login a{\r\n     position: relative;\r\n    float: left;\r\n    width: 48%;\r\n    text-decoration: none;\r\n    color: #fff;\r\n    border: 1px solid rgba(0,0,0,0.05);\r\n    padding: 7px 12px;\r\n    border-radius: 12px;\r\n    font-size: 12px;\r\n   \r\n        margin: 0px 1%;\r\n    text-align: center;\r\n}\r\n.social-login a i{\r\n  position: relative;\r\n  float: left;\r\n  width: 20px;\r\n  top: 2px;\r\n}\r\n.social-login a:first-child{\r\n  background-color: #49639F;\r\n}\r\n.social-login a:last-child{\r\n  background-color: #DF4A32;\r\n}\r\n.email-login,.email-signup{\r\n  position:relative;\r\n  float: left;\r\n  width: 100%;\r\n  height:auto;\r\n  margin-top: 20px;\r\n  text-align:center;\r\n}\r\nbody {\r\n  background: #e9e9e9;\r\n  color: #666666;\r\n  font-family: 'RobotoDraft', 'Roboto', sans-serif;\r\n  font-size: 14px;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n}\r\n\r\n/* Pen Title */\r\n.pen-title {\r\n  padding: 20px 0;\r\n  text-align: center;\r\n  letter-spacing: 2px;\r\n}\r\n.pen-title h1 {\r\n  margin: 0 0 20px;\r\n  font-size: 40px;\r\n  font-weight: 300;\r\n}\r\n.pen-title span {\r\n  font-size: 12px;\r\n}\r\n.pen-title span .fa {\r\n  color: #ed2553;\r\n}\r\n.pen-title span a {\r\n  color: #ed2553;\r\n  font-weight: 600;\r\n  text-decoration: none;\r\n}\r\n\r\n/* Rerun */\r\n.rerun {\r\n  margin: 0 0 30px;\r\n  text-align: center;\r\n}\r\n.rerun a {\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  background: #ed2553;\r\n  border-radius: 3px;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  padding: 10px 20px;\r\n  color: #ffffff;\r\n  text-decoration: none;\r\n  transition: 0.3s ease;\r\n}\r\n.rerun a:hover {\r\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* Scroll To Bottom */\r\n#codepen, #portfolio {\r\n  position: fixed;\r\n  bottom: 30px;\r\n  right: 30px;\r\n  background: #ec2652;\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 100%;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  transition: 0.3s ease;\r\n  color: #ffffff;\r\n  text-align: center;\r\n}\r\n#codepen i, #portfolio i {\r\n  line-height: 56px;\r\n}\r\n#codepen:hover, #portfolio:hover {\r\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* CodePen */\r\n#portfolio {\r\n  bottom: 96px;\r\n  right: 36px;\r\n  background: #ec2652;\r\n  width: 44px;\r\n  height: 44px;\r\n  animation: buttonFadeInUp 1s ease;\r\n}\r\n#portfolio i {\r\n  line-height: 44px;\r\n}\r\n\r\n/* Container */\r\n.container {\r\n  position: relative;\r\n  max-width: 460px;\r\n  width: 100%;\r\n  margin: 0 auto 100px;\r\n}\r\n.container.active .card:first-child {\r\n  background: #f2f2f2;\r\n  margin: 0 15px;\r\n}\r\n.container.active .card:nth-child(2) {\r\n  background: #fafafa;\r\n  margin: 0 10px;\r\n}\r\n.container.active .card.alt {\r\n  top: 20px;\r\n  right: 0;\r\n  width: 100%;\r\n  min-width: 100%;\r\n  height: auto;\r\n  border-radius: 5px;\r\n  padding: 60px 0 40px;\r\n  overflow: hidden;\r\n}\r\n.container.active .card.alt .toggle {\r\n  position: absolute;\r\n  top: 40px;\r\n  right: -70px;\r\n  box-shadow: none;\r\n  transform: scale(15);\r\n  transition: transform .5s ease;\r\n}\r\n.container.active .card.alt .toggle:before {\r\n  content: '';\r\n}\r\n.container.active .card.alt .title,\r\n.container.active .card.alt .input-container,\r\n.container.active .card.alt .button-container {\r\n  left: 0;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  transition: .3s ease;\r\n}\r\n.container.active .card.alt .title {\r\n  transition-delay: .3s;\r\n}\r\n.container.active .card.alt .input-container {\r\n  transition-delay: .4s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(2) {\r\n  transition-delay: .5s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(3) {\r\n  transition-delay: .6s;\r\n}\r\n.container.active .card.alt .button-container {\r\n  transition-delay: .7s;\r\n}\r\n\r\n\r\n/* Keyframes */\r\n@keyframes buttonFadeInUp {\r\n  0% {\r\n    bottom: 30px;\r\n    opacity: 0;\r\n  }\r\n}\r\n.g-recaptcha {\r\n    transform:scale(0.89);\r\n    transform-origin:0 0;\r\n}\r\n.round-button{border-radius:20px;margin:0 auto;float:none;background:#f37600;color:#fff;    padding: 10px 32px; /* Safari */\r\n    transition: background 2s;}\r\n.round-button:hover{background:#ffaa05;color:#fff;}\r\n.padd-lft{padding-left:20px;}\r\n\r\n\r\n\r\n@media only screen and (max-width : 768px) {\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n}\r\n\r\n@media only screen and (max-width : 480px)  { \r\n.card .input-container{    margin: 12px;}\r\n.logn-img{display:none;}\r\nform{text-align:center;}\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n.logn-img img{width:100%;}\r\n}\r\n@media only screen and (max-width : 320px) { \r\n\t.card .input-container{    width: 74%;\r\n        margin: 24px auto;\r\n    float: none;}\r\n\t.card .input-container .bar{left: 3%;}\r\n\t.container{max-width:100%;}\r\n\tform{text-align:center;}\r\n}\r\n\r\n.loder{\r\n  position: absolute;\r\n  top: 0px;\r\n}\r\nlogn{\r\n  position: relative\r\n}\r\n.btn-nxt{\r\n  position: absolute;\r\n  top: 68px;\r\n  right: 0;\r\n  background: transparent;\r\n  border: none;\r\n}\r\n\r\n.nxt-cntainer{\r\n  position: relative;\r\n}\r\nselect,input{\r\n  width: 100%;\r\n  margin-top: 20px;\r\n  outline: none;\r\n  padding: 10px;\r\n  font-size: 20px;\r\n  padding-right: 44px;\r\n}\r\nselect{\r\n  cursor: pointer;\r\n}\r\n.inp-hd{\r\n  font-size: 25px;\r\n}\r\n.errMsg{\r\n  font-size: 13px;color: #ff336a;\r\n}\r\n.progress-bar{\r\n  background-color: #28d685 !important;\r\n}\r\n.inp-top{\r\n  top: 89px;\r\n}\r\n.submit-form{\r\n  position: absolute;\r\n    top: 138px;\r\n    right: 0;\r\n    background: transparent;\r\n    border: none;\r\n  transition: color 1s ease;\r\n    \r\n}\r\n.trans-clr{\r\n  color: #20ad6b;\r\n  \r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-signup/company-signup.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"logn\">\r\n    <div class=\"row\">\r\n\t   <div class=\"col-md-8\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"logn-img\">\r\n\t\t\t\t\t<img src=\"./assets/images/sign.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t<div class=\"paragraph\">\r\n\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\">\r\n\t\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t   </div>\r\n\t   <div class=\"col-md-4 bgz\">\r\n\t\t\t<h3>Registration</h3>\r\n\t\t\t<section>\r\n\t\t\t\t<form id=\"theForm\" class=\"simform\" autocomplete=\"off\">\r\n\t\t\t\t\t<div class=\"text-center\" *ngIf=\"registr\">\r\n\t\t\t\t\t<label>{{ssMsg}}</label>\t\t\t\t\t\t\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"text-center\" *ngIf=\"showLoader\">\r\n\t\t\t\t\t\t<app-spinner></app-spinner>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"simform-inner\" *ngIf=\"!registr\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<div  *ngFor=\"let item of questions;let i=index;\" class=\"nxt-cntainer\">\r\n\t\t\t\t\t\t\t<ng-container *ngIf=\"counter == i\">\r\n\t\t\t\t\t\t\t\t\t<label class=\"inp-hd\" >{{item.question}}</label>\r\n\t\t\t\t\t\t\t\t\t<input type=\"text\" *ngIf=\"item.type == 'text' else password\" [(ngModel)]=\"item.ans\" name=\"item.ans\" [attr.autofocus]=\"counter == i\">\r\n\t\t\t\t\t\t\t\t\t<ng-template #password>\r\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" *ngIf=\"item.type == 'password' else multiple\" [(ngModel)]=\"item.ans\" name=\"item.ans\" autofocus>\r\n\t\t\t\t\t\t\t\t\t\t<ng-template #multiple>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<select class=\"inp\"  [(ngModel)]=\"item.ans\" name=\"item.ans\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngIf=\"i == 3 else size\" >\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let c of industry\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option  value=\"{{c.id}}\">{{c.industry}}</option>\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-template #size>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let s of cmpSize\">\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option  value=\"{{s.id}}\">{{s.size_range}}</option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-template>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <option>Select Company Size</option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option>1-10</option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option>1-20</option> -->\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t\t\t\t\t</ng-template>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t</ng-template>\r\n\t\t\t\t\t\t\t<button *ngIf=\"counter != 8\" class=\"btn-nxt\" type=\"submit\" (click)=\"validate(i)\" [ngClass]=\"{'inp-top': counter==6}\"><i class=\"la la-arrow-right\"></i></button>\r\n\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"progress\">\r\n\t\t\t\t\t\t\t\t<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\"\r\n\t\t\t\t\t\t\t\taria-valuemin=\"0\" aria-valuemax=\"100\" [style.width.%]=\"progressBarWidth\">\r\n\t\t\t\t\t\t\t\t  <span class=\"sr-only\">70% Complete</span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t  </div>\r\n\t\t\t\t\t\t<div class=\"errMsg\" *ngIf=\"counter == 8|| counter == 7\">{{passMessage}}</div>\r\n\t\t\t\t\t\t\t  \r\n\t\t\t\t\t\t<div class=\"errMsg\">{{errMessage}}</div>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<button *ngIf=\"counter == 8\" class=\"submit-form trans-clr\" type=\"submit\" (click)=\"register()\"><i class=\"la la-arrow-right\"></i></button>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t</div><!-- /simform-inner -->\r\n\t\t\t\t\t<span class=\"final-message\"></span>\r\n\t\t\t\t</form><!-- /simform -->\t\t\t\r\n\t\t\t</section>\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t</div>\r\n\t\t\t\r\n\t\t  \r\n\t   \r\n   </div>\r\n\r\n    <!-- Modal -->\r\n \r\n\t\t<script>\r\n\t\t\t\r\n\t\t</script>\r\n\r\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-signup/company-signup.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanySignupComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CompanySignupComponent = (function () {
+    function CompanySignupComponent(companyService) {
+        this.companyService = companyService;
+        this.timestamp = new Date().getTime().toString();
+        this.questions = [{
+                question: "What's your Email?",
+                type: "text",
+                ans: ""
+            },
+            {
+                question: "What's your Company Name?",
+                type: "text",
+                ans: ""
+            },
+            {
+                question: "Your Company Code?",
+                type: "text",
+                ans: ""
+            },
+            {
+                question: "Industry?",
+                type: "multiple",
+                ans: ""
+            },
+            {
+                question: "Your Contact Number ?",
+                type: "text",
+                ans: ""
+            },
+            {
+                question: "Company Size?",
+                type: "multiple",
+                ans: ""
+            },
+            {
+                question: "Why are you looking for task managment software?",
+                type: "text",
+                ans: ""
+            },
+            {
+                question: "Your Password",
+                type: "password",
+                ans: ""
+            },
+            {
+                question: "Confirm Password",
+                type: "password",
+                ans: ""
+            },
+        ];
+        this.errMessage = '';
+        this.counter = 0;
+        this.progressBarWidth = 0;
+        this.registr = false;
+        this.ssMsg = '';
+        this.showLoader = false;
+        this.passMessage = "Must be of 8 letters! Contain atleast 1 character, 1 number & 1 special character!";
+        this.reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        this.verification_code = this.timestamp + Math.floor(100000 + Math.random() * 900000);
+    }
+    CompanySignupComponent.prototype.ngOnInit = function () {
+        console.log(this.questions);
+        this.getIndustries();
+        this.getCompanySize();
+    };
+    CompanySignupComponent.prototype.register = function () {
+        var _this = this;
+        if (this.questions[7].ans == this.questions[8].ans) {
+            this.errMessage = "";
+            this.registr = true;
+            this.showLoader = true;
+            this.questions.push({ question: 'verification', type: 'text', ans: this.verification_code });
+            this.companyService.registerCompany(this.questions).subscribe(function (resData) {
+                _this.showLoader = false;
+                _this.ssMsg = resData.message;
+            });
+        }
+        else {
+            this.errMessage = "Password doesn't match!";
+        }
+    };
+    CompanySignupComponent.prototype.getIndustries = function () {
+        var _this = this;
+        this.companyService.getIndustries().subscribe(function (resData) {
+            // console.log(resData)
+            _this.industry = resData;
+            // console.log(this.industry)
+        });
+    };
+    CompanySignupComponent.prototype.getCompanySize = function () {
+        var _this = this;
+        this.companyService.getCompanySize().subscribe(function (resData) {
+            // console.log(resData)
+            _this.cmpSize = resData;
+        });
+    };
+    CompanySignupComponent.prototype.ValidateEmail = function (mail) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+            return (true);
+        }
+        return (false);
+    };
+    CompanySignupComponent.prototype.addCounter = function () {
+        // if(this.counter == 0){
+        // 	if(this.ValidateEmail(this.questions[this.counter].ans)){
+        // 	this.errMessage = "Invalid email address!";
+        // 	}
+        // }
+        this.counter = this.counter + 1;
+        this.progressBarWidth = (this.counter / 8) * 100;
+        // console.log(this.progressBarWidth );
+    };
+    CompanySignupComponent.prototype.validate = function (i) {
+        if (this.questions[this.counter].ans == '') {
+            this.errMessage = "Please fill the fields";
+        }
+        else {
+            if (i == 0) {
+                if (!this.reg.test(this.questions[0].ans.toLowerCase())) {
+                    this.errMessage = "Enter valid email!";
+                }
+                else {
+                    this.errMessage = "";
+                    this.addCounter();
+                }
+            }
+            else if (i == 4) {
+                if (!(/^\d+$/.test(this.questions[4].ans))) {
+                    this.errMessage = "Enter valid phone number!";
+                }
+                else {
+                    this.errMessage = "";
+                    this.addCounter();
+                }
+            }
+            else if (i == 7) {
+                var strongRegex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+                if (!(strongRegex.test(this.questions[7].ans))) {
+                    this.errMessage = "Invalid Password";
+                }
+                else {
+                    this.errMessage = "";
+                    this.addCounter();
+                }
+            }
+            else {
+                this.errMessage = '';
+                this.addCounter();
+            }
+        }
+    };
+    CompanySignupComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-signup',
+            template: __webpack_require__("../../../../../src/app/components/company-signup/company-signup.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-signup/company-signup.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_company_service__["a" /* CompanyService */]])
+    ], CompanySignupComponent);
+    return CompanySignupComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/company-status-graph/company-status-graph.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2782,6 +3404,67 @@ var ReferenceComponentComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/spinner/spinner.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".loader{\r\n    margin: 0 0 2em;\r\n    height: 100px;\r\n    width: 20%;\r\n    text-align: center;\r\n    padding: 1em;\r\n    margin: 0 auto 1em;\r\n    display: inline-block;\r\n    vertical-align: top;\r\n  }\r\n  \r\n  /*\r\n    Set the color of the icon\r\n  */\r\n  svg path,\r\n  svg rect{\r\n    fill: #FF6700;\r\n  }", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/spinner/spinner.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!-- 8 -->\r\n<div class=\"loader loader--style8\" title=\"7\">\r\n    <svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n       width=\"24px\" height=\"30px\" viewBox=\"0 0 24 30\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\r\n      <rect x=\"0\" y=\"10\" width=\"4\" height=\"10\" fill=\"#333\" opacity=\"0.2\">\r\n        <animate attributeName=\"opacity\" attributeType=\"XML\" values=\"0.2; 1; .2\" begin=\"0s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n        <animate attributeName=\"height\" attributeType=\"XML\" values=\"10; 20; 10\" begin=\"0s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n        <animate attributeName=\"y\" attributeType=\"XML\" values=\"10; 5; 10\" begin=\"0s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n      </rect>\r\n      <rect x=\"8\" y=\"10\" width=\"4\" height=\"10\" fill=\"#333\"  opacity=\"0.2\">\r\n        <animate attributeName=\"opacity\" attributeType=\"XML\" values=\"0.2; 1; .2\" begin=\"0.15s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n        <animate attributeName=\"height\" attributeType=\"XML\" values=\"10; 20; 10\" begin=\"0.15s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n        <animate attributeName=\"y\" attributeType=\"XML\" values=\"10; 5; 10\" begin=\"0.15s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n      </rect>\r\n      <rect x=\"16\" y=\"10\" width=\"4\" height=\"10\" fill=\"#333\"  opacity=\"0.2\">\r\n        <animate attributeName=\"opacity\" attributeType=\"XML\" values=\"0.2; 1; .2\" begin=\"0.3s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n        <animate attributeName=\"height\" attributeType=\"XML\" values=\"10; 20; 10\" begin=\"0.3s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n        <animate attributeName=\"y\" attributeType=\"XML\" values=\"10; 5; 10\" begin=\"0.3s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n      </rect>\r\n    </svg>\r\n  </div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/spinner/spinner.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SpinnerComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var SpinnerComponent = (function () {
+    function SpinnerComponent() {
+    }
+    SpinnerComponent.prototype.ngOnInit = function () {
+    };
+    SpinnerComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-spinner',
+            template: __webpack_require__("../../../../../src/app/components/spinner/spinner.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/spinner/spinner.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], SpinnerComponent);
+    return SpinnerComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/config/config.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2793,6 +3476,91 @@ var Config = (function () {
         this.siteUrl = "http://localhost:3000";
     }
     return Config;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/admin.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var AdminService = (function () {
+    function AdminService(http, config) {
+        this.http = http;
+        this.config = config;
+        this.serviceUrl = config.siteUrl + '/admin/';
+    }
+    AdminService.prototype.setHeader = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return (headers);
+    };
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getCountsforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 02-03-2018
+    // Last Modified : 02-03-2018, Jooshifa 
+    // Desc          : for getting count of companies,projects,users
+    AdminService.prototype.getCountsforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getPieDataforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, 
+    // Desc          : get piegraph data
+    AdminService.prototype.getPieDataforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "/super_admin_pie_graph", { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getBarDataforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, 
+    // Desc          : get piegraph data
+    AdminService.prototype.getBarDataforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "/super_admin_bar_graph", { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    AdminService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__config_config__["a" /* Config */]])
+    ], AdminService);
+    return AdminService;
 }());
 
 
@@ -2842,6 +3610,48 @@ var CompanyService = (function () {
     CompanyService.prototype.loadToken = function () {
         this.authToken = localStorage.getItem('id_token');
     };
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getIndustries
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, 
+    // Desc          : get Ind=ustries list from DB
+    CompanyService.prototype.getIndustries = function () {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "/get_industries", { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getCompanySize
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, 
+    // Desc          : get Company size list from DB
+    CompanyService.prototype.getCompanySize = function () {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "/get_cmp_size", { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getBarDataforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, 
+    // Desc          : get piegraph data
+    CompanyService.prototype.registerCompany = function (details) {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/register_company", details, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
     // ---------------------------------Start------------------------------------------------
     // Function      : Login
     // Params        : username and password
@@ -2931,6 +3741,77 @@ var CompanyService = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_2__config_config__["a" /* Config */]])
     ], CompanyService);
     return CompanyService;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/super-admin.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SuperAdminService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var SuperAdminService = (function () {
+    function SuperAdminService(http, config) {
+        this.http = http;
+        this.config = config;
+        this.serviceUrl = config.siteUrl + '/admin/';
+    }
+    SuperAdminService.prototype.setHeader = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return (headers);
+    };
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getCountsforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 02-03-2018
+    // Last Modified : 02-03-2018, Jooshifa 
+    // Desc          : for getting count of companies,projects,users
+    SuperAdminService.prototype.getCountsforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getPieDataforAdminDashboard
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 06-03-2018
+    // Last Modified : 06-03-2018, 
+    // Desc          : get piegraph data
+    SuperAdminService.prototype.getPieDataforAdminDashboard = function () {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    SuperAdminService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__config_config__["a" /* Config */]])
+    ], SuperAdminService);
+    return SuperAdminService;
 }());
 
 

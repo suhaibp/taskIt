@@ -22,7 +22,10 @@
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "line-awesome-font-awesome.css",
         "line-awesome.min.css",
-        "styles.css"        
+        "component.css",
+        "normalize.css",
+        "demo.css",
+        "styles.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",

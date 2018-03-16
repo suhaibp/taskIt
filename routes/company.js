@@ -1,20 +1,23 @@
 
-var models = require('../models');
-const express = require("express");
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
-var env = process.env.NODE_ENV || 'development';
-var config = require(__dirname + '/../config/config.json')[env]
-const Config = require('../config/database');
-const jwt = require("jsonwebtoken");
-const passport = require("passport");
-var login = require('../models/tbl_login');
-const bcrypt = require("bcryptjs");
+var env       = process.env.NODE_ENV || 'development';
+var config    = require(__dirname + '/../config/config.json')[env];
+var models = require('./../models');
+var Projects = models.tbl_project;
+var Users = models.tbl_user_profile;
 var Login = models.tbl_login;
+var Company = models.tbl_company;
+var Industries = models.tbl_industry;
+var CompanySize = models.tbl_company_size;
+var Plan = models.tbl_plan;
+const Op = Sequelize.Op
+const bcrypt = require("bcryptjs");
+
 var Role = models.tbl_role;
 var User_profile = models.tbl_user_profile;
-var Company = models.tbl_company;
+
 var Login_attempt = models.tbl_login_attempt;
 
 
@@ -28,361 +31,276 @@ var Projects_member_assoc = models.tbl_project_member_assoc;
 var ip = require("ip");
 'use strict';
 
+const emailTemplate = require('../template/verification_email');
+
+Projects.belongsTo(Company, {foreignKey: 'cmp_id'}); // Adds fk_company to User
+// Company.belongsTo(Login, {foreignKey: 'login_id'}); // Adds fk_company to User
+// Company.belongsTo(Plan, {foreignKey: 'plan_id'}); // Adds fk_company to User
+// Company.belongsTo(CompanySize, {foreignKey: 'cmp_size_id'}); // Adds fk_company to User
+// Company.belongsTo(Industries, {foreignKey: 'industry_id'}); // Adds fk_company to User
+
+// var login = require('../models/login');
+
+// const student = models.student.build({
+//   name: "Asif",
+//   rollnumber: 123
+// })
+if (config.use_env_variable) {
+  var sequelize = new Sequelize(process.env[config.use_env_variable]);
+} else {
+  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
 
 var returnRouter = function (io) {
-    // ---------------------------------Start-------------------------------------------
-    // Function      : Login
-    // Params        : username and password
-    // Returns       : token, company details and company status
-    // Author        : Jooshifa
-    // Date          : 06-3-2018
-    // Last Modified : 06-3-2018, Jooshifa
-    // Desc          : company and user direct login with username and password
+//  ---------------------------------Start-------------------------------------------
+  // Function      : get_industries
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 09-03-2018
+  // Last Modified : 09-03-2018, 
+  // Desc          : get industry list
 
-    // esfasfasd
-    router.post('/authenticate', (req, res) => {
-        array = [];
-        comparePassword = function (candPass, hash, callback) {
-            bcrypt.compare(candPass, hash, (err, isMatch) => {
-                if (err) throw err;
-                callback(null, isMatch);
-            })
+
+  router.get('/get_industries', function(req, res) {
+ 
+  
+    Industries.findAll().then(industries => {
+      //console.log(projects);
+      res.json(industries);
+    });
+      
+  });
+  //  ---------------------------------End-------------------------------------------
+
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : get_industries
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 09-03-2018
+  // Last Modified : 09-03-2018, 
+  // Desc          : get industry list
+
+
+  router.get('/get_cmp_size', function(req, res) {
+ 
+  
+    CompanySize.findAll().then(companieSize => {
+      //console.log(projects);
+      res.json(companieSize);
+    });
+      
+  });
+
+  function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email.toLowerCase());
+}
+
+  
+//  ---------------------------------Start-------------------------------------------
+  // Function      : register_company
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 09-03-2018
+  // Last Modified : 09-03-2018, 
+  // Desc          : company registration
+
+
+  router.post('/register_company', function(req, res) {
+    try{
+     
+      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+      req.body.forEach(element => {
+        if(element.ans == ''){
+          res.json({status:0,message:"Please try again!"});
+          res.end();
         }
-        const email = req.body.email;
-        const password = req.body.password;
-        if (config.use_env_variable) {
-            var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+      });
+      // console.log(validateEmail(req.body[0].ans));
+      if (!reg.test(req.body[0].ans.toLowerCase()) || !(/^\d+$/.test(req.body[4].ans))) 
+        {
+          res.send({status: 0, message:"Check email and phone number!"});
+          res.end();
+          
         }
-
-        Login.findOne({
-            where: {
-                email: req.body.email
-            }
-        }).then(login => {
-            // res.json(login);
-
-            if (login == null || login == [] || login == '') {
-
-
-                const loginAttempt = Login_attempt.build({
-                    ip: ip.address(),
-                    date_time: new Date(),
-                    is_success: false
-                })
-
-                loginAttempt.save().then(function (newloginAttempt) {
-                    Login_attempt.findOne({
-                        order: [['id', 'DESC']],
-                        where: {
-                            ip: ip.address(),
-                            is_success: true
-                        }
-                    }).then(loginAttempt => {
-
-                        Login_attempt.findAll({
-                            where: {
-                                ip: ip.address(),
-                                is_success: false,
-                                id: {
-                                    [Op.gt]: loginAttempt.id
-                                }
-                            }
-                        }).then(loginAttemptFalse => {
-                            loginAttemptFalse.forEach(allFalseAttempt => {
-                                array.push({ id: allFalseAttempt.id });
-
+      else{
+        if(typeof req.body.id == 'undefined'){
+          Login.findAll(
+            {where: {email: req.body[0].ans}}
+                
+              ).then(login => {
+                //console.log(projects);
+                if(login.length == 0){
+                  var newPassword;
+                  
+                  
+  
+                  bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(req.body[7].ans, salt, (err, hash) => {
+                      // console.log(hash);
+                        if (err) throw err;
+                        newPassword = hash;
+                        let newLogin = Login.build({
+                          email:req.body[0].ans,
+                          fb_id:null,
+                          fb_token:null,
+                          is_verified: false,
+                          block_status: false,
+                          delete_status: false,
+                          profile_image: null,
+                          cmp_status: 'Not Verified',
+                          role_id:1,
+                          is_profile_completed: false,
+                          cmp_id: null,
+                          google_id:null,
+                          google_token:null,
+                          password:hash
+                        })
+                        console.log(newLogin);
+                        newLogin.save().then(resLogin =>{
+                          // res.json(resLogin.length)                          
+                          
+                          // if(resLogin.length>0){
+                            // res.json(resLogin)                          
+                            console.log("hh")
+                            Plan.find({
+                              where: {is_defualt: true}
+                            }).then(resPlan =>{
+                              // res.json(req.body);
+                              let newCompany = Company.build({
+                                cmp_name:req.body[1].ans,
+                                cmp_code:req.body[2].ans,
+                                contact_no:req.body[4].ans,
+                                why_choosen: req.body[7].ans,
+                                login_id: resLogin.id,
+                                cmp_size_id: req.body[5].ans,
+                                industry_id: req.body[3].ans,
+                                plan_id: resPlan.id,
+                                no_months:1,
+                                is_admin_viewed: false,
+                                verification_code: req.body[9].ans
+                              })
+                              
+                              console.log(newCompany);
+                              newCompany.save().then(() => {
+                                emailTemplate.sendVerificationMail(req.body[0].ans, req.body[1].ans,  req.body[9].ans);
+  
+                                res.json({status:1,message:"Registered! Check your Email!"})
+                              })
+                            }).catch(errorx =>{
+                              // res.json({status: 0, message:"Failed!"});
+                                res.json(errorx);
+                              
+                              
                             })
-                            if (array.length >= 3) {
-                                return res.json({ caseno: 1, success: false, msg: 'User Not found' });
-                                // console.log("wrong attempt")
-                            }
-                            else {
-                                return res.json({ success: false, msg: 'User Not found' });
-                            }
-
-                        });
-                    });
-
-                });
-
-
-            }
-
-            // comparePassword(password,login.password, (err, isMatch) => {
-            comparePassword(password, login.password, (err, isMatch) => {
-                if (err) {
-                    throw err;
-                }
-                if (isMatch) {
-
-                    if (login.block_status == true) {
-
-                        return res.json({ success: false, msg: 'Account blocked' });
-                    }
-                    if (login.delete_status == true) {
-                        return res.json({ success: false, msg: 'Account deleted' });
-                    }
-                    if (login.cmp_status == "Not Verified" || login.is_verified == false) {
-                        return res.json({ success: false, msg: 'Company not verified' });
-                    }
-                    // else if (login.block_status == false && login.delete_status == false && login.is_profile_completed == true && login.is_verified == true) {
-                    else if (login.block_status == false && login.delete_status == false && login.is_verified == true) {
-
-                        const token = jwt.sign(login.toJSON(), Config.secret, {
-                            expiresIn: 60400 // sec 1 week
-                        });
-                        User_profile.update({
-                            login_id: login.id
-                        }, {
-                                where: {
-                                    email: login.email
-                                }
-                            }).then(data1 => {
-                                const loginAttempt = Login_attempt.build({
-
-                                    // ip: ip.address() + "ip",
-                                    ip: ip.address(),
-                                    date_time: new Date(),
-                                    is_success: true
-                                })
-                                loginAttempt.save().then(function (newloginAttempt) {
-                                    // console.log(newPlan);
-                                    // res.json({ success: true, msg: "Plan Created Successfully" });
-                                })
-
-                                return res.json({
-                                    success: true,
-                                    msg: 'login succesfully',
-                                    token: 'JWT ' + token,
-                                    cmp_id: login.cmp_id,
-                                    login: {
-                                        id: login.id,
-                                        role_id: login.role_id,
-                                        status: login.cmp_status
-                                    }
-                                });
-
-                            });
-
-                    }
-                } else {
-                    const loginAttempt = Login_attempt.build({
-                        ip: ip.address(),
-                        date_time: new Date(),
-                        is_success: false
+                           
+                            
+                          // }
+                        }).catch(error => {
+                          // Ooops, do some error-handling
+                          res.json({status:0, message:"Some error occured!"})
+                        })
                     })
-
-                    loginAttempt.save().then(function (newloginAttempt) {
-                        Login_attempt.findOne({
-                            order: [['id', 'DESC']],
-                            where: {
-                                ip: ip.address(),
-                                is_success: true
-                            }
-                        }).then(loginAttempt => {
-
-                            Login_attempt.findAll({
-                                where: {
-                                    ip: ip.address(),
-                                    is_success: false,
-                                    id: {
-                                        [Op.gt]: loginAttempt.id
-                                    }
-                                }
-                            }).then(loginAttemptFalse => {
-                                if (loginAttemptFalse.id != null || loginAttemptFalse.id == '' || loginAttemptFalse.id != []) {
-                                    loginAttemptFalse.forEach(allFalseAttempt => {
-                                        array.push({ id: allFalseAttempt.id });
-
-                                    })
-
-                                    if (array.length >= 3) {
-                                        return res.json({ caseno: 1, success: false, msg: 'Wrong Password' });
-
-                                        if (
-                                            req.body.captcha === undefined ||
-                                            req.body.captcha === '' ||
-                                            req.body.captcha === null
-                                        ) {
-                                            return res.json({ "success": false, "msg": "Please select captcha" });
-                                        }
-
-                                        // Secret Key
-                                        const secretKey = '6LdpvDEUAAAAAHszsgB_nnal29BIKDsxwAqEbZzU';
-                                        // Verify URL
-                                        const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}`;
-
-                                        // Make Request To VerifyURL
-                                        request(verifyUrl, (err, response, body) => {
-                                            body = JSON.parse(body);
-                                            console.log(body);
-
-                                            // If Not Successful
-                                            if (body.success !== undefined && !body.success) {
-                                                return res.json({ "success": false, "msg": "Failed captcha verification" });
-                                            }
-
-                                            //If Successful
-                                            return res.json({ "success": true, "msg": "Captcha passed" });
-                                        });
-
-
-
-
-
-                                        // console.log("wrong attempt")
-                                    }
-                                }
-                                else {
-                                    return res.json({ success: false, msg: 'Wrong Password' });
-                                }
-
-                            });
-                        });
-
-                    });
+                  })
+                  
+                }else{
+                  //email exist
+                  res.json({status: 0, message:"Already Registered!"});
                 }
-            });
-            // console.log(login);
+                
+              });
+        }else{
+          //update for jooshifa
+          let newCompany = Company.build({
+            cmp_name:req.body[1].ans,
+            cmp_code:req.body[2].ans,
+            contact_no:req.body[4].ans,
+            why_choosen: req.body[7].ans,
+            login_id: resLogin.id,
+            cmp_size_id: req.body[5].ans,
+            industry_id: req.body[3].ans,
+            plan_id: resPlan.id,
+            no_months:1,
+            is_admin_viewed: false,
+            verification_code: req.body[9].ans
+          })
 
-        });
-
-    });
-
-    // ---------------------------------Start-------------------------------------------
-    // Function      : Get logged user details
-    // Params        : 
-    // Returns       : get details of logged in entity
-    // Author        : Jooshifa
-    // Date          : 07-03-2018
-    // Last Modified : 07-03-2018, Jooshifa
-    // Desc          : 
-
-    router.get('/getLoggedinCompany', (req, res, next) => {
-        if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4),
-                decoded;
-
-            decoded = jwt.verify(authorization, Config.secret);
-            res.json(decoded);
-        } else {
-            res.json('');
+          Company.update({
+            cmp_name: req.body[1].ans,
+            cmp_code:req.body[2].ans,
+            contact_no:req.body[4].ans,
+            why_choosen: req.body[7].ans,
+            login_id: resLogin.id,
+            cmp_size_id: req.body[5].ans,
+            industry_id: req.body[3].ans,
+            plan_id: resPlan.id,
+            no_months:1,
+            is_admin_viewed: false
+          }, {
+              where: {
+                id: req.body[10].ans
+              }
+            }).then(data1 => {
+            })  
+          
         }
-    });
-
-    // ----------------------------------End-------------------------------------------
-
-    // ---------------------------------Start-------------------------------------------
-    // Function      : Login
-    // Params        : username and password
-    // Returns       : token, company details and company status
-    // Author        : Jooshifa
-    // Date          : 06-3-2018
-    // Last Modified : 06-3-2018, Jooshifa
-    // Desc          : company and user direct login with username and password
-
-    // esfasfasd
-    // router.post('/authenticate', (req, res) => {
-    //     comparePassword = function (candPass, hash, callback) {
-    //         bcrypt.compare(candPass, hash, (err, isMatch) => {
-    //             if (err) throw err;
-    //             callback(null, isMatch);
-    //         })
-    //     }
-    //     const email = req.body.email;
-    //     const password = req.body.password;
-    //     if (config.use_env_variable) {
-    //         var sequelize = new Sequelize(process.env[config.use_env_variable]);
-    //     } else {
-    //         var sequelize = new Sequelize(config.database, config.username, config.password, config);
-    //     }
-
-    //     Login.findOne({
-    //         where: {
-    //             email: req.body.email
-    //         }
-    //     }).then(login => {
-    //         // res.json(login);
-
-    //         if (login == null || login == [] || login == '') {
-    //             return res.json({ success: false, msg: 'User Not found' });
-    //         }
-
-    //         // comparePassword(password,login.password, (err, isMatch) => {
-    //         comparePassword(password, login.password, (err, isMatch) => {
-    //             if (err) {
-    //                 throw err;
-    //             }
-    //             // if (isMatch) {
-
-    //             if (login.block_status == true) {
-
-    //                 return res.json({ success: false, msg: 'Account blocked' });
-    //             }
-    //             if (login.delete_status == true) {
-    //                 return res.json({ success: false, msg: 'Account deleted' });
-    //             }
-    //             if (login.cmp_status == "Not Verified" || login.is_verified == false) {
-    //                 return res.json({ success: false, msg: 'Company not verified' });
-    //             }
-    //             // else if (login.block_status == false && login.delete_status == false && login.is_profile_completed == true && login.is_verified == true) {
-    //             else if (login.block_status == false && login.delete_status == false && login.is_verified == true) {
-
-    //                 const token = jwt.sign(login.toJSON(), Config.secret, {
-    //                     expiresIn: 60400 // sec 1 week
-    //                 });
-    //                 User_profile.update({
-    //                     login_id: login.id
-    //                 }, {
-    //                         where: {
-    //                             email: login.email
-    //                         }
-    //                     }).then(data1 => {
-    //                         const loginAttempt = Login_attempt.build({
-
-    //                             // ip: ip.address() + "ip",
-    //                             ip: ip.address(),
-    //                             date_time: new Date(),
-    //                             is_success: true
-    //                         })
-    //                         loginAttempt.save().then(function (newloginAttempt) {
-    //                             // console.log(newPlan);
-    //                             // res.json({ success: true, msg: "Plan Created Successfully" });
-    //                         })
-
-    //                         return res.json({
-    //                             success: true,
-    //                             msg: 'login succesfully',
-    //                             token: 'JWT ' + token,
-    //                             cmp_id: login.cmp_id,
-    //                             login: {
-    //                                 id: login.id,
-    //                                 role_id: login.role_id,
-    //                                 status: login.cmp_status
-    //                             }
-    //                         });
-
-    //                     });
-
-    //             }
-    //             // } else {
-    //             // const loginAttempt = Login_attempt.build({
-    //             //     ip: ip.address(),
-    //             //     date_time: new Date(),
-    //             //     is_success: false
-    //             // })
-    //             // loginAttempt.save().then(function (newloginAttempt) {
-    //             // })
-    //             //     return res.json({ success: false, msg: 'Wrong Password' });
-
-    //             // }
-    //         });
-    //         // console.log(login);
-
-    //     });
-
+        
+      }
+      
+      
+    }catch (err){
+      res.json({status: 0, message:"Already Registered!"});      
+    }
+  
+  });
+  //  ---------------------------------End-------------------------------------------
+  
+  
+  router.post('/register_company2', function(req, res) {
+   
+      // res.json(req.body);
+      let newCompany = Company.build({
+        cmp_name:"req.body[1].ans",
+        cmp_code:"req.body[2].ans",
+        contact_no:"req.body[4].ans",
+        why_choosen: "req.body[7].ans"
+      })
+      
+      // res.json(newCompany);
+      newCompany.save().then(() => {
+        res.json({stat:1})
+      }).catch(err =>{
+        res.json({stat:2})
+      })
+    
+      // const plan = Plans.build({
+      //   plan_name: req.body.plan_name,
+      //   plan_price: req.body.plan_price,
+      //   no_projects: no_projects,
+      //   no_members: no_members,
+      //   no_modules: no_modules,
+      //   no_tasks: no_tasks
+      // })
+      // plan.save().then(function (newPlan) {
+      //   // console.log(newPlan);
+      //   res.json({ success: true, msg: "Plan Created Successfully" });
+      // })
+  })  
+    //   if (config.use_env_variable) {
+    //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    //   } else {
+    //     var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    //   }
+      
+    //   sequelize.query("select * from GetAllSt();").spread(
+    //     function (actualres, settingName2) {
+    //       console.log(actualres);
+    //       console.log(settingName2);
+    //       res.json(actualres);
     // });
     // ---------------------------------End-------------------------------------------
 
@@ -514,3 +432,5 @@ var returnRouter = function (io) {
     return router;
 }
 module.exports = returnRouter;
+    
+
