@@ -73,10 +73,14 @@ import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/adm
 import { AdminDashboardBarComponent } from './components/admin-dashboard-bar/admin-dashboard-bar.component';
 import { CompanySignupComponent } from './components/company-signup/company-signup.component'
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { CompanyManageTeamComponent } from './components/company-manage-team/company-manage-team.component';
+import { CompanyTopbarComponent } from './components/company-topbar/company-topbar.component';
+import { CompanySidebarComponent } from './components/company-sidebar/company-sidebar.component';
+import { CompanyManageAccessRightsComponent } from './components/company-manage-access-rights/company-manage-access-rights.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: ReferenceComponentComponent },
+  {path: '', component: ReferenceComponentComponent },
   {path:'reference', component:ReferenceComponentComponent},
   {path:'admin-sidebar', component:AdminSidebarComponent},
   {path:'admin-topbar', component:AdminTopbarComponent},
@@ -89,8 +93,10 @@ const appRoutes: Routes = [
   {path:'admin-expired', component:AdminExpiredComponent},
   {path:'company-dashboard', component:CompanyDashboardComponent},
   {path:'company-signup', component:CompanySignupComponent},
+  {path:'company-access-rights', component:CompanyManageAccessRightsComponent},
  
   {path:'company-login', component:CompanyLoginComponent},
+  {path:'company-team', component:CompanyManageTeamComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
   {path:'spinner', component:SpinnerComponent},//To check component
 ] 
@@ -159,7 +165,11 @@ export class DemoMaterialModule {}
     AdminDashboardBarComponent,
     CompanySignupComponent,
     CompanyLoginComponent,
-    SpinnerComponent
+    SpinnerComponent, 
+    CompanyManageTeamComponent, 
+    CompanyTopbarComponent, 
+    CompanySidebarComponent,
+    CompanyManageAccessRightsComponent
   ],
   imports: [
     BrowserModule,

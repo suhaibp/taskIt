@@ -3,15 +3,8 @@ var router = express.Router();
 const Sequelize = require('sequelize');
 var env       = process.env.NODE_ENV || 'development';
 var config    = require(__dirname + '/../config/config.json')[env];
-<<<<<<< HEAD
-var login = require('../models/tbl_login');
+//var login = require('../models/tbl_login');
 
-// const student = models.student.build({
-//   name: "Asif",
-//   rollnumber: 123
-// })
-
-=======
 var Models = require('./../models');
 var Projects = Models.tbl_project;
 var Users = Models.tbl_user_profile;
@@ -23,7 +16,6 @@ const Op = Sequelize.Op
 //   name: "Asif",
 //   rollnumber: 123
 // })
->>>>>>> 572ffab6402dbe6c096e766d11c3b1670a9c194b
 if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
@@ -31,7 +23,6 @@ if (config.use_env_variable) {
 }
 
 var returnRouter = function (io) {
-<<<<<<< HEAD
 router.get('/create', function(req, res) {
   console.log('xyz');
     // sequelize.query("SELECT * FROM tbl_login ORDER BY id ASC").then(myTableRows => {
@@ -45,7 +36,7 @@ router.get('/create', function(req, res) {
       }).error(err =>{
         res.send(err);
       });
-=======
+    });     
 router.post('/get_counts_for_dashboard', function(req, res) {
     var userCount;
     var cmpCount;
@@ -79,7 +70,6 @@ router.post('/get_counts_for_dashboard', function(req, res) {
     // })
 
     /*___________________COUNT IN MODEL EXAMPLE______________________*/
->>>>>>> 572ffab6402dbe6c096e766d11c3b1670a9c194b
 
     // student.save().then(function(newStudent){
     //   console.log(newStudent);

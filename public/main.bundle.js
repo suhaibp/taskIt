@@ -118,6 +118,10 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_admin_dashboard_bar_admin_dashboard_bar_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-bar/admin-dashboard-bar.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_company_signup_company_signup_component__ = __webpack_require__("../../../../../src/app/components/company-signup/company-signup.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_spinner_spinner_component__ = __webpack_require__("../../../../../src/app/components/spinner/spinner.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_company_manage_team_company_manage_team_component__ = __webpack_require__("../../../../../src/app/components/company-manage-team/company-manage-team.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_company_topbar_company_topbar_component__ = __webpack_require__("../../../../../src/app/components/company-topbar/company-topbar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_company_sidebar_company_sidebar_component__ = __webpack_require__("../../../../../src/app/components/company-sidebar/company-sidebar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_company_manage_access_rights_company_manage_access_rights_component__ = __webpack_require__("../../../../../src/app/components/company-manage-access-rights/company-manage-access-rights.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -163,6 +167,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
+
+
 var appRoutes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_8__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */] },
     { path: 'reference', component: __WEBPACK_IMPORTED_MODULE_8__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */] },
@@ -177,7 +185,9 @@ var appRoutes = [
     { path: 'admin-expired', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */] },
     { path: 'company-dashboard', component: __WEBPACK_IMPORTED_MODULE_22__components_company_dashboard_company_dashboard_component__["a" /* CompanyDashboardComponent */] },
     { path: 'company-signup', component: __WEBPACK_IMPORTED_MODULE_36__components_company_signup_company_signup_component__["a" /* CompanySignupComponent */] },
+    { path: 'company-access-rights', component: __WEBPACK_IMPORTED_MODULE_41__components_company_manage_access_rights_company_manage_access_rights_component__["a" /* CompanyManageAccessRightsComponent */] },
     { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
+    { path: 'company-team', component: __WEBPACK_IMPORTED_MODULE_38__components_company_manage_team_company_manage_team_component__["a" /* CompanyManageTeamComponent */] },
     { path: 'email-verification/:id', component: __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */] },
     { path: 'spinner', component: __WEBPACK_IMPORTED_MODULE_37__components_spinner_spinner_component__["a" /* SpinnerComponent */] },
 ];
@@ -194,7 +204,7 @@ var DemoMaterialModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_15__angular_material__["d" /* MatCardModule */],
                 __WEBPACK_IMPORTED_MODULE_15__angular_material__["e" /* MatCheckboxModule */],
                 __WEBPACK_IMPORTED_MODULE_15__angular_material__["f" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["B" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["D" /* MatStepperModule */],
                 __WEBPACK_IMPORTED_MODULE_15__angular_material__["g" /* MatDatepickerModule */],
                 __WEBPACK_IMPORTED_MODULE_15__angular_material__["h" /* MatDialogModule */],
                 __WEBPACK_IMPORTED_MODULE_15__angular_material__["i" /* MatExpansionModule */],
@@ -204,21 +214,21 @@ var DemoMaterialModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_15__angular_material__["m" /* MatListModule */],
                 __WEBPACK_IMPORTED_MODULE_15__angular_material__["n" /* MatMenuModule */],
                 __WEBPACK_IMPORTED_MODULE_15__angular_material__["o" /* MatNativeDateModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["p" /* MatPaginatorModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["q" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["r" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["s" /* MatRadioModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["t" /* MatRippleModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["u" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["v" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["x" /* MatSliderModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["w" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["z" /* MatSnackBarModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["A" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["C" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["D" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["E" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_15__angular_material__["F" /* MatTooltipModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["q" /* MatPaginatorModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["r" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["s" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["t" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["u" /* MatRippleModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["v" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["w" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["y" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["x" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["A" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["C" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["F" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["G" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["H" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_15__angular_material__["I" /* MatTooltipModule */],
             ],
         })
     ], DemoMaterialModule);
@@ -256,7 +266,11 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_35__components_admin_dashboard_bar_admin_dashboard_bar_component__["a" /* AdminDashboardBarComponent */],
                 __WEBPACK_IMPORTED_MODULE_36__components_company_signup_company_signup_component__["a" /* CompanySignupComponent */],
                 __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */],
-                __WEBPACK_IMPORTED_MODULE_37__components_spinner_spinner_component__["a" /* SpinnerComponent */]
+                __WEBPACK_IMPORTED_MODULE_37__components_spinner_spinner_component__["a" /* SpinnerComponent */],
+                __WEBPACK_IMPORTED_MODULE_38__components_company_manage_team_company_manage_team_component__["a" /* CompanyManageTeamComponent */],
+                __WEBPACK_IMPORTED_MODULE_39__components_company_topbar_company_topbar_component__["a" /* CompanyTopbarComponent */],
+                __WEBPACK_IMPORTED_MODULE_40__components_company_sidebar_company_sidebar_component__["a" /* CompanySidebarComponent */],
+                __WEBPACK_IMPORTED_MODULE_41__components_company_manage_access_rights_company_manage_access_rights_component__["a" /* CompanyManageAccessRightsComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
@@ -1584,9 +1598,421 @@ var CompanyLoginComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/company-login/company-login.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/company-login/company-login.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["y" /* MatSnackBar */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["z" /* MatSnackBar */]])
     ], CompanyLoginComponent);
     return CompanyLoginComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-manage-access-rights/company-manage-access-rights.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".mat-form-field-underline {\r\n    position: absolute;\r\n    height: 1px;\r\n    width: 96%;\r\n    top: 48px;\r\n}\r\n\r\n.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-empty.mat-form-field-label {\r\n    padding-left: 10px;\r\n}\r\n\r\ninput.mat-input-element{\r\n    /* border-radius: 50px; */\r\n}\r\n.mat-fltr {\r\n    width: 100%;\r\n    background-color: #fff;\r\n    padding: 0 35px;\r\n}\r\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-manage-access-rights/company-manage-access-rights.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\" >\r\n  <div class=\"container-fluid display-table\">\r\n      <div class=\"row display-table-row\">\r\n\r\n          <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n              <!-- sidebar-->\r\n\r\n              <admin-sidebar></admin-sidebar>\r\n              <!-- end sidebar-->\r\n          </div>\r\n\r\n          <div class=\"col-md-12 col-xs-12\">\r\n              <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n              <!-- topbar-->\r\n              <admin-topbar></admin-topbar>\r\n              <!-- end topbar-->\r\n\r\n\r\n              <div class=\"user-dashboard\">\r\n                  <!-- <h1>Hello, JS</h1> -->\r\n                  <div class=\"row\">\r\n                    \r\n                      <div class=\"col-md-12 col-sm-5 col-xs-12 gutter ad-tp dash-tbl\">\r\n                        <div class=\"col-md-12 spinner-cont\" *ngIf=\"showSpinner\">\r\n                            <app-spinner  class=\"tbl-spnner\"></app-spinner>\r\n                        </div>\r\n\r\n                          <div class=\"example-header\" >\r\n                              <mat-form-field class=\"mat-fltr padd-10\">\r\n                                <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                              </mat-form-field>\r\n                          </div>\r\n                       \r\n                    <div class=\"example-container mat-elevation-z8 \">\r\n                    <mat-table #table [dataSource]=\"dataSource\" matSort>\r\n      \r\n                      <!-- ID Column -->\r\n                      <ng-container matColumnDef=\"id\">\r\n                        <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\r\n                        <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                      </ng-container>\r\n                  \r\n                      <!-- Theme Name -->\r\n                      <ng-container matColumnDef=\"role\">\r\n                        <mat-header-cell *matHeaderCellDef mat-sort-header> TEAM NAME </mat-header-cell>\r\n                        <mat-cell *matCellDef=\"let row\"> {{row.role}} </mat-cell>\r\n                      </ng-container>\r\n                    \r\n\r\n                    \r\n                      <!-- ID Column -->\r\n                      <ng-container matColumnDef=\"status\">\r\n                          <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\r\n                          <mat-cell *matCellDef=\"let row\"> <button mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n                            <mat-icon>more_vert</mat-icon>\r\n                          </button>\r\n                          <mat-menu #menu=\"matMenu\">\r\n                            \r\n                            <button mat-menu-item (click)=\"setRights(row.id, row.role)\">\r\n                              <mat-icon><i class=\"material-icons mat-assign-icn\">add_box</i></mat-icon>\r\n                              <span>Assign</span>\r\n                            </button>\r\n                            <button mat-menu-item   data-toggle=\"modal\" data-target=\"#myModal3\"> \r\n                                <mat-icon class=\"mat-menu-icn\"><i class=\"material-icons mat-assign-icn\">delete</i></mat-icon>\r\n                                <span>Delete</span>\r\n                              </button>\r\n                          </mat-menu>\r\n                           </mat-cell>\r\n                        </ng-container>\r\n                      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                      <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\r\n                      </mat-row>\r\n                   \r\n                    </mat-table>\r\n                    <div class=\"col-md-12 noItemFound\" *ngIf=\"existStatus\">\r\n                        <div class=\"col-md-4 col-md-offset-4\">\r\n                            <mat-toolbar   class=\"back-color\">No item found!</mat-toolbar>\r\n                        </div>\r\n                        </div>\r\n                <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                    </div>\r\n                    </div>\r\n                  </div>\r\n                 \r\n              </div>\r\n             \r\n\r\n          </div>\r\n          <!-- footer-->\r\n          <!-- <admin-footer></admin-footer> -->\r\n          <!-- end footer-->\r\n      </div>\r\n  </div>\r\n  <!-- Modal -->\r\n\r\n\r\n\r\n  <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\r\n      <div class=\"modal-dialog\">\r\n\r\n        <!-- Modal content-->\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n            <h4 class=\"modal-title\"></h4>\r\n          </div>\r\n          <!-- <div class=\"modal-header\"> -->\r\n          <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n          <!-- </div> -->\r\n          <div class=\"modal-body delete-popup\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-12\">\r\n                      <div class=\"col-md-4\">\r\n                          <label class=\"modal-lft-lbl\">User Group:</label> \r\n                      </div>\r\n                      <div class=\"col-md-7\">\r\n                          <label id=\"team-nm\" class=\"modal-lft-lbl\">{{teamName}}</label>\r\n          \r\n                      </div>\r\n                  </div>\r\n                  <div class=\"col-md-12\">\r\n                      <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Access Rights :</label></div>\r\n                      <div class=\"col-md-7 padd-15\">\r\n                        <div class=\"col-md-12\"  *ngFor=\"let item of accessRights\">\r\n                            <mat-checkbox class=\"example-margin\" [(ngModel)]=\"item.checked\" name=\"{{i}}\" (ngModelChange)=\"change()\">{{item.access_right}}</mat-checkbox>\r\n\r\n                        </div>\r\n                        \r\n                      </div>\r\n                  </div>\r\n\r\n                  <div class=\"col-md-12\">\r\n                    {{errMessage}}\r\n                  </div>\r\n                </div>\r\n                \r\n            </div>\r\n            \r\n\r\n          </div>\r\n\r\n          <div class=\"modal-footer\">\r\n            <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n            <button *ngIf=\"!spinner\" type=\"button\" (click)=\"assignTeam()\" class=\"btn round-button\" >Assign</button>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-manage-access-rights/company-manage-access-rights.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyManageAccessRightsComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var CompanyManageAccessRightsComponent = (function () {
+    function CompanyManageAccessRightsComponent(companyService, routes, snackBar) {
+        this.companyService = companyService;
+        this.routes = routes;
+        this.snackBar = snackBar;
+        this.displayedColumns = ['id', 'role', 'status'];
+        this.displatStat = false;
+        this.showErr = false;
+        this.existStatus = false;
+        this.showSpinner = false;
+        this.teamMembers = [];
+        this.checked = [];
+        this.errMessage = '';
+        this.spinner = false;
+    }
+    CompanyManageAccessRightsComponent.prototype.ngOnInit = function () {
+        this.getUserGroups();
+        this.getAccessRights();
+    };
+    CompanyManageAccessRightsComponent.prototype.applyFilter = function (filterValue) {
+        filterValue = filterValue.trim(); // Remove whitespace
+        filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+        this.dataSource.filter = filterValue;
+    };
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getTeams
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Manu Prasad 
+    // Desc          : Get Teams from database
+    CompanyManageAccessRightsComponent.prototype.getUserGroups = function () {
+        var _this = this;
+        this.showSpinner = true;
+        this.companyService.getUserGroups().subscribe(function (userGroups) {
+            _this.showSpinner = false;
+            console.log(userGroups);
+            if (userGroups.length <= 0) {
+                // console.log("theme is empty");
+                _this.existStatus = true;
+            }
+            else {
+                _this.existStatus = false;
+            }
+            //  else {
+            // console.log(themes);
+            // console.log("theme is not empty");
+            //  console.log(this.existStatus);
+            _this.displatStat = true;
+            _this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["E" /* MatTableDataSource */](userGroups);
+            _this.dataSource.paginator = _this.paginator;
+            _this.dataSource.sort = _this.sort;
+            // }  
+        });
+    };
+    //  ---------------------------------end-----------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getTeams
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Manu Prasad 
+    // Desc          : Get Teams from database
+    CompanyManageAccessRightsComponent.prototype.getAccessRights = function () {
+        var _this = this;
+        this.companyService.getAccessRights().subscribe(function (accessRights) {
+            _this.accessRights = accessRights;
+            console.log(accessRights);
+        });
+    };
+    //  ---------------------------------end-----------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : setRights
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Manu Prasad 
+    // Desc          : set access rights in modal 
+    CompanyManageAccessRightsComponent.prototype.setRights = function (usergroupid, usergroupName) {
+        $('#assignModal .modal-title').text("Assign Access Rights");
+        $('#team-nm').text(usergroupName);
+        $('#assignModal').modal('show');
+    };
+    //  ---------------------------------end-----------------------------------------------
+    CompanyManageAccessRightsComponent.prototype.change = function () {
+        console.log(this.accessRights);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatPaginator */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatPaginator */])
+    ], CompanyManageAccessRightsComponent.prototype, "paginator", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["B" /* MatSort */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["B" /* MatSort */])
+    ], CompanyManageAccessRightsComponent.prototype, "sort", void 0);
+    CompanyManageAccessRightsComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-manage-access-rights',
+            template: __webpack_require__("../../../../../src/app/components/company-manage-access-rights/company-manage-access-rights.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-manage-access-rights/company-manage-access-rights.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_material__["z" /* MatSnackBar */]])
+    ], CompanyManageAccessRightsComponent);
+    return CompanyManageAccessRightsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-manage-team/company-manage-team.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".mat-form-field-underline {\r\n    position: absolute;\r\n    height: 1px;\r\n    width: 96%;\r\n    top: 48px;\r\n}\r\n\r\n.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-empty.mat-form-field-label {\r\n    padding-left: 10px;\r\n}\r\n\r\ninput.mat-input-element{\r\n    border-radius: 50px;\r\n}\r\n.mat-fltr {\r\n    width: 100%;\r\n    background-color: #fff;\r\n    padding: 0 35px;\r\n}\r\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-manage-team/company-manage-team.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\" >\r\n  <div class=\"container-fluid display-table\">\r\n      <div class=\"row display-table-row\">\r\n\r\n          <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n              <!-- sidebar-->\r\n\r\n              <admin-sidebar></admin-sidebar>\r\n              <!-- end sidebar-->\r\n          </div>\r\n\r\n          <div class=\"col-md-12 col-xs-12\">\r\n              <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n              <!-- topbar-->\r\n              <admin-topbar></admin-topbar>\r\n              <!-- end topbar-->\r\n\r\n\r\n              <div class=\"user-dashboard\">\r\n                  <!-- <h1>Hello, JS</h1> -->\r\n                  <div class=\"row\">\r\n                    \r\n                      <div class=\"col-md-12 col-sm-5 col-xs-12 gutter ad-tp dash-tbl\">\r\n                        <div class=\"col-md-12 spinner-cont\" *ngIf=\"showSpinner\">\r\n                            <app-spinner  class=\"tbl-spnner\"></app-spinner>\r\n                        </div>\r\n\r\n                          <div class=\"example-header\" >\r\n                              <mat-form-field class=\"mat-fltr\">\r\n                                <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                              </mat-form-field>\r\n                          </div>\r\n                       \r\n                    <div class=\"example-container mat-elevation-z8 \">\r\n                    <mat-table #table [dataSource]=\"dataSource\" matSort>\r\n      \r\n                      <!-- ID Column -->\r\n                      <ng-container matColumnDef=\"id\">\r\n                        <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\r\n                        <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                      </ng-container>\r\n                  \r\n                      <!-- Theme Name -->\r\n                      <ng-container matColumnDef=\"name\">\r\n                        <mat-header-cell *matHeaderCellDef mat-sort-header> TEAM NAME </mat-header-cell>\r\n                        <mat-cell *matCellDef=\"let row\"> {{row.team_name}} </mat-cell>\r\n                      </ng-container>\r\n                    \r\n\r\n                      <ng-container matColumnDef=\"strength\">\r\n                        <mat-header-cell *matHeaderCellDef mat-sort-header> STRENGTH </mat-header-cell>\r\n                        <mat-cell *matCellDef=\"let row\"> {{row.count}} </mat-cell>\r\n                      </ng-container>\r\n                      <!-- Progress Column -->\r\n                      <!-- <ng-container matColumnDef=\"mybid\">\r\n                        <mat-header-cell *matHeaderCellDef mat-sort-header> Your Bids </mat-header-cell>\r\n                        <mat-cell *matCellDef=\"let row\">  -->\r\n                          \r\n                          <!-- {{row.status}} -->\r\n                          <!-- {{row.h_font_family }} -->\r\n                          <!-- <p *ngFor=\"let bid of row.mybid\">{{row.h_font_family }} : {{bid.date_time | date: 'dd-MM-yyyy h:mm a'}}</p> -->\r\n                        <!-- </mat-cell>\r\n                      </ng-container> -->\r\n                    \r\n                      <!-- ID Column -->\r\n                      <!-- <ng-container matColumnDef=\"topbid\">\r\n                          <mat-header-cell *matHeaderCellDef mat-sort-header> Top Bid </mat-header-cell>\r\n                          <mat-cell *matCellDef=\"let row\"> {{row.progress_text_color }} </mat-cell>\r\n                        </ng-container> -->\r\n                    \r\n                      <!-- ID Column -->\r\n                      <ng-container matColumnDef=\"status\">\r\n                          <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\r\n                          <mat-cell *matCellDef=\"let row\"> <button mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n                            <mat-icon>more_vert</mat-icon>\r\n                          </button>\r\n                          <mat-menu #menu=\"matMenu\">\r\n                            \r\n                            <!-- <button mat-menu-item [routerLink]=\"['/edit-theme/',row._id]\">\r\n                              <mat-icon>mode_edit</mat-icon>\r\n                              <span>Edit</span>\r\n                            </button> -->\r\n                            <button mat-menu-item  (click)=\"setTeam(row.team_id, row.team_name)\" data-toggle=\"modal\" data-target=\"#myModal3\"> \r\n                                <mat-icon class=\"mat-menu-icn\"><i class=\"material-icons mat-assign-icn\">add_box</i></mat-icon>\r\n                                <span>Assign</span>\r\n                              </button>\r\n                          </mat-menu>\r\n                           </mat-cell>\r\n                        </ng-container>\r\n                      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                      <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\r\n                      </mat-row>\r\n                   \r\n                    </mat-table>\r\n                    <div class=\"col-md-12 noItemFound\" *ngIf=\"existStatus\">\r\n                        <div class=\"col-md-4 col-md-offset-4\">\r\n                            <mat-toolbar   class=\"back-color\">No item found!</mat-toolbar>\r\n                        </div>\r\n                        </div>\r\n                <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                    </div>\r\n                    </div>\r\n                  </div>\r\n                 \r\n              </div>\r\n             \r\n\r\n          </div>\r\n          <!-- footer-->\r\n          <!-- <admin-footer></admin-footer> -->\r\n          <!-- end footer-->\r\n      </div>\r\n  </div>\r\n  <!-- Modal -->\r\n\r\n\r\n\r\n  <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\r\n      <div class=\"modal-dialog\">\r\n\r\n        <!-- Modal content-->\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n            <h4 class=\"modal-title\"></h4>\r\n          </div>\r\n          <!-- <div class=\"modal-header\"> -->\r\n          <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n          <!-- </div> -->\r\n          <div class=\"modal-body delete-popup\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-12\">\r\n                      <div class=\"col-md-4\">\r\n                          <label class=\"modal-lft-lbl\">Team Name:</label> \r\n                      </div>\r\n                      <div class=\"col-md-7\">\r\n                          <label id=\"team-nm\" class=\"modal-lft-lbl\">{{teamName}}</label>\r\n          \r\n                      </div>\r\n                  </div>\r\n                  <div class=\"col-md-12\">\r\n                      <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Team Members :</label></div>\r\n                      <div class=\"col-md-7 \">\r\n                        <mat-form-field class=\"inputfileds\"> \r\n                          <mat-select name='selected' multiple [(ngModel)]=\"teamMembers\" (ngModelChange)=\"memberSelect($event)\">\r\n                            <mat-option [value]=\"member.id\" *ngFor=\"let member of members; let i=index\" >{{member.f_name}} {{member.l_name}}</mat-option>\r\n                          </mat-select>\r\n                        </mat-form-field>\r\n                      </div>\r\n                  </div>\r\n\r\n                  <div class=\"col-md-12\">\r\n                      <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Team Head :</label></div>\r\n                      <div class=\"col-md-7 \">\r\n                        <mat-form-field class=\"inputfileds\">\r\n                          <mat-select name='selected2'  [(ngModel)]=\"teamHead\" (ngModelChange)=\"headSelect($event)\">\r\n                            \r\n                              <mat-option *ngFor=\"let member of selectedTeamMembers;\" [value]=\"member.id\" >{{member.f_name}} {{member.l_name}}</mat-option>\r\n                            \r\n                          </mat-select>\r\n                        </mat-form-field>\r\n                      </div>\r\n                  </div>\r\n                  <div class=\"col-md-12\">\r\n                    {{errMessage}}\r\n                  </div>\r\n                </div>\r\n                \r\n            </div>\r\n            \r\n\r\n          </div>\r\n\r\n          <div class=\"modal-footer\">\r\n            <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n            <button *ngIf=\"!spinner\" type=\"button\" (click)=\"assignTeam()\" class=\"btn round-button\" >Assign</button>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-manage-team/company-manage-team.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyManageTeamComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var CompanyManageTeamComponent = (function () {
+    function CompanyManageTeamComponent(companyService, routes, snackBar) {
+        this.companyService = companyService;
+        this.routes = routes;
+        this.snackBar = snackBar;
+        this.displayedColumns = ['id', 'name', 'strength', 'status'];
+        this.displatStat = false;
+        this.showErr = false;
+        this.existStatus = false;
+        this.showSpinner = false;
+        this.teamMembers = [];
+        this.heads = [];
+        this.errMessage = '';
+        this.spinner = false;
+    }
+    CompanyManageTeamComponent.prototype.ngOnInit = function () {
+        this.getTeams();
+    };
+    CompanyManageTeamComponent.prototype.applyFilter = function (filterValue) {
+        filterValue = filterValue.trim(); // Remove whitespace
+        filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+        this.dataSource.filter = filterValue;
+    };
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getTeams
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, Manu Prasad 
+    // Desc          : Get Teams from database
+    CompanyManageTeamComponent.prototype.getTeams = function () {
+        var _this = this;
+        this.showSpinner = true;
+        this.companyService.getTeams().subscribe(function (teams) {
+            _this.showSpinner = false;
+            // console.log(teams);
+            if (teams.length <= 0) {
+                // console.log("theme is empty");
+                _this.existStatus = true;
+            }
+            else {
+                _this.existStatus = false;
+            }
+            //  else {
+            // console.log(themes);
+            // console.log("theme is not empty");
+            //  console.log(this.existStatus);
+            _this.displatStat = true;
+            _this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["E" /* MatTableDataSource */](teams);
+            _this.dataSource.paginator = _this.paginator;
+            _this.dataSource.sort = _this.sort;
+            // }  
+        });
+    };
+    //  ---------------------------------end-----------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : setTeam
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, Manu Prasad 
+    // Desc          : set value in modal
+    CompanyManageTeamComponent.prototype.setTeam = function (teamId, teamName) {
+        var _this = this;
+        // this.showSpinner =true
+        this.teamId = teamId;
+        this.companyService.getTeamMembers(teamId).subscribe(function (members) {
+            _this.showSpinner = false;
+            console.log(members);
+            if (members.length <= 0) {
+                // console.log("theme is empty");
+                _this.existStatus = true;
+            }
+            else {
+                _this.members = members[0];
+                _this.teamMembers = members[2];
+                _this.existStatus = false;
+                _this.heads = members[2];
+                _this.selectedTeamMembers = members[4];
+                if (members[3] == null) {
+                    _this.teamHead = '';
+                }
+                else {
+                    _this.teamHead = members[3].user_profile_id;
+                }
+                console.log(_this.teamHead);
+            }
+            //  else {
+            // }  
+        });
+        $('#assignModal .modal-title').text("Assign Members");
+        $('#team-nm').text(teamName);
+        $('#assignModal').modal('show');
+    };
+    //  ---------------------------------end-----------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : setTeam
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, Manu Prasad 
+    // Desc          : set value in modal
+    CompanyManageTeamComponent.prototype.assignTeam = function () {
+        var _this = this;
+        // console.log(this.teamMembers);
+        // console.log(this.teamHead);
+        // console.log(this.teamId);
+        this.spinner = true;
+        if (this.teamMembers.length == 0 || this.teamHead == '') {
+            this.errMessage = "Please select fields!";
+            this.spinner = false;
+        }
+        else {
+            this.errMessage = "";
+            this.companyService.assignTeam(this.teamMembers, this.teamHead, this.teamId).subscribe(function (res) {
+                if (res.status == 1) {
+                    var snackBarRef = _this.snackBar.open(res.Message, '', {
+                        duration: 2000
+                    });
+                    _this.getTeams();
+                    _this.spinner = false;
+                    $('#assignModal').modal('toggle');
+                }
+                else {
+                    var snackBarRef = _this.snackBar.open(res.Message, '', {
+                        duration: 2000
+                    });
+                }
+            });
+        }
+    };
+    //  ---------------------------------end-----------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : setTeam
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, Manu Prasad 
+    // Desc          : set value in modal
+    CompanyManageTeamComponent.prototype.memberSelect = function (member) {
+        var _this = this;
+        console.log(member);
+        if (member != '') {
+            // this.heads = member;
+            this.selectedTeamMembers = [];
+            member.forEach(function (element) {
+                // console.log(element);
+                _this.members.forEach(function (ele) {
+                    // console.log(ele);
+                    if (element == ele.id) {
+                        _this.selectedTeamMembers.push(ele);
+                    }
+                });
+            });
+        }
+        // console.log(member);
+        // console.log(this.teamMembers[this.teamMembers.length-1]);
+    };
+    //  ---------------------------------end-----------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : setTeam
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, Manu Prasad 
+    // Desc          : set value in modal
+    CompanyManageTeamComponent.prototype.headSelect = function (head) {
+        if (head != '') {
+            this.teamHead = head;
+        }
+        // console.log(head);
+        // console.log(this.teamMembers[this.teamMembers.length-1]);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatPaginator */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatPaginator */])
+    ], CompanyManageTeamComponent.prototype, "paginator", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["B" /* MatSort */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["B" /* MatSort */])
+    ], CompanyManageTeamComponent.prototype, "sort", void 0);
+    CompanyManageTeamComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-manage-team',
+            template: __webpack_require__("../../../../../src/app/components/company-manage-team/company-manage-team.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-manage-team/company-manage-team.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_material__["z" /* MatSnackBar */]])
+    ], CompanyManageTeamComponent);
+    return CompanyManageTeamComponent;
 }());
 
 
@@ -2645,6 +3071,67 @@ var CompanyResoureVsHourComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/company-sidebar/company-sidebar.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-sidebar/company-sidebar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"logo\">\r\n  <a href=\"\"><img src=\"./assets/images/logo.jpg\" alt=\"\" class=\"\">\r\n \r\n</a>\r\n</div>\r\n\r\n<nav class=\"navbar navbar-default\">\r\n\r\n<!-- Brand and toggle get grouped for better mobile display -->\r\n<div class=\"navbar-header\">\r\n<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\r\n  <span class=\"sr-only\">Toggle navigation</span>\r\n  <span class=\"icon-bar\"></span>\r\n  <span class=\"icon-bar\"></span>\r\n  <span class=\"icon-bar\"></span>\r\n</button>\r\n\r\n</div>\r\n\r\n<!-- Collect the nav links, forms, and other content for toggling -->\r\n<div class=\"collapse navbar-collapse navi\" id=\"bs-example-navbar-collapse-1\">\r\n  <ul class=\"zx nav navbar-nav\">\r\n      <li  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n        <a routerLink=\"/admin-dashboard\"><i class=\"fa fa-desktop\" aria-hidden=\"true\"></i><span class=\"\">Dashboard</span></a></li>\r\n      <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n        <a routerLink=\"/admin-company\"><i class=\"fa fa-building-o\"></i> Company</a></li>\r\n      <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n        <a routerLink=\"\"><i class=\"fa fa-file-text\" aria-hidden=\"true\"></i><span class=\"\">Plan</span></a></li>\r\n  </ul>\r\n\r\n\r\n</div><!-- /.navbar-collapse -->\r\n\r\n</nav>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-sidebar/company-sidebar.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanySidebarComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CompanySidebarComponent = (function () {
+    function CompanySidebarComponent() {
+    }
+    CompanySidebarComponent.prototype.ngOnInit = function () {
+    };
+    CompanySidebarComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-sidebar',
+            template: __webpack_require__("../../../../../src/app/components/company-sidebar/company-sidebar.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-sidebar/company-sidebar.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CompanySidebarComponent);
+    return CompanySidebarComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/company-signup/company-signup.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3238,6 +3725,67 @@ var CompanyTaskVsStatusComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/company-topbar/company-topbar.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-topbar/company-topbar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\r\n  <header>\r\n      \r\n      <div class=\"col-md-5 pull-right\">\r\n          <div class=\"header-rightside\">\r\n              <ul class=\"list-inline header-top pull-right\">\r\n                  <li class=\"\"><a href=\"#\" class=\"add-project\">Add Project</a></li>\r\n                  \r\n                  <li>\r\n                      <a href=\"#\" class=\"icon-info\">\r\n                          <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\r\n                          <span class=\"label label-primary\">3</span>\r\n                      </a>\r\n                  </li>\r\n                  <li class=\"dropdown\">\r\n                      <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                          <b class=\"caret\"></b></a>\r\n                      <ul class=\"dropdown-menu\">\r\n                          <li>\r\n                              <div class=\"navbar-content\">\r\n                                  <span>JS Krishna</span>\r\n                                  <p class=\"text-muted small\">\r\n                                      me@jskrishna.com\r\n                                  </p>\r\n                                  <div class=\"divider\">\r\n                                  </div>\r\n                                  <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\r\n                              </div>\r\n                          </li>\r\n                      </ul>\r\n                  </li>\r\n                  <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\r\n              </ul>\r\n          </div>\r\n      </div>\r\n  </header>\r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-topbar/company-topbar.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyTopbarComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CompanyTopbarComponent = (function () {
+    function CompanyTopbarComponent() {
+    }
+    CompanyTopbarComponent.prototype.ngOnInit = function () {
+    };
+    CompanyTopbarComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-topbar',
+            template: __webpack_require__("../../../../../src/app/components/company-topbar/company-topbar.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-topbar/company-topbar.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CompanyTopbarComponent);
+    return CompanyTopbarComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/email-verification/email-verification.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3334,7 +3882,7 @@ var EmailVerificationComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["y" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
     ], EmailVerificationComponent);
     return EmailVerificationComponent;
 }());
@@ -3724,6 +4272,34 @@ var CompanyService = (function () {
     };
     // ---------------------------------------End--------------------------------------------
     // ---------------------------------Start------------------------------------------------
+    // Function      : getTeams
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get team names and strength from db
+    CompanyService.prototype.getTeams = function () {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "getTeams", { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : getTeamMembers
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get team members based on id passed from db
+    CompanyService.prototype.getTeamMembers = function (id) {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "getMembers/" + id, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
     // Function      : get All Users by project id
     // Params        : project id , '' for all users
     // Returns       : All Users
@@ -3734,6 +4310,51 @@ var CompanyService = (function () {
     CompanyService.prototype.getUsers = function (projId) {
         var h = this.setHeader();
         return this.http.get(this.serviceUrl + "getUsersByProject/" + projId, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // Function      : getTeamMembers
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get team members based on id passed from db
+    CompanyService.prototype.assignTeam = function (members, head, teamId) {
+        var h = this.setHeader();
+        var data = [];
+        data.push(members);
+        data.push(head);
+        data.push(teamId);
+        return this.http.post(this.serviceUrl + "assignMemebers/", data, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : getUserGroups
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, 
+    // Desc          : get user groups  from db
+    CompanyService.prototype.getUserGroups = function () {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "getUserGroups", { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : getAccessRights
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, 
+    // Desc          : get Access Rights  from db
+    CompanyService.prototype.getAccessRights = function () {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "getAccessRights", { headers: h })
             .map(function (response) { return response.json(); });
     };
     CompanyService = __decorate([

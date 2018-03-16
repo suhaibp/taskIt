@@ -166,6 +166,38 @@ export class CompanyService {
   }
   // ---------------------------------------End--------------------------------------------
 
+    // ---------------------------------Start------------------------------------------------
+  // Function      : getTeams
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, 
+  // Desc          : get team names and strength from db
+  getTeams(){
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getTeams", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getTeamMembers
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, 
+  // Desc          : get team members based on id passed from db
+  getTeamMembers(id){
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getMembers/"+id, { headers: h })
+    .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
   // ---------------------------------Start------------------------------------------------
   // Function      : get All Users by project id
   // Params        : project id , '' for all users
@@ -177,6 +209,57 @@ export class CompanyService {
   getUsers(projId) {
     let h = this.setHeader();
     return this.http.get(this.serviceUrl + "getUsersByProject/" + projId, { headers: h })
+    .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+  
+  // Function      : getTeamMembers
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, 
+  // Desc          : get team members based on id passed from db
+  assignTeam(members,head,teamId){
+    let h = this.setHeader();
+    let data = [];
+    data.push(members);
+    data.push(head);
+    data.push(teamId);
+    return this.http.post(this.serviceUrl + "assignMemebers/",data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+  
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getUserGroups
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get user groups  from db
+  getUserGroups(){
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getUserGroups", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getAccessRights
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get Access Rights  from db
+  getAccessRights(){
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getAccessRights", { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------

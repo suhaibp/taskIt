@@ -1,6 +1,7 @@
 
 var express = require('express');
 var router = express.Router();
+async = require("async");
 const Sequelize = require('sequelize');
 var env       = process.env.NODE_ENV || 'development';
 var config    = require(__dirname + '/../config/config.json')[env];
@@ -11,8 +12,14 @@ var Login = models.tbl_login;
 var Company = models.tbl_company;
 var Industries = models.tbl_industry;
 var CompanySize = models.tbl_company_size;
+var Teams = models.tbl_team;
+var TeamAssoc = models.tbl_team_assoc;
 var Plan = models.tbl_plan;
-const Op = Sequelize.Op
+var Role = models.tbl_role;
+var AccessRights = models.tbl_access_rights;
+var AccessRightsAssoc = models.tbl_access_rights_assoc;
+var AccessRightsMain = models.tbl_main_access_right;
+const Op = Sequelize.Op;
 const bcrypt = require("bcryptjs");
 
 var Role = models.tbl_role;
@@ -427,10 +434,303 @@ var returnRouter = function (io) {
     });
 
     // ----------------------------------End-------------------------------------------
-    module.exports = router;
 
-    return router;
-}
-module.exports = returnRouter;
     
 
+//  ---------------------------------Start-------------------------------------------
+  // Function      : getTeams
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, 
+  // Desc          : get list of teams and stregth
+
+
+router.get('/getTeams', function(req, res) {
+  // if (req.headers && req.headers.authorization) {
+  //   var authorization = req.headers.authorization.substring(4), decoded;
+  //   //     try {
+  //   decoded = jwt.verify(authorization, config.secret);
+  //   var cmp_id = decoded._id;
+    var cmp_id = 1;
+    // res.json(req.body);
+    var teamName;
+    var team=[];
+    Teams.findAll().then(teams => {
+      // console.log(projects);
+      teamName = teams.team_name;
+      // teams.forEach(element => {
+        async.eachOfSeries(teams, function (element, key, callback) {
+          TeamAssoc.findAndCountAll({
+            where:{team_id:element.id}
+          }).then(resTeam=>{
+          team.push({team_name:element.team_name, count:resTeam.count, team_id: element.id})
+            callback();
+          })
+        }, ()=>{
+          res.json(team);
+
+        })
+       
+    // });
+    });
+    
+  // }
+})
+//  ---------------------------------End-------------------------------------------
+
+
+
+
+
+//  ---------------------------------Start-------------------------------------------
+  // Function      : getMembers
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, 
+  // Desc          : get list of teams and stregth
+
+
+  router.get('/getMembers/:id', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      // res.json(req.body);
+      var teamName;
+      var members=[];
+      Users.findAll({
+        where:{
+           cmp_id:cmp_id,
+           role_id:4          
+          },  
+          raw: true,      
+      }).then(users => {
+        //  console.log(users);
+         //res.json(users);
+        // teamName = teams.team_name;
+        // users.forEach(element => {
+          var tmp = {};
+          var tmp3 = [];
+          var tmp5 = [];
+          async.eachOfSeries(users, function (element, key, callback) {
+            users[key].onTeam = false ;
+            // console.log(element)
+            TeamAssoc.findAll({
+              raw: true,      
+              where:{user_profile_id:element.id,cmp_id:cmp_id,team_id:req.params.id}
+            }).then(resUser=>{
+        // res.json(resUser);
+            // console.log(resUser)
+        
+          if(resUser.length>0){
+                users[key].onTeam = true ;
+                tmp3.push(element.id);
+                tmp5.push(element);
+          }
+            // console.log(element.id)
+            tmp[element.id] =users[key];
+              // members.push({f_name:resUser.f_name, l_name:resUser.l_name, id:resUser.id})
+              callback();
+            })
+          }, ()=>{
+            TeamAssoc.find({
+              raw: true,      
+              where:{cmp_id:cmp_id,team_id:req.params.id, is_head:true}
+            }).then(resHead =>{
+            // res.json(resHead);
+            tmp4 =resHead
+            tmp2=[];
+            tmp2.push(users);
+            tmp2.push(tmp);
+            tmp2.push(tmp3);
+            tmp2.push(tmp4);
+            tmp2.push(tmp5);
+            res.json(tmp2);
+            })
+            //
+  
+          })
+         
+      // });
+      });
+      
+    // }
+  })
+  //  ---------------------------------End-------------------------------------------
+
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : assignMemeber5
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : assign team members and head to a team
+
+
+router.post('/assignMemebers', function(req, res) {
+  // if (req.headers && req.headers.authorization) {
+  //   var authorization = req.headers.authorization.substring(4), decoded;
+  //   //     try {
+  //   decoded = jwt.verify(authorization, config.secret);
+  //   var cmp_id = decoded._id;
+    var cmp_id = 1;
+    // res.json(req.body);
+    var teamName;
+    var team=[];
+    // console.log(req.body)
+    TeamAssoc.destroy({
+      where:{
+        user_profile_id:{[Op.in]:req.body[0]},
+        team_id:req.body[2],
+        cmp_id:cmp_id
+      }
+    }).then(()=>{
+      members = req.body[0];
+      var teamassoc;
+      members.forEach(element => {
+        if(element == req.body[1]){
+          teamassoc = TeamAssoc.build({
+            is_head : true,
+            cmp_id : cmp_id,
+            user_profile_id : element,
+            team_id : req.body[2]
+          })
+        }else{
+          teamassoc = TeamAssoc.build({
+            is_head : false,
+            cmp_id : cmp_id,
+            user_profile_id : element,
+            team_id : req.body[2]
+          })
+        }
+        teamassoc.save().then((resTeamAssoc) =>{
+          console.log(resTeamAssoc);
+          res.json({
+            status:1,
+            Message: "Successfully assigned!"
+          })
+        }).catch( error =>{
+          res.json({
+            status:0,
+            Message: "Some error occured!"
+          })
+        })
+        
+      });
+    }).catch(err => {
+      res.json({
+        status:0,
+        Message: "Some error occured!"
+      })
+    })
+})
+//  ---------------------------------End-------------------------------------------
+  
+
+//  ---------------------------------Start-------------------------------------------
+  // Function      : getUserGroups
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get user groups  from db
+
+
+  router.get('/getUserGroups', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      Role.findAll({
+        where:{
+          is_visible:true
+        }
+      }).then(Roles => {
+        // console.log(projects);
+      res.json(Roles);
+     
+         
+      // });
+      });
+      
+    // }
+  })
+  //  ---------------------------------End-------------------------------------------
+
+  
+//  ---------------------------------Start-------------------------------------------
+  // Function      : getAccessRights
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get Access Rights  from db
+
+
+  router.get('/getAccessRights', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      AccessRightsMain.findAll({ include: [{
+        model: AccessRights
+        // where: {id: Sequelize.col('login.role_id')}
+      
+       }],
+      //  raw:true
+      }).then(mainAccessRights => {
+        console.log(mainAccessRights);
+        res.json(mainAccessRights);
+        //     var tmp={};
+        //     var array = [];
+        //     tmp = mainAccessRights;        
+        //     tmp.rights = {};
+        //         var tmp2={}
+        //         res.json()
+        //         // array.push(mainAccessRights)
+                
+        //     // res.json(mainAccessRights);
+        //     async.eachOfSeries(array, (element, key, callback)=>{
+        //       AccessRights.findAll({
+        //         raw:true,
+        //         where: {main_access_right_id : element.id}
+        //       }).then(accessRights => {
+        //         tmp.rights = accessRights
+        //         // res.json(accessRights)
+        //         element.push({rights:accessRights})
+              
+        //       });
+        //       callback();
+              
+        //     }, ()=>{
+        //       // res.json(array);
+
+        //     })
+        // mainAccessRights.forEach((element,index) => {
+          
+        // });
+        
+      })
+     
+      
+    // }
+  })
+  //  ---------------------------------End-------------------------------------------
+  module.exports = router;
+  return router;
+  }
+  module.exports = returnRouter;
