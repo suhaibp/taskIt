@@ -15,7 +15,11 @@ var CompanySize = Models.tbl_company_size;
 var Teams = Models.tbl_team;
 var TeamAssoc = Models.tbl_team_assoc;
 var Plan = Models.tbl_plan;
-const Op = Sequelize.Op
+var Role = Models.tbl_role;
+var AccessRights = Models.tbl_access_rights;
+var AccessRightsAssoc = Models.tbl_access_rights_assoc;
+var AccessRightsMain = Models.tbl_main_access_right;
+const Op = Sequelize.Op;
 const bcrypt = require("bcryptjs");
 const emailTemplate = require('../template/verification_email');
 
@@ -456,6 +460,101 @@ router.post('/assignMemebers', function(req, res) {
 })
 //  ---------------------------------End-------------------------------------------
   
+
+//  ---------------------------------Start-------------------------------------------
+  // Function      : getUserGroups
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get user groups  from db
+
+
+  router.get('/getUserGroups', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      Role.findAll({
+        where:{
+          is_visible:true
+        }
+      }).then(Roles => {
+        // console.log(projects);
+      res.json(Roles);
+     
+         
+      // });
+      });
+      
+    // }
+  })
+  //  ---------------------------------End-------------------------------------------
+
+  
+//  ---------------------------------Start-------------------------------------------
+  // Function      : getAccessRights
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get Access Rights  from db
+
+
+  router.get('/getAccessRights', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      AccessRightsMain.findAll({ include: [{
+        model: AccessRights
+        // where: {id: Sequelize.col('login.role_id')}
+      
+       }],
+       raw:true
+      }).then(mainAccessRights => {
+        console.log(mainAccessRights)
+        //     var tmp={};
+        //     var array = [];
+        //     tmp = mainAccessRights;        
+        //     tmp.rights = {};
+        //         var tmp2={}
+        //         res.json()
+        //         // array.push(mainAccessRights)
+                
+        //     // res.json(mainAccessRights);
+        //     async.eachOfSeries(array, (element, key, callback)=>{
+        //       AccessRights.findAll({
+        //         raw:true,
+        //         where: {main_access_right_id : element.id}
+        //       }).then(accessRights => {
+        //         tmp.rights = accessRights
+        //         // res.json(accessRights)
+        //         element.push({rights:accessRights})
+              
+        //       });
+        //       callback();
+              
+        //     }, ()=>{
+        //       // res.json(array);
+
+        //     })
+        // mainAccessRights.forEach((element,index) => {
+          
+        // });
+        
+      })
+     
+      
+    // }
+  })
+  //  ---------------------------------End-------------------------------------------
   module.exports = router;
   return router;
   }

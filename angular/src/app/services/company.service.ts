@@ -202,4 +202,37 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
+
+
+
+  
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getUserGroups
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get user groups  from db
+  getUserGroups(){
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getUserGroups", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getAccessRights
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get Access Rights  from db
+  getAccessRights(){
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getAccessRights", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
 }

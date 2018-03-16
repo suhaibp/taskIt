@@ -68,6 +68,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { CompanyManageTeamComponent } from './components/company-manage-team/company-manage-team.component';
 import { CompanyTopbarComponent } from './components/company-topbar/company-topbar.component';
 import { CompanySidebarComponent } from './components/company-sidebar/company-sidebar.component';
+import { CompanyManageAccessRightsComponent } from './components/company-manage-access-rights/company-manage-access-rights.component';
 
 
 const appRoutes: Routes = [
@@ -83,6 +84,7 @@ const appRoutes: Routes = [
   {path:'admin-NotVerified', component:AdminNotVerifiedComponent},
   {path:'admin-expired', component:AdminExpiredComponent},
   {path:'company-signup', component:CompanySignupComponent},
+  {path:'company-access-rights', component:CompanyManageAccessRightsComponent},
  
   {path:'company-login', component:CompanyLoginComponent},
   {path:'company-team', component:CompanyManageTeamComponent},
@@ -124,7 +126,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
-  declarations: [EmailVerificationComponent,],
+  declarations: [EmailVerificationComponent,  ],
  
 })
 export class DemoMaterialModule {}
@@ -149,6 +151,7 @@ export class DemoMaterialModule {}
     CompanyManageTeamComponent, 
     CompanyTopbarComponent, 
     CompanySidebarComponent,
+    CompanyManageAccessRightsComponent
   ],
   imports: [
     BrowserModule,

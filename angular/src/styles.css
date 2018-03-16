@@ -1234,7 +1234,8 @@ form{text-align:center;}
     border-radius: 10px;
 }
 .modal-body {
-    background-color: #fff
+    background-color: #fff;
+    overflow: hidden;
 }
 .modal-footer{
     background-color: #fff;
@@ -1309,12 +1310,18 @@ form{text-align:center;}
       padding-top: 0px !important;
       padding-bottom: 0px !important;
   }
-  .mat-menu-content:hover{
-      background-color: #fe6b07;
+  .mat-menu-item:hover{
+      background-color: #fe6b07 !important;
   }
-  .mat-menu-content:hover span{
+  .mat-menu-item:hover span{
       color: #fff;
   }
-  .mat-menu-content:hover .material-icons{
+  .mat-menu-item:hover .material-icons{
     color: #fff;
+}
+.padd-10{
+    padding-top: 10px !important;
+}
+.padd-15{
+    padding-top: 15px !important;
 }
