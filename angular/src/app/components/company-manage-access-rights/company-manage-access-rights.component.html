@@ -123,8 +123,10 @@
                       <div class="col-md-4 "><label class="modal-lft-lbl">Access Rights :</label></div>
                       <div class="col-md-7 padd-15">
                         <div class="col-md-12"  *ngFor="let item of accessRights">
-                            <mat-checkbox class="example-margin" [(ngModel)]="item.checked" name="{{i}}" (ngModelChange)="change()">{{item.access_right}}</mat-checkbox>
-
+                            <mat-checkbox class="example-margin" [(ngModel)]="item.checked" name="{{i}}" (ngModelChange)="changeMaster(item.id)">{{item.name}}</mat-checkbox>
+                            <div class="col-md-10 col-md-offset-1" *ngFor="let rights of item.tbl_access_rights">
+                              <mat-checkbox class="example-margin" [(ngModel)]="rights.checked" name="{{i}}" (ngModelChange)="change(item.id)">{{rights.access_right}}</mat-checkbox>                              
+                            </div>
                         </div>
                         
                       </div>
@@ -142,7 +144,7 @@
 
           <div class="modal-footer">
             <app-spinner *ngIf="spinner"></app-spinner>
-            <button *ngIf="!spinner" type="button" (click)="assignTeam()" class="btn round-button" >Assign</button>
+            <button *ngIf="!spinner" type="button" (click)="assignRights()" class="btn round-button" >Assign</button>
           </div>
         </div>
 

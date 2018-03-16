@@ -2,6 +2,7 @@ import {Component, ViewChild, OnInit, ElementRef} from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { CompanyService } from './../../services/company.service';
 import {Router} from '@angular/router';
+import async from 'async'; 
 declare var $:any;
 @Component({
   selector: 'app-company-manage-access-rights',
@@ -12,19 +13,13 @@ export class CompanyManageAccessRightsComponent implements OnInit {
 
   displayedColumns = ['id','role',  'status'];
   dataSource: MatTableDataSource<any>;
-  displatStat = false;
-  themeId: string;
   showErr = false;
   existStatus: boolean = false;
   showSpinner :boolean = false;
   accessRights: any;
-  teamMembers=[];
-  checked=[];
-  teamHead: any;
-  teamId:any;
-  selectedTeamMembers:any;
   errMessage = '';
   spinner = false;
+  userGroupId :any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private companyService: CompanyService,
@@ -33,7 +28,6 @@ export class CompanyManageAccessRightsComponent implements OnInit {
 
   ngOnInit() {
     this.getUserGroups();
-    this.getAccessRights();
   }
 
 
@@ -69,7 +63,7 @@ export class CompanyManageAccessRightsComponent implements OnInit {
       // console.log(themes);
       // console.log("theme is not empty");
       //  console.log(this.existStatus);
-        this.displatStat = true;
+        // this.displatStat = true;
         this.dataSource = new MatTableDataSource(userGroups);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -113,6 +107,8 @@ export class CompanyManageAccessRightsComponent implements OnInit {
 
 
   setRights(usergroupid, usergroupName){
+    this.getAccessRights();
+    this.userGroupId = usergroupid
     $('#assignModal .modal-title').text("Assign Access Rights");
     $('#team-nm').text(usergroupName);
            $('#assignModal').modal('show'); 
@@ -120,7 +116,77 @@ export class CompanyManageAccessRightsComponent implements OnInit {
     }
   //  ---------------------------------end-----------------------------------------------
 
-  change(){
-    console.log(this.accessRights)
+  change(event){
+    // console.log(this.accessRights)
+    let allChecked = true;
+    async.forEachOf(this.accessRights, (element, key, callback)=>{
+      if(element.id == event){
+        element.tbl_access_rights.forEach(ele => {
+          // console.log(typeof ele.checked);
+          if(ele.checked == false || typeof ele.checked == 'undefined'){
+            // console.log("l");
+            allChecked = false
+            
+          }
+        });
+        if(allChecked == true){
+          element.checked = true
+        }
+        else{
+          element.checked = false
+          
+        }
+      }
+      callback()
+    },()=>{
+      // console.log(this.accessRights)
+      
+    })
+    
   }
+
+  changeMaster(event){
+    // console.log(event)
+    this.accessRights.forEach(element => {
+
+      if(element.id == event){
+        if(element.checked == true){
+          element.tbl_access_rights.forEach(ele => {
+            ele.checked = true;
+          });
+        }
+        else{
+          element.tbl_access_rights.forEach(ele => {
+            ele.checked = false;
+          });
+        }
+        
+      }
+      // console.log(this.accessRights)
+    });
+    // conso
+  }
+
+
+
+  assignRights(){
+    this.spinner = true;
+    this.companyService.assignRights(this.accessRights, this.userGroupId).subscribe(res =>{
+      if(res.status == 1){
+        let snackBarRef = this.snackBar.open(res.Message, '', {
+          duration: 2000
+        });
+        this.getAccessRights();
+        this.spinner = false;                
+        $('#assignModal').modal('toggle');
+      }else{
+        let snackBarRef = this.snackBar.open(res.Message, '', {
+          duration: 2000
+        });
+      }
+    })
+  }
+
+
+ 
 }

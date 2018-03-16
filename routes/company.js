@@ -679,50 +679,96 @@ router.post('/assignMemebers', function(req, res) {
   // Desc          : get Access Rights  from db
 
 
-  router.get('/getAccessRights', function(req, res) {
+  router.get('/getAccessRights/:id', function(req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //     try {
     //   decoded = jwt.verify(authorization, config.secret);
     //   var cmp_id = decoded._id;
       var cmp_id = 1;
-      AccessRightsMain.findAll({ include: [{
-        model: AccessRights
-        // where: {id: Sequelize.col('login.role_id')}
+      var roleId = req.params.id;
       
+      console.log(roleId);
+      AccessRightsMain.findAll(
+        {include: [{
+          model: AccessRights,
+        //   include: [{
+        //     model: AccessRightsAssoc
+        //  }]
        }],
-      //  raw:true
+       //plain: true,
+       //   raw:true
       }).then(mainAccessRights => {
-        console.log(mainAccessRights);
-        res.json(mainAccessRights);
-        //     var tmp={};
-        //     var array = [];
-        //     tmp = mainAccessRights;        
-        //     tmp.rights = {};
-        //         var tmp2={}
-        //         res.json()
-        //         // array.push(mainAccessRights)
-                
-        //     // res.json(mainAccessRights);
-        //     async.eachOfSeries(array, (element, key, callback)=>{
-        //       AccessRights.findAll({
-        //         raw:true,
-        //         where: {main_access_right_id : element.id}
-        //       }).then(accessRights => {
-        //         tmp.rights = accessRights
-        //         // res.json(accessRights)
-        //         element.push({rights:accessRights})
-              
-        //       });
-        //       callback();
-              
-        //     }, ()=>{
-        //       // res.json(array);
 
+        //var nodedata = node.values;
+
+        // nodedata.sensors = sensors.map(function(sensor){ return sensor.values });
+        // or
+        mainAccessRights = parseJSON(mainAccessRights);
+
+        console.log(mainAccessRights);
+      //  var temp = [];
+      //  temp = mainAccessRights;
+          // mainAccessRights.forEach((element,indx) => {
+
+          async.eachOfSeries(mainAccessRights, (ele, key, callback)=>{
+            console.log(ele);
+          //   AccessRightsAssoc.find({
+          //     where:{
+          //       role_id : roleId,
+          //       access_rights_id : ele.id
+          //     }
+          //   }).then(resRightsAssoc =>{
+          //  tmpData.push(mainAccessRights[indx]);
+          //  tmpData.push({sdasd:'asdsad'});
+          //     if(resRightsAssoc != null){
+          //       mainAccessRights[indx].tbl_access_rights[key].manu = true
+          //     }else{
+          //  console.log(mainAccessRights[indx]);
+          // console.log(mainAccessRights);
+          //     }
+          //     console.log(indx);
+          //     console.log(element);
+          //     element.tbl_access_rights.access_right = 'xyz';
+          //     callback();
+          //   })
+          mainAccessRights[key].manu = 'true';
+          }, ()=>{
+            //  res.json( mainAccessRights);
+          })
+
+
+
+          //var yourval = jQuery.parseJSON(JSON.stringify(data));
+         //   console.log(element);
+         //   console.log(indx);
+        //   async.eachOfSeries(element.tbl_access_rights, (ele, key, callback)=>{
+        //     AccessRightsAssoc.find({
+        //       where:{
+        //         role_id : roleId,
+        //         access_rights_id : ele.id
+        //       }
+        //     }).then(resRightsAssoc =>{
+        //    tmpData.push(mainAccessRights[indx]);
+        //    tmpData.push({sdasd:'asdsad'});
+        //       if(resRightsAssoc != null){
+        //         mainAccessRights[indx].tbl_access_rights[key].manu = true
+        //       }else{
+          //  console.log(mainAccessRights[indx]);
+          //console.log(mainAccessRights);
+        //       }
+            //   console.log(indx);
+              // console.log(element);
+           //    element.tbl_access_rights.access_right = 'xyz';
+        //       callback();
         //     })
-        // mainAccessRights.forEach((element,index) => {
-          
-        // });
+        //   }, ()=>{
+        //     //  res.json( mainAccessRights);
+        //   })
+       // temp.push(element);
+          // });
+        res.json(mainAccessRights);
+        
         
       })
      
@@ -730,6 +776,43 @@ router.post('/assignMemebers', function(req, res) {
     // }
   })
   //  ---------------------------------End-------------------------------------------
+
+
+  
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : assignMemeber5
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : assign team members and head to a team
+
+
+router.post('/assignRights/:id', function(req, res) {
+  // if (req.headers && req.headers.authorization) {
+  //   var authorization = req.headers.authorization.substring(4), decoded;
+  //   //     try {
+  //   decoded = jwt.verify(authorization, config.secret);
+  //   var cmp_id = decoded._id;
+    var cmp_id = 1;
+    role_id = req.params.id;
+    req.body.forEach(element => {
+      async.eachOfSeries(element.tbl_rights, (ele, key, callback)=>{
+        if(ele.checked == true){
+
+        }
+      },
+      ()=>{
+  
+      })
+    });
+    
+// }
+
+})
+//  ---------------------------------End-------------------------------------------
+  
   module.exports = router;
   return router;
   }

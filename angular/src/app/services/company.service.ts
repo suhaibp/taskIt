@@ -257,9 +257,28 @@ export class CompanyService {
   // Date          : 15-03-2018
   // Last Modified : 15-03-2018, 
   // Desc          : get Access Rights  from db
-  getAccessRights(){
+  getAccessRights(roleId){
     let h = this.setHeader();
-    return this.http.get(this.serviceUrl + "getAccessRights", { headers: h })
+    return this.http.get(this.serviceUrl + "getAccessRights/" + roleId, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+  // ---------------------------------------End--------------------------------------------
+  
+  // Function      : assignRights
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 16-03-2018
+  // Last Modified : 16-03-2018, 
+  // Desc          : assign tights to usergroup
+  assignRights(rights, id){
+
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "assignRights/:id",rights, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------

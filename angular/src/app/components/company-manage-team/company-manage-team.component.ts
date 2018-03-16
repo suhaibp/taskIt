@@ -218,4 +218,5 @@ export class CompanyManageTeamComponent implements OnInit {
     // console.log(this.teamMembers[this.teamMembers.length-1]);
     }
   //  ---------------------------------end-----------------------------------------------
+  
 }
