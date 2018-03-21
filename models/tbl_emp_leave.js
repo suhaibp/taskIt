@@ -1,7 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var tbl_emp_leave = sequelize.define('tbl_emp_leave', {
-    start_date: DataTypes.DATE
+    start_date: DataTypes.DATEONLY,
+    end_date: DataTypes.DATEONLY,
+    start_available_hrs: DataTypes.TIME,
+    end_available_hrs: DataTypes.DOUBLE,
+    leave_hrs: DataTypes.DOUBLE,
+    delete_status: DataTypes.BOOLEAN,
+    request_status: DataTypes.STRING,
+    is_user_viewed: DataTypes.BOOLEAN,
+    is_admin_viewed: DataTypes.BOOLEAN
   }, {});
   tbl_emp_leave.associate = function (models) {
     // associations can be defined here

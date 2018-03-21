@@ -29,14 +29,14 @@
 										<select class="inp" [(ngModel)]="item.ans" name="item.ans">
 														<ng-container *ngIf="i == 2 else size" >
 															<ng-container *ngFor="let c of industry">
-																	<option  value="{{c.industry}}">{{c.industry}}</option>
+																	<option  value="{{c.id}}">{{c.industry}}</option>
 					
 															</ng-container>
 															
 														</ng-container>
 														<ng-template #size>
 																<ng-container *ngFor="let s of cmpSize">
-																	<option  value="{{s.size_range}}">{{s.size_range}}</option>
+																	<option  value="{{s.id}}">{{s.size_range}}</option>
 																</ng-container>
 														</ng-template>
 														<!-- <option>Select Company Size</option>
@@ -63,7 +63,8 @@
 						<button *ngIf="counter == 5" class="submit-form" type="submit" (click)="register()"><i class="la la-arrow-right"></i></button>
 
 						<div *ngIf="spinner">
-							<div class="">
+								<app-spinner></app-spinner>
+							<!-- <div class="">
 								<svg class="svg" version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 								 x="0px" y="0px" width="50%" height="59px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50; margin-left:25%;"
 								 xml:space="preserve">
@@ -72,7 +73,7 @@
 										/>
 									</path>
 								</svg>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<!-- /simform-inner -->

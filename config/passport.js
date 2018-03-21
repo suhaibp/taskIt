@@ -91,6 +91,7 @@ module.exports = function (passport) {
                             Login.update({
                                 google_id: profile.id,
                                 google_token: token,
+                             
 
                             }, {
                                     where: {
@@ -176,7 +177,14 @@ module.exports = function (passport) {
                                         email: profile.emails[0].value
                                     }
                                 }).then(data1 => {
-                                    return done(null, login);
+                                    Company.findOne({
+                                        where: {
+                                            login_id: login.id
+                                        }
+                                    }).then(company2 => {
+                                        // console.log(company2  + "company");
+                                        return done(null, company2);
+                                    });
 
                                 });
                         }

@@ -17,6 +17,8 @@ import { AdminCompanyComponent } from './components/admin-company/admin-company.
 import { CompanyService} from './services/company.service';
 import { AdminService } from './services/admin.service'
 import {Config} from './config/config';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {DragulaModule} from '../../node_modules/ng2-dragula/ng2-dragula';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -67,6 +69,9 @@ import { EmailVerificationComponent } from './components/email-verification/emai
 import { CompayAditninfoComponent } from './components/compay-aditninfo/compay-aditninfo.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { CompanyTopbarComponent } from './components/company-topbar/company-topbar.component';
+import { CompanySidebarComponent } from './components/company-sidebar/company-sidebar.component';
+import { CompanyProjectPlanningComponent } from './components/company-project-planning/company-project-planning.component';
 
 
 const appRoutes: Routes = [
@@ -87,6 +92,7 @@ const appRoutes: Routes = [
   {path:'compay-aditninfo/:id', component:CompayAditninfoComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
   {path:'forgot-password', component:ForgotPasswordComponent},
+  {path:'project-planning/:id', component:CompanyProjectPlanningComponent},
   {path:'spinner', component:SpinnerComponent},//To check component
 ] 
 @NgModule({
@@ -125,7 +131,6 @@ const appRoutes: Routes = [
     MatTooltipModule,
   ],
 
- 
 })
 export class DemoMaterialModule {}
 @NgModule({
@@ -148,17 +153,22 @@ export class DemoMaterialModule {}
     AdminDashboardPieComponent,
     AdminDashboardBarComponent,
     CompanySignupComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    CompanyTopbarComponent,
+    CompanySidebarComponent,
+    CompanyProjectPlanningComponent
   ],
   imports: [
     BrowserModule,
+    DragulaModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     DemoMaterialModule,
     HttpModule,
     BrowserAnimationsModule,
-    ReCaptchaModule
+    ReCaptchaModule,
+    NgbModule.forRoot()
   
   ],
   providers: [Config,CompanyService,AdminService,SuperAdminService],

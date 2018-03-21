@@ -10,7 +10,7 @@ import { CompanyService } from './../../services/company.service';
 import { ReCaptchaComponent } from 'angular2-recaptcha';
 @Component({
   selector: 'company-login',
- 
+
   templateUrl: './company-login.component.html',
   styleUrls: ['./company-login.component.css']
 })
@@ -18,20 +18,20 @@ export class CompanyLoginComponent implements OnInit {
   newLogin = {
     email: '',
     password: '',
-    captcha:''
+    captcha: ''
   }
-  spinner:Boolean = false;
-  showCaptcha : Boolean = false;
+  spinner: Boolean = false;
+  showCaptcha: Boolean = false;
   @ViewChild(ReCaptchaComponent) captcha: ReCaptchaComponent;
-  public verified : any;   
+  public verified: any;
   public siteKey: string = "sitekey";//example: 6LdEnxQTfkdldc-Wa6iKZSelks823exsdcjX7A-N
   public theme: string = "light";//you can give any google themes light or dark
   setVerified(data) {
     console.log("dfd");
-      console.log(data) // data will return true while successfully verified 
+    console.log(data) // data will return true while successfully verified 
   }
   msg: any;
-  token:any;
+  token: any;
   constructor(private companyService: CompanyService, private routes: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -62,76 +62,82 @@ export class CompanyLoginComponent implements OnInit {
     //   }
     // });
   }
-  handleCorrectCaptcha(event){
+  handleCorrectCaptcha(event) {
     this.token = this.captcha.getResponse();
     // console.log(token);
 
   }
   login(newLogin) {
-    this.spinner =true;
+    this.spinner = true;
     newLogin.captcha = this.token
     // console.log(newLogin);
- 
+
     this.companyService.authenticateCompany(this.newLogin).subscribe(data => {
-     
+
       console.log(data);
       // console.log("here..........");
       if (data.success) {
-        this.spinner =false;
+        this.spinner = false;
         if (data.login.status == "Expired") {
           var json = data.login;
           var key = "status";
           delete json[key];
           this.companyService.storeUserData(data.token, data.login);
-           this.routes.navigate(['/expired']); 
+          this.routes.navigate(['/expired']);
         }
         else {
           // console.log("esle");
-          this.spinner =false;
+          this.spinner = false;
           var json = data.login;
           var key = "status";
           delete json[key];
           this.companyService.storeUserData(data.token, data.login);
-          if(this.captcha){
+          if (this.captcha) {
             this.captcha.reset();
           }
-           this.routes.navigate(['/company-dashboard']); 
+          if (data.login.role_id == 3 || data.login.role_id == 4) {
+            this.routes.navigate(['/user-dashboard']);
+          }
+          else {
+            this.routes.navigate(['/company-dashboard']);
+          }
+
         }
-      } 
-      else if(data.profile_complete == false){
+      }
+      else if (data.profile_complete == false) {
         // console.log("profile");
-        this.routes.navigate(['/compay-aditninfo/'+ data.cmp_id]);
+        this.routes.navigate(['/compay-aditninfo/' + data.cmp_id]);
         // var json = data.login;
         // var key = "profile";
         // delete json[key];
         this.companyService.storeUserData(data.token, data.login);
       }
       else {
-        this.spinner =false;
-        if(this.captcha){
+        this.spinner = false;
+        if (this.captcha) {
           this.captcha.reset();
         }
-        if(data.caseno != null || data.caseno!='' || data.caseno == []){
-          if(data.caseno ==1){
+        if (data.caseno != null || data.caseno != '' || data.caseno == []) {
+          if (data.caseno == 1) {
             // console.log(data.caseno);
             this.showCaptcha = true;
             // console.log(this.showCaptcha);
           }
-      
+
         }
         this.msg = data.msg;
         let snackBarRef = this.snackBar.open(this.msg, '', {
           duration: 2000
         });
-        if(this.captcha){
+        if (this.captcha) {
           this.captcha.reset();
         }
-      
+
       }
 
 
     });
   }
- 
+
 
 }

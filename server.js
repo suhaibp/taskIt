@@ -42,7 +42,7 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.g
 app.get('/auth/google/callback', passport.authenticate('google'),
 
     function (req, res) {
-        console.log(req);
+        // console.log(req);
         return res.redirect("/compay-aditninfo/" + req.user.id);
     });
 

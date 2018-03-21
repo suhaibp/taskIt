@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from './../../services/admin.service'
 import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 import { CompanyService } from '../../services/company.service';
+
 @Component({
 	selector: 'compay-aditninfo',
 	templateUrl: './compay-aditninfo.component.html',
@@ -11,6 +12,8 @@ import { CompanyService } from '../../services/company.service';
 export class CompayAditninfoComponent implements OnInit {
 	timestamp = new Date().getTime().toString();
 	spinner: Boolean = false;
+	sub :any;
+	p_id :'';
 	questions = [{
 		// 	question:"What's your Email?",
 		// 	type:"text",
@@ -45,7 +48,7 @@ export class CompayAditninfoComponent implements OnInit {
 		question: "Why are you looking for task managment software?",
 		type: "text",
 		ans: ""
-	},
+	}
 		// {
 		// 	question:"Your Password",
 		// 	type:"password",
@@ -57,6 +60,7 @@ export class CompayAditninfoComponent implements OnInit {
 		// 	ans:""
 		// },
 	];
+	array =[];
 	industry: any;
 	cmpSize: any;
 	errMessage = '';
@@ -74,12 +78,25 @@ export class CompayAditninfoComponent implements OnInit {
 		verification_code: this.timestamp + Math.floor(100000 + Math.random() * 900000),
 
 	}
-	constructor(private adminService: AdminService,public snackBar: MatSnackBar,private routes: Router,private companyService: CompanyService) { }
+	constructor(private adminService: AdminService,public snackBar: MatSnackBar,private routes: Router,private companyService: CompanyService,private route: ActivatedRoute) { }
 
 	ngOnInit() {
+		this.sub = this.route.params.subscribe(params => {
+			this.p_id = params.id;
+			// console.log("sub");
+			this.companyService.getCompanyDetailsById(this.p_id).subscribe(data => {
+				// console.log("data" + data.is_profile_completed);
+				if(data.is_profile_completed == true){
+					this.routes.navigate(['/company-dashboard']);
+					// console.log("completed");
+				}
+			
+			  });
+		});
+
+
 		this.companyService.getLoggedUSerDetails().subscribe(info =>{
-			console.log("additional info                "+ info);
-			console.log("additional indfor");
+		// console.log("sdsss" + info);
 			// if(info == null || info == ''){
 			//   this.routes.navigate(['/clogin']); 
 			// }
@@ -100,26 +117,27 @@ export class CompayAditninfoComponent implements OnInit {
 			// 	this.routes.navigate(['/expired']);
 			//   }
 			//   if(info.is_profile_completed == false){
-			// 	this.routes.navigate(['/additnInfo', info._id]);
+			// 	this.routes.navigate(['/additnInfo', info.id]);
 			//   }
 			// }
 		  });
-		console.log(this.questions);
+		// console.log(this.questions);
 		this.getIndustries();
 		this.getCompanySize();
 	}
 
 	register() {
+		this.questions.push({question : '',type: '',ans :this.p_id });
 		this.companyService.registerCompanyFromadtninfo(this.questions).subscribe(resData => {
 			this.spinner = true
-			console.log(resData)
+			// console.log(resData)
 			this.industry = resData;
 			if (resData.success == true) {
 				this.spinner = false
 				let snackBarRef = this.snackBar.open('Redirecting into your account.', '', {
 					duration: 2000
 				});
-				this.routes.navigate(['/dashboard']);
+				this.routes.navigate(['/company-dashboard']);
 			} else {
 				this.spinner = false
 				// this._flashMessagesService.show('Error', { cssClass: 'alert-danger', timeout: 4000 });
@@ -132,16 +150,16 @@ export class CompayAditninfoComponent implements OnInit {
 	}
 
 	getIndustries() {
-		this.adminService.getIndustries().subscribe(resData => {
+		this.companyService.getIndustries().subscribe(resData => {
 			// console.log(resData)
 			this.industry = resData;
-			console.log(this.industry)
+			// console.log(this.industry)
 
 		});
 	}
 
 	getCompanySize() {
-		this.adminService.getCompanySize().subscribe(resData => {
+		this.companyService.getCompanySize().subscribe(resData => {
 			// console.log(resData)
 			this.cmpSize = resData;
 
@@ -150,7 +168,7 @@ export class CompayAditninfoComponent implements OnInit {
 	addCounter() {
 		this.counter = this.counter + 1;
 		this.progressBarWidth = (this.counter / 8) * 100;
-		console.log(this.progressBarWidth);
+		// console.log(this.progressBarWidth);
 
 	}
 

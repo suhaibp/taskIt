@@ -7,7 +7,8 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-module.exports.sendResetPasswordMail = function(email, contact_name, password){
+// module.exports.sendResetPasswordMail = function(email, contact_name, password){
+    module.exports.sendResetPasswordMail = function(email, password){
     nodemailer.createTestAccount((err, account) => {
         // console.log("here............");
             // create reusable transporter object using the default SMTP transport
@@ -18,7 +19,7 @@ module.exports.sendResetPasswordMail = function(email, contact_name, password){
                 to: email, // list of receivers
                 subject: 'Password reset successfully', // Subject line
                 text: '', 
-                html: '<b><h3>Hi '+contact_name+', </h3><br/>Your password is reset sucessfully. New user name and password is:<br/>Username:'+email+' <br/>Password:'+password+' <br/> login Link:</a> http://localhost:3000/company-login</a><br/> Thank You!</b>' // html body
+                html: '<b><h3>Hi, </h3><br/>Your password is reset sucessfully. New user name and password is:<br/>Username:'+email+' <br/>Password:'+password+' <br/> login Link:</a> http://localhost:3000/company-login</a><br/> Thank You!</b>' // html body
             };
         
             // send mail with defined transport object

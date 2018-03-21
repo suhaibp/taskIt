@@ -268,3 +268,65 @@ form{text-align:center;}
 	form{text-align:center;}
 }
 
+.loder{
+  position: absolute;
+  top: 0px;
+}
+logn{
+  position: relative
+}
+/* .btn-nxt{
+  position: absolute;
+  top: 68px;
+  right: 0;
+  background: transparent;
+  border: none;
+} */
+
+.btn-nxt{
+  position: absolute;
+  top: 185px;
+  right: 0;
+  background: transparent;
+  border: none;
+}
+
+.nxt-cntainer{
+  position: relative;
+}
+select,input{
+  width: 100%;
+  margin-top: 20px;
+  outline: none;
+  padding: 10px;
+  font-size: 20px;
+  padding-right: 44px;
+}
+select{
+  cursor: pointer;
+}
+.inp-hd{
+  font-size: 25px;
+}
+.errMsg{
+  font-size: 13px;color: #ff336a;
+}
+.progress-bar{
+  background-color: #28d685 !important;
+}
+.inp-top{
+  top: 89px;
+}
+.submit-form{
+  position: absolute;
+    top: 138px;
+    right: 0;
+    background: transparent;
+    border: none;
+  transition: color 1s ease;
+    
+}
+.trans-clr{
+  color: #20ad6b;
+  
+}

@@ -98,28 +98,36 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_admin_all_companies_admin_all_companies_component__ = __webpack_require__("../../../../../src/app/components/admin-all-companies/admin-all-companies.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_admin_subscribed_admin_subscribed_component__ = __webpack_require__("../../../../../src/app/components/admin-subscribed/admin-subscribed.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_admin_trial_admin_trial_component__ = __webpack_require__("../../../../../src/app/components/admin-trial/admin-trial.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_admin_not_verified_admin_not_verified_component__ = __webpack_require__("../../../../../src/app/components/admin-not-verified/admin-not-verified.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_admin_expired_admin_expired_component__ = __webpack_require__("../../../../../src/app/components/admin-expired/admin-expired.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__services_super_admin_service__ = __webpack_require__("../../../../../src/app/services/super-admin.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_admin_dashboard_pie_admin_dashboard_pie_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_admin_dashboard_bar_admin_dashboard_bar_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-bar/admin-dashboard-bar.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_company_signup_company_signup_component__ = __webpack_require__("../../../../../src/app/components/company-signup/company-signup.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__ = __webpack_require__("../../../../../src/app/components/company-login/company-login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__ = __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_compay_aditninfo_compay_aditninfo_component__ = __webpack_require__("../../../../../src/app/components/compay-aditninfo/compay-aditninfo.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_forgot_password_forgot_password_component__ = __webpack_require__("../../../../../src/app/components/forgot-password/forgot-password.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_spinner_spinner_component__ = __webpack_require__("../../../../../src/app/components/spinner/spinner.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__node_modules_ng2_dragula_ng2_dragula__ = __webpack_require__("../../../../ng2-dragula/ng2-dragula.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__node_modules_ng2_dragula_ng2_dragula___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__node_modules_ng2_dragula_ng2_dragula__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_admin_all_companies_admin_all_companies_component__ = __webpack_require__("../../../../../src/app/components/admin-all-companies/admin-all-companies.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_admin_subscribed_admin_subscribed_component__ = __webpack_require__("../../../../../src/app/components/admin-subscribed/admin-subscribed.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_admin_trial_admin_trial_component__ = __webpack_require__("../../../../../src/app/components/admin-trial/admin-trial.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_admin_not_verified_admin_not_verified_component__ = __webpack_require__("../../../../../src/app/components/admin-not-verified/admin-not-verified.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_admin_expired_admin_expired_component__ = __webpack_require__("../../../../../src/app/components/admin-expired/admin-expired.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__services_super_admin_service__ = __webpack_require__("../../../../../src/app/services/super-admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_admin_dashboard_pie_admin_dashboard_pie_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_admin_dashboard_bar_admin_dashboard_bar_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-bar/admin-dashboard-bar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_company_signup_company_signup_component__ = __webpack_require__("../../../../../src/app/components/company-signup/company-signup.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_company_login_company_login_component__ = __webpack_require__("../../../../../src/app/components/company-login/company-login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_email_verification_email_verification_component__ = __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_compay_aditninfo_compay_aditninfo_component__ = __webpack_require__("../../../../../src/app/components/compay-aditninfo/compay-aditninfo.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_forgot_password_forgot_password_component__ = __webpack_require__("../../../../../src/app/components/forgot-password/forgot-password.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_spinner_spinner_component__ = __webpack_require__("../../../../../src/app/components/spinner/spinner.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_company_topbar_company_topbar_component__ = __webpack_require__("../../../../../src/app/components/company-topbar/company-topbar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_company_sidebar_company_sidebar_component__ = __webpack_require__("../../../../../src/app/components/company-sidebar/company-sidebar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_company_project_planning_company_project_planning_component__ = __webpack_require__("../../../../../src/app/components/company-project-planning/company-project-planning.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -154,6 +162,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
+
 var appRoutes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_9__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */] },
     { path: 'reference', component: __WEBPACK_IMPORTED_MODULE_9__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */] },
@@ -161,17 +172,18 @@ var appRoutes = [
     { path: 'admin-topbar', component: __WEBPACK_IMPORTED_MODULE_11__components_admin_topbar_admin_topbar_component__["a" /* AdminTopbarComponent */] },
     { path: 'admin-footer', component: __WEBPACK_IMPORTED_MODULE_12__components_admin_footer_admin_footer_component__["a" /* AdminFooterComponent */] },
     { path: 'admin-company', component: __WEBPACK_IMPORTED_MODULE_13__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */] },
-    { path: 'admin-all-companies', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */] },
-    { path: 'admin-subscribed', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */] },
-    { path: 'admin-trial', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */] },
-    { path: 'admin-NotVerified', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */] },
-    { path: 'admin-expired', component: __WEBPACK_IMPORTED_MODULE_23__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */] },
-    { path: 'company-signup', component: __WEBPACK_IMPORTED_MODULE_27__components_company_signup_company_signup_component__["a" /* CompanySignupComponent */] },
-    { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
-    { path: 'compay-aditninfo/:id', component: __WEBPACK_IMPORTED_MODULE_30__components_compay_aditninfo_compay_aditninfo_component__["a" /* CompayAditninfoComponent */] },
-    { path: 'email-verification/:id', component: __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */] },
-    { path: 'forgot-password', component: __WEBPACK_IMPORTED_MODULE_31__components_forgot_password_forgot_password_component__["a" /* ForgotPasswordComponent */] },
-    { path: 'spinner', component: __WEBPACK_IMPORTED_MODULE_32__components_spinner_spinner_component__["a" /* SpinnerComponent */] },
+    { path: 'admin-all-companies', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */] },
+    { path: 'admin-subscribed', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */] },
+    { path: 'admin-trial', component: __WEBPACK_IMPORTED_MODULE_23__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */] },
+    { path: 'admin-NotVerified', component: __WEBPACK_IMPORTED_MODULE_24__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */] },
+    { path: 'admin-expired', component: __WEBPACK_IMPORTED_MODULE_25__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */] },
+    { path: 'company-signup', component: __WEBPACK_IMPORTED_MODULE_29__components_company_signup_company_signup_component__["a" /* CompanySignupComponent */] },
+    { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_30__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
+    { path: 'compay-aditninfo/:id', component: __WEBPACK_IMPORTED_MODULE_32__components_compay_aditninfo_compay_aditninfo_component__["a" /* CompayAditninfoComponent */] },
+    { path: 'email-verification/:id', component: __WEBPACK_IMPORTED_MODULE_31__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */] },
+    { path: 'forgot-password', component: __WEBPACK_IMPORTED_MODULE_33__components_forgot_password_forgot_password_component__["a" /* ForgotPasswordComponent */] },
+    { path: 'project-planning/:id', component: __WEBPACK_IMPORTED_MODULE_37__components_company_project_planning_company_project_planning_component__["a" /* CompanyProjectPlanningComponent */] },
+    { path: 'spinner', component: __WEBPACK_IMPORTED_MODULE_34__components_spinner_spinner_component__["a" /* SpinnerComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
@@ -179,38 +191,38 @@ var DemoMaterialModule = (function () {
     DemoMaterialModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             exports: [
-                __WEBPACK_IMPORTED_MODULE_18__angular_cdk_table__["m" /* CdkTableModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["a" /* MatAutocompleteModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["b" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["c" /* MatButtonToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["d" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["e" /* MatCheckboxModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["f" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["B" /* MatStepperModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["g" /* MatDatepickerModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["h" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["i" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["j" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["k" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["l" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["m" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["n" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["o" /* MatNativeDateModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["p" /* MatPaginatorModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["q" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["r" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["s" /* MatRadioModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["t" /* MatRippleModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["u" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["v" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["x" /* MatSliderModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["w" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["z" /* MatSnackBarModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["A" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["C" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["D" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["E" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_17__angular_material__["F" /* MatTooltipModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_cdk_table__["m" /* CdkTableModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["a" /* MatAutocompleteModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["b" /* MatButtonModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["c" /* MatButtonToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["d" /* MatCardModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["e" /* MatCheckboxModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["f" /* MatChipsModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["D" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["g" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["h" /* MatDialogModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["i" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["j" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["k" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["l" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["m" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["n" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["o" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["q" /* MatPaginatorModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["r" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["s" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["t" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["u" /* MatRippleModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["v" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["w" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["y" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["x" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["A" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["C" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["E" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["F" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["G" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_material__["H" /* MatTooltipModule */],
             ],
         })
     ], DemoMaterialModule);
@@ -229,31 +241,36 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_11__components_admin_topbar_admin_topbar_component__["a" /* AdminTopbarComponent */],
                 __WEBPACK_IMPORTED_MODULE_12__components_admin_footer_admin_footer_component__["a" /* AdminFooterComponent */],
                 __WEBPACK_IMPORTED_MODULE_13__components_admin_company_admin_company_component__["a" /* AdminCompanyComponent */],
-                __WEBPACK_IMPORTED_MODULE_19__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */],
-                __WEBPACK_IMPORTED_MODULE_21__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */],
-                __WEBPACK_IMPORTED_MODULE_22__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */],
-                __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */],
-                __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */],
-                __WEBPACK_IMPORTED_MODULE_30__components_compay_aditninfo_compay_aditninfo_component__["a" /* CompayAditninfoComponent */],
-                __WEBPACK_IMPORTED_MODULE_31__components_forgot_password_forgot_password_component__["a" /* ForgotPasswordComponent */],
-                __WEBPACK_IMPORTED_MODULE_25__components_admin_dashboard_pie_admin_dashboard_pie_component__["a" /* AdminDashboardPieComponent */],
-                __WEBPACK_IMPORTED_MODULE_26__components_admin_dashboard_bar_admin_dashboard_bar_component__["a" /* AdminDashboardBarComponent */],
-                __WEBPACK_IMPORTED_MODULE_27__components_company_signup_company_signup_component__["a" /* CompanySignupComponent */],
-                __WEBPACK_IMPORTED_MODULE_32__components_spinner_spinner_component__["a" /* SpinnerComponent */]
+                __WEBPACK_IMPORTED_MODULE_21__components_admin_all_companies_admin_all_companies_component__["a" /* AdminAllCompaniesComponent */],
+                __WEBPACK_IMPORTED_MODULE_22__components_admin_subscribed_admin_subscribed_component__["a" /* AdminSubscribedComponent */],
+                __WEBPACK_IMPORTED_MODULE_23__components_admin_trial_admin_trial_component__["a" /* AdminTrialComponent */],
+                __WEBPACK_IMPORTED_MODULE_24__components_admin_not_verified_admin_not_verified_component__["a" /* AdminNotVerifiedComponent */],
+                __WEBPACK_IMPORTED_MODULE_25__components_admin_expired_admin_expired_component__["a" /* AdminExpiredComponent */],
+                __WEBPACK_IMPORTED_MODULE_30__components_company_login_company_login_component__["a" /* CompanyLoginComponent */],
+                __WEBPACK_IMPORTED_MODULE_31__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */],
+                __WEBPACK_IMPORTED_MODULE_32__components_compay_aditninfo_compay_aditninfo_component__["a" /* CompayAditninfoComponent */],
+                __WEBPACK_IMPORTED_MODULE_33__components_forgot_password_forgot_password_component__["a" /* ForgotPasswordComponent */],
+                __WEBPACK_IMPORTED_MODULE_27__components_admin_dashboard_pie_admin_dashboard_pie_component__["a" /* AdminDashboardPieComponent */],
+                __WEBPACK_IMPORTED_MODULE_28__components_admin_dashboard_bar_admin_dashboard_bar_component__["a" /* AdminDashboardBarComponent */],
+                __WEBPACK_IMPORTED_MODULE_29__components_company_signup_company_signup_component__["a" /* CompanySignupComponent */],
+                __WEBPACK_IMPORTED_MODULE_34__components_spinner_spinner_component__["a" /* SpinnerComponent */],
+                __WEBPACK_IMPORTED_MODULE_35__components_company_topbar_company_topbar_component__["a" /* CompanyTopbarComponent */],
+                __WEBPACK_IMPORTED_MODULE_36__components_company_sidebar_company_sidebar_component__["a" /* CompanySidebarComponent */],
+                __WEBPACK_IMPORTED_MODULE_37__components_company_project_planning_company_project_planning_component__["a" /* CompanyProjectPlanningComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_18__node_modules_ng2_dragula_ng2_dragula__["DragulaModule"],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormsModule"],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["ReactiveFormsModule"],
                 __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
                 DemoMaterialModule,
                 __WEBPACK_IMPORTED_MODULE_5__angular_http__["c" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
-                __WEBPACK_IMPORTED_MODULE_6_angular2_recaptcha__["ReCaptchaModule"]
+                __WEBPACK_IMPORTED_MODULE_6_angular2_recaptcha__["ReCaptchaModule"],
+                __WEBPACK_IMPORTED_MODULE_17__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot()
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_16__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_14__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_15__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_24__services_super_admin_service__["a" /* SuperAdminService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_16__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_14__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_15__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_26__services_super_admin_service__["a" /* SuperAdminService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -596,7 +613,7 @@ module.exports = "<div class=\"pie-gr\"></div>"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminDashboardPieComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__ = __webpack_require__("../../../../../src/app/services/super-admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -614,17 +631,25 @@ var AdminDashboardPieComponent = (function () {
         this.superAdminService = superAdminService;
     }
     AdminDashboardPieComponent.prototype.ngOnInit = function () {
-        this.drawPie();
+        this.loadDetails();
+    };
+    AdminDashboardPieComponent.prototype.loadDetails = function () {
+        var _this = this;
+        this.superAdminService.getPieDataforAdminDashboard().subscribe(function (resData) {
+            // console.log(resData)
+            _this.pieData = resData;
+            _this.drawPie();
+        });
     };
     AdminDashboardPieComponent.prototype.drawPie = function () {
-        var pieData = [
-            { name: 'Running', value: 40, color: '#18FFFF' },
-            { name: 'Paused', value: 26, color: '#0288D1' },
-            { name: 'Stopped', value: 7, color: '#BF360C' },
-            { name: 'Failed', value: 13, color: '#F4511E' },
-            { name: 'Unknown', value: 19, color: '#F9A825' },
-        ];
-        bakeDonut(pieData);
+        // const pieData = [
+        //   {name: 'Running', value: 40, color: '#18FFFF'},
+        //   {name: 'Paused', value: 40, color: '#0288D1'},
+        //   {name: 'Stopped', value: 7, color: '#BF360C'},
+        //   {name: 'Failed', value: 13, color: '#F4511E'},
+        //   {name: 'Unknown', value: 19, color: '#F9A825'},
+        // ];
+        bakeDonut(this.pieData);
         function bakeDonut(d) {
             var activeSegment;
             var data = d.sort(function (a, b) { return b['value'] - a['value']; }), viewWidth = 500, viewHeight = 300, svgWidth = viewHeight, svgHeight = viewHeight, thickness = 40, colorArray = data.map(function (k) { return k.color; }), el = d3.select('.pie-gr'), radius = Math.min(svgWidth, svgHeight) / 2, color = d3.scaleOrdinal()
@@ -646,6 +671,8 @@ var AdminDashboardPieComponent = (function () {
             var pie = d3.pie()
                 .value(function (pieData) { return pieData.value; })
                 .sort(null);
+            var maxAssigned = false;
+            var maxArcAssigned = false;
             var path = g.selectAll('path')
                 .attr('class', 'data-path')
                 .data(pie(data))
@@ -658,18 +685,19 @@ var AdminDashboardPieComponent = (function () {
                     .text("" + pathData.data.value)
                     .attr('class', 'data-text data-text__value')
                     .attr('text-anchor', 'middle')
-                    .attr('dy', '1rem');
+                    .attr('dy', '0em');
                 group.append('text')
                     .text("" + pathData.data.name)
                     .attr('class', 'data-text data-text__name')
                     .attr('text-anchor', 'middle')
-                    .attr('dy', '3.5rem');
+                    .attr('dy', '1.5em');
                 // Set default active segment
-                if (pathData.value === max) {
+                if (pathData.value === max && !maxAssigned) {
                     var textVal = d3.select(this).select('.data-text__value')
                         .classed('data-text--show', true);
                     var textName = d3.select(this).select('.data-text__name')
                         .classed('data-text--show', true);
+                    maxAssigned = true;
                 }
             })
                 .append('path')
@@ -697,10 +725,11 @@ var AdminDashboardPieComponent = (function () {
                 }
             })
                 .each(function (v, i) {
-                if (v.value === max) {
+                if (v.value === max && !maxArcAssigned) {
                     var maxArc = d3.select(this)
                         .attr('d', arcHover);
                     activeSegment = this;
+                    maxArcAssigned = true;
                 }
                 this._current = i;
             });
@@ -734,7 +763,7 @@ var AdminDashboardPieComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__["a" /* SuperAdminService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */]])
     ], AdminDashboardPieComponent);
     return AdminDashboardPieComponent;
 }());
@@ -873,7 +902,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "button, select{outline:none;}\r\n.logn{height:100%;overflow-x:hidden;background:#fff;}\r\n.logn-img{height:100%;width:100%;position:relative;overflow:hidden;}\r\n.paragraph{    width: 56%;\r\n    left: 22%;\r\n    bottom: 10%;\r\n    z-index: 100;\r\n    min-height: 20px;\r\n    color: #fff;\r\n    text-align: left;\r\n    font-size: 14px;\r\n    position: absolute;\r\n    line-height: 22px;}\r\n.social-login{\r\n  position:relative;\r\n  float: none;\r\n  margin:0 auto;\r\n  height:auto;\r\n  padding: 10px 0 15px 0;\r\n  border-bottom: 1px solid #eee;\r\n  display: table;\r\n      width: 79%;\r\n}\r\n\r\n.social-login a{\r\n     position: relative;\r\n    float: left;\r\n    width: 48%;\r\n    text-decoration: none;\r\n    color: #fff;\r\n    border: 1px solid rgba(0,0,0,0.05);\r\n    padding: 7px 12px;\r\n    border-radius: 12px;\r\n    font-size: 12px;\r\n   \r\n        margin: 0px 1%;\r\n    text-align: center;\r\n}\r\n.social-login a i{\r\n  position: relative;\r\n  float: left;\r\n  width: 20px;\r\n  top: 2px;\r\n}\r\n.social-login a:first-child{\r\n  background-color: #49639F;\r\n}\r\n.social-login a:last-child{\r\n  background-color: #DF4A32;\r\n}\r\n.email-login,.email-signup{\r\n  position:relative;\r\n  float: left;\r\n  width: 100%;\r\n  height:auto;\r\n  margin-top: 20px;\r\n  text-align:center;\r\n}\r\nbody {\r\n  background: #e9e9e9;\r\n  color: #666666;\r\n  font-family: 'RobotoDraft', 'Roboto', sans-serif;\r\n  font-size: 14px;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n}\r\n\r\n/* Pen Title */\r\n.pen-title {\r\n  padding: 20px 0;\r\n  text-align: center;\r\n  letter-spacing: 2px;\r\n}\r\n.pen-title h1 {\r\n  margin: 0 0 20px;\r\n  font-size: 40px;\r\n  font-weight: 300;\r\n}\r\n.pen-title span {\r\n  font-size: 12px;\r\n}\r\n.pen-title span .fa {\r\n  color: #ed2553;\r\n}\r\n.pen-title span a {\r\n  color: #ed2553;\r\n  font-weight: 600;\r\n  text-decoration: none;\r\n}\r\n\r\n/* Rerun */\r\n.rerun {\r\n  margin: 0 0 30px;\r\n  text-align: center;\r\n}\r\n.rerun a {\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  background: #ed2553;\r\n  border-radius: 3px;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  padding: 10px 20px;\r\n  color: #ffffff;\r\n  text-decoration: none;\r\n  transition: 0.3s ease;\r\n}\r\n.rerun a:hover {\r\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* Scroll To Bottom */\r\n#codepen, #portfolio {\r\n  position: fixed;\r\n  bottom: 30px;\r\n  right: 30px;\r\n  background: #ec2652;\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 100%;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  transition: 0.3s ease;\r\n  color: #ffffff;\r\n  text-align: center;\r\n}\r\n#codepen i, #portfolio i {\r\n  line-height: 56px;\r\n}\r\n#codepen:hover, #portfolio:hover {\r\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* CodePen */\r\n#portfolio {\r\n  bottom: 96px;\r\n  right: 36px;\r\n  background: #ec2652;\r\n  width: 44px;\r\n  height: 44px;\r\n  animation: buttonFadeInUp 1s ease;\r\n}\r\n#portfolio i {\r\n  line-height: 44px;\r\n}\r\n\r\n/* Container */\r\n.container {\r\n  position: relative;\r\n  max-width: 460px;\r\n  width: 100%;\r\n  margin: 0 auto 100px;\r\n}\r\n.container.active .card:first-child {\r\n  background: #f2f2f2;\r\n  margin: 0 15px;\r\n}\r\n.container.active .card:nth-child(2) {\r\n  background: #fafafa;\r\n  margin: 0 10px;\r\n}\r\n.container.active .card.alt {\r\n  top: 20px;\r\n  right: 0;\r\n  width: 100%;\r\n  min-width: 100%;\r\n  height: auto;\r\n  border-radius: 5px;\r\n  padding: 60px 0 40px;\r\n  overflow: hidden;\r\n}\r\n.container.active .card.alt .toggle {\r\n  position: absolute;\r\n  top: 40px;\r\n  right: -70px;\r\n  box-shadow: none;\r\n  transform: scale(15);\r\n  transition: transform .5s ease;\r\n}\r\n.container.active .card.alt .toggle:before {\r\n  content: '';\r\n}\r\n.container.active .card.alt .title,\r\n.container.active .card.alt .input-container,\r\n.container.active .card.alt .button-container {\r\n  left: 0;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  transition: .3s ease;\r\n}\r\n.container.active .card.alt .title {\r\n  transition-delay: .3s;\r\n}\r\n.container.active .card.alt .input-container {\r\n  transition-delay: .4s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(2) {\r\n  transition-delay: .5s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(3) {\r\n  transition-delay: .6s;\r\n}\r\n.container.active .card.alt .button-container {\r\n  transition-delay: .7s;\r\n}\r\n\r\n\r\n/* Keyframes */\r\n@keyframes buttonFadeInUp {\r\n  0% {\r\n    bottom: 30px;\r\n    opacity: 0;\r\n  }\r\n}\r\n.g-recaptcha {\r\n    transform:scale(0.89);\r\n    transform-origin:0 0;\r\n}\r\n.round-button{border-radius:20px;margin:0 auto;float:none;background:#f37600;color:#fff;    padding: 10px 32px; /* Safari */\r\n    transition: background 2s;}\r\n.round-button:hover{background:#ffaa05;color:#fff;}\r\n.padd-lft{padding-left:20px;}\r\n\r\n\r\n\r\n@media only screen and (max-width : 768px) {\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n}\r\n\r\n@media only screen and (max-width : 480px)  { \r\n.card .input-container{    margin: 12px;}\r\n.logn-img{display:none;}\r\nform{text-align:center;}\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n.logn-img img{width:100%;}\r\n}\r\n@media only screen and (max-width : 320px) { \r\n\t.card .input-container{    width: 74%;\r\n        margin: 24px auto;\r\n    float: none;}\r\n\t.card .input-container .bar{left: 3%;}\r\n\t.container{max-width:100%;}\r\n\tform{text-align:center;}\r\n}\r\n\r\n.loder{\r\n  position: absolute;\r\n  top: 0px;\r\n}\r\nlogn{\r\n  position: relative\r\n}\r\n.btn-nxt{\r\n  position: absolute;\r\n  top: 68px;\r\n  right: 0;\r\n  background: transparent;\r\n  border: none;\r\n}\r\n\r\n.nxt-cntainer{\r\n  position: relative;\r\n}\r\nselect,input{\r\n  width: 100%;\r\n  margin-top: 20px;\r\n  outline: none;\r\n  padding: 10px;\r\n  font-size: 20px;\r\n  padding-right: 44px;\r\n}\r\nselect{\r\n  cursor: pointer;\r\n}\r\n.inp-hd{\r\n  font-size: 25px;\r\n}\r\n.errMsg{\r\n  font-size: 13px;color: #ff336a;\r\n}\r\n.progress-bar{\r\n  background-color: #28d685 !important;\r\n}\r\n.inp-top{\r\n  top: 89px;\r\n}\r\n.submit-form{\r\n  position: absolute;\r\n    top: 138px;\r\n    right: 0;\r\n    background: transparent;\r\n    border: none;\r\n  transition: color 1s ease;\r\n    \r\n}\r\n.trans-clr{\r\n  color: #20ad6b;\r\n  \r\n}", ""]);
 
 // exports
 
@@ -1191,7 +1220,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-login/company-login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n\r\n<html>\r\n\r\n<head>\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n\t<title>Taskit</title>\r\n\t<!-- <link rel=\"stylesheet\" href=\"css/bootstrap.css\">\r\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\r\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\r\n\t<!------ Include the above in your HEAD tag ---------->\r\n<!-- \r\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\r\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">  -->\r\n\r\n</head>\r\n\r\n<body class=\"logn\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-md-8\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"logn-img\">\r\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\r\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\r\n\t\t\t\t\t<!-- <div class=\"paragraph\">\r\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\r\n\t\t\t\t\t</div> -->\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-4\">\r\n\t\t\t<div class=\"row\">\r\n\r\n\t\t\t\t<!-- Mixins-->\r\n\t\t\t\t<!-- Pen Title-->\r\n\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"card\"></div>\r\n\t\t\t\t\t<div class=\"card\">\r\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\r\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"login(newLogin)\" novalidate>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newLogin.email\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Username</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"password\" id=\"Password\" name=\"password\" [(ngModel)]=\"newLogin.password\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Password\">Password</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<div class=\"input-container\" *ngIf=\"showCaptcha\">\r\n\t\t\t\t\t\t\t\t\t<re-captcha (captchaResponse)=\"handleCorrectCaptcha($event)\" site_key=\"6LdWoEsUAAAAALf4IQwncQqV0HZPduSL0Ab4QC11\" ></re-captcha>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\t<div class=\"footer\"><a [routerLink]=\"['/forgot-password']\">Forgot your password?</a></div>\r\n\t\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign in</button></div>\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t\t<div *ngIf=\"spinner\">\r\n\t\t\t\t\t\t\t<div class=\"\">\r\n\t\t\t\t\t\t\t\t<svg class=\"svg\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n\t\t\t\t\t\t\t\t width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50; margin-left:25%;\" xml:space=\"preserve\">\r\n\t\t\t\t\t\t\t\t\t<path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n\t\t\t\t\t\t\t\t\t\t<animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\r\n\t\t\t\t\t\t\t\t\t\t/>\r\n\t\t\t\t\t\t\t\t\t</path>\r\n\t\t\t\t\t\t\t\t</svg>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"social-login\">\r\n\t\t\t\t<a href=\"/auth/facebook\">\r\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\r\n\t\t\t\tLogin in with facebook\r\n\t\t\t  </a>\r\n\r\n\r\n\r\n\t\t\t  <!-- <div class=\"col-xs-12 col-sm-12\">\r\n\t\t\t\t<a href=\"/auth/google\" class=\"btn btn-lg btn-block omb_btn-google\" style=\"color:#fff;\">\r\n\t\t\t<i class=\"fa fa-google-plus visible-xs\"></i>\r\n\t\t\t<span class=\"hidden-xs\">Sign In With Google+</span>\r\n\t\t</a>\r\n\t\t\t</div> -->\r\n\r\n\t\t\t\t<a href=\"/auth/google\">\r\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\r\n\t\t\t\tlog in with Google+\r\n\t\t\t  </a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!-- Modal -->\r\n\t<!-- <script src='https://www.google.com/recaptcha/api.js'></script>\r\n\t<script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\r\n\t<script src=\"js/bootstrap.min.js\"></script> -->\r\n\r\n\r\n</body>\r\n\r\n\r\n</html>"
+module.exports = "<!DOCTYPE html>\r\n\r\n<html>\r\n\r\n<head>\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n\t<title>Taskit</title>\r\n\t<!-- <link rel=\"stylesheet\" href=\"css/bootstrap.css\">\r\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\r\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\r\n\t<!------ Include the above in your HEAD tag ---------->\r\n<!-- \r\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\r\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">  -->\r\n\r\n</head>\r\n\r\n<body class=\"logn\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-md-8\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"logn-img\">\r\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\r\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\r\n\t\t\t\t\t<!-- <div class=\"paragraph\">\r\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\r\n\t\t\t\t\t</div> -->\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-4\">\r\n\t\t\t<div class=\"row\">\r\n\r\n\t\t\t\t<!-- Mixins-->\r\n\t\t\t\t<!-- Pen Title-->\r\n\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"card\"></div>\r\n\t\t\t\t\t<div class=\"card\">\r\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\r\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"login(newLogin)\" novalidate>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newLogin.email\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Username</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"password\" id=\"Password\" name=\"password\" [(ngModel)]=\"newLogin.password\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Password\">Password</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<div class=\"input-container\" *ngIf=\"showCaptcha\">\r\n\t\t\t\t\t\t\t\t\t<re-captcha (captchaResponse)=\"handleCorrectCaptcha($event)\" site_key=\"6LdWoEsUAAAAALf4IQwncQqV0HZPduSL0Ab4QC11\" ></re-captcha>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\t<div class=\"footer\"><a [routerLink]=\"['/forgot-password']\">Forgot your password?</a></div>\r\n\t\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign in</button></div>\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t\t<div *ngIf=\"spinner\">\r\n\t\t\t\t\t\t\t\t<app-spinner></app-spinner>\r\n\t\t\t\t\t\t\t<!-- <div class=\"\">\r\n\t\t\t\t\t\t\t\t<svg class=\"svg\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n\t\t\t\t\t\t\t\t width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50; margin-left:25%;\" xml:space=\"preserve\">\r\n\t\t\t\t\t\t\t\t\t<path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n\t\t\t\t\t\t\t\t\t\t<animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\r\n\t\t\t\t\t\t\t\t\t\t/>\r\n\t\t\t\t\t\t\t\t\t</path>\r\n\t\t\t\t\t\t\t\t</svg>\r\n\t\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"social-login\">\r\n\t\t\t\t<a href=\"/auth/facebook\">\r\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\r\n\t\t\t\tLogin in with facebook\r\n\t\t\t  </a>\r\n\r\n\r\n\r\n\t\t\t  <!-- <div class=\"col-xs-12 col-sm-12\">\r\n\t\t\t\t<a href=\"/auth/google\" class=\"btn btn-lg btn-block omb_btn-google\" style=\"color:#fff;\">\r\n\t\t\t<i class=\"fa fa-google-plus visible-xs\"></i>\r\n\t\t\t<span class=\"hidden-xs\">Sign In With Google+</span>\r\n\t\t</a>\r\n\t\t\t</div> -->\r\n\r\n\t\t\t\t<a href=\"/auth/google\">\r\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\r\n\t\t\t\tlog in with Google+\r\n\t\t\t  </a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!-- Modal -->\r\n\t<!-- <script src='https://www.google.com/recaptcha/api.js'></script>\r\n\t<script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\r\n\t<script src=\"js/bootstrap.min.js\"></script> -->\r\n\r\n\r\n</body>\r\n\r\n\r\n</html>"
 
 /***/ }),
 
@@ -1297,7 +1326,12 @@ var CompanyLoginComponent = (function () {
                     if (_this.captcha) {
                         _this.captcha.reset();
                     }
-                    _this.routes.navigate(['/company-dashboard']);
+                    if (data.login.role_id == 3 || data.login.role_id == 4) {
+                        _this.routes.navigate(['/user-dashboard']);
+                    }
+                    else {
+                        _this.routes.navigate(['/company-dashboard']);
+                    }
                 }
             }
             else if (data.profile_complete == false) {
@@ -1340,9 +1374,498 @@ var CompanyLoginComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/company-login/company-login.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/company-login/company-login.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["y" /* MatSnackBar */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["z" /* MatSnackBar */]])
     ], CompanyLoginComponent);
     return CompanyLoginComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-project-planning/company-project-planning.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".home{position:relative;}\r\n.task{background:#fbf6f1;width:100%;padding:6px 0;display: inline-block;margin-bottom:6px;}\r\nbutton, input, optgroup, select, textarea{outline:none !important;}\r\n.taskedit{border-left:1px solid #ccc;    display: inline-block;width:100%;margin-top: 5px;}\r\n.task ul li{width:auto;float:left;padding: 8px;}\r\n\ta{color:#111;}\r\n.task h5{padding-top:13px;padding-top: 6px;}\r\n.hash{background:#f7f6f4;}\r\n.assigned{background:#f3f8f2;border-left:3px solid #6fa93b;}\r\n.unassigned{background:#fbf1ef;border-left:3px solid #e5553d;}\r\n\r\n.assigned h5 {\r\n    padding-top: 13px;\r\n    padding-top: 6px;\r\n    display: table-cell;\r\n    padding-right: 15px;\r\n}\r\n.assigned ul li{padding: 6px}\r\n.mrg-tp{margin-top:15px !important;}\r\n.round-button {\r\n    border-radius: 20px;\r\n    margin: 0;\r\n    float: left;\r\n    background: #f37600;\r\n    color: #fff;\r\n    padding: 7px 15px;\r\n    transition: background 2s;\r\n\tmargin-bottom:15px;\r\n}\r\n.round-button:hover {\r\n    background: #ffaa05;\r\n    color: #fff;\r\n}\r\n.dropdown ul.dropdown-menu:before {\r\n    content: \"\";\r\n    border-bottom: 10px solid #fff;\r\n    border-right: 10px solid transparent;\r\n    border-left: 10px solid transparent;\r\n    position: absolute;\r\n    top: -10px;\r\n    right: 16px;\r\n    z-index: 10;\r\n}\r\n.round-button:hover, .round-button:focus, .round-button.focus{color:#fff;}\r\nbutton, input, optgroup, select, textarea{outline:none;}\r\n.effect-1 ~ .focus-border{position: absolute; bottom: 0; left: 15px; width: 0; height: 2px;background-color: #bba28b; transition: 0.4s;right:15px;}\r\n.effect-1:focus ~ .focus-border{width: 95%; transition: 0.4s;}\r\n.effect-1{border: 0; padding: 7px 0; border-bottom: 1px solid #ccc;width:100%;}\r\n.style{width:100%;}\r\nlabel{font-size:15px;color:#4a4a4a;font-weight:normal;padding:5px 0;}\r\n.mrg-2{margin-bottom:10px;}\r\n.dropdown-menu > li > a {\r\n    display: block;\r\n    padding: 3px 20px;\r\n    clear: both;\r\n    font-weight: normal;\r\n    line-height: 25px;\r\n    color: #333333;\r\n    white-space: nowrap;\r\n}\r\n.addmodule {\r\n    padding: 20px 10px!important;\r\n    min-width: 357px;\r\n    right: inherit;\r\n    left: 20px;\r\n}\r\n.round{width:14px;height:14px;border-radius:50%;background:#70a93e;float:left;margin-right:7px;}\r\n.round2{background:#e4573c;}\r\n.notice p{font-size:11px;}\r\n.style{border:none;border-bottom: 1px solid #ccc;}\r\n.white {\r\n    background: #ffffff none repeat scroll 0 0;\r\n    \r\n    display: inline-block;\r\n    padding: 33px 25px;\r\n    width: 100%;\r\n}\r\n.btn-file{padding:0;}\r\n.white {\r\n    background: #ffffff none repeat scroll 0 0;\r\n    \r\n    display: inline-block;\r\n    padding: 33px 25px;\r\n    width: 100%;\r\n\tmargin-bottom:20px;\r\n}\r\n.center-bt{margin:20px auto 10px auto;float:none;}\r\n.project-planning .table > thead > tr > th{border:none;font-weight:normal;}\r\n.project-planning .table{margin-bottom:0;}\r\n@media only screen and (max-width : 767px) {\r\n.mrg-2 {\r\n    margin-bottom: 15px;\r\n}\r\n\r\n.task ul li{    padding: 2px;}\t\r\n.addmodule{    min-width: 274px;}\r\n.martop {\r\n    margin-top: 35px;\r\n}\r\n.taskedit {\r\n    border-left: 1px solid #ccc;\r\n    display: inline-block;\r\n    width: 78%;\r\n    margin-top: 5px;\r\n    float: right;\r\n}\r\n.task{padding-bottom: 20px;}\r\n.addmodule .style{    margin-bottom: 18px;}\r\n}\r\n.padd-bt{padding-bottom: 20px;}\r\n.psh-left{padding-left:5% ;}\r\n.psh-left .form-group{margin-bottom:0px;}\r\n.modal-content{border-radius:0;box-shadow:none;}\r\n.modal-header {\r\n    padding: 7px 15px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #da524f;\r\n}\r\n.modal-title {\r\n    margin: 0;\r\n    line-height: 26px;\r\n    font-size: 15px;\r\n    color: #fff;\r\n}\r\n.modal{top:0;}\r\n.modal-header {\r\n    padding: 10px 30px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #fe6a07;\r\n  }\r\n  .modal-content{\r\n  box-shadow:none;\r\n  border-radius: 9px;\r\n  overflow: hidden;\r\n  \r\n  }\r\n  .modal-title{color:#fff;}\r\n  .modal-body{    padding:20px 30px;}\r\n  .modal-body input{border:none;}\r\n  .modal-body input{padding: 0;}\r\n  .pad-top{padding-top:20px;}\r\n  .wdth{width:100% !important;}\r\n  .brd{    border: none;\r\n    height: 54px;}\r\n    .material-icons{\r\n        font-size: 20px;\r\n        float: left;\r\n        padding-right: 12px;\r\n        padding-top: 5px;\r\n    }\r\n    .close-bt{    width: 10px;\r\n        background: none;\r\n        float: right;\r\n        margin-top: 31px;\r\n        color: #111;\r\n        font-size: 11px;}\r\n    .padd-bt{    padding: 7px 6px !important;\r\n        font-size: 12px !important;\r\n        margin-top: 24px;}\r\n  .center{text-align: center;}\r\n  .center .round-button{margin:0 auto;float:none ;}\r\n  .editz{min-width: 100px;width: 100%;\r\n    top: 30px;}\r\n    .editz li{padding:0 !important;    width: 100% !important;}\r\n    .editz2 {\r\n        min-width: 522px;\r\n        width: 346%;\r\n        top: 30px;\r\n        left: 0;\r\n        max-width: 492px;\r\n        overflow: hidden;\r\n    }", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-project-planning/company-project-planning.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n\n      <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\n        <!-- sidebar-->\n\n        <company-sidebar></company-sidebar>\n        <!-- end sidebar-->\n      </div>\n\n      <div class=\"col-md-12 col-xs-12\">\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n        <!-- topbar-->\n        <company-topbar></company-topbar>\n\n        <!-- end topbar-->\n\n\n        <div class=\"user-dashboard\">\n          <!-- <h1>Hello, JS</h1> -->\n          <div class=\"row\">\n\n            <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->\n            <div id=\"addTaskModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\n                    <h4 class=\"modal-title\">Add Task </h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addTask(index);\">\n\n                      <div>\n                        <div class=\"example-container\">\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\n                          <div class=\"col-md-7 col-xs-6\">\n                            <mat-form-field>\n                              <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\n                            </mat-form-field>\n                          </div>\n                          <br>\n                          <div class=\"example-container\">\n                            <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\n                            <div class=\"col-md-7 col-xs-6\">\n                              <mat-form-field class=\"inputfileds\">\n                                <mat-select placeholder=\"Members\" name='assigned_person' #group=\"ngModel\" [(ngModel)]=\"newTasks.assigned_person\">\n                                  <mat-option [value]=\"users.id\" *ngFor=\"let users of assignPerson;\">{{users.f_name}} {{users.l_name}} </mat-option>\n                                </mat-select>\n                              </mat-form-field>\n                            </div>\n\n                            <div class=\"clearfix\"></div>\n                            <div class=\"example-container\">\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\n                              <div class=\"col-md-7 col-xs-6\">\n                                <mat-form-field class=\"inputfileds\">\n\n                                  <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\n                                    <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\n                                  </mat-select>\n                                </mat-form-field>\n                              </div>\n                              <div class=\"clearfix\"></div>\n                              <br>\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\n                              <div class=\"col-md-2 col-xs-6\">\n                                <mat-form-field class=\"wdth\">\n                                  <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\n                                </mat-form-field>\n                              </div>\n\n                              <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\n                              <div class=\"col-md-2 col-xs-6\">\n\n                                <mat-form-field class=\"wdth\">\n                                  <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\n                                </mat-form-field>\n                              </div>\n                              <div class=\"clearfix\"></div>\n                              <br>\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div>\n                              <div class=\"col-md-3 col-xs-6\">\n                                <mat-form-field>\n                                  <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"picker1\" placeholder=\"Choose a date\" [formControl]=\"date\"\n                                    name='start_date' [(ngModel)]=\"newTasks.start_date\">\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\n                                  <mat-datepicker #picker1></mat-datepicker>\n                                </mat-form-field>\n                              </div>\n                              <br>\n                              <div class=\"clearfix\"></div>\n                              <ngb-timepicker [meridian]=\"meridian\" name=\"start_time\" [(ngModel)]=\"newTasks.start_time\"></ngb-timepicker>\n                              <hr>\n                              <div class=\"clearfix\"></div>\n                              <!-- <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">End Datetime :</label></div>\n                              <div class=\"col-md-3 col-xs-6\">\n\n                              </div> -->\n\n                              <div class=\"clearfix\"></div>\n                              <br>\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\n                              <div class=\"col-md-3 col-xs-6\">\n                                <mat-form-field>\n                                  <input matInput [matDatepickerFilter]=\"myFilter1\" [matDatepicker]=\"picker2\" placeholder=\"Choose a date\" [formControl]=\"serializedDate\"\n                                    name=\"end_date\" [(ngModel)]=\"newTasks.end_date\">\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker2\"></mat-datepicker-toggle>\n                                  <mat-datepicker #picker2></mat-datepicker>\n                                </mat-form-field>\n                              </div>\n                              <div class=\"clearfix\"></div>\n\n                              <ngb-timepicker name=\"timepicker1\" [meridian]=\"meridian\" name=\"end_time\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\n                              <hr>\n                              <div class=\"clearfix\"></div>\n                              <br>\n\n                              <div class=\"example-container\">\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\n                                <div class=\"col-md-7 col-xs-6\">\n                                  <mat-form-field class=\"inputfileds\">\n\n                                    <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\n                                      <!-- <mat-option>None</mat-option> -->\n\n                                      <mat-option value=\"0\">Billable</mat-option>\n                                      <mat-option value=\"1\">Non Billable</mat-option>\n\n\n                                    </mat-select>\n                                  </mat-form-field>\n                                </div>\n                                <div class=\"clearfix\"></div>\n                                <div class=\"example-container\">\n                                  <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\n                                  <div class=\"col-md-7 col-xs-6\">\n                                    <mat-form-field class=\"inputfileds\">\n\n                                      <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\n                                        <!-- <mat-option>None</mat-option> -->\n                                        <mat-option value=\"0\">High</mat-option>\n                                        <mat-option value=\"1\">Medium</mat-option>\n                                        <mat-option value=\"2\">Low</mat-option>\n\n\n                                      </mat-select>\n                                    </mat-form-field>\n                                  </div>\n                                  <div class=\"clearfix\"></div>\n\n                                  <div class=\"example-container\">\n                                    <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\n                                    <div class=\"col-md-5 col-xs-5\">\n                                      <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\n\n                                        <mat-form-field class=\"example-form-field\">\n                                          <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\n                                          <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\n                                          <mat-icon>close</mat-icon>\n                                        </button>\n                                        </mat-form-field>\n                                        <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\n                                      </div>\n\n\n                                    </div>\n                                    <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div>\n                                    <div class=\"clearfix\"></div>\n                                    <div class=\"example-container\">\n                                      <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\n                                      <div class=\"col-md-7 col-xs-6\">\n\n                                        <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\n                                      </div>\n                                      <div class=\"clearfix\"></div>\n                                      <div class=\"center\">\n                                        <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Save</button>\n                                      </div>\n                                    </div>\n                                  </div>\n                                </div>\n                              </div>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </form>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n            <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->\n\n            <!-- --------------------------------------------- delete module modal ----------------------------------------------------------------- -->\n            <div id=\"deleteModuleModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                    <h4 class=\"modal-title\">Delete </h4>\n                  </div>\n                  <!-- <div class=\"modal-header\"> -->\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                  <!-- </div> -->\n                  <div class=\"modal-body delete-popup\">\n                    <i class=\"fa fa-exclamation\"></i>\n\n\n                    <h4 class=\"textalign\">Are you sure?</h4>\n\n                  </div>\n\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\n                    <button type=\"button\" (click)=\"deleteModule(index)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n\n            <!-- --------------------------------------------- delete task modal ----------------------------------------------------------------- -->\n            <div id=\"deleteTaskModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                    <h4 class=\"modal-title\">Delete </h4>\n                  </div>\n                  <!-- <div class=\"modal-header\"> -->\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                  <!-- </div> -->\n                  <div class=\"modal-body delete-popup\">\n                    <i class=\"fa fa-exclamation\"></i>\n\n\n                    <h4 class=\"textalign\">Are you sure?</h4>\n\n                  </div>\n\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\n                    <button type=\"button\" (click)=\"deleteTask(i,j)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n\n            <!-- ----------------------------------------------------------------------delete task modal--------------------------------------------------------------------- -->\n\n            <!-- ----------------------------------------------------------------------edit task modal--------------------------------------------------------------------- -->\n            <div id=\"editTaskModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\n                    <h4 class=\"modal-title\">Edit Task </h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"editTask(i,j);\">\n\n                      <div>\n                        <div class=\"example-container\">\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\n                          <div class=\"col-md-7 col-xs-6\">\n                            <mat-form-field>\n                              <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\n                            </mat-form-field>\n                          </div>\n                          <br>\n                          <div class=\"example-container\">\n                            <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\n                            <div class=\"col-md-7 col-xs-6\">\n                              <mat-form-field class=\"inputfileds\">\n                                <mat-select placeholder=\"Members\" name='assigned_person' #group=\"ngModel\" [(ngModel)]=\"newTasks.assigned_person\">\n                                  <mat-option [value]=\"users.id\" *ngFor=\"let users of assignPerson;\">{{users.f_name}} {{users.l_name}} </mat-option>\n                                </mat-select>\n                              </mat-form-field>\n                            </div>\n\n                            <div class=\"clearfix\"></div>\n                            <div class=\"example-container\">\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\n                              <div class=\"col-md-7 col-xs-6\">\n                                <mat-form-field class=\"inputfileds\">\n\n                                  <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\n                                    <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\n                                  </mat-select>\n                                </mat-form-field>\n                              </div>\n                              <div class=\"clearfix\"></div>\n                              <br>\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\n                              <div class=\"col-md-2 col-xs-6\">\n                                <mat-form-field class=\"wdth\">\n                                  <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\n                                </mat-form-field>\n                              </div>\n\n                              <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\n                              <div class=\"col-md-2 col-xs-6\">\n\n                                <mat-form-field class=\"wdth\">\n                                  <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\n                                </mat-form-field>\n                              </div>\n                              <div class=\"clearfix\"></div>\n                              <br>\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div>\n                              <div class=\"col-md-3 col-xs-6\">\n                                {{newTasks.start_date}}\n                                <!-- <mat-form-field>\n                                  <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"pickerf\" placeholder=\"Choose a date\" [formControl]=\"date\"\n                                    name='start_date' [(ngModel)]=\"newTasks.start_date\">\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\n                                  <mat-datepicker #picker1></mat-datepicker>\n                                </mat-form-field> -->\n                              </div>\n                              <br>\n                              <div class=\"clearfix\"></div>\n                              <ngb-timepicker [meridian]=\"meridian\" name=\"start_time1\" [(ngModel)]=\"newTasks.start_time\"></ngb-timepicker>\n                              <hr>\n                              <div class=\"clearfix\"></div>\n                              <!-- <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">End Datetime :</label></div>\n                                <div class=\"col-md-3 col-xs-6\">\n  \n                                </div> -->\n\n                              <div class=\"clearfix\"></div>\n                              <br>\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\n                              <div class=\"col-md-3 col-xs-6\">\n                                <mat-form-field>\n                                  <input matInput [matDatepickerFilter]=\"myFilter1\" [matDatepicker]=\"pickerm\" placeholder=\"Choose a date\" [formControl]=\"serializedDate\"\n                                    name=\"end_date\" [(ngModel)]=\"newTasks.end_date\">\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker2\"></mat-datepicker-toggle>\n                                  <mat-datepicker #picker2></mat-datepicker>\n                                </mat-form-field>\n                              </div>\n                              <div class=\"clearfix\"></div>\n\n                              <ngb-timepicker name=\"timepicker1\" [meridian]=\"meridian\" name=\"end_time1\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\n                              <hr>\n                              <div class=\"clearfix\"></div>\n                              <br>\n\n                              <div class=\"example-container\">\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\n                                <div class=\"col-md-7 col-xs-6\">\n                                  <mat-form-field class=\"inputfileds\">\n\n                                    <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\n                                      <!-- <mat-option>None</mat-option> -->\n\n                                      <mat-option value=\"0\">Billable</mat-option>\n                                      <mat-option value=\"1\">Non Billable</mat-option>\n\n\n                                    </mat-select>\n                                  </mat-form-field>\n                                </div>\n                                <div class=\"clearfix\"></div>\n                                <div class=\"example-container\">\n                                  <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\n                                  <div class=\"col-md-7 col-xs-6\">\n                                    <mat-form-field class=\"inputfileds\">\n\n                                      <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\n                                        <!-- <mat-option>None</mat-option> -->\n                                        <mat-option value=\"0\">High</mat-option>\n                                        <mat-option value=\"1\">Medium</mat-option>\n                                        <mat-option value=\"2\">Low</mat-option>\n\n\n                                      </mat-select>\n                                    </mat-form-field>\n                                  </div>\n                                  <div class=\"clearfix\"></div>\n\n                                  <div class=\"example-container\">\n                                    <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\n                                    <div class=\"col-md-5 col-xs-5\">\n                                      <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\n\n                                        <mat-form-field class=\"example-form-field\">\n                                          <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\n                                          <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\n                                            <mat-icon>close</mat-icon>\n                                          </button>\n                                        </mat-form-field>\n                                        <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\n                                      </div>\n\n\n                                    </div>\n                                    <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div>\n                                    <div class=\"clearfix\"></div>\n                                    <div class=\"example-container\">\n                                      <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\n                                      <div class=\"col-md-7 col-xs-6\">\n\n                                        <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\n                                      </div>\n                                      <div class=\"clearfix\"></div>\n                                      <div class=\"center\">\n                                        <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Save</button>\n                                      </div>\n                                    </div>\n                                  </div>\n                                </div>\n                              </div>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    </form>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n            <!-- ----------------------------------------------------------------------edit task modal--------------------------------------------------------------------- -->\n            <div class=\"col-md-6 col-sm-12 col-xs-12 gutter \">\n              <div class=\"white project-planning\">\n                <div class=\"form-group\">\n                  <div class=\"col-md-6\"><label for=\"\">Project Name</label></div>\n                  <div class=\"col-md-6\">\n                    <div class=\"row\"><label for=\"\" class=\"label2\">{{Projects.project_name}}</label></div>\n                  </div>\n                </div>\n\n                <div class=\"form-group\">\n                  <div class=\"col-md-6\"><label for=\"\">Project Code</label></div>\n                  <div class=\"col-md-6\">\n                    <div class=\"row\"><label for=\"\" class=\"label2\">{{Projects.project_code}}</label></div>\n                  </div>\n                </div>\n\n                <div class=\"form-group\">\n                  <div class=\"col-md-6\">\n                    <label for=\"\">Project Start Date</label></div>\n                  <mat-form-field>\n                    <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" [(ngModel)]=\"Projects.start_date\" (ngModelChange)=\"startDateSelect()\">\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                    <mat-datepicker #picker></mat-datepicker>\n                  </mat-form-field>\n                </div>\n                <div class=\"form-group\">\n                  <div class=\"col-md-6 padd-bt\"><label for=\"\">Team Members</label></div>\n\n                </div>\n                <div class=\"clearfix\"></div>\n                <div class=\"col-md-9 psh-left\">\n                  <div class=\"form-group\">\n                    <div class=\"col-md-7\"><label for=\"\">Developers</label></div>\n\n                    <mat-form-field class=\"inputfileds\">\n\n                      <mat-select placeholder=\"Developers\" name='selected' multiple [(ngModel)]=\"developer\"  (ngModelChange)=\"getAvalibality();\">\n                        <mat-option [value]=\"Developer\" *ngFor=\"let Developer of Developers;\">{{Developer.f_name}} {{Developer.l_name}} </mat-option>\n                      </mat-select>\n                    </mat-form-field>\n\n                  </div>\n                  <div class=\"form-group\">\n                    <div class=\"col-md-7\"><label for=\"\">Designers</label></div>\n                    <mat-form-field class=\"inputfileds\">\n\n                      <mat-select placeholder=\"Designers\" name='selected' multiple [(ngModel)]=\"developer\"  (ngModelChange)=\"getAvalibality();\">\n                        <mat-option [value]=\"Designer\" *ngFor=\"let Designer of Designers;\">{{Designer.f_name}} {{Designer.l_name}}</mat-option>\n                      </mat-select>\n                    </mat-form-field>\n                  </div>\n                  <div class=\"form-group\">\n                    <div class=\"col-md-7\"><label for=\"\">QC</label></div>\n                    <mat-form-field class=\"inputfileds\">\n\n                      <mat-select placeholder=\"QC\" name='selected' multiple [(ngModel)]=\"developer\"  (ngModelChange)=\"getAvalibality();\">\n                        <mat-option [value]=\"QC\" *ngFor=\"let QC of QCs;\">{{QC.f_name}} {{QC.l_name}}</mat-option>\n                      </mat-select>\n                    </mat-form-field>\n                  </div>\n                </div>\n                <div class=\"clearfix\"></div>\n                <form role=\"form\" (ngSubmit)=\"addModule()\" novalidate>\n                  <div class=\"form-group\">\n                    <div class=\"col-md-4 col-xs-7 mrg-2\">\n\n                      <button type=\"button\" class=\"btn round-button dropdown-toggle mrg-tp\" data-toggle=\"dropdown\" (click)=\"addModuleClear()\">Add Module</button>\n                      <ul class=\"dropdown-menu addmodule\" role=\"menu\">\n\n                        <div class=\"col-md-8\">\n                          <input class=\"style\" type=\"text\" placeholder=\"Module Name\" name=\"name\" [(ngModel)]=\"module.module_name\">\n                        </div>\n                        <div class=\"col-md-4\">\n                          <button type=\"submit\" class=\"btn round-button pull-right\">Save</button>\n                        </div>\n                      </ul>\n                    </div>\n                  </div>\n                </form>\n                <br>\n                <div class=\"clearfix\"></div>\n                <div class=\"form-group mrg-2\">\n                  <div class=\"col-md-4 col-xs-4\">\n                    <label>Total Estimated Hours</label>\n                  </div>\n                  <div class=\"col-md-4 col-xs-4\">\n                    <div>\n                      <!-- estimation_hour -->\n\n                      <h5>{{sum}}</h5>\n                    </div>\n                    <!-- <input class=\"style\" type=\"text\" placeholder=\"44:00 Hr\"> -->\n\n                  </div>\n                  <div class=\"col-md-4 col-xs-4 notice\">\n                    <div class=\"row\">\n                      <div class=\"col-md-6 col-xs-6\"><span class=\"round\"></span>\n                        <p>Assigned</p>\n                      </div>\n                      <div class=\"col-md-6 col-xs-6\"><span class=\"round round2\"></span>\n                        <p>Unasigned</p>\n                      </div>\n                    </div>\n\n                  </div>\n                </div>\n\n                <div>\n\n                  <!-- <div  [dragula]='\"myBag\"' draggable=\"true\" [class]=\"'groupClass'\"> -->\n                  <div [dragula]='\"third-bag\"' [dragulaModel]='modules'>\n                    <div  *ngFor=\"let module of modules; let i = index\">\n                      <div class=\"col-md-12 col-xs-12 pull-right\">\n                        <div class=\"task\">\n                          <div class=\"col-md-8 col-xs-7\">\n                            <div>\n                              <!-- <p>dfd</p> -->\n                              <h5>{{module.module_name}}</h5>\n                            </div>\n\n                          </div>\n\n                          <div class=\"col-md-4 col-xs-5\">\n                            <ul class=\"taskedit\">\n                              {{module.time}}\n                              <!-- <li>22 Hr</li> -->\n                              <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#deleteModuleModal\" (click)=\"getId(i)\"> <i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\n\n                              <!-- <div class=\"col-md-4 col-xs-7 mrg-2\"> -->\n                              <li class=\"pull-right\">\n                                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"editModules(i,module)\" novalidate>\n                                  <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" (click)=\"getId(i)\" class=\"dropdown\"> <i  class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a>\n                                  <ul class=\"dropdown-menu addmodule editz\" role=\"menu\">\n                                    <div class=\"col-md-8\">\n                                      <input class=\"style\" type=\"text\" placeholder=\"Module Name\" name=\"module_name\" [(ngModel)]=\"module.module_name\">\n                                    </div>\n                                    <div class=\"col-md-4\">\n                                      <button type=\"submit\" class=\"btn round-button pull-right\">Save</button>\n                                    </div>\n                                  </ul>\n                                </form>\n                              </li>\n                              <!-- </div> -->\n                              <li class=\"pull-right\"></li>\n\n                            </ul>\n                          </div>\n                        </div>\n                      </div>\n                      <!-- <div [dragula]=\"'myBag'\"> -->\n                      <div [dragula]='\"third-bag\"' [dragulaModel]='module.tbl_estimation_tasks'>\n                        <div draggable=\"true\" [class]=\"'itemClass'\" *ngFor=\"let task of modules[i].tbl_estimation_tasks; let j = index\">\n                          <div class=\"col-md-11 col-xs-12 pull-right\">\n                            <div class=\"task assigned\" style=\"background:#fbf6f1;\">\n                              <div class=\"col-md-9 col-xs-7 martop\">\n                                <h5>{{task.task_name}}</h5>\n                                <h5>{{task.assigned_person}}</h5>\n                                <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>\n                                <h5>{{task.start_date}} </h5>\n                                <h5>{{task.end_date}} </h5>\n                              </div>\n                              <div class=\"col-md-3 col-xs-5\">\n                                <ul class=\"taskedit\">\n                                  <li></li>\n                                  <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#deleteTaskModal\" (click)=\"getId1(i,j)\"> <i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\n\n                                  <li class=\"pull-right\">\n                                    <a href=\"#\" data-target=\"#editTaskModal\" data-toggle=\"modal\" (click)=\"getId2(i,j,task)\"> <i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a>\n                                  </li>\n                                </ul>\n                              </div>\n                              <div class=\"clearfix\"></div>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                      <div class=\"col-md-12\">\n                        <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button>\n                      </div>\n                      <div class=\"clearfix\"></div>\n                    </div>\n                    \n\n                  </div>\n\n                  <div class=\"clearfix\"></div>\n                </div>\n              </div>\n            </div>\n            <!-- col-md-6-->\n\n\n            <div class=\"col-md-6\">\n              <div class=\"white\">\n                <div class=\"col-md-12\">\n                  <div class=\"row\">\n                    <div class=\"col-md-6\">\n                      <div class=\"example-header\">\n                        <mat-form-field>\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                        </mat-form-field>\n                      </div>\n                    </div>\n                    <div class=\"col-md-6\">\n                      <div class=\"pull-right\">\n                        <mat-form-field class=\"filter\">\n\n                          <mat-select (change)=\"refresh()\" [(value)]=\"selected\">\n                            <!-- <mat-option>None</mat-option> -->\n                            <mat-option value=\"0\">All</mat-option>\n                            <mat-option value=\"2\">Designer</mat-option>\n                            <mat-option value=\"1\">Developer</mat-option>\n                            <mat-option value=\"3\">QC</mat-option>\n\n                          </mat-select>\n                        </mat-form-field>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"example-container mat-elevation-z8 \">\n\n                  <mat-table [dataSource]=\"dataSource\" matSort>\n                    <!-- Name Column -->\n                    <ng-container matColumnDef=\"slno\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header>Sl_No </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row;let i = index\"> {{i+1}} </mat-cell>\n                    </ng-container>\n                    <!-- Name Column -->\n                    <ng-container matColumnDef=\"user\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> USER </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.organization}} </mat-cell>\n                    </ng-container>\n\n                    <!-- Name Column -->\n                    <ng-container matColumnDef=\"start_date\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> START DATE </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.contact_person_email}} </mat-cell>\n                    </ng-container>\n                    <!-- Progress Column -->\n                    <ng-container matColumnDef=\"end_date\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> END DATE</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.contact_person_fname}}</mat-cell>\n                    </ng-container>\n                    <!-- Progress Column -->\n                    <ng-container matColumnDef=\"hours\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> TOTAL HOURS </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.contact_no}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"no_task\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> NO. TASKS</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.cmp_status}}</mat-cell>\n                    </ng-container>\n\n                    <ng-container matColumnDef=\"action\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\">\n                        <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n                           <mat-icon>more_vert</mat-icon>\n                         </button>\n                        <mat-menu #menu=\"matMenu\">\n                          <button *ngIf=\"row.delete_status==false\" (click)=\"getId(row._id)\" data-toggle=\"modal\" data-target=\"#deleteModal\" mat-menu-item>\n                               <i class=\"material-icons\">delete</i>\n                             <span>Delete</span>\n                           </button>\n                          <button *ngIf=\"row.delete_status==true\" mat-menu-item disabled>\n                             <i class=\"material-icons\">delete_forever</i>\n                           <span>Deleted</span>\n                         </button>\n                          <button *ngIf=\"row.block_status==false && row.delete_status==false\" (click)=\"blockCompany(row._id)\" mat-menu-item>\n                               <i class=\"material-icons\">block</i>\n                             <span>Block</span>\n                           </button>\n                          <!-- <button *ngIf=\"row.block_status==true && row.delete_status==false\" mat-menu-item>\n                               <i class=\"material-icons\">block</i>\n                             <span><a  (click)=\"unblockCompany(row._id)\">Unblock</a></span>\n                           </button> -->\n                        </mat-menu>\n\n                      </mat-cell>\n                    </ng-container>\n\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\n                    </mat-row>\n                  </mat-table>\n                  <div class=\"col-md-15 \">\n                    <!-- <div *ngIf=\"showSpinner\" class=\"deletespinner\">\n                         <mat-spinner></mat-spinner>\n                        </div> -->\n                  </div>\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n                    <div class=\"col-md-4 col-md-offset-4\">\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n                    </div>\n                  </div>\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n                </div>\n              </div>\n            </div>\n\n          </div>\n\n        </div>\n\n\n      </div>\n      <!-- footer-->\n      <!-- <admin-footer></admin-footer> -->\n      <!-- end footer-->\n    </div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-project-planning/company-project-planning.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyProjectPlanningComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_dragula_ng2_dragula__ = __webpack_require__("../../../../ng2-dragula/ng2-dragula.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_dragula_ng2_dragula___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_ng2_dragula_ng2_dragula__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var CompanyProjectPlanningComponent = (function () {
+    function CompanyProjectPlanningComponent(route, companyService, snackBar, routes, dragulaService) {
+        this.route = route;
+        this.companyService = companyService;
+        this.snackBar = snackBar;
+        this.routes = routes;
+        this.dragulaService = dragulaService;
+        this.displayedColumns = ['slno', 'user', 'start_date', 'end_date', 'hours', 'no_task', 'action'];
+        this.selected = '0';
+        this.selected1 = '0';
+        this.selected2 = '0';
+        this.sum = 0;
+        this.sum1 = 0;
+        this.arr1 = [];
+        this.arr2 = [];
+        this.task_time = 0;
+        this.shownewModule = false;
+        this.shownewTasks = false;
+        this.QcIcon = false;
+        this.DeveloperIcon = false;
+        this.DesignerIcon = false;
+        this.modules = [];
+        this.spinner = false;
+        this.module = {
+            module_name: '',
+            time: 0,
+            tbl_estimation_tasks: [],
+        };
+        this.Projects = {
+            name: '',
+            code: '',
+            start_date: ''
+        };
+        this.newTasks = {
+            task_name: '',
+            assigned_person: '',
+            complexity: '',
+            planned_hour: 0,
+            buffer_hour: 0,
+            start_date: '',
+            start_time: '',
+            end_date: '',
+            end_time: '',
+            task_type: '',
+            priority: '',
+            docFile: [],
+            docSrc: '',
+            file: '',
+            newChecklist: [{ name: '' }],
+        };
+        // myFilter = (d: Date): boolean => {
+        //   const day = d.getDay();
+        //   // Prevent Saturday and Sunday from being selected.
+        //   return day !== 0 && day !== 6;
+        // }
+        // myFilter1 = (d: Date): boolean => {
+        //   const day = d.getDay();
+        //   // Prevent Saturday and Sunday from being selected.
+        //   return day !== 0 && day !== 6;
+        // }
+        // time = {hour: 0, minute: 0};
+        this.meridian = true;
+        this.date = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["FormControl"](new Date());
+        this.serializedDate = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["FormControl"]((new Date()).toISOString());
+        //   dragulaService.setOptions('third-bag', {
+        //   removeOnSpill: true
+        // }); 
+        this.dragulaService.setOptions('third-bag', {
+            accepts: function (el, target, source, sibling) {
+                return !el.contains(target);
+            },
+        });
+    }
+    CompanyProjectPlanningComponent.prototype.toggleMeridian = function () {
+        this.meridian = !this.meridian;
+    };
+    CompanyProjectPlanningComponent.prototype.applyFilter = function (filterValue) {
+        filterValue = filterValue.trim(); // Remove whitespace
+        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+        this.dataSource.filter = filterValue;
+    };
+    CompanyProjectPlanningComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.p_id = params.id;
+            _this.companyService.getProjectById(_this.p_id).subscribe(function (resData) {
+                _this.Projects = resData;
+                // console.log(this.Projects);
+                // this.spinner = true
+                // if (resData.success == true) {
+                //   this.spinner = false
+                //   let snackBarRef = this.snackBar.open('Success', '', {
+                //     duration: 2000
+                //   });
+                //   this.routes.navigate(['/company-dashboard']);
+                // } else {
+                //   this.spinner = false
+                //   // this._flashMessagesService.show('Error', { cssClass: 'alert-danger', timeout: 4000 });
+                //   let snackBarRef = this.snackBar.open('Error', '', {
+                //     duration: 2000
+                //   });
+                //   this.routes.navigate(['/404']);
+                // }
+            });
+            // console.log(this.p_id);
+        });
+        this.companyService.getDeveloperUsers().subscribe(function (developerDatas) {
+            _this.Developers = developerDatas;
+        });
+        this.companyService.getDesignerrUsers().subscribe(function (designerDatas) {
+            _this.Designers = designerDatas;
+        });
+        this.companyService.getQcUsers().subscribe(function (qcDatas) {
+            _this.QCs = qcDatas;
+        });
+        this.companyService.getTasksModules(this.p_id).subscribe(function (data) {
+            _this.moduledata = data;
+            console.log(_this.moduledata);
+            // console.log(this.modules)
+            _this.moduledata.forEach(function (element) {
+                _this.modules.push(element);
+                _this.task_time = 0;
+                _this.arr1.push(element.tbl_estimation.estimation_hour);
+                element.tbl_estimation_tasks.forEach(function (elementimation_tasks) {
+                    _this.task_time = _this.task_time + elementimation_tasks.planned_hour + elementimation_tasks.buffer_hour;
+                });
+                element.time = _this.task_time;
+                // console.log(element.module_time);
+            });
+            _this.arr1.forEach(function (element2) {
+                _this.sum = _this.sum + element2;
+            });
+            _this.companyService.getAllUsers().subscribe(function (asignedPerson) {
+                _this.assignPerson = asignedPerson;
+            });
+            _this.companyService.getComplexity().subscribe(function (complexity) {
+                _this.complexitys = complexity;
+            });
+        });
+        // const bag: any = this.dragulaService.find('myBag');
+        // if (bag !== undefined) this.dragulaService.destroy('myBag');
+        // this.dragulaService.setOptions('myBag', {
+        //   revertOnSpill: true,
+        //   accepts: function (el, target, source, sibling) {
+        //     return !el.contains(target);
+        //   },
+        // });
+    };
+    // save(name) {
+    //   this.shownewModule = true;
+    //   this.newmodule.push({ name: name });
+    //   console.log(this.newmodule);
+    //   // console.log(this.newmodule);
+    //   this.name = '';
+    // }
+    CompanyProjectPlanningComponent.prototype.addMore = function () {
+        this.newTasks.newChecklist.push({ name: '' });
+    };
+    CompanyProjectPlanningComponent.prototype.closeChecklist = function (index) {
+        if (this.newTasks.newChecklist.length > 1) {
+            this.newTasks.newChecklist.splice(index, 1);
+        }
+        else {
+            var snackBarRef = this.snackBar.open('* Atleast one item required!', '', {
+                duration: 2000
+            });
+            // console.log("test");
+            // setTimeout(()=>{ 
+            //     this.atleastOneitem = false;
+            // }, 2000);
+            return false;
+        }
+    };
+    CompanyProjectPlanningComponent.prototype.displayDoc = function (fileInput) {
+        var _this = this;
+        var ext = fileInput.target.files[0].name.split('.').pop().toLowerCase();
+        this.newTasks.docFile = fileInput.target.files[0];
+        if (fileInput.target.files && fileInput.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = (function (e) {
+                _this.newTasks.docSrc = e.target['result'];
+            });
+            reader.readAsDataURL(fileInput.target.files[0]);
+        }
+    };
+    CompanyProjectPlanningComponent.prototype.modalClear = function () {
+        this.newTasks = {
+            task_name: '',
+            assigned_person: '',
+            complexity: '',
+            planned_hour: 0,
+            buffer_hour: 0,
+            start_date: '',
+            start_time: '',
+            end_date: '',
+            end_time: '',
+            task_type: '',
+            priority: '',
+            docFile: [],
+            docSrc: '',
+            file: '',
+            newChecklist: [{ name: '' }]
+        };
+    };
+    CompanyProjectPlanningComponent.prototype.addModule = function () {
+        // console.log(module);
+        if (this.module.module_name == '') {
+            var snackBarRef = this.snackBar.open("Module Name cannot be blank", '', {
+                duration: 2000
+            });
+        }
+        else {
+            this.modules.push(this.module);
+            var snackBarRef = this.snackBar.open("Module added successfully", '', {
+                duration: 2000
+            });
+            // console.log(this.module + "   modulesssssssssss");
+            this.module = {
+                module_name: '',
+                time: 0,
+                tbl_estimation_tasks: [],
+            };
+        }
+    };
+    CompanyProjectPlanningComponent.prototype.addModuleClear = function () {
+        this.module = {
+            module_name: '',
+            time: 0,
+            tbl_estimation_tasks: [],
+        };
+    };
+    CompanyProjectPlanningComponent.prototype.getId = function (index) {
+        this.index = index;
+        console.log(index + "  index");
+        // console.log(index);
+        this.newTasks = {
+            task_name: '',
+            assigned_person: '',
+            complexity: '',
+            planned_hour: 0,
+            buffer_hour: 0,
+            start_date: '',
+            start_time: '',
+            end_date: '',
+            end_time: '',
+            task_type: '',
+            priority: '',
+            docFile: [],
+            docSrc: '',
+            file: '',
+            newChecklist: [{ name: '' }]
+        };
+    };
+    CompanyProjectPlanningComponent.prototype.addTask = function (index) {
+        var _this = this;
+        this.companyService.getDatetime(this.newTasks).subscribe(function (datetime) {
+            _this.datetime = datetime;
+            if (_this.datetime.success == false) {
+                var snackBarRef = _this.snackBar.open(_this.datetime.msg, '', {
+                    duration: 2000
+                });
+            }
+            else {
+                _this.modules[index].tbl_estimation_tasks.push(_this.newTasks);
+                _this.modules[index].time = _this.modules[index].time + _this.newTasks.planned_hour + _this.newTasks.buffer_hour;
+                _this.sum = _this.sum + _this.newTasks.planned_hour + _this.newTasks.buffer_hour;
+                _this.closeBtn.nativeElement.click();
+                var snackBarRef = _this.snackBar.open(' Task added succesfully', '', {
+                    duration: 2000
+                });
+                _this.newTasks = {
+                    task_name: '',
+                    assigned_person: '',
+                    complexity: '',
+                    planned_hour: 0,
+                    buffer_hour: 0,
+                    start_date: '',
+                    start_time: '',
+                    end_date: '',
+                    end_time: '',
+                    task_type: '',
+                    priority: '',
+                    docFile: [],
+                    docSrc: '',
+                    file: '',
+                    newChecklist: [{ name: '' }]
+                };
+            }
+        });
+    };
+    CompanyProjectPlanningComponent.prototype.deleteModule = function (i) {
+        this.sum = this.sum - this.modules[i].time;
+        this.modules.splice(i, 1);
+    };
+    CompanyProjectPlanningComponent.prototype.editModules = function (i, module) {
+        console.log(this.module);
+        this.modules.splice(i, 1);
+        this.modules.push(module);
+        // let snackBarRef = this.snackBar.open("Module updated successfully", '', {
+        //   duration: 2000
+        // });
+        this.modules.forEach(function (element) {
+            console.log(element.module_name);
+        });
+    };
+    CompanyProjectPlanningComponent.prototype.getId1 = function (i, j) {
+        this.i = i;
+        this.j = j;
+    };
+    CompanyProjectPlanningComponent.prototype.getId2 = function (i, j, task) {
+        this.i = i;
+        this.j = j;
+        this.newTasks = task;
+    };
+    CompanyProjectPlanningComponent.prototype.deleteTask = function (i, j) {
+        // console.log(i);
+        // console.log(j)
+        // console.log(this.modules[this.i]);
+        // this.newTasks = this.modules[this.i].tbl_estimation_tasks[this.j];
+        this.modules[i].time = this.modules[i].time - this.modules[i].tbl_estimation_tasks[j].planned_hour - this.modules[i].tbl_estimation_tasks[j].buffer_hour;
+        this.sum = this.sum - this.modules[i].tbl_estimation_tasks[j].planned_hour - this.modules[i].tbl_estimation_tasks[j].buffer_hour;
+        this.modules[i].tbl_estimation_tasks.splice(this.j, 1);
+    };
+    CompanyProjectPlanningComponent.prototype.editTask = function (i, j) {
+        // console.log(this.modules[i].tasks[j]);
+        this.modules[i].tbl_estimation_tasks.splice(this.j, 1);
+        this.modules[i].tbl_estimation_tasks.push(this.newTasks);
+        this.modules[i].time = this.modules[i].time + this.newTasks.planned_hour + this.newTasks.buffer_hour;
+        this.sum = this.sum + this.newTasks.planned_hour + this.newTasks.buffer_hour;
+        this.closeBtn1.nativeElement.click();
+        var snackBarRef = this.snackBar.open(' Task updated succesfully', '', {
+            duration: 2000
+        });
+    };
+    CompanyProjectPlanningComponent.prototype.startDateSelect = function () {
+        var _this = this;
+        this.modules.forEach(function (modules) {
+            modules.tbl_estimation_tasks.forEach(function (tasks) {
+                tasks.start_date = _this.Projects.start_date;
+            });
+        });
+    };
+    CompanyProjectPlanningComponent.prototype.getAvalibality = function () {
+        console.log("hello");
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('closeBtn'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"])
+    ], CompanyProjectPlanningComponent.prototype, "closeBtn", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('closeBtn1'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"])
+    ], CompanyProjectPlanningComponent.prototype, "closeBtn1", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatPaginator */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatPaginator */])
+    ], CompanyProjectPlanningComponent.prototype, "paginator", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["B" /* MatSort */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["B" /* MatSort */])
+    ], CompanyProjectPlanningComponent.prototype, "sort", void 0);
+    CompanyProjectPlanningComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'project-planning',
+            template: __webpack_require__("../../../../../src/app/components/company-project-planning/company-project-planning.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-project-planning/company-project-planning.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_3__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_1__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_5_ng2_dragula_ng2_dragula__["DragulaService"]])
+    ], CompanyProjectPlanningComponent);
+    return CompanyProjectPlanningComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-sidebar/company-sidebar.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-sidebar/company-sidebar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"logo\">\n  <a href=\"\"><img src=\"./assets/images/logo.jpg\" alt=\"\" class=\"\">\n \n</a>\n</div>\n\n<nav class=\"navbar navbar-default\">\n\n  <!-- Brand and toggle get grouped for better mobile display -->\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\"\n      aria-expanded=\"false\">\n  <span class=\"sr-only\">Toggle navigation</span>\n  <span class=\"icon-bar\"></span>\n  <span class=\"icon-bar\"></span>\n  <span class=\"icon-bar\"></span>\n</button>\n\n  </div>\n\n  <!-- Collect the nav links, forms, and other content for toggling -->\n  <div class=\"collapse navbar-collapse navi\" id=\"bs-example-navbar-collapse-1\">\n    <ul class=\"zx nav navbar-nav\">\n      <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a routerLink=\"\"><i class=\"fa fa-desktop\" aria-hidden=\"true\"></i><span class=\"\">Dashboard</span></a></li>\n      <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a routerLink=\"\"><i class=\"fa fa-users fa-2x text-purple\"></i> Team</a></li>\n      <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a routerLink=\"/company-users\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><span class=\"\">Users</span></a></li>\n      <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a routerLink=\"/project-planning\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><span class=\"\">Projects</span></a></li>\n      <li class=\"dropdown\"><a routerLink=\"\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i><span class=\"\">Master Settings</span></a>\n        <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\n          <li><a routerLink=\"/company-project-category\">Project Category</a></li>\n          <li><a href=\"#\">Another action</a></li>\n          <li><a href=\"#\">Something else here</a></li>\n          <li class=\"divider\"></li>\n          <li><a href=\"#\">Separated link</a></li>\n        </ul>\n\n      </li>\n    </ul>\n\n\n  </div>\n  <!-- /.navbar-collapse -->\n\n</nav>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-sidebar/company-sidebar.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanySidebarComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CompanySidebarComponent = (function () {
+    function CompanySidebarComponent() {
+    }
+    CompanySidebarComponent.prototype.ngOnInit = function () {
+    };
+    CompanySidebarComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'company-sidebar',
+            template: __webpack_require__("../../../../../src/app/components/company-sidebar/company-sidebar.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-sidebar/company-sidebar.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CompanySidebarComponent);
+    return CompanySidebarComponent;
 }());
 
 
@@ -1558,6 +2081,67 @@ var CompanySignupComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/company-topbar/company-topbar.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-topbar/company-topbar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n  <header>\n      \n      <div class=\"col-md-5 pull-right\">\n          <div class=\"header-rightside\">\n              <ul class=\"list-inline header-top pull-right\">\n                  <li class=\"\"><a href=\"#\" class=\"add-project\">Add Project</a></li>\n                  \n                  <li>\n                      <a href=\"#\" class=\"icon-info\">\n                          <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\n                          <span class=\"label label-primary\">3</span>\n                      </a>\n                  </li>\n                  <li class=\"dropdown\">\n                      <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\n                          <b class=\"caret\"></b></a>\n                      <ul class=\"dropdown-menu\">\n                          <li>\n                              <div class=\"navbar-content\">\n                                  <span>JS Krishna</span>\n                                  <p class=\"text-muted small\">\n                                      me@jskrishna.com\n                                  </p>\n                                  <div class=\"divider\">\n                                  </div>\n                                  <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\n                              </div>\n                          </li>\n                      </ul>\n                  </li>\n                  <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\n              </ul>\n          </div>\n      </div>\n  </header>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-topbar/company-topbar.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyTopbarComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CompanyTopbarComponent = (function () {
+    function CompanyTopbarComponent() {
+    }
+    CompanyTopbarComponent.prototype.ngOnInit = function () {
+    };
+    CompanyTopbarComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'company-topbar',
+            template: __webpack_require__("../../../../../src/app/components/company-topbar/company-topbar.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-topbar/company-topbar.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CompanyTopbarComponent);
+    return CompanyTopbarComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/compay-aditninfo/compay-aditninfo.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1566,7 +2150,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "button, select{outline:none;}\r\n.logn{height:100%;overflow-x:hidden;background:#fff;}\r\n.logn-img{height:100%;width:100%;position:relative;overflow:hidden;}\r\n.paragraph{    width: 56%;\r\n    left: 22%;\r\n    bottom: 10%;\r\n    z-index: 100;\r\n    min-height: 20px;\r\n    color: #fff;\r\n    text-align: left;\r\n    font-size: 14px;\r\n    position: absolute;\r\n    line-height: 22px;}\r\n.social-login{\r\n  position:relative;\r\n  float: none;\r\n  margin:0 auto;\r\n  height:auto;\r\n  padding: 10px 0 15px 0;\r\n  border-bottom: 1px solid #eee;\r\n  display: table;\r\n      width: 79%;\r\n}\r\n\r\n.social-login a{\r\n     position: relative;\r\n    float: left;\r\n    width: 48%;\r\n    text-decoration: none;\r\n    color: #fff;\r\n    border: 1px solid rgba(0,0,0,0.05);\r\n    padding: 7px 12px;\r\n    border-radius: 12px;\r\n    font-size: 12px;\r\n   \r\n        margin: 0px 1%;\r\n    text-align: center;\r\n}\r\n.social-login a i{\r\n  position: relative;\r\n  float: left;\r\n  width: 20px;\r\n  top: 2px;\r\n}\r\n.social-login a:first-child{\r\n  background-color: #49639F;\r\n}\r\n.social-login a:last-child{\r\n  background-color: #DF4A32;\r\n}\r\n.email-login,.email-signup{\r\n  position:relative;\r\n  float: left;\r\n  width: 100%;\r\n  height:auto;\r\n  margin-top: 20px;\r\n  text-align:center;\r\n}\r\nbody {\r\n  background: #e9e9e9;\r\n  color: #666666;\r\n  font-family: 'RobotoDraft', 'Roboto', sans-serif;\r\n  font-size: 14px;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n}\r\n\r\n/* Pen Title */\r\n.pen-title {\r\n  padding: 20px 0;\r\n  text-align: center;\r\n  letter-spacing: 2px;\r\n}\r\n.pen-title h1 {\r\n  margin: 0 0 20px;\r\n  font-size: 40px;\r\n  font-weight: 300;\r\n}\r\n.pen-title span {\r\n  font-size: 12px;\r\n}\r\n.pen-title span .fa {\r\n  color: #ed2553;\r\n}\r\n.pen-title span a {\r\n  color: #ed2553;\r\n  font-weight: 600;\r\n  text-decoration: none;\r\n}\r\n\r\n/* Rerun */\r\n.rerun {\r\n  margin: 0 0 30px;\r\n  text-align: center;\r\n}\r\n.rerun a {\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  background: #ed2553;\r\n  border-radius: 3px;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  padding: 10px 20px;\r\n  color: #ffffff;\r\n  text-decoration: none;\r\n  transition: 0.3s ease;\r\n}\r\n.rerun a:hover {\r\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* Scroll To Bottom */\r\n#codepen, #portfolio {\r\n  position: fixed;\r\n  bottom: 30px;\r\n  right: 30px;\r\n  background: #ec2652;\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 100%;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  transition: 0.3s ease;\r\n  color: #ffffff;\r\n  text-align: center;\r\n}\r\n#codepen i, #portfolio i {\r\n  line-height: 56px;\r\n}\r\n#codepen:hover, #portfolio:hover {\r\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* CodePen */\r\n#portfolio {\r\n  bottom: 96px;\r\n  right: 36px;\r\n  background: #ec2652;\r\n  width: 44px;\r\n  height: 44px;\r\n  animation: buttonFadeInUp 1s ease;\r\n}\r\n#portfolio i {\r\n  line-height: 44px;\r\n}\r\n\r\n/* Container */\r\n.container {\r\n  position: relative;\r\n  max-width: 460px;\r\n  width: 100%;\r\n  margin: 0 auto 100px;\r\n}\r\n.container.active .card:first-child {\r\n  background: #f2f2f2;\r\n  margin: 0 15px;\r\n}\r\n.container.active .card:nth-child(2) {\r\n  background: #fafafa;\r\n  margin: 0 10px;\r\n}\r\n.container.active .card.alt {\r\n  top: 20px;\r\n  right: 0;\r\n  width: 100%;\r\n  min-width: 100%;\r\n  height: auto;\r\n  border-radius: 5px;\r\n  padding: 60px 0 40px;\r\n  overflow: hidden;\r\n}\r\n.container.active .card.alt .toggle {\r\n  position: absolute;\r\n  top: 40px;\r\n  right: -70px;\r\n  box-shadow: none;\r\n  transform: scale(15);\r\n  transition: transform .5s ease;\r\n}\r\n.container.active .card.alt .toggle:before {\r\n  content: '';\r\n}\r\n.container.active .card.alt .title,\r\n.container.active .card.alt .input-container,\r\n.container.active .card.alt .button-container {\r\n  left: 0;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  transition: .3s ease;\r\n}\r\n.container.active .card.alt .title {\r\n  transition-delay: .3s;\r\n}\r\n.container.active .card.alt .input-container {\r\n  transition-delay: .4s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(2) {\r\n  transition-delay: .5s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(3) {\r\n  transition-delay: .6s;\r\n}\r\n.container.active .card.alt .button-container {\r\n  transition-delay: .7s;\r\n}\r\n\r\n\r\n/* Keyframes */\r\n@keyframes buttonFadeInUp {\r\n  0% {\r\n    bottom: 30px;\r\n    opacity: 0;\r\n  }\r\n}\r\n.g-recaptcha {\r\n    transform:scale(0.89);\r\n    transform-origin:0 0;\r\n}\r\n.round-button{border-radius:20px;margin:0 auto;float:none;background:#f37600;color:#fff;    padding: 10px 32px; /* Safari */\r\n    transition: background 2s;}\r\n.round-button:hover{background:#ffaa05;color:#fff;}\r\n.padd-lft{padding-left:20px;}\r\n\r\n\r\n\r\n@media only screen and (max-width : 768px) {\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n}\r\n\r\n@media only screen and (max-width : 480px)  { \r\n.card .input-container{    margin: 12px;}\r\n.logn-img{display:none;}\r\nform{text-align:center;}\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n.logn-img img{width:100%;}\r\n}\r\n@media only screen and (max-width : 320px) { \r\n\t.card .input-container{    width: 74%;\r\n        margin: 24px auto;\r\n    float: none;}\r\n\t.card .input-container .bar{left: 3%;}\r\n\t.container{max-width:100%;}\r\n\tform{text-align:center;}\r\n}\r\n\r\n", ""]);
+exports.push([module.i, "button, select{outline:none;}\r\n.logn{height:100%;overflow-x:hidden;background:#fff;}\r\n.logn-img{height:100%;width:100%;position:relative;overflow:hidden;}\r\n.paragraph{    width: 56%;\r\n    left: 22%;\r\n    bottom: 10%;\r\n    z-index: 100;\r\n    min-height: 20px;\r\n    color: #fff;\r\n    text-align: left;\r\n    font-size: 14px;\r\n    position: absolute;\r\n    line-height: 22px;}\r\n.social-login{\r\n  position:relative;\r\n  float: none;\r\n  margin:0 auto;\r\n  height:auto;\r\n  padding: 10px 0 15px 0;\r\n  border-bottom: 1px solid #eee;\r\n  display: table;\r\n      width: 79%;\r\n}\r\n\r\n.social-login a{\r\n     position: relative;\r\n    float: left;\r\n    width: 48%;\r\n    text-decoration: none;\r\n    color: #fff;\r\n    border: 1px solid rgba(0,0,0,0.05);\r\n    padding: 7px 12px;\r\n    border-radius: 12px;\r\n    font-size: 12px;\r\n   \r\n        margin: 0px 1%;\r\n    text-align: center;\r\n}\r\n.social-login a i{\r\n  position: relative;\r\n  float: left;\r\n  width: 20px;\r\n  top: 2px;\r\n}\r\n.social-login a:first-child{\r\n  background-color: #49639F;\r\n}\r\n.social-login a:last-child{\r\n  background-color: #DF4A32;\r\n}\r\n.email-login,.email-signup{\r\n  position:relative;\r\n  float: left;\r\n  width: 100%;\r\n  height:auto;\r\n  margin-top: 20px;\r\n  text-align:center;\r\n}\r\nbody {\r\n  background: #e9e9e9;\r\n  color: #666666;\r\n  font-family: 'RobotoDraft', 'Roboto', sans-serif;\r\n  font-size: 14px;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n}\r\n\r\n/* Pen Title */\r\n.pen-title {\r\n  padding: 20px 0;\r\n  text-align: center;\r\n  letter-spacing: 2px;\r\n}\r\n.pen-title h1 {\r\n  margin: 0 0 20px;\r\n  font-size: 40px;\r\n  font-weight: 300;\r\n}\r\n.pen-title span {\r\n  font-size: 12px;\r\n}\r\n.pen-title span .fa {\r\n  color: #ed2553;\r\n}\r\n.pen-title span a {\r\n  color: #ed2553;\r\n  font-weight: 600;\r\n  text-decoration: none;\r\n}\r\n\r\n/* Rerun */\r\n.rerun {\r\n  margin: 0 0 30px;\r\n  text-align: center;\r\n}\r\n.rerun a {\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  background: #ed2553;\r\n  border-radius: 3px;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  padding: 10px 20px;\r\n  color: #ffffff;\r\n  text-decoration: none;\r\n  transition: 0.3s ease;\r\n}\r\n.rerun a:hover {\r\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* Scroll To Bottom */\r\n#codepen, #portfolio {\r\n  position: fixed;\r\n  bottom: 30px;\r\n  right: 30px;\r\n  background: #ec2652;\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 100%;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  transition: 0.3s ease;\r\n  color: #ffffff;\r\n  text-align: center;\r\n}\r\n#codepen i, #portfolio i {\r\n  line-height: 56px;\r\n}\r\n#codepen:hover, #portfolio:hover {\r\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* CodePen */\r\n#portfolio {\r\n  bottom: 96px;\r\n  right: 36px;\r\n  background: #ec2652;\r\n  width: 44px;\r\n  height: 44px;\r\n  animation: buttonFadeInUp 1s ease;\r\n}\r\n#portfolio i {\r\n  line-height: 44px;\r\n}\r\n\r\n/* Container */\r\n.container {\r\n  position: relative;\r\n  max-width: 460px;\r\n  width: 100%;\r\n  margin: 0 auto 100px;\r\n}\r\n.container.active .card:first-child {\r\n  background: #f2f2f2;\r\n  margin: 0 15px;\r\n}\r\n.container.active .card:nth-child(2) {\r\n  background: #fafafa;\r\n  margin: 0 10px;\r\n}\r\n.container.active .card.alt {\r\n  top: 20px;\r\n  right: 0;\r\n  width: 100%;\r\n  min-width: 100%;\r\n  height: auto;\r\n  border-radius: 5px;\r\n  padding: 60px 0 40px;\r\n  overflow: hidden;\r\n}\r\n.container.active .card.alt .toggle {\r\n  position: absolute;\r\n  top: 40px;\r\n  right: -70px;\r\n  box-shadow: none;\r\n  transform: scale(15);\r\n  transition: transform .5s ease;\r\n}\r\n.container.active .card.alt .toggle:before {\r\n  content: '';\r\n}\r\n.container.active .card.alt .title,\r\n.container.active .card.alt .input-container,\r\n.container.active .card.alt .button-container {\r\n  left: 0;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  transition: .3s ease;\r\n}\r\n.container.active .card.alt .title {\r\n  transition-delay: .3s;\r\n}\r\n.container.active .card.alt .input-container {\r\n  transition-delay: .4s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(2) {\r\n  transition-delay: .5s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(3) {\r\n  transition-delay: .6s;\r\n}\r\n.container.active .card.alt .button-container {\r\n  transition-delay: .7s;\r\n}\r\n\r\n\r\n/* Keyframes */\r\n@keyframes buttonFadeInUp {\r\n  0% {\r\n    bottom: 30px;\r\n    opacity: 0;\r\n  }\r\n}\r\n.g-recaptcha {\r\n    transform:scale(0.89);\r\n    transform-origin:0 0;\r\n}\r\n.round-button{border-radius:20px;margin:0 auto;float:none;background:#f37600;color:#fff;    padding: 10px 32px; /* Safari */\r\n    transition: background 2s;}\r\n.round-button:hover{background:#ffaa05;color:#fff;}\r\n.padd-lft{padding-left:20px;}\r\n\r\n\r\n\r\n@media only screen and (max-width : 768px) {\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n}\r\n\r\n@media only screen and (max-width : 480px)  { \r\n.card .input-container{    margin: 12px;}\r\n.logn-img{display:none;}\r\nform{text-align:center;}\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n.logn-img img{width:100%;}\r\n}\r\n@media only screen and (max-width : 320px) { \r\n\t.card .input-container{    width: 74%;\r\n        margin: 24px auto;\r\n    float: none;}\r\n\t.card .input-container .bar{left: 3%;}\r\n\t.container{max-width:100%;}\r\n\tform{text-align:center;}\r\n}\r\n\r\n.loder{\r\n  position: absolute;\r\n  top: 0px;\r\n}\r\nlogn{\r\n  position: relative\r\n}\r\n/* .btn-nxt{\r\n  position: absolute;\r\n  top: 68px;\r\n  right: 0;\r\n  background: transparent;\r\n  border: none;\r\n} */\r\n\r\n.btn-nxt{\r\n  position: absolute;\r\n  top: 185px;\r\n  right: 0;\r\n  background: transparent;\r\n  border: none;\r\n}\r\n\r\n.nxt-cntainer{\r\n  position: relative;\r\n}\r\nselect,input{\r\n  width: 100%;\r\n  margin-top: 20px;\r\n  outline: none;\r\n  padding: 10px;\r\n  font-size: 20px;\r\n  padding-right: 44px;\r\n}\r\nselect{\r\n  cursor: pointer;\r\n}\r\n.inp-hd{\r\n  font-size: 25px;\r\n}\r\n.errMsg{\r\n  font-size: 13px;color: #ff336a;\r\n}\r\n.progress-bar{\r\n  background-color: #28d685 !important;\r\n}\r\n.inp-top{\r\n  top: 89px;\r\n}\r\n.submit-form{\r\n  position: absolute;\r\n    top: 138px;\r\n    right: 0;\r\n    background: transparent;\r\n    border: none;\r\n  transition: color 1s ease;\r\n    \r\n}\r\n.trans-clr{\r\n  color: #20ad6b;\r\n  \r\n}", ""]);
 
 // exports
 
@@ -1579,7 +2163,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/compay-aditninfo/compay-aditninfo.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"logn\">\n\t<div class=\"row\">\n\t\t<div class=\"col-md-8\">\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"logn-img\">\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" class=\"img-responsive\" />\n\t\t\t\t\t<div class=\"paragraph\">\n\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\">\n\t\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi\n\t\t\t\t\t\t\ttristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-md-4 bgz\">\n\t\t\t<h3>Registration</h3>\n\t\t\t<section>\n\t\t\t\t<form id=\"theForm\" class=\"simform\" autocomplete=\"off\">\n\t\t\t\t\t<div class=\"simform-inner\">\n\n\t\t\t\t\t\t<div *ngFor=\"let item of questions;let i=index;\">\n\t\t\t\t\t\t\t<ng-container *ngIf=\"counter == i\">\n\t\t\t\t\t\t\t\t<label>{{item.question}}</label>\n\t\t\t\t\t\t\t\t<input type=\"text\" *ngIf=\"item.type == 'text' else password\" [(ngModel)]=\"item.ans\" name=\"item.ans\">\n\t\t\t\t\t\t\t\t<ng-template #password>\n\t\t\t\t\t\t\t\t\t<input type=\"password\" *ngIf=\"item.type == 'password' else multiple\" [(ngModel)]=\"item.ans\" name=\"item.ans\">\n\t\t\t\t\t\t\t\t\t<ng-template #multiple>\n\t\t\t\t\t\t\t\t\t\t<select class=\"inp\" [(ngModel)]=\"item.ans\" name=\"item.ans\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngIf=\"i == 2 else size\" >\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let c of industry\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option  value=\"{{c.industry}}\">{{c.industry}}</option>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-template #size>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let s of cmpSize\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option  value=\"{{s.size_range}}\">{{s.size_range}}</option>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-template>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <option>Select Company Size</option>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option>1-10</option>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option>1-20</option> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t</ng-template>\n\n\t\t\t\t\t\t\t\t</ng-template>\n\t\t\t\t\t\t\t\t<!-- <button *ngIf=\"counter != 5\" class=\"\" type=\"submit\" (click)=\"validate()\">next</button> -->\n\t\t\t\t\t\t\t\t<button *ngIf=\"counter != 5\" class=\"btn-nxt\" type=\"submit\" (click)=\"validate(i)\" [ngClass]=\"{'inp-top': counter==6}\"><i class=\"la la-arrow-right\"></i></button>\n\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"progress\">\n\t\t\t\t\t\t\t<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\" aria-valuemin=\"0\" aria-valuemax=\"100\" [style.width.%]=\"progressBarWidth\">\n\t\t\t\t\t\t\t\t<span class=\"sr-only\">70% Complete</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<span class=\"\">{{errMessage}}</span>\n\n\t\t\t\t\t\t<!-- <button *ngIf=\"counter == 5\" class=\"submit-form\" type=\"submit\" (click)=\"register()\">GO</button> -->\n\n\t\t\t\t\t\t<button *ngIf=\"counter == 5\" class=\"submit-form\" type=\"submit\" (click)=\"register()\"><i class=\"la la-arrow-right\"></i></button>\n\n\t\t\t\t\t\t<div *ngIf=\"spinner\">\n\t\t\t\t\t\t\t<div class=\"\">\n\t\t\t\t\t\t\t\t<svg class=\"svg\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n\t\t\t\t\t\t\t\t x=\"0px\" y=\"0px\" width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50; margin-left:25%;\"\n\t\t\t\t\t\t\t\t xml:space=\"preserve\">\n\t\t\t\t\t\t\t\t\t<path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n\t\t\t\t\t\t\t\t\t\t<animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n\t\t\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t\t</path>\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- /simform-inner -->\n\t\t\t\t\t<span class=\"final-message\"></span>\n\t\t\t\t</form>\n\t\t\t\t<!-- /simform -->\n\t\t\t</section>\n\n\n\n\t\t</div>\n\n\n\n\t</div>\n\n\t<!-- Modal -->\n\n\t<script>\n\n\t</script>\n\n</body>"
+module.exports = "<body class=\"logn\">\n\t<div class=\"row\">\n\t\t<div class=\"col-md-8\">\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"logn-img\">\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" class=\"img-responsive\" />\n\t\t\t\t\t<div class=\"paragraph\">\n\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\">\n\t\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi\n\t\t\t\t\t\t\ttristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-md-4 bgz\">\n\t\t\t<h3>Registration</h3>\n\t\t\t<section>\n\t\t\t\t<form id=\"theForm\" class=\"simform\" autocomplete=\"off\">\n\t\t\t\t\t<div class=\"simform-inner\">\n\n\t\t\t\t\t\t<div *ngFor=\"let item of questions;let i=index;\">\n\t\t\t\t\t\t\t<ng-container *ngIf=\"counter == i\">\n\t\t\t\t\t\t\t\t<label>{{item.question}}</label>\n\t\t\t\t\t\t\t\t<input type=\"text\" *ngIf=\"item.type == 'text' else password\" [(ngModel)]=\"item.ans\" name=\"item.ans\">\n\t\t\t\t\t\t\t\t<ng-template #password>\n\t\t\t\t\t\t\t\t\t<input type=\"password\" *ngIf=\"item.type == 'password' else multiple\" [(ngModel)]=\"item.ans\" name=\"item.ans\">\n\t\t\t\t\t\t\t\t\t<ng-template #multiple>\n\t\t\t\t\t\t\t\t\t\t<select class=\"inp\" [(ngModel)]=\"item.ans\" name=\"item.ans\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngIf=\"i == 2 else size\" >\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let c of industry\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option  value=\"{{c.id}}\">{{c.industry}}</option>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-template #size>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let s of cmpSize\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option  value=\"{{s.id}}\">{{s.size_range}}</option>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-template>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <option>Select Company Size</option>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option>1-10</option>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option>1-20</option> -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t</select>\n\t\t\t\t\t\t\t\t\t</ng-template>\n\n\t\t\t\t\t\t\t\t</ng-template>\n\t\t\t\t\t\t\t\t<!-- <button *ngIf=\"counter != 5\" class=\"\" type=\"submit\" (click)=\"validate()\">next</button> -->\n\t\t\t\t\t\t\t\t<button *ngIf=\"counter != 5\" class=\"btn-nxt\" type=\"submit\" (click)=\"validate(i)\" [ngClass]=\"{'inp-top': counter==6}\"><i class=\"la la-arrow-right\"></i></button>\n\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"progress\">\n\t\t\t\t\t\t\t<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\" aria-valuemin=\"0\" aria-valuemax=\"100\" [style.width.%]=\"progressBarWidth\">\n\t\t\t\t\t\t\t\t<span class=\"sr-only\">70% Complete</span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<span class=\"\">{{errMessage}}</span>\n\n\t\t\t\t\t\t<!-- <button *ngIf=\"counter == 5\" class=\"submit-form\" type=\"submit\" (click)=\"register()\">GO</button> -->\n\n\t\t\t\t\t\t<button *ngIf=\"counter == 5\" class=\"submit-form\" type=\"submit\" (click)=\"register()\"><i class=\"la la-arrow-right\"></i></button>\n\n\t\t\t\t\t\t<div *ngIf=\"spinner\">\n\t\t\t\t\t\t\t\t<app-spinner></app-spinner>\n\t\t\t\t\t\t\t<!-- <div class=\"\">\n\t\t\t\t\t\t\t\t<svg class=\"svg\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n\t\t\t\t\t\t\t\t x=\"0px\" y=\"0px\" width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50; margin-left:25%;\"\n\t\t\t\t\t\t\t\t xml:space=\"preserve\">\n\t\t\t\t\t\t\t\t\t<path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n\t\t\t\t\t\t\t\t\t\t<animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n\t\t\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t\t</path>\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</div> -->\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- /simform-inner -->\n\t\t\t\t\t<span class=\"final-message\"></span>\n\t\t\t\t</form>\n\t\t\t\t<!-- /simform -->\n\t\t\t</section>\n\n\n\n\t\t</div>\n\n\n\n\t</div>\n\n\t<!-- Modal -->\n\n\t<script>\n\n\t</script>\n\n</body>"
 
 /***/ }),
 
@@ -1608,11 +2192,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var CompayAditninfoComponent = (function () {
-    function CompayAditninfoComponent(adminService, snackBar, routes, companyService) {
+    function CompayAditninfoComponent(adminService, snackBar, routes, companyService, route) {
         this.adminService = adminService;
         this.snackBar = snackBar;
         this.routes = routes;
         this.companyService = companyService;
+        this.route = route;
         this.timestamp = new Date().getTime().toString();
         this.spinner = false;
         this.questions = [{
@@ -1649,8 +2234,19 @@ var CompayAditninfoComponent = (function () {
                 question: "Why are you looking for task managment software?",
                 type: "text",
                 ans: ""
-            },
+            }
+            // {
+            // 	question:"Your Password",
+            // 	type:"password",
+            // 	ans:""
+            // },
+            // {
+            // 	question:"Confirm Password",
+            // 	type:"password",
+            // 	ans:""
+            // },
         ];
+        this.array = [];
         this.errMessage = '';
         this.counter = 0;
         this.progressBarWidth = 0;
@@ -1667,9 +2263,20 @@ var CompayAditninfoComponent = (function () {
         };
     }
     CompayAditninfoComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.p_id = params.id;
+            // console.log("sub");
+            _this.companyService.getCompanyDetailsById(_this.p_id).subscribe(function (data) {
+                // console.log("data" + data.is_profile_completed);
+                if (data.is_profile_completed == true) {
+                    _this.routes.navigate(['/company-dashboard']);
+                    // console.log("completed");
+                }
+            });
+        });
         this.companyService.getLoggedUSerDetails().subscribe(function (info) {
-            console.log("additional info                " + info);
-            console.log("additional indfor");
+            // console.log("sdsss" + info);
             // if(info == null || info == ''){
             //   this.routes.navigate(['/clogin']); 
             // }
@@ -1690,26 +2297,27 @@ var CompayAditninfoComponent = (function () {
             // 	this.routes.navigate(['/expired']);
             //   }
             //   if(info.is_profile_completed == false){
-            // 	this.routes.navigate(['/additnInfo', info._id]);
+            // 	this.routes.navigate(['/additnInfo', info.id]);
             //   }
             // }
         });
-        console.log(this.questions);
+        // console.log(this.questions);
         this.getIndustries();
         this.getCompanySize();
     };
     CompayAditninfoComponent.prototype.register = function () {
         var _this = this;
+        this.questions.push({ question: '', type: '', ans: this.p_id });
         this.companyService.registerCompanyFromadtninfo(this.questions).subscribe(function (resData) {
             _this.spinner = true;
-            console.log(resData);
+            // console.log(resData)
             _this.industry = resData;
             if (resData.success == true) {
                 _this.spinner = false;
                 var snackBarRef = _this.snackBar.open('Redirecting into your account.', '', {
                     duration: 2000
                 });
-                _this.routes.navigate(['/dashboard']);
+                _this.routes.navigate(['/company-dashboard']);
             }
             else {
                 _this.spinner = false;
@@ -1723,15 +2331,15 @@ var CompayAditninfoComponent = (function () {
     };
     CompayAditninfoComponent.prototype.getIndustries = function () {
         var _this = this;
-        this.adminService.getIndustries().subscribe(function (resData) {
+        this.companyService.getIndustries().subscribe(function (resData) {
             // console.log(resData)
             _this.industry = resData;
-            console.log(_this.industry);
+            // console.log(this.industry)
         });
     };
     CompayAditninfoComponent.prototype.getCompanySize = function () {
         var _this = this;
-        this.adminService.getCompanySize().subscribe(function (resData) {
+        this.companyService.getCompanySize().subscribe(function (resData) {
             // console.log(resData)
             _this.cmpSize = resData;
         });
@@ -1739,7 +2347,7 @@ var CompayAditninfoComponent = (function () {
     CompayAditninfoComponent.prototype.addCounter = function () {
         this.counter = this.counter + 1;
         this.progressBarWidth = (this.counter / 8) * 100;
-        console.log(this.progressBarWidth);
+        // console.log(this.progressBarWidth);
     };
     CompayAditninfoComponent.prototype.validate = function () {
         if (this.questions[this.counter].ans == '') {
@@ -1756,7 +2364,7 @@ var CompayAditninfoComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/compay-aditninfo/compay-aditninfo.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/compay-aditninfo/compay-aditninfo.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["y" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_4__services_company_service__["a" /* CompanyService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_4__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */]])
     ], CompayAditninfoComponent);
     return CompayAditninfoComponent;
 }());
@@ -1861,7 +2469,7 @@ var EmailVerificationComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["y" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
     ], EmailVerificationComponent);
     return EmailVerificationComponent;
 }());
@@ -1891,7 +2499,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/forgot-password/forgot-password.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n\n<html>\n\n<head>\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n\t<title>Taskit</title>\n\t<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\n\t<!------ Include the above in your HEAD tag ---------->\n\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">\n\n</head>\n\n<body class=\"logn\">\n\t<div class=\"row\">\n\t\t<div class=\"col-md-8\">\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"logn-img\">\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\n\t\t\t\t\t<!-- <div class=\"paragraph\">\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\n\t\t\t\t\t</div> -->\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-md-4\">\n\t\t\t<div class=\"row\">\n\n\t\t\t\t<!-- Mixins-->\n\t\t\t\t<!-- Pen Title-->\n\n\t\t\t\t<div class=\"container\">\n\t\t\t\t\t<div class=\"card\"></div>\n\t\t\t\t\t<div class=\"card\">\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"reset(newPassword)\" novalidate>\n\t\t\t\t\t\t\t<div class=\"input-container\">\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newPassword.email\" required/>\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Email</label>\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"input-container\" >\n\t\t\t\t\t\t\t\t\t<re-captcha (captchaResponse)=\"handleCorrectCaptcha($event)\" site_key=\"6LdWoEsUAAAAALf4IQwncQqV0HZPduSL0Ab4QC11\" ></re-captcha>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\n              <div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Reset password</button></div>\n              <div class=\"clearfix\"></div>\n            </form>\n            <br>\n            <div class=\"footer\"><a [routerLink]=\"['/company-login']\">Return to login</a></div>\n\t\t\t\t\t\t<div *ngIf=\"spinner\">\n\t\t\t\t\t\t\t<div class=\"\">\n\t\t\t\t\t\t\t\t<svg class=\"svg\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n\t\t\t\t\t\t\t\t width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50; margin-left:25%;\" xml:space=\"preserve\">\n\t\t\t\t\t\t\t\t\t<path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n\t\t\t\t\t\t\t\t\t\t<animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n\t\t\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t\t</path>\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\t\n\t\t</div>\n\t</div>\n\n\t<!-- Modal -->\n\n\t<script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\n\t<script src=\"js/bootstrap.min.js\"></script>\n\n\n</body>\n\n\n</html>"
+module.exports = "<!DOCTYPE html>\n\n<html>\n\n<head>\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n\t<title>Taskit</title>\n\t<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\n\t<!------ Include the above in your HEAD tag ---------->\n\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">\n\n</head>\n\n<body class=\"logn\">\n\t<div class=\"row\">\n\t\t<div class=\"col-md-8\">\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"logn-img\">\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\n\t\t\t\t\t<!-- <div class=\"paragraph\">\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\n\t\t\t\t\t</div> -->\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-md-4\">\n\t\t\t<div class=\"row\">\n\n\t\t\t\t<!-- Mixins-->\n\t\t\t\t<!-- Pen Title-->\n\n\t\t\t\t<div class=\"container\">\n\t\t\t\t\t<div class=\"card\"></div>\n\t\t\t\t\t<div class=\"card\">\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"reset(newPassword)\" novalidate>\n\t\t\t\t\t\t\t<div class=\"input-container\">\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newPassword.email\" required/>\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Email</label>\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"input-container\" >\n\t\t\t\t\t\t\t\t\t<re-captcha (captchaResponse)=\"handleCorrectCaptcha($event)\" site_key=\"6LdWoEsUAAAAALf4IQwncQqV0HZPduSL0Ab4QC11\" ></re-captcha>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t\t\t\n              <div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Reset password</button></div>\n              <div class=\"clearfix\"></div>\n            </form>\n            <br>\n            <div class=\"footer\"><a [routerLink]=\"['/company-login']\">Return to login</a></div>\n\t\t\t\t\t\t<div *ngIf=\"spinner\">\n\t\t\t\t\t\t\t\t<app-spinner></app-spinner>\n\t\t\t\t\t\t\t<!-- <div class=\"\">\n\t\t\t\t\t\t\t\t<svg class=\"svg\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n\t\t\t\t\t\t\t\t width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50; margin-left:25%;\" xml:space=\"preserve\">\n\t\t\t\t\t\t\t\t\t<path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n\t\t\t\t\t\t\t\t\t\t<animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n\t\t\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t\t</path>\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</div> -->\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\t\n\t\t</div>\n\t</div>\n\n\t<!-- Modal -->\n\n\t<script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\n\t<script src=\"js/bootstrap.min.js\"></script>\n\n\n</body>\n\n\n</html>"
 
 /***/ }),
 
@@ -1950,11 +2558,17 @@ var ForgotPasswordComponent = (function () {
                     duration: 2000
                 });
                 _this.routes.navigate(['/company-login']);
+                if (_this.captcha) {
+                    _this.captcha.reset();
+                }
             }
             else {
                 var snackBarRef = _this.snackBar.open(data.msg, '', {
                     duration: 2000
                 });
+                if (_this.captcha) {
+                    _this.captcha.reset();
+                }
             }
         });
     };
@@ -1968,7 +2582,7 @@ var ForgotPasswordComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/forgot-password/forgot-password.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/forgot-password/forgot-password.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["y" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
     ], ForgotPasswordComponent);
     return ForgotPasswordComponent;
 }());
@@ -2353,7 +2967,7 @@ var CompanyService = (function () {
     // Desc          : 
     CompanyService.prototype.registerCompanyFromadtninfo = function (details) {
         var h = this.setHeader();
-        return this.http.post(this.serviceUrl + "/register_company", details, { headers: h })
+        return this.http.post(this.serviceUrl + "/register_company2", details, { headers: h })
             .map(function (res) { return res.json(); });
     };
     //  ---------------------------------End-------------------------------------------
@@ -2369,6 +2983,147 @@ var CompanyService = (function () {
         // console.log("here..."  +  newPassword.email)
         var h = this.setHeader();
         return this.http.post(this.serviceUrl + "/forgotPassword", newPassword, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    //  ---------------------------------End-------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : Get company details by id
+    // Params        : id
+    // Returns       : company details
+    // Author        : Jooshifa
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.getCompanyDetailsById = function (id) {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "getCompanyDetails/" + id, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : Generate token
+    // Params        : company id
+    // Returns       : jwt token
+    // Author        : Jooshifa
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.generateToken = function (id) {
+        // console.log("id" + id);
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "generateToken/" + id, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : getProjectById 
+    // Params        :  id
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Jooshifa
+    // Desc :get project details of a purticular id
+    CompanyService.prototype.getProjectById = function (id) {
+        var h = this.setHeader();
+        return this.http.get(this.serviceUrl + "getProjects/" + id, { headers: h })
+            .map(function (res) { return res.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getDeveloperUsers
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Jooshifa
+    // Desc          : to get developer users
+    CompanyService.prototype.getDeveloperUsers = function () {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'get-developer-users', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getDesignerrUsers
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.getDesignerrUsers = function () {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'get-designer-users', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getQcUsers
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.getQcUsers = function () {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'get-qc-users', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTasksModules
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.getTasksModules = function (id) {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'get-modules-tasks/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getAllUsers
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.getAllUsers = function () {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'get-all-users', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getComplexity
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 16-03-2018
+    // Last Modified : 16-03-2018, Jooshifa
+    // Desc          
+    CompanyService.prototype.getComplexity = function () {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'get-complexity-percentage', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getDatetime
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 19-03-2018
+    // Last Modified : 19-03-2018, Jooshifa
+    // Desc          
+    CompanyService.prototype.getDatetime = function (newTasks) {
+        var h = this.setHeader();
+        return this.http.post(this.serviceUrl + "/get-date-time", newTasks, { headers: h })
             .map(function (res) { return res.json(); });
     };
     CompanyService = __decorate([

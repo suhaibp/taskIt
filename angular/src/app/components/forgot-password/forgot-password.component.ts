@@ -44,12 +44,18 @@ export class ForgotPasswordComponent implements OnInit {
           duration: 2000
         });
         this.routes.navigate(['/company-login']); 
+        if(this.captcha){
+          this.captcha.reset();
+        }
       }
 
       else {
         let snackBarRef = this.snackBar.open(data.msg, '', {
           duration: 2000
         });
+        if(this.captcha){
+          this.captcha.reset();
+        }
       }
 
 

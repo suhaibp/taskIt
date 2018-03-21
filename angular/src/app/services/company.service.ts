@@ -8,9 +8,9 @@ export class CompanyService {
   serviceUrl: string;
   authToken: any;
   company: any;
-  constructor(private http: Http, private config: Config) { 
+  constructor(private http: Http, private config: Config) {
     this.serviceUrl = config.siteUrl + '/company/';
-    
+
   }
   setHeader() {
     let headers = new Headers();
@@ -40,10 +40,10 @@ export class CompanyService {
 
   getIndustries() {
     let h = this.setHeader();
-    return this.http.get(this.serviceUrl + "/get_industries",{ headers: h })
+    return this.http.get(this.serviceUrl + "/get_industries", { headers: h })
       .map(res => res.json());
 
-  } 
+  }
   //  ---------------------------------End-------------------------------------------
 
 
@@ -60,14 +60,14 @@ export class CompanyService {
 
   getCompanySize() {
     let h = this.setHeader();
-    return this.http.get(this.serviceUrl + "/get_cmp_size",{ headers: h })
+    return this.http.get(this.serviceUrl + "/get_cmp_size", { headers: h })
       .map(res => res.json());
 
-  } 
+  }
   //  ---------------------------------End-------------------------------------------
 
-  
-// ---------------------------------Start------------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
   // Function      : Login
   // Params        : username and password
   // Returns       : token, company details and company status
@@ -160,8 +160,9 @@ export class CompanyService {
 
 
   registerCompanyFromadtninfo(details) {
+
     let h = this.setHeader();
-    return this.http.post(this.serviceUrl + "/register_company", details, { headers: h })
+    return this.http.post(this.serviceUrl + "/register_company2", details, { headers: h })
       .map(res => res.json());
 
   }
@@ -182,6 +183,161 @@ export class CompanyService {
     return this.http.post(this.serviceUrl + "/forgotPassword", newPassword, { headers: h })
       .map(res => res.json());
   }
-    //  ---------------------------------End-------------------------------------------
- 
+  //  ---------------------------------End-------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : Get company details by id
+  // Params        : id
+  // Returns       : company details
+  // Author        : Jooshifa
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, Jooshifa
+  // Desc          : 
+  getCompanyDetailsById(id) {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getCompanyDetails/" + id, { headers: h })
+      .map(res => res.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+  // ---------------------------------Start------------------------------------------------
+  // Function      : Generate token
+  // Params        : company id
+  // Returns       : jwt token
+  // Author        : Jooshifa
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, Jooshifa
+  // Desc          : 
+  generateToken(id) {
+    // console.log("id" + id);
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "generateToken/" + id, { headers: h })
+      .map(res => res.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getProjectById 
+  // Params        :  id
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 14-03-2018
+  // Last Modified : 14-03-2018, Jooshifa
+  // Desc :get project details of a purticular id
+  getProjectById(id) {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getProjects/" + id, { headers: h })
+      .map(res => res.json())
+  }
+  // ---------------------------------------End--------------------------------------------
+  
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getDeveloperUsers
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 14-03-2018
+  // Last Modified : 14-03-2018, Jooshifa
+  // Desc          : to get developer users
+
+  getDeveloperUsers() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'get-developer-users', { headers: headers })
+      .map(res => res.json());
+  }
+
+  // ----------------------------------End-------------------------------------------
+  
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getDesignerrUsers
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 14-03-2018
+  // Last Modified : 14-03-2018, Jooshifa
+  // Desc          : 
+
+  getDesignerrUsers() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'get-designer-users', { headers: headers })
+      .map(res => res.json());
+  }
+
+  // ----------------------------------End-------------------------------------------
+  
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getQcUsers
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 14-03-2018
+  // Last Modified : 14-03-2018, Jooshifa
+  // Desc          : 
+
+  getQcUsers() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'get-qc-users', { headers: headers })
+      .map(res => res.json());
+  }
+
+  // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+  // Function      : getTasksModules
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 14-03-2018
+  // Last Modified : 14-03-2018, Jooshifa
+  // Desc          : 
+
+  getTasksModules(id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'get-modules-tasks/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAllUsers
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 14-03-2018
+  // Last Modified : 14-03-2018, Jooshifa
+  // Desc          : 
+  getAllUsers(){
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'get-all-users', { headers: headers })
+      .map(res => res.json());
+  }
+  
+  // ----------------------------------End-------------------------------------------
+   // ---------------------------------Start-------------------------------------------
+  // Function      : getComplexity
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 16-03-2018
+  // Last Modified : 16-03-2018, Jooshifa
+  // Desc          
+  getComplexity(){
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'get-complexity-percentage', { headers: headers })
+      .map(res => res.json());
+  }
+  
+  // ----------------------------------End-------------------------------------------
+   // ---------------------------------Start-------------------------------------------
+  // Function      : getDatetime
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 19-03-2018
+  // Last Modified : 19-03-2018, Jooshifa
+  // Desc          
+  getDatetime(newTasks){
+    let h = this.setHeader();
+    return this.http.post(this.serviceUrl + "/get-date-time", newTasks, { headers: h })
+      .map(res => res.json());
+  }
+    // ----------------------------------End-------------------------------------------
 }
