@@ -48,6 +48,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
   Designers: any;
   QCs: any;
   moduledata: any;
+  userAvailablity =[];
 
   module = {
     module_name: '',
@@ -58,7 +59,8 @@ export class CompanyProjectPlanningComponent implements OnInit {
   Projects = {
     name: '',
     code: '',
-    start_date: ''
+    start_date: '',
+    developer :''
   }
 
   newTasks = {
@@ -406,8 +408,9 @@ export class CompanyProjectPlanningComponent implements OnInit {
 
     });
   }
-  getAvalibality(){
-    console.log("hello");
+  getuserAvalibality(){
+    this.userAvailablity.push({user : this.Projects.developer})
+    console.log(this.userAvailablity)
   }
 
 }

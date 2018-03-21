@@ -12,7 +12,7 @@
       <div class="col-md-12 col-xs-12">
         <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
         <!-- topbar-->
-        <company-topbar></company-topbar>
+        <app-company-topbar></app-company-topbar>
 
         <!-- end topbar-->
 
@@ -463,7 +463,7 @@
 
                     <mat-form-field class="inputfileds">
 
-                      <mat-select placeholder="Developers" name='selected' multiple [(ngModel)]="developer"  (ngModelChange)="getAvalibality();">
+                      <mat-select placeholder="Developers" name='selected' multiple [(ngModel)]="Projects.developer"  (ngModelChange)="getuserAvalibality();">
                         <mat-option [value]="Developer" *ngFor="let Developer of Developers;">{{Developer.f_name}} {{Developer.l_name}} </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -473,7 +473,7 @@
                     <div class="col-md-7"><label for="">Designers</label></div>
                     <mat-form-field class="inputfileds">
 
-                      <mat-select placeholder="Designers" name='selected' multiple [(ngModel)]="developer"  (ngModelChange)="getAvalibality();">
+                      <mat-select placeholder="Designers" name='selected' multiple [(ngModel)]="Projects.developer"  (ngModelChange)="getuserAvalibality();">
                         <mat-option [value]="Designer" *ngFor="let Designer of Designers;">{{Designer.f_name}} {{Designer.l_name}}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -482,7 +482,7 @@
                     <div class="col-md-7"><label for="">QC</label></div>
                     <mat-form-field class="inputfileds">
 
-                      <mat-select placeholder="QC" name='selected' multiple [(ngModel)]="developer"  (ngModelChange)="getAvalibality();">
+                      <mat-select placeholder="QC" name='selected' multiple [(ngModel)]="Projects.developer"  (ngModelChange)="getuserAvalibality();">
                         <mat-option [value]="QC" *ngFor="let QC of QCs;">{{QC.f_name}} {{QC.l_name}}</mat-option>
                       </mat-select>
                     </mat-form-field>
