@@ -1,4 +1,5 @@
 'use strict';
+var Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   var tbl_login = sequelize.define('tbl_login', {
     email: DataTypes.STRING,

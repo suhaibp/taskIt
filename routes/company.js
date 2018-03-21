@@ -1,15 +1,41 @@
 
-var models = require('../models');
-const express = require("express");
-const router = express.Router();
+async = require("async");
 const Sequelize = require('sequelize');
+var express = require('express');
+var router = express.Router();
+
+var env       = process.env.NODE_ENV || 'development';
+var config    = require(__dirname + '/../config/config.json')[env];
+var models = require('./../models');
+var Projects = models.tbl_project;
+var Users = models.tbl_user_profile;
+var Login = models.tbl_login;
+var Company = models.tbl_company;
+var Industries = models.tbl_industry;
+var CompanySize = models.tbl_company_size;
+var Teams = models.tbl_team;
+var TeamAssoc = models.tbl_team_assoc;
+var Plan = models.tbl_plan;
+var Role = models.tbl_role;
+var AccessRights = models.tbl_access_rights;
+var AccessRightsAssoc = models.tbl_access_rights_assoc;
+var AccessRightsMain = models.tbl_main_access_right;
 const Op = Sequelize.Op;
-var env = process.env.NODE_ENV || 'development';
-var config = require(__dirname + '/../config/config.json')[env]
 const Config = require('../config/database');
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
+var User_profile = models.tbl_user_profile;
+
+
+//--------Yasir Poongadan ------
+
+var Projects_member_assoc = models.tbl_project_member_assoc;
+
+//------------------------------
+
+var ip = require("ip");
+'use strict';
 const emailTemplate = require('../template/verification_email');
 var Login = models.tbl_login;
 var Role = models.tbl_role;

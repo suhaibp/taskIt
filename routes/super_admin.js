@@ -3,6 +3,8 @@ var router = express.Router();
 const Sequelize = require('sequelize');
 var env       = process.env.NODE_ENV || 'development';
 var config    = require(__dirname + '/../config/config.json')[env];
+//var login = require('../models/tbl_login');
+
 var Models = require('./../models');
 var Projects = Models.tbl_project;
 var Users = Models.tbl_user_profile;
@@ -21,6 +23,20 @@ if (config.use_env_variable) {
 }
 
 var returnRouter = function (io) {
+router.get('/create', function(req, res) {
+  console.log('xyz');
+    // sequelize.query("SELECT * FROM tbl_login ORDER BY id ASC").then(myTableRows => {
+    //   console.log(myTableRows.Result)
+    // })
+
+    sequelize.query('SELECT * FROM tbl_login').spread(
+          function (settingName1, settingName2) {
+            console.log(settingName1)
+            res.json(settingName1);
+      }).error(err =>{
+        res.send(err);
+      });
+    });     
 router.post('/get_counts_for_dashboard', function(req, res) {
     var userCount;
     var cmpCount;
