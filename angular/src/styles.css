@@ -1027,25 +1027,11 @@ margin-bottom: 4px;
     -webkit-animation: fadeGraphTextIn 0.5s forwards;
             animation: fadeGraphTextIn 0.5s forwards;
   }
+/* .svg path,
+svg rect{
+  fill: #EC0C0C;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+} */
 
   button, select{outline:none;}
 .logn{height:100%;overflow-x:hidden;background:#fff;}
@@ -1315,6 +1301,9 @@ form{text-align:center;}
 	.card .input-container .bar{left: 3%;}
 	.container{max-width:100%;}
 	form{text-align:center;}
+}
+.cdk-overlay-container {
+    z-index: 1052 !important;
 }
 
 

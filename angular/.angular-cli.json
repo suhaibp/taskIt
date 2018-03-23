@@ -20,6 +20,7 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/dragula/dist/dragula.css",
         "line-awesome-font-awesome.css",
         "line-awesome.min.css",
         "component.css",

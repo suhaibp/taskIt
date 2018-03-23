@@ -7,25 +7,28 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-module.exports.sendVerificationMail = function(email, contact_name, verification_link){
+// module.exports.sendResetPasswordMail = function(email, contact_name, password){
+    module.exports.sendResetPasswordMail = function(email, password){
     nodemailer.createTestAccount((err, account) => {
-        
+        // console.log("here............");
             // create reusable transporter object using the default SMTP transport
         
             // setup email data with unicode symbols
-            link = 'http://localhost:3000/email-verification/'+verification_link
             let mailOptions = {
                 from: 'mean.symptots@gmail.com', // sender address
                 to: email, // list of receivers
-                subject: 'Complete registration process!', // Subject line
+                subject: 'Password reset successfully', // Subject line
                 text: '', 
-                html: '<b><h3>Hi '+contact_name+', </h3><br/>Welcome to Taskit! You must finish your account verification by clicking the below link: <br/>Verification Link:<a href="'+link+'">Click Here</a><br/> Thank You!</b>' // html body
+                html: '<b><h3>Hi, </h3><br/>Your password is reset sucessfully. New user name and password is:<br/>Username:'+email+' <br/>Password:'+password+' <br/> login Link:</a> http://localhost:3000/company-login</a><br/> Thank You!</b>' // html body
             };
         
             // send mail with defined transport object
             transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 return console.log(error);
+            }
+            else{
+            //   console.log("sucess");
             }
             });
     });

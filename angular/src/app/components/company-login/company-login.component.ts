@@ -7,25 +7,36 @@ import { AdminService } from '../../services/admin.service';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from './../../services/company.service';
-// import {GoogleRecaptchaDirective} from '../directives/googlerecaptcha.directive';
+import { ReCaptchaComponent } from 'angular2-recaptcha';
 @Component({
   selector: 'company-login',
-  // directives: [GoogleRecaptchaDirective],
+
   templateUrl: './company-login.component.html',
-  
   styleUrls: ['./company-login.component.css']
 })
 export class CompanyLoginComponent implements OnInit {
   newLogin = {
     email: '',
     password: '',
+    captcha: ''
+  }
+  spinner: Boolean = false;
+  showCaptcha: Boolean = false;
+  @ViewChild(ReCaptchaComponent) captcha: ReCaptchaComponent;
+  public verified: any;
+  public siteKey: string = "sitekey";//example: 6LdEnxQTfkdldc-Wa6iKZSelks823exsdcjX7A-N
+  public theme: string = "light";//you can give any google themes light or dark
+  setVerified(data) {
+    console.log("dfd");
+    console.log(data) // data will return true while successfully verified 
   }
   msg: any;
-
+  token: any;
   constructor(private companyService: CompanyService, private routes: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     // this.companyService.getLoggedUSerDetails().subscribe(info => {
+    //   console.log(info);
     //   if (info == null || info == '') {
     //     this.routes.navigate(['/company-login']);
     //   }
@@ -38,48 +49,95 @@ export class CompanyLoginComponent implements OnInit {
     //       // this.routes.navigate(['/expired']); expired
     //     }
     //     if (info.is_profile_completed == false) {
-    //       // this.routes.navigate(['/additnInfo', info._id]); additional info
+    //       // this.routes.navigate(['/additnInfo', info.cmp_id]); additional info
     //     }
-    //     // this.routes.navigate(['/dashboard']); dashboard
+    //     this.routes.navigate(['/dashboard']); 
     //   }
     //   if (info.role_id == 3 || info.role_id == 4) {
     //     if (info.delete_status == true || info.block_status == true) {
     //       // this.routes.navigate(['/404']); 404
     //     }
 
-    //     // this.routes.navigate(['/dashboard]);  user(team leader/ team member) dashboard
+    //     this.routes.navigate(['/dashboard']);  
     //   }
     // });
   }
+  handleCorrectCaptcha(event) {
+    this.token = this.captcha.getResponse();
+    // console.log(token);
 
-  login() {
+  }
+  login(newLogin) {
+    this.spinner = true;
+    newLogin.captcha = this.token
+    // console.log(newLogin);
 
     this.companyService.authenticateCompany(this.newLogin).subscribe(data => {
+
       console.log(data);
+      // console.log("here..........");
       if (data.success) {
+        this.spinner = false;
         if (data.login.status == "Expired") {
           var json = data.login;
           var key = "status";
           delete json[key];
           this.companyService.storeUserData(data.token, data.login);
-          //  this.routes.navigate(['/expired']); expired
+          this.routes.navigate(['/expired']);
         }
         else {
+          // console.log("esle");
+          this.spinner = false;
           var json = data.login;
           var key = "status";
           delete json[key];
           this.companyService.storeUserData(data.token, data.login);
-          //  this.routes.navigate(['/dashboard']); dashboard 
+          if (this.captcha) {
+            this.captcha.reset();
+          }
+          if (data.login.role_id == 3 || data.login.role_id == 4) {
+            this.routes.navigate(['/user-dashboard']);
+          }
+          else {
+            this.routes.navigate(['/company-dashboard']);
+          }
+
         }
-      } else {
+      }
+      else if (data.profile_complete == false) {
+        // console.log("profile");
+        this.routes.navigate(['/compay-aditninfo/' + data.cmp_id]);
+        // var json = data.login;
+        // var key = "profile";
+        // delete json[key];
+        this.companyService.storeUserData(data.token, data.login);
+      }
+      else {
+        this.spinner = false;
+        if (this.captcha) {
+          this.captcha.reset();
+        }
+        if (data.caseno != null || data.caseno != '' || data.caseno == []) {
+          if (data.caseno == 1) {
+            // console.log(data.caseno);
+            this.showCaptcha = true;
+            // console.log(this.showCaptcha);
+          }
+
+        }
         this.msg = data.msg;
         let snackBarRef = this.snackBar.open(this.msg, '', {
           duration: 2000
         });
+        if (this.captcha) {
+          this.captcha.reset();
+        }
+
       }
 
 
     });
   }
+
 
 }

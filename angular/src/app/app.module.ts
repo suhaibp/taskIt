@@ -6,7 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
-
+import { ReCaptchaModule } from 'angular2-recaptcha';
 import 'hammerjs';
 import { AppComponent } from './app.component';
 import { ReferenceComponentComponent } from './components/reference-component/reference-component.component';
@@ -16,6 +16,8 @@ import { AdminFooterComponent } from './components/admin-footer/admin-footer.com
 import { AdminCompanyComponent } from './components/admin-company/admin-company.component';
 import { CompanyService} from './services/company.service';
 import {Config} from './config/config';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {DragulaModule} from '../../node_modules/ng2-dragula/ng2-dragula';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -72,13 +74,19 @@ import { SuperAdminService } from './services/super-admin.service';
 import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/admin-dashboard-pie.component';
 import { AdminDashboardBarComponent } from './components/admin-dashboard-bar/admin-dashboard-bar.component';
 import { CompanySignupComponent } from './components/company-signup/company-signup.component'
+
+
+import { CompayAditninfoComponent } from './components/compay-aditninfo/compay-aditninfo.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-import { CompanyManageTeamComponent } from './components/company-manage-team/company-manage-team.component';
 import { CompanyTopbarComponent } from './components/company-topbar/company-topbar.component';
 import { CompanySidebarComponent } from './components/company-sidebar/company-sidebar.component';
+import { CompanyProjectPlanningComponent } from './components/company-project-planning/company-project-planning.component';
+
+import { CompanyManageTeamComponent } from './components/company-manage-team/company-manage-team.component';
 import { CompanyManageAccessRightsComponent } from './components/company-manage-access-rights/company-manage-access-rights.component';
 import { CompanyWorkingTimeComponent } from './components/company-working-time/company-working-time.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TreeviewModule } from 'ngx-treeview';
 import { TreeModule, SharedModule } from 'primeng/primeng';
 import { CompanyManageHolidaysComponent } from './components/company-manage-holidays/company-manage-holidays.component';
@@ -104,8 +112,11 @@ const appRoutes: Routes = [
   {path:'company-manage-holyday', component:CompanyManageHolidaysComponent},
  
   {path:'company-login', component:CompanyLoginComponent},
+  {path:'compay-aditninfo/:id', component:CompayAditninfoComponent},
   {path:'company-team', component:CompanyManageTeamComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
+  {path:'forgot-password', component:ForgotPasswordComponent},
+  {path:'project-planning/:id', component:CompanyProjectPlanningComponent},
   {path:'spinner', component:SpinnerComponent},//To check component
 ] 
 @NgModule({
@@ -143,7 +154,6 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
-  declarations: [ CompanyHolidayComponent,],
  
 })
 export class DemoMaterialModule {}
@@ -160,30 +170,36 @@ export class DemoMaterialModule {}
     AdminTrialComponent,
     AdminNotVerifiedComponent,
     AdminExpiredComponent,
+    CompanyLoginComponent,
+    EmailVerificationComponent,
+    CompayAditninfoComponent,
+    ForgotPasswordComponent,
+    AdminDashboardPieComponent,
+    AdminDashboardBarComponent,
+    CompanySignupComponent,
+    SpinnerComponent,
+    CompanyTopbarComponent,
+    CompanySidebarComponent,
+    CompanyProjectPlanningComponent,
     CompanyDashboardComponent,
     CompanyTaskVsStatusComponent,
     CompanyResoureVsHourComponent,
     CompanyProjectVsHourComponent,
     CompanyProjectVsStatusComponent,
     CompanyProgressGraphComponent,
-   CompanyLoginComponent,
-   EmailVerificationComponent,
    CompanyStatusGraphComponent,
    CompanyBarGraphComponent,
-    AdminDashboardPieComponent,
-    AdminDashboardBarComponent,
-    CompanySignupComponent,
-    CompanyLoginComponent,
-    SpinnerComponent, 
     CompanyManageTeamComponent, 
     CompanyTopbarComponent, 
     CompanySidebarComponent,
     CompanyManageAccessRightsComponent,
     CompanyWorkingTimeComponent,
-    CompanyManageHolidaysComponent
+    CompanyManageHolidaysComponent,
+    CompanyManageAccessRightsComponent
   ],
   imports: [
     BrowserModule,
+    DragulaModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
@@ -192,8 +208,13 @@ export class DemoMaterialModule {}
     BrowserAnimationsModule,
     NgbModule.forRoot(),
     TreeviewModule.forRoot(),TreeModule, SharedModule,
+    ReCaptchaModule,
+    NgbModule.forRoot()
   ],
   providers: [AdminService,SuperAdminService,CompanyService, Config, ],
+  
+  
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,740 @@
+<body class="home">
+  <div class="container-fluid display-table">
+    <div class="row display-table-row">
+
+      <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
+        <!-- sidebar-->
+
+        <app-company-sidebar></app-company-sidebar>
+        <!-- end sidebar-->
+      </div>
+
+      <div class="col-md-12 col-xs-12">
+        <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+        <!-- topbar-->
+        <app-company-topbar></app-company-topbar>
+
+        <!-- end topbar-->
+
+
+        <div class="user-dashboard">
+          <!-- <h1>Hello, JS</h1> -->
+          <div class="row">
+
+            <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->
+            <div id="addTaskModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+                    <h4 class="modal-title">Add Task </h4>
+                  </div>
+                  <div class="modal-body">
+                    <form role="form" #f="ngForm" (ngSubmit)="addTask(index);">
+
+                      <div>
+                        <div class="example-container">
+                          <div class="col-md-4 col-xs-6"><label class="pad-top">Task Name * :</label></div>
+                          <div class="col-md-7 col-xs-6">
+                            <mat-form-field>
+                              <input matInput name="task_name" [(ngModel)]="newTasks.task_name" autofocus>
+                            </mat-form-field>
+                          </div>
+                          <br>
+                          <div class="example-container">
+                            <div class="col-md-4 col-xs-6"><label class="pad-top">Assigned person * :</label></div>
+                            <div class="col-md-7 col-xs-6">
+                              <mat-form-field class="inputfileds">
+                                <mat-select placeholder="Members" name='assigned_person' #group="ngModel" [(ngModel)]="newTasks.assigned_person">
+                                  <mat-option [value]="users.id" *ngFor="let users of assignPerson;">{{users.f_name}} {{users.l_name}} </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="example-container">
+                              <div class="col-md-4 col-xs-6"><label class="pad-top">Complexity :</label></div>
+                              <div class="col-md-7 col-xs-6">
+                                <mat-form-field class="inputfileds">
+
+                                  <mat-select placeholder="Complexity" name='complexity' #group="ngModel" [(ngModel)]="newTasks.complexity">
+                                    <mat-option [value]="complexity.id" *ngFor="let complexity of complexitys;">{{complexity.percentage}}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                              <div class="clearfix"></div>
+                              <br>
+                              <div class="col-md-4 col-xs-6"><label class="pad-top">Planned Hours *:</label></div>
+                              <div class="col-md-2 col-xs-6">
+                                <mat-form-field class="wdth">
+                                  <input type="number" matInput name="planned_hour" min="0" name='planned_hour' [(ngModel)]="newTasks.planned_hour" required>
+                                </mat-form-field>
+                              </div>
+
+                              <div class="col-md-3 col-xs-6"><label class="pad-top">Buffer Hours :</label></div>
+                              <div class="col-md-2 col-xs-6">
+
+                                <mat-form-field class="wdth">
+                                  <input type="number" matInput name="buffer_time" min="0" name='buffer_hour' [(ngModel)]="newTasks.buffer_hour" required>
+                                </mat-form-field>
+                              </div>
+                              <div class="clearfix"></div>
+                              <br>
+                              <div class="col-md-4 col-xs-6"><label class="pad-top">Start Datetime *:</label></div>
+                              <div class="col-md-3 col-xs-6">
+                                <mat-form-field>
+                                  <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker1" placeholder="Choose a date" [formControl]="date"
+                                    name='start_date' [(ngModel)]="newTasks.start_date">
+                                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                              </div>
+                              <br>
+                              <div class="clearfix"></div>
+                              <ngb-timepicker [meridian]="meridian" name="start_time" [(ngModel)]="newTasks.start_time"></ngb-timepicker>
+                              <hr>
+                              <div class="clearfix"></div>
+                              <!-- <div class="col-md-3 col-xs-6"><label class="pad-top">End Datetime :</label></div>
+                              <div class="col-md-3 col-xs-6">
+
+                              </div> -->
+
+                              <div class="clearfix"></div>
+                              <br>
+                              <div class="col-md-4 col-xs-6"><label class="pad-top">End Datetime *:</label></div>
+                              <div class="col-md-3 col-xs-6">
+                                <mat-form-field>
+                                  <input matInput [matDatepickerFilter]="myFilter1" [matDatepicker]="picker2" placeholder="Choose a date" [formControl]="serializedDate"
+                                    name="end_date" [(ngModel)]="newTasks.end_date">
+                                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                              </div>
+                              <div class="clearfix"></div>
+
+                              <ngb-timepicker name="timepicker1" [meridian]="meridian" name="end_time" [(ngModel)]="newTasks.end_time"></ngb-timepicker>
+                              <hr>
+                              <div class="clearfix"></div>
+                              <br>
+
+                              <div class="example-container">
+                                <div class="col-md-4 col-xs-6"><label class="pad-top">Task type :</label></div>
+                                <div class="col-md-7 col-xs-6">
+                                  <mat-form-field class="inputfileds">
+
+                                    <mat-select [(value)]="selected1" name='task_type' #group="ngModel" [(ngModel)]="newTasks.task_type">
+                                      <!-- <mat-option>None</mat-option> -->
+
+                                      <mat-option value="0">Billable</mat-option>
+                                      <mat-option value="1">Non Billable</mat-option>
+
+
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="example-container">
+                                  <div class="col-md-4 col-xs-6"><label class="pad-top">Priority *:</label></div>
+                                  <div class="col-md-7 col-xs-6">
+                                    <mat-form-field class="inputfileds">
+
+                                      <mat-select [(value)]="selected2" name='priority' #group="ngModel" [(ngModel)]="newTasks.priority">
+                                        <!-- <mat-option>None</mat-option> -->
+                                        <mat-option value="0">High</mat-option>
+                                        <mat-option value="1">Medium</mat-option>
+                                        <mat-option value="2">Low</mat-option>
+
+
+                                      </mat-select>
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="clearfix"></div>
+
+                                  <div class="example-container">
+                                    <div class="col-md-4 col-xs-5"><label class="pad-top">Checklist :</label></div>
+                                    <div class="col-md-5 col-xs-5">
+                                      <div *ngFor="let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex">
+
+                                        <mat-form-field class="example-form-field">
+                                          <input matInput type="text" name="checklist{{i}}" required [(ngModel)]="newTasks.newChecklist[i].name" />
+                                          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                          <mat-icon>close</mat-icon>
+                                        </button>
+                                        </mat-form-field>
+                                        <input type="button" value="X" (click)="closeChecklist(i)" class="close-bt">
+                                      </div>
+
+
+                                    </div>
+                                    <div class="col-md-3 col-xs-2"><input type="button" value="Add More" (click)="addMore()" class="round-button padd-bt"></div>
+                                    <div class="clearfix"></div>
+                                    <div class="example-container">
+                                      <div class="col-md-3 col-xs-6"><label class="pad-top">Attachment :</label></div>
+                                      <div class="col-md-7 col-xs-6">
+
+                                        <input (change)="displayDoc($event)" name="file" type="file" [(ngModel)]="newTasks.file" />
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      <div class="center">
+                                        <button type="submit" class="btn round-button dropdown-toggle mrg-tp">Save</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->
+
+            <!-- --------------------------------------------- delete module modal ----------------------------------------------------------------- -->
+            <div id="deleteModuleModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete </h4>
+                  </div>
+                  <!-- <div class="modal-header"> -->
+                  <!-- <h4 class="modal-title">Are you sure to delete?</h4> -->
+                  <!-- </div> -->
+                  <div class="modal-body delete-popup">
+                    <i class="fa fa-exclamation"></i>
+
+
+                    <h4 class="textalign">Are you sure?</h4>
+
+                  </div>
+
+                  <div class="modal-footer" style="text-align:center;">
+                    <button type="button" (click)="deleteModule(index)" class="btn round-button center-bt" data-dismiss="modal">Delete</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- --------------------------------------------- delete task modal ----------------------------------------------------------------- -->
+            <div id="deleteTaskModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete </h4>
+                  </div>
+                  <!-- <div class="modal-header"> -->
+                  <!-- <h4 class="modal-title">Are you sure to delete?</h4> -->
+                  <!-- </div> -->
+                  <div class="modal-body delete-popup">
+                    <i class="fa fa-exclamation"></i>
+
+
+                    <h4 class="textalign">Are you sure?</h4>
+
+                  </div>
+
+                  <div class="modal-footer" style="text-align:center;">
+                    <button type="button" (click)="deleteTask(i,j)" class="btn round-button center-bt" data-dismiss="modal">Delete</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ----------------------------------------------------------------------delete task modal--------------------------------------------------------------------- -->
+
+            <!-- ----------------------------------------------------------------------edit task modal--------------------------------------------------------------------- -->
+            <div id="editTaskModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" #closeBtn1>&times;</button>
+                    <h4 class="modal-title">Edit Task </h4>
+                  </div>
+                  <div class="modal-body">
+                    <form role="form" #f="ngForm" (ngSubmit)="editTask(i,j);">
+
+                      <div>
+                        <div class="example-container">
+                          <div class="col-md-4 col-xs-6"><label class="pad-top">Task Name * :</label></div>
+                          <div class="col-md-7 col-xs-6">
+                            <mat-form-field>
+                              <input matInput name="task_name" [(ngModel)]="newTasks.task_name" autofocus>
+                            </mat-form-field>
+                          </div>
+                          <br>
+                          <div class="example-container">
+                            <div class="col-md-4 col-xs-6"><label class="pad-top">Assigned person * :</label></div>
+                            <div class="col-md-7 col-xs-6">
+                              <mat-form-field class="inputfileds">
+                                <mat-select placeholder="Members" name='assigned_person' #group="ngModel" [(ngModel)]="newTasks.assigned_person">
+                                  <mat-option [value]="users.id" *ngFor="let users of assignPerson;">{{users.f_name}} {{users.l_name}} </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="example-container">
+                              <div class="col-md-4 col-xs-6"><label class="pad-top">Complexity :</label></div>
+                              <div class="col-md-7 col-xs-6">
+                                <mat-form-field class="inputfileds">
+
+                                  <mat-select placeholder="Complexity" name='complexity' #group="ngModel" [(ngModel)]="newTasks.complexity">
+                                    <mat-option [value]="complexity.id" *ngFor="let complexity of complexitys;">{{complexity.percentage}}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                              <div class="clearfix"></div>
+                              <br>
+                              <div class="col-md-4 col-xs-6"><label class="pad-top">Planned Hours *:</label></div>
+                              <div class="col-md-2 col-xs-6">
+                                <mat-form-field class="wdth">
+                                  <input type="number" matInput name="planned_hour" min="0" name='planned_hour' [(ngModel)]="newTasks.planned_hour" required>
+                                </mat-form-field>
+                              </div>
+
+                              <div class="col-md-3 col-xs-6"><label class="pad-top">Buffer Hours :</label></div>
+                              <div class="col-md-2 col-xs-6">
+
+                                <mat-form-field class="wdth">
+                                  <input type="number" matInput name="buffer_time" min="0" name='buffer_hour' [(ngModel)]="newTasks.buffer_hour" required>
+                                </mat-form-field>
+                              </div>
+                              <div class="clearfix"></div>
+                              <br>
+                              <div class="col-md-4 col-xs-6"><label class="pad-top">Start Datetime *:</label></div>
+                              <div class="col-md-3 col-xs-6">
+                                {{newTasks.start_date}}
+                                <!-- <mat-form-field>
+                                  <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="pickerf" placeholder="Choose a date" [formControl]="date"
+                                    name='start_date' [(ngModel)]="newTasks.start_date">
+                                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field> -->
+                              </div>
+                              <br>
+                              <div class="clearfix"></div>
+                              <ngb-timepicker [meridian]="meridian" name="start_time1" [(ngModel)]="newTasks.start_time"></ngb-timepicker>
+                              <hr>
+                              <div class="clearfix"></div>
+                              <!-- <div class="col-md-3 col-xs-6"><label class="pad-top">End Datetime :</label></div>
+                                <div class="col-md-3 col-xs-6">
+  
+                                </div> -->
+
+                              <div class="clearfix"></div>
+                              <br>
+                              <div class="col-md-4 col-xs-6"><label class="pad-top">End Datetime *:</label></div>
+                              <div class="col-md-3 col-xs-6">
+                                <mat-form-field>
+                                  <input matInput [matDatepickerFilter]="myFilter1" [matDatepicker]="pickerm" placeholder="Choose a date" [formControl]="serializedDate"
+                                    name="end_date" [(ngModel)]="newTasks.end_date">
+                                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                              </div>
+                              <div class="clearfix"></div>
+
+                              <ngb-timepicker name="timepicker1" [meridian]="meridian" name="end_time1" [(ngModel)]="newTasks.end_time"></ngb-timepicker>
+                              <hr>
+                              <div class="clearfix"></div>
+                              <br>
+
+                              <div class="example-container">
+                                <div class="col-md-4 col-xs-6"><label class="pad-top">Task type :</label></div>
+                                <div class="col-md-7 col-xs-6">
+                                  <mat-form-field class="inputfileds">
+
+                                    <mat-select [(value)]="selected1" name='task_type' #group="ngModel" [(ngModel)]="newTasks.task_type">
+                                      <!-- <mat-option>None</mat-option> -->
+
+                                      <mat-option value="0">Billable</mat-option>
+                                      <mat-option value="1">Non Billable</mat-option>
+
+
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="example-container">
+                                  <div class="col-md-4 col-xs-6"><label class="pad-top">Priority *:</label></div>
+                                  <div class="col-md-7 col-xs-6">
+                                    <mat-form-field class="inputfileds">
+
+                                      <mat-select [(value)]="selected2" name='priority' #group="ngModel" [(ngModel)]="newTasks.priority">
+                                        <!-- <mat-option>None</mat-option> -->
+                                        <mat-option value="0">High</mat-option>
+                                        <mat-option value="1">Medium</mat-option>
+                                        <mat-option value="2">Low</mat-option>
+
+
+                                      </mat-select>
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="clearfix"></div>
+
+                                  <div class="example-container">
+                                    <div class="col-md-4 col-xs-5"><label class="pad-top">Checklist :</label></div>
+                                    <div class="col-md-5 col-xs-5">
+                                      <div *ngFor="let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex">
+
+                                        <mat-form-field class="example-form-field">
+                                          <input matInput type="text" name="checklist{{i}}" required [(ngModel)]="newTasks.newChecklist[i].name" />
+                                          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                            <mat-icon>close</mat-icon>
+                                          </button>
+                                        </mat-form-field>
+                                        <input type="button" value="X" (click)="closeChecklist(i)" class="close-bt">
+                                      </div>
+
+
+                                    </div>
+                                    <div class="col-md-3 col-xs-2"><input type="button" value="Add More" (click)="addMore()" class="round-button padd-bt"></div>
+                                    <div class="clearfix"></div>
+                                    <div class="example-container">
+                                      <div class="col-md-3 col-xs-6"><label class="pad-top">Attachment :</label></div>
+                                      <div class="col-md-7 col-xs-6">
+
+                                        <input (change)="displayDoc($event)" name="file" type="file" [(ngModel)]="newTasks.file" />
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      <div class="center">
+                                        <button type="submit" class="btn round-button dropdown-toggle mrg-tp">Save</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ----------------------------------------------------------------------edit task modal--------------------------------------------------------------------- -->
+            <div class="col-md-6 col-sm-12 col-xs-12 gutter ">
+              <div class="white project-planning">
+                <div class="form-group">
+                  <div class="col-md-6"><label for="">Project Name</label></div>
+                  <div class="col-md-6">
+                    <div class="row"><label for="" class="label2">{{Projects.project_name}}</label></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-6"><label for="">Project Code</label></div>
+                  <div class="col-md-6">
+                    <div class="row"><label for="" class="label2">{{Projects.project_code}}</label></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-6">
+                    <label for="">Project Start Date</label></div>
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="Projects.start_date" (ngModelChange)="startDateSelect()">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-6 padd-bt"><label for="">Team Members</label></div>
+
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-9 psh-left">
+                  <div class="form-group">
+                    <div class="col-md-7"><label for="">Developers</label></div>
+
+                    <mat-form-field class="inputfileds">
+
+                      <mat-select placeholder="Developers" name='selected' multiple [(ngModel)]="Projects.developer"  (ngModelChange)="getuserAvalibality();">
+                        <mat-option [value]="Developer" *ngFor="let Developer of Developers;">{{Developer.f_name}} {{Developer.l_name}} </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-7"><label for="">Designers</label></div>
+                    <mat-form-field class="inputfileds">
+
+                      <mat-select placeholder="Designers" name='selected' multiple [(ngModel)]="Projects.developer"  (ngModelChange)="getuserAvalibality();">
+                        <mat-option [value]="Designer" *ngFor="let Designer of Designers;">{{Designer.f_name}} {{Designer.l_name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-7"><label for="">QC</label></div>
+                    <mat-form-field class="inputfileds">
+
+                      <mat-select placeholder="QC" name='selected' multiple [(ngModel)]="Projects.developer"  (ngModelChange)="getuserAvalibality();">
+                        <mat-option [value]="QC" *ngFor="let QC of QCs;">{{QC.f_name}} {{QC.l_name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <form role="form" (ngSubmit)="addModule()" novalidate>
+                  <div class="form-group">
+                    <div class="col-md-4 col-xs-7 mrg-2">
+
+                      <button type="button" class="btn round-button dropdown-toggle mrg-tp" data-toggle="dropdown" (click)="addModuleClear()">Add Module</button>
+                      <ul class="dropdown-menu addmodule" role="menu">
+
+                        <div class="col-md-8">
+                          <input class="style" type="text" placeholder="Module Name" name="name" [(ngModel)]="module.module_name">
+                        </div>
+                        <div class="col-md-4">
+                          <button type="submit" class="btn round-button pull-right">Save</button>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </form>
+                <br>
+                <div class="clearfix"></div>
+                <div class="form-group mrg-2">
+                  <div class="col-md-4 col-xs-4">
+                    <label>Total Estimated Hours</label>
+                  </div>
+                  <div class="col-md-4 col-xs-4">
+                    <div>
+                      <!-- estimation_hour -->
+
+                      <h5>{{sum}}</h5>
+                    </div>
+                    <!-- <input class="style" type="text" placeholder="44:00 Hr"> -->
+
+                  </div>
+                  <div class="col-md-4 col-xs-4 notice">
+                    <div class="row">
+                      <div class="col-md-6 col-xs-6"><span class="round"></span>
+                        <p>Assigned</p>
+                      </div>
+                      <div class="col-md-6 col-xs-6"><span class="round round2"></span>
+                        <p>Unasigned</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div>
+
+                  <!-- <div  [dragula]='"myBag"' draggable="true" [class]="'groupClass'"> -->
+                  <div [dragula]='"third-bag"' [dragulaModel]='modules'>
+                    <div  *ngFor="let module of modules; let i = index">
+                      <div class="col-md-12 col-xs-12 pull-right">
+                        <div class="task">
+                          <div class="col-md-8 col-xs-7">
+                            <div>
+                              <!-- <p>dfd</p> -->
+                              <h5>{{module.module_name}}</h5>
+                            </div>
+
+                          </div>
+
+                          <div class="col-md-4 col-xs-5">
+                            <ul class="taskedit">
+                              {{module.time}}
+                              <!-- <li>22 Hr</li> -->
+                              <li class="pull-right"><a href="#" data-toggle="modal" data-target="#deleteModuleModal" (click)="getId(i)"> <i class="fa fa-close" aria-hidden="true"></i></a></li>
+
+                              <!-- <div class="col-md-4 col-xs-7 mrg-2"> -->
+                              <li class="pull-right">
+                                <form role="form" #f="ngForm" (ngSubmit)="editModules(i,module)" novalidate>
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" (click)="getId(i)" class="dropdown"> <i  class="fa fa-pencil" aria-hidden="true"></i></a>
+                                  <ul class="dropdown-menu addmodule editz" role="menu">
+                                    <div class="col-md-8">
+                                      <input class="style" type="text" placeholder="Module Name" name="module_name" [(ngModel)]="module.module_name">
+                                    </div>
+                                    <div class="col-md-4">
+                                      <button type="submit" class="btn round-button pull-right">Save</button>
+                                    </div>
+                                  </ul>
+                                </form>
+                              </li>
+                              <!-- </div> -->
+                              <li class="pull-right"></li>
+
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div [dragula]="'myBag'"> -->
+                      <div [dragula]='"third-bag"' [dragulaModel]='module.tbl_estimation_tasks'>
+                        <div draggable="true" [class]="'itemClass'" *ngFor="let task of modules[i].tbl_estimation_tasks; let j = index">
+                          <div class="col-md-11 col-xs-12 pull-right">
+                            <div class="task assigned" style="background:#fbf6f1;">
+                              <div class="col-md-9 col-xs-7 martop">
+                                <h5>{{task.task_name}}</h5>
+                                <h5>{{task.assigned_person}}</h5>
+                                <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>
+                                <h5>{{task.start_date}} </h5>
+                                <h5>{{task.end_date}} </h5>
+                              </div>
+                              <div class="col-md-3 col-xs-5">
+                                <ul class="taskedit">
+                                  <li></li>
+                                  <li class="pull-right"><a href="#" data-toggle="modal" data-target="#deleteTaskModal" (click)="getId1(i,j)"> <i class="fa fa-close" aria-hidden="true"></i></a></li>
+
+                                  <li class="pull-right">
+                                    <a href="#" data-target="#editTaskModal" data-toggle="modal" (click)="getId2(i,j,task)"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <button type="button" (click)="getId(i)" data-toggle="modal" data-target="#addTaskModal" class="btn round-button pull-right right-btn">Add Task</button>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    
+
+                  </div>
+
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+            <!-- col-md-6-->
+
+
+            <div class="col-md-6">
+              <div class="white">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="example-header">
+                        <mat-form-field>
+                          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="pull-right">
+                        <mat-form-field class="filter">
+
+                          <mat-select (change)="refresh()" [(value)]="selected">
+                            <!-- <mat-option>None</mat-option> -->
+                            <mat-option value="0">All</mat-option>
+                            <mat-option value="2">Designer</mat-option>
+                            <mat-option value="1">Developer</mat-option>
+                            <mat-option value="3">QC</mat-option>
+
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="example-container mat-elevation-z8 ">
+
+                  <mat-table [dataSource]="dataSource" matSort>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="slno">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Sl_No </mat-header-cell>
+                      <mat-cell *matCellDef="let row;let i = index"> {{i+1}} </mat-cell>
+                    </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="user">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> USER </mat-header-cell>
+                      <mat-cell *matCellDef="let row"> {{row.organization}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="start_date">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> START DATE </mat-header-cell>
+                      <mat-cell *matCellDef="let row"> {{row.contact_person_email}} </mat-cell>
+                    </ng-container>
+                    <!-- Progress Column -->
+                    <ng-container matColumnDef="end_date">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> END DATE</mat-header-cell>
+                      <mat-cell *matCellDef="let row"> {{row.contact_person_fname}}</mat-cell>
+                    </ng-container>
+                    <!-- Progress Column -->
+                    <ng-container matColumnDef="hours">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> TOTAL HOURS </mat-header-cell>
+                      <mat-cell *matCellDef="let row"> {{row.contact_no}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="no_task">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> NO. TASKS</mat-header-cell>
+                      <mat-cell *matCellDef="let row"> {{row.cmp_status}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>
+                      <mat-cell *matCellDef="let row">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                           <mat-icon>more_vert</mat-icon>
+                         </button>
+                        <mat-menu #menu="matMenu">
+                          <button *ngIf="row.delete_status==false" (click)="getId(row._id)" data-toggle="modal" data-target="#deleteModal" mat-menu-item>
+                               <i class="material-icons">delete</i>
+                             <span>Delete</span>
+                           </button>
+                          <button *ngIf="row.delete_status==true" mat-menu-item disabled>
+                             <i class="material-icons">delete_forever</i>
+                           <span>Deleted</span>
+                         </button>
+                          <button *ngIf="row.block_status==false && row.delete_status==false" (click)="blockCompany(row._id)" mat-menu-item>
+                               <i class="material-icons">block</i>
+                             <span>Block</span>
+                           </button>
+                          <!-- <button *ngIf="row.block_status==true && row.delete_status==false" mat-menu-item>
+                               <i class="material-icons">block</i>
+                             <span><a  (click)="unblockCompany(row._id)">Unblock</a></span>
+                           </button> -->
+                        </mat-menu>
+
+                      </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </mat-row>
+                  </mat-table>
+                  <div class="col-md-15 ">
+                    <!-- <div *ngIf="showSpinner" class="deletespinner">
+                         <mat-spinner></mat-spinner>
+                        </div> -->
+                  </div>
+                  <div class="col-md-12 noItemFound" *ngIf="notExist">
+                    <div class="col-md-4 col-md-offset-4">
+                      <mat-toolbar class="back-color">No item found!</mat-toolbar>
+                    </div>
+                  </div>
+                  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+      <!-- footer-->
+      <!-- <admin-footer></admin-footer> -->
+      <!-- end footer-->
+    </div>
