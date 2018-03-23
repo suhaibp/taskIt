@@ -2,7 +2,7 @@ import {Component, ViewChild, OnInit, ElementRef} from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { CompanyService } from './../../services/company.service';
 import {Router} from '@angular/router';
-import async from 'async'; 
+// import async from 'async'; 
 declare var $:any;
 @Component({
   selector: 'app-company-manage-access-rights',
@@ -85,8 +85,8 @@ export class CompanyManageAccessRightsComponent implements OnInit {
   // Desc          : Get Teams from database
 
 
-  getAccessRights(){
-    this.companyService.getAccessRights().subscribe(accessRights =>{
+  getAccessRights(usergroupid){
+    this.companyService.getAccessRights(usergroupid).subscribe(accessRights =>{
       this.accessRights = accessRights;
       console.log(accessRights)
       
@@ -107,7 +107,7 @@ export class CompanyManageAccessRightsComponent implements OnInit {
 
 
   setRights(usergroupid, usergroupName){
-    this.getAccessRights();
+    this.getAccessRights(usergroupid);
     this.userGroupId = usergroupid
     $('#assignModal .modal-title').text("Assign Access Rights");
     $('#team-nm').text(usergroupName);
@@ -119,29 +119,28 @@ export class CompanyManageAccessRightsComponent implements OnInit {
   change(event){
     // console.log(this.accessRights)
     let allChecked = true;
-    async.forEachOf(this.accessRights, (element, key, callback)=>{
-      if(element.id == event){
-        element.tbl_access_rights.forEach(ele => {
-          // console.log(typeof ele.checked);
-          if(ele.checked == false || typeof ele.checked == 'undefined'){
-            // console.log("l");
-            allChecked = false
+    // async.forEachOf(this.accessRights, (element, key, callback)=>{
+      this.accessRights.forEach(element => {
+        if(element.id == event){
+          element.sub.forEach(ele => {
+            // console.log(typeof ele.checked);
+            if(ele.checked == false || typeof ele.checked == 'undefined'){
+              // console.log("l");
+              allChecked = false
+              
+            }
+          });
+          if(allChecked == true){
+            element.checked = true
+          }
+          else{
+            element.checked = false
             
           }
-        });
-        if(allChecked == true){
-          element.checked = true
         }
-        else{
-          element.checked = false
-          
-        }
-      }
-      callback()
-    },()=>{
-      // console.log(this.accessRights)
-      
-    })
+      });
+     
+   
     
   }
 
@@ -151,12 +150,12 @@ export class CompanyManageAccessRightsComponent implements OnInit {
 
       if(element.id == event){
         if(element.checked == true){
-          element.tbl_access_rights.forEach(ele => {
+          element.sub.forEach(ele => {
             ele.checked = true;
           });
         }
         else{
-          element.tbl_access_rights.forEach(ele => {
+          element.sub.forEach(ele => {
             ele.checked = false;
           });
         }
@@ -173,20 +172,22 @@ export class CompanyManageAccessRightsComponent implements OnInit {
     this.spinner = true;
     this.companyService.assignRights(this.accessRights, this.userGroupId).subscribe(res =>{
       if(res.status == 1){
-        let snackBarRef = this.snackBar.open(res.Message, '', {
+        let snackBarRef = this.snackBar.open(res.message, '', {
           duration: 2000
         });
-        this.getAccessRights();
+        // this.getAccessRights();
         this.spinner = false;                
         $('#assignModal').modal('toggle');
       }else{
-        let snackBarRef = this.snackBar.open(res.Message, '', {
+        let snackBarRef = this.snackBar.open(res.message, '', {
           duration: 2000
         });
       }
     })
   }
 
+
+  
 
  
 }

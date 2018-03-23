@@ -77,6 +77,12 @@ import { CompanyManageTeamComponent } from './components/company-manage-team/com
 import { CompanyTopbarComponent } from './components/company-topbar/company-topbar.component';
 import { CompanySidebarComponent } from './components/company-sidebar/company-sidebar.component';
 import { CompanyManageAccessRightsComponent } from './components/company-manage-access-rights/company-manage-access-rights.component';
+import { CompanyWorkingTimeComponent } from './components/company-working-time/company-working-time.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TreeviewModule } from 'ngx-treeview';
+import { TreeModule, SharedModule } from 'primeng/primeng';
+import { CompanyManageHolidaysComponent } from './components/company-manage-holidays/company-manage-holidays.component';
+import { CompanyHolidayComponent } from './components/company-holiday/company-holiday.component';
 
 
 const appRoutes: Routes = [
@@ -94,6 +100,8 @@ const appRoutes: Routes = [
   {path:'company-dashboard', component:CompanyDashboardComponent},
   {path:'company-signup', component:CompanySignupComponent},
   {path:'company-access-rights', component:CompanyManageAccessRightsComponent},
+  {path:'company-working-time', component:CompanyWorkingTimeComponent},
+  {path:'company-manage-holyday', component:CompanyManageHolidaysComponent},
  
   {path:'company-login', component:CompanyLoginComponent},
   {path:'company-team', component:CompanyManageTeamComponent},
@@ -135,6 +143,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
+  declarations: [ CompanyHolidayComponent,],
  
 })
 export class DemoMaterialModule {}
@@ -169,7 +178,9 @@ export class DemoMaterialModule {}
     CompanyManageTeamComponent, 
     CompanyTopbarComponent, 
     CompanySidebarComponent,
-    CompanyManageAccessRightsComponent
+    CompanyManageAccessRightsComponent,
+    CompanyWorkingTimeComponent,
+    CompanyManageHolidaysComponent
   ],
   imports: [
     BrowserModule,
@@ -178,10 +189,11 @@ export class DemoMaterialModule {}
     RouterModule.forRoot(appRoutes),
     DemoMaterialModule,
     HttpModule,
-    BrowserAnimationsModule
-  
+    BrowserAnimationsModule,
+    NgbModule.forRoot(),
+    TreeviewModule.forRoot(),TreeModule, SharedModule,
   ],
-  providers: [AdminService,SuperAdminService,CompanyService, Config],
+  providers: [AdminService,SuperAdminService,CompanyService, Config, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

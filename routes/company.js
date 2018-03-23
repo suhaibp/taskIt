@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 async = require("async");
@@ -19,6 +18,11 @@ var Role = models.tbl_role;
 var AccessRights = models.tbl_access_rights;
 var AccessRightsAssoc = models.tbl_access_rights_assoc;
 var AccessRightsMain = models.tbl_main_access_right;
+var WorkingTime = models.tbl_cmp_work_time;
+var WorkingTimeAssoc = models.tbl_cmp_work_time_assoc;
+var Break = models.tbl_cmp_break;
+var BreakAssoc = models.tbl_cmp_break_assoc;
+var Holiday = models.tbl_public_holiday;
 const Op = Sequelize.Op;
 const bcrypt = require("bcryptjs");
 
@@ -679,105 +683,104 @@ router.post('/assignMemebers', function(req, res) {
   // Desc          : get Access Rights  from db
 
 
-  router.get('/getAccessRights/:id', function(req, res) {
-    // if (req.headers && req.headers.authorization) {
-    //   var authorization = req.headers.authorization.substring(4), decoded;
-    //   //     try {
-    //   decoded = jwt.verify(authorization, config.secret);
-    //   var cmp_id = decoded._id;
-      var cmp_id = 1;
-      var roleId = req.params.id;
-      
-      console.log(roleId);
-      AccessRightsMain.findAll(
-        {include: [{
-          model: AccessRights,
-        //   include: [{
-        //     model: AccessRightsAssoc
-        //  }]
-       }],
-       //plain: true,
-       //   raw:true
-      }).then(mainAccessRights => {
+  // router.get('/getAccessRights/:id', function(req, res) {
 
-        //var nodedata = node.values;
+  //     var cmp_id = 1;
+  //     var roleId = req.params.id;
+  //     tmp=[];
+  //     var rights;
+  //     AccessRightsMain.findAll({}).then(mainAccessRights => {
+  //         rights = mainAccessRights
+  //         async.eachOfSeries(rights, (element,key,callback)=>{
+  //             id = element.id;
+  //             name = element.name;
+  //             console.log(name);
 
-        // nodedata.sensors = sensors.map(function(sensor){ return sensor.values });
-        // or
-        mainAccessRights = parseJSON(mainAccessRights);
+  //             AccessRights.findAndCountAll({
+  //               where:{
+  //                 main_access_right_id: element.id
+  //               },
+  //               include: [{
+  //                 model: AccessRightsAssoc,
+  //                 required:false,
+  //                 where:{
+  //                   cmp_id:cmp_id,
+  //                   role_id: req.params.id,
+  //                 }
+  //               }],
+  //               raw:true
+  //             }).then(resx =>{
+  //               console.log(element);
+  //               element.jijo = resx;
+  //               rights[key] =element;
+  //               callback();
+                
+  //             })
+          
+  //         },()=>{
+  //              res.json(rights);       
+  //         })
 
-        console.log(mainAccessRights);
-      //  var temp = [];
-      //  temp = mainAccessRights;
-          // mainAccessRights.forEach((element,indx) => {
-
-          async.eachOfSeries(mainAccessRights, (ele, key, callback)=>{
-            console.log(ele);
-          //   AccessRightsAssoc.find({
-          //     where:{
-          //       role_id : roleId,
-          //       access_rights_id : ele.id
-          //     }
-          //   }).then(resRightsAssoc =>{
-          //  tmpData.push(mainAccessRights[indx]);
-          //  tmpData.push({sdasd:'asdsad'});
-          //     if(resRightsAssoc != null){
-          //       mainAccessRights[indx].tbl_access_rights[key].manu = true
-          //     }else{
-          //  console.log(mainAccessRights[indx]);
-          // console.log(mainAccessRights);
-          //     }
-          //     console.log(indx);
-          //     console.log(element);
-          //     element.tbl_access_rights.access_right = 'xyz';
-          //     callback();
-          //   })
-          mainAccessRights[key].manu = 'true';
-          }, ()=>{
-            //  res.json( mainAccessRights);
-          })
-
-
-
-          //var yourval = jQuery.parseJSON(JSON.stringify(data));
-         //   console.log(element);
-         //   console.log(indx);
-        //   async.eachOfSeries(element.tbl_access_rights, (ele, key, callback)=>{
-        //     AccessRightsAssoc.find({
-        //       where:{
-        //         role_id : roleId,
-        //         access_rights_id : ele.id
-        //       }
-        //     }).then(resRightsAssoc =>{
-        //    tmpData.push(mainAccessRights[indx]);
-        //    tmpData.push({sdasd:'asdsad'});
-        //       if(resRightsAssoc != null){
-        //         mainAccessRights[indx].tbl_access_rights[key].manu = true
-        //       }else{
-          //  console.log(mainAccessRights[indx]);
-          //console.log(mainAccessRights);
-        //       }
-            //   console.log(indx);
-              // console.log(element);
-           //    element.tbl_access_rights.access_right = 'xyz';
-        //       callback();
-        //     })
-        //   }, ()=>{
-        //     //  res.json( mainAccessRights);
-        //   })
-       // temp.push(element);
-          // });
-        res.json(mainAccessRights);
-        
-        
-      })
-     
-      
-    // }
-  })
+    
+  //     })
+  // })
   //  ---------------------------------End-------------------------------------------
 
+  router.get('/getAccessRights/:id', function(req, res) {
 
+      var cmp_id = 1;
+      var roleId = req.params.id;
+      tmp=[];
+      var rights;
+      AccessRightsMain.findAll({raw:true}).then(mainAccessRights => {
+          tmp = mainAccessRights;
+          async.eachOfSeries(mainAccessRights, (element,key,callback)=>{
+              trueCount = 0;
+              AccessRights.findAndCountAll({
+                  where:{
+                    main_access_right_id: element.id
+                  },
+                  raw:true
+              }).then((resx) =>{
+
+                tmp[key].sub = resx.rows;
+
+                async.eachOfSeries(resx.rows, (element1,key1,callback1)=>{
+
+                    AccessRightsAssoc.findAndCountAll({
+                      where:{
+                        cmp_id:cmp_id,
+                        role_id: roleId,
+                        access_rights_id:element1.id
+                      },
+                      raw:true
+                    }).then((resAssoc) =>{
+                          if(resAssoc.count >0){
+                            trueCount++;
+                            tmp[key].sub[key1].checked = true;
+                          }else{
+                            tmp[key].sub[key1].checked = false;
+                          }
+                          callback1();
+                    });
+    
+                },()=>{
+                  if((tmp[key].sub.length != 0) && (tmp[key].sub.length == trueCount)){
+                    tmp[key].checked = true;
+                  }else{
+                    tmp[key].checked = false;
+                  }
+                  callback();
+                })
+                  
+                //callback();
+              });
+
+          },()=>{
+              res.json(tmp);  
+          })
+      })
+  });
   
   //  ---------------------------------Start-------------------------------------------
   // Function      : assignMemeber5
@@ -795,25 +798,635 @@ router.post('/assignRights/:id', function(req, res) {
   //   //     try {
   //   decoded = jwt.verify(authorization, config.secret);
   //   var cmp_id = decoded._id;
+  // console.log(req.body[1])
     var cmp_id = 1;
-    role_id = req.params.id;
+    role_id = parseInt(req.params.id) ;
+  console.log(role_id);    
     req.body.forEach(element => {
-      async.eachOfSeries(element.tbl_rights, (ele, key, callback)=>{
+      async.eachOfSeries(element.sub, (ele, key, callback)=>{
         if(ele.checked == true){
-
-        }
+          AccessRightsAssoc.findAndCountAll({
+            where:{
+              cmp_id:cmp_id,
+              access_rights_id:ele.id,
+              role_id: role_id
+            }
+          }).then(resAssoc => {
+            console.log(resAssoc)
+            if(resAssoc.count == 0){
+              let assoc = AccessRightsAssoc.build({
+                cmp_id:cmp_id,
+                access_rights_id:ele.id,
+                role_id: role_id
+              })
+              assoc.save().then( res=>{
+                
+              })
+              console.log(resAssoc.count)
+            }
+            
+          });
+        } callback();
       },
       ()=>{
-  
+        
       })
     });
-    
+    res.json({
+      status:1,
+      message: "Successfully assigned!"
+    })
 // }
 
 })
 //  ---------------------------------End-------------------------------------------
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getUserGroups
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get user groups  from db
+
+
+  router.get('/getWorkingTimes', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      WorkingTime.find({
+        where:{
+          is_default:true,
+          cmp_id: cmp_id
+        }
+      }).then(wrktime => {
+        // console.log(projects);
+        // if(wrktime){
+        //   res.json({status:0,message:"no default time set!"})
+        // }else{
+        //   res.json(wrktime);
+        // }
+        WorkingTimeAssoc.findAll({
+          include:[{
+            model:WorkingTime
+          }]
+        }).then(resTime =>{
+
+          Break.findAll({
+            where:{
+              cmp_id:cmp_id
+            }
+          }).then(resbreak =>{
+
+
+            timingArray ={};
+            timingArray.break = resbreak;
+            timingArray.default=wrktime;
+            timingArray.others = resTime;
+            res.json(timingArray);
+          })
+          
+
+        })
+     
+         
+      // });
+      });
+      
+    // }
+  })
+  //  ---------------------------------End-------------------------------------------
+
+
+
+
+   //  ---------------------------------Start-------------------------------------------
+  // Function      : assignMemeber5
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : assign team members and head to a team
+
+
+router.post('/saveWorkingTimes', function(req, res) {
+  // if (req.headers && req.headers.authorization) {
+  //   var authorization = req.headers.authorization.substring(4), decoded;
+  //   //     try {
+  //   decoded = jwt.verify(authorization, config.secret);
+  console.log(req.body)
+  //   var cmp_id = decoded._id;
+    var cmp_id = 1;
+    if(req.body.start.hour == ''||!(/^\d+$/.test(req.body.start.hour)) || req.body.start.minute =='' || !(/^\d+$/.test(req.body.start.minute)) || req.body.end.hour =='' || !(/^\d+$/.test(req.body.end.hour)) || req.body.end.minute == '' || !(/^\d+$/.test(req.body.end.minute))){
+      res.json({
+        status:0,
+        message: "Error time format!"
+      })
+    }
+    else{
+      WorkingTime.update(
+        {
+          title: req.body.start.hour+ ":" + req.body.start.minute + "-" + req.body.end.hour+ ":" +req.body.end.minute,
+          start_time: req.body.start.hour+ ":" + req.body.start.minute,
+          end_time: req.body.end.hour+ ":" + req.body.end.minute
+        },
+        {where : {
+          id:req.body.id
+        }}
+    ).then(resWtime =>{
+      res.json({
+        status: 1,
+        message: "Successfully saved!"
+      })
+    }).catch(err =>{
+      res.json({
+        status:0,
+        message: "Error in updating! Try again!"
+      })
+    })
+    }
+   
+ 
+// }
+
+})
+//  ---------------------------------End-------------------------------------------
+
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : deleteBreak
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : delete break
+
+
+  router.post('/deleteBreak', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      // role_id = req.params.id;
+      Break.destroy({
+        where:{
+          id: req.body.id
+        }
+      }).then(resBreak=>{
+        BreakAssoc.findAll({
+          raw:true,
+          where: {
+            break_id : req.body.id
+          }
+        }).then(resBreakAssoc =>{
+          if(resBreakAssoc.length >0){
+            BreakAssoc.destroy({
+              where: {
+            break_id : req.body.id
+                
+              }
+            }).then( resDel => {
+              res.json({
+                status:1,
+                message: "Delete Successfull!"
+              })
+            }).catch(err => {
+              res.json({
+                status:0,
+                message: "Error occured!Try again!"
+              })
+            })
+          }
+          else{
+            res.json({
+              status:1,
+              message: "Deleted Successfully!"
+            })
+          }
+        }).catch(e =>{
+          res.json({
+            status:0,
+            message: "Error occured!Try again!"
+          })
+        })
+      })
+      
+  // }
   
+  })
+  //  ---------------------------------End-------------------------------------------
+
+    //  ---------------------------------Start-------------------------------------------
+  // Function      : deleteBreak
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : delete break
+
+
+  router.post('/saveBreak', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      // role_id = req.params.id;
+      // console.log(req.body)
+      if(req.body.title == ''){
+        res.json({
+          status:0,
+          message: "Title empty!"
+        })
+      }
+      else{
+        if(req.body.day == null && req.body.week == null){
+          Break.build({
+            title: req.body.title,
+            cmp_id: cmp_id,
+            start_time: req.body.start_time.hour+ ":" + req.body.start_time.minute,
+            end_time: req.body.end_time.hour+ ":" + req.body.end_time.minute,
+            is_default: true
+          }).save().then(resSave => {
+            res.json({status:1,
+              message: "Successfully saved!"
+            })
+          }).catch(err => {
+            res.json({
+              status:0,
+              message: "An error occured! Try again!"
+            })
+          })
+        }
+      }
+    
+      
+  // }
+  
+  })
+  //  ---------------------------------End-------------------------------------------
+
+
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getUserGroups
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get user groups  from db
+
+
+  router.get('/getWeekHours', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      WorkingTimeAssoc.findAll({
+        order:[
+          ['day_no', 'ASC']
+        ],
+          
+        include:[
+          {
+            model:WorkingTime, require:true, where:{
+              cmp_id:cmp_id
+            }
+          }],
+          
+         
+      }).then(wrktime => {
+       let tmp ={};
+        tmp2={};
+        wrktime.forEach((element) => {
+          dayno = 0;
+          // element.tbl_cmp_work_time.forEach((ele) => {
+            if(dayno != element.day_no){
+              dayno = element.day_no;
+              tmp ={};
+            }
+          //   if(typeof tmp[ele.day_no] === 'undefined') {
+          //     tmp[ele.day_no]= new Array();
+          //     if(typeof tmp[ele.day_no][ele.week_no] === 'undefined') {
+          //     }
+          //     // tmp[ele.day_no][ele.week_no] = new Array();
+          // }
+          
+          tmp[element.week_no] = {id:element.tbl_cmp_work_time.id,title:element.tbl_cmp_work_time.title,start:element.tbl_cmp_work_time.start_time, end:element.tbl_cmp_work_time.end_time};  
+          tmp2[element.day_no] = tmp;
+        //  });
+        });
+        console.log(tmp2);
+        res.json(tmp2)
+     
+      });
+      
+    // }
+  })
+  //  ---------------------------------End-------------------------------------------
+
+
+ //  ---------------------------------Start-------------------------------------------
+  // Function      : getUserGroups
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get user groups  from db
+
+
+  router.get('/getYears', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+    let data =[];
+      var cmp_id = 1;
+      d = (new Date()).getFullYear();
+        y1 = d-1;
+        y2 = d;
+        y3 = d+1
+        data.push(y1)
+        data.push(y2)
+        data.push(y3)
+        res.json(data)
+    // }
+  })
+  //  ---------------------------------End-------------------------------------------
+
+     //  ---------------------------------Start-------------------------------------------
+  // Function      : deleteBreak
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : delete break
+
+
+  router.post('/getHoliday', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      // role_id = req.params.id;
+      console.log(req.body)
+      if(req.body.year == null){
+        res.json({
+          status:0,
+          message: "Error occured!"
+        })
+      }
+      else{
+        d = req.body.year;
+        let startDate = '';
+        let endDate = '';
+          startDate = d+"-01-01";
+          endDate = d+"-12-31";
+       
+        console.log(d);
+        Holiday.findAll({
+          where: {
+            date: {[Op.between]:[startDate,endDate]},
+            cmp_id: cmp_id
+          }
+       }).then(resHolidays => {
+        //  years=[y1,y2,y3]
+         data = {};
+        //  data['year'] = years
+         data['resp'] = resHolidays
+         res.json(data);
+       })
+      }
+    
+      
+  // }
+  
+  })
+  //  ---------------------------------End-------------------------------------------
+
+
+
+  
+     //  ---------------------------------Start-------------------------------------------
+  // Function      : updateHoliday
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : update holiday
+
+
+  router.post('/updateHoliday', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      // role_id = req.params.id;
+      console.log(req.body.date)
+      if(req.body.date == '' || req.body.date == null){
+        res.json({
+          status:0,
+          message: "Date Empty!"
+        })
+      }
+      else if(req.body.title == '' || req.body.title == null){
+        res.json({
+          status:0,
+          message: "Title Empty!"
+        })
+      }
+      else{
+        Holiday.findAndCountAll({
+          where:{
+            title: req.body.title,
+            date : req.body.date,
+            cmp_id: cmp_id
+          }
+        }).then(resHoliday => {
+          if(resHoliday.count > 1 ){
+            res.json({
+              status:0,
+              message: "Already Exist!"
+            })
+          }else{
+            Holiday.update({
+              title: req.body.title,
+              date : req.body.date
+            },
+          {
+            where: {
+              id: req.body.id
+            }
+          }).then( resUpdation => {
+            if(resUpdation == 1){
+              res.json({
+                status:1,
+                message: "Successfully Updated!"
+              })
+            }
+            else{
+              res.json({
+                status:1,
+                message: "Failed! Try again!"
+              })
+            }
+          })
+          }
+        })
+      }
+    
+      
+  // }
+  
+  })
+  //  ---------------------------------End-------------------------------------------
+
+
+
+      //  ---------------------------------Start-------------------------------------------
+  // Function      : updateHoliday
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : update holiday
+
+
+  router.post('/deleteHoliday', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      // role_id = req.params.id;
+      console.log(req.body.id)
+      if(req.body.id == '' || req.body.id == null){
+        res.json({
+          status:0,
+          message: "Error occured!"
+        })
+      }
+      else{
+        Holiday.destroy({
+          where:{
+            id: req.body.id
+          }
+        }).then(resHoliday => {
+          res.json(resHoliday);
+        })
+      }
+    
+      
+  // }
+  
+  })
+  //  ---------------------------------End-------------------------------------------
+
+
+
+
+    //  ---------------------------------Start-------------------------------------------
+  // Function      : saveHoliday
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 23-03-2018
+  // Last Modified : 23-03-2018, 
+  // Desc          : save Holiday
+
+
+  router.post('/saveHoliday', function(req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+      var cmp_id = 1;
+      // role_id = req.params.id;
+      // console.log(req.body.date.getDate());
+      
+      console.log(new Date().getTimezoneOffset());
+      if(req.body.title == '' || req.body.title == null){
+        res.json({
+          status:0,
+          message: "Title is empty!"
+        })
+      }
+      else if(req.body.date == '' || req.body.date == null){
+        res.json({
+          status:0,
+          message: "Date is empty!"
+        })
+      }
+      else{
+        Holiday.findAndCountAll({
+          where:{
+            title: req.body.title,
+            date : req.body.date,
+            cmp_id: cmp_id
+          }
+        }).then(resExist => {
+          if(resExist.count > 0){
+            res.json({
+              status:0,
+              message: "Holiday with same date and name exist!"
+            })
+          }else{
+            Holiday.build({
+              title: req.body.title,
+              cmp_id: cmp_id,
+              date : req.body.date
+            }).save().then(resSave => {
+              // console.log(resSave)
+              res.json({status:1,
+                message: "Successfully saved!"
+              })
+            }).catch(err => {
+              res.json({
+                status:0,
+                message: "An error occured! Try again!"
+              })
+            })
+          }
+        }).catch(error => {
+          res.json({
+            status:0,
+            message: "An error occured! Try again!"
+          })
+        })
+          
+        
+      }
+    
+      
+  // }
+  
+  })
+  //  ---------------------------------End-------------------------------------------
   module.exports = router;
   return router;
   }
   module.exports = returnRouter;
+
