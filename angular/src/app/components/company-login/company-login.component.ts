@@ -79,6 +79,7 @@ export class CompanyLoginComponent implements OnInit {
       if (data.success) {
         this.spinner = false;
         if (data.login.status == "Expired") {
+          console.log("expired");
           var json = data.login;
           var key = "status";
           delete json[key];

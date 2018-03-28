@@ -4,8 +4,8 @@ const Sequelize = require('sequelize');
 var express = require('express');
 var router = express.Router();
 
-var env       = process.env.NODE_ENV || 'development';
-var config    = require(__dirname + '/../config/config.json')[env];
+var env = process.env.NODE_ENV || 'development';
+var config = require(__dirname + '/../config/config.json')[env];
 var models = require('./../models');
 var Projects = models.tbl_project;
 var Users = models.tbl_user_profile;
@@ -26,14 +26,17 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 var User_profile = models.tbl_user_profile;
-
-
+var Emp_leave = models.tbl_emp_leave;
+var Public_holiday = models.tbl_public_holiday;
+var cmp_work_time_assocs = models.tbl_cmp_work_time_assoc;
+var cmp_work_times = models.tbl_cmp_work_time;
+var cmp_off_day_assoc = models.tbl_cmp_off_day_assoc;
+var cmp_break = models.tbl_cmp_break;
+var cmp_break_assoc = models.tbl_cmp_break_assoc;
 //--------Yasir Poongadan ------
-
 var Projects_member_assoc = models.tbl_project_member_assoc;
 
 //------------------------------
-
 var ip = require("ip");
 'use strict';
 const emailTemplate = require('../template/verification_email');
@@ -84,7 +87,6 @@ var returnRouter = function (io) {
         } else {
             var sequelize = new Sequelize(config.database, config.username, config.password, config);
         }
-
         //    -------------------------------------- to check user not found ------------------------------------------
         Login.findOne({
             where: {
@@ -94,7 +96,6 @@ var returnRouter = function (io) {
             // res.json(login);
             // console.log(login);
             if (login == null || login == [] || login == '') {
-
                 const loginAttempt = Login_attempt.build({
                     ip: ip.address(),
                     date_time: new Date(),
@@ -206,9 +207,9 @@ var returnRouter = function (io) {
                     }
                     //    -------------------------------------- if  match ------------------------------------------
                     if (isMatch) {
-                        // console.log("matches");
+    
                         if (login.block_status == true) {
-
+                         
                             return res.json({ success: false, msg: 'Account blocked' });
                             // console.log("Account blocked");
                         }
@@ -1023,8 +1024,13 @@ var returnRouter = function (io) {
     // Desc          : 
 
     router.get('/get-developer-users', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //     var authorization = req.headers.authorization.substring(4), decoded;
+        //     decoded = jwt.verify(authorization, Config.secret);
         developer = [];
         User_profile.findAll({
+
+            // where: { cmp_id: decoded.cmp_id },
             include: [
                 {
                     model: Team_assoc,
@@ -1038,7 +1044,12 @@ var returnRouter = function (io) {
         }).then(DeveloperUsers => {
             res.json(DeveloperUsers);
         });
+        // }
+        // else {
+        //     return res.status(401).send('Invalid User');
+        // }
     });
+
     // ----------------------------------End-----------------------------------
 
     // ---------------------------------Start-------------------------------------------
@@ -1051,8 +1062,11 @@ var returnRouter = function (io) {
     // Desc          : 
 
     router.get('/get-designer-users', function (req, res) {
-
+        // if (req.headers && req.headers.authorization) {
+        //     var authorization = req.headers.authorization.substring(4), decoded;
+        //     decoded = jwt.verify(authorization, Config.secret);
         User_profile.findAll({
+            // where: { cmp_id: decoded.cmp_id },
             include: [
                 {
                     model: Team_assoc,
@@ -1359,31 +1373,187 @@ var returnRouter = function (io) {
 
 
     router.post('/get-date-time', function (req, res) {
-      if (req.body.task_name == '' || req.body.planned_hour == 0  || req.body.assigned_person == '' || req.body.priority == '' || req.body.start_date == '' || req.body.start_time == '' || req.body.end_date == '' || req.body.end_time == '') {
-          res.send({success: false,msg:'Please fill all required fields'});
-      }
-      else if(req.body.start_date && req.body.end_date) {
-          var startDate = new Date(req.body.start_date);
-          var endDate = new Date(req.body.end_date);
-          start_time = req.body.start_time;
-          end_time = req.body.end_time;
-          startDate.setHours(start_time.hour, start_time.minute, start_time.second);
-          endDate.setHours(end_time.hour, end_time.minute, end_time.second);
+        if (req.body.task_name == '' || req.body.planned_hour == 0 || req.body.assigned_person == '' || req.body.priority == '' || req.body.start_date == '' || req.body.start_time == '' || req.body.end_date == '' || req.body.end_time == '') {
+            res.send({ success: false, msg: 'Please fill all required fields' });
+        }
+        else if (req.body.start_date && req.body.end_date) {
+            var startDate = new Date(req.body.start_date);
+            var endDate = new Date(req.body.end_date);
+            start_time = req.body.start_time;
+            end_time = req.body.end_time;
+            startDate.setHours(start_time.hour, start_time.minute, start_time.second);
+            endDate.setHours(end_time.hour, end_time.minute, end_time.second);
 
-          if(startDate >= endDate ){
-              res.send({success: false,msg:'End datetime should be greater than start date time'});
-          }
-          else{
-              res.send({success: true,msg:'ok'});
-          }
-      }
-      else{
-          res.send({success: true,msg:'Task added succesfully'});
-      }
-  });
+            if (startDate >= endDate) {
+                res.send({ success: false, msg: 'End datetime should be greater than start date time' });
+            }
+            else {
+                res.send({ success: true, msg: 'ok' });
+            }
+        }
+        else {
+            res.send({ success: true, msg: 'Task added succesfully' });
+        }
+    });
+
+    // ----------------------------------End-----------------------------------
 
 
-  // ----------------------------------End-----------------------------------
+    router.get('/get-availablity/:id', function (req, res) {
+        // console.log("hello");
+        // console.log(req.params.id);
+        Emp_leave.findAll({
+
+            where: {
+                [Op.and]: [{ user_profile_id: req.params.id, request_status: 'Accept' }]
+
+            }
+        }).then(empLeave => {
+            res.json(empLeave);
+            // console.log(empLeave);
+        });
+
+    });
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      :get_public-holidays
+    // Params        : 
+    // Returns       :  
+    // Author        : Jooshifa
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Jooshifa
+    // Desc    
+
+    router.get('/get-public-holidays', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //     var authorization = req.headers.authorization.substring(4), decoded;
+        //     decoded = jwt.verify(authorization, Config.secret);
+        Public_holiday.findAll({
+
+            // where: { cmp_id: decoded.cmp_id },
+            where: { cmp_id: 1 },
+
+        }).then(PublicHoliday => {
+            res.json(PublicHoliday);
+            // console.log(PublicHoliday)
+        });
+        // }
+        // else {
+        //     return res.status(401).send('Invalid User');
+        // }
+
+
+    });
+
+    // ----------------------------------End-----------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      :get_working-time
+    // Params        : 
+    // Returns       :  
+    // Author        : Jooshifa
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Jooshifa
+    // Desc    
+
+
+
+    router.get('/get-working-time', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //     var authorization = req.headers.authorization.substring(4), decoded;
+        //     decoded = jwt.verify(authorization, Config.secret);
+
+
+
+        cmp_work_times.findAll({
+            // where: { cmp_id: decoded.cmp_id }
+            include: [
+                {
+                    model: cmp_work_time_assocs,
+
+                }
+
+            ]
+        }).then(workTime => {
+            console.log(workTime);
+            res.json(workTime);
+        });
+        // }
+        // else {
+        //     return res.status(401).send('Invalid User');
+        // }
+
+
+    });
+
+
+    // ----------------------------------End-----------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get-off-days-assoc
+    // Params        : 
+    // Returns       :  
+    // Author        : Jooshifa
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Jooshifa
+    // Desc    
+
+
+    router.get('/get-off-days-assoc', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //     var authorization = req.headers.authorization.substring(4), decoded;
+        //     decoded = jwt.verify(authorization, Config.secret);
+        cmp_work_times.findAll({
+            // where: { cmp_id: decoded.cmp_id }
+            include: [
+                {
+                    model: cmp_off_day_assoc,
+                }
+            ]
+        }).then(offdays => {
+            // console.log(offdays);
+            res.json(offdays);
+        });
+        // }
+        // else {
+        //     return res.status(401).send('Invalid User');
+        // }
+    });
+
+    // ----------------------------------End-----------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get-break-time
+    // Params        : 
+    // Returns       :  
+    // Author        : Jooshifa
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Jooshifa
+    // Desc    
+
+
+    router.get('/get-break-time', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //     var authorization = req.headers.authorization.substring(4), decoded;
+        //     decoded = jwt.verify(authorization, Config.secret);
+        cmp_break.findAll({
+            // where: { cmp_id: decoded.cmp_id }
+            include: [
+                {
+                    model: cmp_break_assoc,
+                }
+            ]
+        }).then(cmp_break => {
+            // console.log(cmp_breaks);
+            res.json(cmp_break);
+        });
+        // }
+        // else {
+        //     return res.status(401).send('Invalid User');
+        // }
+    });
+
+    // ----------------------------------End-----------------------------------
     module.exports = router;
 
     return router;

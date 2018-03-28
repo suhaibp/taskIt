@@ -76,4 +76,10 @@ export class CompanyDashboardComponent implements OnInit {
   }
 
 
+
+  // constructor() { }
+
+  // ngOnInit() {
+  // }
+
 }

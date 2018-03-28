@@ -229,7 +229,6 @@ export class CompanyService {
       .map(res => res.json())
   }
   // ---------------------------------------End--------------------------------------------
-  
   // ---------------------------------Start-------------------------------------------
   // Function      : getDeveloperUsers
   // Params        : 
@@ -246,7 +245,6 @@ export class CompanyService {
   }
 
   // ----------------------------------End-------------------------------------------
-  
   // ---------------------------------Start-------------------------------------------
   // Function      : getDesignerrUsers
   // Params        : 
@@ -263,7 +261,6 @@ export class CompanyService {
   }
 
   // ----------------------------------End-------------------------------------------
-  
   // ---------------------------------Start-------------------------------------------
   // Function      : getQcUsers
   // Params        : 
@@ -280,7 +277,7 @@ export class CompanyService {
   }
 
   // ----------------------------------End-------------------------------------------
-    // ---------------------------------Start-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
   // Function      : getTasksModules
   // Params        : 
   // Returns       : 
@@ -304,14 +301,14 @@ export class CompanyService {
   // Date          : 14-03-2018
   // Last Modified : 14-03-2018, Jooshifa
   // Desc          : 
-  getAllUsers(){
+  getAllUsers() {
     let headers = this.setHeader();
     return this.http.get(this.serviceUrl + 'get-all-users', { headers: headers })
       .map(res => res.json());
   }
-  
+
   // ----------------------------------End-------------------------------------------
-   // ---------------------------------Start-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
   // Function      : getComplexity
   // Params        : 
   // Returns       : 
@@ -319,14 +316,14 @@ export class CompanyService {
   // Date          : 16-03-2018
   // Last Modified : 16-03-2018, Jooshifa
   // Desc          
-  getComplexity(){
+  getComplexity() {
     let headers = this.setHeader();
     return this.http.get(this.serviceUrl + 'get-complexity-percentage', { headers: headers })
       .map(res => res.json());
   }
-  
+
   // ----------------------------------End-------------------------------------------
-   // ---------------------------------Start-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
   // Function      : getDatetime
   // Params        : 
   // Returns       : 
@@ -334,12 +331,12 @@ export class CompanyService {
   // Date          : 19-03-2018
   // Last Modified : 19-03-2018, Jooshifa
   // Desc          
-  getDatetime(newTasks){
+  getDatetime(newTasks) {
     let h = this.setHeader();
     return this.http.post(this.serviceUrl + "/get-date-time", newTasks, { headers: h })
       .map(res => res.json());
   }
-    // ----------------------------------End-------------------------------------------
+  // ----------------------------------End-------------------------------------------
   // ---------------------------------Start------------------------------------------------
   // Function      : getAllProject
   // Params        : 
@@ -355,7 +352,7 @@ export class CompanyService {
   }
   // ---------------------------------------End--------------------------------------------
 
-    // ---------------------------------Start------------------------------------------------
+  // ---------------------------------Start------------------------------------------------
   // Function      : getTeams
   // Params        : 
   // Returns       : 
@@ -363,7 +360,7 @@ export class CompanyService {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get team names and strength from db
-  getTeams(){
+  getTeams() {
     let h = this.setHeader();
     return this.http.get(this.serviceUrl + "getTeams", { headers: h })
       .map((response: Response) => response.json());
@@ -380,10 +377,10 @@ export class CompanyService {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get team members based on id passed from db
-  getTeamMembers(id){
+  getTeamMembers(id) {
     let h = this.setHeader();
-    return this.http.get(this.serviceUrl + "getMembers/"+id, { headers: h })
-    .map((response: Response) => response.json());
+    return this.http.get(this.serviceUrl + "getMembers/" + id, { headers: h })
+      .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
 
@@ -398,10 +395,10 @@ export class CompanyService {
   getUsers(projId) {
     let h = this.setHeader();
     return this.http.get(this.serviceUrl + "getUsersByProject/" + projId, { headers: h })
-    .map((response: Response) => response.json());
+      .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-  
+
   // Function      : getTeamMembers
   // Params        : 
   // Returns       : 
@@ -409,20 +406,19 @@ export class CompanyService {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get team members based on id passed from db
-  assignTeam(members,head,teamId){
+  assignTeam(members, head, teamId) {
     let h = this.setHeader();
     let data = [];
     data.push(members);
     data.push(head);
     data.push(teamId);
-    return this.http.post(this.serviceUrl + "assignMemebers/",data, { headers: h })
+    return this.http.post(this.serviceUrl + "assignMemebers/", data, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
 
 
 
-  
   // ---------------------------------Start------------------------------------------------
   // Function      : getUserGroups
   // Params        : 
@@ -431,7 +427,7 @@ export class CompanyService {
   // Date          : 15-03-2018
   // Last Modified : 15-03-2018, 
   // Desc          : get user groups  from db
-  getUserGroups(){
+  getUserGroups() {
     let h = this.setHeader();
     return this.http.get(this.serviceUrl + "getUserGroups", { headers: h })
       .map((response: Response) => response.json());
@@ -446,7 +442,7 @@ export class CompanyService {
   // Date          : 15-03-2018
   // Last Modified : 15-03-2018, 
   // Desc          : get Access Rights  from db
-  getAccessRights(roleId){
+  getAccessRights(roleId) {
     let h = this.setHeader();
     return this.http.get(this.serviceUrl + "getAccessRights/" + roleId, { headers: h })
       .map((response: Response) => response.json());
@@ -456,7 +452,6 @@ export class CompanyService {
 
 
   // ---------------------------------------End--------------------------------------------
-  
   // Function      : assignRights
   // Params        : 
   // Returns       : 
@@ -464,11 +459,90 @@ export class CompanyService {
   // Date          : 16-03-2018
   // Last Modified : 16-03-2018, 
   // Desc          : assign tights to usergroup
-  assignRights(rights, id){
+  assignRights(rights, id) {
 
-    let h = this.setHeader();;
-    return this.http.post(this.serviceUrl + "assignRights/:id",rights, { headers: h })
+    let h = this.setHeader();
+    return this.http.post(this.serviceUrl + "assignRights/:id", rights, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAvailablity
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 21-03-2018
+  // Last Modified : 21-03-2018, Jooshifa
+  // Desc          : 
+  getAvailablity(id) {
+
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'get-availablity/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getPublicHolidays
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 21-03-2018
+  // Last Modified : 21-03-2018, Jooshifa
+  // Desc          : 
+  getPublicHolidays() {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/get-public-holidays", { headers: h })
+      .map(res => res.json());
+
+  }
+  // ----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getWorkingTime
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 21-03-2018
+  // Last Modified : 21-03-2018, Jooshifa
+  // Desc          : 
+  getWorkingTime() {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/get-working-time", { headers: h })
+      .map(res => res.json());
+
+  }
+  // ----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getOffDays
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 21-03-2018
+  // Last Modified : 21-03-2018, Jooshifa
+  // Desc          : 
+  getOffDays() {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/get-off-days-assoc", { headers: h })
+      .map(res => res.json());
+  }
+  // ----------------------------------End------------------------------------------
+
+   // ---------------------------------Start-------------------------------------------
+  // Function      : breakTime
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 21-03-2018
+  // Last Modified : 21-03-2018, Jooshifa
+  // Desc          : 
+
+  getbreakTime(){
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/get-break-time", { headers: h })
+      .map(res => res.json());
+  }
+   // ----------------------------------End------------------------------------------
 }

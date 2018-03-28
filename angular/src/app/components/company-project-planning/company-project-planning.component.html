@@ -45,8 +45,8 @@
                             <div class="col-md-4 col-xs-6"><label class="pad-top">Assigned person * :</label></div>
                             <div class="col-md-7 col-xs-6">
                               <mat-form-field class="inputfileds">
-                                <mat-select placeholder="Members" name='assigned_person' #group="ngModel" [(ngModel)]="newTasks.assigned_person">
-                                  <mat-option [value]="users.id" *ngFor="let users of assignPerson;">{{users.f_name}} {{users.l_name}} </mat-option>
+                                <mat-select placeholder="Members" name='assigned_person' #group="ngModel" [(ngModel)]="newTasks.assigned_person" (ngModelChange)="getassigned();">
+                                  <mat-option [value]="users" *ngFor="let users of assignPerson;">{{users.f_name}} {{users.l_name}} </mat-option>
                                 </mat-select>
                               </mat-form-field>
                             </div>
@@ -274,12 +274,26 @@
                             </mat-form-field>
                           </div>
                           <br>
+                          <div class="col-md-4 col-xs-6"><label class="pad-top">Planned Hours *:</label></div>
+                          <div class="col-md-2 col-xs-6">
+                            <mat-form-field class="wdth">
+                              <input type="number" matInput name="planned_hour" min="0" name='planned_hour' [(ngModel)]="newTasks.planned_hour" required>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-3 col-xs-6"><label class="pad-top">Buffer Hours :</label></div>
+                          <div class="col-md-2 col-xs-6">
+
+                            <mat-form-field class="wdth">
+                              <input type="number" matInput name="buffer_time" min="0" name='buffer_hour' [(ngModel)]="newTasks.buffer_hour" required>
+                            </mat-form-field>
+                          </div>
                           <div class="example-container">
                             <div class="col-md-4 col-xs-6"><label class="pad-top">Assigned person * :</label></div>
                             <div class="col-md-7 col-xs-6">
                               <mat-form-field class="inputfileds">
-                                <mat-select placeholder="Members" name='assigned_person' #group="ngModel" [(ngModel)]="newTasks.assigned_person">
-                                  <mat-option [value]="users.id" *ngFor="let users of assignPerson;">{{users.f_name}} {{users.l_name}} </mat-option>
+                                <mat-select placeholder="Members" name='assigned_person' #group="ngModel" [(ngModel)]="newTasks.assigned_person" (ngModelChange)="getassigned();">
+                                  <mat-option [value]="users" *ngFor="let users of assignPerson ;">{{users.f_name}} {{users.l_name}} </mat-option>
                                 </mat-select>
                               </mat-form-field>
                             </div>
@@ -297,7 +311,7 @@
                               </div>
                               <div class="clearfix"></div>
                               <br>
-                              <div class="col-md-4 col-xs-6"><label class="pad-top">Planned Hours *:</label></div>
+                              <!-- <div class="col-md-4 col-xs-6"><label class="pad-top">Planned Hours *:</label></div>
                               <div class="col-md-2 col-xs-6">
                                 <mat-form-field class="wdth">
                                   <input type="number" matInput name="planned_hour" min="0" name='planned_hour' [(ngModel)]="newTasks.planned_hour" required>
@@ -310,12 +324,23 @@
                                 <mat-form-field class="wdth">
                                   <input type="number" matInput name="buffer_time" min="0" name='buffer_hour' [(ngModel)]="newTasks.buffer_hour" required>
                                 </mat-form-field>
-                              </div>
+                              </div> -->
                               <div class="clearfix"></div>
                               <br>
                               <div class="col-md-4 col-xs-6"><label class="pad-top">Start Datetime *:</label></div>
-                              <div class="col-md-3 col-xs-6">
-                                {{newTasks.start_date}}
+                              <div class="col-md-8 col-xs-6 date-time">
+                                <div class="col-md-3"> Date : </div>
+
+                                <div class="col-md-9"> {{startdate| date:'EEE, d MMM,y'}} </div>
+                                <div class="clearfix"></div>
+                                <!-- {{newTasks.start_time.hour, newTasks.start_time.minute, newTasks.start_time.second}} -->
+
+                                <div class="col-md-3">Time : </div>
+                                <div class="col-md-9">
+                                  <div *ngIf="Projects.start_time">
+                                    {{newTasks.start_time.hour}} : {{newTasks.start_time.minute}} <span *ngIf="Projects.start_time.hour">{{meridain }}</span>
+                                  </div>
+                                </div>
                                 <!-- <mat-form-field>
                                   <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="pickerf" placeholder="Choose a date" [formControl]="date"
                                     name='start_date' [(ngModel)]="newTasks.start_date">
@@ -325,7 +350,7 @@
                               </div>
                               <br>
                               <div class="clearfix"></div>
-                              <ngb-timepicker [meridian]="meridian" name="start_time1" [(ngModel)]="newTasks.start_time"></ngb-timepicker>
+                              <!-- <ngb-timepicker [meridian]="meridian" name="start_time1" [(ngModel)]="newTasks.start_time" disable></ngb-timepicker> -->
                               <hr>
                               <div class="clearfix"></div>
                               <!-- <div class="col-md-3 col-xs-6"><label class="pad-top">End Datetime :</label></div>
@@ -389,30 +414,36 @@
                                     <div class="col-md-5 col-xs-5">
                                       <div *ngFor="let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex">
 
-                                        <mat-form-field class="example-form-field">
+                                        <!-- <mat-form-field class="example-form-field">
                                           <input matInput type="text" name="checklist{{i}}" required [(ngModel)]="newTasks.newChecklist[i].name" />
                                           <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
                                             <mat-icon>close</mat-icon>
                                           </button>
+                                        </mat-form-field> -->
+                                        <mat-form-field class="example-form-field">
+                                          <input matInput type="text" placeholder="Name" name="name" required [(ngModel)]="newTasks.newChecklist[i].name" />
+                                          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                              <mat-icon>close</mat-icon>
+                                            </button>
                                         </mat-form-field>
                                         <input type="button" value="X" (click)="closeChecklist(i)" class="close-bt">
                                       </div>
-
-
                                     </div>
-                                    <div class="col-md-3 col-xs-2"><input type="button" value="Add More" (click)="addMore()" class="round-button padd-bt"></div>
+
+                                  </div>
+                                  <div class="col-md-3 col-xs-2"><input type="button" value="Add More" (click)="addMore()" class="round-button padd-bt"></div>
+                                  <div class="clearfix"></div>
+                                  <div class="example-container">
+                                    <div class="col-md-3 col-xs-6"><label class="pad-top">Attachment :</label></div>
+                                    <div class="col-md-7 col-xs-6">
+
+                                      <input (change)="displayDoc($event)" name="file" type="file" [(ngModel)]="newTasks.file" />
+                                    </div>
                                     <div class="clearfix"></div>
-                                    <div class="example-container">
-                                      <div class="col-md-3 col-xs-6"><label class="pad-top">Attachment :</label></div>
-                                      <div class="col-md-7 col-xs-6">
-
-                                        <input (change)="displayDoc($event)" name="file" type="file" [(ngModel)]="newTasks.file" />
-                                      </div>
-                                      <div class="clearfix"></div>
-                                      <div class="center">
-                                        <button type="submit" class="btn round-button dropdown-toggle mrg-tp">Save</button>
-                                      </div>
+                                    <div class="center">
+                                      <button type="submit" class="btn round-button dropdown-toggle mrg-tp">Save</button>
                                     </div>
+
                                   </div>
                                 </div>
                               </div>
@@ -451,6 +482,21 @@
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
+                  <div class="col-md-6 pull-right">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="row">
+                          <ngb-timepicker class="no-brdr" name="start_time" [(ngModel)]="Projects.start_time" (ngModelChange)="startDateSelect();"></ngb-timepicker>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="row"><button class="am" (click)="meridian();">{{meridain}}</button></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <button class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">    Meridian - {{meridian ? "ON" : "OFF"}}
+                    </button> -->
+                  <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
                   <div class="col-md-6 padd-bt"><label for="">Team Members</label></div>
@@ -463,7 +509,7 @@
 
                     <mat-form-field class="inputfileds">
 
-                      <mat-select placeholder="Developers" name='selected' multiple [(ngModel)]="Projects.developer"  (ngModelChange)="getuserAvalibality();">
+                      <mat-select placeholder="Developers" name='selected' multiple [(ngModel)]="Projects.developer" (ngModelChange)="getuserAvalibality();">
                         <mat-option [value]="Developer" *ngFor="let Developer of Developers;">{{Developer.f_name}} {{Developer.l_name}} </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -473,7 +519,7 @@
                     <div class="col-md-7"><label for="">Designers</label></div>
                     <mat-form-field class="inputfileds">
 
-                      <mat-select placeholder="Designers" name='selected' multiple [(ngModel)]="Projects.developer"  (ngModelChange)="getuserAvalibality();">
+                      <mat-select placeholder="Designers" name='selected' multiple [(ngModel)]="Projects.designer" (ngModelChange)="getuserAvalibality();">
                         <mat-option [value]="Designer" *ngFor="let Designer of Designers;">{{Designer.f_name}} {{Designer.l_name}}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -482,7 +528,7 @@
                     <div class="col-md-7"><label for="">QC</label></div>
                     <mat-form-field class="inputfileds">
 
-                      <mat-select placeholder="QC" name='selected' multiple [(ngModel)]="Projects.developer"  (ngModelChange)="getuserAvalibality();">
+                      <mat-select placeholder="QC" name='selected' multiple [(ngModel)]="Projects.qc" (ngModelChange)="getuserAvalibality();">
                         <mat-option [value]="QC" *ngFor="let QC of QCs;">{{QC.f_name}} {{QC.l_name}}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -537,8 +583,8 @@
                 <div>
 
                   <!-- <div  [dragula]='"myBag"' draggable="true" [class]="'groupClass'"> -->
-                  <div [dragula]='"third-bag"' [dragulaModel]='"modules"'>
-                    <div  *ngFor="let module of modules; let i = index">
+                  <div [dragula]='"third-bag"' [dragulaModel]='modules'>
+                    <div *ngFor="let module of modules; let i = index">
                       <div class="col-md-12 col-xs-12 pull-right">
                         <div class="task">
                           <div class="col-md-8 col-xs-7">
@@ -577,16 +623,19 @@
                         </div>
                       </div>
                       <!-- <div [dragula]="'myBag'"> -->
-                      <!-- <div [dragula]='"third-bag"' [dragulaModel]='module.tbl_estimation_tasks'> -->
-                        <div  [class]="'itemClass'" *ngFor="let task of modules[i].tbl_estimation_tasks; let j = index">
+                      <div [dragula]='"third-bag"' [dragulaModel]='module.tbl_estimation_tasks'>
+                        <div draggable="true" [class]="'itemClass'" *ngFor="let task of modules[i].tbl_estimation_tasks; let j = index">
                           <div class="col-md-11 col-xs-12 pull-right">
                             <div class="task assigned" style="background:#fbf6f1;">
                               <div class="col-md-9 col-xs-7 martop">
                                 <h5>{{task.task_name}}</h5>
-                                <h5>{{task.assigned_person}}</h5>
+                                <!-- <div *ngFor=" let assigned of task.assigned_person"> -->
+                                <h5>{{task.assigned}} {{task.assigned1}}</h5>
+                                <!-- </div> -->
                                 <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>
-                                <h5>{{task.start_date}} </h5>
-                                <h5>{{task.end_date}} </h5>
+                                <h5>{{task.start_date | date:'EEE, d MMM,y'}}</h5>
+                                <h5>{{task.end_date | date:'EEE, d MMM,y'}}</h5>
+
                               </div>
                               <div class="col-md-3 col-xs-5">
                                 <ul class="taskedit">
@@ -602,13 +651,12 @@
                             </div>
                           </div>
                         </div>
-                      <!-- </div> -->
+                      </div>
                       <div class="col-md-12">
                         <button type="button" (click)="getId(i)" data-toggle="modal" data-target="#addTaskModal" class="btn round-button pull-right right-btn">Add Task</button>
                       </div>
                       <div class="clearfix"></div>
                     </div>
-                    
 
                   </div>
 
@@ -617,8 +665,6 @@
               </div>
             </div>
             <!-- col-md-6-->
-
-
             <div class="col-md-6">
               <div class="white">
                 <div class="col-md-12">
