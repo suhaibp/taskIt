@@ -34,9 +34,9 @@ export class AdminLoginComponent implements OnInit {
 
   login() {
     this.showSpinner = true
-    console.log(this.newLogin);
+    // console.log(this.newLogin);
     this.adminService.adminLogin(this.newLogin).subscribe(data => {
-      // console.log(data);
+      console.log(data);
       if (data.success == false) {
         //  this.showSpinner =false;
         let snackBarRef = this.snackBar.open(data.msg, '', {

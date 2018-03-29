@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from './../../services/admin.service';
 import { Router } from '@angular/router';
+import * as socketIo from 'socket.io-client';
+import { Config } from './../../config/config';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +11,25 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   plans : any;
+  private socket: any;
 
-  constructor(private adminService: AdminService, private routes: Router) { }
+  constructor(private config: Config, private adminService: AdminService, private routes: Router) {
+    this.socket = socketIo(config.siteUrl);
+   }
 
   ngOnInit() {
+    this.socket.on('addPlan', (data) => {
+      this.getPlans();
+    });
+    this.socket.on('bestPlan', (data) => {
+      this.getPlans();
+    });
+    this.socket.on('deletePlan', (data) => {
+      this.getPlans();
+    });
+    this.socket.on('updatePlan', (data) => {
+      this.getPlans();
+    });
     this.getPlans();
   }
 

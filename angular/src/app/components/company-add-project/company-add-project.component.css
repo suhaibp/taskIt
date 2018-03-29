@@ -9,3 +9,7 @@
       margin: 20px auto 10px auto;
       float: none;
   }
+  .info-icon{
+    font-size: 19px !important;
+    color: #0c64ae;
+  }

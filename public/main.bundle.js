@@ -107,19 +107,37 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_admin_dashboard_pie_admin_dashboard_pie_component__ = __webpack_require__("../../../../../src/app/components/admin-dashboard-pie/admin-dashboard-pie.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_company_add_project_company_add_project_component__ = __webpack_require__("../../../../../src/app/components/company-add-project/company-add-project.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_company_project_company_project_component__ = __webpack_require__("../../../../../src/app/components/company-project/company-project.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_assign_project_assign_project_component__ = __webpack_require__("../../../../../src/app/components/assign-project/assign-project.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__ = __webpack_require__("../../../../../src/app/components/company-login/company-login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__ = __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_company_assign_project_company_assign_project_component__ = __webpack_require__("../../../../../src/app/components/company-assign-project/company-assign-project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_company_edit_project_company_edit_project_component__ = __webpack_require__("../../../../../src/app/components/company-edit-project/company-edit-project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_company_login_company_login_component__ = __webpack_require__("../../../../../src/app/components/company-login/company-login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_email_verification_email_verification_component__ = __webpack_require__("../../../../../src/app/components/email-verification/email-verification.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_company_topbar_company_topbar_component__ = __webpack_require__("../../../../../src/app/components/company-topbar/company-topbar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_user_topbar_user_topbar_component__ = __webpack_require__("../../../../../src/app/components/user-topbar/user-topbar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_user_project_estimation_user_project_estimation_component__ = __webpack_require__("../../../../../src/app/components/user-project-estimation/user-project-estimation.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_company_approve_estimation_company_approve_estimation_component__ = __webpack_require__("../../../../../src/app/components/company-approve-estimation/company-approve-estimation.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_company_approve_project_company_approve_project_component__ = __webpack_require__("../../../../../src/app/components/company-approve-project/company-approve-project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_user_edit_profile_user_edit_profile_component__ = __webpack_require__("../../../../../src/app/components/user-edit-profile/user-edit-profile.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_test_user_test_user_component__ = __webpack_require__("../../../../../src/app/components/test-user/test-user.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__angular_cdk_table__ = __webpack_require__("../../../cdk/esm5/table.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
+
+
+
+
+
+
 
 
 
@@ -174,9 +192,17 @@ var appRoutes = [
     { path: 'upgrade/:id', component: __WEBPACK_IMPORTED_MODULE_22__components_company_upgrade_company_upgrade_component__["a" /* CompanyUpgradeComponent */] },
     { path: 'add-project', component: __WEBPACK_IMPORTED_MODULE_25__components_company_add_project_company_add_project_component__["a" /* CompanyAddProjectComponent */] },
     { path: 'project', component: __WEBPACK_IMPORTED_MODULE_26__components_company_project_company_project_component__["a" /* CompanyProjectComponent */] },
-    { path: 'assign-project', component: __WEBPACK_IMPORTED_MODULE_27__components_assign_project_assign_project_component__["a" /* AssignProjectComponent */] },
-    { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
-    { path: 'email-verification/:id', component: __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */] },
+    { path: 'assign-project/:id', component: __WEBPACK_IMPORTED_MODULE_27__components_company_assign_project_company_assign_project_component__["a" /* CompanyAssignProjectComponent */] },
+    { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_29__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
+    { path: 'email-verification/:id', component: __WEBPACK_IMPORTED_MODULE_30__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */] },
+    { path: 'edit-project/:id', component: __WEBPACK_IMPORTED_MODULE_28__components_company_edit_project_company_edit_project_component__["a" /* CompanyEditProjectComponent */] },
+    { path: 'company-topbar', component: __WEBPACK_IMPORTED_MODULE_31__components_company_topbar_company_topbar_component__["a" /* CompanyTopbarComponent */] },
+    { path: 'user-topbar', component: __WEBPACK_IMPORTED_MODULE_32__components_user_topbar_user_topbar_component__["a" /* UserTopbarComponent */] },
+    { path: 'estimate-project/:id1/:id2', component: __WEBPACK_IMPORTED_MODULE_33__components_user_project_estimation_user_project_estimation_component__["a" /* UserProjectEstimationComponent */] },
+    { path: 'approve-estimation/:id', component: __WEBPACK_IMPORTED_MODULE_34__components_company_approve_estimation_company_approve_estimation_component__["a" /* CompanyApproveEstimationComponent */] },
+    { path: 'approve-project/:id', component: __WEBPACK_IMPORTED_MODULE_35__components_company_approve_project_company_approve_project_component__["a" /* CompanyApproveProjectComponent */] },
+    { path: 'edit-profile', component: __WEBPACK_IMPORTED_MODULE_36__components_user_edit_profile_user_edit_profile_component__["a" /* UserEditProfileComponent */] },
+    { path: 'test-user', component: __WEBPACK_IMPORTED_MODULE_37__components_test_user_test_user_component__["a" /* TestUserComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
@@ -184,38 +210,38 @@ var DemoMaterialModule = (function () {
     DemoMaterialModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
             exports: [
-                __WEBPACK_IMPORTED_MODULE_33__angular_cdk_table__["m" /* CdkTableModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["a" /* MatAutocompleteModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["b" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["c" /* MatButtonToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["d" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["e" /* MatCheckboxModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["f" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["D" /* MatStepperModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["g" /* MatDatepickerModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["h" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["i" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["j" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["k" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["l" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["m" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["n" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["o" /* MatNativeDateModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["q" /* MatPaginatorModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["r" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["s" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["t" /* MatRadioModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["u" /* MatRippleModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["v" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["w" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["y" /* MatSliderModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["x" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["A" /* MatSnackBarModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["C" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["F" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["G" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["H" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material__["I" /* MatTooltipModule */],
+                __WEBPACK_IMPORTED_MODULE_42__angular_cdk_table__["m" /* CdkTableModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["a" /* MatAutocompleteModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["b" /* MatButtonModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["c" /* MatButtonToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["d" /* MatCardModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["e" /* MatCheckboxModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["f" /* MatChipsModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["D" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["g" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["h" /* MatDialogModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["i" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["j" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["k" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["l" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["m" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["n" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["o" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["q" /* MatPaginatorModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["r" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["s" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["t" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["u" /* MatRippleModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["v" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["w" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["y" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["x" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["A" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["C" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["F" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["G" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["H" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_41__angular_material__["I" /* MatTooltipModule */],
             ],
         })
     ], DemoMaterialModule);
@@ -247,9 +273,17 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_24__components_admin_dashboard_pie_admin_dashboard_pie_component__["a" /* AdminDashboardPieComponent */],
                 __WEBPACK_IMPORTED_MODULE_25__components_company_add_project_company_add_project_component__["a" /* CompanyAddProjectComponent */],
                 __WEBPACK_IMPORTED_MODULE_26__components_company_project_company_project_component__["a" /* CompanyProjectComponent */],
-                __WEBPACK_IMPORTED_MODULE_27__components_assign_project_assign_project_component__["a" /* AssignProjectComponent */],
-                __WEBPACK_IMPORTED_MODULE_28__components_company_login_company_login_component__["a" /* CompanyLoginComponent */],
-                __WEBPACK_IMPORTED_MODULE_29__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */]
+                __WEBPACK_IMPORTED_MODULE_29__components_company_login_company_login_component__["a" /* CompanyLoginComponent */],
+                __WEBPACK_IMPORTED_MODULE_30__components_email_verification_email_verification_component__["a" /* EmailVerificationComponent */],
+                __WEBPACK_IMPORTED_MODULE_27__components_company_assign_project_company_assign_project_component__["a" /* CompanyAssignProjectComponent */],
+                __WEBPACK_IMPORTED_MODULE_28__components_company_edit_project_company_edit_project_component__["a" /* CompanyEditProjectComponent */],
+                __WEBPACK_IMPORTED_MODULE_31__components_company_topbar_company_topbar_component__["a" /* CompanyTopbarComponent */],
+                __WEBPACK_IMPORTED_MODULE_32__components_user_topbar_user_topbar_component__["a" /* UserTopbarComponent */],
+                __WEBPACK_IMPORTED_MODULE_33__components_user_project_estimation_user_project_estimation_component__["a" /* UserProjectEstimationComponent */],
+                __WEBPACK_IMPORTED_MODULE_34__components_company_approve_estimation_company_approve_estimation_component__["a" /* CompanyApproveEstimationComponent */],
+                __WEBPACK_IMPORTED_MODULE_35__components_company_approve_project_company_approve_project_component__["a" /* CompanyApproveProjectComponent */],
+                __WEBPACK_IMPORTED_MODULE_36__components_user_edit_profile_user_edit_profile_component__["a" /* UserEditProfileComponent */],
+                __WEBPACK_IMPORTED_MODULE_37__components_test_user_test_user_component__["a" /* TestUserComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
@@ -259,9 +293,9 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["e" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["j" /* ReactiveFormsModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
-                DemoMaterialModule
+                DemoMaterialModule,
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_6__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_30__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_31__services_company_service__["a" /* CompanyService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_6__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_38__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_39__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_40__services_user_service__["a" /* UserService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -776,9 +810,9 @@ var AdminLoginComponent = (function () {
     AdminLoginComponent.prototype.login = function () {
         var _this = this;
         this.showSpinner = true;
-        console.log(this.newLogin);
+        // console.log(this.newLogin);
         this.adminService.adminLogin(this.newLogin).subscribe(function (data) {
-            // console.log(data);
+            console.log(data);
             if (data.success == false) {
                 //  this.showSpinner =false;
                 var snackBarRef = _this.snackBar.open(data.msg, '', {
@@ -889,7 +923,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-plan/admin-plan.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <admin-topbar></admin-topbar>\n<br>\n      <div class=\"col-md-12 col-xs-9\">\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n\n\n          <div class=\"example-container mat-elevation-z8\">\n            <div class=\"example-header\">\n              <mat-form-field>\n                <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n              </mat-form-field>\n            </div>\n            <mat-table [dataSource]=\"dataSource\" matSort>\n              <ng-container matColumnDef=\"slno\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\n                <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"planname\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> PLAN NAME</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"> {{row.plan_name}}</mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"price\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> PRICE</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"> {{row.plan_price}}</mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"bestvalue\">\n                <mat-header-cell *matHeaderCellDef > BEST VALUE</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\">\n\n                  <mat-slide-toggle class=\"example-margin\" name=\"best\" [(ngModel)]=\"row.is_best_value\" (change)=\"onChange(row.id,row.is_best_value)\"\n                    [checked]=\"row.is_best_value\">\n\n                  </mat-slide-toggle>\n                </mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"action\">\n                <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\n                  <mat-menu #menu=\"matMenu\">\n                    <!-- <button mat-menu-item disabled *ngIf=\"row.status==false\" (click)=\"getEditId(row._id)\" data-toggle=\"modal\" data-target=\"#myModal2\">\n                                                                <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                                                                <span>Edit</span>\n                                                                </button> -->\n                    <button mat-menu-item (click)=\"getEditId(row.id)\" data-toggle=\"modal\" data-target=\"#myModal2\">\n                                                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                                                            <span>Edit</span>\n                                                            </button>\n\n\n                    <button mat-menu-item (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \n                                                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\n                                                            <span>Delete</span>\n                                                        </button>\n                  </mat-menu>\n                </mat-cell>\n\n              </ng-container>\n\n\n\n              <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n              <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\n              </mat-row>\n            </mat-table>\n            <!-- <div class=\"col-md-15 \"> -->\n            <!-- <div *ngIf=\"showSpinnerDelete\" class=\"deletespinner\">\n                          <mat-spinner></mat-spinner>\n                       </div> -->\n\n            <!-- </div> -->\n\n            <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n              <div class=\"col-md-4 col-md-offset-4\">\n                <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n              </div>\n            </div>\n            <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n          </div>\n        </div>\n        </div>\n      </div>\n      <div class=\"add-button\">\n        <button type=\"button\" class=\"add-project\" data-toggle=\"modal\" data-target=\"#addModal\" data-backdrop=\"static\">+</button>\n      </div>\n      <!-- -------------------------Modal -add plan------------------------------ -->\n\n      <div id=\"addModal\" class=\"modal fade\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\n              <h4 class=\"modal-title\">Add New Plan</h4>\n            </div>\n            <div class=\"modal-body\">\n\n              <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addPlan(newPlan);\" novalidate>\n\n                <div>\n                  <div class=\"example-container\">\n                    <mat-form-field>\n                      <input matInput placeholder=\"Plan Name\" name=\"plan_name\" [(ngModel)]=\"newPlan.plan_name\" required>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <span matPrefix>₹&nbsp;</span>\n                      <input matInput placeholder=\"Price\" type=\"number\" min=\"1\" class=\"example-right-align\" name=\"plan_price\" [(ngModel)]=\"newPlan.plan_price\"\n                        required>\n\n                      <!-- <span matSuffix>.00</span> -->\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n\n                      <mat-select placeholder=\"No of projects\" name=\"no_projects\" [(ngModel)]=\"newPlan.no_projects\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n\n\n                    <mat-form-field *ngIf=\"newPlan.no_projects == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"newPlan.value1\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Members\" name=\"no_members\" [(ngModel)]=\"newPlan.no_members\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.no_members == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value2\" [(ngModel)]=\"newPlan.value2\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Modules\" name=\"no_modules\" [(ngModel)]=\"newPlan.no_modules\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.no_modules == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"newPlan.value3\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Tasks\" name=\"no_tasks\" [(ngModel)]=\"newPlan.no_tasks\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.no_tasks == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value4\" [(ngModel)]=\"newPlan.value4\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n\n                  </div>\n\n                </div>\n                <br>\n                <!-- <div *ngIf=\"showSpinner\">\n                                    <mat-spinner></mat-spinner>\n                                   </div> -->\n\n\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button\">Submit</button>\n\n                  </div>\n                  <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                    <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                      x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\"\n                      xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div> -->\n\n                </div>\n\n              </form>\n            </div>\n            <div class=\"modal-footer\">\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n\n      <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\n      <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Delete </h4>\n            </div>\n            <!-- <div class=\"modal-header\"> -->\n            <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n            <!-- </div> -->\n            <div class=\"modal-body delete-popup\">\n              <i class=\"fa fa-exclamation\"></i>\n\n\n              <h4 class=\"textalign\">Are you sure?</h4>\n\n            </div>\n\n            <div class=\"modal-footer\" style=\"text-align:center;\">\n              <button type=\"button\" (click)=\"deletePlan(planId)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n      <!-- ----------------------------------------------------------------------Edit modal-------------------------------------------------------------------------- -->\n      <div id=\"myModal2\" class=\"modal fade\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\n              <h4 class=\"modal-title\">Update Plan</h4>\n            </div>\n            <div class=\"modal-body\">\n\n              <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"f.form.valid && updatePlan(plan);\" novalidate>\n\n                <div class=\"form-group\">\n                  <div class=\"example-container\">\n\n                    <mat-form-field>\n                      <input matInput placeholder=\"Plan Name\" name=\"plan_name\" [(ngModel)]=\"plan.plan_name\" required>\n                    </mat-form-field>\n                    <div *ngIf=\"!disablePrice\">\n                      <mat-form-field class=\"inputfileds\">\n\n                        <input matInput placeholder=\"Price\" type=\"number\" min=\"1\" class=\"example-right-align\" name=\"plan_price\" [(ngModel)]=\"plan.plan_price\"\n                          required>\n                        <span matPrefix>₹&nbsp;</span>\n                        <!-- <span matSuffix>.00</span> -->\n\n                      </mat-form-field>\n                    </div>\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of projects\" name=\"noprojects\" [(ngModel)]=\"plan.noprojects\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.noprojects != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"plan.no_projects\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <!-- <mat-form-field *ngIf=\"newPlan.no_projects == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"newPlan.value1\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field> -->\n\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of members\" name=\"no_members\" [(ngModel)]=\"plan.nomembers\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.nomembers != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value2\" [(ngModel)]=\"plan.no_members\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of modules\" name=\"no_modules\" [(ngModel)]=\"plan.nomodules\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.nomodules != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"plan.no_modules\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of tasks\" name=\"no_tasks\" [(ngModel)]=\"plan.notasks\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.notasks != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"plan.no_tasks\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    \n\n                  </div>\n                </div>\n                <!-- <div *ngIf=\"showSpinner\">\n            <mat-spinner></mat-spinner>\n           </div> -->\n                <br>\n\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button\">Update</button>\n\n                  </div>\n                  <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                    <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                      x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\"\n                      xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div> -->\n\n                </div>\n\n              </form>\n            </div>\n            <div class=\"modal-footer\">\n            </div>\n          </div>\n\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- <footer></footer>  -->\n\n</body>"
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <admin-topbar></admin-topbar>\n<br>\n      <div class=\"col-md-12 col-xs-9\">\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n\n\n          <div class=\"example-container mat-elevation-z8\">\n            <div class=\"example-header\">\n              <mat-form-field>\n                <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n              </mat-form-field>\n            </div>\n            <mat-table [dataSource]=\"dataSource\" matSort>\n              <ng-container matColumnDef=\"slno\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\n                <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"planname\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> PLAN NAME</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"> {{row.plan_name}}</mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"price\">\n                <mat-header-cell *matHeaderCellDef mat-sort-header> PRICE</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"> <span matPrefix>₹&nbsp;</span> {{row.plan_price}}</mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"bestvalue\">\n                <mat-header-cell *matHeaderCellDef > BEST VALUE</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\">\n\n                  <mat-slide-toggle class=\"example-margin\" name=\"best\" [(ngModel)]=\"row.is_best_value\" (change)=\"onChange(row.id,row.is_best_value)\"\n                    [checked]=\"row.is_best_value\">\n\n                  </mat-slide-toggle>\n                </mat-cell>\n              </ng-container>\n              <ng-container matColumnDef=\"action\">\n                <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\n                <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\n                  <mat-menu #menu=\"matMenu\">\n                    <!-- <button mat-menu-item disabled *ngIf=\"row.status==false\" (click)=\"getEditId(row._id)\" data-toggle=\"modal\" data-target=\"#myModal2\">\n                                                                <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                                                                <span>Edit</span>\n                                                                </button> -->\n                    <button mat-menu-item (click)=\"getEditId(row.id)\" data-toggle=\"modal\" data-target=\"#myModal2\">\n                                                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                                                            <span>Edit</span>\n                                                            </button>\n\n\n                    <button mat-menu-item (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \n                                                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\n                                                            <span>Delete</span>\n                                                        </button>\n                  </mat-menu>\n                </mat-cell>\n\n              </ng-container>\n\n\n\n              <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n              <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\n              </mat-row>\n            </mat-table>\n            <!-- <div class=\"col-md-15 \"> -->\n            <!-- <div *ngIf=\"showSpinnerDelete\" class=\"deletespinner\">\n                          <mat-spinner></mat-spinner>\n                       </div> -->\n\n            <!-- </div> -->\n\n            <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n              <div class=\"col-md-4 col-md-offset-4\">\n                <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n              </div>\n            </div>\n            <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n          </div>\n        </div>\n        </div>\n      </div>\n      <div class=\"add-button\">\n        <button type=\"button\" class=\"add-project\" data-toggle=\"modal\" data-target=\"#addModal\" data-backdrop=\"static\">+</button>\n      </div>\n      <!-- -------------------------Modal -add plan------------------------------ -->\n\n      <div id=\"addModal\" class=\"modal fade\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\n              <h4 class=\"modal-title\">Add New Plan</h4>\n            </div>\n            <div class=\"modal-body\">\n\n              <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addPlan(newPlan);\" novalidate>\n\n                <div>\n                  <div class=\"example-container\">\n                    <mat-form-field>\n                      <input matInput placeholder=\"Plan Name\" name=\"plan_name\" [(ngModel)]=\"newPlan.plan_name\" required>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <span matPrefix>₹&nbsp;</span>\n                      <input matInput placeholder=\"Price\" type=\"number\" min=\"1\" class=\"example-right-align\" name=\"plan_price\" [(ngModel)]=\"newPlan.plan_price\"\n                        required>\n\n                      <!-- <span matSuffix>.00</span> -->\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n\n                      <mat-select placeholder=\"No of projects\" name=\"no_projects\" [(ngModel)]=\"newPlan.no_projects\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n\n\n                    <mat-form-field *ngIf=\"newPlan.no_projects == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"newPlan.value1\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Members\" name=\"no_members\" [(ngModel)]=\"newPlan.no_members\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.no_members == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value2\" [(ngModel)]=\"newPlan.value2\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Modules\" name=\"no_modules\" [(ngModel)]=\"newPlan.no_modules\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.no_modules == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"newPlan.value3\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field>\n                      <mat-select placeholder=\"No of Tasks\" name=\"no_tasks\" [(ngModel)]=\"newPlan.no_tasks\" required>\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <br>\n                    <mat-form-field *ngIf=\"newPlan.no_tasks == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value4\" [(ngModel)]=\"newPlan.value4\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n\n                  </div>\n\n                </div>\n                <br>\n                <!-- <div *ngIf=\"showSpinner\">\n                                    <mat-spinner></mat-spinner>\n                                   </div> -->\n\n\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button\">Submit</button>\n\n                  </div>\n                  <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                    <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                      x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\"\n                      xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div> -->\n\n                </div>\n\n              </form>\n            </div>\n            <div class=\"modal-footer\">\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n\n      <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\n      <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Delete </h4>\n            </div>\n            <!-- <div class=\"modal-header\"> -->\n            <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n            <!-- </div> -->\n            <div class=\"modal-body delete-popup\">\n              <i class=\"fa fa-exclamation\"></i>\n\n\n              <h4 class=\"textalign\">Are you sure?</h4>\n\n            </div>\n\n            <div class=\"modal-footer\" style=\"text-align:center;\">\n              <button type=\"button\" (click)=\"deletePlan(planId)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n      <!-- ----------------------------------------------------------------------delete modal-------------------------------------------------------------------------- -->\n      <div id=\"myModal2\" class=\"modal fade\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\n              <h4 class=\"modal-title\">Update Plan</h4>\n            </div>\n            <div class=\"modal-body\">\n\n              <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"f.form.valid && updatePlan(plan);\" novalidate>\n\n                <div class=\"form-group\">\n                  <div class=\"example-container\">\n\n                    <mat-form-field>\n                      <input matInput placeholder=\"Plan Name\" name=\"plan_name\" [(ngModel)]=\"plan.plan_name\" required>\n                    </mat-form-field>\n                    <div *ngIf=\"!disablePrice\">\n                      <mat-form-field class=\"inputfileds\">\n\n                        <input matInput placeholder=\"Price\" type=\"number\" min=\"1\" class=\"example-right-align\" name=\"plan_price\" [(ngModel)]=\"plan.plan_price\"\n                          required>\n                        <span matPrefix>₹&nbsp;</span>\n                        <!-- <span matSuffix>.00</span> -->\n\n                      </mat-form-field>\n                    </div>\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of projects\" name=\"noprojects\" [(ngModel)]=\"plan.noprojects\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.noprojects != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"plan.no_projects\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <!-- <mat-form-field *ngIf=\"newPlan.no_projects == 'limited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value1\" [(ngModel)]=\"newPlan.value1\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field> -->\n\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of members\" name=\"no_members\" [(ngModel)]=\"plan.nomembers\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.nomembers != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value2\" [(ngModel)]=\"plan.no_members\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of modules\" name=\"no_modules\" [(ngModel)]=\"plan.nomodules\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.nomodules != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"plan.no_modules\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    <mat-form-field class=\"inputfileds\">\n                      <mat-select placeholder=\"No of tasks\" name=\"no_tasks\" [(ngModel)]=\"plan.notasks\" required>\n\n                        <mat-option value=\"Unlimited\">Unlimited</mat-option>\n                        <mat-option value=\"limited\">limited</mat-option>\n\n                      </mat-select>\n                    </mat-form-field>\n                    <mat-form-field *ngIf=\"plan.notasks != 'Unlimited'\">\n                      <input matInput placeholder=\"value\" type=\"number\" name=\"value3\" [(ngModel)]=\"plan.no_tasks\" min=\"1\" oninput=\"validity.valid||(value='');\">\n                    </mat-form-field>\n\n                    \n\n                  </div>\n                </div>\n                <!-- <div *ngIf=\"showSpinner\">\n            <mat-spinner></mat-spinner>\n           </div> -->\n                <br>\n\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button\">Update</button>\n\n                  </div>\n                  <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                    <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                      x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\"\n                      xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div> -->\n\n                </div>\n\n              </form>\n            </div>\n            <div class=\"modal-footer\">\n            </div>\n          </div>\n\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- <footer></footer>  -->\n\n</body>"
 
 /***/ }),
 
@@ -1281,7 +1315,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-topbar/admin-topbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n    <header>\r\n\r\n        <div class=\"col-md-5 pull-right\">\r\n            <div class=\"header-rightside\">\r\n                <ul class=\"list-inline header-top pull-right\">\r\n                    <li class=\"\"><a [routerLink]=\"['/planlist']\" class=\"add-project\">Upgrade</a></li>\r\n                    <li class=\"\"><a href=\"#\" class=\"add-project\">Add Project</a></li>\r\n\r\n                    <li>\r\n                        <a href=\"#\" class=\"icon-info\">\r\n                                <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\r\n                                <span class=\"label label-primary\">3</span>\r\n                            </a>\r\n                    </li>\r\n                    <li class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                                <b class=\"caret\"></b></a>\r\n                        <ul class=\"dropdown-menu\">\r\n                            <li>\r\n                                <div class=\"navbar-content\">\r\n                                    <span>JS Krishna</span>\r\n                                    <p class=\"text-muted small\">\r\n                                        me@jskrishna.com\r\n                                    </p>\r\n                                    <div class=\"divider\">\r\n                                    </div>\r\n                                    <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\r\n                                </div>\r\n                            </li>\r\n                        </ul>\r\n                    </li>\r\n                    <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </header>\r\n</div>"
+module.exports = "<div class=\"row\">\r\n    <header>\r\n\r\n        <div class=\"col-md-5 pull-right\">\r\n            <div class=\"header-rightside\">\r\n                <ul class=\"list-inline header-top pull-right\">\r\n                    <li class=\"\"><a href=\"#\" class=\"add-project\">Add Project</a></li>\r\n\r\n                    <li>\r\n                        <a href=\"#\" class=\"icon-info\">\r\n                                <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\r\n                                <span class=\"label label-primary\">3</span>\r\n                            </a>\r\n                    </li>\r\n                    <li class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                                <b class=\"caret\"></b></a>\r\n                        <ul class=\"dropdown-menu\">\r\n                            <li>\r\n                                <div class=\"navbar-content\">\r\n                                    <span>JS Krishna</span>\r\n                                    <p class=\"text-muted small\">\r\n                                        me@jskrishna.com\r\n                                    </p>\r\n                                    <div class=\"divider\">\r\n                                    </div>\r\n                                    <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\r\n                                </div>\r\n                            </li>\r\n                        </ul>\r\n                    </li>\r\n                    <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </header>\r\n</div>"
 
 /***/ }),
 
@@ -1382,67 +1416,6 @@ var AdminTrialComponent = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/components/assign-project/assign-project.component.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/assign-project/assign-project.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  assign-project works!\n</p>\n"
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/assign-project/assign-project.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AssignProjectComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var AssignProjectComponent = (function () {
-    function AssignProjectComponent() {
-    }
-    AssignProjectComponent.prototype.ngOnInit = function () {
-    };
-    AssignProjectComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'app-assign-project',
-            template: __webpack_require__("../../../../../src/app/components/assign-project/assign-project.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/components/assign-project/assign-project.component.css")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], AssignProjectComponent);
-    return AssignProjectComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "../../../../../src/app/components/company-add-project/company-add-project.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1451,7 +1424,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".panel-body {\r\n    padding: 50px;\r\n}\r\n.mrg-top label{padding-top: 20px;}\r\n.round-button{\r\n    float:none !important;\r\n  }\r\n  .center-bt {\r\n      margin: 20px auto 10px auto;\r\n      float: none;\r\n  }", ""]);
+exports.push([module.i, ".panel-body {\r\n    padding: 50px;\r\n}\r\n.mrg-top label{padding-top: 20px;}\r\n.round-button{\r\n    float:none !important;\r\n  }\r\n  .center-bt {\r\n      margin: 20px auto 10px auto;\r\n      float: none;\r\n  }\r\n  .info-icon{\r\n    font-size: 19px !important;\r\n    color: #0c64ae;\r\n  }", ""]);
 
 // exports
 
@@ -1464,7 +1437,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-add-project/company-add-project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <admin-topbar></admin-topbar>\n        <br>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n              <h3>Add Project</h3>\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <input matInput [(ngModel)]=\"project.project_name\" name=\"project_name\" autofocus required formControlName=\"project_nameValidation\">\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Type :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"project_type\" [(ngModel)]=\"project.project_type\" required formControlName=\"project_typeValidation\">\n                      <mat-option value=\"Billable\">Billable</mat-option>\n                      <mat-option value=\"Non-billable\">Non-billable</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select [(ngModel)]=\"project.category_id\" name=\"category_id\" required formControlName=\"category_idValidation\">\n                      <mat-option *ngFor=\"let item of categories\" [value]=\"item.id\">\n                        {{ item.category_name }}\n                      </mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"priority\" [(ngModel)]=\"project.priority\" required formControlName=\"priorityValidation\">\n                      <mat-option value=\"Low\">Low</mat-option>\n                      <mat-option value=\"Medium\">Medium</mat-option>\n                      <mat-option value=\"High\">High</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <textarea matInput [(ngModel)]=\"project.description\" name=\"description\" required formControlName=\"descriptionValidation\"\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div *ngIf=\"showPMlist\">\n                  <div class=\"col-md-4 col-xs-6\"><label>Assigned To :</label></div>\n                  <div class=\"col-md-7 col-xs-6\">\n                    <mat-form-field [formGroup]=\"formGroup\">\n                      <mat-select [(ngModel)]=\"project.pm_id\" name=\"pm_id\" required formControlName=\"pm_idValidation\">\n                        <mat-option *ngFor=\"let item of pm\" [value]=\"item.id\">\n                          {{ item.f_name }} {{ item.l_name }}\n                        </mat-option>\n                      </mat-select>\n                    </mat-form-field>\n                  </div>\n                </div>\n                <br>\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"addProject(project)\" class=\"btn round-button center-bt\">Submit</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <company-topbar></company-topbar>\n        <br>\n        <div class=\"col-md-12\"><h3>Add Project</h3></div>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n              <!-- <h3>Add Project</h3> -->\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <input matInput [(ngModel)]=\"project.project_name\" name=\"project_name\" autofocus required formControlName=\"project_nameValidation\">\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Type :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"project_type\" [(ngModel)]=\"project.project_type\" required formControlName=\"project_typeValidation\">\n                      <mat-option value=\"Billable\">Billable</mat-option>\n                      <mat-option value=\"Non-billable\">Non-billable</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select [(ngModel)]=\"project.category_id\" name=\"category_id\" required formControlName=\"category_idValidation\">\n                      <mat-option *ngFor=\"let item of categories\" [value]=\"item.id\">\n                        {{ item.category_name }}\n                      </mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                  <span matTooltip=\"To add a new category, please go to the category by clicking on the master settings on right corner !\"><i class=\"material-icons info-icon\">info_outline</i></span>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"priority\" [(ngModel)]=\"project.priority\" required formControlName=\"priorityValidation\">\n                      <mat-option value=\"Low\">Low</mat-option>\n                      <mat-option value=\"Medium\">Medium</mat-option>\n                      <mat-option value=\"High\">High</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <textarea matInput [(ngModel)]=\"project.description\" name=\"description\" required formControlName=\"descriptionValidation\"\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div *ngIf=\"showPMlist\">\n                  <div class=\"col-md-4 col-xs-6\"><label>Assigned To :</label></div>\n                  <div class=\"col-md-7 col-xs-6\">\n                    <mat-form-field [formGroup]=\"formGroup\">\n                      <mat-select [(ngModel)]=\"project.pm_id\" name=\"pm_id\" required formControlName=\"pm_idValidation\">\n                        <mat-option value=\"Me\">Me</mat-option>\n                        <mat-option *ngFor=\"let item of pm\" [value]=\"item.login_id\">\n                          {{ item.f_name }} {{ item.l_name }}\n                        </mat-option>\n                      </mat-select>\n                    </mat-form-field>\n                  </div>\n                </div>\n                <br>\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"addProject(project)\" class=\"btn round-button center-bt\">Submit</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
 
 /***/ }),
 
@@ -1554,7 +1527,7 @@ var CompanyAddProjectComponent = (function () {
         if (this.entity.role_id == 3) {
             this.project.pm_id = this.entity.id;
         }
-        if (project.pm_id == '') {
+        if (project.pm_id == '' || project.pm_id == "Me") {
             if (confirm("Do you select yourself as the Project Manager? ")) {
                 project.pm_id = this.entity.id;
             }
@@ -1570,11 +1543,11 @@ var CompanyAddProjectComponent = (function () {
         // Desc          :  
         this.companyService.addProject(project).subscribe(function (data) {
             var snackBarRef = _this.snackBar.open(data.msg, '', {
-                duration: 3000
+                duration: 4000
             });
             if (data.success == true) {
                 if (project.pm_id == _this.entity.id) {
-                    _this.routes.navigate(['/assign-project']);
+                    _this.routes.navigate(['/assign-project', data.id]);
                 }
                 else {
                     _this.routes.navigate(['/project']);
@@ -1592,6 +1565,1193 @@ var CompanyAddProjectComponent = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */]])
     ], CompanyAddProjectComponent);
     return CompanyAddProjectComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-approve-estimation/company-approve-estimation.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".panel-body {\r\n    padding: 50px;\r\n}\r\n.mrg-top label{padding-top: 20px;}\r\n.round-button{\r\n    float:none !important;\r\n  }\r\n  .center-bt {\r\n      margin: 20px auto 10px auto;\r\n      float: none;\r\n  }\r\n .no-edit{font-weight: 400 !important;}\r\n .line-breaker {\r\n    white-space: pre-line;\r\n  }\r\n  .task{background:#fbf6f1;width:100%;padding:6px 0;display: inline-block;margin-bottom:6px;}\r\n  button, input, optgroup, select, textarea{outline:none !important;}\r\n  .taskedit{border-left:1px solid #ccc;    display: inline-block;width:100%;margin-top: 5px;}\r\n  .task ul li{width:auto;float:left;padding: 8px;}\r\n      a{color:#111;}\r\n  .task h5{padding-top:13px;padding-top: 6px;}\r\n  .hash{background:#f7f6f4;}\r\n  .round-button {\r\n      border-radius: 20px;\r\n      margin: 0;\r\n      float: left;\r\n      background: #f37600;\r\n      color: #fff;\r\n      padding: 7px 15px;\r\n      transition: background 2s;\r\n      margin-bottom:15px;\r\n  }\r\n  .round-button:hover {\r\n      background: #ffaa05;\r\n      color: #fff;\r\n  }\r\n  .dropdown ul.dropdown-menu:before {\r\n      content: \"\";\r\n      border-bottom: 10px solid #fff;\r\n      border-right: 10px solid transparent;\r\n      border-left: 10px solid transparent;\r\n      position: absolute;\r\n      top: -10px;\r\n      right: 16px;\r\n      z-index: 10;\r\n  }\r\n  .round-button:hover, .round-button:focus, .round-button.focus{color:#fff;}\r\n  button, input, optgroup, select, textarea{outline:none;}\r\n  .effect-1 ~ .focus-border{position: absolute; bottom: 0; left: 15px; width: 0; height: 2px;background-color: #bba28b; transition: 0.4s;right:15px;}\r\n  .effect-1:focus ~ .focus-border{width: 95%; transition: 0.4s;}\r\n  .effect-1{border: 0; padding: 7px 0; border-bottom: 1px solid #ccc;width:100%;}\r\n  .style{width:100%;}\r\n  label{font-size:15px;color:#4a4a4a;font-weight:normal;padding:5px 0;}\r\n  .mrg-2{margin-bottom:10px;}\r\n  .dropdown-menu > li > a {\r\n      display: block;\r\n      padding: 3px 20px;\r\n      clear: both;\r\n      font-weight: normal;\r\n      line-height: 25px;\r\n      color: #333333;\r\n      white-space: nowrap;\r\n  }\r\n  .addmodule {\r\n      padding: 20px 10px!important;\r\n      min-width: 357px;\r\n      right: 0px;\r\n      left: inherit;\r\n  }\r\n  .style{border:none;border-bottom: 1px solid #ccc;}\r\n  .white {\r\n      background: #ffffff none repeat scroll 0 0;\r\n      \r\n      display: inline-block;\r\n      padding: 33px 25px;\r\n      width: 100%;\r\n  }\r\n  .btn-file{padding:0;}\r\n  .white {\r\n      background: #ffffff none repeat scroll 0 0;\r\n      \r\n      display: inline-block;\r\n      padding: 33px 25px;\r\n      width: 100%;\r\n      margin-bottom:20px;\r\n  }\r\n  .center-bt{margin:20px auto 10px auto;float:none;}\r\n  @media only screen and (max-width : 767px) {\r\n  .mrg-2 {\r\n      margin-bottom: 37px;\r\n  }\r\n  \r\n  .task ul li{    padding: 2px;}\t\r\n  .addmodule{    min-width: 274px;}\r\n  }\r\n  .round-button{float:inherit !important;}  \r\n  .right-btn{float:right !important;margin-left: 15px;}\r\n\r\n\r\n .dwnload{ background: #f39f00;\r\n  border: none;\r\n  border-radius: 50%;\r\n  width: 30px;\r\n  height: 30px;\r\n  color: #fff;\r\n  font-weight: bold;\r\n  clear: left;\r\n  margin-right: 10px;\r\n}\r\n.mr-top{margin-top:20px;}\r\n.modal-content{border-radius:0;box-shadow:none;}\r\n.modal-header {\r\n    padding: 7px 15px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #da524f;\r\n}\r\n.modal-title {\r\n    margin: 0;\r\n    line-height: 26px;\r\n    font-size: 15px;\r\n    color: #fff;\r\n}\r\n.modal{top:0;}\r\n.modal-header {\r\n    padding: 10px 30px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #fe6a07;\r\n  }\r\n  .modal-content{\r\n  box-shadow:none;\r\n  border-radius: 9px;\r\n  overflow: hidden;\r\n  \r\n  }\r\n  .modal-title{color:#fff;}\r\n  .modal-body{    padding:20px 30px;}\r\n  .modal-body input{border:none;}\r\n  .modal-body input{padding: 0;}\r\n  .pad-top{padding-top:20px;}\r\n  .wdth{width:100% !important;}\r\n  .brd{    border: none;\r\n    height: 54px;}\r\n    label{\r\n        font-weight: 700 !important;\r\n    }", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-approve-estimation/company-approve-estimation.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <company-topbar></company-topbar>\n        <br>\n        <div class=\"col-md-12\">\n          <h3>Project Estimation</h3>\n        </div>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.project_name}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Code :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.project_code}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Assignee :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{assignee}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{category?.category_name}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.priority}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">\n                      {{project?.description}}\n                      </label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Date :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{pro_date}}</label></div>\n                </div>\n                <br>\n\n              </div>\n            </div>\n          </div>\n        </div>\n\n\n\n        <div class=\"col-md-7 col-sm-12 col-xs-12 gutter\">\n\n          <div *ngFor=\"let item of estimations\">\n            <div class=\"white\">\n              <div class=\"col-md-12\">\n                <div class=\"col-md-6\">\n                  <label><b>{{item.team_name}}</b></label>\n                  <div class=\"clearfix\"></div>\n                  <label>Team Lead : {{item.tbl_project_estimation_team.tbl_user_profile.f_name}} {{item.tbl_project_estimation_team.tbl_user_profile.l_name}}</label>\n                </div>\n                <div class=\"col-md-6 text-right\">\n                  Total Hours : {{item.estimation_hour}} Hrs\n                </div>\n                <br>\n                <div class=\"clearfix\"></div>\n                <br>\n              </div>\n              <div class=\"clearfix\"></div>\n              <div class=\"col-md-12\"><button type=\"button\" class=\"btn round-button pull-right right-btn\" data-toggle=\"collapse\" attr.data-target=\"#demo{{item.id}}\">Click Here</button></div>\n              <div class=\"clearfix\"></div>\n              <div id=\"demo{{item.id}}\" class=\"collapse\">\n\n                <div *ngFor=\"let modules of item.tbl_estimation_modules\">\n                  <div class=\"col-md-10 col-xs-12 pull-right\">\n                    <div class=\"task\">\n                      <div class=\"col-md-8 col-xs-7\">\n                        <h5>{{modules.module_name}}</h5>\n                      </div>\n                      <div class=\"col-md-4 col-xs-5\">\n                        <ul class=\"taskedit\">\n                          <li>{{modules.module_time}} Hr</li>\n                          <!-- <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#deleteModuleModal\" (click)=\"getId(i)\"> <i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\n                      <li class=\"pull-right\"><a><i (click)=\"editModules(i)\" class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></li> -->\n                        </ul>\n                      </div>\n                    </div>\n                  </div>\n                  <div *ngFor=\"let tasks of modules.tbl_estimation_tasks\">\n                    <div class=\"col-md-9 col-xs-12 pull-right\">\n                      <div class=\"task hash\">\n                        <div class=\"col-md-8 col-xs-7\">\n                          <h5>{{tasks.task_name}} </h5>\n                        </div>\n                        <div class=\"col-md-4 col-xs-5\">\n                          <ul class=\"taskedit\">\n                            <li>{{tasks.planned_hour + tasks.buffer_hour}} Hr</li>\n                            <!-- <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#deleteTaskModal\" (click)=\"getId1(i,j)\"> <i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\n                        <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#editTaskModal\" (click)=\"getId1(i,j)\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></li> -->\n                          </ul>\n                        </div>\n                        <div class=\"clearfix\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"clearfix\"></div>\n              </div>\n              <br>\n              <div class=\"col-md-12\">\n                <button type=\"button\" (click)=\"getEstIdtoResubmit(item.id, item.tbl_project_estimation_team.tbl_user_profile.login_id)\" data-toggle=\"modal\" data-target=\"#resubmitModal\" class=\"btn round-button pull-right right-btn\">ReSubmit</button>\n                <button type=\"button\" *ngIf=\"!acceptButtonHide[item.id]\" (click)=\"acceptEstimation(item.id)\" class=\"btn round-button pull-right right-btn\">Accept</button>\n              </div>\n              <div class=\"clearfix\"></div>\n            </div>\n          </div>\n\n\n          <div class=\"col-md-12\">\n            <button type=\"button\" *ngIf=\"sendApprovalButtonShow\" (click)=\"sendForApproval()\" class=\"btn round-button pull-right right-btn\">{{sendForApprovalBtn}}</button>\n            <button type=\"button\" *ngIf=\"forwardButtonShow\" data-toggle=\"modal\" data-target=\"#forwardModal\" class=\"btn round-button pull-right right-btn\">Forward To</button>\n          </div>\n        </div>\n\n\n        <!-- --------------------------------------------- resubmit modal ----------------------------------------------------------------- -->\n        <div id=\"resubmitModal\" class=\"modal fade\" role=\"dialog\">\n          <div class=\"modal-dialog\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\n                <h4 class=\"modal-title\">Resubmit</h4>\n              </div>\n              <div class=\"modal-body\">\n                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"resubmit(est_id, team_head_loginId);\" novalidate>\n                  <div>\n                    <div class=\"clearfix\"></div>\n                    <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Reason :</label></div>\n                    <div class=\"col-md-7 col-xs-6\">\n                      <mat-form-field class=\"wdth\">\n                        <textarea matInput [(ngModel)]=\"reason\" name=\"reason\" required matAutosizeMinRows=\"3\" class=\"brd\" matAutosizeMaxRows=\"6\"></textarea>\n                      </mat-form-field>\n                    </div>\n                    <br>\n                  </div>\n                  <br>\n                  <div class=\"\">\n                    <div class=\"col-md-12\">\n                      <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button right-btn\">Submit</button>\n                    </div>\n                  </div>\n                </form>\n              </div>\n              <div class=\"modal-footer\">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!-- ----------------------------------------------------------------------resubmit modal------------------------------------------------------------------ -->\n      \n        <!-- --------------------------------------------- forward modal ----------------------------------------------------------------- -->\n        <div id=\"forwardModal\" class=\"modal fade\" role=\"dialog\">\n          <div class=\"modal-dialog\">\n            <div class=\"modal-content\">\n              <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn2>&times;</button>\n                <h4 class=\"modal-title\">Forward</h4>\n              </div>\n              <div class=\"modal-body\">\n                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"forward();\" novalidate>\n                  <div>\n                    <div class=\"clearfix\"></div>\n                    <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Forward To :</label></div>\n                    <div class=\"col-md-7 col-xs-6\">\n                      <mat-form-field class=\"wdth\">\n                        <mat-select [(ngModel)]=\"forward_to\" name=\"forward_to\" required>\n                          <mat-option *ngFor=\"let item of teamheads\" [value]=\"item\">\n                            {{ item.tbl_user_profile.f_name}} {{ item.tbl_user_profile.l_name }}\n                          </mat-option>\n                        </mat-select>\n                      </mat-form-field>\n                    </div>\n                    <br>\n                  </div>\n                  <br>\n                  <div class=\"\">\n                    <div class=\"col-md-12\">\n                      <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button right-btn\">Submit</button>\n                    </div>\n                  </div>\n                </form>\n              </div>\n              <div class=\"modal-footer\">\n              </div>\n            </div>\n          </div>\n        </div>\n <!-- ----------------------------------------------------------------------forward modal------------------------------------------------------------------ --> \n\n\n      </div>\n    </div>\n  </div>\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-approve-estimation/company-approve-estimation.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyApproveEstimationComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var CompanyApproveEstimationComponent = (function () {
+    function CompanyApproveEstimationComponent(userService, route, snackBar, companyService, routes, _formBuilder) {
+        this.userService = userService;
+        this.route = route;
+        this.snackBar = snackBar;
+        this.companyService = companyService;
+        this.routes = routes;
+        this._formBuilder = _formBuilder;
+        this.team_member = [];
+        this.estimations = [];
+        this.task_time = 0;
+        this.sendApprovalButtonShow = false;
+        this.forwardButtonShow = false;
+        this.acceptButtonHide = [];
+        this.resubmitData = {
+            project_id: '',
+            to_id: '',
+            reason: '',
+        };
+        this.teamheads = [];
+        this.acceptedEstimationCount = 0;
+        this.current_estimation_team_ids = [];
+        this.forwardCount = 0;
+    }
+    CompanyApproveEstimationComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // console.log(this.disabled)
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getLoggedinEntity().subscribe(function (data) {
+            _this.entity = data;
+            // -----------------------------------End------------------------------------------
+            _this.sub = _this.route.params.subscribe(function (params) {
+                _this.p_id = params['id'];
+                // this.notif_id = params['id2'];
+                // ---------------------------------Start-------------------------------------------
+                // Function      : get project by id
+                // Params        : id
+                // Returns       : project
+                // Author        : Rinsha
+                // Date          : 08-03-2018
+                // Last Modified : 08-03-2018, Rinsha
+                // Desc          : getProject
+                _this.companyService.getProject(_this.p_id).subscribe(function (res1) {
+                    _this.project = res1;
+                    _this.pro_date = _this.project.createdAt.substring(0, 10);
+                    _this.category_id = _this.project.category_id;
+                    _this.pm_id = _this.project.pm_id;
+                    _this.assignee_id = _this.project.assignee_id;
+                    if (_this.assignee_id == _this.pm_id) {
+                        _this.sendForApprovalBtn = "Approve";
+                    }
+                    else {
+                        _this.sendForApprovalBtn = "Send for Approval";
+                    }
+                    if (_this.project.status != "Drafted" || _this.project.pm_id != _this.entity.id || _this.project.is_estimation_completed == true) {
+                        var snackBarRef = _this.snackBar.open('Unauthorized Access', '', {
+                            duration: 4000
+                        });
+                        _this.routes.navigate(['/project']);
+                    }
+                    // ---------------------------------Start-------------------------------------------
+                    // Function      : get category by id
+                    // Params        : id
+                    // Returns       : category
+                    // Author        : Rinsha
+                    // Date          : 08-03-2018
+                    // Last Modified : 08-03-2018, Rinsha
+                    // Desc          : getCategoryById
+                    _this.companyService.getCategoryById(_this.category_id).subscribe(function (res) {
+                        _this.category = res;
+                    });
+                    // ---------------------------------End-------------------------------------------
+                    // ---------------------------------Start-------------------------------------------
+                    // Function      : get pm by id
+                    // Params        : login id
+                    // Returns       : user info
+                    // Author        : Rinsha
+                    // Date          : 13-03-2018
+                    // Last Modified : 13-03-2018, Rinsha
+                    // Desc          : getPmByLoginid
+                    _this.userService.getPmByLoginid(_this.pm_id).subscribe(function (res) {
+                        _this.pm = res;
+                    });
+                    // ---------------------------------End-------------------------------------------
+                    // ---------------------------------Start-------------------------------------------
+                    // Function      : get assignee by id
+                    // Params        : login id
+                    // Returns       : user info
+                    // Author        : Rinsha
+                    // Date          : 13-03-2018
+                    // Last Modified : 13-03-2018, Rinsha
+                    // Desc          : getPmByLoginid
+                    _this.userService.getPmByLoginid(_this.assignee_id).subscribe(function (res) {
+                        _this.assignee = res;
+                    });
+                    // ---------------------------------End-------------------------------------------
+                });
+                // ---------------------------------End-------------------------------------------
+            });
+            _this.getTeamHeadsToEstimate();
+            _this.getProjectstimations();
+            _this.getTotalEstimations();
+            _this.getAcceptedEstimations();
+            _this.getforwardStatus();
+        });
+    };
+    CompanyApproveEstimationComponent.prototype.getProjectstimations = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getProjectstimations
+        // Params        : project id
+        // Returns       : estimations
+        // Author        : Rinsha
+        // Date          : 15-03-2018
+        // Last Modified : 15-03-2018, Rinsha
+        // Desc          :
+        this.forwardButtonShow = true;
+        this.acceptedEstimationCount = 0;
+        this.companyService.getProjectstimations(this.p_id).subscribe(function (data) {
+            // console.log(data);
+            _this.estimations = [];
+            _this.estimations = data;
+            _this.estimations.forEach(function (element) {
+                _this.current_estimation_team_ids.push(element.estimation_team_id);
+                if (element.tbl_project_estimation_team.team_id == 1) {
+                    _this.team_name = "Developer";
+                }
+                else if (element.tbl_project_estimation_team.team_id == 2) {
+                    _this.team_name = "Designer";
+                }
+                else if (element.tbl_project_estimation_team.team_id == 3) {
+                    _this.team_name = "QC";
+                }
+                element.team_name = _this.team_name;
+                element.tbl_estimation_modules.forEach(function (modules) {
+                    _this.task_time = 0;
+                    modules.tbl_estimation_tasks.forEach(function (tasks) {
+                        _this.task_time = _this.task_time + tasks.planned_hour + tasks.buffer_hour;
+                    });
+                    modules.module_time = _this.task_time;
+                });
+                if (element.is_accepted == true) {
+                    _this.acceptButtonHide[element.id] = true;
+                    _this.acceptedEstimationCount = _this.acceptedEstimationCount + 1;
+                }
+                else {
+                    _this.forwardButtonShow = false;
+                }
+            });
+            if (_this.estimations.length == 0) {
+                _this.forwardButtonShow = false;
+            }
+            // if (this.estimations.length == 3) {
+            //   this.sendApprovalButtonShow = true;
+            // }
+            // if (this.acceptedEstimationCount == 3) {
+            //   this.sendApprovalButtonShow = true;
+            // }
+            _this.getTeamHeadsToEstimate();
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    CompanyApproveEstimationComponent.prototype.getTotalEstimations = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getTotalEstimations
+        // Params        : project id
+        // Returns       : estimations
+        // Author        : Rinsha
+        // Date          : 19-03-2018
+        // Last Modified : 19-03-2018, Rinsha
+        // Desc          :
+        this.companyService.getTotalEstimations(this.p_id).subscribe(function (data) {
+            // console.log(this.teamhead_count);
+            if (data == _this.teamhead_count) {
+                _this.forwardButtonShow = false;
+            }
+            // console.log(data);
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    CompanyApproveEstimationComponent.prototype.getEstIdtoResubmit = function (est_id, team_head_loginId) {
+        // console.log(team_head_loginId);
+        this.est_id = est_id;
+        this.team_head_loginId = team_head_loginId;
+    };
+    CompanyApproveEstimationComponent.prototype.resubmit = function (est_id, head_id) {
+        var _this = this;
+        // console.log(this.reason);
+        this.resubmitData = {
+            project_id: this.p_id,
+            to_id: head_id,
+            reason: this.reason,
+        };
+        // ---------------------------------Start-------------------------------------------
+        // Function      : resubmitEstimation
+        // Params        : estimation id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 15-03-2018
+        // Last Modified : 15-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.resubmitEstimation(est_id, this.resubmitData).subscribe(function (data) {
+            var snackBarRef = _this.snackBar.open(data.msg, '', {
+                duration: 3000
+            });
+            if (data.success == true) {
+                _this.sendApprovalButtonShow = false;
+                _this.getTeamHeadsToEstimate();
+                _this.getProjectstimations();
+                _this.getTotalEstimations();
+                _this.getAcceptedEstimations();
+                _this.closeBtn1.nativeElement.click();
+            }
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    CompanyApproveEstimationComponent.prototype.acceptEstimation = function (est_id) {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : acceptEstimation
+        // Params        : estimation id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 15-03-2018
+        // Last Modified : 15-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.acceptEstimation(est_id).subscribe(function (data) {
+            var snackBarRef = _this.snackBar.open(data.msg, '', {
+                duration: 2000
+            });
+            if (data.success == true) {
+                _this.acceptButtonHide[est_id] = true;
+                _this.getProjectstimations();
+                _this.getTeamHeadsToEstimate();
+                _this.getTotalEstimations();
+                _this.getAcceptedEstimations();
+            }
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    CompanyApproveEstimationComponent.prototype.forward = function () {
+        var _this = this;
+        // console.log(this.forward_to);
+        // ---------------------------------Start-------------------------------------------
+        // Function      : forwardEstimationRequest
+        // Params        : project id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 16-03-2018
+        // Last Modified : 16-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.forwardEstimationRequest(this.p_id, this.forward_to.tbl_user_profile.login_id).subscribe(function (data) {
+            if (data.success == true) {
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 2000
+                });
+                _this.forwardCount = _this.forwardCount + 1;
+                // if (this.forwardCount == 2) {
+                //   this.forwardButtonShow = false;
+                // }
+                _this.closeBtn2.nativeElement.click();
+                _this.routes.navigate(['/project']);
+            }
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    CompanyApproveEstimationComponent.prototype.getTeamHeadsToEstimate = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : get team heads of the project who does nt involved in estimations
+        // Params        : project id
+        // Returns       : team head info
+        // Author        : Rinsha
+        // Date          : 16-03-2018
+        // Last Modified : 16-03-2018, Rinsha
+        // Desc          : getTeamHeadsToEstimate
+        this.companyService.getTeamHeadsToEstimate(this.p_id).subscribe(function (team_heads) {
+            _this.teamheads = [];
+            _this.teamhead_count = team_heads.length;
+            team_heads.forEach(function (teams) {
+                if (_this.current_estimation_team_ids.includes(teams.id) == false) {
+                    _this.teamheads.push(teams);
+                }
+            });
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyApproveEstimationComponent.prototype.sendForApproval = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : send request to admin for approval
+        // Params        : project id, assignee id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 19-03-2018
+        // Last Modified : 19-03-2018, Rinsha
+        // Desc          : sendForApproval
+        this.companyService.sendForApproval(this.p_id, this.assignee_id).subscribe(function (pro) {
+            if (pro.success == true) {
+                var snackBarRef = _this.snackBar.open(pro.msg, '', {
+                    duration: 2000
+                });
+                if (_this.entity.id == _this.assignee_id) {
+                    _this.routes.navigate(['/approve-project', _this.p_id]);
+                }
+                else {
+                    _this.routes.navigate(['/project']);
+                }
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyApproveEstimationComponent.prototype.getAcceptedEstimations = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getAcceptedEstimations
+        // Params        : project id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 20-03-2018
+        // Last Modified : 20-03-2018, Rinsha
+        // Desc          : 
+        this.companyService.getAcceptedEstimations(this.p_id).subscribe(function (pro) {
+            _this.acceptedEstimation = pro;
+            if (pro == _this.teamhead_count) {
+                _this.sendApprovalButtonShow = true;
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyApproveEstimationComponent.prototype.getforwardStatus = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : forwardStatus
+        // Params        : project id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 21-03-2018
+        // Last Modified : 21-03-2018, Rinsha
+        // Desc          : once it is forwarded, then there is no forward button
+        this.companyService.getforwardStatus(this.p_id).subscribe(function (info) {
+            if (info > 0) {
+                _this.forwardButtonShow = false;
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])('closeBtn1'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+    ], CompanyApproveEstimationComponent.prototype, "closeBtn1", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])('closeBtn2'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+    ], CompanyApproveEstimationComponent.prototype, "closeBtn2", void 0);
+    CompanyApproveEstimationComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-approve-estimation',
+            template: __webpack_require__("../../../../../src/app/components/company-approve-estimation/company-approve-estimation.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-approve-estimation/company-approve-estimation.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_5__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */]])
+    ], CompanyApproveEstimationComponent);
+    return CompanyApproveEstimationComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-approve-project/company-approve-project.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".panel-body {\r\n    padding: 50px;\r\n}\r\n.mrg-top label{padding-top: 20px;}\r\n.round-button{\r\n    float:none !important;\r\n  }\r\n  .center-bt {\r\n      margin: 20px auto 10px auto;\r\n      float: none;\r\n  }\r\n .no-edit {font-weight: 400 !important;}\r\n .line-breaker {\r\n    white-space: pre-line;\r\n  }\r\n\r\n\r\n  .task{background:#fbf6f1;width:100%;padding:6px 0;display: inline-block;margin-bottom:6px;}\r\n  button, input, optgroup, select, textarea{outline:none !important;}\r\n  .taskedit{border-left:1px solid #ccc;    display: inline-block;width:100%;margin-top: 5px;}\r\n  .task ul li{width:auto;float:left;padding: 8px;}\r\n      a{color:#111;}\r\n  .task h5{padding-top:13px;padding-top: 6px;}\r\n  .hash{background:#f7f6f4;}\r\n  .round-button {\r\n      border-radius: 20px;\r\n      margin: 0;\r\n      float: left;\r\n      background: #f37600;\r\n      color: #fff;\r\n      padding: 7px 15px;\r\n      transition: background 2s;\r\n      margin-bottom:15px;\r\n  }\r\n  .round-button:hover {\r\n      background: #ffaa05;\r\n      color: #fff;\r\n  }\r\n  .dropdown ul.dropdown-menu:before {\r\n      content: \"\";\r\n      border-bottom: 10px solid #fff;\r\n      border-right: 10px solid transparent;\r\n      border-left: 10px solid transparent;\r\n      position: absolute;\r\n      top: -10px;\r\n      right: 16px;\r\n      z-index: 10;\r\n  }\r\n  .round-button:hover, .round-button:focus, .round-button.focus{color:#fff;}\r\n  button, input, optgroup, select, textarea{outline:none;}\r\n  .effect-1 ~ .focus-border{position: absolute; bottom: 0; left: 15px; width: 0; height: 2px;background-color: #bba28b; transition: 0.4s;right:15px;}\r\n  .effect-1:focus ~ .focus-border{width: 95%; transition: 0.4s;}\r\n  .effect-1{border: 0; padding: 7px 0; border-bottom: 1px solid #ccc;width:100%;}\r\n  .style{width:100%;}\r\n  label{font-size:15px;\r\n    color:#4a4a4a;\r\n    font-weight:bold !important;\r\n    padding:5px 0;}\r\n  .mrg-2{margin-bottom:10px;}\r\n  .dropdown-menu > li > a {\r\n      display: block;\r\n      padding: 3px 20px;\r\n      clear: both;\r\n      font-weight: normal;\r\n      line-height: 25px;\r\n      color: #333333;\r\n      white-space: nowrap;\r\n  }\r\n  .addmodule {\r\n      padding: 20px 10px!important;\r\n      min-width: 357px;\r\n      right: 0px;\r\n      left: inherit;\r\n  }\r\n  .style{border:none;border-bottom: 1px solid #ccc;}\r\n  .white {\r\n      background: #ffffff none repeat scroll 0 0;\r\n      \r\n      display: inline-block;\r\n      padding: 33px 25px;\r\n      width: 100%;\r\n  }\r\n  .btn-file{padding:0;}\r\n  .white {\r\n      background: #ffffff none repeat scroll 0 0;\r\n      \r\n      display: inline-block;\r\n      padding: 33px 25px;\r\n      width: 100%;\r\n      margin-bottom:20px;\r\n  }\r\n  .center-bt{margin:20px auto 10px auto;float:none;}\r\n  @media only screen and (max-width : 767px) {\r\n  .mrg-2 {\r\n      margin-bottom: 37px;\r\n  }\r\n  \r\n  .task ul li{    padding: 2px;}\t\r\n  .addmodule{    min-width: 274px;}\r\n  }\r\n  .round-button{float:inherit !important;}  \r\n  .right-btn{float:right !important;margin-left: 15px;}\r\n\r\n\r\n .dwnload{ background: #f39f00;\r\n  border: none;\r\n  border-radius: 50%;\r\n  width: 30px;\r\n  height: 30px;\r\n  color: #fff;\r\n  font-weight: bold;\r\n  clear: left;\r\n  margin-right: 10px;\r\n}\r\n.mr-top{margin-top:20px;}\r\n.modal-content{border-radius:0;box-shadow:none;}\r\n.modal-header {\r\n    padding: 7px 15px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #da524f;\r\n}\r\n.modal-title {\r\n    margin: 0;\r\n    line-height: 26px;\r\n    font-size: 15px;\r\n    color: #fff;\r\n}\r\n.modal{top:0;}\r\n.modal-header {\r\n    padding: 10px 30px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #fe6a07;\r\n  }\r\n  .modal-content{\r\n  box-shadow:none;\r\n  border-radius: 9px;\r\n  overflow: hidden;\r\n  \r\n  }\r\n  .modal-title{color:#fff;}\r\n  .modal-body{    padding:20px 30px;}\r\n  .modal-body input{border:none;}\r\n  .modal-body input{padding: 0;}\r\n  .pad-top{padding-top:20px;}\r\n  .wdth{width:100% !important;}\r\n  .brd{    border: none;\r\n    height: 54px;}\r\n.prepared li{float: \r\nleft;width:auto;text-align:left;    line-height: 26px;}\r\n.all-buttons{display: -ms-flexbox;display: flex;}\r\n.round-button{margin-right: 10px;}\r\n.line-under{\r\n    text-decoration: underline;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-approve-project/company-approve-project.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <company-topbar></company-topbar>\n        <br>\n        <div class=\"col-md-12\">\n          <h3>Project Approval</h3>\n        </div>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.project_name}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Code :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.project_code}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Assigned to :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{pm}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Total Estimation Hours :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\"><a class=\"line-under\" [routerLink]=\"['/view-project', p_id]\">{{estimation_hour}} Hr</a></label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Prepared By :</label></div>\n                <div class=\"col-md-8 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">\n                  <ul *ngFor=\"let item of team_leaders\" class=\"prepared\">\n                    <li>{{item}}</li></ul>  \n                  </label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Cost :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field>\n                    <span matPrefix>₹&nbsp;</span>\n                    <input matInput type=\"number\" min=\"1\" autofocus class=\"example-right-align\" name=\"project_cost\" [(ngModel)]=\"project_cost\"\n                      required>\n                  </mat-form-field>\n                </div>\n                <br>\n\n              </div>\n\n              <br>\n              <br>\n              <div class=\"row all-buttons\">\n                <div class=\"\">\n                  <button type=\"submit\" (click)=\"getCost(project_cost)\" data-toggle=\"modal\" data-target=\"#rejectModal\" class=\"btn round-button \">Reject</button>\n                </div>\n                <div class=\"\">\n                  <button type=\"submit\" (click)=\"acceptProject(project_cost)\" class=\"btn round-button \">Accept</button>\n                </div>\n                <div class=\"\">\n                  <button type=\"submit\" (click)=\"getCost(project_cost)\" data-toggle=\"modal\" data-target=\"#resubmitModal\" class=\"btn round-button \">{{resubmitBtn}}</button>\n                </div>\n              </div>\n\n\n            </div>\n          </div>\n        </div>\n\n      </div>\n\n      <!-- --------------------------------------------- reject modal ----------------------------------------------------------------- -->\n      <div id=\"rejectModal\" class=\"modal fade\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Reject </h4>\n            </div>\n            <div class=\"modal-body delete-popup\">\n              <i class=\"fa fa-exclamation\"></i>\n\n\n              <h4 class=\"textalign\">Are you sure?</h4>\n\n            </div>\n\n            <div class=\"modal-footer\" style=\"text-align:center;\">\n              <button type=\"button\" (click)=\"rejectProject(project_cost)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Reject</button>\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n      <!-- ----------------------------------------------------------------------reject modal-------------------------------------------------------- -->\n\n      <!-- --------------------------------------------- Resubmit modal ----------------------------------------------------------------- -->\n      <div id=\"resubmitModal\" class=\"modal fade\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Resubmit </h4>\n            </div>\n            <div class=\"modal-body delete-popup\">\n              <i class=\"fa fa-exclamation\"></i>\n\n\n              <h4 class=\"textalign\">Are you sure?</h4>\n\n            </div>\n\n            <div class=\"modal-footer\" style=\"text-align:center;\">\n              <button type=\"button\" (click)=\"resubmitProject(project_cost)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Resubmit</button>\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n      <!-- ----------------------------------------------------------------------Resubmit modal-------------------------------------------------------- -->\n    </div>\n  </div>\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-approve-project/company-approve-project.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyApproveProjectComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var CompanyApproveProjectComponent = (function () {
+    function CompanyApproveProjectComponent(userService, route, snackBar, companyService, routes, _formBuilder) {
+        this.userService = userService;
+        this.route = route;
+        this.snackBar = snackBar;
+        this.companyService = companyService;
+        this.routes = routes;
+        this._formBuilder = _formBuilder;
+        this.estimation_hour = 0;
+        this.team_leaders = [];
+        this.project_cost = 0;
+    }
+    CompanyApproveProjectComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // console.log(this.disabled)
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getLoggedinEntity().subscribe(function (data) {
+            _this.entity = data;
+        });
+        // -----------------------------------End------------------------------------------
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.p_id = params['id'];
+            // ---------------------------------Start-------------------------------------------
+            // Function      : get project by id
+            // Params        : id
+            // Returns       : project
+            // Author        : Rinsha
+            // Date          : 08-03-2018
+            // Last Modified : 08-03-2018, Rinsha
+            // Desc          : getProject
+            _this.companyService.getProject(_this.p_id).subscribe(function (res1) {
+                _this.project = res1;
+                _this.pro_date = _this.project.createdAt.substring(0, 10);
+                _this.pm_id = _this.project.pm_id;
+                _this.assignee_id = _this.project.assignee_id;
+                if (_this.assignee_id == _this.pm_id) {
+                    _this.resubmitBtn = "Edit Estimation";
+                }
+                else {
+                    _this.resubmitBtn = "Resubmit";
+                }
+                if (_this.project.status != "Drafted" || _this.project.assignee_id != _this.entity.id) {
+                    var snackBarRef = _this.snackBar.open('Unauthorized Access', '', {
+                        duration: 4000
+                    });
+                    _this.routes.navigate(['/project']);
+                }
+                // ---------------------------------Start-------------------------------------------
+                // Function      : get pm by id
+                // Params        : login id
+                // Returns       : user info
+                // Author        : Rinsha
+                // Date          : 13-03-2018
+                // Last Modified : 13-03-2018, Rinsha
+                // Desc          : getPmByLoginid
+                _this.userService.getPmByLoginid(_this.pm_id).subscribe(function (res) {
+                    _this.pm = res;
+                });
+                // ---------------------------------End-------------------------------------------
+            });
+            // ---------------------------------End-------------------------------------------
+            // ---------------------------------Start-------------------------------------------
+            // Function      : getProjectstimations
+            // Params        : project id
+            // Returns       : estimations
+            // Author        : Rinsha
+            // Date          : 15-03-2018
+            // Last Modified : 15-03-2018, Rinsha
+            // Desc          :
+            _this.companyService.getProjectstimations(_this.p_id).subscribe(function (data1) {
+                _this.estimation_hour = 0;
+                _this.team_leaders = [];
+                data1.forEach(function (element) {
+                    _this.estimation_hour = _this.estimation_hour + element.estimation_hour;
+                    if (element.tbl_project_estimation_team.team_id == 1) {
+                        _this.team_name = "Developer";
+                    }
+                    else if (element.tbl_project_estimation_team.team_id == 2) {
+                        _this.team_name = "Designer";
+                    }
+                    else if (element.tbl_project_estimation_team.team_id == 3) {
+                        _this.team_name = "QC";
+                    }
+                    _this.team_leaders.push(_this.team_name + " Team head :" + element.tbl_project_estimation_team.tbl_user_profile.f_name + " " + element.tbl_project_estimation_team.tbl_user_profile.l_name);
+                });
+            });
+            // ---------------------------------End-------------------------------------------
+        });
+    };
+    CompanyApproveProjectComponent.prototype.acceptProject = function (project_cost) {
+        var _this = this;
+        this.project_cost = project_cost;
+        if (this.project_cost == 0) {
+            var snackBarRef = this.snackBar.open('Project Cost is required', '', {
+                duration: 4000
+            });
+        }
+        else {
+            this.project_submit = {
+                project_cost: this.project_cost,
+                p_id: this.p_id,
+                estimation_hour: this.estimation_hour,
+                pm_id: this.pm_id
+            };
+            // ---------------------------------Start-------------------------------------------
+            // Function      : accept project
+            // Params        : cost, estimated hr, project id, pm id
+            // Returns       : 
+            // Author        : Rinsha
+            // Date          : 20-03-2018
+            // Last Modified : 20-03-2018, Rinsha
+            // Desc          : acceptProject
+            this.companyService.acceptProject(this.project_submit).subscribe(function (pro) {
+                var snackBarRef = _this.snackBar.open(pro.msg, '', {
+                    duration: 4000
+                });
+                if (pro.success == true) {
+                    if (_this.pm_id == _this.entity.id) {
+                        _this.routes.navigate(['/project-planning', _this.p_id]);
+                    }
+                    else {
+                        _this.routes.navigate(['/project']);
+                    }
+                }
+            });
+            // ---------------------------------End-------------------------------------------
+        }
+    };
+    CompanyApproveProjectComponent.prototype.rejectProject = function (project_cost) {
+        var _this = this;
+        this.project_cost = project_cost;
+        if (this.project_cost == 0) {
+            var snackBarRef = this.snackBar.open('Project Cost is required', '', {
+                duration: 4000
+            });
+        }
+        else {
+            this.project_submit = {
+                project_cost: this.project_cost,
+                p_id: this.p_id,
+                estimation_hour: this.estimation_hour,
+                pm_id: this.pm_id
+            };
+            // ---------------------------------Start-------------------------------------------
+            // Function      : reject project
+            // Params        : cost, estimated hr, project id
+            // Returns       : 
+            // Author        : Rinsha
+            // Date          : 20-03-2018
+            // Last Modified : 20-03-2018, Rinsha
+            // Desc          : rejectProject
+            this.companyService.rejectProject(this.project_submit).subscribe(function (pro) {
+                var snackBarRef = _this.snackBar.open(pro.msg, '', {
+                    duration: 4000
+                });
+                if (pro.success == true) {
+                    _this.routes.navigate(['/project']);
+                }
+            });
+            // ---------------------------------End-------------------------------------------
+        }
+    };
+    CompanyApproveProjectComponent.prototype.getCost = function (project_cost) {
+        this.project_cost = project_cost;
+    };
+    CompanyApproveProjectComponent.prototype.resubmitProject = function (project_cost) {
+        var _this = this;
+        if (this.project_cost == 0) {
+            var snackBarRef = this.snackBar.open('Project Cost is required', '', {
+                duration: 4000
+            });
+        }
+        else {
+            this.project_submit = {
+                p_id: this.p_id,
+                pm_id: this.pm_id
+            };
+            // ---------------------------------Start-------------------------------------------
+            // Function      : resubmit project
+            // Params        : cost, estimated hr, project id, pm id
+            // Returns       : 
+            // Author        : Rinsha
+            // Date          : 20-03-2018
+            // Last Modified : 20-03-2018, Rinsha
+            // Desc          : resubmitProject
+            this.companyService.resubmitProject(this.project_submit).subscribe(function (pro) {
+                var snackBarRef = _this.snackBar.open(pro.msg, '', {
+                    duration: 4000
+                });
+                if (pro.success == true) {
+                    if (_this.pm_id == _this.entity.id) {
+                        _this.routes.navigate(['/approve-estimation', _this.p_id]);
+                    }
+                    else {
+                        _this.routes.navigate(['/project']);
+                    }
+                }
+            });
+            // ---------------------------------End-------------------------------------------
+        }
+    };
+    CompanyApproveProjectComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-approve-project',
+            template: __webpack_require__("../../../../../src/app/components/company-approve-project/company-approve-project.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-approve-project/company-approve-project.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_5__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */]])
+    ], CompanyApproveProjectComponent);
+    return CompanyApproveProjectComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-assign-project/company-assign-project.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".panel-body {\r\n    padding: 50px;\r\n}\r\n.mrg-top label{padding-top: 20px;}\r\n.round-button{\r\n    float:none !important;\r\n  }\r\n  .center-bt {\r\n      margin: 20px auto 10px auto;\r\n      float: none;\r\n  }\r\n .no-edit{font-weight: 400;}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-assign-project/company-assign-project.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <company-topbar></company-topbar>\n        <br>\n        <div class=\"col-md-12\"><h3>Assign Team Head</h3></div>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n              <!-- <h3>Assign Team Head</h3> -->\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.project_name}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Code :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.project_code}}</label></div>\n                </div>\n                <br>\n\n                <!-- <div class=\"col-md-4 col-xs-6\"><label>Assignee</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-4 col-xs-6\"><label class=\"no-edit\">{{project?.assignee_id}}</label></div>\n                </div>\n                <br> -->\n\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{category?.category_name}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.priority}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.description}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Date :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{pro_date}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-12 col-xs-12\"><label>Assigned To :</label></div>\n                <br>\n                <div class=\"col-md-11 pull-right\">\n                  <div class=\"col-md-5 col-xs-6\"><label>Developer Head :</label></div>\n                  <div class=\"col-md-6 col-xs-6\">\n                    <mat-form-field [formGroup]=\"formGroup\">\n                      <mat-select name=\"developer_id\" [(ngModel)]=\"project_assign.developer_id\" (ngModelChange)=\"changeDeveloper($event)\" required\n                        formControlName=\"developerValidation\">\n                        <mat-option value=\"\">None</mat-option>\n                        <mat-option *ngFor=\"let item of developerTeam\" [value]=\"item\">\n                          {{ item.f_name }} {{ item.l_name }}\n                        </mat-option>\n                      </mat-select>\n                    </mat-form-field>\n                  </div>\n                </div>\n                <br>\n                <div class=\"col-md-11 pull-right\">\n                  <div class=\"col-md-5 col-xs-6\"><label>Designer Head :</label></div>\n                  <div class=\"col-md-6 col-xs-6\">\n                    <mat-form-field [formGroup]=\"formGroup\">\n                      <mat-select name=\"designer_id\" [(ngModel)]=\"project_assign.designer_id\" (ngModelChange)=\"changeDesigner($event)\" required\n                        formControlName=\"designerValidation\">\n                        <mat-option value=\"\">None</mat-option>\n                        <mat-option *ngFor=\"let item of designerTeam\" [value]=\"item\">\n                          {{ item.f_name }} {{ item.l_name }}\n                        </mat-option>\n                      </mat-select>\n                    </mat-form-field>\n                  </div>\n                </div>\n                <br>\n                <div class=\"col-md-11 pull-right\">\n                  <div class=\"col-md-5 col-xs-6\"><label>QC Head :</label></div>\n                  <div class=\"col-md-6 col-xs-6\">\n                    <mat-form-field [formGroup]=\"formGroup\">\n                      <mat-select name=\"qc_id\" (ngModelChange)=\"changeQC($event)\" [(ngModel)]=\"project_assign.qc_id\" required formControlName=\"qcValidation\">\n                        <mat-option value=\"\">None</mat-option>\n                        <mat-option *ngFor=\"let item of qcTeam\" [value]=\"item\">\n                          {{ item.f_name }} {{ item.l_name }}\n                        </mat-option>\n                      </mat-select>\n                    </mat-form-field>\n                  </div>\n                </div>\n                <br>\n                <br>\n                <div class=\"col-md-4 col-xs-6\"><label>Requirement Summary :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <textarea matInput [(ngModel)]=\"project_assign.requirement\" name=\"requirement\" required formControlName=\"reqValidation\"\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\n                  </mat-form-field>\n                  <input (change)=\"displayDoc($event)\" name=\"file\"  type=\"file\" accept=\".jpeg, .png, .gif,.jar, .pdf\" />\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Forward Estimation Request :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"forward_to\" [(ngModel)]=\"project_assign.forward_to\" required formControlName=\"forwardValidation\">\n                      <mat-option *ngFor=\"let item of teamhead\" [value]=\"item\">\n                        {{ item.f_name }} {{ item.l_name }}\n                      </mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"assignProject(project_assign)\" class=\"btn round-button center-bt\">Submit</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-assign-project/company-assign-project.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyAssignProjectComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var CompanyAssignProjectComponent = (function () {
+    function CompanyAssignProjectComponent(route, snackBar, companyService, routes, _formBuilder) {
+        this.route = route;
+        this.snackBar = snackBar;
+        this.companyService = companyService;
+        this.routes = routes;
+        this._formBuilder = _formBuilder;
+        this.teamhead = [];
+        this.project_assign = {
+            project_id: '',
+            developer_id: '',
+            designer_id: '',
+            qc_id: '',
+            forward_to: '',
+            requirement: '',
+            docSrc: '',
+            docFile: [],
+        };
+        this.isExists = false;
+        this.filesToUpload = [];
+    }
+    CompanyAssignProjectComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getLoggedinEntity().subscribe(function (data) {
+            _this.entity = data;
+            // console.log(data);
+        });
+        // -----------------------------------End------------------------------------------
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.p_id = params.id;
+            // ---------------------------------Start-------------------------------------------
+            // Function      : get project by id
+            // Params        : id
+            // Returns       : project
+            // Author        : Rinsha
+            // Date          : 08-03-2018
+            // Last Modified : 08-03-2018, Rinsha
+            // Desc          : getProject
+            _this.companyService.getProject(_this.p_id).subscribe(function (res) {
+                _this.project = res;
+                if (_this.project.requirement_summary != null || _this.project.pm_id != _this.entity.id) {
+                    var snackBarRef = _this.snackBar.open('Unauthorized Access', '', {
+                        duration: 4000
+                    });
+                    _this.routes.navigate(['/project']);
+                }
+                _this.pro_date = _this.project.createdAt.substring(0, 10);
+                _this.category_id = _this.project.category_id;
+                // ---------------------------------Start-------------------------------------------
+                // Function      : get category by id
+                // Params        : id
+                // Returns       : category
+                // Author        : Rinsha
+                // Date          : 08-03-2018
+                // Last Modified : 08-03-2018, Rinsha
+                // Desc          : getCategoryById
+                _this.companyService.getCategoryById(_this.category_id).subscribe(function (res) {
+                    _this.category = res;
+                });
+                // ---------------------------------End-------------------------------------------
+            });
+            // ---------------------------------End-------------------------------------------
+            // ---------------------------------Start-------------------------------------------
+            // Function      : get developer team
+            // Params        : 
+            // Returns       : users in developer team
+            // Author        : Rinsha
+            // Date          : 09-03-2018
+            // Last Modified : 09-03-2018, Rinsha
+            // Desc          : getDeveloperTeam
+            _this.companyService.getDeveloperTeam().subscribe(function (res) {
+                _this.developerTeam = res;
+            });
+            // ---------------------------------End-------------------------------------------
+            // ---------------------------------Start-------------------------------------------
+            // Function      : get designer team
+            // Params        : 
+            // Returns       : users in designer team
+            // Author        : Rinsha
+            // Date          : 09-03-2018
+            // Last Modified : 09-03-2018, Rinsha
+            // Desc          : getDesignerTeam
+            _this.companyService.getDesignerTeam().subscribe(function (res) {
+                _this.designerTeam = res;
+            });
+            // ---------------------------------End-------------------------------------------
+            // ---------------------------------Start-------------------------------------------
+            // Function      : get qc team
+            // Params        : 
+            // Returns       : users in qc team
+            // Author        : Rinsha
+            // Date          : 09-03-2018
+            // Last Modified : 09-03-2018, Rinsha
+            // Desc          : getQCTeam
+            _this.companyService.getQCTeam().subscribe(function (res) {
+                _this.qcTeam = res;
+            });
+            // ---------------------------------End-------------------------------------------
+        });
+        this.formGroup = this._formBuilder.group({
+            developerValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            designerValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            qcValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            forwardValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            reqValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+        });
+    };
+    CompanyAssignProjectComponent.prototype.changeQC = function (qc) {
+        var _this = this;
+        this.popElement = '';
+        this.isExists = false;
+        this.teamhead.forEach(function (element, key) {
+            if (element.tbl_team_assocs[0].team_id == 3) {
+                _this.isExists = true;
+                _this.popElement = key;
+            }
+        });
+        if (this.isExists == true) {
+            this.teamhead.splice(this.popElement, 1);
+        }
+        if (this.inArray(qc, this.teamhead) == true) {
+            this.project_assign.qc_id = '';
+            var snackBarRef = this.snackBar.open("Team heads should be different", '', {
+                duration: 2000
+            });
+        }
+        else if (qc != '') {
+            this.teamhead.push(qc);
+        }
+    };
+    CompanyAssignProjectComponent.prototype.changeDeveloper = function (developer) {
+        var _this = this;
+        this.popElement = '';
+        this.isExists = false;
+        this.teamhead.forEach(function (element, key) {
+            if (element.tbl_team_assocs[0].team_id == 1) {
+                _this.isExists = true;
+                _this.popElement = key;
+            }
+        });
+        if (this.isExists == true) {
+            this.teamhead.splice(this.popElement, 1);
+        }
+        if (this.userExists(developer.id) == true) {
+            this.project_assign.developer_id = '';
+            var snackBarRef = this.snackBar.open("Team heads should be different", '', {
+                duration: 2000
+            });
+        }
+        else if (developer != '') {
+            this.teamhead.push(developer);
+        }
+    };
+    CompanyAssignProjectComponent.prototype.changeDesigner = function (designer) {
+        var _this = this;
+        this.popElement = '';
+        this.isExists = false;
+        this.teamhead.forEach(function (element, key) {
+            if (element.tbl_team_assocs[0].team_id == 2) {
+                _this.isExists = true;
+                _this.popElement = key;
+            }
+        });
+        if (this.isExists == true) {
+            this.teamhead.splice(this.popElement, 1);
+        }
+        if (this.userExists(designer.id) == true) {
+            this.project_assign.designer_id = '';
+            var snackBarRef = this.snackBar.open("Team heads should be different", '', {
+                duration: 2000
+            });
+        }
+        else if (designer != '') {
+            this.teamhead.push(designer);
+        }
+    };
+    CompanyAssignProjectComponent.prototype.assignProject = function (project) {
+        var _this = this;
+        this.project_assign.project_id = this.p_id;
+        // console.log(project);
+        // ---------------------------------Start-------------------------------------------
+        // Function      : assign project
+        // Params        : form data
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 09-03-2018
+        // Last Modified : 09-03-2018, Rinsha
+        // Desc          : AssignTeamHead
+        this.companyService.AssignTeamHead(project).subscribe(function (data) {
+            var snackBarRef = _this.snackBar.open(data.msg, '', {
+                duration: 4000
+            });
+            if (data.success == true) {
+                _this.routes.navigate(['/project']);
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyAssignProjectComponent.prototype.displayDoc = function (fileInput) {
+        var _this = this;
+        var ext = fileInput.target.files[0].name.split('.').pop().toLowerCase();
+        this.project_assign.docFile = fileInput.target.files[0];
+        if (fileInput.target.files && fileInput.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = (function (e) {
+                _this.project_assign.docSrc = e.target['result'];
+            });
+            reader.readAsDataURL(fileInput.target.files[0]);
+        }
+    };
+    CompanyAssignProjectComponent.prototype.inArray = function (needle, haystack) {
+        var count = haystack.length;
+        for (var i = 0; i < count; i++) {
+            if (haystack[i] === needle) {
+                return true;
+            }
+        }
+        return false;
+    };
+    CompanyAssignProjectComponent.prototype.userExists = function (id) {
+        return this.teamhead.some(function (el) {
+            return el.id === id;
+        });
+    };
+    CompanyAssignProjectComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-assign-project',
+            template: __webpack_require__("../../../../../src/app/components/company-assign-project/company-assign-project.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-assign-project/company-assign-project.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */]])
+    ], CompanyAssignProjectComponent);
+    return CompanyAssignProjectComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-edit-project/company-edit-project.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".panel-body {\r\n    padding: 50px;\r\n}\r\n.mrg-top label{padding-top: 20px;}\r\n.round-button{\r\n    float:none !important;\r\n  }\r\n  .center-bt {\r\n      margin: 20px auto 10px auto;\r\n      float: none;\r\n  }", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-edit-project/company-edit-project.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <company-topbar></company-topbar>\n        <br>\n        <div class=\"col-md-12\"><h3>Edit Project</h3></div>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n              <!-- <h3>Edit Project</h3> -->\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <input matInput [(ngModel)]=\"project.project_name\" name=\"project_name\" autofocus required formControlName=\"project_nameValidation\">\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Type :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"project_type\" [(ngModel)]=\"project.project_type\" required formControlName=\"project_typeValidation\">\n                      <mat-option value=\"Billable\">Billable</mat-option>\n                      <mat-option value=\"Non-billable\">Non-billable</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select [(ngModel)]=\"project.category_id\" name=\"category_id\" required formControlName=\"category_idValidation\">\n                      <mat-option *ngFor=\"let item of categories\" [value]=\"item.id\">\n                        {{ item.category_name }}\n                      </mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"priority\" [(ngModel)]=\"project.priority\" required formControlName=\"priorityValidation\">\n                      <mat-option value=\"Low\">Low</mat-option>\n                      <mat-option value=\"Medium\">Medium</mat-option>\n                      <mat-option value=\"High\">High</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <textarea matInput [(ngModel)]=\"project.description\" name=\"description\" required formControlName=\"descriptionValidation\"\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div *ngIf=\"showRequirement\">\n                  <div class=\"col-md-4 col-xs-6\"><label>Requirement Summary :</label></div>\n                  <div class=\"col-md-7 col-xs-6\">\n                    <mat-form-field [formGroup]=\"formGroup\">\n                      <textarea matInput [(ngModel)]=\"project.requirement_summary\" name=\"requirement\" required formControlName=\"reqValidation\"\n                        matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\n                    </mat-form-field>\n                    <a data-toggle=\"tooltip\" title=\"Download\" href=\"../assets/docs/{{project?.requirement_attatchment}}\" class=\"download-link\" download=\"\"> <button><i class=\"fa fa-download\"></i></button></a><br>\n                    <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" />\n                  </div>\n                  <br>\n                </div>\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"editProject(project)\" class=\"btn round-button center-bt\">Submit</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-edit-project/company-edit-project.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyEditProjectComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var CompanyEditProjectComponent = (function () {
+    function CompanyEditProjectComponent(route, snackBar, companyService, routes, _formBuilder) {
+        this.route = route;
+        this.snackBar = snackBar;
+        this.companyService = companyService;
+        this.routes = routes;
+        this._formBuilder = _formBuilder;
+        this.showPMlist = true;
+        this.showRequirement = false;
+        this.project = {
+            project_id: '',
+            project_name: '',
+            project_type: '',
+            priority: '',
+            description: '',
+            pm_id: '',
+            category_id: '',
+            requirement_summary: '',
+            docSrc: '',
+            docFile: [],
+        };
+    }
+    CompanyEditProjectComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.p_id = params.id;
+            // ---------------------------------Start-------------------------------------------
+            // Function      : get project by id
+            // Params        : id
+            // Returns       : project
+            // Author        : Rinsha
+            // Date          : 08-03-2018
+            // Last Modified : 08-03-2018, Rinsha
+            // Desc          : getProject
+            _this.companyService.getProject(_this.p_id).subscribe(function (res) {
+                _this.project = res;
+                _this.pro1 = res;
+                // console.log(this.pro1.is_approved);
+                if (_this.pro1.is_approved == true || _this.pro1.assignee_id != _this.entity.id) {
+                    var snackBarRef = _this.snackBar.open('Unauthorized Access', '', {
+                        duration: 4000
+                    });
+                    // this.routes.navigate(['/project']);
+                }
+                if (_this.project.requirement_summary != '') {
+                    _this.showRequirement = true;
+                }
+            });
+            // ---------------------------------End-------------------------------------------
+        });
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getLoggedinEntity().subscribe(function (data) {
+            _this.entity = data;
+            if (_this.entity.role_id == 3) {
+                _this.showPMlist = false;
+            }
+        });
+        // -----------------------------------End------------------------------------------
+        this.formGroup = this._formBuilder.group({
+            project_nameValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            project_typeValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            priorityValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            descriptionValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            pm_idValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            category_idValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            reqValidation: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+        });
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get All pm, project category in a company
+        // Params        : 
+        // Returns       : All pm, project category in a company
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getAllPm().subscribe(function (res) {
+            _this.pm = res;
+        });
+        this.companyService.getAllProjectCategory().subscribe(function (res) {
+            _this.categories = res;
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    CompanyEditProjectComponent.prototype.editProject = function (project) {
+        var _this = this;
+        this.project.project_id = this.p_id;
+        // console.log(project);
+        // ---------------------------------Start-------------------------------------------
+        // Function      : edit project
+        // Params        : data from form
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 09-03-2018
+        // Last Modified : 09-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.editProject(project).subscribe(function (data) {
+            var snackBarRef = _this.snackBar.open(data.msg, '', {
+                duration: 4000
+            });
+            if (data.success == true) {
+                _this.routes.navigate(['/project']);
+            }
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    CompanyEditProjectComponent.prototype.displayDoc = function (fileInput) {
+        var _this = this;
+        var ext = fileInput.target.files[0].name.split('.').pop().toLowerCase();
+        this.project.docFile = fileInput.target.files[0];
+        if (fileInput.target.files && fileInput.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = (function (e) {
+                _this.project.docSrc = e.target['result'];
+            });
+            reader.readAsDataURL(fileInput.target.files[0]);
+        }
+    };
+    CompanyEditProjectComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-company-edit-project',
+            template: __webpack_require__("../../../../../src/app/components/company-edit-project/company-edit-project.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-edit-project/company-edit-project.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */]])
+    ], CompanyEditProjectComponent);
+    return CompanyEditProjectComponent;
 }());
 
 
@@ -1619,7 +2779,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-login/company-login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n\r\n<html>\r\n\r\n<head>\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n\t<title>Taskit</title>\r\n\t<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\r\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\r\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\r\n\t<!------ Include the above in your HEAD tag ---------->\r\n\r\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\r\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">\r\n\r\n</head>\r\n\r\n<body class=\"logn\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-md-8\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"logn-img\">\r\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\r\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\r\n\t\t\t\t\t<!-- <div class=\"paragraph\">\r\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\r\n\t\t\t\t\t</div> -->\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-4\">\r\n\t\t\t<div class=\"row\">\r\n\r\n\t\t\t\t<!-- Mixins-->\r\n\t\t\t\t<!-- Pen Title-->\r\n\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"card\"></div>\r\n\t\t\t\t\t<div class=\"card\">\r\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\r\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"login()\" novalidate>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newLogin.email\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Username</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"password\" id=\"Password\" name=\"password\" [(ngModel)]=\"newLogin.password\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Password\">Password</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t<!-- <div class=\"form-group\"> -->\r\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"g-recaptcha\" data-sitekey=\"6LeCaEsUAAAAAO21B0h-bnp7YmIFWVFCaBxvtHAE\"></div> -->\r\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"g-recaptcha\" data-sitekey=\"6LdpvDEUAAAAAMy8x0y8PS99j4BavfO2oBdVTQGZ\"></div> -->\r\n\t\t\t\t\t\t\t<!-- </div> -->\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<!-- <div class=\"col-xs-10 padd-lft\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"g-recaptcha\" data-sitekey=\"6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU\">\r\n\t\t\t\t\t\t\t\t\t\t<div style=\"width: 304px; height: 78px;\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<iframe src=\"https://www.google.com/recaptcha/api2/anchor?k=6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU&amp;co=aHR0cDovL3d3dy50c3MtYWR2LmNvbTo4MA..&amp;hl=en&amp;v=v1518566665321&amp;size=normal&amp;cb=ri090lbnphd5\"\r\n\t\t\t\t\t\t\t\t\t\t\t\t width=\"304\" height=\"78\" role=\"presentation\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>\r\n\t\t\t\t\t\t\t\t\t\t\t</div><textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; \"></textarea></div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"footer\"><a href=\"#\">Forgot your password?</a></div>\r\n\t\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign in</button></div>\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"social-login\">\r\n\t\t\t\t<a href=\"#\">\r\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\r\n\t\t\t\tLogin in with facebook\r\n\t\t\t  </a>\r\n\t\t\t\t<a href=\"#\">\r\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\r\n\t\t\t\tlog in with Google\r\n\t\t\t  </a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!-- Modal -->\r\n\r\n\t<script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\r\n\t<script src=\"js/bootstrap.min.js\"></script>\r\n\r\n\r\n</body>\r\n\r\n\r\n</html>"
+module.exports = "<!DOCTYPE html>\r\n\r\n<html>\r\n\r\n<head>\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n\t<title>Taskit</title>\r\n\t<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\r\n\t<link href=\"css/login.css\" rel=\"stylesheet\">\r\n\t<link href=\"css/responsive.css\" rel=\"stylesheet\">\r\n\t<!------ Include the above in your HEAD tag ---------->\r\n\r\n\t<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\r\n\t<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\">\r\n\r\n</head>\r\n\r\n<body class=\"logn\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-md-8\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"logn-img\">\r\n\t\t\t\t\t<img src=\"./assets/images/login.jpg\" style=\"width:100%;\" />\r\n\t\t\t\t\t<!-- <img src=\"img/login.jpg\"/> -->\r\n\t\t\t\t\t<!-- <div class=\"paragraph\">\r\n\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\r\n\t\t\t\t\t</div> -->\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-4\">\r\n\t\t\t<div class=\"row\">\r\n\r\n\t\t\t\t<!-- Mixins-->\r\n\t\t\t\t<!-- Pen Title-->\r\n\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"card\"></div>\r\n\t\t\t\t\t<div class=\"card\">\r\n\t\t\t\t\t\t<h1 class=\"title\">Login</h1>\r\n\t\t\t\t\t\t<form role=\"form\" (ngSubmit)=\"login()\" novalidate>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"text\" id=\"Username\" name=\"email\" [(ngModel)]=\"newLogin.email\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Username\">Username</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-1\"><i class=\"fa fa-lock\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"password\" id=\"Password\" name=\"password\" [(ngModel)]=\"newLogin.password\" required/>\r\n\t\t\t\t\t\t\t\t\t<label for=\"Password\">Password</label>\r\n\t\t\t\t\t\t\t\t\t<div class=\"bar\"></div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"input-container\">\r\n\t\t\t\t\t\t\t<!-- <div class=\"form-group\"> -->\r\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"g-recaptcha\" data-sitekey=\"6LeCaEsUAAAAAO21B0h-bnp7YmIFWVFCaBxvtHAE\"></div> -->\r\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"g-recaptcha\" data-sitekey=\"6LdpvDEUAAAAAMy8x0y8PS99j4BavfO2oBdVTQGZ\"></div> -->\r\n\t\t\t\t\t\t\t<!-- </div> -->\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t<!-- <div class=\"col-xs-10 padd-lft\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"g-recaptcha\" data-sitekey=\"6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU\">\r\n\t\t\t\t\t\t\t\t\t\t<div style=\"width: 304px; height: 78px;\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<iframe src=\"https://www.google.com/recaptcha/api2/anchor?k=6LdZBxoUAAAAABdVce0Btdcb5H9Ade6Zoxd-dDNU&amp;co=aHR0cDovL3d3dy50c3MtYWR2LmNvbTo4MA..&amp;hl=en&amp;v=v1518566665321&amp;size=normal&amp;cb=ri090lbnphd5\"\r\n\t\t\t\t\t\t\t\t\t\t\t\t width=\"304\" height=\"78\" role=\"presentation\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>\r\n\t\t\t\t\t\t\t\t\t\t\t</div><textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; \"></textarea></div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\t\t\t\t<div class=\"footer\"><a href=\"#\">Forgot your password?</a></div>\r\n\t\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\"><button type=\"submit\" class=\"btn round-button\">Sign in</button></div>\r\n\t\t\t\t\t\t</form>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"social-login\">\r\n\t\t\t\t<a href=\"#\">\r\n\t\t\t\t<i class=\"fa fa-facebook fa-lg\"></i>\r\n\t\t\t\tLogin in with facebook\r\n\t\t\t  </a>\r\n\t\t\t\t<a href=\"#\">\r\n\t\t\t\t<i class=\"fa fa-google-plus fa-lg\"></i>\r\n\t\t\t\tlog in with Google\r\n\t\t\t  </a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!-- Modal -->\r\n\r\n\r\n\r\n</body>\r\n\r\n\r\n</html>"
 
 /***/ }),
 
@@ -1746,7 +2906,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-planlist/company-planlist.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <admin-topbar></admin-topbar>\n\n      <section class=\"planz\" id=\"section3\">\n        <div class=\"container\">\n          <h2>PLANS & PRICE</h2>\n          <div class=\"carry\">\n            <div class=\"plan wow fadeInRight\" data-wow-delay=\"0.2s\" *ngFor=\"let plan of plans\" [ngClass]=\"{'hilight': plan.is_best_value}\">\n              <h3 class=\"plan-title\">{{plan?.plan_name}}</h3>\n              <p class=\"plan-price\">&#8377;{{plan?.plan_price}} <span class=\"plan-unit\">per month</span></p>\n              <ul class=\"plan-features\">\n                <li class=\"plan-feature\">\n                  <h4>{{plan?.no_projects}} </h4><span class=\"plan-feature-name\">Projects</span></li>\n                <li class=\"plan-feature\">\n                  <h4>{{plan?.no_members}} </h4><span class=\"plan-feature-name\">Members</span></li>\n                <li class=\"plan-feature\">\n                  <h4>{{plan?.no_modules}} </h4><span class=\"plan-feature-name\">Modules</span></li>\n                <li class=\"plan-feature\">\n                  <h4>{{plan?.no_tasks}} </h4><span class=\"plan-feature-name\">Tasks</span></li>\n              </ul>\n\n              <button type=\"submit\" (click)=\"upgrade(plan.id)\" class=\"btn round-button\">Upgrade</button>\n\n            </div>\n\n            <!-- <div class=\"plan hilight\">\n            <h3 class=\"plan-title\">Premium</h3>\n            <p class=\"plan-price\">&#8377;500 <span class=\"plan-unit\">per month</span></p>\n            <ul class=\"plan-features\">\n            <li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Projects</span></li>\n            <li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Members</span></li>\n            <li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Modules</span></li>\n            <li class=\"plan-feature\"><h4>100 </h4><span class=\"plan-feature-name\">Tasks</span></li>\n            </ul>\n            \n          </div> -->\n\n            <!-- <div class=\"plan mr-lft wow fadeInLeft\" data-wow-delay=\"0.4s\">\n            <h3 class=\"plan-title\">Ultra</h3>\n            <p class=\"plan-price\">&#8377;1000 <span class=\"plan-unit\">per month</span></p>\n            <ul class=\"plan-features\">\n            <li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Projects</span></li>\n            <li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Members</span></li>\n            <li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Modules</span></li>\n            <li class=\"plan-feature\"><h4>120 </h4><span class=\"plan-feature-name\">Tasks</span></li>\n            </ul>\n            \n          </div> -->\n          </div>\n        </div>\n      </section>\n      <br>\n      <br>\n    </div>\n  </div>\n</body>"
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <company-topbar></company-topbar>\n\n      <section class=\"planz\" id=\"section3\">\n        <div class=\"container\">\n          <h2>PLANS & PRICE</h2>\n          <div class=\"carry\">\n            <div class=\"plan wow fadeInRight\" data-wow-delay=\"0.2s\" *ngFor=\"let plan of plans\" [ngClass]=\"{'hilight': plan.is_best_value}\">\n              <h3 class=\"plan-title\">{{plan?.plan_name}}</h3>\n              <p class=\"plan-price\">&#8377;{{plan?.plan_price}} <span class=\"plan-unit\">per month</span></p>\n              <ul class=\"plan-features\">\n                <li class=\"plan-feature\">\n                  <h4>{{plan?.no_projects}} </h4><span class=\"plan-feature-name\">Projects</span></li>\n                <li class=\"plan-feature\">\n                  <h4>{{plan?.no_members}} </h4><span class=\"plan-feature-name\">Members</span></li>\n                <li class=\"plan-feature\">\n                  <h4>{{plan?.no_modules}} </h4><span class=\"plan-feature-name\">Modules</span></li>\n                <li class=\"plan-feature\">\n                  <h4>{{plan?.no_tasks}} </h4><span class=\"plan-feature-name\">Tasks</span></li>\n              </ul>\n\n              <button type=\"submit\" (click)=\"upgrade(plan.id)\" class=\"btn round-button\">Upgrade</button>\n\n            </div>\n\n            <!-- <div class=\"plan hilight\">\n            <h3 class=\"plan-title\">Premium</h3>\n            <p class=\"plan-price\">&#8377;500 <span class=\"plan-unit\">per month</span></p>\n            <ul class=\"plan-features\">\n            <li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Projects</span></li>\n            <li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Members</span></li>\n            <li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Modules</span></li>\n            <li class=\"plan-feature\"><h4>100 </h4><span class=\"plan-feature-name\">Tasks</span></li>\n            </ul>\n            \n          </div> -->\n\n            <!-- <div class=\"plan mr-lft wow fadeInLeft\" data-wow-delay=\"0.4s\">\n            <h3 class=\"plan-title\">Ultra</h3>\n            <p class=\"plan-price\">&#8377;1000 <span class=\"plan-unit\">per month</span></p>\n            <ul class=\"plan-features\">\n            <li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Projects</span></li>\n            <li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Members</span></li>\n            <li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Modules</span></li>\n            <li class=\"plan-feature\"><h4>120 </h4><span class=\"plan-feature-name\">Tasks</span></li>\n            </ul>\n            \n          </div> -->\n          </div>\n        </div>\n      </section>\n      <br>\n      <br>\n    </div>\n  </div>\n</body>"
 
 /***/ }),
 
@@ -1757,7 +2917,10 @@ module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyPlanlistComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_socket_io_client__ = __webpack_require__("../../../../socket.io-client/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_socket_io_client__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1770,12 +2933,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var CompanyPlanlistComponent = (function () {
-    function CompanyPlanlistComponent(adminService, routes) {
+    function CompanyPlanlistComponent(config, adminService, routes) {
+        this.config = config;
         this.adminService = adminService;
         this.routes = routes;
+        this.socket = __WEBPACK_IMPORTED_MODULE_2_socket_io_client__(config.siteUrl);
     }
     CompanyPlanlistComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.socket.on('addPlan', function (data) {
+            _this.getPlans();
+        });
+        this.socket.on('bestPlan', function (data) {
+            _this.getPlans();
+        });
+        this.socket.on('deletePlan', function (data) {
+            _this.getPlans();
+        });
+        this.socket.on('updatePlan', function (data) {
+            _this.getPlans();
+        });
         this.getPlans();
     };
     CompanyPlanlistComponent.prototype.getPlans = function () {
@@ -1808,7 +2988,7 @@ var CompanyPlanlistComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/company-planlist/company-planlist.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/company-planlist/company-planlist.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */]])
     ], CompanyPlanlistComponent);
     return CompanyPlanlistComponent;
 }());
@@ -1838,7 +3018,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-project/company-project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <!-- topbar-->\n        <admin-topbar></admin-topbar>\n\n        <!-- end topbar-->\n\n\n        <div class=\"user-dashboard\">\n\n          <div class=\"row\">\n            <!-----------------------------------------------------------------table-------------------------------------->\n\n            <div class=\"col-md-12\">\n              <div class=\"row\">\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\n                  <div class=\"\">\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div>\n                </div> -->\n\n\n                <div class=\"col-md-12 optionz\">\n                  <div class=\"row\">\n                    <div class=\"col-md-6\">\n                      <div class=\"example-header\">\n                        <mat-form-field>\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                        </mat-form-field>\n                      </div>\n                    </div>\n                    <div class=\"col-md-2 pull-right\">\n                      <div>\n                        <mat-form-field class=\"filter\">\n\n                          <mat-select (change)=\"getPlan()\" [(value)]=\"selected\">\n                            <mat-option value=\"all\">All</mat-option>\n                            <mat-option value=\"Active\">In Progress</mat-option>\n                            <mat-option value=\"Block\">Drafted</mat-option>\n                            <mat-option value=\"Block\">Planned</mat-option>\n                            <mat-option value=\"Block\">Completed</mat-option>\n                            <mat-option value=\"Block\">Cancelled</mat-option>\n                            <!-- <mat-option value=\"Delete\">Delete </mat-option> -->\n                          </mat-select>\n                        </mat-form-field>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"example-container mat-elevation-z8\">\n                  <mat-table [dataSource]=\"dataSource\" matSort>\n                    <ng-container matColumnDef=\"slno\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"project\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"startdate\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTUAL/PLANNED START DATE</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.planned_start_date}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"enddate\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTUAL/PLANNED END DATE</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.planned_start_date}}</mat-cell>\n                    </ng-container>\n\n                    <ng-container matColumnDef=\"action\">\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\n                        <mat-menu #menu=\"matMenu\">\n                          <button mat-menu-item (click)=\"getEditId(row.id)\" data-toggle=\"modal\" data-target=\"#myModal2\">\n                                                        <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                                                        <span>Edit</span>\n                          </button>\n\n\n                          <button mat-menu-item (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \n                                                        <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\n                                                        <span>Delete</span>\n                          </button>\n                        </mat-menu>\n                      </mat-cell>\n\n                    </ng-container>\n\n\n\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\n                    </mat-row>\n                  </mat-table>\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n                    <div class=\"col-md-4 col-md-offset-4\">\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n                    </div>\n                  </div>\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n                </div>\n\n\n              </div>\n            </div>\n            <div class=\"add-button\">\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\n            </div>\n            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\n\n            <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                    <h4 class=\"modal-title\">Delete </h4>\n                  </div>\n                  <!-- <div class=\"modal-header\"> -->\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                  <!-- </div> -->\n                  <div class=\"modal-body delete-popup\">\n                    <i class=\"fa fa-exclamation\"></i>\n\n\n                    <h4 class=\"textalign\">Are you sure?</h4>\n\n                  </div>\n\n                  <div class=\"modal-footer\">\n                    <button type=\"button\" (click)=\"deleteUser(id)\" class=\"btn round-button\" data-dismiss=\"modal\">Delete</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n            <!-----------------------------------------------------------------delete modal-------------------------------------->\n            <!-----------------------------------------------------------------add modal-------------------------------------->\n            <div id=\"addModal\" class=\"modal fade\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\n                    <h4 class=\"modal-title\">Add New User</h4>\n                  </div>\n                  <div class=\"modal-body\">\n\n                  </div>\n                  <div class=\"modal-footer\">\n                  </div>\n                </div>\n\n              </div>\n            </div>\n            <!----------------------------------------addModal------------------------------>\n            <!-----------------------------------------------------------------end table-------------------------------------->\n          </div>\n        </div>\n\n      </div>\n      <!-- footer-->\n      <!-- <company-footer></company-footer> -->\n      <!-- end footer-->\n    </div>\n  </div>\n</body>"
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <!-- topbar-->\n        <company-topbar></company-topbar>\n\n        <!-- end topbar-->\n\n\n        <div class=\"user-dashboard\">\n\n          <div class=\"row\">\n            <!-----------------------------------------------------------------table-------------------------------------->\n\n            <div class=\"col-md-12\">\n              <div class=\"row\">\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\n                  <div class=\"\">\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div>\n                </div> -->\n\n\n                <div class=\"col-md-12 optionz\">\n                  <div class=\"row\">\n                    <div class=\"col-md-6\">\n                      <div class=\"example-header\">\n                        <mat-form-field>\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                        </mat-form-field>\n                      </div>\n                    </div>\n                    <div class=\"col-md-2 pull-right\">\n                      <div>\n                        <mat-form-field class=\"filter\">\n\n                          <mat-select (change)=\"getProject()\" [(value)]=\"selected\">\n                            <mat-option value=\"all\">All</mat-option>\n                            <mat-option value=\"In Progress\">In Progress</mat-option>\n                            <mat-option value=\"Drafted\">Drafted</mat-option>\n                            <mat-option value=\"Planned\">Planned</mat-option>\n                            <mat-option value=\"Completed\">Completed</mat-option>\n                            <mat-option value=\"Cancelled\">Cancelled</mat-option>\n                          </mat-select>\n                        </mat-form-field>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"example-container mat-elevation-z8\">\n                  <mat-table [dataSource]=\"dataSource\" matSort>\n                    <ng-container matColumnDef=\"slno\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"project\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"startdate\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTUAL/PLANNED START DATE</mat-header-cell>\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : row.planned_start_date ==\n                        null : row.actual_start_date}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"enddate\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTUAL/PLANNED END DATE</mat-header-cell>\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :\n                        row.actual_end_date}}</mat-cell>\n                    </ng-container>\n\n                    <ng-container matColumnDef=\"action\">\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\n                        <mat-menu #menu=\"matMenu\">\n                          <button mat-menu-item  *ngIf=\"row.requirement_summary == null && row.pm_id == loggedin_id\" (click)=\"assign(row.id)\">\n                            <!-- <i class=\"fa fa-user\"></i> -->\n                            <mat-icon><i class=\"material-icons\">group</i></mat-icon>\n                            <span>Assign Team Head</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id\" (click)=\"approve(row.id)\">\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\n                            <span>Approve Estimation</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id\" (click)=\"approveProject(row.id)\">\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\n                            <span>Approve Project</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id\" (click)=\"approveProject(row.id)\">\n                            <mat-icon><i class=\"material-icons\">event_available</i></mat-icon>\n                            <span>Plan Project</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.is_approved == false && row.assignee_id == loggedin_id && row.status == 'Drafted' \" (click)=\"edit(row.id)\">\n                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                            <span>Edit</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id\" (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \n                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\n                            <span>Delete</span>\n                          </button>\n                          <button mat-menu-item (click)=\"viewProject(row.id)\"> \n                            <mat-icon><i class=\"material-icons\">description</i></mat-icon>\n                            <span>View Project</span>\n                          </button>\n                        </mat-menu>\n                      </mat-cell>\n\n                    </ng-container>\n\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n                  </mat-table>\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n                    <div class=\"col-md-4 col-md-offset-4\">\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n                    </div>\n                  </div>\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n                </div>\n\n\n              </div>\n            </div>\n            <div class=\"add-button\">\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\n            </div>\n\n             <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\n      <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\n        <div class=\"modal-dialog\">\n\n          <!-- Modal content-->\n          <div class=\"modal-content\">\n            <div class=\"modal-header\">\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n              <h4 class=\"modal-title\">Delete </h4>\n            </div>\n            <!-- <div class=\"modal-header\"> -->\n            <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n            <!-- </div> -->\n            <div class=\"modal-body delete-popup\">\n              <i class=\"fa fa-exclamation\"></i>\n\n\n              <h4 class=\"textalign\">Are you sure?</h4>\n\n            </div>\n\n            <div class=\"modal-footer\" style=\"text-align:center;\">\n              <button type=\"button\" (click)=\"deleteProject(Pid)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n      <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------\n          \n            <!-----------------------------------------------------------------end table-------------------------------------->\n          </div>\n        </div>\n\n      </div>\n      <!-- footer-->\n      <!-- <company-footer></company-footer> -->\n      <!-- end footer-->\n    </div>\n  </div>\n</body>"
 
 /***/ }),
 
@@ -1874,20 +3054,40 @@ var CompanyProjectComponent = (function () {
         this.notExist = false;
     }
     CompanyProjectComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.selected = "all";
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getLoggedinEntity().subscribe(function (data) {
+            _this.entity = data;
+            _this.loggedin_id = _this.entity.id;
+            // console.log(data);
+        });
+        // -----------------------------------End------------------------------------------
         this.getProject();
+    };
+    CompanyProjectComponent.prototype.ngAfterViewInit = function () {
+        this.dataSource.sort = this.sort;
     };
     CompanyProjectComponent.prototype.getProject = function () {
         var _this = this;
-        var users = [];
+        // console.log(this.selected);
+        this.notExist = false;
         // ---------------------------------Start-------------------------------------------
-        // Function      : get all projects
+        // Function      : get all projects by status
         // Params        : 
         // Returns       : 
         // Author        : Rinsha
-        // Date          : 07-03-2018
-        // Last Modified : 07-03-2018, Rinsha
-        // Desc          : getAllProjects 
-        this.companyService.getAllProject().subscribe(function (data) {
+        // Date          : 12-03-2018
+        // Last Modified : 12-03-2018, Rinsha
+        // Desc          : getAllProjectByStatus 
+        this.companyService.getAllProjectByStatus(this.selected).subscribe(function (data) {
             // console.log(data);
             if (data.length == 0) {
                 _this.notExist = true;
@@ -1898,6 +3098,25 @@ var CompanyProjectComponent = (function () {
             _this.dataSource.sort = _this.sort;
         });
         // ---------------------------------End-------------------------------------------
+        // // ---------------------------------Start-------------------------------------------
+        // // Function      : get all projects
+        // // Params        : 
+        // // Returns       : 
+        // // Author        : Rinsha
+        // // Date          : 07-03-2018
+        // // Last Modified : 07-03-2018, Rinsha
+        // // Desc          : getAllProjects 
+        // this.companyService.getAllProject().subscribe(data => {
+        //   // console.log(data);
+        //   if (data.length == 0) {
+        //     this.notExist = true;
+        //   }
+        //   this.dataSource = new MatTableDataSource(data);
+        //   // console.log(this.dataSource);
+        //   this.dataSource.paginator = this.paginator;
+        //   this.dataSource.sort = this.sort;
+        // });
+        // // ---------------------------------End-------------------------------------------
     };
     CompanyProjectComponent.prototype.applyFilter = function (filterValue) {
         filterValue = filterValue.trim(); // Remove whitespace
@@ -1906,6 +3125,50 @@ var CompanyProjectComponent = (function () {
     };
     CompanyProjectComponent.prototype.open = function () {
         this.routes.navigate(['/add-project']);
+    };
+    CompanyProjectComponent.prototype.assign = function (id) {
+        this.routes.navigate(['/assign-project', id]);
+    };
+    CompanyProjectComponent.prototype.edit = function (id) {
+        this.routes.navigate(['/edit-project', id]);
+    };
+    CompanyProjectComponent.prototype.approve = function (id) {
+        this.routes.navigate(['/approve-estimation', id]);
+    };
+    CompanyProjectComponent.prototype.approveProject = function (id) {
+        this.routes.navigate(['/approve-project', id]);
+    };
+    CompanyProjectComponent.prototype.deleteProject = function (id) {
+        var _this = this;
+        console.log(id);
+        // ---------------------------------Start-------------------------------------------
+        // Function      : delete project
+        // Params        : id 
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 12-03-2018
+        // Last Modified : 12-03-2018, Rinsha
+        // Desc          : to delete a project
+        this.companyService.deleteProject(id).subscribe(function (data2) {
+            if (data2.success == true) {
+                var snackBarRef = _this.snackBar.open(data2.msg, '', {
+                    duration: 2000
+                });
+                _this.getProject();
+            }
+            else {
+                var snackBarRef = _this.snackBar.open(data2.msg, '', {
+                    duration: 2000
+                });
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyProjectComponent.prototype.getId = function (id) {
+        this.Pid = id;
+    };
+    CompanyProjectComponent.prototype.viewProject = function (id) {
+        this.routes.navigate(['/view-project', id]);
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatPaginator */]),
@@ -1924,6 +3187,301 @@ var CompanyProjectComponent = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_material__["z" /* MatSnackBar */]])
     ], CompanyProjectComponent);
     return CompanyProjectComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-topbar/company-topbar.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".drp2 .dropdown-menu{padding:0;right:-3%;left:inherit;max-width: 297px;}\r\n.drp2 .dropdown-menu li a{padding:15px 20px;}\r\n.drp2 .navbar-content{text-align:left;}\r\n.drp2 .dropdown-menu li{width:100%;}\r\n.drp2 .dropdown-menu > li > a:hover p{color:#fff !important;}\r\n.dropdown-menu{margin-bottom:0;}\r\nheader .dropdown-menu{top: 207%;}\r\n.dropdown-menu p {\r\n    margin: 0 0 0px;\r\n}\r\n.drp2 .dropdown-menu h4{margin-bottom: 2px;\r\n    color: #000;\r\n    font-weight: 500;\r\n    font-family: arial;}\r\n.media-heading{font-size:16px;}\r\n.closbtn{\r\n    border-radius: 50%;\r\n    height: 15px;\r\n    width: 15px;\r\n    padding-top: 0; \r\n    margin-right: 12px;\r\n    line-height: 13px;\r\n    font-size: 9px;\r\n    padding: 0;\r\n    text-align: center;\r\n    margin-top: 0;\r\n    background: #fe6a07;\r\n    border: none;\r\n}\r\n.dropdown-menu .divider {\r\n    height: 1px;\r\n    margin: 0px 0;\r\n    overflow: hidden;\r\n    background-color: #e5e5e5;\r\n}\r\n.head{background: #FFFFFF;color:#fff !important;}\r\n.head>a{color:#686868 !important;}\r\n.content{\r\n    text-decoration: none;\r\n}\r\n.dropdown-menu>li>a:hover h4{color:#fff;}\r\n.drp2 .dropdown-menu > li > a{white-space:normal !important;}\r\n.drp2 .dropdown-menu{    min-width: 324px;}\r\n.drp2 p{line-height: 18px;margin-top: 10px;}\r\n.drp2 li{padding: 0px 0;}\r\n.media-heading {font-size: 15px;\r\ncolor: #8a8a8a;\r\nfont-weight: 600;    margin-top: 2px;}\r\n.drp2 li a{padding:7px 0px !important;color:#909090;}\r\n.ng-star-inserted:hover{background:#f3f3f3;}\r\n.ng-star-inserted{padding: 10px 20px;}\r\n.drp2 h4{padding: 0px 20px;    font-weight: 700 !important;\r\n    font-family: arial;\r\n    font-size: 15px;\r\n    color:#ffffff !important;\r\n    margin-top:0px;\r\n    margin-bottom:0;\r\n    background: #919aa0;\r\n    padding: 14px 20px;\r\n    \r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-topbar/company-topbar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n    <header>\n\n        <div class=\"col-md-5 pull-right\">\n            <div class=\"header-rightside\">\n                <ul class=\"list-inline header-top pull-right\">\n                    <li *ngIf=\"upgradeBtnShow\" class=\"\"><a [routerLink]=\"['/planlist']\" class=\"add-project\">Upgrade</a></li>\n                    <li class=\"\"><a [routerLink]=\"['/add-project']\" class=\"add-project\">Add Project</a></li>\n\n                    <li class=\"dropdown drp2\">\n                        <a class=\"icon-info dropdown-toggle\" data-toggle=\"dropdown\">\n                            <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\n                            <span class=\"label label-primary\">{{count}}</span>\n\n                        </a>\n\n                        <ul class=\"dropdown-menu\">\n\n                            <li class=\"head\">\n                                <div class=\"navbar-content\">\n                                    <h4>New Project Notification</h4>\n                                    <div *ngFor=\"let item of project\">\n                                        <a (click)=\"closeNotif(item.id)\" [routerLink]=\"['/assign-project', item.id]\">\n                                            <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif(item.id)\">x</button>\n                                            </div>\n                                            <h5 class=\"media-heading\">{{item.project_name}}</h5>\n                                            <p><a class=\"content\">You are assignd for a new project. Click here to assign team heads.</a></p>\n                                        </a>\n                                    </div>\n                                </div>\n                            </li>\n                            <div class=\"divider\"> </div>\n\n                            <li class=\"head\">\n                                <div class=\"navbar-content\">\n                                    <h4>Estimation Approval Notification</h4>\n                                    <div *ngFor=\"let list of estimationApproval\">\n                                        <a (click)=\"closeNotif2(list.id)\" [routerLink]=\"['/approve-estimation', list.tbl_project.id]\">\n                                            <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif2(list.id)\">x</button>\n                                            </div>\n                                            <h5 class=\"media-heading\">{{list.tbl_project.project_name}}</h5>\n                                            <p><a class=\"content\">Click here to approve the Estimation</a></p>\n                                        </a>\n                                    </div>\n                                </div>\n                            </li>\n                            <div class=\"divider\"> </div>\n\n                            <li class=\"head\">\n                                <div class=\"navbar-content\">\n                                    <h4>Estimation Resubmit Notification</h4>\n                                    <div *ngFor=\"let item1 of resubmitEstimation\">\n                                        <a (click)=\"closeNotif(item1.id)\" [routerLink]=\"['/approve-estimation', item1.id]\">\n                                            <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif(item1.id)\">x</button>\n                                            </div>\n                                            <h5 class=\"media-heading\">{{item1.project_name}}</h5>\n                                            <p><a class=\"content\">Click here to re-estimate the project.</a></p>\n                                        </a>\n                                    </div>\n                                </div>\n                            </li>\n                            <div class=\"divider\"> </div>\n\n                            <li class=\"head\">\n                                <div class=\"navbar-content\">\n                                    <h4>Project Approve Notification</h4>\n                                    <div *ngFor=\"let item2 of approveProject\">\n                                        <a (click)=\"closeNotif3(item2.id)\" [routerLink]=\"['/approve-project', item2.id]\">\n                                            <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif3(item2.id)\">x</button>\n                                            </div>\n                                            <h5 class=\"media-heading\">{{item2.project_name}}</h5>\n                                            <p><a class=\"content\">Click here to approve the project.</a></p>\n                                        </a>\n                                    </div>\n                                </div>\n                            </li>\n                            <div class=\"divider\"> </div>\n\n                            <li class=\"head\">\n                                <div class=\"navbar-content\">\n                                    <h4>Project Plan Notification</h4>\n                                    <div *ngFor=\"let item3 of planProject\">\n                                        <a (click)=\"closeNotif4(item3.id)\" [routerLink]=\"['/project-planning', item3.id]\">\n                                            <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif4(item3.id)\">x</button>\n                                            </div>\n                                            <h5 class=\"media-heading\">{{item3.project_name}}</h5>\n                                            <p><a class=\"content\">Click here to plan the project.</a></p>\n                                        </a>\n                                    </div>\n                                </div>\n                            </li>\n                            <div class=\"divider\"> </div>\n\n                            <div *ngIf=\"count == 0\">\n                                <h5 style=\"color : red; margin-left:20px; \">No Data</h5>\n                            </div>\n                        </ul>\n\n                    </li>\n                    <li class=\"dropdown\">\n                        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\n                            <b class=\"caret\"></b></a>\n                        <ul class=\"dropdown-menu\">\n                            <li>\n                                <div class=\"navbar-content\">\n                                    <span>JS Krishna</span>\n                                    <p class=\"text-muted small\">\n                                        me@jskrishna.com\n                                    </p>\n                                    <div class=\"divider\">\n                                    </div>\n                                    <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\n                                </div>\n                            </li>\n                        </ul>\n                    </li>\n                    <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\n                </ul>\n            </div>\n        </div>\n    </header>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-topbar/company-topbar.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyTopbarComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__("../../../../socket.io-client/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_socket_io_client__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var CompanyTopbarComponent = (function () {
+    function CompanyTopbarComponent(config, companyService, snackBar) {
+        this.config = config;
+        this.companyService = companyService;
+        this.snackBar = snackBar;
+        this.count = 0;
+        this.upgradeBtnShow = true;
+        this.assignHeadCount = 0;
+        this.approveEstimationCount = 0;
+        this.approveProjectCount = 0;
+        this.planProjectCount = 0;
+        this.resubmitEstimationCount = 0;
+        this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__(config.siteUrl);
+    }
+    CompanyTopbarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getLoggedinEntity().subscribe(function (data) {
+            _this.entity = data;
+            if (_this.entity.role_id == 3) {
+                _this.upgradeBtnShow = false;
+            }
+        });
+        // -----------------------------------End------------------------------------------
+        this.count = 0;
+        this.assignHeadNotification();
+        this.socket.on('addProject', function (data) {
+            _this.assignHeadNotification();
+        });
+        this.approveEstimationNotification();
+        this.socket.on('approveEstimation', function (data) {
+            _this.approveEstimationNotification();
+        });
+        this.approveProjectNotification();
+        this.socket.on('approveProject', function (data) {
+            _this.approveProjectNotification();
+        });
+        this.planProjectNotification();
+        this.socket.on('planProject', function (data) {
+            _this.planProjectNotification();
+        });
+        this.resubmitEstimationNotification();
+        this.socket.on('reEstimateProject', function (data) {
+            _this.resubmitEstimationNotification();
+        });
+    };
+    CompanyTopbarComponent.prototype.assignHeadNotification = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : get assignHeadNotification
+        // Params        : 
+        // Returns       : project data
+        // Author        : Rinsha
+        // Date          : 12-03-2018
+        // Last Modified : 12-03-2018, Rinsha
+        // Desc          : check whether the loggedin project manager assigned for a project. If yes, then notification to assign team heads
+        this.companyService.assignHeadNotification().subscribe(function (res) {
+            _this.project = res;
+            _this.assignHeadCount = 0;
+            _this.assignHeadCount = _this.project.length;
+            _this.refresh();
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyTopbarComponent.prototype.closeNotif = function (id) {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : close notification
+        // Params        : project id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 12-03-2018
+        // Last Modified : 12-03-2018, Rinsha
+        // Desc          : close notification when pm sees the assign team head notification
+        this.companyService.closeNotif(id).subscribe(function (res) {
+            if (res.success == false) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 3000
+                });
+            }
+            _this.assignHeadNotification();
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyTopbarComponent.prototype.approveEstimationNotification = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : get approveEstimationNotification
+        // Params        : 
+        // Returns       : notification data
+        // Author        : Rinsha
+        // Date          : 14-03-2018
+        // Last Modified : 14-03-2018, Rinsha
+        // Desc          : check whether the loggedin project manager have pending estimation approval notification
+        this.companyService.approveEstimationNotification().subscribe(function (res) {
+            _this.estimationApproval = res;
+            _this.approveEstimationCount = 0;
+            _this.approveEstimationCount = _this.estimationApproval.length;
+            _this.refresh();
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyTopbarComponent.prototype.closeNotif2 = function (notif_id) {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : close notification of estimation approval
+        // Params        : notification id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 14-03-2018
+        // Last Modified : 14-03-2018, Rinsha
+        // Desc          : close notification when pm sees the estimation approval notification
+        this.companyService.closeNotif2(notif_id).subscribe(function (res) {
+            if (res.success == false) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 3000
+                });
+            }
+            _this.approveEstimationNotification();
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyTopbarComponent.prototype.approveProjectNotification = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : get apprroveProjectNotification
+        // Params        : 
+        // Returns       : project data
+        // Author        : Rinsha
+        // Date          : 19-03-2018
+        // Last Modified : 19-03-2018, Rinsha
+        // Desc          : check whether the loggedin company admin have any project to approves
+        this.companyService.approveProjectNotification().subscribe(function (res) {
+            // console.log(res)
+            _this.approveProject = res;
+            _this.approveProjectCount = 0;
+            _this.approveProjectCount = _this.approveProject.length;
+            _this.refresh();
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyTopbarComponent.prototype.closeNotif3 = function (p_id) {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : close notification of project approval
+        // Params        : project id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 19-03-2018
+        // Last Modified : 19-03-2018, Rinsha
+        // Desc          : close notification when pm sees the project approval notification
+        this.companyService.closeNotif3(p_id).subscribe(function (res) {
+            if (res.success == false) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 3000
+                });
+            }
+            _this.approveProjectNotification();
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyTopbarComponent.prototype.planProjectNotification = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : get planProjectNotification
+        // Params        : 
+        // Returns       : project data
+        // Author        : Rinsha
+        // Date          : 20-03-2018
+        // Last Modified : 20-03-2018, Rinsha
+        // Desc          : check whether the loggedin pm have any project to plan
+        this.companyService.planProjectNotification().subscribe(function (res) {
+            // console.log(res)
+            _this.planProject = res;
+            _this.planProjectCount = 0;
+            _this.planProjectCount = _this.planProject.length;
+            _this.refresh();
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyTopbarComponent.prototype.closeNotif4 = function (p_id) {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : close notification of project plan
+        // Params        : project id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 19-03-2018
+        // Last Modified : 19-03-2018, Rinsha
+        // Desc          : close notification when pm sees the project plan notification
+        this.companyService.closeNotif4(p_id).subscribe(function (res) {
+            if (res.success == false) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 3000
+                });
+            }
+            _this.planProjectNotification();
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyTopbarComponent.prototype.resubmitEstimationNotification = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : get resubmitEstimationNotification
+        // Params        : 
+        // Returns       : project data
+        // Author        : Rinsha
+        // Date          : 20-03-2018
+        // Last Modified : 20-03-2018, Rinsha
+        // Desc          : check whether the loggedin pm have any estimation to resubmit
+        this.companyService.resubmitEstimationNotification().subscribe(function (res) {
+            // console.log(res)
+            _this.resubmitEstimation = res;
+            _this.resubmitEstimationCount = 0;
+            _this.resubmitEstimationCount = _this.resubmitEstimation.length;
+            _this.refresh();
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    CompanyTopbarComponent.prototype.refresh = function () {
+        this.count = 0;
+        this.count = this.assignHeadCount + this.approveEstimationCount + this.approveProjectCount + this.planProjectCount + this.resubmitEstimationCount;
+    };
+    CompanyTopbarComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'company-topbar',
+            template: __webpack_require__("../../../../../src/app/components/company-topbar/company-topbar.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-topbar/company-topbar.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_3__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["z" /* MatSnackBar */]])
+    ], CompanyTopbarComponent);
+    return CompanyTopbarComponent;
 }());
 
 
@@ -1951,7 +3509,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-upgrade/company-upgrade.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <admin-topbar></admin-topbar>\n      <br>\n      <br>\n      <div class=\"container\">\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Payment Method</div>\n          <div class=\"panel-body\">\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.cardnum\" name=\"cardnum\" autofocus placeholder=\"Card Number\" required formControlName=\"cardnumValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.cardname\" name=\"cardname\" placeholder=\"Name on Card\" required formControlName=\"cardnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input type=\"number\" matInput [(ngModel)]=\"payment.cvv\" min=\"1\" max=\"3\" name=\"cvv\" placeholder=\"CVV\" required formControlName=\"cvvValidation\">\n            </mat-form-field>\n            <br>\n          </div>\n        </div>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Billing Details</div>\n          <div class=\"panel-body\">\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.fname\" name=\"fname\" placeholder=\"First Name\" required formControlName=\"fnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.lname\" name=\"lname\" placeholder=\"Last Name\" required formControlName=\"lnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.addr\" name=\"addr\" placeholder=\"Address\" required formControlName=\"addrValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.no\" name=\"no\" placeholder=\"Phone Number\" required formControlName=\"noValidation\">\n            </mat-form-field>\n            <br>\n          </div>\n        </div>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Review and Confirm</div>\n          <div class=\"panel-body\">\n            <table>\n              <tr>\n                <td>Plan </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_name}}</b></td>\n              </tr>\n              <br>\n              <tr>\n                <td>No. of Months </td>\n                <td>:</td>\n                <td>\n                  <mat-form-field [formGroup]=\"formGroup\"><input type=\"number\" min=\"1\" matInput [(ngModel)]=\"payment.no_months\" name=\"no_months\" required formControlName=\"no_monthsValidation\">\n                  </mat-form-field>\n                </td>\n              </tr>\n              <br>\n              <tr>\n                <td>Price </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_price}}</b></td>\n              </tr>\n              <br>\n              <tr>\n                <td>Amount </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_price * payment.no_months}} </b></td>\n              </tr>\n              <br>\n            </table>\n\n            <div class=\"row\">\n              <div class=\"col-md-3\">\n                <button type=\"submit\" class=\"btn round-button\" (click)=\"confirm(plan?.id)\">Confirm</button>\n              \n              </div>\n            \n             \n              <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                  x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                  <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                    <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                    />\n                  </path>\n                </svg>\n              </div> -->\n\n            </div>\n           \n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <company-topbar></company-topbar>\n      <br>\n      <br>\n      <div class=\"container\">\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Payment Method</div>\n          <div class=\"panel-body\">\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.cardnum\" name=\"cardnum\" autofocus placeholder=\"Card Number\" required formControlName=\"cardnumValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.cardname\" name=\"cardname\" placeholder=\"Name on Card\" required formControlName=\"cardnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input type=\"number\" matInput [(ngModel)]=\"payment.cvv\" min=\"1\" max=\"3\" name=\"cvv\" placeholder=\"CVV\" required formControlName=\"cvvValidation\">\n            </mat-form-field>\n            <br>\n          </div>\n        </div>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Billing Details</div>\n          <div class=\"panel-body\">\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.fname\" name=\"fname\" placeholder=\"First Name\" required formControlName=\"fnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.lname\" name=\"lname\" placeholder=\"Last Name\" required formControlName=\"lnameValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.addr\" name=\"addr\" placeholder=\"Address\" required formControlName=\"addrValidation\">\n            </mat-form-field>\n            <br>\n            <mat-form-field [formGroup]=\"formGroup\">\n              <input matInput [(ngModel)]=\"payment.no\" name=\"no\" placeholder=\"Phone Number\" required formControlName=\"noValidation\">\n            </mat-form-field>\n            <br>\n          </div>\n        </div>\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">Review and Confirm</div>\n          <div class=\"panel-body\">\n            <table>\n              <tr>\n                <td>Plan </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_name}}</b></td>\n              </tr>\n              <br>\n              <tr>\n                <td>No. of Months </td>\n                <td>:</td>\n                <td>\n                  <mat-form-field [formGroup]=\"formGroup\"><input type=\"number\" min=\"1\" matInput [(ngModel)]=\"payment.no_months\" name=\"no_months\" required formControlName=\"no_monthsValidation\">\n                  </mat-form-field>\n                </td>\n              </tr>\n              <br>\n              <tr>\n                <td>Price </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_price}}</b></td>\n              </tr>\n              <br>\n              <tr>\n                <td>Amount </td>\n                <td>:</td>\n                <td><b>{{plan?.plan_price * payment.no_months}} </b></td>\n              </tr>\n              <br>\n            </table>\n\n            <div class=\"row\">\n              <div class=\"col-md-3\">\n                <button type=\"submit\" class=\"btn round-button\" (click)=\"confirm(plan?.id)\">Confirm</button>\n              \n              </div>\n            \n             \n              <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\n                <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n                  x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                  <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                    <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                    />\n                  </path>\n                </svg>\n              </div> -->\n\n            </div>\n           \n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
 
 /***/ }),
 
@@ -2204,6 +3762,9 @@ module.exports = "\n\n<!-- <!DOCTYPE html>\n<html>\n<head>\n<title>Taskit</title
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client__ = __webpack_require__("../../../../socket.io-client/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_socket_io_client__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2216,12 +3777,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var HomeComponent = (function () {
-    function HomeComponent(adminService, routes) {
+    function HomeComponent(config, adminService, routes) {
+        this.config = config;
         this.adminService = adminService;
         this.routes = routes;
+        this.socket = __WEBPACK_IMPORTED_MODULE_3_socket_io_client__(config.siteUrl);
     }
     HomeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.socket.on('addPlan', function (data) {
+            _this.getPlans();
+        });
+        this.socket.on('bestPlan', function (data) {
+            _this.getPlans();
+        });
+        this.socket.on('deletePlan', function (data) {
+            _this.getPlans();
+        });
+        this.socket.on('updatePlan', function (data) {
+            _this.getPlans();
+        });
         this.getPlans();
     };
     HomeComponent.prototype.getPlans = function () {
@@ -2251,7 +3829,7 @@ var HomeComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/home/home.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/home/home.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -2315,6 +3893,823 @@ var ReferenceComponentComponent = (function () {
         __metadata("design:paramtypes", [])
     ], ReferenceComponentComponent);
     return ReferenceComponentComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/test-user/test-user.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/test-user/test-user.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n    <div class=\"container-fluid display-table\">\n      <div class=\"row display-table-row\">\n        <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n          <admin-sidebar></admin-sidebar>\n        </div>\n        <div class=\"col-md-12 col-xs-12\">\n          <user-topbar></user-topbar>\n          <br>\n          <div class=\"col-md-12\">\n            <h3>Project Estimation</h3>\n          </div>\n  \n        </div>\n      </div>\n    </div>\n  </body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/test-user/test-user.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TestUserComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var TestUserComponent = (function () {
+    function TestUserComponent() {
+    }
+    TestUserComponent.prototype.ngOnInit = function () {
+    };
+    TestUserComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-test-user',
+            template: __webpack_require__("../../../../../src/app/components/test-user/test-user.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/test-user/test-user.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], TestUserComponent);
+    return TestUserComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-edit-profile/user-edit-profile.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".photo {\r\n    width: 140px;\r\n    height: 140px;\r\n    border-radius: 50%;\r\n    background: #ccc;\r\n    float: left;\r\n    overflow: hidden;\r\n}\r\n.inputfile + label {\r\n    width: auto;\r\n    font-size: 1.25rem;\r\n    font-weight: 700;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    cursor: pointer;\r\n    display: inline-block;\r\n    overflow: hidden;\r\n    padding: 4px 0px;\r\n    position: absolute;\r\n    right: 36px;\r\n    bottom: 0;\r\n    width: 40px;\r\n    height: 40px;\r\n    border-radius: 50%;\r\n\tbackground: #fe6c07e0;\r\n}\r\n.label2 {\r\n    color: #909090;\r\n    font-size: 15px;\r\n}\r\nlabel {\r\n    font-size: 15px;\r\n    color: #4a4a4a;\r\n    font-weight: normal;\r\n    padding: 5px 0;\r\n}\r\n.fa-camera {\r\n     padding-top: 8px;\r\n    color: #fff;\r\n    font-size: 18px !important;\r\n    text-align: center;\r\n    padding-left: 40x;\r\n    margin-left: 11px;\r\n}\r\n.relatve {\r\n    position: relative;\r\n    max-width: 180px;\r\n    margin: 0 auto;\r\n    overflow: hidden;\r\n    margin-bottom: 20px;\r\n}\r\n.inputfile {\r\n    width: 0.1px;\r\n    height: 0.1px;\r\n    opacity: 0;\r\n    overflow: hidden;\r\n    position: absolute;\r\n    z-index: -1;\r\n}\r\n.employ-pic .inputfile-1 + label {\r\n    color: #ffffff;\r\n    background-color: #32c5d2;\r\n}\r\n.mrg-tp {\r\n    margin-top: 15px !important;\r\n}\r\n.style2 {\r\n    border: none;\r\n    border-bottom: 1px solid #ccc;\r\n\twidth:100%;\r\n}\r\n.center-bt {\r\n    margin: 20px auto 10px auto;\r\n    float: none;\r\n}\r\n.photo img{width:100%;}\r\n.form-group{margin-bottom:12px;overflow:hidden;}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-edit-profile/user-edit-profile.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <user-topbar></user-topbar>\n        <br>\n        <div class=\"user-dashboard\">\n          <!-- <h1>Hello, JS</h1> -->\n          <div class=\"row\">\n\n            <div class=\"col-md-12 col-sm-12 col-xs-12 gutter\">\n\n              <div class=\"white\">\n                <!-- img start -->\n                <div class=\"col-md-6 col-md-offset-3\">\n                  <div class=\"relatve\">\n                    <input type=\"file\" accept=\".jpeg, .jpg, .png, .gif\" (change)=\"displayPhoto($event)\" name=\"file\" id=\"file-1\" class=\"inputfile inputfile-1\" data-multiple-caption=\"{count} files selected\" multiple=\"\">\n                    <label for=\"file-1\"> <span> <i class=\"fa fa-camera\"></i></span></label>\n                    <div class=\"photo\"><img  *ngIf=\"profile.imgSrc\" [src]=\"profile.imgSrc\"></div>\n                  </div>\n                </div>\n                <!-- img end -->\n                <div class=\"col-md-8 col-md-offset-2 mrg-tp\">\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">First Name</label></div>\n                      <div class=\"col-md-6 col-xs-6\"><input class=\"style\" type=\"text\" [(ngModel)]=\"profile.f_name\" name=\"f_name\"></div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">Last Name</label></div>\n                      <div class=\"col-md-6 col-xs-6\"><input class=\"style\" type=\"text\" [(ngModel)]=\"profile.l_name\" name=\"l_name\"></div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">Email</label></div>\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\" class=\"label2\">{{profile?.email}}</label></div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">Gender</label></div>\n                      <div class=\"col-md-5 col-xs-6\">\n                        <select class=\"style2\" [(ngModel)]=\"profile.gender\" name=\"gender\">\n                          <option value=\"Male\">Male</option>\n                          <option value=\"Female\">Female</option>\n                        </select>\n                      </div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">Contact Number</label></div>\n                      <div class=\"col-md-6 col-xs-6\"><input class=\"style\" type=\"text\" [(ngModel)]=\"profile.contact_no\" name=\"contact_no\"></div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">Designation</label></div>\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\" class=\"label2\">{{profile?.tbl_designation?.designation}}</label></div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">User Group</label></div>\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\" class=\"label2\">{{profile?.tbl_role?.role}}</label></div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">Team</label></div>\n                      <div class=\"col-md-6 col-xs-6\">\n                        <label for=\"\" class=\"label2\">\n                        <ul *ngFor=\"let item of profile.tbl_team_assocs\">\n                          <li>{{item.tbl_team?.team_name}}</li>\n                        </ul>\n                      </label></div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">Previous Experience</label></div>\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\" class=\"label2\">{{profile?.tbl_prev_exp?.exp_range}} Years</label></div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">Join Date</label></div>\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\" class=\"label2\">{{profile?.join_date| date:'EEE, d MMM,y'}}</label></div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">Password</label></div>\n                      <div class=\"col-md-6 col-xs-6\"><input class=\"style\" type=\"password\" [(ngModel)]=\"profile.password\" name=\"password\"></div>\n                    </div>\n                  </div>\n                  <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                      <div class=\"col-md-6 col-xs-6\"><label for=\"\">Confirm Password</label></div>\n                      <div class=\"col-md-6 col-xs-6\"><input class=\"style\" type=\"password\" [(ngModel)]=\"profile.c_password\" name=\"c_password\"></div>\n                    </div>\n                  </div>\n\n                  <div class=\"col-md-12 text-center\">\n                    <button type=\"submit\" (click)=\"updateUser(profile)\" class=\"btn round-button center-bt\">Update</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        <!-- <div class=\"col-md-12\">\n          <h3>Project Estimation</h3>\n        </div> -->\n        <!-- <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n              <div class=\"row\">\n                fff\n              </div>\n              </div>\n              </div>\n              </div> -->\n\n      </div>\n    </div>\n  </div>\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-edit-profile/user-edit-profile.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserEditProfileComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var UserEditProfileComponent = (function () {
+    function UserEditProfileComponent(userService, _formBuilder, routes, route, snackBar) {
+        this.userService = userService;
+        this._formBuilder = _formBuilder;
+        this.routes = routes;
+        this.route = route;
+        this.snackBar = snackBar;
+        this.profile = {
+            f_name: '',
+            l_name: '',
+            gender: '',
+            contact_no: '',
+            password: '',
+            c_password: '',
+            imgSrc: '',
+            imgFile: [],
+        };
+    }
+    UserEditProfileComponent.prototype.ngOnInit = function () {
+        this.getProfile();
+    };
+    UserEditProfileComponent.prototype.getProfile = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getProfile
+        // Params        : 
+        // Returns       : logged in user details
+        // Author        : Rinsha
+        // Date          : 21-03-2018
+        // Last Modified : 21-03-2018, Rinsha
+        // Desc          : 
+        this.userService.getProfile().subscribe(function (info) {
+            // console.log(info);
+            _this.profile = info;
+            _this.profile.c_password = '';
+            _this.profile.password = '';
+            _this.user_id = info.id;
+            if (info.tbl_login.profile_image == '') {
+                _this.profile.imgSrc = "../assets/images/dp.jpg";
+            }
+            else {
+                _this.profile.imgSrc = "../assets/profile_upload/" + info.tbl_login.profile_image;
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    UserEditProfileComponent.prototype.updateUser = function (profile) {
+        var _this = this;
+        // console.log(profile)
+        // ---------------------------------Start-------------------------------------------
+        // Function      : updateUser
+        // Params        : user data
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 21-03-2018
+        // Last Modified : 21-03-2018, Rinsha
+        // Desc          : 
+        this.userService.updateUser(profile).subscribe(function (info) {
+            var snackBarRef = _this.snackBar.open(info.msg, '', {
+                duration: 3000
+            });
+            if (info.success == false) {
+                // this.routes.navigate(['/project']);
+            }
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    UserEditProfileComponent.prototype.displayPhoto = function (fileInput) {
+        var _this = this;
+        var ext = fileInput.target.files[0].name.split('.').pop().toLowerCase();
+        if (['gif', 'png', 'jpg', 'jpeg'].indexOf(ext) < 0) {
+            // fileInput.target.files.remove(0);
+            this.profile.imgSrc = '';
+            alert('Please select a valid image [ jpg | jpeg | gif | png ]');
+            return false;
+        }
+        //this.newUser.imgFile =ext;
+        // console.log(fileInput);
+        this.profile.imgFile = fileInput.target.files[0];
+        if (fileInput.target.files && fileInput.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = (function (e) {
+                _this.profile.imgSrc = e.target['result'];
+            });
+            reader.readAsDataURL(fileInput.target.files[0]);
+        }
+    };
+    UserEditProfileComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-user-edit-profile',
+            template: __webpack_require__("../../../../../src/app/components/user-edit-profile/user-edit-profile.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/user-edit-profile/user-edit-profile.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["z" /* MatSnackBar */]])
+    ], UserEditProfileComponent);
+    return UserEditProfileComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-project-estimation/user-project-estimation.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".panel-body {\r\n    padding: 50px;\r\n}\r\n.mrg-top label{padding-top: 20px;}\r\n.round-button{\r\n    float:none !important;\r\n  }\r\n  .center-bt {\r\n      margin: 20px auto 10px auto;\r\n      float: none;\r\n  }\r\n  .no-edit{font-weight: 400 !important;}\r\n .line-breaker {\r\n    white-space: pre-line;\r\n  }\r\n  label{\r\n    font-weight: 700 !important;\r\n}\r\n\r\n  .task{background:#fbf6f1;width:100%;padding:6px 0;display: inline-block;margin-bottom:6px;}\r\n  button, input, optgroup, select, textarea{outline:none !important;}\r\n  .taskedit{border-left:1px solid #ccc;    display: inline-block;width:100%;margin-top: 5px;}\r\n  .task ul li{width:auto;float:left;padding: 8px;}\r\n      a{color:#111;}\r\n  .task h5{padding-top:13px;padding-top: 6px;}\r\n  .hash{background:#f7f6f4;}\r\n  .round-button {\r\n      border-radius: 20px;\r\n      margin: 0;\r\n      float: left;\r\n      background: #f37600;\r\n      color: #fff;\r\n      padding: 7px 15px;\r\n      transition: background 2s;\r\n      margin-bottom:15px;\r\n  }\r\n  .round-button:hover {\r\n      background: #ffaa05;\r\n      color: #fff;\r\n  }\r\n  .dropdown ul.dropdown-menu:before {\r\n      content: \"\";\r\n      border-bottom: 10px solid #fff;\r\n      border-right: 10px solid transparent;\r\n      border-left: 10px solid transparent;\r\n      position: absolute;\r\n      top: -10px;\r\n      right: 16px;\r\n      z-index: 10;\r\n  }\r\n  .round-button:hover, .round-button:focus, .round-button.focus{color:#fff;}\r\n  button, input, optgroup, select, textarea{outline:none;}\r\n  .effect-1 ~ .focus-border{position: absolute; bottom: 0; left: 15px; width: 0; height: 2px;background-color: #bba28b; transition: 0.4s;right:15px;}\r\n  .effect-1:focus ~ .focus-border{width: 95%; transition: 0.4s;}\r\n  .effect-1{border: 0; padding: 7px 0; border-bottom: 1px solid #ccc;width:100%;}\r\n  .style{width:100%;}\r\n  label{font-size:15px;color:#4a4a4a;font-weight:normal;padding:5px 0;}\r\n  .mrg-2{margin-bottom:10px;}\r\n  .dropdown-menu > li > a {\r\n      display: block;\r\n      padding: 3px 20px;\r\n      clear: both;\r\n      font-weight: normal;\r\n      line-height: 25px;\r\n      color: #333333;\r\n      white-space: nowrap;\r\n  }\r\n  .addmodule {\r\n      padding: 20px 10px!important;\r\n      min-width: 357px;\r\n      right: 0px;\r\n      left: inherit;\r\n  }\r\n  .style{border:none;border-bottom: 1px solid #ccc;}\r\n  .white {\r\n      background: #ffffff none repeat scroll 0 0;\r\n      \r\n      display: inline-block;\r\n      padding: 33px 25px;\r\n      width: 100%;\r\n  }\r\n  .btn-file{padding:0;}\r\n  .white {\r\n      background: #ffffff none repeat scroll 0 0;\r\n      \r\n      display: inline-block;\r\n      padding: 33px 25px;\r\n      width: 100%;\r\n      margin-bottom:20px;\r\n  }\r\n  .center-bt{margin:20px auto 10px auto;float:none;}\r\n  @media only screen and (max-width : 767px) {\r\n  .mrg-2 {\r\n      margin-bottom: 37px;\r\n  }\r\n  \r\n  .task ul li{    padding: 2px;}\t\r\n  .addmodule{    min-width: 274px;}\r\n  }\r\n  .round-button{float:inherit !important;}  \r\n  .right-btn{float:right !important;}\r\n\r\n\r\n .dwnload{ background: #f39f00;\r\n  border: none;\r\n  border-radius: 50%;\r\n  width: 30px;\r\n  height: 30px;\r\n  color: #fff;\r\n  font-weight: bold;\r\n  clear: left;\r\n  margin-right: 10px;\r\n}\r\n.mr-top{margin-top:20px;}\r\n.modal-content{border-radius:0;box-shadow:none;}\r\n.modal-header {\r\n    padding: 7px 15px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #da524f;\r\n}\r\n.modal-title {\r\n    margin: 0;\r\n    line-height: 26px;\r\n    font-size: 15px;\r\n    color: #fff;\r\n}\r\n.modal{top:0;}\r\n.modal-header {\r\n    padding: 10px 30px;\r\n    border-bottom: 1px solid #e5e5e5;\r\n    background: #fe6a07;\r\n  }\r\n  .modal-content{\r\n  box-shadow:none;\r\n  border-radius: 9px;\r\n  overflow: hidden;\r\n  \r\n  }\r\n  .modal-title{color:#fff;}\r\n  .modal-body{    padding:20px 30px;}\r\n  .modal-body input{border:none;}\r\n  .modal-body input{padding: 0;}\r\n  .pad-top{padding-top:20px;}\r\n  .wdth{width:100% !important;}\r\n  .brd{    border: none;\r\n    height: 54px;}\r\n    .pull-right{float:right !important;}\r\n.dis{display: -webkit-box;\r\npadding-left: 16px;\r\npadding-top: 12px;\r\n}\r\n.dis h5{padding-left: 10px;\r\n    padding-top: 0;\r\n    margin-top: 2px;}\r\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-project-estimation/user-project-estimation.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <admin-sidebar></admin-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <user-topbar></user-topbar>\n        <br>\n        <div class=\"col-md-12\">\n          <h3>Project Estimation</h3>\n        </div>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n              <!-- <h3>Project Estimation</h3> -->\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.project_name}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Code :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.project_code}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Assignee :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{pm}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{category?.category_name}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.priority}}</label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">\n                      {{project?.description}}\n                      </label></div>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Date :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{pro_date}}</label></div>\n                </div>\n                <br>\n                <div class=\"col-md-4 col-xs-6\"><label>Team Members :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field class=\"inputfileds\">\n                    <mat-select name='selected' multiple [(ngModel)]=\"team_member\">\n                      <mat-option [value]=\"members.id\" *ngFor=\"let members of team_members;\">{{members.f_name}} {{members.l_name}}</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n\n                <div class=\"col-md-4 col-xs-6\"><label>Requirement Summary :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <div class=\"col-md-12 col-xs-6\"><label class=\"no-edit\">{{project?.requirement_summary}}</label></div>\n                </div>\n                <br>\n\n\n                <div class=\"col-md-4 col-xs-6\"><label>Attatchment :</label></div>\n                <div class=\"col-md-7 col-xs-6 mr-top\">\n                  <a data-toggle=\"tooltip\" title=\"Download\" href=\"../assets/docs/{{project?.requirement_attatchment}}\" class=\"download-link\" download=\"\"> <button class=\"dwnload\"><i class=\"fa fa-download\"></i></button>Download</a><br>\n                </div>\n                <br>\n\n              </div>\n            </div>\n          </div>\n        </div>\n\n\n\n        <div class=\"col-md-7 col-sm-12 col-xs-12 gutter\">\n\n\n          <div *ngFor=\"let item of previousEstimations\">\n            <div class=\"white\">\n              <div class=\"col-md-12\">\n                <div class=\"col-md-6\">\n                  <label><b>{{item.team_name}}</b></label>\n                  <div class=\"clearfix\"></div>\n                  <label>Team Lead : {{item.tbl_project_estimation_team.tbl_user_profile.f_name}} {{item.tbl_project_estimation_team.tbl_user_profile.l_name}}</label>\n                </div>\n                <div class=\"col-md-6 text-right\">\n                  Total Hours : {{item.estimation_hour}} Hrs \n                </div>\n                <br>\n                <div class=\"clearfix\"></div>\n                <br>\n              </div>\n              <div class=\"clearfix\"></div>\n              <div class=\"col-md-12\"><button type=\"button\" class=\"btn round-button pull-right right-btn\" data-toggle=\"collapse\" attr.data-target=\"#demo{{item.id}}\">Click Here</button></div>\n              <div class=\"clearfix\"></div>\n              <div id=\"demo{{item.id}}\" class=\"collapse\">\n\n                <form (ngSubmit)=\"copyModule()\">\n                <div *ngFor=\"let modules of item.tbl_estimation_modules\">\n                  <div class=\"col-md-10 col-xs-12 pull-right\">\n                    <div class=\"task\">\n                      <div class=\"col-md-8 col-xs-7 dis\">\n                          <mat-checkbox name=\"copyModules_{{modules.id}}\" [value]=\"modules\" [(ngModel)]=\"copyModules[modules.id]\"></mat-checkbox>\n                          <!-- <mat-checkbox  name=\"data_{{i}}\" [(ngModel)]=\"surveyattenders[i].check\">{{data.name}}</mat-checkbox> -->\n                        <h5>{{modules.module_name}}</h5>\n                      </div>\n                      <div class=\"col-md-4 col-xs-5\">\n                        <ul class=\"taskedit\">\n                          <li>{{modules.module_time}} Hr</li>\n                        </ul>\n                      </div>\n                    </div>\n                  </div>\n                  <div *ngFor=\"let tasks of modules.tbl_estimation_tasks\">\n                    <div class=\"col-md-9 col-xs-12 pull-right\">\n                      <div class=\"task hash\">\n                        <div class=\"col-md-8 col-xs-7\">\n                          <h5>{{tasks.task_name}}</h5>\n                        </div>\n                        <div class=\"col-md-4 col-xs-5\">\n                          <ul class=\"taskedit\">\n                            <li>{{tasks.planned_hour + tasks.buffer_hour}} Hr</li>\n                          </ul>\n                        </div>\n                        <div class=\"clearfix\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"clearfix\"></div>\n                <div class=\"col-md-12\"><button type=\"submit\" class=\"btn round-button pull-right\">Copy Modules</button></div>\n              </form>\n                <div class=\"clearfix\"></div>\n              </div>\n              <br>\n              <div class=\"clearfix\"></div>\n            </div>\n          </div>\n\n\n\n          <div class=\"white\">\n            <div class=\"col-md-8 mrg-2 pull-right\">\n              <div class=\"col-md-4\">\n                <label>Total Estimated Hours</label>\n              </div>\n              <div class=\"col-md-5 col-xs-5\">\n                <!-- <input class=\"effect-1 style\" type=\"text\" placeholder=\"44:00 Hr\"> -->\n                <label class=\"effect-1 style\">{{estimated_hour}} </label>\n                <span class=\"focus-border\"></span>\n              </div>\n              <div class=\"col-md-3 col-xs-7\" *ngIf=\"!disabled\">\n                <div class=\"row\">\n                  <button type=\"button\" class=\"btn round-button pull-right dropdown-toggle right-btn\" data-toggle=\"dropdown\">Add Module</button>\n\n                  <ul class=\"dropdown-menu addmodule\" role=\"menu\">\n                    <form class=\"form-horizontal\" (ngSubmit)=\"addModule()\" novalidate>\n                      <div class=\"col-md-8\">\n                        <input class=\"style\" required autofocus [(ngModel)]=\"module.name\" name=\"module\" type=\"text\" placeholder=\"Module Name\">\n                      </div>\n                      <div class=\"col-md-4\">\n                        <button type=\"submit\" class=\"btn round-button pull-right\">Save</button>\n                      </div>\n                    </form>\n                  </ul>\n\n                </div>\n              </div>\n              <br>\n            </div>\n\n            <div *ngFor=\"let module of modules; let i = index\">\n              <div class=\"col-md-10 col-xs-12 pull-right\">\n                <div class=\"task\">\n                  <div class=\"col-md-8 col-xs-7\">\n                    <h5 *ngIf=\"!show[i]\">{{module.name}}</h5>\n                    <div *ngIf=\"show[i]\">\n                      <form class=\"form-horizontal\" (ngSubmit)=\"editModule(i)\" novalidate>\n                        <div class=\"col-md-8\">\n                          <mat-form-field>\n                            <input matInput name=\"name\" autofocus [(ngModel)]=\"module.name\" required>\n                          </mat-form-field>\n                        </div>\n                        <div class=\"col-md-4\">\n                          <button type=\"submit\" class=\"btn round-button pull-right\">Save</button>\n                        </div>\n                      </form>\n                    </div>\n                  </div>\n                  <div class=\"col-md-4 col-xs-5\" *ngIf=\"!show[i]\">\n                    <ul class=\"taskedit\">\n                      <li>{{module.time}}</li>\n                      <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#deleteModuleModal\" (click)=\"getId(i)\"> <i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\n                      <li class=\"pull-right\"><a><i (click)=\"editModules(i)\" class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></li>\n                    </ul>\n                  </div>\n                </div>\n              </div>\n\n              <div *ngFor=\"let task of module.tasks; let j = index\">\n                <div class=\"col-md-9 col-xs-12 pull-right\">\n                  <div class=\"task hash\">\n                    <div class=\"col-md-8 col-xs-7\">\n                      <h5>{{task.name}}</h5>\n                    </div>\n                    <div class=\"col-md-4 col-xs-5\">\n                      <ul class=\"taskedit\">\n                        <li>{{task.planned_hour + task.buffer_time}}</li>\n                        <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#deleteTaskModal\" (click)=\"getId1(i,j)\"> <i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\n                        <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#editTaskModal\" (click)=\"getId1(i,j)\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></li>\n                      </ul>\n                    </div>\n                    <div class=\"clearfix\"></div>\n\n                  </div>\n                </div>\n              </div>\n\n              <div class=\"clearfix\"></div>\n              <div class=\"col-md-12\">\n                <button type=\"button\" *ngIf=\"!disabled\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button>\n              </div>\n            </div>\n            <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->\n            <div id=\"addTaskModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\n                    <h4 class=\"modal-title\">Add Task </h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addTask(index);\" novalidate>\n\n                      <div>\n                        <div class=\"example-container\">\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Task Name :</label></div>\n                          <div class=\"col-md-7 col-xs-6\">\n                            <mat-form-field>\n                              <input matInput name=\"name\" autofocus [(ngModel)]=\"task.name\" required>\n                            </mat-form-field>\n                          </div>\n                          <br>\n\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Planned Hours:</label></div>\n                          <div class=\"col-md-3 col-xs-6\">\n                            <mat-form-field class=\"wdth\">\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" [(ngModel)]=\"task.planned_hour\" required>\n                            </mat-form-field>\n                          </div>\n\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Time :</label></div>\n                          <div class=\"col-md-3 col-xs-6\">\n\n                            <mat-form-field class=\"wdth\">\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" [(ngModel)]=\"task.buffer_time\" required>\n                            </mat-form-field>\n                          </div>\n\n                          <div class=\"clearfix\"></div>\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Description :</label></div>\n                          <div class=\"col-md-7 col-xs-6\">\n                            <mat-form-field class=\"wdth\">\n                              <!-- <mat-select name=\"description\" [(ngModel)]=\"task.description\" required>\n                                <mat-option value=\"Billable\">Billable</mat-option>\n                                <mat-option value=\"Non-billable\">Non-billable</mat-option>\n                              </mat-select> -->\n                              <textarea matInput [(ngModel)]=\"task.description\" name=\"description\" required matAutosizeMinRows=\"3\" class=\"brd\" matAutosizeMaxRows=\"6\"></textarea>\n                            </mat-form-field>\n                          </div>\n                          <br>\n\n                        </div>\n                      </div>\n                      <br>\n\n                      <div class=\"\">\n                        <div class=\"col-md-12\">\n                          <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button right-btn\">Submit</button>\n                        </div>\n                      </div>\n\n                    </form>\n                  </div>\n                  <div class=\"modal-footer\">\n                  </div>\n                </div>\n\n              </div>\n            </div>\n\n\n\n\n\n            <!-- ----------------------------------------------------------------------add task modal------------------------------------------------------------------\n           \n              <!-- --------------------------------------------- delete module modal ----------------------------------------------------------------- -->\n            <div id=\"deleteModuleModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                    <h4 class=\"modal-title\">Delete </h4>\n                  </div>\n                  <!-- <div class=\"modal-header\"> -->\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                  <!-- </div> -->\n                  <div class=\"modal-body delete-popup\">\n                    <i class=\"fa fa-exclamation\"></i>\n\n\n                    <h4 class=\"textalign\">Are you sure?</h4>\n\n                  </div>\n\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\n                    <button type=\"button\" (click)=\"deleteModule(index)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n\n            <!-- ----------------------------------------------------------------------delete module modal--------------------------------------------------------------------- -->\n\n            <!-- --------------------------------------------- delete task modal ----------------------------------------------------------------- -->\n            <div id=\"deleteTaskModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                    <h4 class=\"modal-title\">Delete </h4>\n                  </div>\n                  <!-- <div class=\"modal-header\"> -->\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                  <!-- </div> -->\n                  <div class=\"modal-body delete-popup\">\n                    <i class=\"fa fa-exclamation\"></i>\n\n\n                    <h4 class=\"textalign\">Are you sure?</h4>\n\n                  </div>\n\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\n                    <button type=\"button\" (click)=\"deleteTask(i,j)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n\n            <!-- ----------------------------------------------------------------------delete task modal--------------------------------------------------------------------- -->\n\n            <!-- --------------------------------------------- edit task modal ----------------------------------------------------------------- -->\n            <div id=\"editTaskModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn2></button>\n                    <h4 class=\"modal-title\">Edit Task </h4>\n                  </div>\n                  <div class=\"modal-body\">\n                    <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"editTask(i, j);\" novalidate>\n\n                      <div>\n                        <div class=\"example-container\">\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Task Name :</label></div>\n                          <div class=\"col-md-7 col-xs-6\">\n                            <mat-form-field>\n                              <input matInput name=\"name\" autofocus [(ngModel)]=\"selectedTask.name\" required>\n                            </mat-form-field>\n                          </div>\n                          <br>\n\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Planned Hours:</label></div>\n                          <div class=\"col-md-3 col-xs-6\">\n                            <mat-form-field class=\"wdth\">\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" [(ngModel)]=\"selectedTask.planned_hour\" required>\n                            </mat-form-field>\n                          </div>\n\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Time :</label></div>\n                          <div class=\"col-md-3 col-xs-6\">\n\n                            <mat-form-field class=\"wdth\">\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" [(ngModel)]=\"selectedTask.buffer_time\" required>\n                            </mat-form-field>\n                          </div>\n\n                          <div class=\"clearfix\"></div>\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Description :</label></div>\n                          <div class=\"col-md-7 col-xs-6\">\n                            <mat-form-field class=\"wdth\">\n                              <!-- <mat-select name=\"description\" [(ngModel)]=\"task.description\" required>\n                              <mat-option value=\"Billable\">Billable</mat-option>\n                              <mat-option value=\"Non-billable\">Non-billable</mat-option>\n                            </mat-select> -->\n                              <textarea matInput [(ngModel)]=\"selectedTask.description\" name=\"description\" required matAutosizeMinRows=\"3\" class=\"brd\"\n                                matAutosizeMaxRows=\"6\"></textarea>\n                            </mat-form-field>\n                          </div>\n                          <br>\n\n                        </div>\n                      </div>\n                      <br>\n\n                      <div class=\"\">\n                        <div class=\"col-md-12\">\n                          <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button right-btn\">Submit</button>\n                        </div>\n                      </div>\n\n                    </form>\n                  </div>\n                  <div class=\"modal-footer\">\n                  </div>\n                </div>\n\n              </div>\n            </div>\n\n\n\n\n\n            <!-- ----------------------------------------------------------------------edit task modal------------------------------------------------------------------ -->\n            <br>\n            <div class=\"clearfix\"></div>\n            <div class=\"\">\n              <div class=\"col-md-12\">\n                <button type=\"submit\" *ngIf=\"!disabled\" [disabled]=\"btnDisbled\" (click)=\"estimate()\" class=\"btn round-button pull-right right-btn\">Submit</button>\n              </div>\n            </div>\n\n\n          </div>\n        </div>\n\n\n      </div>\n    </div>\n  </div>\n</body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-project-estimation/user-project-estimation.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserProjectEstimationComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var UserProjectEstimationComponent = (function () {
+    function UserProjectEstimationComponent(userService, route, snackBar, companyService, routes, _formBuilder) {
+        this.userService = userService;
+        this.route = route;
+        this.snackBar = snackBar;
+        this.companyService = companyService;
+        this.routes = routes;
+        this._formBuilder = _formBuilder;
+        this.teamhead = [];
+        this.team_member = [];
+        this.modules = [];
+        this.isError = false;
+        this.estimated_hour = 0;
+        this.module = {
+            name: '',
+            time: 0,
+            tasks: [],
+        };
+        this.task = {
+            name: '',
+            planned_hour: 0,
+            buffer_time: 0,
+            description: '',
+        };
+        this.datafromForm = {
+            project_id: '',
+            team_id: '',
+            modules: [],
+            team_member: [],
+            estimated_hour: 0,
+            notif_id: '',
+        };
+        this.selectedTask = {
+            name: '',
+            planned_hour: 0,
+            buffer_time: 0,
+            description: '',
+        };
+        this.show = [];
+        this.disabled = false;
+        this.previousEstimations = [];
+        this.selected = [];
+        this.copyModules = [];
+        this.copiedModules = [];
+        this.filesToUpload = [];
+    }
+    UserProjectEstimationComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getLoggedinEntity().subscribe(function (data) {
+            _this.entity = data;
+        });
+        // -----------------------------------End------------------------------------------
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.p_id = params['id1'];
+            _this.notif_id = params['id2'];
+            // ---------------------------------Start-------------------------------------------
+            // Function      : get notif by id
+            // Params        : id
+            // Returns       : notification
+            // Author        : Rinsha
+            // Date          : 14-03-2018
+            // Last Modified : 14-03-2018, Rinsha
+            // Desc          : check whether the logged in member is the suitable person to estimate
+            _this.userService.getNotif(_this.notif_id).subscribe(function (notif) {
+                if (notif.success == false) {
+                    var snackBarRef = _this.snackBar.open(notif.msg, '', {
+                        duration: 2000
+                    });
+                    // this.routes.navigate(['/project']);
+                }
+            });
+            // ---------------------------------End-------------------------------------------
+            // ---------------------------------Start-------------------------------------------
+            // Function      : getCurrentEstimation
+            // Params        : notification id
+            // Returns       : estimation
+            // Author        : Rinsha
+            // Date          : 15-03-2018
+            // Last Modified : 15-03-2018, Rinsha
+            // Desc          : get Current Estimation from notification id
+            _this.userService.getCurrentEstimation(_this.notif_id).subscribe(function (est) {
+                // console.log(est);
+                if (est.data !== null) {
+                    // then it is resubmitted estimation
+                    est.data.tbl_estimation_modules.forEach(function (estimatedModule) {
+                        _this.modules = [];
+                        _this.module = {
+                            name: '',
+                            time: 0,
+                            tasks: [],
+                        };
+                        _this.task = {
+                            name: '',
+                            planned_hour: 0,
+                            buffer_time: 0,
+                            description: '',
+                        };
+                        _this.module.name = estimatedModule.module_name;
+                        _this.module.tasks = [];
+                        estimatedModule.tbl_estimation_tasks.forEach(function (estimatedTask) {
+                            _this.task = {
+                                name: estimatedTask.task_name,
+                                planned_hour: estimatedTask.planned_hour,
+                                buffer_time: estimatedTask.buffer_hour,
+                                description: estimatedTask.description,
+                            };
+                            _this.module.tasks.push(_this.task);
+                            _this.module.time = _this.module.time + _this.task.planned_hour + _this.task.buffer_time;
+                            _this.estimated_hour = _this.estimated_hour + _this.task.planned_hour + _this.task.buffer_time;
+                        });
+                        _this.modules.push(_this.module);
+                        // console.log(estimatedModule)
+                        _this.module = {
+                            name: '',
+                            time: 0,
+                            tasks: [],
+                        };
+                        _this.task = {
+                            name: '',
+                            planned_hour: 0,
+                            buffer_time: 0,
+                            description: '',
+                        };
+                    });
+                }
+                else {
+                    _this.modules = [];
+                    _this.estimated_hour = 0;
+                }
+                // console.log(this.modules);
+            });
+            // ---------------------------------End-------------------------------------------
+            // ---------------------------------Start-------------------------------------------
+            // Function      : get project by id
+            // Params        : id
+            // Returns       : project
+            // Author        : Rinsha
+            // Date          : 08-03-2018
+            // Last Modified : 08-03-2018, Rinsha
+            // Desc          : getProject
+            _this.companyService.getProject(_this.p_id).subscribe(function (res1) {
+                _this.project = res1;
+                _this.pro_date = _this.project.createdAt.substring(0, 10);
+                _this.category_id = _this.project.category_id;
+                _this.pm_id = _this.project.pm_id;
+                // ---------------------------------Start-------------------------------------------
+                // Function      : get category by id
+                // Params        : id
+                // Returns       : category
+                // Author        : Rinsha
+                // Date          : 08-03-2018
+                // Last Modified : 08-03-2018, Rinsha
+                // Desc          : getCategoryById
+                _this.companyService.getCategoryById(_this.category_id).subscribe(function (res2) {
+                    _this.category = res2;
+                });
+                // ---------------------------------End-------------------------------------------
+                // ---------------------------------Start-------------------------------------------
+                // Function      : get pm by id
+                // Params        : login id
+                // Returns       : user info
+                // Author        : Rinsha
+                // Date          : 13-03-2018
+                // Last Modified : 13-03-2018, Rinsha
+                // Desc          : getPmByLoginid
+                _this.userService.getPmByLoginid(_this.pm_id).subscribe(function (res3) {
+                    _this.pm = res3;
+                });
+                // ---------------------------------End-------------------------------------------
+            });
+            // ---------------------------------End-------------------------------------------
+            // ---------------------------------Start-------------------------------------------
+            // Function      : getTeamMembers
+            // Params        : login id, project id
+            // Returns       : team members
+            // Author        : Rinsha
+            // Date          : 13-03-2018
+            // Last Modified : 13-03-2018, Rinsha
+            // Desc          :  Find user profile id of head from tbl_user_profie using login id. Then find the team id from tbl_estimation_teams using head id. Then team members from tbl_team_assocs. 
+            _this.userService.getTeamMembers(_this.p_id).subscribe(function (data1) {
+                _this.team_members = data1.slice(0, data1.length - 1);
+                _this.team_id = data1[data1.length - 1].team_id;
+            });
+            // -----------------------------------End------------------------------------------
+            _this.getPreviousEstimations();
+        });
+    };
+    UserProjectEstimationComponent.prototype.addModule = function () {
+        // console.log(this.module.name);
+        if (this.module.name == '') {
+            var snackBarRef = this.snackBar.open("Module Name cannot be blank", '', {
+                duration: 2000
+            });
+        }
+        else {
+            this.modules.push(this.module);
+            this.module = {
+                name: '',
+                time: 0,
+                tasks: [],
+            };
+        }
+    };
+    UserProjectEstimationComponent.prototype.getId = function (index) {
+        // console.log(index);
+        this.index = index;
+    };
+    UserProjectEstimationComponent.prototype.addTask = function (index) {
+        // console.log(this.task);
+        if (this.task.name == '' || this.task.planned_hour == 0 || this.task.description == '') {
+            var snackBarRef = this.snackBar.open("All fields are required", '', {
+                duration: 2000
+            });
+        }
+        else {
+            this.modules[index].tasks.push(this.task);
+            this.modules[index].time = this.modules[index].time + this.task.planned_hour + this.task.buffer_time;
+            this.estimated_hour = this.estimated_hour + this.task.planned_hour + this.task.buffer_time;
+            // this.module_time = this.module_time + this.task.planned_hour + this.task.buffer_time;
+            // console.log(index);
+            // console.log("module time:"+this.modules[index].time);
+            // console.log("estimated time:"+this.estimated_hour);
+            this.task = {
+                name: '',
+                planned_hour: 0,
+                buffer_time: 0,
+                description: '',
+            };
+            this.closeBtn1.nativeElement.click();
+        }
+    };
+    UserProjectEstimationComponent.prototype.estimate = function () {
+        var _this = this;
+        this.isError = false;
+        if (this.team_members.length != 0 && this.team_member.length == 0) {
+            this.isError = true;
+            var snackBarRef = this.snackBar.open("Please select members on your team!", '', {
+                duration: 2000
+            });
+        }
+        else if (this.modules.length == 0) {
+            this.isError = true;
+            var snackBarRef = this.snackBar.open("Atleast one module is required!", '', {
+                duration: 2000
+            });
+        }
+        else {
+            this.modules.forEach(function (element) {
+                if (element.tasks.length == 0) {
+                    _this.isError = true;
+                    var snackBarRef = _this.snackBar.open("Each module should contain atleast one task!", '', {
+                        duration: 3000
+                    });
+                }
+            });
+        }
+        if (this.isError == false) {
+            this.datafromForm = {
+                project_id: this.p_id,
+                team_id: this.team_id,
+                modules: this.modules,
+                team_member: this.team_member,
+                estimated_hour: this.estimated_hour,
+                notif_id: this.notif_id,
+            };
+            // console.log(this.datafromForm);
+            // ---------------------------------Start-------------------------------------------
+            // Function      : add estimation
+            // Params        : data from form
+            // Returns       : 
+            // Author        : Rinsha
+            // Date          : 13-03-2018
+            // Last Modified : 13-03-2018, Rinsha
+            // Desc          :  
+            this.userService.addEstimation(this.datafromForm).subscribe(function (data) {
+                // console.log(data)
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 4000
+                });
+                if (data.success == true) {
+                    _this.routes.navigate(['/test-user']);
+                }
+            });
+            // -----------------------------------End------------------------------------------
+        }
+    };
+    UserProjectEstimationComponent.prototype.deleteModule = function (i) {
+        this.estimated_hour = this.estimated_hour - this.modules[i].time;
+        this.modules.splice(i, 1);
+    };
+    UserProjectEstimationComponent.prototype.getId1 = function (i, j) {
+        this.i = i;
+        this.j = j;
+        this.selectedTask = this.modules[i].tasks[j];
+        this.modules[i].time = this.modules[i].time - this.modules[i].tasks[j].planned_hour - this.modules[i].tasks[j].buffer_time;
+        this.estimated_hour = this.estimated_hour - this.modules[i].tasks[j].planned_hour - this.modules[i].tasks[j].buffer_time;
+    };
+    UserProjectEstimationComponent.prototype.deleteTask = function (i, j) {
+        this.modules[i].tasks.splice(j, 1);
+    };
+    UserProjectEstimationComponent.prototype.editTask = function (i, j) {
+        // console.log(this.modules[i].tasks[j]);
+        this.modules[i].tasks[j] = this.selectedTask;
+        this.modules[i].time = this.modules[i].time + this.selectedTask.planned_hour + this.selectedTask.buffer_time;
+        this.estimated_hour = this.estimated_hour + this.selectedTask.planned_hour + this.selectedTask.buffer_time;
+        this.closeBtn2.nativeElement.click();
+    };
+    UserProjectEstimationComponent.prototype.editModules = function (i) {
+        this.show[i] = true;
+        this.disabled = true;
+    };
+    UserProjectEstimationComponent.prototype.editModule = function (i) {
+        this.show[i] = false;
+        this.disabled = false;
+    };
+    UserProjectEstimationComponent.prototype.getPreviousEstimations = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getProjectstimations
+        // Params        : project id
+        // Returns       : estimations
+        // Author        : Rinsha
+        // Date          : 15-03-2018
+        // Last Modified : 15-03-2018, Rinsha
+        // Desc          :
+        this.companyService.getProjectstimations(this.p_id).subscribe(function (esti) {
+            _this.previousEstimations = [];
+            _this.previousEstimations = esti;
+            _this.previousEstimations.forEach(function (element) {
+                if (element.tbl_project_estimation_team.team_id == 1) {
+                    _this.team_name = "Developer";
+                }
+                else if (element.tbl_project_estimation_team.team_id == 2) {
+                    _this.team_name = "Designer";
+                }
+                else if (element.tbl_project_estimation_team.team_id == 3) {
+                    _this.team_name = "QC";
+                }
+                element.team_name = _this.team_name;
+                element.tbl_estimation_modules.forEach(function (modules) {
+                    _this.task_time = 0;
+                    modules.tbl_estimation_tasks.forEach(function (tasks) {
+                        _this.task_time = _this.task_time + tasks.planned_hour + tasks.buffer_hour;
+                    });
+                    modules.module_time = _this.task_time;
+                });
+            });
+        });
+    };
+    UserProjectEstimationComponent.prototype.copyModule = function () {
+        var _this = this;
+        // console.log(this.copyModules)
+        this.copyModules.forEach(function (key, module_id) {
+            if (key == true) {
+                // console.log("value:" + module_id)
+                _this.previousEstimations.forEach(function (est) {
+                    est.tbl_estimation_modules.forEach(function (module) {
+                        if (module.id == module_id) {
+                            _this.module.time = 0;
+                            // this.estimated_hour = 0;
+                            _this.copiedModules = module;
+                            _this.module.name = module.module_name;
+                            module.tbl_estimation_tasks.forEach(function (task) {
+                                _this.task = {
+                                    name: task.task_name,
+                                    planned_hour: task.planned_hour,
+                                    buffer_time: task.buffer_hour,
+                                    description: task.description,
+                                };
+                                _this.module.time = _this.module.time + task.planned_hour + task.buffer_hour;
+                                // this.estimated_hour = this.estimated_hour + this.module.time;
+                                _this.module.tasks.push(_this.task);
+                                _this.task = {
+                                    name: '',
+                                    planned_hour: 0,
+                                    buffer_time: 0,
+                                    description: '',
+                                };
+                            });
+                            _this.estimated_hour = _this.estimated_hour + _this.module.time;
+                            _this.modules.push(_this.module);
+                            var snackBarRef = _this.snackBar.open("Copied", '', {
+                                duration: 2000
+                            });
+                            _this.module = {
+                                name: '',
+                                time: 0,
+                                tasks: [],
+                            };
+                        }
+                    });
+                });
+            }
+        });
+        this.copyModules = [];
+        // console.log(this.copiedModules);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])('closeBtn1'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+    ], UserProjectEstimationComponent.prototype, "closeBtn1", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_11" /* ViewChild */])('closeBtn2'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+    ], UserProjectEstimationComponent.prototype, "closeBtn2", void 0);
+    UserProjectEstimationComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-user-project-estimation',
+            template: __webpack_require__("../../../../../src/app/components/user-project-estimation/user-project-estimation.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/user-project-estimation/user-project-estimation.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_5__angular_material__["z" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */]])
+    ], UserProjectEstimationComponent);
+    return UserProjectEstimationComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-topbar/user-topbar.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".drp2 .dropdown-menu{padding:0;right:-3%;left:inherit;max-width: 297px;}\r\n.drp2 .dropdown-menu li a{padding:15px 20px;}\r\n.drp2 .navbar-content{text-align:left;}\r\n.drp2 .dropdown-menu li{width:100%;}\r\n.drp2 .dropdown-menu > li > a:hover p{color:#fff !important;}\r\n.dropdown-menu{margin-bottom:0;}\r\nheader .dropdown-menu{top: 207%;}\r\n.dropdown-menu p {\r\n    margin: 0 0 0px;\r\n}\r\n.drp2 .dropdown-menu h4{margin-bottom: 2px;\r\n    color: #000;\r\n    font-weight: 500;\r\n    font-family: arial;}\r\n.media-heading{font-size:16px;}\r\n.closbtn{\r\n    border-radius: 50%;\r\n    height: 15px;\r\n    width: 15px;\r\n    padding-top: 0; \r\n    margin-right: 12px;\r\n    line-height: 13px;\r\n    font-size: 9px;\r\n    padding: 0;\r\n    text-align: center;\r\n    margin-top: 0;\r\n    background: #fe6a07;\r\n    border: none;\r\n}\r\n.dropdown-menu .divider {\r\n    height: 1px;\r\n    margin: 0px 0;\r\n    overflow: hidden;\r\n    background-color: #e5e5e5;\r\n}\r\n.head{background: #FFFFFF;color:#fff !important;}\r\n.head>a{color:#686868 !important;}\r\n.content{\r\n    text-decoration: none;\r\n}\r\n.dropdown-menu>li>a:hover h4{color:#fff;}\r\n.drp2 .dropdown-menu > li > a{white-space:normal !important;}\r\n.drp2 .dropdown-menu{    min-width: 324px;}\r\n.drp2 p{line-height: 18px;margin-top: 10px;}\r\n.drp2 li{padding: 0px 0;}\r\n.media-heading {font-size: 15px;\r\ncolor: #8a8a8a;\r\nfont-weight: 600;    margin-top: 2px;}\r\n.drp2 li a{padding:7px 0px !important;color:#909090;}\r\n.ng-star-inserted:hover{background:#f3f3f3;}\r\n.ng-star-inserted{padding: 10px 20px; border-bottom: 1px solid #ececec;}\r\n.drp2 h4{padding: 0px 20px;    font-weight: 700 !important;\r\n    font-family: arial;\r\n    font-size: 15px;\r\n    color:#ffffff !important;\r\n    margin-top:0px;\r\n    margin-bottom:0;\r\n    background: #919aa0;\r\n    padding: 14px 20px;\r\n    \r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-topbar/user-topbar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n    <header>\n\n        <div class=\"col-md-5 pull-right\">\n            <div class=\"header-rightside\">\n                <ul class=\"list-inline header-top pull-right\">\n\n                    <li class=\"dropdown drp2\">\n                        <a class=\"icon-info dropdown-toggle\" data-toggle=\"dropdown\">\n                          <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\n                          <span class=\"label label-primary\">{{count}}</span>\n\n                      </a>\n                        <ul class=\"dropdown-menu\">\n\n                            <li class=\"head\">\n                                <div class=\"navbar-content\">\n                                    <h4>Project Estimation Notification</h4>\n                                    <div *ngFor=\"let item of teamheadNotif\" class=\"ng-star-inserted\">\n                                        <a [routerLink]=\"['/estimate-project', item.tbl_project.id, item.id]\">\n                                            <div></div>\n                                            <h5 class=\"media-heading\">{{item.tbl_project.project_name}}</h5>\n                                            <p><a class=\"content\">You are assignd as team leader for project <b>{{item.tbl_project.project_name}}</b>. Click here to Estimate.</a></p>\n                                        </a>\n                                    </div>\n                                </div>\n                            </li>\n                            <div class=\"divider\"> </div>\n\n                            <div *ngIf=\"count == 0\">\n\n                                <h5 style=\"color : red; margin-left:20px; \">No Data</h5>\n                            </div>\n                        </ul>\n                    </li>\n                    <li class=\"dropdown\">\n                        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\n                          <b class=\"caret\"></b></a>\n                        <ul class=\"dropdown-menu\">\n                            <li>\n                                <div class=\"navbar-content\">\n                                    <span>{{profile?.f_name}} {{profile?.l_name}}</span>\n                                    <p class=\"text-muted small\">\n                                        {{profile?.email}}\n                                    </p>\n                                    <div class=\"divider\">\n                                    </div>\n                                    <a [routerLink]=\"['/edit-profile']\" class=\"view btn-sm active\">View Profile</a>\n                                </div>\n                            </li>\n                        </ul>\n                    </li>\n                    <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\n                </ul>\n            </div>\n        </div>\n    </header>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-topbar/user-topbar.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserTopbarComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__("../../../../socket.io-client/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_socket_io_client__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var UserTopbarComponent = (function () {
+    function UserTopbarComponent(config, userService, snackBar) {
+        this.config = config;
+        this.userService = userService;
+        this.snackBar = snackBar;
+        this.count = 0;
+        this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__(config.siteUrl);
+    }
+    UserTopbarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.TeamHeadNotification();
+        this.socket.on('doEstimation', function (data) {
+            _this.TeamHeadNotification();
+        });
+        this.socket.on('resubmitEstimation', function (data) {
+            _this.TeamHeadNotification();
+        });
+        this.socket.on('approveEstimation', function (data) {
+            _this.TeamHeadNotification();
+        });
+        this.getProfile();
+        this.socket.on('updateProfile', function (data) {
+            _this.getProfile();
+        });
+    };
+    UserTopbarComponent.prototype.TeamHeadNotification = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : get TeamHeadNotification
+        // Params        : 
+        // Returns       : notification data
+        // Author        : Rinsha
+        // Date          : 14-03-2018
+        // Last Modified : 14-03-2018, Rinsha
+        // Desc          : check whether the loggedin user assigned for a project estimation(ie .as team head).
+        this.userService.TeamHeadNotification().subscribe(function (res) {
+            _this.count = 0;
+            _this.teamheadNotif = res;
+            // console.log(res);
+            // this.notif_id = this.teamheadNotif.tbl_estimation_notifications.id;
+            _this.count = _this.count + _this.teamheadNotif.length;
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    UserTopbarComponent.prototype.getProfile = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getProfile
+        // Params        : 
+        // Returns       : logged in user details
+        // Author        : Rinsha
+        // Date          : 21-03-2018
+        // Last Modified : 21-03-2018, Rinsha
+        // Desc          : 
+        this.userService.getProfile().subscribe(function (info) {
+            _this.profile = info;
+            _this.user_id = info.id;
+            // console.log(info)
+        });
+        // ---------------------------------End-------------------------------------------
+    };
+    UserTopbarComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'user-topbar',
+            template: __webpack_require__("../../../../../src/app/components/user-topbar/user-topbar.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/user-topbar/user-topbar.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["z" /* MatSnackBar */]])
+    ], UserTopbarComponent);
+    return UserTopbarComponent;
 }());
 
 
@@ -2603,7 +4998,7 @@ var CompanyService = (function () {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : upgrade
     CompanyService.prototype.upgrade = function (id, data) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'upgrade/' + id, data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2617,7 +5012,7 @@ var CompanyService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : getAllProjects 
     CompanyService.prototype.getAllProject = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getAllProject', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2631,7 +5026,7 @@ var CompanyService = (function () {
     // Last Modified : 08-03-2018, Rinsha
     // Desc          : 
     CompanyService.prototype.getAllPm = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getAllPm', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2645,7 +5040,7 @@ var CompanyService = (function () {
     // Last Modified : 08-03-2018, Rinsha
     // Desc          : 
     CompanyService.prototype.getAllProjectCategory = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getAllProjectCategory', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2659,7 +5054,7 @@ var CompanyService = (function () {
     // Last Modified : 08-03-2018, Rinsha
     // Desc          :  
     CompanyService.prototype.addProject = function (project) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'addProject', project, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -2732,6 +5127,428 @@ var CompanyService = (function () {
     CompanyService.prototype.getLoggedinEntity = function () {
         var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get project by id
+    // Params        : id
+    // Returns       : project
+    // Author        : Rinsha
+    // Date          : 08-03-2018
+    // Last Modified : 08-03-2018, Rinsha
+    // Desc          : getProject
+    CompanyService.prototype.getProject = function (id) {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'getProjectById/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get developer team
+    // Params        : 
+    // Returns       : users in developer team
+    // Author        : Rinsha
+    // Date          : 09-03-2018
+    // Last Modified : 09-03-2018, Rinsha
+    // Desc          : getDeveloperTeam
+    CompanyService.prototype.getDeveloperTeam = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getDeveloperTeam', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get designer team
+    // Params        : 
+    // Returns       : users in designer team
+    // Author        : Rinsha
+    // Date          : 09-03-2018
+    // Last Modified : 09-03-2018, Rinsha
+    // Desc          : getDesignerTeam
+    CompanyService.prototype.getDesignerTeam = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getDesignerTeam', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get qc team
+    // Params        : 
+    // Returns       : users in qc team
+    // Author        : Rinsha
+    // Date          : 09-03-2018
+    // Last Modified : 09-03-2018, Rinsha
+    // Desc          : getQCTeam
+    CompanyService.prototype.getQCTeam = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getQCTeam', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : assign project
+    // Params        : form data
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 09-03-2018
+    // Last Modified : 09-03-2018, Rinsha
+    // Desc          : AssignTeamHead
+    CompanyService.prototype.AssignTeamHead = function (project) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'AssignTeamHead', project, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : edit project
+    // Params        : data from form
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 09-03-2018
+    // Last Modified : 09-03-2018, Rinsha
+    // Desc          :
+    CompanyService.prototype.editProject = function (project) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'editProject', project, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get category by id
+    // Params        : id
+    // Returns       : category
+    // Author        : Rinsha
+    // Date          : 08-03-2018
+    // Last Modified : 08-03-2018, Rinsha
+    // Desc          : getCategoryById
+    CompanyService.prototype.getCategoryById = function (id) {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'getCategoryById/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : delete project
+    // Params        : id 
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 12-03-2018
+    // Last Modified : 12-03-2018, Rinsha
+    // Desc          : to delete a project
+    CompanyService.prototype.deleteProject = function (id) {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'deleteProject/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get all projects by status
+    // Params        : 
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 12-03-2018
+    // Last Modified : 12-03-2018, Rinsha
+    // Desc          : getAllProjectByStatus
+    CompanyService.prototype.getAllProjectByStatus = function (status) {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'getAllProjectByStatus/' + status, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get assignHeadNotification
+    // Params        : 
+    // Returns       : project data
+    // Author        : Rinsha
+    // Date          : 12-03-2018
+    // Last Modified : 12-03-2018, Rinsha
+    // Desc          : check whether the loggedin project manager assigned for a project. If yes, then notification to assign team heads
+    CompanyService.prototype.assignHeadNotification = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'assignHeadNotification', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification
+    // Params        : project id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 12-03-2018
+    // Last Modified : 12-03-2018, Rinsha
+    // Desc          : close notification when pm sees the assign team head notification
+    CompanyService.prototype.closeNotif = function (id) {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'closeNotif/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get approveEstimationNotification
+    // Params        : 
+    // Returns       : notification data
+    // Author        : Rinsha
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Rinsha
+    // Desc          : check whether the loggedin project manager have pending estimation approval notification
+    CompanyService.prototype.approveEstimationNotification = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'approveEstimationNotification', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification of estimation approval
+    // Params        : notification id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Rinsha
+    // Desc          : close notification when pm sees the estimation approval notification
+    CompanyService.prototype.closeNotif2 = function (id) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'closeNotif2/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getProjectstimations
+    // Params        : project id
+    // Returns       : estimations
+    // Author        : Rinsha
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Rinsha
+    // Desc          :  
+    CompanyService.prototype.getProjectstimations = function (pro_id) {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'getProjectstimations/' + pro_id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : resubmitEstimation
+    // Params        : estimation id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Rinsha
+    // Desc          : 
+    CompanyService.prototype.resubmitEstimation = function (est_id, resubmitData) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'resubmitEstimation/' + est_id, resubmitData, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : acceptEstimation
+    // Params        : estimation id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Rinsha
+    // Desc          :  
+    CompanyService.prototype.acceptEstimation = function (est_id) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'acceptEstimation/' + est_id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get team heads of the project who does nt involved in estimations
+    // Params        : project id
+    // Returns       : team head info
+    // Author        : Rinsha
+    // Date          : 16-03-2018
+    // Last Modified : 16-03-2018, Rinsha
+    // Desc          : getTeamHeadsToEstimate
+    CompanyService.prototype.getTeamHeadsToEstimate = function (p_id) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'getTeamHeadsToEstimate/' + p_id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : forwardEstimationRequest
+    // Params        : project id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 16-03-2018
+    // Last Modified : 16-03-2018, Rinsha
+    // Desc          :  
+    CompanyService.prototype.forwardEstimationRequest = function (p_id, head_id) {
+        var Head_id = { head_id: head_id };
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'forwardEstimationRequest/' + p_id, JSON.stringify(Head_id), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTotalEstimations
+    // Params        : project id
+    // Returns       : estimations
+    // Author        : Rinsha
+    // Date          : 19-03-2018
+    // Last Modified : 19-03-2018, Rinsha
+    // Desc          :  
+    CompanyService.prototype.getTotalEstimations = function (pro_id) {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'getTotalEstimations/' + pro_id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : send request to admin for approval
+    // Params        : project id, assignee id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 19-03-2018
+    // Last Modified : 19-03-2018, Rinsha
+    // Desc          : sendForApproval
+    CompanyService.prototype.sendForApproval = function (pro_id, pm_id) {
+        var PM_id = { pm_id: pm_id };
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'sendForApproval/' + pro_id, PM_id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get apprroveProjectNotification
+    // Params        : 
+    // Returns       : project data
+    // Author        : Rinsha
+    // Date          : 19-03-2018
+    // Last Modified : 19-03-2018, Rinsha
+    // Desc          : check whether the loggedin company admin have any project to approve
+    CompanyService.prototype.approveProjectNotification = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'approveProjectNotification', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification of project approval
+    // Params        : project id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 19-03-2018
+    // Last Modified : 19-03-2018, Rinsha
+    // Desc          : close notification when pm sees the project approval notification
+    CompanyService.prototype.closeNotif3 = function (id) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'closeNotif3/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : accept project
+    // Params        : cost, estimated hr, project id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 20-03-2018
+    // Last Modified : 20-03-2018, Rinsha
+    // Desc          : acceptProject
+    CompanyService.prototype.acceptProject = function (project_submit) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'acceptProject', project_submit, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : reject project
+    // Params        : cost, estimated hr, project id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 20-03-2018
+    // Last Modified : 20-03-2018, Rinsha
+    // Desc          : rejectProject
+    CompanyService.prototype.rejectProject = function (project_submit) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'rejectProject', project_submit, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : resubmit project
+    // Params        : cost, estimated hr, project id, pm id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 20-03-2018
+    // Last Modified : 20-03-2018, Rinsha
+    // Desc          : resubmitProject
+    CompanyService.prototype.resubmitProject = function (project_submit) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'resubmitProject', project_submit, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get planProjectNotification
+    // Params        : 
+    // Returns       : project data
+    // Author        : Rinsha
+    // Date          : 20-03-2018
+    // Last Modified : 20-03-2018, Rinsha
+    // Desc          : check whether the loggedin pm have any project to plan
+    CompanyService.prototype.planProjectNotification = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'planProjectNotification', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification of project plan
+    // Params        : project id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 20-03-2018
+    // Last Modified : 20-03-2018, Rinsha
+    // Desc          : close notification when pm sees the project plan notification
+    CompanyService.prototype.closeNotif4 = function (id) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'closeNotif4/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get resubmitEstimationNotification
+    // Params        : 
+    // Returns       : project data
+    // Author        : Rinsha
+    // Date          : 20-03-2018
+    // Last Modified : 20-03-2018, Rinsha
+    // Desc          : check whether the loggedin pm have any estimation to resubmit
+    CompanyService.prototype.resubmitEstimationNotification = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'resubmitEstimationNotification', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getAcceptedEstimations
+    // Params        : project id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 20-03-2018
+    // Last Modified : 20-03-2018, Rinsha
+    // Desc          : 
+    CompanyService.prototype.getAcceptedEstimations = function (pid) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getAcceptedEstimations/' + pid, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : forwardStatus
+    // Params        : project id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 21-03-2018
+    // Last Modified : 21-03-2018, Rinsha
+    // Desc          : check whether the estimation request forwarded to any team head is pending
+    CompanyService.prototype.getforwardStatus = function (pid) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getforwardStatus/' + pid, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     CompanyService = __decorate([
@@ -2816,6 +5633,171 @@ var SuperAdminService = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/services/user.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_config__ = __webpack_require__("../../../../../src/app/config/config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var UserService = (function () {
+    function UserService(http, config) {
+        this.http = http;
+        this.config = config;
+        this.serviceUrl = config.siteUrl + '/user/';
+    }
+    UserService.prototype.setHeader = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        return (headers);
+    };
+    UserService.prototype.setHeaderWithAuthorization = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return (headers);
+    };
+    UserService.prototype.loadToken = function () {
+        this.authToken = localStorage.getItem('id_token');
+    };
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get pm by id
+    // Params        : login id
+    // Returns       : user info
+    // Author        : Rinsha
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, Rinsha
+    // Desc          : getPmByLoginid
+    UserService.prototype.getPmByLoginid = function (login_id) {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'getPmByLoginid/' + login_id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTeamMembers
+    // Params        : login id, project id
+    // Returns       : team members
+    // Author        : Rinsha
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, Rinsha
+    // Desc          :  Find user profile id of head from tbl_user_profie using login id. Then find the team id from tbl_estimation_teams using head id. Then team members from tbl_team_assocs. 
+    UserService.prototype.getTeamMembers = function (project_id) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getTeamMembers/' + project_id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : add estimation
+    // Params        : data from form
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, Rinsha
+    // Desc          :  
+    UserService.prototype.addEstimation = function (datafromForm) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'addEstimation', datafromForm, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get TeamHeadNotification
+    // Params        : 
+    // Returns       : notification data
+    // Author        : Rinsha
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Rinsha
+    // Desc          : check whether the loggedin user assigned for a project estimation(ie .as team head).
+    UserService.prototype.TeamHeadNotification = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getTeamHeadNotification', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : get notif by id
+    // Params        : id
+    // Returns       : notification
+    // Author        : Rinsha
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Rinsha
+    // Desc          : check whether the logged in member is the suitable person to estimate
+    UserService.prototype.getNotif = function (notif_id) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getNotif/' + notif_id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getCurrentEstimation
+    // Params        : notification id
+    // Returns       : estimation
+    // Author        : Rinsha
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Rinsha
+    // Desc          : get Current Estimation from notification id
+    UserService.prototype.getCurrentEstimation = function (notif_id) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getCurrentEstimation/' + notif_id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getProfile
+    // Params        : 
+    // Returns       : logged in user details
+    // Author        : Rinsha
+    // Date          : 21-03-2018
+    // Last Modified : 21-03-2018, Rinsha
+    // Desc          : 
+    UserService.prototype.getProfile = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getProfile', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : updateUser
+    // Params        : user data
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 21-03-2018
+    // Last Modified : 21-03-2018, Rinsha
+    // Desc          : 
+    UserService.prototype.updateUser = function (profile) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'updateUser', profile, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_2__config_config__["a" /* Config */]])
+    ], UserService);
+    return UserService;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/assets/images/banner.jpg":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2880,6 +5862,13 @@ Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* pl
 
 module.exports = __webpack_require__("../../../../../src/main.ts");
 
+
+/***/ }),
+
+/***/ 1:
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 

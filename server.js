@@ -11,6 +11,7 @@ const io = socketIo(server);
 const path = require("path");
 const admin = require("./routes/admin")(io);
 const company = require("./routes/company")(io);
+const user = require("./routes/user")(io);
 
 const bodyParser = require("body-parser");
 const passport = require('passport');
@@ -20,13 +21,14 @@ const config = require("./config/config");
 
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit:'50mb'}));
 
 // require('./config/passport')(passport);
 
 app.use(express.static(path.join(__dirname,"public")));
 app.use('/admin',admin);
 app.use('/company',company);
+app.use('/user',user);
 app.use('*',(req, res)=>{
     res.sendFile(path.join(__dirname,'public/index.html'));
 });

@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     project_code: DataTypes.STRING,
     status: DataTypes.STRING,
     priority: DataTypes.STRING,
-    description: DataTypes.STRING,
-    requirement_summary: DataTypes.STRING,
+    description: DataTypes.TEXT,
+    requirement_summary: DataTypes.TEXT,
     requirement_attatchment: DataTypes.STRING,
     is_estimation_completed: DataTypes.BOOLEAN,
     is_pm_viewed: DataTypes.BOOLEAN,
@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     planned_end_date: DataTypes.DATE,
     is_estimation_resubmitted: DataTypes.BOOLEAN,
     project_cost: DataTypes.FLOAT,
-    total_estimated_hour: DataTypes.FLOAT
+    total_estimated_hour: DataTypes.FLOAT,
+    actual_start_date: DataTypes.DATE,
+    actual_end_date: DataTypes.DATE,
+    is_pm_viewed_for_planning: DataTypes.BOOLEAN,
   }, {});
   tbl_project.associate = function (models) {
     // associations can be defined here

@@ -1,0 +1,49 @@
+var models = require('../models');
+var express = require('express');
+var router = express.Router();
+const Sequelize = require('sequelize');
+var env       = process.env.NODE_ENV || 'development';
+var config    = require(__dirname + '/../config/config.json')[env];
+
+
+var returnRouter = function (io) {
+
+
+  router.post('/login', function(req, res) {
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    
+    // sequelize.query("select * from getallzipcodes(:mnm);",{}).spread(
+      const email = req.body.email;
+      const password = req.body.password;
+      // console.log(email);
+      
+    sequelize.query("select * from tbl_logins where email= 'email' ;").spread(
+      function (res1, settingName2) {
+        console.log(res1);
+        // console.log(settingName2);
+        // console.log(settingName3);
+        res.json(res1);
+  });
+
+  // /*___________________________SAVE DATA_________________________*/
+  // const student = models.student.build({
+  //   name: "Asif",
+  //   rollnumber: 123
+  // })
+  //   student.save().then(function(newStudent){
+  //     console.log(newStudent);
+  //     res.json(newStudent);
+  //   })
+  // /*___________________________SAVE DATA_________________________*/
+    
+  });
+
+
+  module.exports = router;
+  return router;
+  }
+  module.exports = returnRouter;

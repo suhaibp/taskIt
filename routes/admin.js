@@ -5,25 +5,28 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 var env = process.env.NODE_ENV || 'development';
 var config = require(__dirname + '/../config/config.json')[env];
+const Config = require('../config/database');
+const jwt = require("jsonwebtoken");
 var Plans = models.tbl_plan;
 var Company = models.tbl_company;
+var Login = models.tbl_login;
 
 var returnRouter = function (io) {
 
-//  ---------------------------------Start-------------------------------------------
-// Function      : get_counts_for_dashboard
-// Params        : 
-// Returns       : 
-// Author        : Manu Prasad
-// Date          : 02-03-2018
-// Last Modified : 02-03-2018, Jooshifa 
-// Desc          : for getting count of companies,projects,users
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : get_counts_for_dashboard
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 02-03-2018
+  // Last Modified : 02-03-2018, Jooshifa 
+  // Desc          : for getting count of companies,projects,users
 
-router.post('/get_counts_for_dashboard', function(req, res) {
+  router.post('/get_counts_for_dashboard', function (req, res) {
     var userCount;
     var cmpCount;
     var projectCount;
-    sequelize.query("select count(*) from tbl_logins where block_status != :status and delete_status != :status",{replacements:{status: true}}).spread((myTableRows1) => {
+    sequelize.query("select count(*) from tbl_logins where block_status != :status and delete_status != :status", { replacements: { status: true } }).spread((myTableRows1) => {
       // res.json(myTableRows)
       userCount = myTableRows1[0].count;
       sequelize.query("select count(*) from tbl_companies").spread(myTableRows2 => {
@@ -33,14 +36,14 @@ router.post('/get_counts_for_dashboard', function(req, res) {
           // res.json(myTableRows)
           projectCount = myTableRows3[0].count;
           res.json({
-            users:userCount,
-            companies:cmpCount,
-            projects:projectCount
+            users: userCount,
+            companies: cmpCount,
+            projects: projectCount
           })
         })
       })
     })
-   /*___________________COUNT IN MODEL EXAMPLE______________________*/ 
+    /*___________________COUNT IN MODEL EXAMPLE______________________*/
     // Login.findAndCountAll({
     //   where: {
     //     block_status: {
@@ -71,19 +74,46 @@ router.post('/get_counts_for_dashboard', function(req, res) {
       res.json({ success: false, msg: "All fields are required" });
     }
     else {
-      sequelize.query("select * from tbl_logins where role_id=3 and  email= :email;", { replacements: { email: email } }).spread(
-        function (res1, settingName2) {
-          // console.log(res1);
-          if (res1 == '') {
-            res.json({ success: false, msg: "Incorrect Username or Password" });
-          }
-          else if (res1[0].password != password) {
-            res.json({ success: false, msg: "Incorrect Username or Password" });
-          }
-          else if (res1[0].password == password) {
-            res.json({ success: true, msg: "Success" });
-          }
-        });
+      // sequelize.query("select * from tbl_logins where role_id=2 and  email= :email;", { replacements: { email: email } }).spread(
+      //   function (res1, settingName2) {
+      //     // console.log(res1);
+      //     if (res1 == '') {
+      //       res.json({ success: false, msg: "Incorrect Username or Password" });
+      //     }
+      //     else if (res1[0].password != password) {
+      //       res.json({ success: false, msg: "Incorrect Username or Password" });
+      //     }
+      //     else if (res1[0].password == password) {
+      //       res.json({
+      //         success: true,
+      //         msg: 'login succesfully',
+      //       });
+      //     }
+      //   });
+      Login.findOne({
+        where: {
+          email: req.body.email,
+          role_id: 2,
+          password: req.body.password
+        }
+      }).then(login => {
+        if (login === null) {
+          res.json({ success: false, msg: "Incorrect Username or Password" });
+        }
+        else {
+          const token = jwt.sign(login.toJSON(), Config.secret, {
+            expiresIn: 60400 // sec 1 week
+          });
+          res.json({
+            success: true,
+            msg: 'login succesfully',
+            token: 'JWT ' + token,
+            admin: {
+              role_id: login.role_id
+            }
+          });
+        }
+      });
     }
   });
   // -----------------------------------End-----------------------------------------------
@@ -206,6 +236,8 @@ router.post('/get_counts_for_dashboard', function(req, res) {
             })
             plan.save().then(function (newPlan) {
               // console.log(newPlan);
+              io.sockets.emit("addPlan", {
+              });
               res.json({ success: true, msg: "Plan Created Successfully" });
             })
           }
@@ -262,6 +294,8 @@ router.post('/get_counts_for_dashboard', function(req, res) {
             }
           }).then(data1 => {
             if (data1 == 1) {
+              io.sockets.emit("bestPlan", {
+              });
               res.json({ success: true, msg: "Success" });
             }
             else {
@@ -305,6 +339,8 @@ router.post('/get_counts_for_dashboard', function(req, res) {
                 id: req.params.id
               }
             }).then(plan => {
+              io.sockets.emit("deletePlan", {
+              });
               res.json({ success: true, msg: "Success" });
             });
           }
@@ -334,6 +370,7 @@ router.post('/get_counts_for_dashboard', function(req, res) {
   });
   // -----------------------------------End------------------------------------------
 
+  // ---------------------------------Start-------------------------------------------
   // Function      : update plan
   // Params        : value from form
   // Returns       : 
@@ -342,7 +379,7 @@ router.post('/get_counts_for_dashboard', function(req, res) {
   // Last Modified : 07-03-2018, Rinsha
   // Desc          : update a plan
   router.post('/updatePlan', function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     if (config.use_env_variable) {
       var sequelize = new Sequelize(process.env[config.use_env_variable]);
     } else {
@@ -364,7 +401,7 @@ router.post('/get_counts_for_dashboard', function(req, res) {
         res.json({ success: false, msg: "All fields are required" });
       }
       else if (req.body.is_defualt == true) {
-        if (req.body.plan_price == '' || req.body.plan_price == null ) {
+        if (req.body.plan_price == '' || req.body.plan_price == null) {
           res.json({ success: false, msg: "All fields are required" });
         }
       }
@@ -405,6 +442,8 @@ router.post('/get_counts_for_dashboard', function(req, res) {
             }
           }).then(data1 => {
             if (data1 == 1) {
+              io.sockets.emit("updatePlan", {
+              });
               res.json({ success: true, msg: "Success" });
             }
             else {

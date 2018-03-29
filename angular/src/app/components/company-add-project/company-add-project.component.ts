@@ -73,7 +73,7 @@ export class CompanyAddProjectComponent implements OnInit {
     if(this.entity.role_id == 3){
       this.project.pm_id = this.entity.id;
     }
-    if (project.pm_id == '') {
+    if (project.pm_id == '' || project.pm_id == "Me" ) {
       if (confirm("Do you select yourself as the Project Manager? ")) {
         project.pm_id = this.entity.id;
       }
@@ -89,11 +89,11 @@ export class CompanyAddProjectComponent implements OnInit {
     // Desc          :  
     this.companyService.addProject(project).subscribe(data => {
       let snackBarRef = this.snackBar.open(data.msg, '', {
-        duration: 3000
+        duration: 4000
       });
       if (data.success == true) {
         if(project.pm_id == this.entity.id){
-          this.routes.navigate(['/assign-project']);
+          this.routes.navigate(['/assign-project', data.id]);
         }
         else{
           this.routes.navigate(['/project']);

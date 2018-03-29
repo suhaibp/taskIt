@@ -28,12 +28,21 @@ import { CompanyPlanlistComponent } from './components/company-planlist/company-
 import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/admin-dashboard-pie.component';
 import { CompanyAddProjectComponent } from './components/company-add-project/company-add-project.component'
 import { CompanyProjectComponent } from './components/company-project/company-project.component';
-import { AssignProjectComponent } from './components/assign-project/assign-project.component';
+import { CompanyAssignProjectComponent } from './components/company-assign-project/company-assign-project.component';
+import { CompanyEditProjectComponent } from './components/company-edit-project/company-edit-project.component';
 import { CompanyLoginComponent } from './components/company-login/company-login.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import { CompanyTopbarComponent } from './components/company-topbar/company-topbar.component';
+import { UserTopbarComponent } from './components/user-topbar/user-topbar.component';
+import { UserProjectEstimationComponent } from './components/user-project-estimation/user-project-estimation.component';
+import { CompanyApproveEstimationComponent } from './components/company-approve-estimation/company-approve-estimation.component';
+import { CompanyApproveProjectComponent } from './components/company-approve-project/company-approve-project.component';
+import { UserEditProfileComponent } from './components/user-edit-profile/user-edit-profile.component';
+import { TestUserComponent } from './components/test-user/test-user.component';
 
 import { AdminService} from './services/admin.service';
 import { CompanyService} from './services/company.service';
+import { UserService} from './services/user.service';
 
 import {
   MatAutocompleteModule,
@@ -90,9 +99,17 @@ const appRoutes: Routes = [
   {path:'upgrade/:id', component:CompanyUpgradeComponent},
   {path:'add-project', component:CompanyAddProjectComponent},
   {path:'project', component:CompanyProjectComponent},
-  {path:'assign-project', component:AssignProjectComponent},
+  {path:'assign-project/:id', component:CompanyAssignProjectComponent},
   {path:'company-login', component:CompanyLoginComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
+  {path:'edit-project/:id', component:CompanyEditProjectComponent},
+  {path:'company-topbar', component:CompanyTopbarComponent},
+  {path:'user-topbar', component:UserTopbarComponent},
+  {path:'estimate-project/:id1/:id2', component:UserProjectEstimationComponent},
+  {path:'approve-estimation/:id', component:CompanyApproveEstimationComponent},
+  {path:'approve-project/:id', component:CompanyApproveProjectComponent},
+  {path:'edit-profile', component:UserEditProfileComponent},
+  {path:'test-user', component:TestUserComponent},
 ] 
 @NgModule({
   exports: [
@@ -128,9 +145,8 @@ const appRoutes: Routes = [
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    
   ],
- 
+  
 })
 export class DemoMaterialModule {}
 @NgModule({
@@ -154,9 +170,17 @@ export class DemoMaterialModule {}
     AdminDashboardPieComponent,
     CompanyAddProjectComponent,
     CompanyProjectComponent,
-    AssignProjectComponent,
     CompanyLoginComponent,
-    EmailVerificationComponent
+    EmailVerificationComponent,
+    CompanyAssignProjectComponent,
+    CompanyEditProjectComponent,
+    CompanyTopbarComponent,
+    UserTopbarComponent, 
+    UserProjectEstimationComponent,
+    CompanyApproveEstimationComponent,
+    CompanyApproveProjectComponent,
+    UserEditProfileComponent,
+    TestUserComponent
   ],
   imports: [
     BrowserModule,
@@ -166,9 +190,9 @@ export class DemoMaterialModule {}
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
-    DemoMaterialModule
+    DemoMaterialModule,
   ],
-  providers: [Config, AdminService, CompanyService],
+  providers: [Config, AdminService, CompanyService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

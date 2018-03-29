@@ -41,14 +41,6 @@ module.exports = (sequelize, DataTypes) => {
     tbl_user_profile.hasMany(models.tbl_project_estimation_team_members, {
       foreignKey: 'user_profile_id',
     });
-    tbl_user_profile.hasMany(models.tbl_estimation_notification, {
-      foreignKey: 'from_id',
-      as: 'from_id',
-    });
-    tbl_user_profile.hasMany(models.tbl_estimation_notification, {
-      foreignKey: 'to_id',
-      as: 'to_id',
-    });
     tbl_user_profile.hasMany(models.tbl_project_member_assoc, {
       foreignKey: 'user_profile_id',
     });

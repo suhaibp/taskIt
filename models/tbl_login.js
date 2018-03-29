@@ -36,6 +36,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'assignee_id',
       as: 'assignee_id',
     });
+    tbl_login.hasMany(models.tbl_estimation_notification, {
+      foreignKey: 'from_id',
+      as: 'from_id',
+    });
+    tbl_login.hasMany(models.tbl_estimation_notification, {
+      foreignKey: 'to_id',
+      as: 'To_id',
+    });
   };
 
 
