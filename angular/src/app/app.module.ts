@@ -7,7 +7,10 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
 import {Config} from './config/config';
+import { ReCaptchaModule } from 'angular2-recaptcha';
 import 'hammerjs';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {DragulaModule} from '../../node_modules/ng2-dragula/ng2-dragula';
 
 import { AppComponent } from './app.component';
 import { ReferenceComponentComponent } from './components/reference-component/reference-component.component';
@@ -39,10 +42,30 @@ import { CompanyApproveEstimationComponent } from './components/company-approve-
 import { CompanyApproveProjectComponent } from './components/company-approve-project/company-approve-project.component';
 import { UserEditProfileComponent } from './components/user-edit-profile/user-edit-profile.component';
 import { TestUserComponent } from './components/test-user/test-user.component';
+import { CompanyDashboardComponent } from './components/company-dashboard/company-dashboard.component';
+import { CompanyTaskVsStatusComponent } from './components/company-task-vs-status/company-task-vs-status.component';
+import { CompanyResoureVsHourComponent } from './components/company-resoure-vs-hour/company-resoure-vs-hour.component';
+import { CompanyProjectVsHourComponent } from './components/company-project-vs-hour/company-project-vs-hour.component';
+import { CompanyProjectVsStatusComponent } from './components/company-project-vs-status/company-project-vs-status.component';
+import { CompanyProgressGraphComponent } from './components/company-progress-graph/company-progress-graph.component';
+import { CompanyStatusGraphComponent } from './components/company-status-graph/company-status-graph.component';
+import { CompanyBarGraphComponent } from './components/company-bar-graph/company-bar-graph.component';
+import { AdminDashboardBarComponent } from './components/admin-dashboard-bar/admin-dashboard-bar.component';
+import { CompanySignupComponent } from './components/company-signup/company-signup.component'
+import { CompayAditninfoComponent } from './components/compay-aditninfo/compay-aditninfo.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { CompanySidebarComponent } from './components/company-sidebar/company-sidebar.component';
+import { CompanyProjectPlanningComponent } from './components/company-project-planning/company-project-planning.component';
+import { CompanyManageTeamComponent } from './components/company-manage-team/company-manage-team.component';
+import { CompanyManageAccessRightsComponent } from './components/company-manage-access-rights/company-manage-access-rights.component';
 
 import { AdminService} from './services/admin.service';
 import { CompanyService} from './services/company.service';
 import { UserService} from './services/user.service';
+
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 import {
   MatAutocompleteModule,
@@ -81,7 +104,7 @@ import {
 import {CdkTableModule} from '@angular/cdk/table';
 
 const appRoutes: Routes = [
-  { path: '', component: ReferenceComponentComponent },
+  {path: '', component: ReferenceComponentComponent },
   {path:'reference', component:ReferenceComponentComponent},
   {path:'admin-login', component:AdminLoginComponent},
   {path:'admin-sidebar', component:AdminSidebarComponent},
@@ -100,7 +123,12 @@ const appRoutes: Routes = [
   {path:'add-project', component:CompanyAddProjectComponent},
   {path:'project', component:CompanyProjectComponent},
   {path:'assign-project/:id', component:CompanyAssignProjectComponent},
+  {path:'company-dashboard', component:CompanyDashboardComponent},
+  {path:'company-signup', component:CompanySignupComponent},
+  {path:'company-access-rights', component:CompanyManageAccessRightsComponent},
   {path:'company-login', component:CompanyLoginComponent},
+  {path:'compay-aditninfo/:id', component:CompayAditninfoComponent},
+  {path:'company-team', component:CompanyManageTeamComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
   {path:'edit-project/:id', component:CompanyEditProjectComponent},
   {path:'company-topbar', component:CompanyTopbarComponent},
@@ -110,6 +138,9 @@ const appRoutes: Routes = [
   {path:'approve-project/:id', component:CompanyApproveProjectComponent},
   {path:'edit-profile', component:UserEditProfileComponent},
   {path:'test-user', component:TestUserComponent},
+  {path:'forgot-password', component:ForgotPasswordComponent},
+  {path:'project-planning/:id', component:CompanyProjectPlanningComponent},
+  {path:'spinner', component:SpinnerComponent},
 ] 
 @NgModule({
   exports: [
@@ -180,17 +211,42 @@ export class DemoMaterialModule {}
     CompanyApproveEstimationComponent,
     CompanyApproveProjectComponent,
     UserEditProfileComponent,
-    TestUserComponent
+    TestUserComponent,
+    CompanyLoginComponent,
+    EmailVerificationComponent,
+    CompayAditninfoComponent,
+    ForgotPasswordComponent,
+    AdminDashboardPieComponent,
+    AdminDashboardBarComponent,
+    CompanySignupComponent,
+    SpinnerComponent,
+    CompanyTopbarComponent,
+    CompanySidebarComponent,
+    CompanyProjectPlanningComponent,
+    CompanyDashboardComponent,
+    CompanyTaskVsStatusComponent,
+    CompanyResoureVsHourComponent,
+    CompanyProjectVsHourComponent,
+    CompanyProjectVsStatusComponent,
+    CompanyProgressGraphComponent,
+   CompanyStatusGraphComponent,
+   CompanyBarGraphComponent,
+    CompanyManageTeamComponent, 
+    CompanyManageAccessRightsComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
-    HttpModule,
+    DragulaModule,
     FormsModule,
+    HttpModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
+    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
     DemoMaterialModule,
+    ReCaptchaModule,
+    NgbModule.forRoot()
   ],
   providers: [Config, AdminService, CompanyService, UserService],
   bootstrap: [AppComponent]

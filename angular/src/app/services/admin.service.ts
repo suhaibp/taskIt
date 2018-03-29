@@ -25,8 +25,8 @@ export class AdminService {
   // Params        : admin, contains username and password
   // Returns       : Token, admin id and role
   // Author        : Rinsha
-  // Date            : 01-03-2018
-  // Last Modified   : 01-03-2018, Rinsha
+  // Date          : 01-03-2018
+  // Last Modified : 01-03-2018, Rinsha
   // Desc          : Admin login
   adminLogin(admin) {
     let h = this.setHeader();
@@ -95,15 +95,12 @@ export class AdminService {
   // Last Modified : 02-03-2018, Jooshifa 
   // Desc          : for getting count of companies,projects,users
 
-
   getCountsforAdminDashboard() {
     let h = this.setHeader();
     return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
       .map(res => res.json());
-
   }
   //  ---------------------------------End-------------------------------------------
-
 
   //  ---------------------------------Start-------------------------------------------
   // Function      : getPieDataforAdminDashboard
@@ -114,10 +111,9 @@ export class AdminService {
   // Last Modified : 06-03-2018, 
   // Desc          : get piegraph data
 
-
   getPieDataforAdminDashboard() {
     let h = this.setHeader();
-    return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
+    return this.http.get(this.serviceUrl + "/super_admin_pie_graph", { headers: h })
       .map(res => res.json());
 
   }
@@ -171,7 +167,7 @@ export class AdminService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-  
+
   // ---------------------------------Start-------------------------------------------
   // Function      : get plan by id
   // Params        : id
@@ -189,14 +185,14 @@ export class AdminService {
   }
   // -----------------------------------End------------------------------------------
 
-    // ---------------------------------Start-------------------------------------------
-    // Function      : update plan
-    // Params        : value from form
-    // Returns       : 
-    // Author        : Rinsha
-    // Date          : 07-03-2018
-    // Last Modified : 07-03-2018, Rinsha
-    // Desc          : update a plan
+  // ---------------------------------Start-------------------------------------------
+  // Function      : update plan
+  // Params        : value from form
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : update a plan
 
   updatePlan(plan) {
     // console.log(plan);
@@ -205,5 +201,22 @@ export class AdminService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getBarDataforAdminDashboard
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, 
+  // Desc          : get piegraph data
+
+  getBarDataforAdminDashboard() {
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "/super_admin_bar_graph", { headers: h })
+      .map(res => res.json());
+
+  }
+  //  ---------------------------------End-------------------------------------------
+
 }
 

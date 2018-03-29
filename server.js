@@ -23,7 +23,9 @@ const config = require("./config/config");
 app.use(cors());
 app.use(bodyParser.json({limit:'50mb'}));
 
-// require('./config/passport')(passport);
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
 
 app.use(express.static(path.join(__dirname,"public")));
 app.use('/admin',admin);
@@ -32,11 +34,10 @@ app.use('/user',user);
 app.use('*',(req, res)=>{
     res.sendFile(path.join(__dirname,'public/index.html'));
 });
-app.get('/', (req,res)=>{
+app.get('/', (req, res) => {
     res.send("Invalid end point");
 });
 
 server.listen(port,() => {
     console.log("Server Started On Port " + port);
-
 });

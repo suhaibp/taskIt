@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     contact_no: DataTypes.STRING,
     why_choosen: DataTypes.TEXT,
     no_months : DataTypes.INTEGER,
+    is_admin_viewed : DataTypes.BOOLEAN,
     verification_code: DataTypes.STRING,
   }, {});
   tbl_company.associate = function(models) {
