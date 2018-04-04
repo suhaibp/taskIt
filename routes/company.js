@@ -100,7 +100,8 @@ var returnRouter = function (io) {
             else {
                 Company.update({
                     no_months: req.body.no_months,
-                    plan_id: req.params.id
+                    plan_id: req.params.id,
+                    upgraded_date_time : Date.now(),
                 }, {
                         where: {
                             id: cmp_id
