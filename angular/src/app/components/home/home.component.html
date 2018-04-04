@@ -133,7 +133,7 @@
 					<div class="carry">
 					    <div class="plan wow fadeInRight" data-wow-delay="0.2s" *ngFor="let plan of plans" [ngClass]="{'hilight': plan.is_best_value}">
 						  <h3 class="plan-title">{{plan?.plan_name}}</h3>
-						  <p class="plan-price">&#8377;{{plan?.plan_price}} <span class="plan-unit">per month</span></p>
+						  <p class="plan-price">&#8377;{{plan?.plan_price | number : '1.2-2'}} <span class="plan-unit">per month</span></p>
 						  <ul class="plan-features">
 							<li class="plan-feature"><h4>{{plan?.no_projects}} </h4><span class="plan-feature-name">Projects</span></li>
 							<li class="plan-feature"><h4>{{plan?.no_members}} </h4><span class="plan-feature-name">Members</span></li>

@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : getAllplans without default
     this.adminService.getPlansWithoutDefault().subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.plans = [];
       res.forEach(element => {
         // if(element.is_default_plan == false){

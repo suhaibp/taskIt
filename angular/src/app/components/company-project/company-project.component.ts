@@ -39,10 +39,6 @@ export class CompanyProjectComponent implements OnInit {
     // -----------------------------------End------------------------------------------
     this.getProject();
   }
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
   
   getProject() {
     // console.log(this.selected);

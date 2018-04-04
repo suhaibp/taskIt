@@ -1253,12 +1253,7 @@ body {
 }
 
 /* Container */
-.container {
-  position: relative;
-  max-width: 460px;
-  width: 100%;
-  margin: 0 auto 100px;
-}
+
 .container.active .card:first-child {
   background: #f2f2f2;
   margin: 0 15px;

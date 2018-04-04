@@ -21,6 +21,7 @@ export class AdminPlanComponent implements OnInit {
   disablePrice: boolean = false;
   showSpinner: boolean = false;
   showSpinnerDelete: boolean = false;
+  reachMaxPlan : boolean = false;
 
   plan = {
     plan_name: '',
@@ -71,8 +72,10 @@ export class AdminPlanComponent implements OnInit {
       if (data.length == 0) {
         this.notExist = true;
       }
+      if(data.length == "4"){
+        this.reachMaxPlan = true;
+      }
       this.dataSource = new MatTableDataSource(data);
-      // console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -163,7 +166,6 @@ export class AdminPlanComponent implements OnInit {
   }
 
   getEditId(id) {
-    
     // ---------------------------------Start-------------------------------------------
     // Function      : get plan by id
     // Params        : id
@@ -179,7 +181,7 @@ export class AdminPlanComponent implements OnInit {
       this.plan.nomembers = (res.no_members != 'Unlimited') ? "limited" : "Unlimited";
       this.plan.nomodules = (res.no_modules != 'Unlimited') ? "limited" : "Unlimited";
       this.plan.notasks = (res.no_tasks != 'Unlimited') ? "limited" : "Unlimited";
-      if(res.is_defualt == true){
+      if (res.is_defualt == true) {
         this.disablePrice = true;
       }
     });
@@ -188,30 +190,46 @@ export class AdminPlanComponent implements OnInit {
 
   updatePlan(plan) {
     // console.log(plan);
-    // ---------------------------------Start-------------------------------------------
-    // Function      : update plan
-    // Params        : value from form
-    // Returns       : 
-    // Author        : Rinsha
-    // Date          : 07-03-2018
-    // Last Modified : 07-03-2018, Rinsha
-    // Desc          : update a plan
-    this.adminService.updatePlan(plan).subscribe(data => {
-      // console.log(data);
-      if (data.success == true) {
-        let snackBarRef = this.snackBar.open(data.msg, '', {
-          duration: 3000
-        });
-        this.closeBtn1.nativeElement.click();
-        this.getPlan();
-      }
-      else {
-        let snackBarRef = this.snackBar.open(data.msg, '', {
-          duration: 3000
-        });
-      }
-    });
-    // ---------------------------------End-------------------------------------------
+    if ((plan.notasks == "limited" && typeof (plan.no_tasks) !== 'number') || (plan.nomodules == "limited" && typeof (plan.no_modules) !== 'number') || (plan.nomembers == "limited" && typeof (plan.no_members) !== 'number') || (plan.noprojects == "limited" && typeof (plan.no_projects) !== 'number')) {
+      let snackBarRef = this.snackBar.open("All fields are required", '', {
+        duration: 3000
+      });
+    }
+    else {
+      // ---------------------------------Start-------------------------------------------
+      // Function      : update plan
+      // Params        : value from form
+      // Returns       : 
+      // Author        : Rinsha
+      // Date          : 07-03-2018
+      // Last Modified : 04-04-2018, Rinsha
+      // Desc          : update a plan
+      this.adminService.updatePlan(plan).subscribe(data => {
+        if (data.success == true) {
+          let snackBarRef = this.snackBar.open(data.msg, '', {
+            duration: 3000
+          });
+          this.closeBtn1.nativeElement.click();
+          this.newPlan = {
+            plan_name: '',
+            plan_price: '',
+            no_projects: '',
+            no_members: '',
+            no_modules: '',
+            value1: '',
+            value2: '',
+            value3: ''
+          };
+          this.getPlan();
+        }
+        else {
+          let snackBarRef = this.snackBar.open(data.msg, '', {
+            duration: 3000
+          });
+        }
+      });
+      // ---------------------------------End-------------------------------------------
+    }
   }
 
 }

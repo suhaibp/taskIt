@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       type: Sequelize.STRING
     },
     plan_price: {
-      type: Sequelize.INTEGER
+      type: Sequelize.DOUBLE
     },
     is_best_value: {
       type: Sequelize.BOOLEAN

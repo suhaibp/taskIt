@@ -46,7 +46,7 @@ export class AdminLoginComponent implements OnInit {
       if (data.success) {
         //  this.showSpinner =false
         this.adminService.storeUserData(data.token, data.admin);
-        //  this.routes.navigate(['/admin-dashboard']);
+         this.routes.navigate(['/admin-dashboard']);
       }
     });
   }

@@ -246,7 +246,7 @@ var returnRouter = function (io) {
     //     // console.log(result);
     //     res.json(result);
     //   });
-    Plans.findAll({ order: [['id', 'DESC']] }).then(plans => {
+    Plans.findAll({ order: [['createdAt', 'DESC']] }).then(plans => {
       // console.log(plans);
       res.json(plans);
     });
@@ -272,7 +272,8 @@ var returnRouter = function (io) {
         is_defualt: {
           [Op.ne]: true
         }
-      }
+      },
+      order: [['createdAt', 'DESC']]
     }).then(plans => {
       res.json(plans);
     });
@@ -435,12 +436,12 @@ var returnRouter = function (io) {
       }
     }).then(company => {
       if (company.length != 0) {
-        res.json({ success: false, msg: "Cant delete plan" });
+        res.json({ success: false, msg: "Cant delete, it is already used by a company!" });
       }
       else {
         Plans.findById(req.params.id).then(plans => {
           if (plans.is_defualt == true) {
-            res.json({ success: false, msg: "Default plan can't delete" });
+            res.json({ success: false, msg: "Default plan can't delete!" });
           }
           else {
             Plans.destroy({
@@ -450,7 +451,7 @@ var returnRouter = function (io) {
             }).then(plan => {
               io.sockets.emit("deletePlan", {
               });
-              res.json({ success: true, msg: "Success" });
+              res.json({ success: true, msg: "Deleted Successfully" });
             });
           }
         });

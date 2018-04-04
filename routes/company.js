@@ -817,7 +817,7 @@ var returnRouter = function (io) {
             }
         }).then(login => {
             if (!login || login == 'undefined' || login == '' || login == null || login == []) {
-                console.log("Email not found! Plase enter a valid email");
+                // console.log("Email not found! Plase enter a valid email");
                 return res.json({ success: false, msg: 'Email not found! Plase enter a valid email' });
             }
             else if (login.block_status == true) {
@@ -996,13 +996,13 @@ var returnRouter = function (io) {
                                         google_token: null,
                                         password: hash
                                     })
-                                    console.log(newLogin);
+                                    // console.log(newLogin);
                                     newLogin.save().then(resLogin => {
                                         // res.json(resLogin.length)                          
 
                                         // if(resLogin.length>0){
                                         // res.json(resLogin)                          
-                                        console.log("hh")
+                                        // console.log("hh")
                                         Plan.find({
                                             where: { is_defualt: true }
                                         }).then(resPlan => {
@@ -1021,7 +1021,7 @@ var returnRouter = function (io) {
                                                 verification_code: req.body[9].ans
                                             })
 
-                                            console.log(newCompany);
+                                            // console.log(newCompany);
                                             newCompany.save().then(() => {
                                                 emailTemplate.sendVerificationMail(req.body[0].ans, req.body[1].ans, req.body[9].ans);
 
@@ -1182,7 +1182,7 @@ var returnRouter = function (io) {
                 model: Company, where: { id: req.params.id }
             }]
         }).then(data => {
-            console.log(data.is_profile_completed);
+            // console.log(data.is_profile_completed);
             res.json(data);
         });
     });
@@ -1441,7 +1441,7 @@ var returnRouter = function (io) {
                     })
                 }
                 teamassoc.save().then((resTeamAssoc) => {
-                    console.log(resTeamAssoc);
+                    // console.log(resTeamAssoc);
                     res.json({
                         status: 1,
                         Message: "Successfully assigned!"
@@ -1683,7 +1683,7 @@ var returnRouter = function (io) {
 
             ]
         }).then(workTime => {
-            console.log(workTime);
+            // console.log(workTime);
             res.json(workTime);
         });
         // }
@@ -2784,7 +2784,7 @@ var returnRouter = function (io) {
     // Desc          : resubmitProject
     router.post('/resubmitProject', function (req, res) {
         is_pm_viewed = true;
-        console.log(req.body.pm_id);
+        // console.log(req.body.pm_id);
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
