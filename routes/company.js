@@ -292,6 +292,7 @@ var returnRouter = function (io) {
                 else {
                     is_pm_viewed = false;
                 }
+                project_name = capitalizeFirstLetter(req.body.project_name);
                 Company.findById(cmp_id).then(cmp => {
                     Project.findAll({
                         where: {
@@ -321,7 +322,7 @@ var returnRouter = function (io) {
                                 var year = currentTime.getFullYear();
                                 cDate = month + "/" + day + "/" + year;
                                 const project = Project.build({
-                                    project_name: req.body.project_name,
+                                    project_name: project_name,
                                     category_id: req.body.category_id,
                                     project_code: cmp_code + "PR/" + ('0' + projectLength).slice(-3) + "/" + cDate,
                                     status: 'Drafted',
@@ -2972,6 +2973,19 @@ var returnRouter = function (io) {
             res.json(notif.length);
         });
     });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : capitalizeFirstLetter
+    // Params        : string
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 04-04-2018
+    // Last Modified : 04-04-2018, Rinsha
+    // Desc          :  
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     // -----------------------------------End------------------------------------------
 
     module.exports = router;

@@ -10,8 +10,9 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./company-project.component.css']
 })
 export class CompanyProjectComponent implements OnInit {
-  displayedColumns = ['slno', 'project', 'startdate', 'enddate', 'action'];
+  displayedColumns = ['slno', 'project_name', 'startdate', 'enddate', 'action'];
   dataSource: MatTableDataSource<any>;
+  
   notExist = false;
   entity: any;
   Pid: any;
@@ -38,6 +39,11 @@ export class CompanyProjectComponent implements OnInit {
     });
     // -----------------------------------End------------------------------------------
     this.getProject();
+  }
+
+  ngAfterViewInit() {
+    // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
   }
   
   getProject() {
@@ -111,7 +117,7 @@ export class CompanyProjectComponent implements OnInit {
   }
 
   deleteProject(id) {
-    console.log(id);
+    // console.log(id);
     // ---------------------------------Start-------------------------------------------
     // Function      : delete project
     // Params        : id 

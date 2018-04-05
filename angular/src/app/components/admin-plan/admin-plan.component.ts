@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./admin-plan.component.css']
 })
 export class AdminPlanComponent implements OnInit {
-  displayedColumns = ['slno', 'planname', 'price', 'bestvalue', 'action'];
+  displayedColumns = ['slno', 'plan_name', 'plan_price', 'bestvalue', 'action'];
   dataSource: MatTableDataSource<any>;
   notExist = false;
   id: any;
@@ -57,6 +57,7 @@ export class AdminPlanComponent implements OnInit {
   }
 
   getPlan() {
+    this.reachMaxPlan = false;
     const users = [];
     // ---------------------------------Start-------------------------------------------
     // Function      : get all plans
@@ -99,6 +100,16 @@ export class AdminPlanComponent implements OnInit {
         });
         this.closeBtn.nativeElement.click();
         this.getPlan();
+        this.newPlan = {
+          plan_name: '',
+          plan_price: '',
+          no_projects: '',
+          no_members: '',
+          no_modules: '',
+          value1: '',
+          value2: '',
+          value3: ''
+        }
       }
       else {
         let snackBarRef = this.snackBar.open(data.msg, '', {

@@ -61,10 +61,10 @@
                 <div class="example-container mat-elevation-z8">
                   <mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="slno">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef> SL NO. </mat-header-cell>
                       <mat-cell *matCellDef="let row; let i = index"> {{i+1}} </mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="project">
+                    <ng-container matColumnDef="project_name">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>
                       <mat-cell *matCellDef="let row"> {{row.project_name}}</mat-cell>
                     </ng-container>
@@ -78,27 +78,31 @@
                       <mat-header-cell *matHeaderCellDef mat-sort-header> ACTUAL/PLANNED END DATE</mat-header-cell>
                       <!-- <mat-cell *matCellDef="let row"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->
                       <mat-cell *matCellDef="let row"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :
-                        row.actual_end_date}}</mat-cell>
+                        row.actual_end_date}}
+                      </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="action">
                       <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>
                       <mat-cell *matCellDef="let row"><button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon> </button>
                         <mat-menu #menu="matMenu">
-                          <button mat-menu-item  *ngIf="row.requirement_summary == null && row.pm_id == loggedin_id" (click)="assign(row.id)">
+                          <button mat-menu-item *ngIf="row.requirement_summary == null && row.pm_id == loggedin_id" (click)="assign(row.id)">
                             <!-- <i class="fa fa-user"></i> -->
                             <mat-icon><i class="material-icons">group</i></mat-icon>
                             <span>Assign Team Head</span>
                           </button>
-                          <button mat-menu-item *ngIf="row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id" (click)="approve(row.id)">
+                          <button mat-menu-item *ngIf="row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id"
+                            (click)="approve(row.id)">
                             <mat-icon><i class="material-icons">assignment_turned_in</i></mat-icon>
                             <span>Approve Estimation</span>
                           </button>
-                          <button mat-menu-item *ngIf="row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id" (click)="approveProject(row.id)">
+                          <button mat-menu-item *ngIf="row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id"
+                            (click)="approveProject(row.id)">
                             <mat-icon><i class="material-icons">assignment_turned_in</i></mat-icon>
                             <span>Approve Project</span>
                           </button>
-                          <button mat-menu-item *ngIf="row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id" (click)="approveProject(row.id)">
+                          <button mat-menu-item *ngIf="row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id"
+                            (click)="approveProject(row.id)">
                             <mat-icon><i class="material-icons">event_available</i></mat-icon>
                             <span>Plan Project</span>
                           </button>
@@ -106,7 +110,8 @@
                             <mat-icon><i class="material-icons">mode_edit</i></mat-icon>
                             <span>Edit</span>
                           </button>
-                          <button mat-menu-item *ngIf="row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id" (click)="getId(row.id)" data-toggle="modal" data-target="#deleteModal"> 
+                          <button mat-menu-item *ngIf="row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id"
+                            (click)="getId(row.id)" data-toggle="modal" data-target="#deleteModal"> 
                             <mat-icon><i class="material-icons">delete</i></mat-icon>
                             <span>Delete</span>
                           </button>
@@ -137,36 +142,36 @@
               <button type="button" class="add-project" (click)="open()" data-backdrop="static">+</button>
             </div>
 
-             <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->
-      <div id="deleteModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->
+            <div id="deleteModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
 
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Delete </h4>
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete </h4>
+                  </div>
+                  <!-- <div class="modal-header"> -->
+                  <!-- <h4 class="modal-title">Are you sure to delete?</h4> -->
+                  <!-- </div> -->
+                  <div class="modal-body delete-popup">
+                    <i class="fa fa-exclamation"></i>
+
+
+                    <h4 class="textalign">Are you sure?</h4>
+
+                  </div>
+
+                  <div class="modal-footer" style="text-align:center;">
+                    <button type="button" (click)="deleteProject(Pid)" class="btn round-button center-bt" data-dismiss="modal">Delete</button>
+                  </div>
+                </div>
+
+              </div>
             </div>
-            <!-- <div class="modal-header"> -->
-            <!-- <h4 class="modal-title">Are you sure to delete?</h4> -->
-            <!-- </div> -->
-            <div class="modal-body delete-popup">
-              <i class="fa fa-exclamation"></i>
 
-
-              <h4 class="textalign">Are you sure?</h4>
-
-            </div>
-
-            <div class="modal-footer" style="text-align:center;">
-              <button type="button" (click)="deleteProject(Pid)" class="btn round-button center-bt" data-dismiss="modal">Delete</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------
+            <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------
           
             <!-----------------------------------------------------------------end table-------------------------------------->
           </div>
@@ -179,4 +184,3 @@
     </div>
   </div>
 </body>
-

@@ -23,11 +23,11 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>
                   <mat-cell *matCellDef="let row; let i = index"> {{i+1}} </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="planname">
+                <ng-container matColumnDef="plan_name">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> PLAN NAME</mat-header-cell>
                   <mat-cell *matCellDef="let row"> {{row.plan_name}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="price">
+                <ng-container matColumnDef="plan_price">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> PRICE</mat-header-cell>
                   <mat-cell *matCellDef="let row"> <span matPrefix>₹&nbsp;</span> {{row.plan_price | number : '1.2-2'}}</mat-cell>
                 </ng-container>

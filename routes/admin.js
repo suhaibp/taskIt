@@ -296,6 +296,7 @@ var returnRouter = function (io) {
     } else {
       var sequelize = new Sequelize(config.database, config.username, config.password, config);
     }
+    plan_name = capitalizeFirstLetter(req.body.plan_name);
     Plans.findAll().then(plans => {
       if (plans.length >= 4) {
         res.json({ success: false, msg: "Cant Add, Maximum number of plan reached" });
@@ -337,7 +338,7 @@ var returnRouter = function (io) {
               no_tasks = req.body.value4;
             }
             const plan = Plans.build({
-              plan_name: req.body.plan_name,
+              plan_name: plan_name,
               plan_price: req.body.plan_price,
               no_projects: no_projects,
               no_members: no_members,
@@ -563,6 +564,19 @@ var returnRouter = function (io) {
       }
     });
   });
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : capitalizeFirstLetter
+  // Params        : string
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 04-04-2018
+  // Last Modified : 04-04-2018, Rinsha
+  // Desc          :  
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   // -----------------------------------End------------------------------------------
 
   module.exports = router;
