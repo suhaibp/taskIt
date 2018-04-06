@@ -73,12 +73,14 @@ export class CompanyLoginComponent implements OnInit {
     // console.log(newLogin);
 
     this.companyService.authenticateCompany(this.newLogin).subscribe(data => {
-
-      console.log(data);
+      // console.log(data);
+      // console.log("helo");
+      // console.log(data);
       // console.log("here..........");
       if (data.success) {
         this.spinner = false;
         if (data.login.status == "Expired") {
+          console.log("expired");
           var json = data.login;
           var key = "status";
           delete json[key];
@@ -86,6 +88,7 @@ export class CompanyLoginComponent implements OnInit {
           this.routes.navigate(['/expired']);
         }
         else {
+
           // console.log("esle");
           this.spinner = false;
           var json = data.login;
@@ -105,6 +108,7 @@ export class CompanyLoginComponent implements OnInit {
         }
       }
       else if (data.profile_complete == false) {
+
         // console.log("profile");
         this.routes.navigate(['/compay-aditninfo/' + data.cmp_id]);
         // var json = data.login;
@@ -113,6 +117,7 @@ export class CompanyLoginComponent implements OnInit {
         this.companyService.storeUserData(data.token, data.login);
       }
       else {
+
         this.spinner = false;
         if (this.captcha) {
           this.captcha.reset();

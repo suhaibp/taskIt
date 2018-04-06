@@ -171,3 +171,11 @@ label{font-size:15px;color:#4a4a4a;font-weight:normal;padding:5px 0;}
         max-width: 492px;
         overflow: hidden;
     }
+    .no-brdr{border:none !important;}
+    .am{
+        float: left;
+        background: none;
+        border: 2px solid #e6cebe;
+        margin-top: 23%;
+    }
+    .date-time{}

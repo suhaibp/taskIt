@@ -12,16 +12,23 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
   styleUrls: ['./company-project-planning.component.css']
 })
 export class CompanyProjectPlanningComponent implements OnInit {
+  startdatetime: any;
+  endtime1: any;
   displayedColumns = ['slno', 'user', 'start_date', 'end_date', 'hours', 'no_task', 'action'];
   selected = '0';
   selected1 = '0';
   selected2 = '0';
   datetime: any;
+  assigned_person: any;
   sum = 0;
   sum1 = 0;
   sub: any;
   arr1 = [];
   arr2 = [];
+  startdate: any;
+  // ------------------Assigned users--------------
+  teamMembers = []
+  meridain = 'AM'
   complexitys: any;
   task_time = 0;
   @ViewChild('closeBtn') closeBtn: ElementRef;
@@ -33,8 +40,11 @@ export class CompanyProjectPlanningComponent implements OnInit {
   DesignerIcon: Boolean = false
   start_datetime: any;
   end_datetime: any;
+  endtime: any;
   startTime: any;
+  starttime: any
   endTime: any;
+  assign_id: any;
   index: any;
   i: any;
   j: any;
@@ -44,12 +54,28 @@ export class CompanyProjectPlanningComponent implements OnInit {
   spinner: Boolean = false;
   userData: any;
   Developers: any;
-  assignPerson: any;
+  assignPerson = [];
+  assignPerson1: '';
   Designers: any;
   QCs: any;
   moduledata: any;
-  userAvailablity =[];
+  userAvailablity = [];
+  endDatetime = {
+    start_Date: ''
+  }
+  // -----assign task----
+  assigntask = {
 
+    // start_time: '',
+    planned_hour: 0,
+    buffer_hour: 0,
+    total_hour: 0,
+    // end_date :''
+
+  }
+  assignstart_date: any;
+  assignend_date: any;
+  assignstart_time: any;
   module = {
     module_name: '',
     time: 0,
@@ -60,7 +86,10 @@ export class CompanyProjectPlanningComponent implements OnInit {
     name: '',
     code: '',
     start_date: '',
-    developer :''
+    developer: [],
+    designer: [],
+    qc: [],
+    start_time: ''
   }
 
   newTasks = {
@@ -75,6 +104,8 @@ export class CompanyProjectPlanningComponent implements OnInit {
     end_time: '',
     task_type: '',
     priority: '',
+    assigned: '',
+    assigned1: '',
     docFile: [],
     docSrc: '',
     file: '',
@@ -92,11 +123,20 @@ export class CompanyProjectPlanningComponent implements OnInit {
   //   return day !== 0 && day !== 6;
   // }
   // time = {hour: 0, minute: 0};
-  meridian = true;
+  // meridian = false;
 
-  toggleMeridian() {
-    this.meridian = !this.meridian;
+  meridian() {
+
+    if (this.meridain == 'AM') {
+      this.meridain = 'PM'
+    }
+    else if (this.meridain == 'PM') {
+      this.meridain = 'AM'
+    }
   }
+
+
+
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString());
 
@@ -159,7 +199,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
     });
     this.companyService.getTasksModules(this.p_id).subscribe(data => {
       this.moduledata = data
-      console.log(this.moduledata);
+      // console.log(this.moduledata);
 
       // console.log(this.modules)
       this.moduledata.forEach(element => {
@@ -176,13 +216,28 @@ export class CompanyProjectPlanningComponent implements OnInit {
         this.sum = this.sum + element2;
       });
       this.companyService.getAllUsers().subscribe(asignedPerson => {
-        this.assignPerson = asignedPerson;
+        // this.assignPerson = asignedPerson;
       });
       this.companyService.getComplexity().subscribe(complexity => {
         this.complexitys = complexity;
       });
 
     });
+
+    this.companyService.getPublicHolidays().subscribe(PublicHolidays => {
+
+    });
+
+    this.companyService.getWorkingTime().subscribe(getWorkingTime => {
+
+    });
+    this.companyService.getOffDays().subscribe(getOffDays => {
+
+    });
+    this.companyService.getbreakTime().subscribe(breakTime => {
+
+    });
+
     // const bag: any = this.dragulaService.find('myBag');
     // if (bag !== undefined) this.dragulaService.destroy('myBag');
     // this.dragulaService.setOptions('myBag', {
@@ -249,7 +304,9 @@ export class CompanyProjectPlanningComponent implements OnInit {
       end_date: '',
       end_time: '',
       task_type: '',
+      assigned1: '',
       priority: '',
+      assigned: '',
       docFile: [],
       docSrc: '',
       file: '',
@@ -296,8 +353,10 @@ export class CompanyProjectPlanningComponent implements OnInit {
       planned_hour: 0,
       buffer_hour: 0,
       start_date: '',
+      assigned: '',
       start_time: '',
       end_date: '',
+      assigned1: '',
       end_time: '',
       task_type: '',
       priority: '',
@@ -308,7 +367,14 @@ export class CompanyProjectPlanningComponent implements OnInit {
     };
 
   }
+  getassigned() {
+    this.getEnddatetime();
+    this.assigned_person = this.newTasks.assigned_person;
+    this.assign_id = this.assigned_person.id;
 
+    // console.log(this.assigned_person.id);
+    // console.log(this.newTasks.assigned_person);
+  }
   addTask(index) {
 
     this.companyService.getDatetime(this.newTasks).subscribe(datetime => {
@@ -320,6 +386,8 @@ export class CompanyProjectPlanningComponent implements OnInit {
 
       }
       else {
+        this.newTasks.assigned = this.assigned_person;
+        this.newTasks.assigned1 = this.assigned_person;
         this.modules[index].tbl_estimation_tasks.push(this.newTasks);
         this.modules[index].time = this.modules[index].time + this.newTasks.planned_hour + this.newTasks.buffer_hour;
         this.sum = this.sum + this.newTasks.planned_hour + this.newTasks.buffer_hour;
@@ -338,6 +406,8 @@ export class CompanyProjectPlanningComponent implements OnInit {
           start_time: '',
           end_date: '',
           end_time: '',
+          assigned: '',
+          assigned1: '',
           task_type: '',
           priority: '',
           docFile: [],
@@ -354,18 +424,18 @@ export class CompanyProjectPlanningComponent implements OnInit {
     this.modules.splice(i, 1);
   }
   editModules(i, module) {
-    console.log(this.module);
+    // console.log(this.module);
     this.modules.splice(i, 1);
     this.modules.push(module);
     // let snackBarRef = this.snackBar.open("Module updated successfully", '', {
     //   duration: 2000
     // });
     this.modules.forEach(element => {
-      console.log(element.module_name);
-    })
+      // console.log(element.module_name);
+    });
 
   }
-  getId1(i, j, ) {
+  getId1(i, j) {
     this.i = i;
     this.j = j;
 
@@ -374,6 +444,10 @@ export class CompanyProjectPlanningComponent implements OnInit {
     this.i = i;
     this.j = j;
     this.newTasks = task;
+    this.newTasks.assigned_person = '';
+    this.newTasks.start_date = '';
+    this.newTasks.start_time = '';
+    this.meridain = ''
   }
 
   deleteTask(i, j) {
@@ -389,6 +463,11 @@ export class CompanyProjectPlanningComponent implements OnInit {
   editTask(i, j) {
     // console.log(this.modules[i].tasks[j]);
     this.modules[i].tbl_estimation_tasks.splice(this.j, 1);
+    // console.log(this.assigned_person);
+    // console.log("helllo");
+    this.newTasks.assigned = this.assigned_person.f_name;
+    this.newTasks.assigned1 = this.assigned_person.l_name;
+
     this.modules[i].tbl_estimation_tasks.push(this.newTasks);
     this.modules[i].time = this.modules[i].time + this.newTasks.planned_hour + this.newTasks.buffer_hour;
     this.sum = this.sum + this.newTasks.planned_hour + this.newTasks.buffer_hour;
@@ -401,16 +480,170 @@ export class CompanyProjectPlanningComponent implements OnInit {
 
   }
   startDateSelect() {
-    this.modules.forEach(modules => {
-      modules.tbl_estimation_tasks.forEach(tasks => {
-      tasks.start_date = this.Projects.start_date;     
+    this.assignstart_date = this.Projects.start_date;
+    this.assignstart_time = this.Projects.start_time;
+    // this.modules.forEach(modules => {
+    //   modules.tbl_estimation_tasks.forEach(tasks => {
+    //     tasks.start_date = this.Projects.start_date;
+    //     tasks.start_time = this.Projects.start_time;
+    //   });
+
+    // });
+  }
+
+  getuserAvalibality() {
+    this.assignPerson = [];
+    // console.log(this.Projects.developer);
+    if (this.Projects.developer) {
+      this.Projects.developer.forEach(developer => {
+        if (this.inArray(developer, this.assignPerson) == false) {
+          this.assignPerson.push(developer);
+        }
       });
 
-    });
-  }
-  getuserAvalibality(){
-    this.userAvailablity.push({user : this.Projects.developer})
-    console.log(this.userAvailablity)
+    }
+    if (this.Projects.designer) {
+      this.Projects.designer.forEach(designer => {
+        if (this.inArray(designer, this.assignPerson) == false) {
+          this.assignPerson.push(designer);
+        }
+      });
+
+    }
+    if (this.Projects.qc) {
+      this.Projects.qc.forEach(qc => {
+        if (this.inArray(qc, this.assignPerson) == false) {
+          this.assignPerson.push(qc);
+        }
+      });
+    }
   }
 
+  inArray(needle, haystack) {
+    var count = haystack.length;
+    for (var i = 0; i < count; i++) {
+      if (haystack[i] === needle) { return true; }
+    }
+    return false;
+  }
+
+  // getEnddatetime() {
+  //   this.startdate =   this.assignstart_date ;
+  //   this.starttime =   this.assignstart_time ;
+  //   this.teamMembers = [];
+  //   if (this.inArray(this.assign_id, this.teamMembers) == false) {
+  //     this.modules.forEach(modules => {
+  //        modules.tbl_estimation_tasks.forEach(tasks => {
+  //         tasks.start_date = this.assignstart_date;
+  //         tasks.start_time = this.assignstart_time;
+  //       });
+  //     });
+
+  //     // console.log(this.startdate + "  end date");
+  //     this.startdate.setHours(this.assignstart_time.hour, this.assignstart_time.minute, this.assignstart_time.second);
+
+  //     this.teamMembers.push({ assign_person_id: this.assign_id, start_date: this.assignstart_date, start_time: this.assignstart_time });
+  //     this.assigntask.total_hour = this.newTasks.planned_hour + this.newTasks.buffer_hour;
+  //     this.assignend_date = this.assignstart_date;
+
+  //     this.starttime.hour = this.starttime.hour + this.assigntask.total_hour
+  //     this.assignend_date.setHours(this.starttime.hour, this.starttime.minute, this.starttime.second);
+  //     // this.teamMembers.push({end_date :this.assignend_date });
+
+  //     // console.log(this.assignend_date);
+
+  //     // var startDate = this.assignstart_date;
+  //     // var endDate = this.assignend_date;
+
+  //     var getDates = function (startDate, endDate) {
+  //       var dates = [],
+  //         currentDate = startDate,
+  //         addDays = function (days) {
+  //           var date = new Date(this.valueOf());
+  //           date.setDate(date.getDate() + days);
+  //           return date;
+  //         };
+  //       while (currentDate <= endDate) {
+  //         dates.push(currentDate);
+  //         currentDate = addDays.call(currentDate, 1);
+  //       }
+  //       return dates;
+  //     };
+
+  //     // Usage
+  // console.log(this.startdate + "  start date");
+
+
+  //     var dates = getDates(new Date(this.startdate), new Date(this.assignend_date));
+  //     // console.log(dates + "  dateee") ;
+  //     dates.forEach(function (date) {
+  //       console.log(date + " dff");
+  //     });
+  //   }
+  // }
+
+
+  getEnddatetime() {
+    this.startdate = '';
+    this.starttime = '';
+    this.endtime = '';
+
+    this.startdate = this.assignstart_date;
+    this.starttime = this.assignstart_time;
+    this.endtime = this.assignstart_time
+    this.teamMembers = [];
+    if (this.inArray(this.assign_id, this.teamMembers) == false) {
+      this.modules.forEach(modules => {
+        modules.tbl_estimation_tasks.forEach(tasks => {
+          tasks.start_date = this.assignstart_date;
+          tasks.start_time = this.assignstart_time;
+        });
+      });
+
+      this.teamMembers.push({ assign_person_id: this.assign_id, start_date: this.assignstart_date, start_time: this.assignstart_time });
+      this.assignstart_date.setHours(this.assignstart_time.hour, this.assignstart_time.minute, this.assignstart_time.second);
+      this.startdatetime = this.assignstart_date
+console.log(this.startdatetime);
+      this.assigntask.total_hour = this.newTasks.planned_hour + this.newTasks.buffer_hour;
+      this.assignend_date = this.startdate;
+      this.endtime.hour = this.endtime.hour + this.assigntask.total_hour
+      
+      // console.log( this.endtime.hour);
+      // console.log(this.startdatetime + "  Before");
+      this.assignend_date.setHours(this.endtime1, this.endtime.minute, this.endtime.second);
+      console.log(this.assignend_date);
+      // console.log(this.startdatetime + "  after");
+
+      // console.log(this.assignend_date + " end date");
+      // console.log(startdatetime + " start  date");
+      //     // this.teamMembers.push({end_date :this.assignend_date });
+      //     // console.log(this.assignend_date);
+      //     // var startDate = this.assignstart_date;
+      //     // var endDate = this.assignend_date;
+      //     var getDates = function (startDate, endDate) {
+      //       var dates = [],
+      //         currentDate = startDate,
+      //         addDays = function (days) {
+      //           var date = new Date(this.valueOf());
+      //           date.setDate(date.getDate() + days);
+      //           return date;
+      //         };
+      //       while (currentDate <= endDate) {
+      //         dates.push(currentDate);
+      //         currentDate = addDays.call(currentDate, 1);
+      //       }
+      //       return dates;
+      //     };
+
+      //     // Usage
+      // console.log(this.startdate + "  start date");
+
+
+      //     var dates = getDates(new Date(this.startdate), new Date(this.assignend_date));
+      //     // console.log(dates + "  dateee") ;
+      //     dates.forEach(function (date) {
+      //       console.log(date + " dff");
+      //     });
+    }
+  }
 }
