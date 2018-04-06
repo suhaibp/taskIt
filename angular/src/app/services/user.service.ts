@@ -220,4 +220,63 @@ export class UserService {
   }
   // -----------------------------------End------------------------------------------
 
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getNewTaskRequestNotification
+  // Params        : 
+  // Returns       : notification info
+  // Author        : Rinsha
+  // Date          : 05-04-2018
+  // Last Modified : 05-04-2018, Rinsha
+  // Desc          : 
+  getNewTaskRequestNotification() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getNewTaskRequestNotification', { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getTimeExtensionRequestNotification
+  // Params        : 
+  // Returns       : notification info
+  // Author        : Rinsha
+  // Date          : 05-04-2018
+  // Last Modified : 05-04-2018, Rinsha
+  // Desc          :  
+  getTimeExtensionRequestNotification() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getTimeExtensionRequestNotification', { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : close notification of time extension request approval
+  // Params        : notification id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 05-04-2018
+  // Last Modified : 05-04-2018, Rinsha
+  // Desc          :  
+  closeNotif(notif_id) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'closeNotif/' + notif_id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : close notification of new task request approval
+  // Params        : notification id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 05-04-2018
+  // Last Modified : 05-04-2018, Rinsha
+  // Desc          :  
+  closeNotif1(notif_id) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'closeNotif1/' + notif_id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
 }

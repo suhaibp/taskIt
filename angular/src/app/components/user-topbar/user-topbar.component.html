@@ -27,6 +27,38 @@
                             </li>
                             <div class="divider"> </div>
 
+                            <li class="head">
+                                <div class="navbar-content">
+                                    <h4 data-toggle="collapse" data-target="#hiden">New Task Request Approval Notification</h4>
+                                    <div id="hiden" class="collapse">
+                                    <div *ngFor="let item1 of newTaskNotif" class="ng-star-inserted">
+                                        <a (click)="closeNotif1(item1.id)" [routerLink]="['/user-task-management']">
+                                            <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif(item1.id)">x</button>
+                                            </div>
+                                            <h5 class="media-heading">{{item1.tbl_new_task_request.task_name}}</h5>
+                                            <p><a class="content">Your request for new task, <b>{{item1.tbl_new_task_request.task_name}}</b>, is {{item1.tbl_new_task_request.request_status}}. Click here.</a></p>
+                                        </a>
+                                    </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <div class="divider"> </div>
+
+                            <li class="head">
+                                <div class="navbar-content">
+                                    <h4>Time Extension Request Approval Notification</h4>
+                                    <div *ngFor="let list of timeExtNotif" class="ng-star-inserted">
+                                        <a (click)="closeNotif(list.id)" [routerLink]="['/user-task-management']">
+                                            <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif(list.id)">x</button>
+                                            </div>
+                                            <h5 class="media-heading">{{list.tbl_time_extension_request.tbl_project_task.task_name}}</h5>
+                                            <p><a class="content">Your time extension request for <b>{{list?.tbl_time_extension_request.tbl_project_task.task_name}}</b> is {{list.tbl_time_extension_request.req_status}}. Click here.</a></p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <div class="divider"> </div>
+
                             <div *ngIf="count == 0">
 
                                 <h5 style="color : red; margin-left:20px; ">No Data</h5>
