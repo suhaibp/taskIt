@@ -47,7 +47,8 @@ export class CompanyApproveEstimationComponent implements OnInit {
   teamhead_count: any;
   acceptedEstimation: any;
   sendForApprovalBtn: any;
-  assignee : any;
+  assignee: any;
+  labelToExpand: any;
 
   @ViewChild('closeBtn1') closeBtn1: ElementRef;
   @ViewChild('closeBtn2') closeBtn2: ElementRef;
@@ -56,6 +57,7 @@ export class CompanyApproveEstimationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.labelToExpand = "View More";
     // console.log(this.disabled)
     // ---------------------------------Start-------------------------------------------
     // Function      : Get logged in entity
@@ -162,7 +164,7 @@ export class CompanyApproveEstimationComponent implements OnInit {
     this.acceptedEstimationCount = 0;
     this.companyService.getProjectstimations(this.p_id).subscribe(data => {
       // console.log(data);
-      this.estimations =[];
+      this.estimations = [];
       this.estimations = data;
       this.estimations.forEach(element => {
         this.current_estimation_team_ids.push(element.estimation_team_id);
@@ -393,6 +395,15 @@ export class CompanyApproveEstimationComponent implements OnInit {
       }
     });
     // ---------------------------------End-------------------------------------------
+  }
+
+  expand() {
+    if(this.labelToExpand == "View Less"){
+      this.labelToExpand = "View More";
+    }
+    else{
+      this.labelToExpand = "View Less";
+    }
   }
 }
 

@@ -18,7 +18,7 @@ export class CompanyEditProjectComponent implements OnInit {
   categories: any;
   showPMlist: Boolean = true;
   showRequirement: Boolean = false;
-  pro1 : any;
+  pro1: any;
   project = {
     project_id: '',
     project_name: '',
@@ -35,9 +35,25 @@ export class CompanyEditProjectComponent implements OnInit {
   constructor(private route: ActivatedRoute, public snackBar: MatSnackBar, private companyService: CompanyService, private routes: Router, private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
-
+    this.showRequirement = true;
     this.sub = this.route.params.subscribe(params => {
       this.p_id = params.id;
+      // ---------------------------------Start-------------------------------------------
+      // Function      : Get logged in entity
+      // Params        : 
+      // Returns       : Get logged in entity
+      // Author        : Rinsha
+      // Date          : 08-03-2018
+      // Last Modified : 08-03-2018, Rinsha
+      // Desc          :  
+      this.companyService.getLoggedinEntity().subscribe(data => {
+        this.entity = data;
+        if (this.entity.role_id == 3) {
+          this.showPMlist = false;
+        }
+      });
+      // -----------------------------------End------------------------------------------
+
       // ---------------------------------Start-------------------------------------------
       // Function      : get project by id
       // Params        : id
@@ -56,27 +72,12 @@ export class CompanyEditProjectComponent implements OnInit {
           });
           // this.routes.navigate(['/project']);
         }
-        if (this.project.requirement_summary != '') {
-          this.showRequirement = true;
+        if (this.project.requirement_summary == '' || this.project.requirement_summary == null) {
+          this.showRequirement = false;
         }
       });
       // ---------------------------------End-------------------------------------------
     });
-    // ---------------------------------Start-------------------------------------------
-    // Function      : Get logged in entity
-    // Params        : 
-    // Returns       : Get logged in entity
-    // Author        : Rinsha
-    // Date          : 08-03-2018
-    // Last Modified : 08-03-2018, Rinsha
-    // Desc          :  
-    this.companyService.getLoggedinEntity().subscribe(data => {
-      this.entity = data;
-      if (this.entity.role_id == 3) {
-        this.showPMlist = false;
-      }
-    });
-    // -----------------------------------End------------------------------------------
     this.formGroup = this._formBuilder.group({
       project_nameValidation: ['', Validators.required],
       project_typeValidation: ['', Validators.required],
@@ -127,7 +128,6 @@ export class CompanyEditProjectComponent implements OnInit {
   }
 
   displayDoc(fileInput) {
-
     var ext = fileInput.target.files[0].name.split('.').pop().toLowerCase();
     this.project.docFile = fileInput.target.files[0];
 

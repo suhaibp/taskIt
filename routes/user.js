@@ -29,6 +29,11 @@ var Designation = models.tbl_designation;
 var Team_assoc = models.tbl_team_assoc;
 var Team = models.tbl_team;
 var Experience = models.tbl_prev_exp;
+var TimeExtensionRequestNotification = models.tbl_time_extension_req_notification;
+var NewTaskRequestNotification = models.tbl_new_task_req_notification;
+var NewTaskRequest = models.tbl_new_task_request;
+var TimeExtensionRequest = models.tbl_time_extension_request;
+var ProjectTask = models.tbl_project_tasks;
 
 var returnRouter = function (io) {
 
@@ -605,6 +610,204 @@ var returnRouter = function (io) {
     }
     // ----------------------------------End-------------------------------------------
 
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getNewTaskRequestNotification
+    // Params        : 
+    // Returns       : notification info
+    // Author        : Rinsha
+    // Date          : 05-04-2018
+    // Last Modified : 05-04-2018, Rinsha
+    // Desc          : 
+    router.get('/getNewTaskRequestNotification', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            NewTaskRequestNotification.findAll({
+                where: {
+                    is_user_viewed: false
+                },
+                include: [
+                    {
+                        model: NewTaskRequest,
+                        where: {
+                            $or: [
+                                {
+                                    request_status:
+                                    {
+                                        $eq: "Accepted"
+                                    }
+                                },
+                                {
+                                    request_status:
+                                    {
+                                        $eq: "Rejected"
+                                    }
+                                }]
+                        },
+                        include: {
+                            model: User_profile,
+                            include: {
+                                model: Login,
+                                where: {
+                                    id: decoded.id
+                                }
+                            }
+                        }
+                    }
+                ]
+            }).then(notif => {
+                res.json(notif);
+            });
+        }
+        else {
+            return res.status(401).send('Invalid User');
+        }
+    });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTimeExtensionRequestNotification
+    // Params        : 
+    // Returns       : notification info
+    // Author        : Rinsha
+    // Date          : 05-04-2018
+    // Last Modified : 05-04-2018, Rinsha
+    // Desc          : 
+    router.get('/getTimeExtensionRequestNotification', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            TimeExtensionRequestNotification.findAll({
+                where: {
+                    is_user_viewed: false
+                },
+                include: [
+                    {
+                        model: TimeExtensionRequest,
+                        where: {
+                            $or: [
+                                {
+                                    req_status:
+                                    {
+                                        $eq: "Accepted"
+                                    }
+                                },
+                                {
+                                    req_status:
+                                    {
+                                        $eq: "Rejected"
+                                    }
+                                }]
+                        },
+                        include: [{
+                            model: ProjectTask,
+                            include: {
+                                model: User_profile,
+                                include: {
+                                    model: Login,
+                                    where: {
+                                        id: decoded.id
+                                    }
+                                }
+                            }
+                        }]
+                    }
+                ]
+            }).then(notif => {
+                res.json(notif);
+            });
+        }
+        else {
+            return res.status(401).send('Invalid User');
+        }
+    });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification of time extension request approval
+    // Params        : notification id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 05-04-2018
+    // Last Modified : 05-04-2018, Rinsha
+    // Desc          :  
+    router.get('/closeNotif/:id', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            TimeExtensionRequestNotification.update({
+                is_user_viewed: true
+            }, {
+                    where: {
+                        id: req.params.id
+                    }
+                }).then(notif => {
+                    if (notif == 1) {
+                        res.json({ success: true, msg: "Success" });
+                    }
+                    else {
+                        res.json({ success: false, msg: "Failed" });
+                    }
+                });
+        }
+        else {
+            return res.status(401).send('Invalid User');
+        }
+    });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification of new task request approval
+    // Params        : notification id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 05-04-2018
+    // Last Modified : 05-04-2018, Rinsha
+    // Desc          :  
+    router.get('/closeNotif1/:id', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            NewTaskRequestNotification.update({
+                is_user_viewed: true
+            }, {
+                    where: {
+                        id: req.params.id
+                    }
+                }).then(notif => {
+                    if (notif == 1) {
+                        res.json({ success: true, msg: "Success"});
+                    }
+                    else {
+                        res.json({ success: false, msg: "Failed" });
+                    }
+                });
+        }
+        else {
+            return res.status(401).send('Invalid User');
+        }
+    });
+    // -----------------------------------End------------------------------------------
 
     module.exports = router;
 

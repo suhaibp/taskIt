@@ -69,13 +69,13 @@
                       <mat-cell *matCellDef="let row"> {{row.project_name}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="startdate">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTUAL/PLANNED START DATE</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef > ACTUAL/PLANNED START DATE</mat-header-cell>
                       <!-- <mat-cell *matCellDef="let row"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->
                       <mat-cell *matCellDef="let row"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : row.planned_start_date ==
                         null : row.actual_start_date}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="enddate">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTUAL/PLANNED END DATE</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef> ACTUAL/PLANNED END DATE</mat-header-cell>
                       <!-- <mat-cell *matCellDef="let row"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->
                       <mat-cell *matCellDef="let row"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :
                         row.actual_end_date}}

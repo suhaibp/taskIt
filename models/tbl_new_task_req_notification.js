@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var tbl_new_task_req_notification = sequelize.define('tbl_new_task_req_notification', {
-    is_team_leader_viewed: DataTypes.BOOLEAN,
+    is_pm_viewed: DataTypes.BOOLEAN,
     is_admin_viewed: DataTypes.BOOLEAN,
     is_user_viewed: DataTypes.BOOLEAN
   }, {});

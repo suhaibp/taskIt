@@ -86,7 +86,7 @@
                 <br>
               </div>
               <div class="clearfix"></div>
-              <div class="col-md-12"><button type="button" class="btn round-button pull-right right-btn" data-toggle="collapse" attr.data-target="#demo{{item.id}}">Click Here</button></div>
+              <div class="col-md-12"><button type="button" (click)="expand()" class="btn round-button pull-right right-btn" data-toggle="collapse" attr.data-target="#demo{{item.id}}">{{labelToExpand}}</button></div>
               <div class="clearfix"></div>
               <div id="demo{{item.id}}" class="collapse">
 

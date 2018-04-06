@@ -72,6 +72,8 @@ export class UserProjectEstimationComponent implements OnInit {
   selected = [];
   copyModules = [];
   copiedModules = [];
+  labelToExpand: any;
+  btnDisabled :boolean = false;
 
   @ViewChild('closeBtn1') closeBtn1: ElementRef;
   @ViewChild('closeBtn2') closeBtn2: ElementRef;
@@ -80,6 +82,7 @@ export class UserProjectEstimationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.labelToExpand = "View More";
     // ---------------------------------Start-------------------------------------------
     // Function      : Get logged in entity
     // Params        : 
@@ -168,7 +171,7 @@ export class UserProjectEstimationComponent implements OnInit {
             };
           });
         }
-        else{
+        else {
           this.modules = [];
           this.estimated_hour = 0;
         }
@@ -285,18 +288,21 @@ export class UserProjectEstimationComponent implements OnInit {
   }
 
   estimate() {
+    this.btnDisabled = true;
     this.isError = false;
     if (this.team_members.length != 0 && this.team_member.length == 0) {
       this.isError = true;
       let snackBarRef = this.snackBar.open("Please select members on your team!", '', {
         duration: 2000
       });
+      this.btnDisabled = false;
     }
     else if (this.modules.length == 0) {
       this.isError = true;
       let snackBarRef = this.snackBar.open("Atleast one module is required!", '', {
         duration: 2000
       });
+      this.btnDisabled = false;
     }
     else {
       this.modules.forEach(element => {
@@ -305,6 +311,7 @@ export class UserProjectEstimationComponent implements OnInit {
           let snackBarRef = this.snackBar.open("Each module should contain atleast one task!", '', {
             duration: 3000
           });
+          this.btnDisabled = false;
         }
       });
     }
@@ -454,6 +461,15 @@ export class UserProjectEstimationComponent implements OnInit {
     });
     this.copyModules = [];
     // console.log(this.copiedModules);
+  }
+
+  expand() {
+    if(this.labelToExpand == "View Less"){
+      this.labelToExpand = "View More";
+    }
+    else{
+      this.labelToExpand = "View Less";
+    }
   }
 
 }
