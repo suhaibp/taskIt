@@ -123,17 +123,22 @@ export class CompanyProjectPlanningComponent implements OnInit {
   //   return day !== 0 && day !== 6;
   // }
   // time = {hour: 0, minute: 0};
+  meridian = true;
+
+  toggleMeridian() {
+    this.meridian = !this.meridian;
+  }
   // meridian = false;
 
-  meridian() {
+  // meridian() {
 
-    if (this.meridain == 'AM') {
-      this.meridain = 'PM'
-    }
-    else if (this.meridain == 'PM') {
-      this.meridain = 'AM'
-    }
-  }
+  //   if (this.meridain == 'AM') {
+  //     this.meridain = 'PM'
+  //   }
+  //   else if (this.meridain == 'PM') {
+  //     this.meridain = 'AM'
+  //   }
+  // }
 
 
 
@@ -224,19 +229,19 @@ export class CompanyProjectPlanningComponent implements OnInit {
 
     });
 
-    this.companyService.getPublicHolidays().subscribe(PublicHolidays => {
+    // this.companyService.getPublicHolidays().subscribe(PublicHolidays => {
 
-    });
+    // });
 
-    this.companyService.getWorkingTime().subscribe(getWorkingTime => {
+    // this.companyService.getWorkingTime().subscribe(getWorkingTime => {
 
-    });
-    this.companyService.getOffDays().subscribe(getOffDays => {
+    // });
+    // this.companyService.getOffDays().subscribe(getOffDays => {
 
-    });
-    this.companyService.getbreakTime().subscribe(breakTime => {
+    // });
+    // this.companyService.getbreakTime().subscribe(breakTime => {
 
-    });
+    // });
 
     // const bag: any = this.dragulaService.find('myBag');
     // if (bag !== undefined) this.dragulaService.destroy('myBag');
@@ -368,7 +373,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
 
   }
   getassigned() {
-    this.getEnddatetime();
+   // this.getEnddatetime();
     this.assigned_person = this.newTasks.assigned_person;
     this.assign_id = this.assigned_person.id;
 
@@ -431,11 +436,11 @@ export class CompanyProjectPlanningComponent implements OnInit {
     //   duration: 2000
     // });
     this.modules.forEach(element => {
-      // console.log(element.module_name);
-    });
+      console.log(element.module_name);
+    })
 
   }
-  getId1(i, j) {
+  getId1(i, j, ) {
     this.i = i;
     this.j = j;
 

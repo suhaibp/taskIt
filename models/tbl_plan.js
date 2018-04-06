@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       type: Sequelize.STRING
     },
     plan_price: {
-      type: Sequelize.INTEGER
+      type: Sequelize.DOUBLE
     },
     is_best_value: {
       type: Sequelize.BOOLEAN
@@ -21,16 +21,16 @@ module.exports = (sequelize, DataTypes) => {
       type: Sequelize.BOOLEAN
     },
     no_projects: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     no_members: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     no_tasks: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     no_modules: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     createdAt: {
       allowNull: false,

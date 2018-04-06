@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     task_name: DataTypes.STRING,
     description: DataTypes.TEXT,
     planned_hour: DataTypes.DOUBLE,
-    buffer_hour: DataTypes.DOUBLE
+    buffer_hour: DataTypes.DOUBLE,
   }, {});
   tbl_estimation_task.associate = function(models) {
     // associations can be defined here

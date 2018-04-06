@@ -27,8 +27,8 @@ export class CompanyLoginComponent implements OnInit {
   public siteKey: string = "sitekey";//example: 6LdEnxQTfkdldc-Wa6iKZSelks823exsdcjX7A-N
   public theme: string = "light";//you can give any google themes light or dark
   setVerified(data) {
-    console.log("dfd");
-    console.log(data) // data will return true while successfully verified 
+    // console.log("dfd");
+    // console.log(data) // data will return true while successfully verified 
   }
   msg: any;
   token: any;
@@ -71,7 +71,6 @@ export class CompanyLoginComponent implements OnInit {
     this.spinner = true;
     newLogin.captcha = this.token
     // console.log(newLogin);
-
     this.companyService.authenticateCompany(this.newLogin).subscribe(data => {
       // console.log(data);
       // console.log("helo");
@@ -98,7 +97,7 @@ export class CompanyLoginComponent implements OnInit {
           if (this.captcha) {
             this.captcha.reset();
           }
-          if (data.login.role_id == 3 || data.login.role_id == 4) {
+          if (data.login.role_id == 4) {
             this.routes.navigate(['/user-dashboard']);
           }
           else {
@@ -108,7 +107,6 @@ export class CompanyLoginComponent implements OnInit {
         }
       }
       else if (data.profile_complete == false) {
-
         // console.log("profile");
         this.routes.navigate(['/compay-aditninfo/' + data.cmp_id]);
         // var json = data.login;
@@ -117,7 +115,6 @@ export class CompanyLoginComponent implements OnInit {
         this.companyService.storeUserData(data.token, data.login);
       }
       else {
-
         this.spinner = false;
         if (this.captcha) {
           this.captcha.reset();
@@ -128,7 +125,6 @@ export class CompanyLoginComponent implements OnInit {
             this.showCaptcha = true;
             // console.log(this.showCaptcha);
           }
-
         }
         this.msg = data.msg;
         let snackBarRef = this.snackBar.open(this.msg, '', {
@@ -137,10 +133,7 @@ export class CompanyLoginComponent implements OnInit {
         if (this.captcha) {
           this.captcha.reset();
         }
-
       }
-
-
     });
   }
 

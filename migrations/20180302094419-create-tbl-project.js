@@ -41,7 +41,7 @@ module.exports = {
       assignee_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'tbl_user_profiles',
+          model: 'tbl_logins',
           key: 'id',
           as: 'assignee_id',
         },

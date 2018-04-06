@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     date_time: DataTypes.DATE,
     is_resubmitted: DataTypes.BOOLEAN,
     is_accepted: DataTypes.BOOLEAN,
-    estimation_hour: DataTypes.DOUBLE
+    estimation_hour: DataTypes.DOUBLE,
+    reason: DataTypes.TEXT
   }, {});
   tbl_estimation.associate = function(models) {
     // associations can be defined here
