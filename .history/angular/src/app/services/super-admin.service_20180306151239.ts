@@ -24,6 +24,7 @@ export class SuperAdminService {
   // Last Modified : 02-03-2018, Jooshifa 
   // Desc          : for getting count of companies,projects,users
 
+
   getCountsforAdminDashboard() {
     let h = this.setHeader();
     return this.http.post(this.serviceUrl + "/get_counts_for_dashboard",{}, { headers: h })
@@ -31,6 +32,7 @@ export class SuperAdminService {
 
   } 
   //  ---------------------------------End-------------------------------------------
+  
 
   //  ---------------------------------Start-------------------------------------------
   // Function      : getPieDataforAdminDashboard
@@ -40,6 +42,7 @@ export class SuperAdminService {
   // Date          : 06-03-2018
   // Last Modified : 06-03-2018, 
   // Desc          : get piegraph data
+
 
   getPieDataforAdminDashboard() {
     let h = this.setHeader();
