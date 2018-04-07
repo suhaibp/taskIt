@@ -55,7 +55,10 @@ module.exports = {
           as: 'prev_exp_id',
         },
       },
+<<<<<<< HEAD
      
+=======
+>>>>>>> 7f5750c38bdba7bca7f7f663d1ad1b40ed2b6e8c
     });
   },
   down: (queryInterface, Sequelize) => {

@@ -66,4 +66,9 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('tbl_logins');
   }
+<<<<<<< HEAD
 };
+=======
+  
+};
+>>>>>>> 7f5750c38bdba7bca7f7f663d1ad1b40ed2b6e8c

@@ -1,0 +1,257 @@
+<body class="home">
+    <div class="container-fluid display-table">
+        <div class="row display-table-row">
+      
+            <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
+                 <!-- sidebar-->
+               
+                 <app-company-sidebar></app-company-sidebar> 
+                 <!-- end sidebar-->
+            </div>
+            
+            <div class="col-md-12 col-xs-12">
+                <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+                <!-- topbar-->
+                <app-company-topbar></app-company-topbar> 
+                
+                    <!-- end topbar-->
+                
+                
+                <div class="user-dashboard">
+                    <h2>Request Management</h2>
+                    <ul class="breadcrumb">
+                      <li><a routerLink="/">Request Management</a></li>
+                      <li><a routerLink="/company-request-management">Time Extension Request List</a></li>
+                      
+                      <li>Time Extension Request View</li>
+                    </ul>
+                   
+                    <div class="row">
+                        
+              <div class="col-md-5 col-sm-12 col-xs-12 gutter ">
+               <div class="white">
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Project Name</label></div>
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="" class="label2">Demo Name</label></div>
+                 </div>
+                 
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Project Code</label></div>
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="" class="label2">SYM/002/22/2/18</label></div>
+                 </div>
+                 
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Project Start Date</label></div>
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="" class="label2">12/12/2018</label></div>
+                 </div>
+                 
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Team Members</label></div>
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="" class="label2">John Doe</label></div>
+                 </div>
+                 
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Reason</label></div>
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="" class="label2">raeson detail</label></div>
+                 </div>
+<!--                  
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Time Taken In Hours For Estimation</label></div>
+                   <div class="col-md-4 col-sm-6 col-xs-6"><label for="" class="label2"><input class="style" type="text" placeholder="44:00 Hr"></label></div>
+                 </div>
+                 <div class="clearfix"></div> -->
+                 <!-- <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Requirment Summery</label></div>
+                   <div class="col-md-4 col-sm-6 col-xs-6"><label for="" class="label2"></label><textarea class="style" type="text" placeholder=""></textarea></div>
+                 </div> -->
+                 
+                 <!-- <div class="form-group">
+                   <div class="col-md-6"><label for="">Upload </label></div>
+                   <div class="col-md-5">
+                     <span class="btn btn-file">
+                       <input type="file">
+                     </span>
+                   </div>
+                 </div> -->
+                 
+                 <!-- <div class="clearfix"></div>
+                 <div class="col-md-12 text-center">
+                 <button type="button" class="btn round-button center-bt">Submit</button>
+                 </div> -->
+                 
+               </div>
+              </div>
+                         <div class="col-md-7 col-sm-12 col-xs-12 gutter">
+ 
+                             <div class="white">
+                 <div class="col-md-12 mrg-2">
+                   <div class="col-md-4">
+                     <label>
+                       Total Hours
+                     </label>
+                   </div>
+                   <div class="col-md-4 col-xs-5">
+                     <!-- <input class="effect-1 style" type="text" placeholder="44:00 Hr"> -->
+                     <span class="focus-border">44:00 Hr</span>
+                   </div>
+
+                 </div>
+                 
+                    <div class="col-md-12 col-xs-12 pull-right">
+                   <div class="task">
+                     <div class="col-md-8 col-xs-7">
+                       <h5>Module Name</h5>
+                     </div>
+                     <div class="col-md-4 col-xs-5">
+                       <ul class="taskedit">
+                         <li>22 Hr</li>
+                         <!-- <li class="pull-right"><a href=""><i class="fa fa-close" aria-hidden="true"></i></a></li>
+                         <li class="pull-right"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></li> -->
+                         
+                       </ul>
+                     </div>
+                   </div>
+                 </div><!---task end-->
+                 <div class="col-md-11 col-xs-12 pull-right">
+                   <div class="task hash">
+                     <div class="col-md-3 col-xs-7">
+                       <h5>Task Name</h5>
+                     </div>
+                     <div class="col-md-9 col-xs-5">
+                       <ul class="pull-right">
+                         <li>assign person</li>
+                         <li>total Hr</li>
+                         <li>start time</li>
+                         <li>end time</li>
+                         <!-- <li class="pull-right"><a href=""><i class="fa fa-close" aria-hidden="true"></i></a></li>
+                         <li class="pull-right"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></li> -->
+                         
+                       </ul>
+                     </div>
+                     <div class="clearfix"></div>
+                     
+                   </div>
+                 </div><!---task end-->
+                 <div class="col-md-11 col-xs-12 pull-right">
+                    <div class="task highlight">
+                      <div class="col-md-3 col-xs-7">
+                        <h5>Task Name</h5>
+                      </div>
+                      <div class="col-md-9 col-xs-5">
+                          <ul>
+                              <li>assign person</li>
+                              <li>total Hr</li>
+                          </ul>
+                          <div class="pull-right">
+                            <button class="bt"  (click)="getEditId(row.id)" data-toggle="modal" data-target="#editModal">Edit</button>
+                            <button class="bt">Approve</button>
+                            <button class="bt">Reject</button>
+                            <button class="bt">Send to admin</button>
+                          </div>  
+                        </div>
+                      <div class="clearfix"></div>
+                      
+                    </div>
+                  </div>
+                 <div class="clearfix"></div>
+                 <!-- <div class="col-md-12">
+                 <button type="button" class="btn round-button pull-right">Add Task</button>
+                 </div> -->
+                                 
+                             </div>
+                         </div>
+
+
+<!-- --------------------------------------------- edit modal ----------------------------------------------------------------- -->
+    
+  
+<div id="editModal" class="modal fade">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" #closeBtn1>&times;</button>
+          <h4 class="modal-title">Edit Requested Time</h4>
+        </div>
+        <div class="modal-body">
+            <form  role="form"  #f="ngForm" (ngSubmit)="updateReqtime(reqtime);" novalidate>
+            
+                    <div class="col-md-11">
+                   
+                              
+                        <div class="form-group" >
+                            
+                   
+                              <div class="col-md-5 paddtop">
+                                  <label>Old Time</label>
+                               </div> 
+                               <div class="col-md-6">
+                             
+                                    <label>10 Hr</label>
+                          
+                               </div>
+                               <div class="clearfix"></div>
+      
+                                <div class="col-md-5 paddtop">
+                                    <label>Requested Time</label>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input matInput  name ="additional_hours" [(ngModel)]="updateReqtime.additional_hours"  required>
+                                        
+                                     </mat-form-field>
+                                 </div>
+                                 <div class="clearfix"></div>
+                           
+                                 
+                                
+                          </div>
+                          
+                      <br>
+            
+                      <div class="row">
+                        <div class="col-md-4">
+                          <button type="submit" [disabled]="btnDisbled" class="btn round-button">Submit</button>
+        
+                        </div>
+                        <!-- <div class="col-md-8" *ngIf="showSpinner">
+                          <svg class="svgclass" version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;"
+                            xml:space="preserve">
+                            <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+                              <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"
+                              />
+                            </path>
+                          </svg>
+                        </div> -->
+        
+                      </div>
+        
+                   
+                    </div>
+                   
+                  
+               
+        </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+
+    </div>
+  </div>
+<!-----------------------------------------------------------------edit modal-------------------------------------->
+
+                     </div>
+
+                </div>
+                
+            </div>
+                <!-- footer-->
+                <company-footer></company-footer>
+       <!-- end footer-->
+        </div>
+         </div>
+        <!-- Modal -->
+     </body>

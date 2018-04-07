@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     tbl_access_rights.hasMany(models.tbl_access_rights_assoc, {
       foreignKey: 'access_rights_id',
     });
+    tbl_access_rights.belongsTo(models.tbl_main_access_right, {
+      foreignKey: 'main_access_right_id',  
+    });
+
 
   };
   return tbl_access_rights;

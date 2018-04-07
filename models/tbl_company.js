@@ -5,7 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     cmp_code: DataTypes.STRING,
     contact_no: DataTypes.STRING,
     why_choosen: DataTypes.TEXT,
-    is_admin_viewed: DataTypes.BOOLEAN
+    no_months : DataTypes.INTEGER,
+    is_admin_viewed : DataTypes.BOOLEAN,
+    verification_code: DataTypes.STRING,
+    upgraded_date_time : DataTypes.DATE,
   }, {});
   tbl_company.associate = function(models) {
     // associations can be defined here
@@ -52,6 +55,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'cmp_id',
     });
     tbl_company.hasMany(models.tbl_user_profile, {
+      foreignKey: 'cmp_id',
+    });
+    tbl_company.hasMany(models.tbl_login, {
       foreignKey: 'cmp_id',
     });
   };

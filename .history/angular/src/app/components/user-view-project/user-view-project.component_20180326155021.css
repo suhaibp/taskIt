@@ -1,0 +1,22 @@
+.task {
+    background: #fbf6f1;
+    width: 100%;
+    padding: 6px 0;
+    display: inline-block;
+    margin-bottom: 6px;
+}
+.task h5 {
+
+    padding-top: 6px;
+}
+.taskedit {
+    border-left: 1px solid #ccc;
+    display: inline-block;
+    width: 100%;
+    margin-top: 5px;
+}
+.task ul li {
+    width: auto;
+    float: left;
+    padding: 8px;
+}

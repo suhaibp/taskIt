@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import * as socketIo from 'socket.io-client';
-import { Config } from './../../config/config';
+import {Component, ViewChild, OnInit, ElementRef} from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { CompanyService } from './../../services/company.service';
-import { MatSnackBar } from '@angular/material';
+import {Router} from '@angular/router';
+import * as socketIo from 'socket.io-client';
+declare var $:any;
+import { Config } from './../../config/config';
 
 @Component({
   selector: 'company-topbar',
@@ -10,7 +12,6 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./company-topbar.component.css']
 })
 export class CompanyTopbarComponent implements OnInit {
-  private socket: any;
   count: number = 0;
   project: any;
   approveProject: any;
@@ -18,7 +19,7 @@ export class CompanyTopbarComponent implements OnInit {
   planProject: any;
   resubmitEstimation: any;
   entity: any;
-  userpendingdata= [];
+  userpendingdata:any;
   adminnotifdata:any;
   upgradeBtnShow: Boolean = true;
   assignHeadCount : number = 0;
@@ -28,27 +29,32 @@ export class CompanyTopbarComponent implements OnInit {
   resubmitEstimationCount : number = 0;
   userpendingdataCount : number = 0;
   adminnotifdataCount : number = 0;
+  // entity:any;
+  notifications: any;
+  showNotifications = false;
+  newTaskreq:any;
+  newTaskApp:any;
+  newTaskreqCount = 0;
+  newTaskreqBackCount = 0;
+  timeExtensionCount = 0;
+  private socket: any;
+  dispStatus = false;
+  constructor(
+    private companyService: CompanyService,
+    private routes: Router,
+    public snackBar: MatSnackBar,
+    private config: Config) { 
+      this.socket = socketIo(config.socketURL);
 
-  constructor(private config: Config, private companyService: CompanyService, public snackBar: MatSnackBar) {
-    this.socket = socketIo(config.siteUrl);
-  }
+    }
 
   ngOnInit() {
-    // ---------------------------------Start-------------------------------------------
-    // Function      : Get logged in entity
-    // Params        : 
-    // Returns       : Get logged in entity
-    // Author        : Rinsha
-    // Date          : 08-03-2018
-    // Last Modified : 08-03-2018, Rinsha
-    // Desc          :  
-    // this.companyService.getLoggedinEntity().subscribe(data => {
-    //   this.entity = data;
-    //   if (this.entity.role_id == 3) {
-    //     this.upgradeBtnShow = false;
-    //   }
-    // });
-    // -----------------------------------End------------------------------------------
+    this.getLoggedDetails();
+    this.getNotifications();
+
+    this.socket.on('newtaskrequest', (data) => {
+      this.getNotifications();
+    });
     this.count = 0;
     this.assignHeadNotification();
     this.socket.on('addProject', (data) => {
@@ -85,7 +91,6 @@ export class CompanyTopbarComponent implements OnInit {
       this.getAllSendtoadminnotif();
     });
   }
-
   assignHeadNotification() {
     // ---------------------------------Start-------------------------------------------
     // Function      : get assignHeadNotification
@@ -95,35 +100,15 @@ export class CompanyTopbarComponent implements OnInit {
     // Date          : 12-03-2018
     // Last Modified : 12-03-2018, Rinsha
     // Desc          : check whether the loggedin project manager assigned for a project. If yes, then notification to assign team heads
-    // this.companyService.assignHeadNotification().subscribe(res => {
-    //   this.project = res;
-    //   this.assignHeadCount = 0;
-    //   this.assignHeadCount = this.project.length;
-    //   this.refresh();
-    // });
+    this.companyService.assignHeadNotification().subscribe(res => {
+      this.project = res;
+      this.assignHeadCount = 0;
+      this.assignHeadCount = this.project.length;
+      this.refresh();
+    });
     // ---------------------------------End-------------------------------------------
   }
-
-  closeNotif(id) {
-    // ---------------------------------Start-------------------------------------------
-    // Function      : close notification
-    // Params        : project id
-    // Returns       : 
-    // Author        : Rinsha
-    // Date          : 12-03-2018
-    // Last Modified : 12-03-2018, Rinsha
-    // Desc          : close notification when pm sees the assign team head notification
-    // this.companyService.closeNotif(id).subscribe(res => {
-    //   if (res.success == false) {
-    //     let snackBarRef = this.snackBar.open(res.msg, '', {
-    //       duration: 3000
-    //     });
-    //   }
-    //   this.assignHeadNotification();
-    // });
-    // ---------------------------------End-------------------------------------------
-  }
-
+  
   approveEstimationNotification() {
     // ---------------------------------Start-------------------------------------------
     // Function      : get approveEstimationNotification
@@ -133,15 +118,14 @@ export class CompanyTopbarComponent implements OnInit {
     // Date          : 14-03-2018
     // Last Modified : 14-03-2018, Rinsha
     // Desc          : check whether the loggedin project manager have pending estimation approval notification
-    // this.companyService.approveEstimationNotification().subscribe(res => {
-    //   this.estimationApproval = res;
-    //   this.approveEstimationCount = 0;
-    //   this.approveEstimationCount = this.estimationApproval.length;
-    //   this.refresh();
-    // });
+    this.companyService.approveEstimationNotification().subscribe(res => {
+      this.estimationApproval = res;
+      this.approveEstimationCount = 0;
+      this.approveEstimationCount = this.estimationApproval.length;
+      this.refresh();
+    });
     // ---------------------------------End-------------------------------------------
   }
-
   closeNotif2(notif_id) {
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of estimation approval
@@ -151,17 +135,17 @@ export class CompanyTopbarComponent implements OnInit {
     // Date          : 14-03-2018
     // Last Modified : 14-03-2018, Rinsha
     // Desc          : close notification when pm sees the estimation approval notification
-    // this.companyService.closeNotif2(notif_id).subscribe(res => {
-    //   if (res.success == false) {
-    //     let snackBarRef = this.snackBar.open(res.msg, '', {
-    //       duration: 3000
-    //     });
-    //   }
-    //   this.approveEstimationNotification();
-    // });
+    this.companyService.closeNotif2(notif_id).subscribe(res => {
+      if (res.success == false) {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+      }
+      this.approveEstimationNotification();
+    });
     // ---------------------------------End-------------------------------------------
   }
-
+  
   approveProjectNotification() {
     // ---------------------------------Start-------------------------------------------
     // Function      : get apprroveProjectNotification
@@ -171,13 +155,13 @@ export class CompanyTopbarComponent implements OnInit {
     // Date          : 19-03-2018
     // Last Modified : 19-03-2018, Rinsha
     // Desc          : check whether the loggedin company admin have any project to approves
-    // this.companyService.approveProjectNotification().subscribe(res => {
-    //   // console.log(res)
-    //   this.approveProject = res;
-    //   this.approveProjectCount = 0;
-    //   this.approveProjectCount = this.approveProject.length;
-    //   this.refresh();
-    // });
+    this.companyService.approveProjectNotification().subscribe(res => {
+      // console.log(res)
+      this.approveProject = res;
+      this.approveProjectCount = 0;
+      this.approveProjectCount = this.approveProject.length;
+      this.refresh();
+    });
     // ---------------------------------End-------------------------------------------
   }
 
@@ -190,14 +174,14 @@ export class CompanyTopbarComponent implements OnInit {
     // Date          : 19-03-2018
     // Last Modified : 19-03-2018, Rinsha
     // Desc          : close notification when pm sees the project approval notification
-    // this.companyService.closeNotif3(p_id).subscribe(res => {
-    //   if (res.success == false) {
-    //     let snackBarRef = this.snackBar.open(res.msg, '', {
-    //       duration: 3000
-    //     });
-    //   }
-    //   this.approveProjectNotification();
-    // });
+    this.companyService.closeNotif3(p_id).subscribe(res => {
+      if (res.success == false) {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+      }
+      this.approveProjectNotification();
+    });
     // ---------------------------------End-------------------------------------------
   }
 
@@ -210,13 +194,13 @@ export class CompanyTopbarComponent implements OnInit {
     // Date          : 20-03-2018
     // Last Modified : 20-03-2018, Rinsha
     // Desc          : check whether the loggedin pm have any project to plan
-    // this.companyService.planProjectNotification().subscribe(res => {
-    //   // console.log(res)
-    //   this.planProject = res;
-    //   this.planProjectCount = 0;
-    //   this.planProjectCount = this.planProject.length;
-    //   this.refresh();
-    // });
+    this.companyService.planProjectNotification().subscribe(res => {
+      // console.log(res)
+      this.planProject = res;
+      this.planProjectCount = 0;
+      this.planProjectCount = this.planProject.length;
+      this.refresh();
+    });
     // ---------------------------------End-------------------------------------------
   }
 
@@ -229,14 +213,14 @@ export class CompanyTopbarComponent implements OnInit {
     // Date          : 19-03-2018
     // Last Modified : 19-03-2018, Rinsha
     // Desc          : close notification when pm sees the project plan notification
-    // this.companyService.closeNotif4(p_id).subscribe(res => {
-    //   if (res.success == false) {
-    //     let snackBarRef = this.snackBar.open(res.msg, '', {
-    //       duration: 3000
-    //     });
-    //   }
-    //   this.planProjectNotification();
-    // });
+    this.companyService.closeNotif4(p_id).subscribe(res => {
+      if (res.success == false) {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+      }
+      this.planProjectNotification();
+    });
     // ---------------------------------End-------------------------------------------
   }
 
@@ -249,77 +233,91 @@ export class CompanyTopbarComponent implements OnInit {
     // Date          : 20-03-2018
     // Last Modified : 20-03-2018, Rinsha
     // Desc          : check whether the loggedin pm have any estimation to resubmit
-    // this.companyService.resubmitEstimationNotification().subscribe(res => {
-    //   // console.log(res)
-    //   this.resubmitEstimation = res;
-    //   this.resubmitEstimationCount = 0;
-    //   this.resubmitEstimationCount = this.resubmitEstimation.length;
-    //   this.refresh();
-    // });
+    this.companyService.resubmitEstimationNotification().subscribe(res => {
+      // console.log(res)
+      this.resubmitEstimation = res;
+      this.resubmitEstimationCount = 0;
+      this.resubmitEstimationCount = this.resubmitEstimation.length;
+      this.refresh();
+    });
     // ---------------------------------End-------------------------------------------
   }
+  // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 08-03-2018
+    // Last Modified : 08-03-2018, Rinsha
+    // Desc          :  
+    getLoggedDetails(){
 
-    getAllemppendingleavesnotifi() {
-      // ---------------------------------Start-------------------------------------------
-      // Function      :  getAllemppendingleavesnotifi
-      // Params        : 
-      // Returns       : notification data
-      // Author        : sudha
-      // Date          : 29-03-2018
-      // Last Modified : 
-      // Desc          : check user leave request
-      this.companyService.getAllemppendingleavesnotifi().subscribe(res => {
-        console.log(res)
-        this.userpendingdata = res;
-        this.userpendingdataCount = 0;
-        this.userpendingdataCount = this.userpendingdata.length;
-        // console.log( this.userpendingdata);
-        this.refresh();
-      });
-      // ---------------------------------End-------------------------------------------
-    }
-  
-    closeNotif5(notif_id) {
-      console.log(notif_id);
-      // ---------------------------------Start-------------------------------------------
-      // Function      : close notification of estimation approval
-      // Params        : notification id
-      // Returns       : 
-      // Author        : sudha
-      // Date          : 29-03-2018
-      // Last Modified : 
-      // Desc          : close notification user leave request
-      this.companyService.closeNotif5(notif_id).subscribe(res => {
-        if (res.success == false) {
-          let snackBarRef = this.snackBar.open(res.msg, '', {
-            duration: 3000
+        this.companyService.getLoggedinEntity().subscribe(data => {
+            this.entity = data;
+            if (this.entity.role_id == 3) {
+              this.upgradeBtnShow = false;
+            }
           });
-        }
-        this.getAllemppendingleavesnotifi();
-      });
-      // ---------------------------------End-------------------------------------------
-  }
-  getAllSendtoadminnotif() {
+    }
+    
+    // -----------------------------------End------------------------------------------
+
+  //  ---------------------------------Start-------------------------------------------
+  // Function      : getTeams
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, Manu Prasad 
+  // Desc          : Get Teams from database
+
+  getNotifications(){
+    this.companyService.getNotifications().subscribe(resNotifications =>{
+      // this.accessRights = accessRights;
+      // console.log(resNotifications)
+      this.notifications = resNotifications;
+      if(resNotifications.back.length > 0){
+        this.newTaskreqBackCount = resNotifications.back.length
+        this.newTaskApp = resNotifications.back
+        this.dispStatus = true;
+      }else{
+        this.newTaskApp = [];
+      }
+      if(resNotifications.req.length > 0){
+        this.newTaskreqCount = resNotifications.req.length
+        this.newTaskreq = resNotifications.req
+        this.dispStatus = true;
+        
+      }else{
+        this.newTaskreq = [];
+      }
+      this.showNotifications = true;
+      this.refresh();
+    });
+  
+    }
+  //  ---------------------------------end-----------------------------------------------
+  getAllemppendingleavesnotifi() {
     // ---------------------------------Start-------------------------------------------
-    // Function      :  getAllSendtoadminnotif
+    // Function      :  getAllemppendingleavesnotifi
     // Params        : 
     // Returns       : notification data
     // Author        : sudha
-    // Date          : 06-03-2018
+    // Date          : 29-03-2018
     // Last Modified : 
-    // Desc          : admin approval for time extension
-    this.companyService.getAllSendtoadminnotif().subscribe(res => {
-      console.log(res);
-      this.adminnotifdata = res;
-      this.adminnotifdataCount = 0;
-      this.adminnotifdataCount = this.adminnotifdata.length;
-      // console.log( this.adminnotifdata);
+    // Desc          : check user leave request
+    this.companyService.getAllemppendingleavesnotifi().subscribe(res => {
+      console.log(res)
+      this.userpendingdata = res;
+      this.userpendingdataCount = 0;
+      this.userpendingdataCount = this.userpendingdata.length;
+      // console.log( this.userpendingdata);
       this.refresh();
     });
     // ---------------------------------End-------------------------------------------
   }
 
-  closeNotif6(notif_id) {
+  closeNotif5(notif_id) {
     console.log(notif_id);
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of estimation approval
@@ -329,21 +327,105 @@ export class CompanyTopbarComponent implements OnInit {
     // Date          : 29-03-2018
     // Last Modified : 
     // Desc          : close notification user leave request
-    this.companyService.closeNotif6(notif_id).subscribe(res => {
+    this.companyService.closeNotif5(notif_id).subscribe(res => {
       if (res.success == false) {
         let snackBarRef = this.snackBar.open(res.msg, '', {
           duration: 3000
         });
       }
-      this.getAllSendtoadminnotif();
+      this.getAllemppendingleavesnotifi();
     });
     // ---------------------------------End-------------------------------------------
+}
+getAllSendtoadminnotif() {
+  // ---------------------------------Start-------------------------------------------
+  // Function      :  getAllSendtoadminnotif
+  // Params        : 
+  // Returns       : notification data
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : admin approval for time extension
+  this.companyService.getAllSendtoadminnotif().subscribe(res => {
+    console.log(res);
+    this.adminnotifdata = res;
+    this.adminnotifdataCount = 0;
+    this.adminnotifdataCount = this.adminnotifdata.length;
+    // console.log( this.adminnotifdata);
+    this.refresh();
+  });
+  // ---------------------------------End-------------------------------------------
+}
+
+closeNotif6(notif_id) {
+  console.log(notif_id);
+  // ---------------------------------Start-------------------------------------------
+  // Function      : close notification of estimation approval
+  // Params        : notification id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 29-03-2018
+  // Last Modified : 
+  // Desc          : close notification user leave request
+  this.companyService.closeNotif6(notif_id).subscribe(res => {
+    if (res.success == false) {
+      let snackBarRef = this.snackBar.open(res.msg, '', {
+        duration: 3000
+      });
+    }
+    this.getAllSendtoadminnotif();
+  });
+  // ---------------------------------End-------------------------------------------
 }
 
   refresh(){
     this.count = 0;
-    this.count = this.assignHeadCount + this.approveEstimationCount + this.approveProjectCount + 
-                 this.planProjectCount + this.resubmitEstimationCount+ this.userpendingdataCount+
-                 this.adminnotifdataCount;
+    this.count = this.assignHeadCount + this.approveEstimationCount + this.approveProjectCount + this.planProjectCount + this.resubmitEstimationCount + this.newTaskreqBackCount + this.newTaskreqCount
+    + this.userpendingdataCount+ this.adminnotifdataCount;
   }
+
+
+
+  closeNotifReq(id) {
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification of new request
+    // Params        : project id
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Rinsha
+    // Desc          : close notification when pm sees the new request notification
+    this.companyService.closeNotifnewTaskReq(id).subscribe(res => {
+      if (res.success == false) {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+      }
+      this.getNotifications();
+    });
+    // ---------------------------------End-------------------------------------------
+  }
+
+  closeNotifAproval(id) {
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification of new request
+    // Params        : project id
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Rinsha
+    // Desc          : close notification when pm sees the new request notification
+    this.companyService.closeNotifAproval(id).subscribe(res => {
+      if (res.success == false) {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+      }
+      this.getNotifications();
+    });
+    // ---------------------------------End-------------------------------------------
+  }
+
+
+
 }
