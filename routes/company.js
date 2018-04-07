@@ -12,7 +12,6 @@ const bcrypt = require("bcryptjs");
 const emailTemplate = require('../template/verification_email');
 const request = require('request');
 async = require("async");
-
 var Projects = models.tbl_project;
 var Users = models.tbl_user_profile;
 var Login = models.tbl_login;
@@ -51,7 +50,6 @@ var Estimation_team = models.tbl_project_estimation_team;
 var Complexity_percentage = models.tbl_complexity_percentage;
 var ip = require("ip");
 'use strict';
-
 var returnRouter = function (io) {
     // ---------------------------------Start-------------------------------------------
     // Function      : get plan by id
@@ -72,7 +70,6 @@ var returnRouter = function (io) {
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : upgrade
     // Params        : data from form
@@ -120,9 +117,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : validateNo
     // Params        : number
@@ -135,9 +130,7 @@ var returnRouter = function (io) {
         var re = /^\d{9}|^\d{3}-\d{3}-\d{3}|^\d{3}\s\d{3}\s\d{3}$/;
         return re.test(no);
     }
-
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get all projects
     // Params        : 
@@ -174,7 +167,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Get All pm in a company
     // Params        : 
@@ -218,7 +210,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Get All project category in a company
     // Params        : 
@@ -256,7 +247,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : add project
     // Params        : data from form
@@ -352,7 +342,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Login
     // Params        : username and password
@@ -361,7 +350,6 @@ var returnRouter = function (io) {
     // Date          : 06-3-2018
     // Last Modified : 06-3-2018, Jooshifa
     // Desc          : company and user direct login with username and password with google captcha
-
     router.post('/authenticate', (req, res) => {
         array = [];
         comparePassword = function (candPass, hash, callback) {
@@ -391,7 +379,6 @@ var returnRouter = function (io) {
                     date_time: new Date(),
                     is_success: false
                 })
-
                 loginAttempt.save().then(function (newloginAttempt) {
                     Login_attempt.findOne({
                         order: [['id', 'DESC']],
@@ -451,14 +438,12 @@ var returnRouter = function (io) {
                                     })
                                     if (array.length > 3) {
                                         return res.json({ caseno: 1, success: false, msg: 'User not found' });
-
                                         if (req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null) {
                                             return res.json({ "success": false, "msg": "Please select captcha" });
                                         }
                                         // Secret Key
                                         const secretKey = '6LdWoEsUAAAAACxK3AVq8ynsUfBvbN_gESW8AXms';
                                         // Verify URL
-
                                         const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}`;
                                         // Make Request To VerifyURL
                                         request(verifyUrl, (err, response, body) => {
@@ -477,19 +462,14 @@ var returnRouter = function (io) {
                                         return res.json({ success: false, msg: 'User not found' });
                                     }
                                 }
-
                             });
                         } else {
-
                         }
                     });
-
                 });
             }
             else if (login != null || login != [] || login != '') {
-
                 // console.log("else if");
-
                 comparePassword(password, login.password, (err, isMatch) => {
                     if (err) {
                         throw err;
@@ -497,30 +477,24 @@ var returnRouter = function (io) {
                     //    -------------------------------------- if  match ------------------------------------------
                     if (isMatch) {
                         if (login.block_status == true) {
-
                             return res.json({ success: false, msg: 'Account blocked' });
                             // console.log("Account blocked");
                         }
                         else if (login.delete_status == true) {
-
                             return res.json({ success: false, msg: 'Account deleted' });
                             // console.log("Account deleted");
                         }
                         else if (login.role_id == 1 || login.role_id == 3) {
 
-
                             if (login.cmp_status == "Not Verified" || login.is_verified == false) {
-
                                 return res.json({ success: false, msg: 'Company not verified' });
                             }
-
                             // if (login.is_profile_completed == false) {
                             //     Company.findOne({
                             //         where: {
                             //             login_id: login.id
                             //         }
                             //     }).then(company2 => {
-
                             //         return res.json({ success: false, msg: 'Profile not completed', profile_complete: false, cmp_id: company2.id });
                             //     });
                             // }
@@ -534,7 +508,6 @@ var returnRouter = function (io) {
                                             email: login.email
                                         }
                                     }).then(data1 => {
-
                                         const loginAttempt = Login_attempt.build({
                                             ip: ip.address(),
                                             date_time: new Date(),
@@ -552,9 +525,7 @@ var returnRouter = function (io) {
                                                     // status: login.cmp_status
                                                 }
                                             });
-
                                         });
-
                                     });
                             }
                         }
@@ -590,12 +561,9 @@ var returnRouter = function (io) {
                       
                         // else if (login.block_status == false && login.delete_status == false && login.is_profile_completed == true && login.is_verified == true) {
                         // else if (login.block_status == false && login.delete_status == false && login.is_verified == true && login.is_profile_completed == true && login.cmp_status != "Not Verified" ){
-
                     }
                     //    -------------------------------------- not matches ------------------------------------------
-
                     else {
-
                         //    -------------------------------------- to save into login_attempt table ------------------------------------------
                         const loginAttempt = Login_attempt.build({
                             ip: ip.address(),
@@ -624,7 +592,6 @@ var returnRouter = function (io) {
                                             // console.log(array.length);
                                             if (array.length > 3) {
                                                 return res.json({ caseno: 1, success: false, msg: 'Wrong Password' });
-
                                                 if (req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null) {
                                                     return res.json({ "success": false, "msg": "Please select captcha" });
                                                 }
@@ -638,7 +605,6 @@ var returnRouter = function (io) {
                                                     else if (body.success) {
                                                         return res.json({ "success": false, "msg": "Captcha Verified Successfully" });
                                                     }
-
                                                 });
                                             } else {
                                                 return res.json({ success: false, msg: 'Wrong Password' });
@@ -646,7 +612,6 @@ var returnRouter = function (io) {
                                         }
                                         // else {
                                         //     return res.json({ success: false, msg: 'Wrong Password' });
-
                                         // }
                                     });
                                 }
@@ -666,14 +631,12 @@ var returnRouter = function (io) {
                                             })
                                             if (array.length > 3) {
                                                 return res.json({ caseno: 1, success: false, msg: 'Wrong Password' });
-
                                                 if (req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null) {
                                                     return res.json({ "success": false, "msg": "Please select captcha" });
                                                 }
                                                 // Secret Key
                                                 const secretKey = '6LdWoEsUAAAAACxK3AVq8ynsUfBvbN_gESW8AXms';
                                                 // Verify URL
-
                                                 const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}`;
                                                 // Make Request To VerifyURL
                                                 request(verifyUrl, (err, response, body) => {
@@ -681,7 +644,6 @@ var returnRouter = function (io) {
                                                     // If Not Successful
                                                     if (body.success !== undefined && !body.success) {
                                                         return res.json({ "success": false, "msg": "Failed captcha verification" });
-
                                                     }
                                                     //If Successful
                                                     else if (body.success) {
@@ -693,20 +655,15 @@ var returnRouter = function (io) {
                                         }
                                     });
                                 } else {
-
                                 }
                             });
-
                         });
                     }
-
                 });
             }
         });
-
     });
     // ----------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Get logged user details
     // Params        : 
@@ -715,12 +672,10 @@ var returnRouter = function (io) {
     // Date          : 07-03-2018
     // Last Modified : 07-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/getLoggedinCompany', (req, res, next) => {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4),
                 decoded;
-
             decoded = jwt.verify(authorization, Config.secret);
             res.json(decoded);
             // console.log(decoded);
@@ -728,9 +683,7 @@ var returnRouter = function (io) {
             res.json('');
         }
     });
-
     // ----------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Company verification
     // Params        : verification id
@@ -739,14 +692,12 @@ var returnRouter = function (io) {
     // Date          : 07-03-2018
     // Last Modified : 07-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/companyVerification/:id', function (req, res) {
         Company.findOne({
             where: {
                 verification_code: req.params.id
             }
         }).then(Company => {
-
             Login.findOne({
                 where: {
                     id: Company.login_id,
@@ -755,14 +706,12 @@ var returnRouter = function (io) {
                 Login.update({
                     is_verified: true,
                     cmp_status: "Trail"
-
                 }, {
                         where: {
                             id: Company.login_id,
                             cmp_status: "Not Verified"
                         }
                     }).then(data1 => {
-
                         Login.findOne({
                             where: {
                                 id: Company.login_id,
@@ -776,7 +725,6 @@ var returnRouter = function (io) {
                                 const token = jwt.sign(login1.toJSON(), Config.secret, {
                                     expiresIn: 60400 // sec 1 week
                                 });
-
                                 return res.json({
                                     success: true,
                                     msg: "Successfully verified",
@@ -785,20 +733,15 @@ var returnRouter = function (io) {
                                         id: login1.id,
                                         role: login1.role_id,
                                     }
-
                                 });
                             }
 
-
                         });
-
                     });
             });
         });
     });
-
     // ----------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Company verification
     // Params        : verification id
@@ -807,7 +750,6 @@ var returnRouter = function (io) {
     // Date          : 07-03-2018
     // Last Modified : 07-03-2018, Jooshifa
     // Desc          : 
-
     router.post('/forgotPassword', function (req, res) {
         // console.log(req.body);
         if (req.body.email == 'undefined' || req.body.email == '' || req.body.email == null || req.body.email == []) {
@@ -856,7 +798,6 @@ var returnRouter = function (io) {
                         var password = generator.generate({
                             length: 10,
                             numbers: true
-
                         });
                         // console.log("assword created" );
                         bcrypt.genSalt(10, (err, salt) => {
@@ -888,16 +829,12 @@ var returnRouter = function (io) {
                         })
                         // return res.json({ "success": false, "msg": "Captcha Verified Successfully" });
                     }
-
                 });
                 // console.log("Email found");
             }
         });
-
     });
-
     // ----------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : get_industries
     // Params        : 
@@ -906,17 +843,13 @@ var returnRouter = function (io) {
     // Date          : 09-03-2018
     // Last Modified : 09-03-2018, 
     // Desc          : get industry list
-
     router.get('/get_industries', function (req, res) {
-
         Industries.findAll().then(industries => {
             //console.log(projects);
             res.json(industries);
         });
-
     });
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : get_industries
     // Params        : 
@@ -925,21 +858,16 @@ var returnRouter = function (io) {
     // Date          : 09-03-2018
     // Last Modified : 09-03-2018, 
     // Desc          : get industry list
-
     router.get('/get_cmp_size', function (req, res) {
-
         CompanySize.findAll().then(companieSize => {
             //console.log(projects);
             res.json(companieSize);
         });
-
     });
-
     function validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email.toLowerCase());
     }
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : register_company
     // Params        : 
@@ -948,10 +876,8 @@ var returnRouter = function (io) {
     // Date          : 09-03-2018
     // Last Modified : 09-03-2018, 
     // Desc          : company registration
-
     router.post('/register_company', function (req, res) {
         try {
-
             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
             req.body.forEach(element => {
                 if (element.ans == '') {
@@ -963,19 +889,15 @@ var returnRouter = function (io) {
             if (!reg.test(req.body[0].ans.toLowerCase()) || !(/^\d+$/.test(req.body[4].ans))) {
                 res.send({ status: 0, message: "Check email and phone number!" });
                 res.end();
-
             }
             else {
                 if (typeof req.body.id == 'undefined') {
                     Login.findAll(
                         { where: { email: req.body[0].ans } }
-
                     ).then(login => {
                         //console.log(projects);
                         if (login.length == 0) {
                             var newPassword;
-
-
 
                             bcrypt.genSalt(10, (err, salt) => {
                                 bcrypt.hash(req.body[7].ans, salt, (err, hash) => {
@@ -1001,7 +923,6 @@ var returnRouter = function (io) {
                                     // console.log(newLogin);
                                     newLogin.save().then(resLogin => {
                                         // res.json(resLogin.length)                          
-
                                         // if(resLogin.length>0){
                                         // res.json(resLogin)                          
                                         // console.log("hh")
@@ -1022,20 +943,16 @@ var returnRouter = function (io) {
                                                 is_admin_viewed: false,
                                                 verification_code: req.body[9].ans
                                             })
-
                                             // console.log(newCompany);
                                             newCompany.save().then(() => {
                                                 emailTemplate.sendVerificationMail(req.body[0].ans, req.body[1].ans, req.body[9].ans);
-
                                                 res.json({ status: 1, message: "Registered! Check your Email!" })
                                             })
                                         }).catch(errorx => {
                                             // res.json({status: 0, message:"Failed!"});
                                             res.json(errorx);
 
-
                                         })
-
 
                                         // }
                                     }).catch(error => {
@@ -1044,12 +961,10 @@ var returnRouter = function (io) {
                                     })
                                 })
                             })
-
                         } else {
                             //email exist
                             res.json({ status: 0, message: "Already Registered!" });
                         }
-
                     });
                 } else {
                     //update for jooshifa
@@ -1066,7 +981,6 @@ var returnRouter = function (io) {
                         is_admin_viewed: false,
                         verification_code: req.body[9].ans
                     })
-
                     Company.update({
                         cmp_name: req.body[1].ans,
                         cmp_code: req.body[2].ans,
@@ -1084,33 +998,26 @@ var returnRouter = function (io) {
                             }
                         }).then(data1 => {
                         })
-
                 }
-
             }
-
 
         } catch (err) {
             res.json({ status: 0, message: "Already Registered!" });
         }
-
 
         //   if (config.use_env_variable) {
         //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
         //   } else {
         //     var sequelize = new Sequelize(config.database, config.username, config.password, config);
         //   }
-
         //   sequelize.query("select * from GetAllSt();").spread(
         //     function (actualres, settingName2) {
         //       console.log(actualres);
         //       console.log(settingName2);
         //       res.json(actualres);
         // });
-
     });
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : register_company2
     // Params        : 
@@ -1119,7 +1026,6 @@ var returnRouter = function (io) {
     // Date          : 09-03-2018
     // Last Modified : 09-03-2018, 
     // Desc          : company registration
-
     router.post('/register_company2', function (req, res) {
         //    console.log(req.body[0].ans + "      company name");
         //    console.log(req.body[1].ans+ "      company code");
@@ -1130,14 +1036,12 @@ var returnRouter = function (io) {
         //    console.log(req.body[6].ans + "      id");
         // res.json(req.body);
 
-
         Company.findOne({
             where: {
                 id: req.body[6].ans
             }
         }).then(companyData => {
             // console.log(companyData)
-
             Company.update({
                 cmp_name: req.body[0].ans,
                 cmp_code: req.body[1].ans,
@@ -1149,16 +1053,13 @@ var returnRouter = function (io) {
             }, {
                     where: {
                         id: req.body[6].ans
-
                     }
                 }).then(data1 => {
-
                     Login.update({
                         is_profile_completed: true
                     }, {
                             where: {
                                 id: companyData.login_id
-
                             }
                         }).then(data2 => {
                             return res.json({ "success": true, "msg": "Profile completed successfully" });
@@ -1166,9 +1067,7 @@ var returnRouter = function (io) {
                 })
         })
     });
-
     //  ---------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Get company details by id
     // Params        : id
@@ -1177,7 +1076,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/getCompanyDetails/:id', function (req, res) {
         Login.findOne({
             include: [{
@@ -1188,9 +1086,7 @@ var returnRouter = function (io) {
             res.json(data);
         });
     });
-
     // ----------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Generate token
     // Params        : company id
@@ -1199,7 +1095,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018, jooshifa
     // Desc          : 
-
     router.get('/generateToken/:id', function (req, res) {
         Login.findOne({
             include: [{
@@ -1222,7 +1117,6 @@ var returnRouter = function (io) {
         });
     });
     // ----------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getProjects
     // Params        : 
@@ -1231,7 +1125,6 @@ var returnRouter = function (io) {
     // Date          : 14-03-2018
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/getProjects/:id', function (req, res) {
         Projects.findOne({
             where: {
@@ -1242,9 +1135,7 @@ var returnRouter = function (io) {
             res.send(projectData);
         });
     });
-
     // ----------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get-developer-users
     // Params        : 
@@ -1253,14 +1144,12 @@ var returnRouter = function (io) {
     // Date          : 14-03-2018
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/get-developer-users', function (req, res) {
         // if (req.headers && req.headers.authorization) {
         //     var authorization = req.headers.authorization.substring(4), decoded;
         //     decoded = jwt.verify(authorization, Config.secret);
         developer = [];
         User_profile.findAll({
-
             // where: { cmp_id: decoded.cmp_id },
             include: [
                 {
@@ -1280,9 +1169,7 @@ var returnRouter = function (io) {
         //     return res.status(401).send('Invalid User');
         // }
     });
-
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get-designer-users
     // Params        : 
@@ -1291,7 +1178,6 @@ var returnRouter = function (io) {
     // Date          : 14-03-2018
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/get-designer-users', function (req, res) {
         // if (req.headers && req.headers.authorization) {
         //     var authorization = req.headers.authorization.substring(4), decoded;
@@ -1312,12 +1198,9 @@ var returnRouter = function (io) {
             //console.log(projects);
             res.json(DesignerUsers);
         });
-
     });
-
     // }
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        : 
@@ -1326,7 +1209,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018, 
     // Desc          : get list of teams and stregth
-
     router.get('/getMembers/:id', function (req, res) {
         // if (req.headers && req.headers.authorization) {
         //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -1360,7 +1242,6 @@ var returnRouter = function (io) {
                 }).then(resUser => {
                     // res.json(resUser);
                     // console.log(resUser)
-
                     if (resUser.length > 0) {
                         users[key].onTeam = true;
                         tmp3.push(element.id);
@@ -1387,16 +1268,12 @@ var returnRouter = function (io) {
                     res.json(tmp2);
                 })
                 //
-
             })
-
             // });
         });
-
         // }
     })
     //  ---------------------------------End------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : assignMemeber5
     // Params        : 
@@ -1405,7 +1282,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, 
     // Desc          : assign team members and head to a team
-
     router.post('/assignMemebers', function (req, res) {
         // if (req.headers && req.headers.authorization) {
         //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -1454,7 +1330,6 @@ var returnRouter = function (io) {
                         Message: "Some error occured!"
                     })
                 })
-
             });
         }).catch(err => {
             res.json({
@@ -1464,7 +1339,6 @@ var returnRouter = function (io) {
         })
     })
     //  ---------------------------------End---------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get-qc-users
     // Params        : 
@@ -1473,19 +1347,16 @@ var returnRouter = function (io) {
     // Date          : 14-03-2018
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/get-qc-users', function (req, res) {
         User_profile.findAll({
             include: [
                 {
                     model: Team_assoc,
                     where: { team_id: 3 }
-
                 },
                 {
                     model: Login,
                     where: { [Op.and]: [{ delete_status: false, block_status: false }] }
-
                 }
             ]
         }).then(QCUsers => {
@@ -1494,14 +1365,10 @@ var returnRouter = function (io) {
         });
     });
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
-
     router.get('/get-modules-tasks/:id', function (req, res) {
         array = [];
-
         Estimation_modules.findAll({
-
             include: [
                 {
                     model: Estimation,
@@ -1515,18 +1382,14 @@ var returnRouter = function (io) {
                             // where: { team_id: Estimation_tasks.estimation_team_id
                             // },
                         },
-
                     ]
                 },
             ]
         }).then(ModulesTasks => {
             res.send(ModulesTasks);
-
         });
-
     });
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get-all-users
     // Params        : 
@@ -1541,12 +1404,10 @@ var returnRouter = function (io) {
                 {
                     model: Team_assoc,
                     // where: { team_id: 3 }
-
                 },
                 {
                     model: Login,
                     where: { [Op.and]: [{ delete_status: false, block_status: false }] }
-
                 }
             ]
         }).then(AllUsers => {
@@ -1554,9 +1415,7 @@ var returnRouter = function (io) {
             res.json(AllUsers);
         });
     });
-
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get-all-users
     // Params        : 
@@ -1565,17 +1424,14 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc          
-
     router.get('/get-complexity-percentage', function (req, res) {
         Complexity_percentage.findAll({
-
         }).then(Complexity_percentage => {
             //console.log(projects);
             res.json(Complexity_percentage);
         });
     });
     // ----------------------------------End-----------------------------------
-
 
     // ---------------------------------Start-------------------------------------------
     // Function      : get-date-time 
@@ -1585,7 +1441,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc    
-
     router.post('/get-date-time', function (req, res) {
         if (req.body.task_name == '' || req.body.planned_hour == 0 || req.body.assigned_person == '' || req.body.priority == '' || req.body.start_date == '' || req.body.start_time == '' || req.body.end_date == '' || req.body.end_time == '') {
             res.send({ success: false, msg: 'Please fill all required fields' });
@@ -1597,7 +1452,6 @@ var returnRouter = function (io) {
             end_time = req.body.end_time;
             startDate.setHours(start_time.hour, start_time.minute, start_time.second);
             endDate.setHours(end_time.hour, end_time.minute, end_time.second);
-
             if (startDate >= endDate) {
                 res.send({ success: false, msg: 'End datetime should be greater than start date time' });
             }
@@ -1609,24 +1463,19 @@ var returnRouter = function (io) {
             res.send({ success: true, msg: 'Task added succesfully' });
         }
     });
-
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     router.get('/get-availablity/:id', function (req, res) {
         // console.log("hello");
         // console.log(req.params.id);
         Emp_leave.findAll({
-
             where: {
                 [Op.and]: [{ user_profile_id: req.params.id, request_status: 'Accept' }]
-
             }
         }).then(empLeave => {
             res.json(empLeave);
             // console.log(empLeave);
         });
-
     });
     // ----------------------------------End-----------------------------------
     // 
@@ -1638,16 +1487,13 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc    
-
     router.get('/get-public-holidays', function (req, res) {
         // if (req.headers && req.headers.authorization) {
         //     var authorization = req.headers.authorization.substring(4), decoded;
         //     decoded = jwt.verify(authorization, Config.secret);
         Public_holiday.findAll({
-
             // where: { cmp_id: decoded.cmp_id },
             where: { cmp_id: 1 },
-
         }).then(PublicHoliday => {
             res.json(PublicHoliday);
             // console.log(PublicHoliday)
@@ -1656,11 +1502,8 @@ var returnRouter = function (io) {
         // else {
         //     return res.status(401).send('Invalid User');
         // }
-
     });
-
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      :get_working-time
     // Params        : 
@@ -1669,20 +1512,16 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc    
-
     router.get('/get-working-time', function (req, res) {
         // if (req.headers && req.headers.authorization) {
         //     var authorization = req.headers.authorization.substring(4), decoded;
         //     decoded = jwt.verify(authorization, Config.secret);
-
         cmp_work_times.findAll({
             // where: { cmp_id: decoded.cmp_id }
             include: [
                 {
                     model: cmp_work_time_assocs,
-
                 }
-
             ]
         }).then(workTime => {
             // console.log(workTime);
@@ -1692,11 +1531,8 @@ var returnRouter = function (io) {
         // else {
         //     return res.status(401).send('Invalid User');
         // }
-
     });
-
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get-off-days-assoc
     // Params        : 
@@ -1705,7 +1541,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc    
-
     router.get('/get-off-days-assoc', function (req, res) {
         // if (req.headers && req.headers.authorization) {
         //     var authorization = req.headers.authorization.substring(4), decoded;
@@ -1726,9 +1561,7 @@ var returnRouter = function (io) {
         //     return res.status(401).send('Invalid User');
         // }
     });
-
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get-break-time
     // Params        : 
@@ -1737,7 +1570,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc    
-
     router.get('/get-break-time', function (req, res) {
         // if (req.headers && req.headers.authorization) {
         //     var authorization = req.headers.authorization.substring(4), decoded;
@@ -1758,9 +1590,7 @@ var returnRouter = function (io) {
         //     return res.status(401).send('Invalid User');
         // }
     });
-
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get project by id
     // Params        : id
@@ -1780,7 +1610,6 @@ var returnRouter = function (io) {
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get developer team
     // Params        : 
@@ -1828,7 +1657,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get designer team
     // Params        : 
@@ -1876,7 +1704,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get qc team
     // Params        : 
@@ -1924,7 +1751,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : assign project
     // Params        : form data
@@ -1967,7 +1793,6 @@ var returnRouter = function (io) {
             //         res.json({ success: false, msg: "Team heads must be diffrent" });
             //     }
             // }
-
             else if (req.body.requirement == '' || req.body.docFile == '' || req.body.docFile == null) {
                 res.json({ success: false, msg: "Requirement Summary & Attatchment is required" });
             }
@@ -2042,7 +1867,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : decodeBase64Image
     // Params        : base64encoded image
@@ -2051,26 +1875,20 @@ var returnRouter = function (io) {
     // Date          : 08-03-2018
     // Last Modified : 
     // Desc          : for decoding base64encoded image
-
     function decodeBase64Image(dataString) {
         // console.log(dataString);
         var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-
         var response = {};
-
         if (matches.length !== 3) {
             return new Error('Invalid input string');
         }
-
         response.type = matches[1];
         ext = matches[1].split("/");
         response.ext = ext[1];
         response.data = new Buffer(matches[2], 'base64');
-
         return response;
     }
     // ----------------------------------End-------------------------------------------
-
 
     // ---------------------------------Start-------------------------------------------
     // Function      : edit project
@@ -2143,14 +1961,12 @@ var returnRouter = function (io) {
                             }
                         });
                 }
-
             }
         } else {
             return res.status(401).send('Invalid User');
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get category by id
     // Params        : id
@@ -2170,7 +1986,6 @@ var returnRouter = function (io) {
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : delete project
     // Params        : id 
@@ -2192,10 +2007,8 @@ var returnRouter = function (io) {
         }).then(project => {
             res.json({ success: true, msg: "Success" });
         });
-
     });
     // -----------------------------------End-----------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get all projects by status
     // Params        : 
@@ -2230,7 +2043,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get assignHeadNotification
     // Params        : 
@@ -2263,7 +2075,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification
     // Params        : project id
@@ -2294,7 +2105,6 @@ var returnRouter = function (io) {
             });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get approveEstimationNotification
     // Params        : 
@@ -2329,7 +2139,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of estimation approval
     // Params        : notification id
@@ -2360,7 +2169,6 @@ var returnRouter = function (io) {
             });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getProjectstimations
     // Params        : project id
@@ -2402,7 +2210,6 @@ var returnRouter = function (io) {
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : resubmitEstimation
     // Params        : estimation id
@@ -2456,7 +2263,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : resubmitEstimation
     // Params        : estimation id
@@ -2493,7 +2299,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get team heads of the project who does nt involved in estimations
     // Params        : project id, current_estimation_team_ids
@@ -2520,7 +2325,6 @@ var returnRouter = function (io) {
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : forwardEstimationRequest
     // Params        : project id
@@ -2555,7 +2359,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getTotalEstimations
     // Params        : project id
@@ -2580,7 +2383,6 @@ var returnRouter = function (io) {
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : send request to admin for approval
     // Params        : project id
@@ -2623,7 +2425,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get apprroveProjectNotification
     // Params        : 
@@ -2656,7 +2457,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of project approval
     // Params        : project id
@@ -2687,7 +2487,6 @@ var returnRouter = function (io) {
             });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : accept project
     // Params        : cost, estimated hr, project id
@@ -2736,7 +2535,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : reject project
     // Params        : cost, estimated hr, project id
@@ -2744,7 +2542,6 @@ var returnRouter = function (io) {
     // Author        : Rinsha
     // Date          : 20-03-2018
     // Last Modified : 20-03-2018, Rinsha
-
     router.post('/rejectProject', function (req, res) {
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
@@ -2775,7 +2572,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : resubmit project
     // Params        : cost, estimated hr, project id, pm id
@@ -2826,7 +2622,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get planProjectNotification
     // Params        : 
@@ -2859,7 +2654,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of project plan
     // Params        : project id
@@ -2890,7 +2684,6 @@ var returnRouter = function (io) {
             });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get resubmitEstimationNotification
     // Params        : 
@@ -2923,7 +2716,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getAcceptedEstimations
     // Params        : project id
@@ -2949,7 +2741,6 @@ var returnRouter = function (io) {
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : forwardStatus
     // Params        : project id
@@ -2974,7 +2765,6 @@ var returnRouter = function (io) {
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : capitalizeFirstLetter
     // Params        : string
@@ -2987,10 +2777,7 @@ var returnRouter = function (io) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
     // -----------------------------------End------------------------------------------
-
     module.exports = router;
-
     return router;
-
 }
 module.exports = returnRouter;

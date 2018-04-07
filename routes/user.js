@@ -29,9 +29,7 @@ var Designation = models.tbl_designation;
 var Team_assoc = models.tbl_team_assoc;
 var Team = models.tbl_team;
 var Experience = models.tbl_prev_exp;
-
 var returnRouter = function (io) {
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get pm by id
     // Params        : login id
@@ -69,7 +67,6 @@ var returnRouter = function (io) {
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getTeamMembers
     // Params        : login id, project id
@@ -124,16 +121,13 @@ var returnRouter = function (io) {
                         res.json(team_members);
                     });
                 });
-
             });
         }
         else {
             return res.status(401).send('Invalid User');
         }
     });
-
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : add estimation
     // Params        : data from form
@@ -179,7 +173,6 @@ var returnRouter = function (io) {
                     //         }
                     //     });
                     // }
-
                     if (isError = false && req.body.modules.length == 0) {
                         isError = true;
                         res.json({ success: true, msg: "Atleast one module is required!" });
@@ -246,7 +239,6 @@ var returnRouter = function (io) {
                                     }
                                 }).then(data => {
                                 });
-
                         });
                         io.sockets.emit("approveEstimation", {
                         });
@@ -260,7 +252,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get TeamHeadNotification
     // Params        : 
@@ -295,9 +286,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get notif by id
     // Params        : id
@@ -329,7 +318,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getCurrentEstimation
     // Params        : notification id
@@ -386,7 +374,6 @@ var returnRouter = function (io) {
                         // console.log(estimations)
                         res.json({ data: estimations });
                     }
-
                 });
             });
         }
@@ -395,7 +382,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getProfile
     // Params        : 
@@ -446,7 +432,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : updateUser
     // Params        : user data
@@ -546,7 +531,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : validateNo
     // Params        : number
@@ -559,9 +543,7 @@ var returnRouter = function (io) {
         var re = /^\d{9}|^\d{3}-\d{3}-\d{3}|^\d{3}\s\d{3}\s\d{3}$/;
         return re.test(no);
     }
-
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : validatePassword
     // Params        : password
@@ -574,9 +556,7 @@ var returnRouter = function (io) {
         var re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.])[A-Za-z\d$@$!%*#?&.]{6,}$/;
         return re.test(password);
     }
-
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : decodeBase64Image
     // Params        : base64encoded image
@@ -585,29 +565,22 @@ var returnRouter = function (io) {
     // Date          : 08-03-2018
     // Last Modified : 
     // Desc          : for decoding base64encoded image
-
     function decodeBase64Image(dataString) {
         // console.log(dataString);
         var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
         //   console.log(matches);
         var response = {};
-
         if (matches.length !== 3) {
             return new Error('Invalid input string');
         }
-
         response.type = matches[1];
         ext = matches[1].split("/");
         response.ext = ext[1];
         response.data = new Buffer(matches[2], 'base64');
-
         return response;
     }
     // ----------------------------------End-------------------------------------------
-
-
     module.exports = router;
-
     return router;
 }
 module.exports = returnRouter;

@@ -102,6 +102,7 @@ import {
  MatFormFieldModule
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
+import { AdminEstimationReportComponent } from './components/admin-estimation-report/admin-estimation-report.component';
 
 const appRoutes: Routes = [
   {path: '', component: ReferenceComponentComponent },
@@ -141,6 +142,7 @@ const appRoutes: Routes = [
   {path:'forgot-password', component:ForgotPasswordComponent},
   {path:'project-planning/:id', component:CompanyProjectPlanningComponent},
   {path:'spinner', component:SpinnerComponent},
+  {path:'project-estimation-report', component:AdminEstimationReportComponent},
 ] 
 @NgModule({
   exports: [
@@ -177,6 +179,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
+
   
 })
 export class DemoMaterialModule {}
@@ -232,7 +235,8 @@ export class DemoMaterialModule {}
    CompanyStatusGraphComponent,
    CompanyBarGraphComponent,
     CompanyManageTeamComponent, 
-    CompanyManageAccessRightsComponent
+    CompanyManageAccessRightsComponent,
+    AdminEstimationReportComponent
   ],
   imports: [
     BrowserModule,

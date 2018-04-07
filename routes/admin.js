@@ -14,9 +14,15 @@ var Projects = models.tbl_project;
 var Users = models.tbl_user_profile;
 var Industries = models.tbl_industry;
 var CompanySize = models.tbl_company_size;
-
+var Estimations = models.tbl_estimation;
+var EstimationTeam = models.tbl_project_estimation_team;
+var EstimationTeamMember = models.tbl_project_estimation_team_members;
 var returnRouter = function (io) {
-
+  if (config.use_env_variable) {
+    var sequelize = new Sequelize(process.env[config.use_env_variable]);
+  } else {
+    var sequelize = new Sequelize(config.database, config.username, config.password, config);
+  }
   //  ---------------------------------Start-------------------------------------------
   // Function      : get_counts_for_dashboard
   // Params        : 
@@ -25,7 +31,6 @@ var returnRouter = function (io) {
   // Date          : 02-03-2018
   // Last Modified : 02-03-2018, Jooshifa 
   // Desc          : for getting count of companies,projects,users
-
   router.post('/get_counts_for_dashboard', function (req, res) {
     var userCount;
     var cmpCount;
@@ -58,7 +63,6 @@ var returnRouter = function (io) {
     //   res.json(projects);
     // })
   });
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : super_admin_pie_graph
   // Params        : 
@@ -67,14 +71,12 @@ var returnRouter = function (io) {
   // Date          : 06-03-2018
   // Last Modified : 06-03-2018, 
   // Desc          : get piegraph data
-
   router.get('/super_admin_pie_graph', function (req, res) {
     console.log('y')
     count = [];
     Login.findAndCountAll({
       where: {
         cmp_status: 'Not Verified'
-
       }
     }).then(dbres => {
       count.push({ name: 'Not verified', value: dbres.count, color: '#E35594' });
@@ -87,34 +89,25 @@ var returnRouter = function (io) {
         }
       }).then(dbres2 => {
         count.push({ name: 'Trial', value: dbres2.count, color: '#E55537' });
-
         Login.findAndCountAll({
           where: {
-
             cmp_status: 'Subscribed'
           }
         }).then(dbres3 => {
           count.push({ name: 'Subscribed', value: dbres3.count, color: '#12AB60' });
-
           Login.findAndCountAll({
             where: {
               cmp_status: 'Expired'
             }
           }).then(dbres4 => {
             count.push({ name: 'Expired', value: dbres4.count, color: '#00B0D9' });
-
             res.json(count);
-
           })
-
         })
-
       })
-
     })
   });
   //  ---------------------------------End-------------------------------------------
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : super_admin_pie_graph
   // Params        : 
@@ -123,11 +116,9 @@ var returnRouter = function (io) {
   // Date          : 06-03-2018
   // Last Modified : 06-03-2018, 
   // Desc          : get piegraph data
-
   router.get('/super_admin_bar_graph', function (req, res) {
     console.log('y')
     count = [];
-
     // Projects.findAll({
     //   include: [{
     //     model: Company
@@ -135,34 +126,28 @@ var returnRouter = function (io) {
     // }).then(dbres2 => {
     //   res.json(dbres2)
     // })
-
     Company.findAll({
       include: [{
         model: Projects
         // where: {id: Sequelize.col('login.role_id')}
-
       }]
     }).then(companies => {
       //console.log(projects);
       res.json(companies);
     });
-
     //   if (config.use_env_variable) {
     //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
     //   } else {
     //     var sequelize = new Sequelize(config.database, config.username, config.password, config);
     //   }
-
     //   sequelize.query("select * from GetAllSt();").spread(
     //     function (actualres, settingName2) {
     //       console.log(actualres);
     //       console.log(settingName2);
     //       res.json(actualres);
     // });
-
   });
   //  ---------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : Admin Login
   // Params        : admin, contains username and password
@@ -226,7 +211,6 @@ var returnRouter = function (io) {
     }
   });
   // -----------------------------------End-----------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get all plans 
   // Params        : 
@@ -252,7 +236,6 @@ var returnRouter = function (io) {
     });
   });
   // -----------------------------------End-----------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get all plans without default
   // Params        : 
@@ -279,7 +262,6 @@ var returnRouter = function (io) {
     });
   });
   // -----------------------------------End-----------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : add plan
   // Params        : data from form
@@ -357,7 +339,6 @@ var returnRouter = function (io) {
     });
   });
   // -----------------------------------End-----------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : myTrim
   // Params        : string
@@ -366,13 +347,10 @@ var returnRouter = function (io) {
   // Date          : 07-03-2018
   // Last Modified : 07-03-2018, Rinsha
   // Desc          : For removing unwanted space from left and right
-
   function myTrim(x) {
     return x.replace(/^\s+|\s+$/gm, '');
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : best plan
   // Params        : id and value
@@ -416,7 +394,6 @@ var returnRouter = function (io) {
       });
   });
   // -----------------------------------End-----------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : delete plan
   // Params        : id 
@@ -460,7 +437,6 @@ var returnRouter = function (io) {
     });
   });
   // -----------------------------------End-----------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get plan by id
   // Params        : 
@@ -480,7 +456,6 @@ var returnRouter = function (io) {
     });
   });
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : update plan
   // Params        : value from form
@@ -565,7 +540,6 @@ var returnRouter = function (io) {
     });
   });
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : capitalizeFirstLetter
   // Params        : string
@@ -578,7 +552,45 @@ var returnRouter = function (io) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   // -----------------------------------End------------------------------------------
-
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get all estimated project
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 06-04-2018
+  // Last Modified : 06-04-2018, Rinsha
+  // Desc          : get all estimated project
+  router.get('/getEstimatedProject', function (req, res) {
+    // EstimationTeam.findAll({
+    //   include: [
+    //     {
+    //       model: EstimationTeamMember,
+  
+    //     }
+    // ]
+    // }).then(estimation => {
+    //   res.json(estimation);
+    // });
+    Estimations.findAll({
+      include: [
+        // {
+        // model: Projects,
+        // },
+        {
+          model: EstimationTeam,
+          
+           
+          
+        },
+        {
+          model: EstimationTeamMember
+        }
+    ]
+    }).then(estimation => {
+      res.json(estimation);
+    });
+  });
+  // -----------------------------------End------------------------------------------
   module.exports = router;
   return router;
 }

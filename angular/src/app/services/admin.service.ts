@@ -217,6 +217,23 @@ export class AdminService {
 
   }
   //  ---------------------------------End-------------------------------------------
+  
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get all estimated project
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 06-04-2018
+  // Last Modified : 06-04-2018, Rinsha
+  // Desc          : get all estimated project
+
+  getEstimatedProject() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'getEstimatedProject', { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
 
 }
 
