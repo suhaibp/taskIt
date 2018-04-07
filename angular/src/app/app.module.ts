@@ -6,7 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
-import {Config} from './config/config';
+  import {Config} from './config/config';
 import { ReCaptchaModule } from 'angular2-recaptcha';
 import 'hammerjs';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -59,6 +59,7 @@ import { CompanySidebarComponent } from './components/company-sidebar/company-si
 import { CompanyProjectPlanningComponent } from './components/company-project-planning/company-project-planning.component';
 import { CompanyManageTeamComponent } from './components/company-manage-team/company-manage-team.component';
 import { CompanyManageAccessRightsComponent } from './components/company-manage-access-rights/company-manage-access-rights.component';
+import { AdminEstimationReportComponent } from './components/admin-estimation-report/admin-estimation-report.component';
 
 import { AdminService} from './services/admin.service';
 import { CompanyService} from './services/company.service';
@@ -102,7 +103,21 @@ import {
  MatFormFieldModule
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
-import { AdminEstimationReportComponent } from './components/admin-estimation-report/admin-estimation-report.component';
+import { SuperAdminService } from './services/super-admin.service';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { CompanyWorkingTimeComponent } from './components/company-working-time/company-working-time.component';
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TreeviewModule } from 'ngx-treeview';
+import { TreeModule, SharedModule } from 'primeng/primeng';
+import { CompanyManageHolidaysComponent } from './components/company-manage-holidays/company-manage-holidays.component';
+import { CompanyHolidayComponent } from './components/company-holiday/company-holiday.component';
+import { UserProjectsComponent } from './components/user-projects/user-projects.component';
+import { UserViewProjectComponent } from './components/user-view-project/user-view-project.component';
+import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
+import { ProjectPipe } from './pipes/project.pipe';
+import { CompanyTaskRequestsComponent } from './components/company-task-requests/company-task-requests.component';
+import { CompanyNewTaskManagementComponent } from './components/company-new-task-management/company-new-task-management.component';
+
 
 const appRoutes: Routes = [
   {path: '', component: ReferenceComponentComponent },
@@ -112,6 +127,7 @@ const appRoutes: Routes = [
   {path:'admin-topbar', component:AdminTopbarComponent},
   {path:'admin-footer', component:AdminFooterComponent},
   {path:'admin-company', component:AdminCompanyComponent},
+  {path:'admin-dashboard', component:AdminDashboardComponent},
   {path:'admin-all-companies', component:AdminAllCompaniesComponent},
   {path:'admin-subscribed', component:AdminSubscribedComponent},
   {path:'admin-trial', component:AdminTrialComponent},
@@ -127,6 +143,11 @@ const appRoutes: Routes = [
   {path:'company-dashboard', component:CompanyDashboardComponent},
   {path:'company-signup', component:CompanySignupComponent},
   {path:'company-access-rights', component:CompanyManageAccessRightsComponent},
+  {path:'company-working-time', component:CompanyWorkingTimeComponent},
+  {path:'company-manage-holyday', component:CompanyManageHolidaysComponent},
+  {path:'company-task-requests/:id', component:CompanyTaskRequestsComponent},
+  {path:'company-task-manage/:id', component:CompanyNewTaskManagementComponent},
+ 
   {path:'company-login', component:CompanyLoginComponent},
   {path:'compay-aditninfo/:id', component:CompayAditninfoComponent},
   {path:'company-team', component:CompanyManageTeamComponent},
@@ -134,6 +155,7 @@ const appRoutes: Routes = [
   {path:'edit-project/:id', component:CompanyEditProjectComponent},
   {path:'company-topbar', component:CompanyTopbarComponent},
   {path:'user-topbar', component:UserTopbarComponent},
+  {path:'user-sidebar', component:UserSidebarComponent},
   {path:'estimate-project/:id1/:id2', component:UserProjectEstimationComponent},
   {path:'approve-estimation/:id', component:CompanyApproveEstimationComponent},
   {path:'approve-project/:id', component:CompanyApproveProjectComponent},
@@ -141,8 +163,19 @@ const appRoutes: Routes = [
   {path:'test-user', component:TestUserComponent},
   {path:'forgot-password', component:ForgotPasswordComponent},
   {path:'project-planning/:id', component:CompanyProjectPlanningComponent},
-  {path:'spinner', component:SpinnerComponent},
+ 
   {path:'project-estimation-report', component:AdminEstimationReportComponent},
+  {path:'spinner', component:SpinnerComponent},//To check component
+
+  {path:'user-projects', component:UserProjectsComponent},
+  {path:'user-view-project/:id', component:UserViewProjectComponent},
+
+  // {path:'admin-sidebar', component:AdminSidebarComponent},
+  // {path:'admin-topbar', component:AdminTopbarComponent},
+  // {path:'admin-footer', component:AdminFooterComponent},
+  {path:'company-sidebar', component:CompanySidebarComponent},
+  // {path:'company-topbar', component:CompanyTopbarComponent},
+  // {path:'company-footer', component:CompanyFooterComponent},
 ] 
 @NgModule({
   exports: [
@@ -179,8 +212,8 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
-
-  
+  declarations: [],
+ 
 })
 export class DemoMaterialModule {}
 @NgModule({
@@ -232,10 +265,21 @@ export class DemoMaterialModule {}
     CompanyProjectVsHourComponent,
     CompanyProjectVsStatusComponent,
     CompanyProgressGraphComponent,
-   CompanyStatusGraphComponent,
-   CompanyBarGraphComponent,
+    CompanyStatusGraphComponent,
+    CompanyBarGraphComponent,
     CompanyManageTeamComponent, 
     CompanyManageAccessRightsComponent,
+    CompanyWorkingTimeComponent,
+    CompanyManageHolidaysComponent,
+    CompanyManageAccessRightsComponent,
+    UserProjectsComponent,
+    UserViewProjectComponent, 
+    UserSidebarComponent, 
+    UserTopbarComponent,
+    ProjectPipe,
+    CompanyTaskRequestsComponent,
+    CompanyNewTaskManagementComponent,
+    AdminDashboardComponent,
     AdminEstimationReportComponent
   ],
   imports: [
@@ -249,10 +293,17 @@ export class DemoMaterialModule {}
     RouterModule.forRoot(appRoutes),
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
     DemoMaterialModule,
+    HttpModule,
+    BrowserAnimationsModule,
+    NgbModule.forRoot(),
+    TreeviewModule.forRoot(),TreeModule, SharedModule,
     ReCaptchaModule,
     NgbModule.forRoot()
   ],
-  providers: [Config, AdminService, CompanyService, UserService],
+  providers: [AdminService,SuperAdminService,CompanyService, Config, UserService],
+  
+  
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

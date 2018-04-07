@@ -110,7 +110,7 @@
                 <br>
               </div>
               <div class="clearfix"></div>
-              <div class="col-md-12"><button type="button" class="btn round-button pull-right right-btn" data-toggle="collapse" attr.data-target="#demo{{item.id}}">Click Here</button></div>
+              <div class="col-md-12"><button type="button" (click)="expand()" class="btn round-button pull-right right-btn" data-toggle="collapse" attr.data-target="#demo{{item.id}}">{{labelToExpand}}</button></div>
               <div class="clearfix"></div>
               <div id="demo{{item.id}}" class="collapse">
 
@@ -295,7 +295,7 @@
 
                       <div class="">
                         <div class="col-md-12">
-                          <button type="submit" [disabled]="btnDisbled" class="btn round-button right-btn">Submit</button>
+                          <button type="submit" class="btn round-button right-btn">Submit</button>
                         </div>
                       </div>
 
@@ -432,7 +432,7 @@
 
                       <div class="">
                         <div class="col-md-12">
-                          <button type="submit" [disabled]="btnDisbled" class="btn round-button right-btn">Submit</button>
+                          <button type="submit" class="btn round-button right-btn">Submit</button>
                         </div>
                       </div>
 
@@ -454,7 +454,7 @@
             <div class="clearfix"></div>
             <div class="">
               <div class="col-md-12">
-                <button type="submit" *ngIf="!disabled" [disabled]="btnDisbled" (click)="estimate()" class="btn round-button pull-right right-btn">Submit</button>
+                <button type="submit" *ngIf="!disabled" (click)="estimate()" class="btn round-button pull-right right-btn">Submit</button>
               </div>
             </div>
 

@@ -110,7 +110,7 @@ export class CompanyService {
   // Desc          : getAllProjects 
   getAllProject() {
     let headers = this.setHeaderWithAuthorization();
-    return this.http.get(this.serviceUrl + 'getAllProject', { headers: headers })
+    return this.http.get(this.serviceUrl + 'getAllProjects', { headers: headers })
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
@@ -1025,8 +1025,195 @@ export class CompanyService {
   // Desc          : assign tights to usergroup
   assignRights(rights, id) {
 
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "assignRights/"+id,rights, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+    // Function      : assignRights
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 16-03-2018
+  // Last Modified : 16-03-2018, 
+  // Desc          : assign tights to usergroup
+  getWorkTimes(){
+
+    let h = this.setHeader();;
+    return this.http.get(this.serviceUrl + "getWorkingTimes", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+
+      // Function      : assignRights
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 16-03-2018
+  // Last Modified : 16-03-2018, 
+  // Desc          : assign tights to usergroup
+  getWeekTimes(){
+
+    let h = this.setHeader();;
+    return this.http.get(this.serviceUrl + "getWeekHours", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+
+  // ---------------------------------------End--------------------------------------------
+
+    // Function      : saveWorkTimes
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, 
+  // Desc          : save company work time to DB
+  saveWorkTimes(id, start, end){
+
+    let data = {
+      id:id,
+      start:start,
+      end:end
+    }
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "saveWorkingTimes",data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+   // ---------------------------------------End--------------------------------------------
+
+    // Function      : saveWorkTimes
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, 
+  // Desc          : save company work time to DB
+  deleteBreak(id){
+
+    let data = {
+      id:id
+    }
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "deleteBreak",data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+  
+   // ---------------------------------------End--------------------------------------------
+
+    // Function      : saveWorkTimes
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, 
+  // Desc          : save company work time to DB
+  saveBreak(time){
+
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "saveBreak",time, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+       // Function      : getHoliday
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 22-03-2018
+  // Last Modified : 22-03-2018, 
+  // Desc          : get Holidays from DB
+  getHoliday(value){
+    let data = {
+      year:value
+    }
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "getHoliday",data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+       // Function      : getHoliday
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 22-03-2018
+  // Last Modified : 22-03-2018, 
+  // Desc          : get Holidays from DB
+  getYears(){
+    let h = this.setHeader();;
+    return this.http.get(this.serviceUrl + "getYears", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+// Function      : updateHoliday
+// Params        : 
+// Returns       : 
+// Author        : MANU PRASAD
+// Date          : 22-03-2018
+// Last Modified : 22-03-2018, 
+// Desc          : update holiday in DB
+updateHoliday(data){
+  
+  let h = this.setHeader();;
+  return this.http.post(this.serviceUrl + "updateHoliday",data, { headers: h })
+    .map((response: Response) => response.json());
+}
+// ---------------------------------------End--------------------------------------------
+
+
+// Function      : updateHoliday
+// Params        : 
+// Returns       : 
+// Author        : MANU PRASAD
+// Date          : 22-03-2018
+// Last Modified : 22-03-2018, 
+// Desc          : update holiday in DB
+deleteHoliday(data){
+  let d = {
+    id:data
+  }
+  let h = this.setHeader();;
+  return this.http.post(this.serviceUrl + "deleteHoliday",d, { headers: h })
+    .map((response: Response) => response.json());
+}
+// ---------------------------------------End--------------------------------------------
+
+
+
+ // ---------------------------------Start------------------------------------------------
+  // Function      : getAccessRights
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get Access Rights  from db
+  saveHoliday(date,title){
+    let data = {
+      date: date,
+      title: title
+    }
     let h = this.setHeader();
-    return this.http.post(this.serviceUrl + "assignRights/:id", rights, { headers: h })
+    return this.http.post(this.serviceUrl + "saveHoliday", data, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
@@ -1108,5 +1295,144 @@ export class CompanyService {
     return this.http.get(this.serviceUrl + "/get-break-time", { headers: h })
       .map(res => res.json());
   }
-  // ----------------------------------End------------------------------------------
+   // ----------------------------------End------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getUserProjectsOnStatus
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : get details of project involved by user based on status from db
+  getNotifications(){
+   
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getNotifications2",  { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifnewTaskReq
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new request
+  closeNotifnewTaskReq(id){
+   
+    let h = this.setHeader();
+    let data = {
+       id: id
+    }
+    return this.http.post(this.serviceUrl + "closeNotifnewTaskReq", data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  closeNotifAproval(id){
+   
+    let h = this.setHeader();
+    let data = {
+       id: id
+    }
+    return this.http.post(this.serviceUrl + "closeNotifAproval", data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  getNewTaskRequests(){
+   
+    let h = this.setHeader();
+    
+    return this.http.get(this.serviceUrl + "getNewTaskRequests", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+    // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  getNewTaskRequest(id){
+    // console.log("h")
+    let h = this.setHeader();
+    
+    return this.http.get(this.serviceUrl + "getNewTaskRequest/"+id, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  getProjectsDetails(id){
+    // console.log("h")
+    let h = this.setHeader();
+    
+    return this.http.get(this.serviceUrl + "getProjectsDetails/"+id, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  checkRole(){
+    // console.log("h")
+    let h = this.setHeader();
+    
+    return this.http.get(this.serviceUrl + "checkRole/", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  approveTask(data){
+    // console.log("h")
+    let h = this.setHeader();
+    
+    return this.http.post(this.serviceUrl + "approveTask/",data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
 }

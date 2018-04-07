@@ -14,7 +14,7 @@ export class CompanyAddProjectComponent implements OnInit {
   pm: any;
   entity : any;
   categories : any;
-  showPMlist : Boolean = true;
+  showPMlist : Boolean = false;
   project = {
     project_name: '',
     project_type: '',
@@ -27,7 +27,6 @@ export class CompanyAddProjectComponent implements OnInit {
   constructor(public snackBar: MatSnackBar, private companyService: CompanyService, private routes: Router, private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Get logged in entity
     // Params        : 

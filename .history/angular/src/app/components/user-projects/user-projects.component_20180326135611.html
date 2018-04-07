@@ -1,0 +1,65 @@
+<body class="home">
+  <div class="container-fluid display-table">
+    <div class="row display-table-row">
+
+      <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
+        <!-- sidebar-->
+
+        <admin-sidebar></admin-sidebar>
+        <!-- end sidebar-->
+      </div>
+
+      <div class="col-md-12 col-xs-12">
+        <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+        <!-- topbar-->
+        <admin-topbar></admin-topbar>
+        <!-- end topbar-->
+
+
+        <div class="user-dashboard">
+          <!-- <h1>Hello, JS</h1> -->
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 gutter ">
+              <div class="white">
+
+                <div class="text-center">
+                  <app-spinner *ngIf="spinner"></app-spinner>
+
+                </div>
+                <ng-container *ngFor="let items of projects">
+                  
+                      <div class="col-md-3 pro-container" *ngFor="let i of items.tbl_project_member_assocs" >
+                
+                          <h4>{{i.tbl_project.project_name}}</h4>
+                          <p>{{i.tbl_project.project_code}}</p>
+                          <p>{{i.tbl_project.status}}</p>
+                          <p>{{i.tbl_project.actual_start_date}}</p>
+                          <p>{{i.tbl_project.actual_end_date}}</p>
+                          <button >View More</button>
+                      </div>
+                  
+                
+                </ng-container>
+              </div>
+              <!--white-->
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+        <!-- footer-->
+        <!-- <admin-footer></admin-footer> -->
+        <!-- end footer-->
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+
+
+
+
+  <!--delete modal------>
+</body>
