@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 /*Main CSS*/
+
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
-/*@import '@angular/material/prebuilt-themes/indigo-pink.css';  */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 
 
 body{overflow-x:hidden;}
@@ -631,6 +633,7 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
     display: block;
     border-top: 1px solid #e8e8e8;
 }
+.optionz .mat-select-panel{margin-top:39px;}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{background:none;}
 @media (min-width: 768px){
 .navbar-toggle {
@@ -853,5 +856,14 @@ margin-bottom: 4px;
 }
 
 
-
+.fa-exclamation{    text-align: center;
+    font-size: 36px;
+    color: #d9534f;
+    border-radius: 50%;
+    border: 3px solid;
+    margin-top: 23px;}
+.delete-popup{text-align:center;}
+.cdk-overlay-container {
+    z-index: 1052 !important;
+}
 

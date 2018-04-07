@@ -9,8 +9,9 @@ const server = http.Server(app);
 const io = socketIo(server);
 
 const path = require("path");
-//const users = require("./routes/user");
-//const products = require("./routes/products")(io);
+const admin = require("./routes/admin")(io);
+const company = require("./routes/company")(io);
+const user = require("./routes/user")(io);
 
 const bodyParser = require("body-parser");
 const passport = require('passport');
@@ -18,15 +19,16 @@ var session = require('express-session');
 const cors = require('cors');
 const config = require("./config/config");
 
-
 app.use(cors());
-app.use(bodyParser.json());
-
-//app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true, cookie: { secure: true } }));
+// app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/admin',admin);
+app.use('/company',company);
+app.use('/user',user);
 
-// require('./config/passport')(passport);
+
 
 app.use(express.static(path.join(__dirname,"public")));
 
@@ -36,7 +38,6 @@ app.use('*',(req, res)=>{
 app.get('/', (req,res)=>{
     res.send("Invalid end point");
 });
-
 
 server.listen(port,() => {
     console.log("Server Started On Port " + port);
