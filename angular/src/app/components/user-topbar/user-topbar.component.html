@@ -29,8 +29,8 @@
 
                             <li class="head">
                                 <div class="navbar-content">
-                                    <h4 data-toggle="collapse" data-target="#hiden">New Task Request Approval Notification</h4>
-                                    <div id="hiden" class="collapse">
+                                    <h4 >New Task Request Approval Notification</h4>
+                                    <div >
                                     <div *ngFor="let item1 of newTaskNotif" class="ng-star-inserted">
                                         <a (click)="closeNotif1(item1.id)" [routerLink]="['/user-task-management']">
                                             <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif(item1.id)">x</button>

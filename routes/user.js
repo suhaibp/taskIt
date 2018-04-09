@@ -200,58 +200,58 @@ var returnRouter = function (io) {
                     if (isError == false) {
                         Project.findById(req.body.project_id).then(project => {
                             this.pm_id = project.pm_id;
-                        });
-                        const estimation = Estimation.build({
-                            estimation_hour: req.body.estimated_hour,
-                            project_id: req.body.project_id,
-                            estimation_team_id: req.body.team_id,
-                            date_time: new Date(),
-                        });
-                        estimation.save().then(function (est) {
-                            // console.log(est.id)
-                            req.body.modules.forEach(moduleArray => {
-                                const est_modules = Estimation_modules.build({
-                                    estimation_id: est.id,
-                                    module_name: moduleArray.name
-                                });
-                                est_modules.save().then(function (modules) {
-                                    moduleArray.tasks.forEach(taskArray => {
-                                        Estimation_tasks.bulkCreate([
-                                            {
-                                                task_name: taskArray.name,
-                                                description: taskArray.description,
-                                                planned_hour: taskArray.planned_hour,
-                                                buffer_hour: taskArray.buffer_time,
-                                                estimation_module_id: modules.id,
-                                                estimation_team_id: req.body.team_id,
-                                            }
-                                        ]).then(tasks => { })
-                                    });
-                                });
+                            const estimation = Estimation.build({
+                                estimation_hour: req.body.estimated_hour,
+                                project_id: req.body.project_id,
+                                estimation_team_id: req.body.team_id,
+                                date_time: new Date(),
                             });
-                            req.body.team_member.forEach(item => {
-                                Estimation_team_members.bulkCreate([
-                                    { estimation_team_id: req.body.team_id, user_profile_id: item }
-                                ]).then(members => {
-                                    const notification = Project_estimation_notification.build({
+                            estimation.save().then(function (est) {
+                                // console.log(est.id)
+                                req.body.modules.forEach(moduleArray => {
+                                    const est_modules = Estimation_modules.build({
                                         estimation_id: est.id,
-                                        project_id: req.body.project_id,
-                                        from_id: decoded.id,
-                                        to_id: this.pm_id
+                                        module_name: moduleArray.name
                                     });
-                                    notification.save().then(function (notif) {
+                                    est_modules.save().then(function (modules) {
+                                        moduleArray.tasks.forEach(taskArray => {
+                                            Estimation_tasks.bulkCreate([
+                                                {
+                                                    task_name: taskArray.name,
+                                                    description: taskArray.description,
+                                                    planned_hour: taskArray.planned_hour,
+                                                    buffer_hour: taskArray.buffer_time,
+                                                    estimation_module_id: modules.id,
+                                                    estimation_team_id: req.body.team_id,
+                                                }
+                                            ]).then(tasks => { })
+                                        });
                                     });
                                 });
-                            });
-                            Project_estimation_notification.update({
-                                is_completed: true
-                            }, {
-                                    where: {
-                                        id: req.body.notif_id
-                                    }
-                                }).then(data => {
+                                req.body.team_member.forEach(item => {
+                                    Estimation_team_members.bulkCreate([
+                                        { estimation_team_id: req.body.team_id, user_profile_id: item }
+                                    ]).then(members => {
+                                    });
                                 });
+                                const notification = Project_estimation_notification.build({
+                                    estimation_id: est.id,
+                                    project_id: req.body.project_id,
+                                    from_id: decoded.id,
+                                    to_id: this.pm_id
+                                });
+                                notification.save().then(function (notif) {
+                                });
+                                Project_estimation_notification.update({
+                                    is_completed: true
+                                }, {
+                                        where: {
+                                            id: req.body.notif_id
+                                        }
+                                    }).then(data => {
+                                    });
 
+                            });
                         });
                         io.sockets.emit("approveEstimation", {
                         });
@@ -462,6 +462,7 @@ var returnRouter = function (io) {
     // Desc          : 
     router.post('/updateUser', function (req, res) {
         isError = false;
+        // console.log(req.body.imgSrc)
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -470,16 +471,16 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            if (req.body.f_name == '' || req.body.l_name == '' || req.body.gender == '' || req.body.contact_no == '' || req.body.password == '') {
+            if (req.body.f_name == '' || req.body.l_name == '' || req.body.gender == '' || req.body.contact_no == '') {
                 res.json({ success: false, msg: "All fields are required!" });
             }
             else if (validateNo(req.body.contact_no) == false) {
                 res.json({ success: false, msg: "Enter a valid phone number" });
             }
-            else if (validatePassword(req.body.password) == false) {
+            else if (req.body.password != '' && validatePassword(req.body.password) == false) {
                 res.json({ success: false, msg: "Password contain atleast 6 characters and should contain one number,one character and one special character" });
             }
-            else if (req.body.password != req.body.c_password) {
+            else if (req.body.password != '' && req.body.password != req.body.c_password) {
                 res.json({ success: false, msg: "Password does'nt match!" });
             }
             else {
@@ -490,60 +491,81 @@ var returnRouter = function (io) {
                         bcr_password = hash;
                     })
                 });
-                if (req.body.imgSrc != '../assets/images/dp.jpg') {
-                    timestamp = new Date().getTime().toString();
-                    docName = req.body.id + timestamp + Math.floor(100000 + Math.random() * 900000);
-                    // console.log(req.body.imgSrc);
-                    var base64 = decodeBase64Image(req.body.imgSrc);
-                    // console.log(base64);
-                    require("fs").writeFile('../taskit/public/assets/profile_upload/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                        // console.log(err);
-                    });
-                    require("fs").writeFile('../taskit/angular/src/assets/profile_upload/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                        // console.log(err);
-                    });
-                    profile_image = docName + '.' + base64.ext;
-                }
-                else {
-                    profile_image = '';
-                }
-                User_profile.update(
-                    {
-                        f_name: req.body.f_name,
-                        l_name: req.body.l_name,
-                        gender: req.body.gender,
-                        contact_no: req.body.contact_no
+                User_profile.find({
+                    where: {
+                        login_id: decoded.id
                     },
-                    {
-                        where: {
-                            login_id: decoded.id
+                    include: {
+                        model: Login
+                    }
+                }).then(currentUser => {
+                    if (req.body.imgSrc != '../assets/images/dp.jpg' && req.body.imgSrc != '../assets/profile_upload/' + currentUser.tbl_login.profile_image) {
+                        // console.log("new");
+                        timestamp = new Date().getTime().toString();
+                        docName = req.body.id + timestamp + Math.floor(100000 + Math.random() * 900000);
+                        // console.log(req.body.imgSrc);
+                        var base64 = decodeBase64Image(req.body.imgSrc);
+                        // console.log(base64);
+                        require("fs").writeFile('../taskit/public/assets/profile_upload/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
+                            // console.log(err);
+                        });
+                        require("fs").writeFile('../taskit/angular/src/assets/profile_upload/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
+                            // console.log(err);
+                        });
+                        profile_image = docName + '.' + base64.ext;
+                    }
+                    else if (req.body.imgSrc == '../assets/profile_upload/' + currentUser.tbl_login.profile_image) {
+                        // console.log("old")
+                        profile_image = currentUser.tbl_login.profile_image;
+                    }
+                    else if (req.body.imgSrc == '../assets/images/dp.jpg') {
+                        // console.log("no image");
+                        profile_image = '';
+                    }
+                    if (req.body.password == '') {
+                        password = currentUser.tbl_login.password;
+                    }
+                    else {
+                        password = req.body.password;
+                    }
+                    User_profile.update(
+                        {
+                            f_name: req.body.f_name,
+                            l_name: req.body.l_name,
+                            gender: req.body.gender,
+                            contact_no: req.body.contact_no
                         },
-                    }).then(user => {
-                        if (user == 1) {
-                            if (bcr_password != '') {
-                                Login.update({
-                                    password: bcr_password,
-                                    profile_image: profile_image
-                                }, {
-                                        where: {
-                                            id: decoded.id
-                                        },
-                                    }).then(login => {
-                                        if (login == 1) {
-                                            res.json({ success: true, msg: "Success" });
-                                            io.sockets.emit("updateProfile", {
-                                            });
-                                        }
-                                        else {
-                                            res.json({ success: false, msg: "Failed" });
-                                        }
-                                    });
+                        {
+                            where: {
+                                login_id: decoded.id
+                            },
+                        }).then(user => {
+                            if (user == 1) {
+                                if (bcr_password != '') {
+                                    Login.update({
+                                        password: bcr_password,
+                                        profile_image: profile_image
+                                    }, {
+                                            where: {
+                                                id: decoded.id
+                                            },
+                                        }).then(login => {
+                                            if (login == 1) {
+                                                res.json({ success: true, msg: "Success" });
+                                                io.sockets.emit("updateProfile", {
+                                                });
+                                            }
+                                            else {
+                                                res.json({ success: false, msg: "Failed" });
+                                            }
+                                        });
+                                }
                             }
-                        }
-                        else {
-                            res.json({ success: false, msg: "Failed" });
-                        }
-                    });
+                            else {
+                                res.json({ success: false, msg: "Failed" });
+                            }
+                        });
+                });
             }
         }
         else {
@@ -796,7 +818,7 @@ var returnRouter = function (io) {
                     }
                 }).then(notif => {
                     if (notif == 1) {
-                        res.json({ success: true, msg: "Success"});
+                        res.json({ success: true, msg: "Success" });
                     }
                     else {
                         res.json({ success: false, msg: "Failed" });
