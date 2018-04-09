@@ -120,7 +120,7 @@ import { CompanyNewTaskManagementComponent } from './components/company-new-task
 
 
 const appRoutes: Routes = [
-  {path: '', component: ReferenceComponentComponent },
+  {path: '', component: HomeComponent },
   {path:'reference', component:ReferenceComponentComponent},
   {path:'admin-login', component:AdminLoginComponent},
   {path:'admin-sidebar', component:AdminSidebarComponent},

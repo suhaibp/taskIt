@@ -561,6 +561,7 @@ var returnRouter = function (io) {
   // Last Modified : 06-04-2018, Rinsha
   // Desc          : get all estimated project
   router.get('/getEstimatedProject', function (req, res) {
+    
     // EstimationTeam.findAll({
     //   include: [
     //     {
@@ -572,20 +573,66 @@ var returnRouter = function (io) {
     //   res.json(estimation);
     // });
     Estimations.findAll({
+      where: {
+        is_accepted: true,
+        is_resubmitted : false
+      },
       include: [
-        // {
-        // model: Projects,
-        // },
         {
-          model: EstimationTeam,
-          
-           
-          
+        model: Projects,
         },
         {
-          model: EstimationTeamMember
+          model: EstimationTeam,
+          include: [
+            {
+              model: Users
+            }
+          ]
+        },
+        {
+          model: EstimationTeamMember,
+          include: [
+            {
+              model: Users
+            }
+          ]
         }
     ]
+    }).then(estimation => {
+      res.json(estimation);
+    });
+  });
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAllEstimatedProject
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 09-04-2018
+  // Last Modified : 09-04-2018, Rinsha
+  // Desc          : get all estimated project
+  router.get('/getAllEstimatedProject', function (req, res) {
+    
+    // EstimationTeam.findAll({
+    //   include: [
+    //     {
+    //       model: EstimationTeamMember,
+  
+    //     }
+    // ]
+    // }).then(estimation => {
+    //   res.json(estimation);
+    // });
+    Estimations.findAll({
+      where: {
+        is_accepted: true,
+        is_resubmitted : false
+      },
+      include: [
+        {
+        model: Projects,
+        },
+      ]
     }).then(estimation => {
       res.json(estimation);
     });

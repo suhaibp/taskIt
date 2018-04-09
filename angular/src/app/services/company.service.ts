@@ -1435,4 +1435,21 @@ deleteHoliday(data){
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
+  // ---------------------------------Start------------------------------------------------
+  // Function      : geTAllEstimatedProject
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 09-04-2018
+  // Last Modified : 09-04-2018, 
+  // Desc          : to get All Estimated Project
+  getAllEstimatedProject(){
+    // console.log("h")
+    let h = this.setHeader();
+    
+    return this.http.get(this.serviceUrl + "getAllEstimatedProject", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+  
 }

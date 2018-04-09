@@ -68,7 +68,7 @@ module.exports.sendVerificationMail = function(email, contact_name, verification
                 to: email, // list of receivers
                 subject: 'Complete registration process!', // Subject line
                 text: '', 
-                html: '<b><h3>Hi '+contact_name+', </h3><br/>Welcome to Taskit! You must finish your account verification by clicking the below link: <br/>Verification Link:<a href=\'http://localhost:3000/email-verification/'+verification_link+'>Click Here</a><br/> Thank You!</b>' // html body
+                html: '<b><h3>Hi '+contact_name+', </h3><br/>Welcome to Taskit! You must finish your account verification by clicking the below link: <br/>Verification Link:<a href="http://localhost:3000/email-verification/'+verification_link+'">http://localhost:3000/email-verification/'+verification_link+'</a><br/> Thank You!</b>' // html body
             };
         
             // send mail with defined transport object

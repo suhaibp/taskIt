@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     tbl_estimation.belongsTo(models.tbl_project_estimation_team, {
       foreignKey: 'estimation_team_id',
     });
+    tbl_estimation.hasMany(models.tbl_project_estimation_team_members, {
+      foreignKey: 'estimation_team_id',
+    });
     tbl_estimation.hasMany(models.tbl_estimation_module, {
       foreignKey: 'estimation_id',
     });

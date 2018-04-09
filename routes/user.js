@@ -1038,7 +1038,7 @@ var returnRouter = function (io) {
                 },
                 include: [
                     {
-                        model: TimeExtensionRequest,
+                        model: TimeExtensionRequest,as:'xt',
                         where: {
                             $or: [
                                 {
@@ -1069,6 +1069,7 @@ var returnRouter = function (io) {
                     }
                 ]
             }).then(notif => {
+                console.log(notif);
                 res.json(notif);
             });
         }
