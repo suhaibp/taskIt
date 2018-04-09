@@ -28,8 +28,23 @@ module.exports = (sequelize, DataTypes) => {
     });
     tbl_login.belongsTo(models.tbl_company, {
       foreignKey: 'cmp_id',
-      });
-
+    });
+    tbl_login.hasMany(models.tbl_project, {
+      foreignKey: 'pm_id',
+      as: 'pm_id',
+    });
+    tbl_login.hasMany(models.tbl_project, {
+      foreignKey: 'assignee_id',
+      as: 'assignee_id',
+    });
+    tbl_login.hasMany(models.tbl_estimation_notification, {
+      foreignKey: 'from_id',
+      as: 'from_id',
+    });
+    tbl_login.hasMany(models.tbl_estimation_notification, {
+      foreignKey: 'to_id',
+      as: 'To_id',
+    });
   };
 
 

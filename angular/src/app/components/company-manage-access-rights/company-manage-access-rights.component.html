@@ -21,7 +21,7 @@
                     <div class="row">
                       
                         <div class="col-md-12 col-sm-5 col-xs-12 gutter ad-tp dash-tbl">
-                          <div class="col-md-12 spinner-cont" ngIf="showSpinner">
+                          <div class="col-md-12 spinner-cont" *ngIf="showSpinner">
                               <app-spinner  class="tbl-spnner"></app-spinner>
                           </div>
   
@@ -134,16 +134,72 @@
                   </div>
                   
               </div>
+             
+
+          </div>
+          <!-- footer-->
+          <!-- <admin-footer></admin-footer> -->
+          <!-- end footer-->
+      </div>
+  </div>
+  </div>
+  <!-- Modal -->
+
+
+
+  <div id="assignModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"></h4>
+          </div>
+          <!-- <div class="modal-header"> -->
+          <!-- <h4 class="modal-title">Are you sure to delete?</h4> -->
+          <!-- </div> -->
+          <div class="modal-body delete-popup">
+            <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                      <div class="col-md-4">
+                          <label class="modal-lft-lbl">User Group:</label> 
+                      </div>
+                      <div class="col-md-7">
+                          <label id="team-nm" class="modal-lft-lbl">{{teamName}}</label>
+          
+                      </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="col-md-4 "><label class="modal-lft-lbl">Access Rights :</label></div>
+                      <div class="col-md-7 padd-15">
+                        <div class="col-md-12"  *ngFor="let item of accessRights">
+                            <mat-checkbox class="example-margin" [(ngModel)]="item.checked" name="{{i}}" (ngModelChange)="changeMaster(item.id)">{{item.name}}</mat-checkbox>
+                            <div class="col-md-10 col-md-offset-1" *ngFor="let rights of item.sub">
+                              <mat-checkbox class="example-margin" [(ngModel)]="rights.checked" name="{{i}}" (ngModelChange)="change(item.id)">{{rights.access_right}}</mat-checkbox>                              
+                            </div>
+                        </div>
+                        
+                      </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    {{errMessage}}
+                  </div>
+                </div>
+                
               
   
             </div>
   
             <div class="modal-footer">
-              <app-spinner ngIf="spinner"></app-spinner>
-              <button ngIf="!spinner" type="button" (click)="assignRights()" class="btn round-button" >Assign</button>
+              <app-spinner *ngIf="spinner"></app-spinner>
+              <button *ngIf="!spinner" type="button" (click)="assignRights()" class="btn round-button" >Assign</button>
             </div>
           </div>
   
         </div>
+      </div>
       </div>
   </body>

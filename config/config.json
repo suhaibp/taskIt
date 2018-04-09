@@ -5,7 +5,8 @@
     "database": "taskit",
     "host": "192.168.1.115",
     "port" : "5432",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "test": {
     "username": "postgres",

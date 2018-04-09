@@ -1,4 +1,5 @@
 'use strict';
+var Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   var tbl_role = sequelize.define('tbl_role', {
     role: DataTypes.STRING,
@@ -10,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'role_id',
     });
     tbl_role.hasMany(models.tbl_access_rights_assoc, {
+      foreignKey: 'role_id',
+    });
+    tbl_role.hasMany(models.tbl_user_profile, {
       foreignKey: 'role_id',
     });
   };

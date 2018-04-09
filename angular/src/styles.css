@@ -1,9 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 /*Main CSS*/
+
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-/*@import '@angular/material/prebuilt-themes/indigo-pink.css';  */
 
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';  
+
+/*@import '@angular/material/prebuilt-themes/indigo-pink.css';  */
+/*Main CSS*/
+
+button, input, optgroup, select, textarea{outline:none;}
 *{
     outline: none !important;
 }
@@ -24,14 +30,41 @@ a:focus,a:hover,a{
     font-size: 18px;
 }
 .bg-image {
-    /* background: url(../images/background-login.jpg) no-repeat 0 0 / cover;
-     */
+    /* background: url(../images/background-login.jpg) no-repeat 0 0 / cover; */
     position: relative;
     width: 100%;
     height: 100vh;
     display: table;
 }
-.dropdown:hover .dropdown-menu {
+.round-button {
+    border-radius: 20px;
+    margin: 0;
+    float: left;
+    background: #f37600;
+    color: #fff;
+    padding: 7px 15px;
+    -webkit-transition: background 2s;
+    transition: background 2s;
+    margin-bottom: 15px;
+}
+.round-button:hover {
+    background: #ffaa05;
+    color: #fff;
+}
+.style {
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+.label2 {
+    color: #909090;
+    font-size: 15px;
+}
+.style2 {
+    border: none;
+    border-bottom: 1px solid #ccc;
+	width:100%;
+}
+nav .dropdown:hover .dropdown-menu {
     display: block !important;
     margin-top: 0;
  }
@@ -476,26 +509,10 @@ header {
     background: #ffffff none repeat scroll 0 0;
     border: 1px solid #d4d9e3;
     display: inline-block;
-    padding: 15px;
+        padding: 33px 15px;
     width: 100%;
 }
-.sales button {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: 1px solid #dadee7;
-    border-radius: 100px;
-    font-size: 15px;
-    letter-spacing: 0.5px;
-    padding-right: 32px;
-    color: #0e1a35;
-}
 
-.sales button::before {
-    content: "";
-    font-family: FontAwesome;
-    position: absolute;
-    right: 12px;
-    top: 11px;
-}
 .sales  .btn-group {
     float: right;
 }
@@ -545,7 +562,7 @@ header {
     opacity: 1;
     text-shadow: none;
 }
-.modal-body input {
+/* .modal-body input {
     border: 1px solid #d4d9e3;
     font-size: 14px;
     font-weight: 300;
@@ -553,7 +570,7 @@ header {
     padding: 14px 10px;
     width: 100%;
     color: #8492af;
-}
+} */
 .modal-body textarea {
     border: 1px solid #d4d9e3;
     font-size: 14px;
@@ -595,7 +612,7 @@ header {
     
 }
 .modal{
-    top: 20%; 
+    /* top: 20%;  */
 }
 
 .modal-header .close {
@@ -617,8 +634,9 @@ header {
 ul.navi li.dropdown:hover > ul.dropdown-menu {
     display: block !important;    
 }
-.dropdown-menu{border:none;    top: 0%;
+nav .dropdown-menu{border:none;    top: 0%;
     left: 97%;}
+
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{    background-color: #fe6907;color:#fff;}
 .dropdown-menu>li>a{text-align:left !important;font-size:12px !important;}
 /*Main CSS*/
@@ -635,12 +653,32 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
     border-top: 1px solid #e8e8e8;
     position: relative;
 }
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 25px;
+    color: #333333;
+    white-space: nowrap;
+}
+.white {
+    background: #ffffff none repeat scroll 0 0;
+    
+    display: inline-block;
+    padding: 33px 25px;
+    width: 100%;
+	margin-bottom:20px;
+}
+label{color:#4a4a4a;font-size:15px;}
+.label2{color:#909090;font-size:15px;}
 .navbar-nav {
     width: 100%;
 }
 .navi i {
     font-size: 25px;
 }
+.optionz .mat-select-panel{margin-top:39px;}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{background:none;}
 @media (min-width: 768px){
 .navbar-toggle {
@@ -695,6 +733,7 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
         border-left: none;
         display: block;
         padding-left: 20px;
+		color:#fff;
     }
     header .header-top img {
         max-width: 38px !important;
@@ -747,6 +786,8 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
 }
 .navbar-collapse.collapse{display:none !important;}
 }
+.mat-select-panel{z-index:1000000000000000000000 !important;}
+.cdk-overlay-pane{z-index:1000000000000000000000 !important;}
 
 @media only screen and (max-device-width: 992px) {
     header .header-top li {
@@ -820,14 +861,33 @@ ul.navi li.dropdown:hover > ul.dropdown-menu {
 .navbar-default {
     min-height: 0px;
 }
+#navigation{background:inherit;border:none;}
+.display-table-cell{display:block;}
+.logo{background:#fff;}
+.navbar-nav {
+    margin: 8.75px -15px;
+    position: absolute;
+    z-index: 100;
+    background: #fff;
 }
-
-
-
-
-
-
-
+.navbar-header .navbar-toggle{    top: -61px;
+    left: 41px;}
+.navbar{    margin-bottom: -6px;}
+#navigation .navi a {
+    font-size: 9px;
+padding: 8px;}
+.navi i {
+    margin-right: -3px;
+    color: #6d6d6d;
+    margin: 0 auto;
+    display: table;
+    width: 24px;
+    height: 20px;
+margin-bottom: 4px;
+}
+.bg-lightgray{position:inherit;}
+.user-dashboard{padding:0;}
+}
 
 
 @media only screen and (max-width : 480px) {
@@ -884,6 +944,16 @@ margin-bottom: 4px;
     padding: 29px 0px;
 }
 
+.fa-exclamation{    text-align: center;
+    font-size: 36px;
+    color: #d9534f;
+    border-radius: 50%;
+    border: 3px solid;
+    margin-top: 23px;}
+.delete-popup{text-align:center;}
+.cdk-overlay-container {
+    z-index: 1052 !important;
+}
 .ad-tp{
     margin-top: 86px;
 }
@@ -1027,6 +1097,22 @@ margin-bottom: 4px;
     -webkit-animation: fadeGraphTextIn 0.5s forwards;
             animation: fadeGraphTextIn 0.5s forwards;
   }
+  .cdk-overlay-container {
+    z-index: 1052 !important;
+}
+.fa-exclamation{    text-align: center;
+    font-size: 36px;
+    color: #d9534f;
+    border-radius: 50%;
+    border: 3px solid;
+    margin-top: 23px;}
+.delete-popup{text-align:center;}
+.center-bt {
+    margin: 20px auto 10px auto;
+    float: none;
+}
+.input-style{float:left;}
+h5{line-height: 20px;}
 /* .svg path,
 svg rect{
   fill: #EC0C0C;
@@ -1181,12 +1267,7 @@ body {
 }
 
 /* Container */
-.container {
-  position: relative;
-  max-width: 460px;
-  width: 100%;
-  margin: 0 auto 100px;
-}
+
 .container.active .card:first-child {
   background: #f2f2f2;
   margin: 0 15px;
@@ -1403,4 +1484,111 @@ form{text-align:center;}
 .padd-15{
     padding-top: 15px !important;
 }
+
+
+
+.white {
+    background: #ffffff none repeat scroll 0 0;
+    display: inline-block;
+    padding: 33px 25px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.style {
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+.ovrflw-hdn{
+    overflow: hidden;
+}
+
+fieldset{
+    border: none !important;
+}
+.bg-trans{
+    background-color: transparent !important;
+}
+.bg-trans:hover{
+    color:#fe6b07 !important;
+}
+.delete-popup .fa-exclamation{
+    text-align: center;
+    font-size: 36px !important;
+    color: #d9534f;
+    border-radius: 50%;
+    border: 3px solid;
+    margin-top: 23px;
+    width: 60px;
+    height: 60px;
+    padding-top: 10px;
+}
+.white-imp{
+    background-color: #fff !important;
+}
+
+button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+}
+.close, .close:focus, .close:hover {
+    color: #fff;
+    opacity: 1;
+    text-shadow: none;
+}
+
+
+.plus-btn {
+    float: right;
+    margin-right: 50px;
+    margin-top: 50px;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 28px;
+    line-height: 42px;
+    box-shadow: 4px 7px 31px #ffbb8e;
+    background: #fe6a07 none repeat scroll 0 0;
+    border-radius: 100px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: normal;
+    position: relative;
+}
+.padd-btm-20{
+    padding: 0px 0 20px 0;
+}
 fieldset{border:none;}
+ul.breadcrumb {
+    padding: 10px 0;
+    list-style: none;
+
+    text-align: left;
+    color: #d68956;
+}
+ul.breadcrumb li {
+    display: inline;
+    font-size: 15px;
+}
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+ul.breadcrumb li a {
+    color: #bbbbbb;
+    text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+    color: #d68956;
+    text-decoration: none;
+
+}
+.breadcrumb{      margin: 9px 15px 9px 15px;;  background-color: #f6f7fa;}
+fieldset{border:none;}
+h3{padding: 0;}

@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     no_months : DataTypes.INTEGER,
     is_admin_viewed : DataTypes.BOOLEAN,
     verification_code: DataTypes.STRING,
+    upgraded_date_time : DataTypes.DATE,
   }, {});
   tbl_company.associate = function(models) {
     // associations can be defined here

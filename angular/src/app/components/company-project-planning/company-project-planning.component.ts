@@ -226,9 +226,9 @@ export class CompanyProjectPlanningComponent implements OnInit {
 
     });
 
-    this.companyService.getPublicHolidays().subscribe(PublicHolidays => {
+    // this.companyService.getPublicHolidays().subscribe(PublicHolidays => {
 
-    });
+    // });
 
     this.companyService.getWorkingTime().subscribe(getWorkingTime => {
       this.getWorkingTime = getWorkingTime;
@@ -236,8 +236,8 @@ export class CompanyProjectPlanningComponent implements OnInit {
     });
     this.companyService.getOffDays().subscribe(getOffDays => {
 
-    });
-    this.companyService.getbreakTime().subscribe(breakTime => {
+    // });
+    // this.companyService.getbreakTime().subscribe(breakTime => {
 
     });
   }
@@ -406,7 +406,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
     });
 
   }
-  getId1(i, j) {
+  getId1(i, j, ) {
     this.i = i;
     this.j = j;
 

@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     join_date: DataTypes.DATE,
     gender: DataTypes.STRING,
     email: DataTypes.STRING,
-    status: DataTypes.BOOLEAN
+    status: DataTypes.BOOLEAN,
   }, {});
   tbl_user_profile.associate = function (models) {
     // associations can be defined here
@@ -65,6 +65,12 @@ module.exports = (sequelize, DataTypes) => {
     });
     tbl_user_profile.hasMany(models.tbl_project_tasks, {
       foreignKey: 'assigned_to_id',
+    });
+    tbl_user_profile.belongsTo(models.tbl_company, {
+      foreignKey: 'cmp_id',
+    });
+    tbl_user_profile.belongsTo(models.tbl_role, {
+      foreignKey: 'role_id',
     });
   };
   return tbl_user_profile;

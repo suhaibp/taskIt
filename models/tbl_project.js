@@ -18,8 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     is_estimation_resubmitted: DataTypes.BOOLEAN,
     project_cost: DataTypes.FLOAT,
     total_estimated_hour: DataTypes.FLOAT,
-    planned_start_date: DataTypes.DATE,
-    planned_end_date: DataTypes.DATE
+    actual_start_date: DataTypes.DATE,
+    actual_end_date: DataTypes.DATE,
+    is_pm_viewed_for_planning: DataTypes.BOOLEAN,
   }, {});
   tbl_project.associate = function (models) {
     // associations can be defined here

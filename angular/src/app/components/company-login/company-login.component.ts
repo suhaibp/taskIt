@@ -27,8 +27,8 @@ export class CompanyLoginComponent implements OnInit {
   public siteKey: string = "sitekey";//example: 6LdEnxQTfkdldc-Wa6iKZSelks823exsdcjX7A-N
   public theme: string = "light";//you can give any google themes light or dark
   setVerified(data) {
-    console.log("dfd");
-    console.log(data) // data will return true while successfully verified 
+    // console.log("dfd");
+    // console.log(data) // data will return true while successfully verified 
   }
   msg: any;
   token: any;

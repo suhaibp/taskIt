@@ -1,22 +1,25 @@
 import { Injectable, Component, OnInit } from '@angular/core';
 import { Http, Headers, Response, Request, RequestMethod, URLSearchParams, RequestOptions } from "@angular/http";
 import { Observable } from 'rxjs/Rx';
-import { Config } from './../config/config';
+import { tokenNotExpired } from 'angular2-jwt';
+import { Config } from '../config/config';
 import 'rxjs/add/operator/map';
+
 @Injectable()
 export class CompanyService {
   serviceUrl: string;
   authToken: any;
+  admin: any;
   company: any;
   constructor(private http: Http, private config: Config) {
     this.serviceUrl = config.siteUrl + '/company/';
-
   }
   setHeader() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return (headers);
   }
+
   setHeaderWithAuthorization() {
     let headers = new Headers();
     this.loadToken();
@@ -28,6 +31,7 @@ export class CompanyService {
   loadToken() {
     this.authToken = localStorage.getItem('id_token');
   }
+
   //  ---------------------------------Start-------------------------------------------
   // Function      : getIndustries
   // Params        : 
@@ -37,7 +41,6 @@ export class CompanyService {
   // Last Modified : 06-03-2018, 
   // Desc          : get Ind=ustries list from DB
 
-
   getIndustries() {
     let h = this.setHeader();
     return this.http.get(this.serviceUrl + "/get_industries", { headers: h })
@@ -45,8 +48,6 @@ export class CompanyService {
 
   }
   //  ---------------------------------End-------------------------------------------
-
-
 
   //  ---------------------------------Start-------------------------------------------
   // Function      : getCompanySize
@@ -57,15 +58,106 @@ export class CompanyService {
   // Last Modified : 06-03-2018, 
   // Desc          : get Company size list from DB
 
-
   getCompanySize() {
     let h = this.setHeader();
     return this.http.get(this.serviceUrl + "/get_cmp_size", { headers: h })
       .map(res => res.json());
 
   }
-  //  ---------------------------------End-------------------------------------------
+  // ---------------------------------------End--------------------------------------------
 
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get plan by id
+  // Params        : id
+  // Returns       : plan
+  // Author        : Rinsha
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, Rinsha
+  // Desc          : getplan
+
+  getPlan(id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : upgrade
+  // Params        : data from form
+  // Returns       : message
+  // Author        : Rinsha
+  // Date          : 06-03-2018
+  // Last Modified : 06-03-2018, Rinsha
+  // Desc          : upgrade
+
+  upgrade(id, data) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'upgrade/' + id, data, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get all projects
+  // Params        : 
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 07-03-2018
+  // Last Modified : 07-03-2018, Rinsha
+  // Desc          : getAllProjects 
+  getAllProject() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getAllProjects', { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Get All pm in a company
+  // Params        : 
+  // Returns       : All pm in a company
+  // Author        : Rinsha
+  // Date          : 08-03-2018
+  // Last Modified : 08-03-2018, Rinsha
+  // Desc          : 
+  getAllPm() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getAllPm', { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Get All project category in a company
+  // Params        : 
+  // Returns       : All project category in a company
+  // Author        : Rinsha
+  // Date          : 08-03-2018
+  // Last Modified : 08-03-2018, Rinsha
+  // Desc          : 
+  getAllProjectCategory() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getAllProjectCategory', { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : add project
+  // Params        : data from form
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 08-03-2018
+  // Last Modified : 08-03-2018, Rinsha
+  // Desc          :  
+  addProject(project) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'addProject', project, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
 
   // ---------------------------------Start------------------------------------------------
   // Function      : Login
@@ -100,6 +192,7 @@ export class CompanyService {
     this.company = company;
   }
   // ---------------------------------------End--------------------------------------------
+
   // ---------------------------------Start------------------------------------------------
 
   // Function      : Get logged user details
@@ -131,6 +224,492 @@ export class CompanyService {
   }
   // ---------------------------------------End--------------------------------------------
 
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Get logged in entity
+  // Params        : 
+  // Returns       : Get logged in entity
+  // Author        : Rinsha
+  // Date          : 08-03-2018
+  // Last Modified : 08-03-2018, Rinsha
+  // Desc          :  
+  getLoggedinEntity() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get project by id
+  // Params        : id
+  // Returns       : project
+  // Author        : Rinsha
+  // Date          : 08-03-2018
+  // Last Modified : 08-03-2018, Rinsha
+  // Desc          : getProject
+  getProject(id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'getProjectById/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get developer team
+  // Params        : 
+  // Returns       : users in developer team
+  // Author        : Rinsha
+  // Date          : 09-03-2018
+  // Last Modified : 09-03-2018, Rinsha
+  // Desc          : getDeveloperTeam
+  getDeveloperTeam() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getDeveloperTeam', { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get designer team
+  // Params        : 
+  // Returns       : users in designer team
+  // Author        : Rinsha
+  // Date          : 09-03-2018
+  // Last Modified : 09-03-2018, Rinsha
+  // Desc          : getDesignerTeam
+  getDesignerTeam() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getDesignerTeam', { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get qc team
+  // Params        : 
+  // Returns       : users in qc team
+  // Author        : Rinsha
+  // Date          : 09-03-2018
+  // Last Modified : 09-03-2018, Rinsha
+  // Desc          : getQCTeam
+  getQCTeam() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getQCTeam', { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : assign project
+  // Params        : form data
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 09-03-2018
+  // Last Modified : 09-03-2018, Rinsha
+  // Desc          : AssignTeamHead
+  AssignTeamHead(project) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'AssignTeamHead', project, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : edit project
+  // Params        : data from form
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 09-03-2018
+  // Last Modified : 09-03-2018, Rinsha
+  // Desc          :
+  editProject(project) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'editProject', project, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get category by id
+  // Params        : id
+  // Returns       : category
+  // Author        : Rinsha
+  // Date          : 08-03-2018
+  // Last Modified : 08-03-2018, Rinsha
+  // Desc          : getCategoryById
+  getCategoryById(id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'getCategoryById/' + id, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : delete project
+  // Params        : id 
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 12-03-2018
+  // Last Modified : 12-03-2018, Rinsha
+  // Desc          : to delete a project
+
+  deleteProject(id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'deleteProject/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get all projects by status
+  // Params        : 
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 12-03-2018
+  // Last Modified : 12-03-2018, Rinsha
+  // Desc          : getAllProjectByStatus
+  getAllProjectByStatus(status) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'getAllProjectByStatus/' + status, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get assignHeadNotification
+  // Params        : 
+  // Returns       : project data
+  // Author        : Rinsha
+  // Date          : 12-03-2018
+  // Last Modified : 12-03-2018, Rinsha
+  // Desc          : check whether the loggedin project manager assigned for a project. If yes, then notification to assign team heads
+  assignHeadNotification() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'assignHeadNotification', { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : close notification
+  // Params        : project id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 12-03-2018
+  // Last Modified : 12-03-2018, Rinsha
+  // Desc          : close notification when pm sees the assign team head notification
+  closeNotif(id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'closeNotif/' + id, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get approveEstimationNotification
+  // Params        : 
+  // Returns       : notification data
+  // Author        : Rinsha
+  // Date          : 14-03-2018
+  // Last Modified : 14-03-2018, Rinsha
+  // Desc          : check whether the loggedin project manager have pending estimation approval notification
+  approveEstimationNotification() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'approveEstimationNotification', { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : close notification of estimation approval
+  // Params        : notification id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 14-03-2018
+  // Last Modified : 14-03-2018, Rinsha
+  // Desc          : close notification when pm sees the estimation approval notification
+  closeNotif2(id) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'closeNotif2/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getProjectstimations
+  // Params        : project id
+  // Returns       : estimations
+  // Author        : Rinsha
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, Rinsha
+  // Desc          :  
+  getProjectstimations(pro_id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'getProjectstimations/' + pro_id, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : resubmitEstimation
+  // Params        : estimation id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, Rinsha
+  // Desc          : 
+  resubmitEstimation(est_id, resubmitData) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'resubmitEstimation/' + est_id, resubmitData, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : acceptEstimation
+  // Params        : estimation id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, Rinsha
+  // Desc          :  
+  acceptEstimation(est_id) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'acceptEstimation/' + est_id, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get team heads of the project who does nt involved in estimations
+  // Params        : project id
+  // Returns       : team head info
+  // Author        : Rinsha
+  // Date          : 16-03-2018
+  // Last Modified : 16-03-2018, Rinsha
+  // Desc          : getTeamHeadsToEstimate
+  getTeamHeadsToEstimate(p_id) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'getTeamHeadsToEstimate/' + p_id, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : forwardEstimationRequest
+  // Params        : project id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 16-03-2018
+  // Last Modified : 16-03-2018, Rinsha
+  // Desc          :  
+  forwardEstimationRequest(p_id, head_id) {
+    let Head_id = { head_id: head_id };
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'forwardEstimationRequest/' + p_id, JSON.stringify(Head_id), { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getTotalEstimations
+  // Params        : project id
+  // Returns       : estimations
+  // Author        : Rinsha
+  // Date          : 19-03-2018
+  // Last Modified : 19-03-2018, Rinsha
+  // Desc          :  
+  getTotalEstimations(pro_id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'getTotalEstimations/' + pro_id, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : send request to admin for approval
+  // Params        : project id, assignee id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 19-03-2018
+  // Last Modified : 19-03-2018, Rinsha
+  // Desc          : sendForApproval
+  sendForApproval(pro_id, pm_id) {
+    let PM_id = { pm_id: pm_id }
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'sendForApproval/' + pro_id, PM_id, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get apprroveProjectNotification
+  // Params        : 
+  // Returns       : project data
+  // Author        : Rinsha
+  // Date          : 19-03-2018
+  // Last Modified : 19-03-2018, Rinsha
+  // Desc          : check whether the loggedin company admin have any project to approve
+  approveProjectNotification() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'approveProjectNotification', { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : close notification of project approval
+  // Params        : project id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 19-03-2018
+  // Last Modified : 19-03-2018, Rinsha
+  // Desc          : close notification when pm sees the project approval notification
+  closeNotif3(id) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'closeNotif3/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : accept project
+  // Params        : cost, estimated hr, project id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, Rinsha
+  // Desc          : acceptProject
+  acceptProject(project_submit) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'acceptProject', project_submit, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : reject project
+  // Params        : cost, estimated hr, project id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, Rinsha
+  // Desc          : rejectProject
+  rejectProject(project_submit) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'rejectProject', project_submit, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : resubmit project
+  // Params        : cost, estimated hr, project id, pm id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, Rinsha
+  // Desc          : resubmitProject
+  resubmitProject(project_submit) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'resubmitProject', project_submit, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get planProjectNotification
+  // Params        : 
+  // Returns       : project data
+  // Author        : Rinsha
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, Rinsha
+  // Desc          : check whether the loggedin pm have any project to plan
+  planProjectNotification() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'planProjectNotification', { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : close notification of project plan
+  // Params        : project id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, Rinsha
+  // Desc          : close notification when pm sees the project plan notification
+  closeNotif4(id) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'closeNotif4/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : get resubmitEstimationNotification
+  // Params        : 
+  // Returns       : project data
+  // Author        : Rinsha
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, Rinsha
+  // Desc          : check whether the loggedin pm have any estimation to resubmit
+  resubmitEstimationNotification() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'resubmitEstimationNotification', { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAcceptedEstimations
+  // Params        : project id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, Rinsha
+  // Desc          : 
+  getAcceptedEstimations(pid) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getAcceptedEstimations/' + pid, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : forwardStatus
+  // Params        : project id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          : 21-03-2018
+  // Last Modified : 21-03-2018, Rinsha
+  // Desc          : check whether the estimation request forwarded to any team head is pending
+  getforwardStatus(pid) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getforwardStatus/' + pid, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
   //  ---------------------------------Start-------------------------------------------
   // Function      : getBarDataforAdminDashboard
   // Params        : 
@@ -139,7 +718,6 @@ export class CompanyService {
   // Date          : 06-03-2018
   // Last Modified : 06-03-2018, 
   // Desc          : get piegraph data
-
 
   registerCompany(details) {
     let h = this.setHeader();
@@ -157,7 +735,6 @@ export class CompanyService {
   // Date          : 12-03-2018
   // Last Modified : 12-03-2018, 
   // Desc          : 
-
 
   registerCompanyFromadtninfo(details) {
 
@@ -229,7 +806,6 @@ export class CompanyService {
       .map(res => res.json())
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getDeveloperUsers
   // Params        : 
@@ -280,6 +856,7 @@ export class CompanyService {
   }
 
   // ----------------------------------End-------------------------------------------
+
   // ---------------------------------Start-------------------------------------------
   // Function      : getTasksModules
   // Params        : 
@@ -296,6 +873,7 @@ export class CompanyService {
   }
 
   // ----------------------------------End-------------------------------------------
+
   // ---------------------------------Start-------------------------------------------
   // Function      : getAllUsers
   // Params        : 
@@ -311,6 +889,7 @@ export class CompanyService {
   }
 
   // ----------------------------------End-------------------------------------------
+
   // ---------------------------------Start-------------------------------------------
   // Function      : getComplexity
   // Params        : 
@@ -341,20 +920,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
-  // ---------------------------------Start------------------------------------------------
-  // Function      : getAllProject
-  // Params        : 
-  // Returns       : all projects
-  // Author        : Yasir Poongadan  
-  // Date          : 09-03-2018
-  // Last Modified : 09-03-2018, Yasir Poongadan
-  // Desc          : 
-  getAllProject() {
-    let h = this.setHeader();
-    return this.http.get(this.serviceUrl + "getAllProjects", { headers: h })
-      .map((response: Response) => response.json());
-  }
-  // ---------------------------------------End--------------------------------------------
 
   // ---------------------------------Start------------------------------------------------
   // Function      : getTeams
@@ -370,8 +935,6 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
-
 
   // ---------------------------------Start------------------------------------------------
   // Function      : getTeamMembers
@@ -421,9 +984,6 @@ export class CompanyService {
   }
   // ---------------------------------------End--------------------------------------------
 
-
-
-
   // ---------------------------------Start------------------------------------------------
   // Function      : getUserGroups
   // Params        : 
@@ -454,10 +1014,7 @@ export class CompanyService {
   }
   // ---------------------------------------End--------------------------------------------
 
-
-
   // ---------------------------------------End--------------------------------------------
-
   // Function      : assignRights
   // Params        : 
   // Returns       : 
@@ -467,11 +1024,199 @@ export class CompanyService {
   // Desc          : assign tights to usergroup
   assignRights(rights, id) {
 
-    let h = this.setHeader();
-    return this.http.post(this.serviceUrl + "assignRights/:id", rights, { headers: h })
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "assignRights/"+id,rights, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
+
+    // Function      : assignRights
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 16-03-2018
+  // Last Modified : 16-03-2018, 
+  // Desc          : assign tights to usergroup
+  getWorkTimes(){
+
+    let h = this.setHeader();;
+    return this.http.get(this.serviceUrl + "getWorkingTimes", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+
+      // Function      : assignRights
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 16-03-2018
+  // Last Modified : 16-03-2018, 
+  // Desc          : assign tights to usergroup
+  getWeekTimes(){
+
+    let h = this.setHeader();;
+    return this.http.get(this.serviceUrl + "getWeekHours", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+
+  // ---------------------------------------End--------------------------------------------
+
+    // Function      : saveWorkTimes
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, 
+  // Desc          : save company work time to DB
+  saveWorkTimes(id, start, end){
+
+    let data = {
+      id:id,
+      start:start,
+      end:end
+    }
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "saveWorkingTimes",data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+   // ---------------------------------------End--------------------------------------------
+
+    // Function      : saveWorkTimes
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, 
+  // Desc          : save company work time to DB
+  deleteBreak(id){
+
+    let data = {
+      id:id
+    }
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "deleteBreak",data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+  
+   // ---------------------------------------End--------------------------------------------
+
+    // Function      : saveWorkTimes
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 20-03-2018
+  // Last Modified : 20-03-2018, 
+  // Desc          : save company work time to DB
+  saveBreak(time){
+
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "saveBreak",time, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+
+       // Function      : getHoliday
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 22-03-2018
+  // Last Modified : 22-03-2018, 
+  // Desc          : get Holidays from DB
+  getHoliday(value){
+    let data = {
+      year:value
+    }
+    let h = this.setHeader();;
+    return this.http.post(this.serviceUrl + "getHoliday",data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+       // Function      : getHoliday
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 22-03-2018
+  // Last Modified : 22-03-2018, 
+  // Desc          : get Holidays from DB
+  getYears(){
+    let h = this.setHeader();;
+    return this.http.get(this.serviceUrl + "getYears", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+
+// Function      : updateHoliday
+// Params        : 
+// Returns       : 
+// Author        : MANU PRASAD
+// Date          : 22-03-2018
+// Last Modified : 22-03-2018, 
+// Desc          : update holiday in DB
+updateHoliday(data){
+  
+  let h = this.setHeader();;
+  return this.http.post(this.serviceUrl + "updateHoliday",data, { headers: h })
+    .map((response: Response) => response.json());
+}
+// ---------------------------------------End--------------------------------------------
+
+
+// Function      : updateHoliday
+// Params        : 
+// Returns       : 
+// Author        : MANU PRASAD
+// Date          : 22-03-2018
+// Last Modified : 22-03-2018, 
+// Desc          : update holiday in DB
+deleteHoliday(data){
+  let d = {
+    id:data
+  }
+  let h = this.setHeader();;
+  return this.http.post(this.serviceUrl + "deleteHoliday",d, { headers: h })
+    .map((response: Response) => response.json());
+}
+// ---------------------------------------End--------------------------------------------
+
+
+
+ // ---------------------------------Start------------------------------------------------
+  // Function      : getAccessRights
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 15-03-2018
+  // Last Modified : 15-03-2018, 
+  // Desc          : get Access Rights  from db
+  saveHoliday(date,title){
+    let data = {
+      date: date,
+      title: title
+    }
+    let h = this.setHeader();
+    return this.http.post(this.serviceUrl + "saveHoliday", data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
   // ---------------------------------Start-------------------------------------------
   // Function      : getAvailablity
   // Params        : 
@@ -487,7 +1232,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
-
 
   // ---------------------------------Start-------------------------------------------
   // Function      : getPublicHolidays
@@ -536,7 +1280,7 @@ export class CompanyService {
   }
   // ----------------------------------End------------------------------------------
 
-   // ---------------------------------Start-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
   // Function      : breakTime
   // Params        : 
   // Returns       : 
@@ -545,7 +1289,7 @@ export class CompanyService {
   // Last Modified : 21-03-2018, Jooshifa
   // Desc          : 
 
-  getbreakTime(){
+  getbreakTime() {
     let h = this.setHeader();
     return this.http.get(this.serviceUrl + "/get-break-time", { headers: h })
       .map(res => res.json());
@@ -565,4 +1309,736 @@ export class CompanyService {
     localStorage.clear();
   }
   // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : getUserProjectsOnStatus
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : get details of project involved by user based on status from db
+  getNotifications(){
+   
+    let h = this.setHeader();
+    return this.http.get(this.serviceUrl + "getNotifications2",  { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifnewTaskReq
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new request
+  closeNotifnewTaskReq(id){
+   
+    let h = this.setHeader();
+    let data = {
+       id: id
+    }
+    return this.http.post(this.serviceUrl + "closeNotifnewTaskReq", data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  closeNotifAproval(id){
+   
+    let h = this.setHeader();
+    let data = {
+       id: id
+    }
+    return this.http.post(this.serviceUrl + "closeNotifAproval", data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  getNewTaskRequests(){
+   
+    let h = this.setHeader();
+    
+    return this.http.get(this.serviceUrl + "getNewTaskRequests", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+    // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  getNewTaskRequest(id){
+    // console.log("h")
+    let h = this.setHeader();
+    
+    return this.http.get(this.serviceUrl + "getNewTaskRequest/"+id, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  getProjectsDetails(id){
+    // console.log("h")
+    let h = this.setHeader();
+    
+    return this.http.get(this.serviceUrl + "getProjectsDetails/"+id, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  checkRole(){
+    // console.log("h")
+    let h = this.setHeader();
+    
+    return this.http.get(this.serviceUrl + "checkRole/", { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
+  // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  approveTask(data){
+    // console.log("h")
+    let h = this.setHeader();
+    
+    return this.http.post(this.serviceUrl + "approveTask/",data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+  
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAllusers
+  // Params        : 
+  // Returns       : list of users
+  // Author        : sudha
+  // Date          : 07-03-2018
+  // Last Modified : 
+  // Desc          : all users 
+  getAllusers() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allusers', { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+  // Function      :  company User management
+  // Params        : User id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 07-03-2018
+  // Last Modified : 
+  // Desc          : delete User
+  //delete User
+  deleteUser(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(this.serviceUrl + 'deleteuser/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      :  company User management
+  // Params        : User id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 07-03-2018
+  // Last Modified : 
+  // Desc          : block User
+  //block User
+  blockUser(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(this.serviceUrl + 'blockuser/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Admin User management
+  // Params        : User id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 07-03-2018
+  // Last Modified : 
+  // Desc          : unblock User
+  //unblock User
+  unblockUser(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(this.serviceUrl + 'unblockuser/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAllactiveusers
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 07-03-2018
+  // Last Modified : 
+  // Desc          : list of active users
+  getAllactiveusers() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allactiveusers', { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+  // Function      : getAllblockedusers
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 07-03-2018
+  // Last Modified : 
+  // Desc          : list of block users
+  getAllblockedusers() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allblockedusers', { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+      // ---------------------------------Start-------------------------------------------
+  // Function      : getAlldeleteusers
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 07-03-2018
+  // Last Modified : 
+  // Desc          : list of all delete users
+  getAlldeleteusers() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'alldeleteusers', { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+     //  ---------------------------------Start-------------------------------------------
+  // Function      : adduser
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          :08-03-2018
+  // Last Modified : 
+  // Desc          : adduser
+  addUser(data: any) {
+    // console.log(data)
+    let headers = this.setHeader();
+   
+    return this.http.post(this.serviceUrl + 'adduser', data, { headers: headers })
+      .map(res => res.json());
+  }
+  // < ----------------------------------End-------------------------------------------
+      // ---------------------------------Start-------------------------------------------
+  // Function      : getAllusergroup
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 08-03-2018
+  // Last Modified : 
+  // Desc          : list of usergroup
+  getAllusergroup() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allusergroup', { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+        // ---------------------------------Start-------------------------------------------
+  // Function      : getAllPrevexp
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 08-03-2018
+  // Last Modified : 
+  // Desc          : list of Prevexp
+  getAllPrevexp() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allprevexp', { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+          // ---------------------------------Start-------------------------------------------
+  // Function      : getAllTeam
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 08-03-2018
+  // Last Modified : 
+  // Desc          : list of Team
+  getAllTeam() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allteam', { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+            // ---------------------------------Start-------------------------------------------
+  // Function      : getAllDesignation
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 08-03-2018
+  // Last Modified : 
+  // Desc          : list of Designation
+  getAllDesignation() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'alldesignation', { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getSingleuser
+  // Params        : User id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 07-03-2018
+  // Last Modified : 
+  // Desc          : Singleuser
+  //unblock User
+  getSingleuser(id) {
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'singleuser',{id:id}, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+        //  ---------------------------------Start-------------------------------------------
+  // Function      : updateuser
+  // Params        : user
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 29-01-2018
+  // Last Modified :
+  // Desc          : to updateuser 
+  updateUser(user: any) {
+    // console.log(plan);
+    let headers = this.setHeader();
+     
+       return this.http.post(this.serviceUrl + 'updateuser', user, { headers: headers})
+         .map(res => res.json())
+     }
+   
+     // < ----------------------------------End------------------------------------------- 
+      // ---------------------------------Start-------------------------------------------
+  // Function      : allprojectcategory
+  // Params        : 
+  // Returns       : allprojectcategory
+  // Author        : sudha
+  // Date          : 12-03-2018
+  // Last Modified : 
+  // Desc          : allprojectcategory
+  getAllprojectcategory() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allprojectcategory', { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+      // ---------------------------------Start-------------------------------------------
+  // Function      : deleteCategory
+  // Params        : Category id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 12-03-2018
+  // Last Modified : 
+  // Desc          : deleteCategory
+  //deleteCategory
+  deleteCategory(id) {
+    let headers = this.setHeader();
+    return this.http.put(this.serviceUrl + 'deletecategory/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+        // ---------------------------------Start-------------------------------------------
+  // Function      : addCategory
+  // Params        : Category name
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 12-03-2018
+  // Last Modified : 
+  // Desc          : addCategory
+  //addCategory
+  addCategory(name) {
+   // console.log("er"+name);
+  let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'addcategory/' ,{name:name}, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+          // ---------------------------------Start-------------------------------------------
+  // Function      : updateCategory
+  // Params        : Category name
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 13-03-2018
+  // Last Modified : 
+  // Desc          : updateCategory
+  //updateCategory
+  updateCategory(category:any) {
+   let headers = this.setHeader();
+     return this.http.post(this.serviceUrl + 'updatecategory/' ,category, { headers: headers })
+       .map(res => res.json());
+   }
+   // -----------------------------------End------------------------------------------
+     // ---------------------------------Start-------------------------------------------
+  // Function      : singlecategory
+  // Params        : category id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 13-03-2018
+  // Last Modified : 
+  // Desc          : singlecategory
+  //unblock User
+  getSinglecategory(project_id: any) {
+    
+    let headers = this.setHeader();
+     return this.http.get(this.serviceUrl + "singlecategory/" + project_id, { headers: headers})
+       .map(res => res.json())
+   }
+ 
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAllemployeeleaves
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 14-03-2018
+  // Last Modified : 
+  // Desc          : list of Allemployeeleaves
+  getAllemployeeleaves() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allempleaves', { headers: headers }) 
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+   // ---------------------------------Start-------------------------------------------
+  // Function      : getAllcompanyemployee
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 14-03-2018
+  // Last Modified : 
+  // Desc          : list of Allcompanyemployee
+  getAllcompanyemployee() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allcompanyemployee', { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+        // ---------------------------------Start-------------------------------------------
+  // Function      : deleteEmpleave
+  // Params        : Empleave id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 14-03-2018
+  // Last Modified : 
+  // Desc          : deleteEmpleaveeCategory
+  //deleteEmpleave
+  deleteEmpleave(id) {
+    let headers = this.setHeader();
+    return this.http.put(this.serviceUrl + 'deleteempleave/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+       // ---------------------------------Start-------------------------------------------
+  // Function      : singleempleave
+  // Params        : empleave id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 15-03-2018
+  // Last Modified : 
+  // Desc          : singleempleave
+  //unblock User
+  getSingleempleave(id: any) {
+    
+    let headers = this.setHeader();
+     return this.http.get(this.serviceUrl + "singleempleave/" + id, { headers: headers})
+       .map(res => res.json())
+   }
+ 
+  // -----------------------------------End------------------------------------------
+       //  ---------------------------------Start-------------------------------------------
+  // Function      : addEmpleave
+  // Params        : data
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 15-03-2018
+  // Last Modified : 
+  // Desc          : addEmpleave
+  addnewEmpleave(data: any) {
+    // console.log(data)
+    let headers = this.setHeader();
+   
+    return this.http.post(this.serviceUrl + 'addEmpleave', data, { headers: headers })
+      .map(res => res.json());
+  }
+  // < ----------------------------------End-------------------------------------------
+          //  ---------------------------------Start-------------------------------------------
+  // Function      : updateEmpleave
+  // Params        : Empleaveid
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 15-01-2018
+  // Last Modified :
+  // Desc          : to updateEmpleave 
+  updateEmpleave(Empleave: any) {
+    // console.log(Empleave);
+    let headers = this.setHeader();
+     
+       return this.http.post(this.serviceUrl + 'updateempleave', Empleave, { headers: headers})
+         .map(res => res.json())
+     }
+   
+     // < ----------------------------------End------------------------------------------- 
+       //  ---------------------------------Start-------------------------------------------
+  // Function      : getDatefilterforlog
+  // Params        : data
+  // Returns       : 
+  // Author        : sudha
+  // Date          :16-03-2018
+  // Last Modified : 
+  // Desc          : datefilterforlog
+ 
+  getDatefilterforlog(data: any) {
+    // console.log(data)
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'datefilterforlog', data, { headers: headers })
+      .map(res => res.json());
+  }
+  // < ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAllemppendingleaves
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 28-03-2018
+  // Last Modified : 
+  // Desc          : list of getAllemppendingleaves
+  getAllemppendingleaves() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allemppendingleaves', { headers: headers }) 
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+// ---------------------------------Start-------------------------------------------
+  // Function      : userleave
+  // Params        : userleave id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 28-03-2018
+  // Last Modified : 
+  // Desc          : userleave
+  //userleave
+  getuserleave(id: any) {
+    
+    let headers = this.setHeader();
+     return this.http.get(this.serviceUrl + "userleave/" + id, { headers: headers})
+       .map(res => res.json())
+   }
+ 
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : addReason
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 29-03-2018
+  // Last Modified : 
+  // Desc          : add reject reason
+  //updateCategory
+  addReason(reason:any) {
+    let headers = this.setHeader();
+      return this.http.post(this.serviceUrl + 'addrejectleave/' ,reason, { headers: headers })
+        .map(res => res.json());
+    }
+    // -----------------------------------End------------------------------------------
+     // ---------------------------------Start-------------------------------------------
+  // Function      : addaccept
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 29-03-2018
+  // Last Modified : 
+  // Desc          : add accept reason
+  //addaccept
+  addaccept(accept:any) {
+    let headers = this.setHeader();
+      return this.http.post(this.serviceUrl + 'addacceptleave/' ,accept, { headers: headers })
+        .map(res => res.json());
+    }
+    // -----------------------------------End------------------------------------------
+      // ---------------------------------Start-------------------------------------------
+  // Function      : allemppendingleavesnotifi
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 29-03-2018
+  // Last Modified : 
+  // Desc          : list of get All emp pending leaves notification
+  getAllemppendingleavesnotifi() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'allemppendingleavesnotifi', { headers: headers }) 
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+  // Function      : closeNotif5
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 29-03-2018
+  // Last Modified : 
+  // Desc          : close Notif for leave request
+  //closeNotif5
+  closeNotif5(id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'leavenotifclose/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAlltimeextensionrequest
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 04-04-2018
+  // Last Modified : 
+  // Desc          : list of Altime extension request
+  getAlltimeextensionrequest() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'alltimeextension', { headers: headers }) 
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : gettimerequest
+  // Params        : gettimerequest id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 04-04-2018
+  // Last Modified : 
+  // Desc          : get time request details
+  //userleave
+  gettimerequest(reqid,projid) {
+    var data = { reqid: reqid, projid: projid }
+    let headers = this.setHeader();
+    // console.log("a"+data)
+     return this.http.post(this.serviceUrl + "timerequest" ,data,  { headers: headers})
+       .map(res => res.json())
+   }
+ 
+  // -----------------------------------End------------------------------------------
+     // ---------------------------------Start-------------------------------------------
+  // Function      : Rejecttimeextreq
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-04-2018
+  // Last Modified : 
+  // Desc          : Reject time ext req to pm
+  //Rejecttimeextreq
+  Rejecttimeextreq(id) {
+    let headers = this.setHeader();
+    return this.http.put(this.serviceUrl + 'rejecttimeextreq/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+       // ---------------------------------Start-------------------------------------------
+  // Function      : getUserleavedata
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 07-04-2018
+  // Last Modified : 
+  // Desc          : get User leave data(time extension request)
+  //unblock User
+  getUserleavedata(id) {
+    
+    let headers = this.setHeader();
+     return this.http.get(this.serviceUrl + "userleavedata/" + id, { headers: headers})
+       .map(res => res.json())
+   }
+ 
+  // -----------------------------------End------------------------------------------
+     // ---------------------------------Start-------------------------------------------
+  // Function      : Sendtoadmin
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-04-2018
+  // Last Modified : 
+  // Desc          : Send to admin (time ext req )
+  //Sendtoadmin
+  Sendtoadmin(id) {
+    let headers = this.setHeader();
+    return this.http.put(this.serviceUrl + 'sendtoadmin/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+  // Function      : getAllSendtoadminnotif
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-04-2018
+  // Last Modified : 
+  // Desc          : send to admin notif(time extension approval)
+  getAllSendtoadminnotif() {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'sendtoadminnotif', { headers: headers }) 
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+      // ---------------------------------Start-------------------------------------------
+  // Function      : closeNotif6
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          :  06-04-2018
+  // Last Modified : 
+  // Desc          : close Notif for time extension approval
+  //closeNotif6
+  closeNotif6(id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'admintimeextnotifclose/' + id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
 }

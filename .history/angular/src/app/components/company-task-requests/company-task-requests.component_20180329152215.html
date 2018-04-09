@@ -1,0 +1,114 @@
+
+
+    <body class="home" >
+        <div class="container-fluid display-table">
+            <div class="row display-table-row">
+      
+                <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
+                    <!-- sidebar-->
+      
+                    <app-company-sidebar></app-company-sidebar>
+                    <!-- end sidebar-->
+                </div>
+      
+                <div class="col-md-12 col-xs-12">
+                    <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+                    <!-- topbar-->
+                    <app-company-topbar></app-company-topbar>
+                    <!-- end topbar-->
+      
+      
+                    <div class="user-dashboard">
+                        <!-- <h1>Hello, JS</h1> -->
+                        <div class="row">
+                          
+                            <div class="col-md-12 col-sm-5 col-xs-12 gutter ad-tp dash-tbl">
+                              <div class="col-md-12 spinner-cont" *ngIf="showSpinner">
+                                  <app-spinner  class="tbl-spnner"></app-spinner>
+                              </div>
+      
+                               
+                             
+                          
+                          </div>
+                        </div>
+                       
+                    </div>
+                   
+      
+                </div>
+                <!-- footer-->
+                <!-- <admin-footer></admin-footer> -->
+                <!-- end footer-->
+            </div>
+        </div>
+        <!-- Modal -->
+      
+      
+      
+        <div id="assignModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+      
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"></h4>
+                </div>
+                <!-- <div class="modal-header"> -->
+                <!-- <h4 class="modal-title">Are you sure to delete?</h4> -->
+                <!-- </div> -->
+                <div class="modal-body delete-popup">
+                  <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <label class="modal-lft-lbl">Team Name:</label> 
+                            </div>
+                            <div class="col-md-7">
+                                <label id="team-nm" class="modal-lft-lbl">{{teamName}}</label>
+                
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4 "><label class="modal-lft-lbl">Team Members :</label></div>
+                            <div class="col-md-7 ">
+                              <mat-form-field class="inputfileds"> 
+                                <mat-select name='selected' multiple [(ngModel)]="teamMembers" (ngModelChange)="memberSelect($event)">
+                                  <mat-option [value]="member.id" *ngFor="let member of members; let i=index" >{{member.f_name}} {{member.l_name}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                        </div>
+      
+                        <div class="col-md-12">
+                            <div class="col-md-4 "><label class="modal-lft-lbl">Team Head :</label></div>
+                            <div class="col-md-7 ">
+                              <mat-form-field class="inputfileds">
+                                <mat-select name='selected2'  [(ngModel)]="teamHead" (ngModelChange)="headSelect($event)">
+                                  
+                                    <mat-option *ngFor="let member of selectedTeamMembers;" [value]="member.id" >{{member.f_name}} {{member.l_name}}</mat-option>
+                                  
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                          {{errMessage}}
+                        </div>
+                      </div>
+                      
+                  </div>
+                  
+      
+                </div>
+      
+                <div class="modal-footer">
+                  <app-spinner *ngIf="spinner"></app-spinner>
+                  <button *ngIf="!spinner" type="button" (click)="assignTeam()" class="btn round-button" >Assign</button>
+                </div>
+              </div>
+      
+            </div>
+          </div>
+      </body>

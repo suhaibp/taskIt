@@ -1,0 +1,202 @@
+<!-- <div class="row">
+  <header>
+      
+      <div class="col-md-5 pull-right">
+          <div class="header-rightside">
+              <ul class="list-inline header-top pull-right">
+                  <li class=""><a href="#" class="add-project">Add Project</a></li>
+                  
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell" aria-hidden="true"></i>
+                        <b class="caret"></b></a>
+                    <ul class="dropdown-menu" *ngIf="showNotifications">
+                        <li *ngFor="let items of newTaskreq">
+                            <a routerLink="/company-task-requests">
+                                <h4>New Task Request</h4>
+                                <h5>{{items.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>
+                                <h5>{{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>
+                            </a>
+                        </li>
+                        <li *ngFor="let item of notifications.back">
+                                <a routerLink="/company-task-requests">
+                                    <h4>New Task Approval Request</h4>
+                                    <h5>{{item.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>
+                                    <h5>{{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>
+                                    <h5>Status: {{items.tbl_new_task_request.request_status}}</h5>
+                                </a>
+                            </li>
+                    </ul>
+                </li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>
+                          <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                          <li>
+                              <div class="navbar-content">
+                                  <span>JS Krishna</span>
+                                  <p class="text-muted small">
+                                      me@jskrishna.com
+                                  </p>
+                                  <div class="divider">
+                                  </div>
+                                  <a href="#" class="view btn-sm active">View Profile</a>
+                              </div>
+                          </li>
+                      </ul>
+                  </li>
+                  <li><a href="#"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
+              </ul>
+          </div>
+      </div>
+  </header>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+        <header>
+    
+            <div class="col-md-5 pull-right">
+                <div class="header-rightside">
+                    <ul class="list-inline header-top pull-right">
+                        <li *ngIf="upgradeBtnShow" class=""><a [routerLink]="['/planlist']" class="add-project">Upgrade</a></li>
+                        <li class=""><a [routerLink]="['/add-project']" class="add-project">Add Project</a></li>
+    
+                        <li class="dropdown drp2">
+                            <a class="icon-info dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell" aria-hidden="true"></i>
+                                <span class="label label-primary">{{count}}</span>
+    
+                            </a>
+    
+                            <ul class="dropdown-menu">
+    
+                                <li class="head">
+                                    <div class="navbar-content">
+                                        <h4>New Project Notification</h4>
+                                        <div *ngFor="let item of project">
+                                            <a (click)="closeNotif(item.id)" [routerLink]="['/assign-project', item.id]">
+                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif(item.id)">x</button>
+                                                </div>
+                                                <h5 class="media-heading">{{item.project_name}}</h5>
+                                                <p><a class="content">You are assignd for a new project. Click here to assign team heads.</a></p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <div class="divider"> </div>
+    
+                                <li class="head">
+                                    <div class="navbar-content">
+                                        <h4>Estimation Approval Notification</h4>
+                                        <div *ngFor="let list of estimationApproval">
+                                            <a (click)="closeNotif2(list.id)" [routerLink]="['/approve-estimation', list.tbl_project.id]">
+                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif2(list.id)">x</button>
+                                                </div>
+                                                <h5 class="media-heading">{{list.tbl_project.project_name}}</h5>
+                                                <p><a class="content">Click here to approve the Estimation</a></p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <div class="divider"> </div>
+    
+                                <li class="head">
+                                    <div class="navbar-content">
+                                        <h4>Estimation Resubmit Notification</h4>
+                                        <div *ngFor="let item1 of resubmitEstimation">
+                                            <a (click)="closeNotif(item1.id)" [routerLink]="['/approve-estimation', item1.id]">
+                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif(item1.id)">x</button>
+                                                </div>
+                                                <h5 class="media-heading">{{item1.project_name}}</h5>
+                                                <p><a class="content">Click here to re-estimate the project.</a></p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <div class="divider"> </div>
+    
+                                <li class="head">
+                                    <div class="navbar-content">
+                                        <h4>Project Approve Notification</h4>
+                                        <div *ngFor="let item2 of approveProject">
+                                            <a (click)="closeNotif3(item2.id)" [routerLink]="['/approve-project', item2.id]">
+                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif3(item2.id)">x</button>
+                                                </div>
+                                                <h5 class="media-heading">{{item2.project_name}}</h5>
+                                                <p><a class="content">Click here to approve the project.</a></p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <div class="divider"> </div>
+    
+                                <li class="head">
+                                    <div class="navbar-content">
+                                        <h4>Project Plan Notification</h4>
+                                        <div *ngFor="let item3 of planProject">
+                                            <a (click)="closeNotif4(item3.id)" [routerLink]="['/project-planning', item3.id]">
+                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif4(item3.id)">x</button>
+                                                </div>
+                                                <h5 class="media-heading">{{item3.project_name}}</h5>
+                                                <p><a class="content">Click here to plan the project.</a></p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <div class="divider"> </div>
+    <!------------------------------------------>
+                                <li class="head">
+                                        <div class="navbar-content">
+                                            <h4>New Task Requests</h4>
+                                            <div *ngFor="let items of newTaskreq">
+                                                <a (click)="closeNotifReq(items.id)" routerLink="/company-task-requests">
+                                                    <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif4(items.id)">x</button>
+                                                    </div>
+                                                    <h5>{{items.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>
+                                                    <h5>{{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>
+                                                    <p><a class="content">Click here to view.</a></p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <div class="divider"> </div>
+
+                                <div *ngIf="count == 0">
+                                    <h5 style="color : red; margin-left:20px; ">No Data</h5>
+                                </div>
+                            </ul>
+    
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>
+                                <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-content">
+                                        <span>JS Krishna</span>
+                                        <p class="text-muted small">
+                                            me@jskrishna.com
+                                        </p>
+                                        <div class="divider">
+                                        </div>
+                                        <a href="#" class="view btn-sm active">View Profile</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+    </div>

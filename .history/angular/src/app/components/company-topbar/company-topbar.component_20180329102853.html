@@ -1,0 +1,50 @@
+<div class="row">
+  <header>
+      
+      <div class="col-md-5 pull-right">
+          <div class="header-rightside">
+              <ul class="list-inline header-top pull-right">
+                  <li class=""><a href="#" class="add-project">Add Project</a></li>
+                  
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell" aria-hidden="true"></i>
+                        <b class="caret"></b></a>
+                    <ul class="dropdown-menu" *ngIf="showNotifications">
+                        <li *ngFor="let items of newTaskreq">
+                            <a routerLink="/admin-dashboard">
+                                <h4>New Task Request</h4>
+                                <h5>{{items.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>
+                                <h5>{{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.f_name}}</h5>
+                            </a>
+                        </li>
+                        <li *ngFor="let item of notifications.back">
+                                <a routerLink="/admin-dashboard">
+                                    <h4>New Task Request</h4>
+                                    <h5>{{item.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>
+                                </a>
+                            </li>
+                    </ul>
+                </li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>
+                          <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                          <li>
+                              <div class="navbar-content">
+                                  <span>JS Krishna</span>
+                                  <p class="text-muted small">
+                                      me@jskrishna.com
+                                  </p>
+                                  <div class="divider">
+                                  </div>
+                                  <a href="#" class="view btn-sm active">View Profile</a>
+                              </div>
+                          </li>
+                      </ul>
+                  </li>
+                  <li><a href="#"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
+              </ul>
+          </div>
+      </div>
+  </header>
+</div>
