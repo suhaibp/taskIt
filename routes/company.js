@@ -35,7 +35,6 @@ var cmp_break = models.tbl_cmp_break;
 var cmp_break_assoc = models.tbl_cmp_break_assoc;
 //--------Yasir Poongadan ------
 var Projects_member_assoc = models.tbl_project_member_assoc;
-
 //------------------------------
 var ip = require("ip");
 'use strict';
@@ -60,7 +59,6 @@ var Estimation = models.tbl_estimation
 var Estimation_team = models.tbl_project_estimation_team
 var Complexity_percentage = models.tbl_complexity_percentage
 'use strict';
-
 var returnRouter = function (io) {
     // ---------------------------------Start-------------------------------------------
     // Function      : Login
@@ -73,7 +71,6 @@ var returnRouter = function (io) {
 
     // esfasfasd
     router.post('/authenticate', (req, res) => {
-
         array = [];
         comparePassword = function (candPass, hash, callback) {
             bcrypt.compare(candPass, hash, (err, isMatch) => {
@@ -144,7 +141,6 @@ var returnRouter = function (io) {
                                         return res.json({ success: false, msg: 'User not found' });
                                     }
                                 }
-
                             });
                         }
                         else if (loginAttempt != '' || loginAttempt != null || loginAttempt != []) {
@@ -167,7 +163,6 @@ var returnRouter = function (io) {
                                         if (req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null) {
                                             return res.json({ "success": false, "msg": "Please select captcha" });
                                         }
-
                                         // Secret Key
                                         const secretKey = '6LdWoEsUAAAAACxK3AVq8ynsUfBvbN_gESW8AXms';
                                         // Verify URL
@@ -190,7 +185,6 @@ var returnRouter = function (io) {
                                         return res.json({ success: false, msg: 'User not found' });
                                     }
                                 }
-
                             });
                         } else {
 
@@ -199,9 +193,8 @@ var returnRouter = function (io) {
 
                 });
             }
-
             else if (login != null || login != [] || login != '') {
-                
+
                 // console.log("else if");
 
                 comparePassword(password, login.password, (err, isMatch) => {
@@ -210,38 +203,35 @@ var returnRouter = function (io) {
                     }
                     //    -------------------------------------- if  match ------------------------------------------
                     if (isMatch) {
-    
                         if (login.block_status == true) {
-                         
+
                             return res.json({ success: false, msg: 'Account blocked' });
                             // console.log("Account blocked");
                         }
                         else if (login.delete_status == true) {
-                      
+
                             return res.json({ success: false, msg: 'Account deleted' });
                             // console.log("Account deleted");
                         }
+                        else if (login.role_id == 1 || login.role_id == 3) {
 
-                        else if (login.role_id == 1 || login.role_id == 2) {
-                        
-                         
+
                             if (login.cmp_status == "Not Verified" || login.is_verified == false) {
-                           
+
                                 return res.json({ success: false, msg: 'Company not verified' });
                             }
 
-                            if (login.is_profile_completed == false) {
-                                Company.findOne({
-                                    where: {
-                                        login_id: login.id
-                                    }
-                                }).then(company2 => {
-                                 
-                                    return res.json({ success: false, msg: 'Profile not completed', profile_complete: false, cmp_id: company2.id });
-                                });
-                            }
+                            // if (login.is_profile_completed == false) {
+                            //     Company.findOne({
+                            //         where: {
+                            //             login_id: login.id
+                            //         }
+                            //     }).then(company2 => {
+
+                            //         return res.json({ success: false, msg: 'Profile not completed', profile_complete: false, cmp_id: company2.id });
+                            //     });
+                            // }
                             else {
-                              
                                 // console.log("else condition");
                                 const token = jwt.sign(login.toJSON(), Config.secret, { expiresIn: 60400 }); // sec 1 week
                                 User_profile.update({
@@ -251,82 +241,73 @@ var returnRouter = function (io) {
                                             email: login.email
                                         }
                                     }).then(data1 => {
-                                  
+
                                         const loginAttempt = Login_attempt.build({
                                             ip: ip.address(),
                                             date_time: new Date(),
                                             is_success: true
                                         })
                                         loginAttempt.save().then(function (newloginAttempt) {
-                                            Company.findOne({
-                                                where: {
-                                                    login_id: login.id
+                                            return res.json({
+                                                success: true,
+                                                msg: 'login succesfully',
+                                                token: 'JWT ' + token,
+                                                // cmp_id: company2.id,
+                                                login: {
+                                                    id: login.id,
+                                                    role_id: login.role_id,
+                                                    // status: login.cmp_status
                                                 }
-                                            }).then(company2 => {
-                                           
-                                                if (login.role_id == 3 || login.role_id == 4) {
-    
-                                                    Login.update({
-                                                        is_verified: true
-                                                    }, {
-                                                            where: {
-                                                                email: login.email
-                                                            }
-                                                        }).then(updatedData => {
-    
-    
-                                                            // console.log("user data");
-                                                            return res.json({
-                                                                success: true,
-                                                                msg: 'login succesfully',
-                                                                token: 'JWT ' + token,
-                                                                cmp_id: company2.id,
-                                                                login: {
-                                                                    id: login.id,
-                                                                    role_id: login.role_id,
-                                                                    status: login.cmp_status
-                                                                }
-                                                            });
-    
-    
-                                                        });
-                                                } else {
-                                                
-                                                    return res.json({
-                                                        success: true,
-                                                        msg: 'login succesfully',
-                                                        token: 'JWT ' + token,
-                                                        cmp_id: company2.id,
-                                                        login: {
-                                                            id: login.id,
-                                                            role_id: login.role_id,
-                                                            status: login.cmp_status
-                                                        }
-                                                    });
-                                                }
-                                            })
-    
+                                            });
+
                                         });
-    
+
                                     });
                             }
                         }
+                        else if (login.role_id == 4) {
+                            const token = jwt.sign(login.toJSON(), Config.secret, { expiresIn: 60400 }); // sec 1 week
+                            User_profile.update({
+                                login_id: login.id
+                            }, {
+                                    where: {
+                                        email: login.email
+                                    }
+                                }).then(data1 => {
+                                    const loginAttempt = Login_attempt.build({
+                                        ip: ip.address(),
+                                        date_time: new Date(),
+                                        is_success: true
+                                    })
+                                    loginAttempt.save().then(function (newloginAttempt) {
+                                        return res.json({
+                                            success: true,
+                                            msg: 'login succesfully',
+                                            token: 'JWT ' + token,
+                                            // cmp_id: company2.id,
+                                            login: {
+                                                id: login.id,
+                                                role_id: login.role_id,
+                                                // status: login.cmp_status
+                                            }
+                                        });
+                                    });
+                                });
+                        } 
+                      
                         // else if (login.block_status == false && login.delete_status == false && login.is_profile_completed == true && login.is_verified == true) {
                         // else if (login.block_status == false && login.delete_status == false && login.is_verified == true && login.is_profile_completed == true && login.cmp_status != "Not Verified" ){
-                      
+
                     }
                     //    -------------------------------------- not matches ------------------------------------------
 
                     else {
-                      
                         //    -------------------------------------- to save into login_attempt table ------------------------------------------
-                  
                         const loginAttempt = Login_attempt.build({
                             ip: ip.address(),
                             date_time: new Date(),
                             is_success: false
                         })
-
                         loginAttempt.save().then(function (newloginAttempt) {
                             Login_attempt.findOne({
                                 order: [['id', 'DESC']],
@@ -371,7 +352,6 @@ var returnRouter = function (io) {
                                         }
                                         // else {
                                         //     return res.json({ success: false, msg: 'Wrong Password' });
-
                                         // }
                                     });
                                 }
@@ -394,9 +374,7 @@ var returnRouter = function (io) {
 
                                                 if (req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null) {
                                                     return res.json({ "success": false, "msg": "Please select captcha" });
-
                                                 }
-
                                                 // Secret Key
                                                 const secretKey = '6LdWoEsUAAAAACxK3AVq8ynsUfBvbN_gESW8AXms';
                                                 // Verify URL
@@ -510,13 +488,9 @@ var returnRouter = function (io) {
                                         id: login1.id,
                                         role: login1.role_id,
                                     }
-
                                 });
                             }
-
-
                         });
-
                     });
             });
         });
@@ -553,10 +527,7 @@ var returnRouter = function (io) {
             });
 
         } catch (err) {
-
         }
-
-
         //   if (config.use_env_variable) {
         //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
         //   } else {
@@ -572,7 +543,6 @@ var returnRouter = function (io) {
 
     });
     //  ---------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Company verification
     // Params        : verification id
@@ -581,7 +551,6 @@ var returnRouter = function (io) {
     // Date          : 07-03-2018
     // Last Modified : 07-03-2018, Jooshifa
     // Desc          : 
-
     router.post('/forgotPassword', function (req, res) {
         // console.log(req.body);
         if (req.body.email == 'undefined' || req.body.email == '' || req.body.email == null || req.body.email == []) {
@@ -662,7 +631,6 @@ var returnRouter = function (io) {
                         })
                         // return res.json({ "success": false, "msg": "Captcha Verified Successfully" });
                     }
-
                 });
                 // console.log("Email found");
             }
@@ -671,7 +639,6 @@ var returnRouter = function (io) {
     });
 
     // ----------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : get_industries
     // Params        : 
@@ -681,10 +648,7 @@ var returnRouter = function (io) {
     // Last Modified : 09-03-2018, 
     // Desc          : get industry list
 
-
     router.get('/get_industries', function (req, res) {
-
-
         Industries.findAll().then(industries => {
             //console.log(projects);
             res.json(industries);
@@ -692,8 +656,6 @@ var returnRouter = function (io) {
 
     });
     //  ---------------------------------End-------------------------------------------
-
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : get_industries
     // Params        : 
@@ -705,21 +667,16 @@ var returnRouter = function (io) {
 
 
     router.get('/get_cmp_size', function (req, res) {
-
-
         CompanySize.findAll().then(companieSize => {
             //console.log(projects);
             res.json(companieSize);
         });
-
     });
 
     function validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email.toLowerCase());
     }
-
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : register_company
     // Params        : 
@@ -732,7 +689,6 @@ var returnRouter = function (io) {
 
     router.post('/register_company', function (req, res) {
         try {
-
             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
             req.body.forEach(element => {
                 if (element.ans == '') {
@@ -744,7 +700,6 @@ var returnRouter = function (io) {
             if (!reg.test(req.body[0].ans.toLowerCase()) || !(/^\d+$/.test(req.body[4].ans))) {
                 res.send({ status: 0, message: "Check email and phone number!" });
                 res.end();
-
             }
             else {
                 if (typeof req.body.id == 'undefined') {
@@ -755,9 +710,6 @@ var returnRouter = function (io) {
                         //console.log(projects);
                         if (login.length == 0) {
                             var newPassword;
-
-
-
                             bcrypt.genSalt(10, (err, salt) => {
                                 bcrypt.hash(req.body[7].ans, salt, (err, hash) => {
                                     // console.log(hash);
@@ -813,11 +765,7 @@ var returnRouter = function (io) {
                                         }).catch(errorx => {
                                             // res.json({status: 0, message:"Failed!"});
                                             res.json(errorx);
-
-
                                         })
-
-
                                         // }
                                     }).catch(error => {
                                         // Ooops, do some error-handling
@@ -830,7 +778,6 @@ var returnRouter = function (io) {
                             //email exist
                             res.json({ status: 0, message: "Already Registered!" });
                         }
-
                     });
                 } else {
                     //update for jooshifa
@@ -847,7 +794,6 @@ var returnRouter = function (io) {
                         is_admin_viewed: false,
                         verification_code: req.body[9].ans
                     })
-
                     Company.update({
                         cmp_name: req.body[1].ans,
                         cmp_code: req.body[2].ans,
@@ -865,17 +811,11 @@ var returnRouter = function (io) {
                             }
                         }).then(data1 => {
                         })
-
                 }
-
             }
-
-
         } catch (err) {
             res.json({ status: 0, message: "Already Registered!" });
         }
-
-
         //   if (config.use_env_variable) {
         //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
         //   } else {
@@ -902,23 +842,12 @@ var returnRouter = function (io) {
     // Desc          : company registration
 
     router.post('/register_company2', function (req, res) {
-        //    console.log(req.body[0].ans + "      company name");
-        //    console.log(req.body[1].ans+ "      company code");
-        //    console.log(req.body[2].ans + "      company industry");
-        //    console.log(req.body[3].ans + "      contact number");
-        //    console.log(req.body[4].ans + "      company size");
-        //    console.log(req.body[5].ans + "      why choosen");
-        //    console.log(req.body[6].ans + "      id");
-        // res.json(req.body);
-
-
         Company.findOne({
             where: {
                 id: req.body[6].ans
             }
         }).then(companyData => {
             // console.log(companyData)
-
             Company.update({
                 cmp_name: req.body[0].ans,
                 cmp_code: req.body[1].ans,
@@ -1118,12 +1047,10 @@ var returnRouter = function (io) {
                 {
                     model: Team_assoc,
                     where: { team_id: 3 }
-
                 },
                 {
                     model: Login,
                     where: { [Op.and]: [{ delete_status: false, block_status: false }] }
-
                 }
             ]
         }).then(QCUsers => {
@@ -1139,9 +1066,7 @@ var returnRouter = function (io) {
 
     router.get('/get-modules-tasks/:id', function (req, res) {
         array = [];
-
         Estimation_modules.findAll({
-
             include: [
                 {
                     model: Estimation,
@@ -1155,15 +1080,12 @@ var returnRouter = function (io) {
                             // where: { team_id: Estimation_tasks.estimation_team_id
                             // },
                         },
-
                     ]
                 },
             ]
         }).then(ModulesTasks => {
             res.send(ModulesTasks);
-
         });
-
     });
 
     // ---------------------------------Start-------------------------------------------
@@ -1206,7 +1128,6 @@ var returnRouter = function (io) {
 
     router.get('/get-complexity-percentage', function (req, res) {
         Complexity_percentage.findAll({
-
         }).then(Complexity_percentage => {
             //console.log(projects);
             res.json(Complexity_percentage);
@@ -1234,7 +1155,6 @@ var returnRouter = function (io) {
             end_time = req.body.end_time;
             startDate.setHours(start_time.hour, start_time.minute, start_time.second);
             endDate.setHours(end_time.hour, end_time.minute, end_time.second);
-
             if (startDate >= endDate) {
                 res.send({ success: false, msg: 'End datetime should be greater than start date time' });
             }
@@ -1254,7 +1174,6 @@ var returnRouter = function (io) {
         // console.log("hello");
         // console.log(req.params.id);
         Emp_leave.findAll({
-
             where: {
                 [Op.and]: [{ user_profile_id: req.params.id, request_status: 'Accept' }]
 
@@ -1280,7 +1199,6 @@ var returnRouter = function (io) {
         //     var authorization = req.headers.authorization.substring(4), decoded;
         //     decoded = jwt.verify(authorization, Config.secret);
         Public_holiday.findAll({
-
             // where: { cmp_id: decoded.cmp_id },
             where: { cmp_id: 1 },
 
@@ -1292,8 +1210,6 @@ var returnRouter = function (io) {
         // else {
         //     return res.status(401).send('Invalid User');
         // }
-
-
     });
 
     // ----------------------------------End-----------------------------------
@@ -1307,23 +1223,16 @@ var returnRouter = function (io) {
     // Last Modified : 15-03-2018, Jooshifa
     // Desc    
 
-
-
     router.get('/get-working-time', function (req, res) {
         // if (req.headers && req.headers.authorization) {
         //     var authorization = req.headers.authorization.substring(4), decoded;
         //     decoded = jwt.verify(authorization, Config.secret);
-
-
-
         cmp_work_times.findAll({
             // where: { cmp_id: decoded.cmp_id }
             include: [
                 {
                     model: cmp_work_time_assocs,
-
                 }
-
             ]
         }).then(workTime => {
             console.log(workTime);
@@ -1333,11 +1242,7 @@ var returnRouter = function (io) {
         // else {
         //     return res.status(401).send('Invalid User');
         // }
-
-
     });
-
-
     // ----------------------------------End-----------------------------------
 
     // ---------------------------------Start-------------------------------------------
@@ -1348,8 +1253,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc    
-
-
     router.get('/get-off-days-assoc', function (req, res) {
         // if (req.headers && req.headers.authorization) {
         //     var authorization = req.headers.authorization.substring(4), decoded;
@@ -1370,7 +1273,6 @@ var returnRouter = function (io) {
         //     return res.status(401).send('Invalid User');
         // }
     });
-
     // ----------------------------------End-----------------------------------
 
     // ---------------------------------Start-------------------------------------------
@@ -1405,9 +1307,25 @@ var returnRouter = function (io) {
     });
 
     // ----------------------------------End-----------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : expiredsocket
+    // Params        : id
+    // Returns       : a socket emit "expiredcompany"
+    // Author        : Jooshifa
+    // Date          : 28-03-2018
+
+    // Last Modified : 28-03-2018, Jooshifa
+    // Desc          :  we get the id from scheduler app. Here we can emit the socket
+
+    router.get('/expiredsocket/:id', (req, res) => {
+        // console.log("clo"+req.params.id);
+        io.sockets.emit("expiredcompany", {
+            expiredSocketId: req.params.id
+        });
+    });
+    // ----------------------------------End-------------------------------------------
     module.exports = router;
-
     return router;
-
 }
 module.exports = returnRouter;

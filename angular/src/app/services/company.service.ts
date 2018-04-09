@@ -326,6 +326,7 @@ export class CompanyService {
   }
 
   // ----------------------------------End-------------------------------------------
+
   // ---------------------------------Start-------------------------------------------
   // Function      : getDatetime
   // Params        : 
@@ -550,4 +551,18 @@ export class CompanyService {
       .map(res => res.json());
   }
    // ----------------------------------End------------------------------------------
+     // ---------------------------------Start------------------------------------------------
+  // Function      : Logout
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 28-03-2018
+  // Last Modified : 28-03-2018, Jooshifa
+  // Desc          : 
+  logout() {
+    this.authToken = null;
+    this.company = null;
+    localStorage.clear();
+  }
+  // ---------------------------------------End--------------------------------------------
 }

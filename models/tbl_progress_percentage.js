@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   tbl_progress_percentage.associate = function(models) {
     // associations can be defined here
-    tbl_progress_percentage.hasMany(models.tbl_project_tasks, {
+    tbl_progress_percentage.hasMany(models.tbl_task_status_assoc, {
       foreignKey: 'progress_id',
     });
 

@@ -71,12 +71,8 @@ export class CompanyLoginComponent implements OnInit {
     this.spinner = true;
     newLogin.captcha = this.token
     // console.log(newLogin);
-
     this.companyService.authenticateCompany(this.newLogin).subscribe(data => {
-      // console.log(data);
-      // console.log("helo");
-      // console.log(data);
-      // console.log("here..........");
+      console.log(data);
       if (data.success) {
         this.spinner = false;
         if (data.login.status == "Expired") {
@@ -88,7 +84,6 @@ export class CompanyLoginComponent implements OnInit {
           this.routes.navigate(['/expired']);
         }
         else {
-
           // console.log("esle");
           this.spinner = false;
           var json = data.login;
@@ -98,17 +93,15 @@ export class CompanyLoginComponent implements OnInit {
           if (this.captcha) {
             this.captcha.reset();
           }
-          if (data.login.role_id == 3 || data.login.role_id == 4) {
+          if (data.login.role_id == 4) {
             this.routes.navigate(['/user-dashboard']);
           }
           else {
             this.routes.navigate(['/company-dashboard']);
           }
-
         }
       }
       else if (data.profile_complete == false) {
-
         // console.log("profile");
         this.routes.navigate(['/compay-aditninfo/' + data.cmp_id]);
         // var json = data.login;
@@ -117,7 +110,6 @@ export class CompanyLoginComponent implements OnInit {
         this.companyService.storeUserData(data.token, data.login);
       }
       else {
-
         this.spinner = false;
         if (this.captcha) {
           this.captcha.reset();
@@ -128,7 +120,6 @@ export class CompanyLoginComponent implements OnInit {
             this.showCaptcha = true;
             // console.log(this.showCaptcha);
           }
-
         }
         this.msg = data.msg;
         let snackBarRef = this.snackBar.open(this.msg, '', {
@@ -137,10 +128,7 @@ export class CompanyLoginComponent implements OnInit {
         if (this.captcha) {
           this.captcha.reset();
         }
-
       }
-
-
     });
   }
 

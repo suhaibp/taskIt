@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   tbl_task_status.associate = function(models) {
     // associations can be defined here
-    tbl_task_status.hasMany(models.tbl_task_status, {
+    tbl_task_status.hasMany(models.tbl_task_status_assoc, {
       foreignKey: 'status_id',
     });
 

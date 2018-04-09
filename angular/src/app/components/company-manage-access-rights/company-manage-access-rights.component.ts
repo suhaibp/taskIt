@@ -2,6 +2,8 @@ import {Component, ViewChild, OnInit, ElementRef} from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { CompanyService } from './../../services/company.service';
 import {Router} from '@angular/router';
+import { Config } from './../../config/config';
+import * as socketIo from 'socket.io-client';
 // import async from 'async'; 
 declare var $:any;
 @Component({
@@ -10,7 +12,7 @@ declare var $:any;
   styleUrls: ['./company-manage-access-rights.component.css']
 })
 export class CompanyManageAccessRightsComponent implements OnInit {
-
+  private socket: any;
   displayedColumns = ['id','role',  'status'];
   dataSource: MatTableDataSource<any>;
   showErr = false;
@@ -22,11 +24,15 @@ export class CompanyManageAccessRightsComponent implements OnInit {
   userGroupId :any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private companyService: CompanyService,
+  constructor(private companyService: CompanyService,  private config: Config,
     private routes: Router,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar) { this.socket = socketIo(config.siteUrl); }
 
   ngOnInit() {
+    this.socket.on('expiredcompany', (data) => {
+      this.routes.navigate(['/expired']);
+        // this.refresh();
+     });
     this.getUserGroups();
   }
 

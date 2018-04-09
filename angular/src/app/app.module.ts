@@ -15,9 +15,12 @@ import { AdminTopbarComponent } from './components/admin-topbar/admin-topbar.com
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
 import { AdminCompanyComponent } from './components/admin-company/admin-company.component';
 import { CompanyService} from './services/company.service';
+import { UserService} from './services/user.service';
 import {Config} from './config/config';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DragulaModule} from '../../node_modules/ng2-dragula/ng2-dragula';
+import { ButtonsComponent } from "./components/buttons/buttons.component";
+import { CountDownTimerComponent } from './components/count-down-timer/count-down-timer.component';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -71,11 +74,10 @@ import { CompanyBarGraphComponent } from './components/company-bar-graph/company
 import { AdminService } from './services/admin.service';
 // import { CompanyService } from './services/company.service';
 import { SuperAdminService } from './services/super-admin.service';
+import { TimerService } from './services/timer.service';
 import { AdminDashboardPieComponent } from './components/admin-dashboard-pie/admin-dashboard-pie.component';
 import { AdminDashboardBarComponent } from './components/admin-dashboard-bar/admin-dashboard-bar.component';
 import { CompanySignupComponent } from './components/company-signup/company-signup.component'
-
-
 import { CompayAditninfoComponent } from './components/compay-aditninfo/compay-aditninfo.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
@@ -85,8 +87,11 @@ import { CompanyProjectPlanningComponent } from './components/company-project-pl
 
 import { CompanyManageTeamComponent } from './components/company-manage-team/company-manage-team.component';
 import { CompanyManageAccessRightsComponent } from './components/company-manage-access-rights/company-manage-access-rights.component';
-
-
+import { UserTaskManagementComponent } from './components/user-task-management/user-task-management.component';
+import { CompanyExpiredComponent } from './components/company-expired/company-expired.component';
+import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
+import { UserTopbarComponent } from './components/user-topbar/user-topbar.component';
+import { SimpleTimer } from 'ng2-simple-timer';
 const appRoutes: Routes = [
   {path: '', component: ReferenceComponentComponent },
   {path:'reference', component:ReferenceComponentComponent},
@@ -102,13 +107,14 @@ const appRoutes: Routes = [
   {path:'company-dashboard', component:CompanyDashboardComponent},
   {path:'company-signup', component:CompanySignupComponent},
   {path:'company-access-rights', component:CompanyManageAccessRightsComponent},
- 
   {path:'company-login', component:CompanyLoginComponent},
   {path:'compay-aditninfo/:id', component:CompayAditninfoComponent},
   {path:'company-team', component:CompanyManageTeamComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
   {path:'forgot-password', component:ForgotPasswordComponent},
   {path:'project-planning/:id', component:CompanyProjectPlanningComponent},
+  {path:'expired', component:CompanyExpiredComponent},
+  {path:'user-task-management', component:UserTaskManagementComponent},
   {path:'spinner', component:SpinnerComponent},//To check component
 ] 
 @NgModule({
@@ -145,9 +151,8 @@ const appRoutes: Routes = [
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-  ],
 
- 
+  ],
 })
 export class DemoMaterialModule {}
 @NgModule({
@@ -183,7 +188,13 @@ export class DemoMaterialModule {}
    CompanyStatusGraphComponent,
    CompanyBarGraphComponent,
     CompanyManageTeamComponent, 
-    CompanyManageAccessRightsComponent
+    CompanyManageAccessRightsComponent,
+    CompanyExpiredComponent,
+    UserTaskManagementComponent,
+    UserSidebarComponent,
+    UserTopbarComponent,
+    ButtonsComponent,
+    CountDownTimerComponent
   ],
   imports: [
     BrowserModule,
@@ -198,7 +209,7 @@ export class DemoMaterialModule {}
     NgbModule.forRoot()
   
   ],
-  providers: [Config,CompanyService,AdminService,SuperAdminService],
+  providers: [Config,CompanyService,AdminService,SuperAdminService,SimpleTimer,UserService,TimerService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

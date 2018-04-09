@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     planned_end_date: DataTypes.DATE,
     attachment: DataTypes.STRING,
     reason: DataTypes.TEXT,
-    request_status: DataTypes.STRING
+    request_status: DataTypes.STRING,
+    task_name : DataTypes.STRING
   }, {});
   tbl_new_task_request.associate = function (models) {
     // associations can be defined here

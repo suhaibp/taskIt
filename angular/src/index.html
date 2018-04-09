@@ -23,8 +23,13 @@
 <script type="text/javascript">
 
 
+$(".closepanel").on("click", function() {
+$(this).closest('.collapse').collapse('hide');
+});
 
-
+$(".closepane2").on("click", function() {
+$(this).closest('.collapse1').collapse('hide');
+});
 
   </script>
 </html>
