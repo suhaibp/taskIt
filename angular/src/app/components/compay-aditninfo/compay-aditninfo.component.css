@@ -330,3 +330,7 @@ select{
   color: #20ad6b;
   
 }
+.errMsg {
+  font-size: 13px;
+  color: #ff336a;
+}

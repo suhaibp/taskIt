@@ -25,18 +25,25 @@
        
          <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
               <a routerLink="/user-leave-request"><i class="fa fa-bed"></i> Leave Request</a></li>
-              
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
-             <a routerLink="/user-my-request"><i class="fa fa-file-text-o"></i> My Request</a></li>    
-             
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
-             <a routerLink="/user-projects"><i class="la la-clipboard"></i> Projects</a></li>  
 
+          <li class="dropdown"><a routerLink="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="">My Request</span></a>
+            
+              <ul class="dropdown-menu" role="menu" data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft">
+              
+                <li><a routerLink="/user-my-request">Time Extension Requests</a></li>
+                <li><a routerLink="/user-my-request-mytask">New Task Requests</a></li>
+              </ul>
+            
+          </li>      
+     
         <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
-          <a routerLink="/user-activity-log"><i class="fa fa-list-alt"></i> Activity Log</a></li>    
+             <a routerLink="/user-activity-log"><i class="fa fa-list-alt"></i> Activity Log</a></li>     
+       
     </ul>
  
  
 </div><!-- /.navbar-collapse -->
 
 </nav>
+
+ 

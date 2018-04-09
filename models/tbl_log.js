@@ -1,5 +1,4 @@
 'use strict';
-var Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   var tbl_log = sequelize.define('tbl_log', {
     action: DataTypes.TEXT

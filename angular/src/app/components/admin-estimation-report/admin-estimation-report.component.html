@@ -19,7 +19,7 @@
                 </div>
                   <div class="col-md-4" >
                       <mat-form-field>
-                          <mat-select placeholder="Projects" (change)="getSelectedProjects()" [(value)]="ProjectSelected">
+                          <mat-select placeholder="Projects" (change)="getSelectedProjects()" >
                               <mat-option [value]="All" >
                                   All
                               </mat-option>
@@ -35,12 +35,12 @@
                  
                   <div class="col-md-4" >
                       <mat-form-field>
-                          <mat-select placeholder="Category" (change)="getSelectedProjects()" [(value)]="ProjectSelected">
+                          <mat-select placeholder="Category" (change)="getSelectedProjects()">
                               <mat-option [value]="All" >
                                   All
                               </mat-option>
-                              <mat-option [value]="item.tbl_project.id" *ngFor="let item of projects">
-                                  {{item.tbl_project.project_name}}
+                              <mat-option [value]="item.id" *ngFor="let item of category">
+                                  {{item.category_name}}
                               </mat-option>
                            
                           </mat-select>

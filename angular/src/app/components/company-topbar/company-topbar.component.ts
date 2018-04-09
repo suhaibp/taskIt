@@ -1,9 +1,9 @@
-import {Component, ViewChild, OnInit, ElementRef} from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { CompanyService } from '../../services/company.service';
+import { Router } from '@angular/router';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { CompanyService } from './../../services/company.service';
-import {Router} from '@angular/router';
 import * as socketIo from 'socket.io-client';
-declare var $:any;
+declare var $: any;
 import { Config } from './../../config/config';
 
 @Component({
@@ -19,17 +19,21 @@ export class CompanyTopbarComponent implements OnInit {
   planProject: any;
   resubmitEstimation: any;
   entity: any;
+  userpendingdata: any;
+  adminnotifdata: any;
   upgradeBtnShow: Boolean = true;
-  assignHeadCount : number = 0;
-  approveEstimationCount : number = 0;
-  approveProjectCount : number = 0;
-  planProjectCount : number = 0;
-  resubmitEstimationCount : number = 0;
+  assignHeadCount: number = 0;
+  approveEstimationCount: number = 0;
+  approveProjectCount: number = 0;
+  planProjectCount: number = 0;
+  resubmitEstimationCount: number = 0;
+  userpendingdataCount: number = 0;
+  adminnotifdataCount: number = 0;
   // entity:any;
   notifications: any;
   showNotifications = false;
-  newTaskreq:any;
-  newTaskApp:any;
+  newTaskreq: any;
+  newTaskApp: any;
   newTaskreqCount = 0;
   newTaskreqBackCount = 0;
   timeExtensionCount = 0;
@@ -39,15 +43,12 @@ export class CompanyTopbarComponent implements OnInit {
     private companyService: CompanyService,
     private routes: Router,
     public snackBar: MatSnackBar,
-    private config: Config) { 
-      this.socket = socketIo(config.socketURL);
-
-    }
-
+    private config: Config, ) {
+    this.socket = socketIo(config.socketURL);
+  }
   ngOnInit() {
     this.getLoggedDetails();
     this.getNotifications();
-
     this.socket.on('newtaskrequest', (data) => {
       this.getNotifications();
     });
@@ -72,6 +73,20 @@ export class CompanyTopbarComponent implements OnInit {
     this.socket.on('reEstimateProject', (data) => {
       this.resubmitEstimationNotification();
     });
+    this.getAllemppendingleavesnotifi();
+    this.socket.on('Leaveaddeduser', (data) => {
+      this.getAllemppendingleavesnotifi();
+    });
+    this.socket.on('userstatuschange', (data) => {
+      this.getAllemppendingleavesnotifi();
+    });
+    this.getAllSendtoadminnotif();
+    this.socket.on('adminviewstatuschange', (data) => {
+      this.getAllSendtoadminnotif();
+    });
+    this.socket.on('sendtoadmin', (data) => {
+      this.getAllSendtoadminnotif();
+    });
   }
   assignHeadNotification() {
     // ---------------------------------Start-------------------------------------------
@@ -90,27 +105,11 @@ export class CompanyTopbarComponent implements OnInit {
     });
     // ---------------------------------End-------------------------------------------
   }
-
-  closeNotif(id) {
-    // ---------------------------------Start-------------------------------------------
-    // Function      : close notification
-    // Params        : project id
-    // Returns       : 
-    // Author        : Rinsha
-    // Date          : 12-03-2018
-    // Last Modified : 12-03-2018, Rinsha
-    // Desc          : close notification when pm sees the assign team head notification
-    this.companyService.closeNotif(id).subscribe(res => {
-      if (res.success == false) {
-        let snackBarRef = this.snackBar.open(res.msg, '', {
-          duration: 3000
-        });
-      }
-      this.assignHeadNotification();
-    });
-    // ---------------------------------End-------------------------------------------
+  logout() {
+    this.companyService.logout();
+    this.routes.navigate(['/home']);
+    return false;
   }
-
   approveEstimationNotification() {
     // ---------------------------------Start-------------------------------------------
     // Function      : get approveEstimationNotification
@@ -147,7 +146,7 @@ export class CompanyTopbarComponent implements OnInit {
     });
     // ---------------------------------End-------------------------------------------
   }
-  
+
   approveProjectNotification() {
     // ---------------------------------Start-------------------------------------------
     // Function      : get apprroveProjectNotification
@@ -244,30 +243,25 @@ export class CompanyTopbarComponent implements OnInit {
     });
     // ---------------------------------End-------------------------------------------
   }
-
-  refresh(){
-    this.count = 0;
-    this.count = this.assignHeadCount + this.approveEstimationCount + this.approveProjectCount + this.planProjectCount + this.resubmitEstimationCount;
-  }
   // ---------------------------------Start-------------------------------------------
-    // Function      : Get logged in entity
-    // Params        : 
-    // Returns       : Get logged in entity
-    // Author        : Rinsha
-    // Date          : 08-03-2018
-    // Last Modified : 08-03-2018, Rinsha
-    // Desc          :  
-    getLoggedDetails(){
+  // Function      : Get logged in entity
+  // Params        : 
+  // Returns       : Get logged in entity
+  // Author        : Rinsha
+  // Date          : 08-03-2018
+  // Last Modified : 08-03-2018, Rinsha
+  // Desc          :  
+  getLoggedDetails() {
 
-        this.companyService.getLoggedinEntity().subscribe(data => {
-            this.entity = data;
-            if (this.entity.role_id == 3) {
-              this.upgradeBtnShow = false;
-            }
-          });
-    }
-    
-    // -----------------------------------End------------------------------------------
+    this.companyService.getLoggedinEntity().subscribe(data => {
+      this.entity = data;
+      if (this.entity.role_id == 3) {
+        this.upgradeBtnShow = false;
+      }
+    });
+  }
+
+  // -----------------------------------End------------------------------------------
 
   //  ---------------------------------Start-------------------------------------------
   // Function      : getTeams
@@ -278,33 +272,118 @@ export class CompanyTopbarComponent implements OnInit {
   // Last Modified : 15-03-2018, Manu Prasad 
   // Desc          : Get Teams from database
 
-  getNotifications(){
-    this.companyService.getNotifications().subscribe(resNotifications =>{
+  getNotifications() {
+    this.companyService.getNotifications().subscribe(resNotifications => {
       // this.accessRights = accessRights;
       // console.log(resNotifications)
       this.notifications = resNotifications;
-      if(resNotifications.back.length > 0){
+      if (resNotifications.back.length > 0) {
         this.newTaskreqBackCount = resNotifications.back.length
         this.newTaskApp = resNotifications.back
         this.dispStatus = true;
-      }else{
+      } else {
         this.newTaskApp = [];
       }
-      if(resNotifications.req.length > 0){
+      if (resNotifications.req.length > 0) {
         this.newTaskreqCount = resNotifications.req.length
         this.newTaskreq = resNotifications.req
         this.dispStatus = true;
-        
-      }else{
+
+      } else {
         this.newTaskreq = [];
       }
       this.showNotifications = true;
       this.refresh();
     });
-  
-    }
-  //  ---------------------------------end-----------------------------------------------
 
+  }
+  //  ---------------------------------end-----------------------------------------------
+  getAllemppendingleavesnotifi() {
+    // ---------------------------------Start-------------------------------------------
+    // Function      :  getAllemppendingleavesnotifi
+    // Params        : 
+    // Returns       : notification data
+    // Author        : sudha
+    // Date          : 29-03-2018
+    // Last Modified : 
+    // Desc          : check user leave request
+    this.companyService.getAllemppendingleavesnotifi().subscribe(res => {
+      console.log(res)
+      this.userpendingdata = res;
+      this.userpendingdataCount = 0;
+      this.userpendingdataCount = this.userpendingdata.length;
+      // console.log( this.userpendingdata);
+      this.refresh();
+    });
+    // ---------------------------------End-------------------------------------------
+  }
+
+  closeNotif5(notif_id) {
+    console.log(notif_id);
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification of estimation approval
+    // Params        : notification id
+    // Returns       : 
+    // Author        : sudha
+    // Date          : 29-03-2018
+    // Last Modified : 
+    // Desc          : close notification user leave request
+    this.companyService.closeNotif5(notif_id).subscribe(res => {
+      if (res.success == false) {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+      }
+      this.getAllemppendingleavesnotifi();
+    });
+    // ---------------------------------End-------------------------------------------
+  }
+  getAllSendtoadminnotif() {
+    // ---------------------------------Start-------------------------------------------
+    // Function      :  getAllSendtoadminnotif
+    // Params        : 
+    // Returns       : notification data
+    // Author        : sudha
+    // Date          : 06-03-2018
+    // Last Modified : 
+    // Desc          : admin approval for time extension
+    this.companyService.getAllSendtoadminnotif().subscribe(res => {
+      console.log(res);
+      this.adminnotifdata = res;
+      this.adminnotifdataCount = 0;
+      this.adminnotifdataCount = this.adminnotifdata.length;
+      // console.log( this.adminnotifdata);
+      this.refresh();
+    });
+    // ---------------------------------End-------------------------------------------
+  }
+
+  closeNotif6(notif_id) {
+    console.log(notif_id);
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification of estimation approval
+    // Params        : notification id
+    // Returns       : 
+    // Author        : sudha
+    // Date          : 29-03-2018
+    // Last Modified : 
+    // Desc          : close notification user leave request
+    this.companyService.closeNotif6(notif_id).subscribe(res => {
+      if (res.success == false) {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+      }
+      this.getAllSendtoadminnotif();
+    });
+    // ---------------------------------End-------------------------------------------
+  }
+
+  refresh() {
+    this.count = 0;
+    this.count = this.assignHeadCount + this.approveEstimationCount + this.approveProjectCount + this.planProjectCount + this.resubmitEstimationCount + this.newTaskreqBackCount + this.newTaskreqCount
+      + this.userpendingdataCount + this.adminnotifdataCount;
+  }
 
 
 

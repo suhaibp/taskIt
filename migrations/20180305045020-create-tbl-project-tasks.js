@@ -70,14 +70,14 @@ module.exports = {
           as: 'complexity_id',
         },
       },
-      progress_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'tbl_progress_percentages',
-          key: 'id',
-          as: 'progress_id',
-        },
-      },
+      // progress_id: {
+      //   type: Sequelize.INTEGER,
+      //   references: {
+      //     model: 'tbl_progress_percentages',
+      //     key: 'id',
+      //     as: 'progress_id',
+      //   },
+      // },
       project_team_id: {
         type: Sequelize.INTEGER,
         references: {

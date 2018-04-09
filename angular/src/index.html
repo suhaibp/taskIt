@@ -34,6 +34,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <script src="wow.js"></script> -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
   <link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
@@ -42,6 +44,19 @@
 <body>
   <app-root></app-root>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/classie/1.0.1/classie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 <!-- <script src="js/bootstrap.min.js"></script> -->
+<script type="text/javascript">
+$(".closepanel").on("click", function() {
+$(this).closest('.collapse').collapse('hide');
+});
+
+$(".closepane2").on("click", function() {
+$(this).closest('.collapse1').collapse('hide');
+});
+</script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
 </html>

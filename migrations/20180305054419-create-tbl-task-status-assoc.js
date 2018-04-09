@@ -37,7 +37,23 @@ module.exports = {
           key: 'id',
           as: 'status_id',
         },
-      }
+      },
+      progress_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'tbl_progress_percentages',
+          key: 'id',
+          as: 'progress_id',
+        },
+      },
+      task_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'tbl_project_tasks',
+          key: 'id',
+          as: 'task_id',
+        },
+      },
     });
   },
   down: (queryInterface, Sequelize) => {

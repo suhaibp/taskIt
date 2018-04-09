@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit, ElementRef} from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { AdminService } from './../../services/admin.service';
+import { CompanyService } from './../../services/company.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 
@@ -13,29 +14,25 @@ export class AdminEstimationReportComponent implements OnInit {
 
   displayedColumns = ['slno', 'project_name', 'project_code', 'date', 'ttl_hr','team_head','team_memb'];
   dataSource: MatTableDataSource<any>;
-  // notExist = false;
-  // id: any;
-  // planId: any;
-  // numofsurvey: any;
-  // numofqtn: any;
-  // numofsurveyattn: any;
-  // disablePrice: boolean = false;
-  // showSpinner: boolean = false;
-  // showSpinnerDelete: boolean = false;
-  // reachMaxPlan : boolean = false;
   projects = [];
+  category = [];
 
   @ViewChild('closeBtn') closeBtn: ElementRef;
   @ViewChild('closeBtn1') closeBtn1: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   selected: any;
-  constructor(private adminService: AdminService, private routes: Router, public snackBar: MatSnackBar) { }
+  constructor(
+    private adminService: AdminService,
+    private companyService: CompanyService,
+     private routes: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getPlan();
-    // this.adminService.getAllEstimatedProject().subscribe(data => {
-    // });
+    this.companyService.getAllprojectcategory().subscribe(data => {
+      this.category = data;
+      console.log(data);
+    });
   }
 
   getPlan() {
