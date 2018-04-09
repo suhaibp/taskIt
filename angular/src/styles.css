@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 /*Main CSS*/
+
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';  
 
 /*@import '@angular/material/prebuilt-themes/indigo-pink.css';  */
@@ -559,7 +562,7 @@ header {
     opacity: 1;
     text-shadow: none;
 }
-.modal-body input {
+/* .modal-body input {
     border: 1px solid #d4d9e3;
     font-size: 14px;
     font-weight: 300;
@@ -567,7 +570,7 @@ header {
     padding: 14px 10px;
     width: 100%;
     color: #8492af;
-}
+} */
 .modal-body textarea {
     border: 1px solid #d4d9e3;
     font-size: 14px;
@@ -609,7 +612,7 @@ header {
     
 }
 .modal{
-    top: 20%; 
+    /* top: 20%;  */
 }
 
 .modal-header .close {
@@ -675,6 +678,7 @@ label{color:#4a4a4a;font-size:15px;}
 .navi i {
     font-size: 25px;
 }
+.optionz .mat-select-panel{margin-top:39px;}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{background:none;}
 @media (min-width: 768px){
 .navbar-toggle {
@@ -940,6 +944,16 @@ margin-bottom: 4px;
     padding: 29px 0px;
 }
 
+.fa-exclamation{    text-align: center;
+    font-size: 36px;
+    color: #d9534f;
+    border-radius: 50%;
+    border: 3px solid;
+    margin-top: 23px;}
+.delete-popup{text-align:center;}
+.cdk-overlay-container {
+    z-index: 1052 !important;
+}
 .ad-tp{
     margin-top: 86px;
 }
@@ -1470,5 +1484,111 @@ form{text-align:center;}
 .padd-15{
     padding-top: 15px !important;
 }
+
+
+
+.white {
+    background: #ffffff none repeat scroll 0 0;
+    display: inline-block;
+    padding: 33px 25px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.style {
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+.ovrflw-hdn{
+    overflow: hidden;
+}
+
+fieldset{
+    border: none !important;
+}
+.bg-trans{
+    background-color: transparent !important;
+}
+.bg-trans:hover{
+    color:#fe6b07 !important;
+}
+.delete-popup .fa-exclamation{
+    text-align: center;
+    font-size: 36px !important;
+    color: #d9534f;
+    border-radius: 50%;
+    border: 3px solid;
+    margin-top: 23px;
+    width: 60px;
+    height: 60px;
+    padding-top: 10px;
+}
+.white-imp{
+    background-color: #fff !important;
+}
+
+button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+}
+.close, .close:focus, .close:hover {
+    color: #fff;
+    opacity: 1;
+    text-shadow: none;
+}
+
+
+.plus-btn {
+    float: right;
+    margin-right: 50px;
+    margin-top: 50px;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 28px;
+    line-height: 42px;
+    box-shadow: 4px 7px 31px #ffbb8e;
+    background: #fe6a07 none repeat scroll 0 0;
+    border-radius: 100px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: normal;
+    position: relative;
+}
+.padd-btm-20{
+    padding: 0px 0 20px 0;
+}
+fieldset{border:none;}
+ul.breadcrumb {
+    padding: 10px 0;
+    list-style: none;
+
+    text-align: left;
+    color: #d68956;
+}
+ul.breadcrumb li {
+    display: inline;
+    font-size: 15px;
+}
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+ul.breadcrumb li a {
+    color: #bbbbbb;
+    text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+    color: #d68956;
+    text-decoration: none;
+
+}
+.breadcrumb{      margin: 9px 15px 9px 15px;;  background-color: #f6f7fa;}
 fieldset{border:none;}
 h3{padding: 0;}

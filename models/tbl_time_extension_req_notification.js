@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   tbl_time_extension_req_notification.associate = function(models) {
     // associations can be defined here
     tbl_time_extension_req_notification.belongsTo(models.tbl_time_extension_request, {
-      foreignKey: 'request_id',
+      foreignKey: 'request_id',as:'xt'
       });
 
   };

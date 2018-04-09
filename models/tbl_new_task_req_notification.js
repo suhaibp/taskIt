@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     is_pm_viewed: DataTypes.BOOLEAN,
     is_admin_viewed: DataTypes.BOOLEAN,
     is_user_viewed: DataTypes.BOOLEAN
+   
   }, {});
   tbl_new_task_req_notification.associate = function(models) {
     // associations can be defined here
@@ -13,3 +14,4 @@ module.exports = (sequelize, DataTypes) => {
   };
   return tbl_new_task_req_notification;
 };
+

@@ -1,0 +1,83 @@
+<div>
+    <h1>Task Vs Status</h1>
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="col-md-8 col-md-offset-2">
+          <div class="col-md-6 bg-g">*Select Project</div>
+          <div class="col-md-6 bg-hash">
+            <select>
+              <option *ngFor="let prj of projects" value="{{prj.id}}">{{prj.project_name}}</option>
+            </select>
+          </div> 
+          <br>
+          <br>
+          <!-- <div class="col-md-6 bg-g">*Select Person</div>
+          <div class="col-md-6 bg-hash">
+            <select>
+                <option *ngFor="let usr of users" value="{{usr.id}}">{{usr.f_name}} {{usr.l_name}}</option>
+            </select>
+          </div>  -->
+          <div class="clearfix"></div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="tasklabel">
+              START DATE
+              <br>
+              12/10/2017
+            </div>
+            </div>
+    
+            <div class="col-md-6">
+                <div class="tasklabel">
+                 END DATE
+                <br>
+                12/10/2017
+               </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="tasklabel">
+              NO OF TASKS
+              <br>
+              10
+            </div>
+            </div>
+    
+            <div class="col-md-6">
+                <div class="tasklabel">
+               TASK COMPLETED
+                <br>
+                10
+               </div>
+              </div>
+          </div>
+          <!-- <div class="row">
+            <div class="col-md-6">
+              <div class="tasklabel">
+              DUE THIS MONTH
+              <br>
+              10
+            </div>
+            </div>
+    
+            <div class="col-md-6">
+                <div class="tasklabel">
+                DUE THIS YEAR
+                <br>
+                10
+               </div>
+              </div>
+          </div> -->
+        </div>
+        </div>
+    
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="widget">
+               
+                <div id="taskstatus" class="chart-container">
+            
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,3 +1,4 @@
+async = require("async");
 var models = require('../models');
 var express = require('express');
 var router = express.Router();
@@ -26,7 +27,6 @@ var Estimation_team_members = models.tbl_project_estimation_team_members;
 var Estimation_modules = models.tbl_estimation_module;
 var Estimation_tasks = models.tbl_estimation_task;
 var Designation = models.tbl_designation;
-var Team_assoc = models.tbl_team_assoc;
 var Team = models.tbl_team;
 var Experience = models.tbl_prev_exp;
 var TimeExtensionRequestNotification = models.tbl_time_extension_req_notification;
@@ -34,8 +34,1559 @@ var NewTaskRequestNotification = models.tbl_new_task_req_notification;
 var NewTaskRequest = models.tbl_new_task_request;
 var TimeExtensionRequest = models.tbl_time_extension_request;
 var ProjectTask = models.tbl_project_tasks;
+var Projects = models.tbl_project;
+var Industries = models.tbl_industry;
+var CompanySize = models.tbl_company_size;
+var Teams = models.tbl_team;
+var TeamAssoc = models.tbl_team_assoc;
+var Plan = models.tbl_plan;
+var AccessRights = models.tbl_access_rights;
+var AccessRightsAssoc = models.tbl_access_rights_assoc;
+var AccessRightsMain = models.tbl_main_access_right;
+var Emp_leave = models.tbl_emp_leave;
+var Public_holiday = models.tbl_public_holiday;
+var cmp_work_time_assocs = models.tbl_cmp_work_time_assoc;
+var cmp_work_times = models.tbl_cmp_work_time;
+var cmp_off_day_assoc = models.tbl_cmp_off_day_assoc;
+var cmp_break = models.tbl_cmp_break;
+var cmp_break_assoc = models.tbl_cmp_break_assoc;
+var new_task_requests = models.tbl_new_task_request;
+var new_task_req_notifications = models.tbl_new_task_req_notification;
+var time_extension_request = models.tbl_time_extension_request;
+var time_extension_req_notification = models.tbl_time_extension_req_notification;
+var Projects_member_assoc = models.tbl_project_member_assoc;
+var ip = require("ip");
+const emailTemplate = require('../template/verification_email');
+var generator = require('generate-password');
+const request = require('request');
+var Estimation_team = models.tbl_project_estimation_team;
+var Complexity_percentage = models.tbl_complexity_percentage;
+var Project_modules = models.tbl_project_modules;
+var Project_Module = models.tbl_project_modules;
+var Project_tasks = models.tbl_project_tasks;
+var task_status_assoc = models.tbl_task_status_assoc;
+var task_statuses = models.tbl_task_status;
+var progress_percentage = models.tbl_progress_percentage
+var Break = models.tbl_cmp_break;
+var BreakAssoc = models.tbl_cmp_break_assoc;
+var Holiday = models.tbl_public_holiday;
+var TimeExtentionNotification = models.tbl_time_extension_req_notification;
+var NewTaskNotification = models.tbl_new_task_req_notification;
+var NewTaskreq = models.tbl_new_task_request;
+var TimeExtentionReq = models.tbl_time_extension_request;
+var ProjectMemeberAssoc = models.tbl_project_member_assoc;
+var Modules = models.tbl_project_modules;
+var Tasks = models.tbl_project_tasks;
+var ProjectTeam = models.tbl_project_team;
+var ProjectTeamAssoc = models.tbl_team_assoc;
+var ProjectMemberAssoc = models.tbl_project_member_assoc;
+var moment = require('moment');
+moment().format();
+var dateFormat = require('dateformat');
+var momentDurationFormatSetup = require("moment-duration-format");
+const datesBetween = require('dates-between');
+var Log = models.tbl_log;
+var Employeeleave = models.tbl_emp_leave;
+var cmp_off_day = models.tbl_cmp_off_day_assoc;
+var cmp_work_time = models.tbl_cmp_work_time;
+var User = models.tbl_user_profile;
+var Time_extension = models.tbl_time_extension_request;
+var New_task = models.tbl_new_task_request;
+'use strict';
 
 var returnRouter = function (io) {
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /get-my-tasks
+    // Params        : task, projects,modules
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc          : 
+    // if (req.headers && req.headers.authorization) {
+    //     var authorization = req.headers.authorization.substring(4), decoded;
+    //     decoded = jwt.verify(authorization, Config.secret);
+    // loginid = decoded.id
+    router.get('/get-my-tasks', function (req, res) {
+        array = [];
+        array2 = [];
+        loginid = 132;
+        User_profile.findOne({
+            where: {
+                login_id: loginid
+            }
+        }).then(userProfile => {
+            Project_modules.findAll({
+                include: [
+                    {
+                        model: Projects,
+                        // where: { project_id: req.params.id },
+                    },
+                    {
+                        model: Project_tasks,
+                        where: { assigned_to_id: userProfile.id },
+                        include: [
+                            {
+                                model: Complexity_percentage,
+                            },
+                            {
+                                model: task_status_assoc,
+                                include: [
+                                    {
+                                        model: task_statuses,
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }).then(myTasks => {
+                res.send(myTasks);
+            });
+        });
+    });
+    // else {
+    //     return res.status(401).send('Invalid User');
+    // }
+    // ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /get-all-task-in-module
+    // Params        : task, projects,modules
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc          : 
+    // if (req.headers && req.headers.authorization) {
+    //     var authorization = req.headers.authorization.substring(4), decoded;
+    //     decoded = jwt.verify(authorization, Config.secret);
+    // loginid = decoded.id
+    router.get('/get-all-task-in-module', function (req, res) {
+        array = [];
+        array2 = [];
+        loginid = 132;
+        User_profile.findOne({
+            where: {
+                login_id: loginid
+            }
+        }).then(userProfile => {
+            Project_tasks.findAll({
+                where: {
+                    assigned_to_id: userProfile.id
+                },
+            }).then(Project_tasks => {
+                res.send(Project_tasks);
+            });
+        });
+        // else {
+        //     return res.status(401).send('Invalid User');
+        // }
+    });
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /get-progress-percentage
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc  
+    router.get('/get-progress-percentage', function (req, res) {
+        progress_percentage.findAll({
+        }).then(progress_percentage => {
+            res.send(progress_percentage);
+        });
+    });
+    // ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /get-task-time
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc  
+    router.get('/get-task-time', function (req, res) {
+        progress_percentage.findAll({
+        }).then(progress_percentage => {
+            res.send(progress_percentage);
+        });
+    });
+    // ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /start-a-task
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc         
+    router.post('/start-a-task/:id', function (req, res) {
+        const startTask = task_status_assoc.build({
+            date_time: Date.now(),
+            task_id: req.params.id,
+            status_id: 3,
+        });
+        startTask.save().then(function (ResstartTask) {
+            res.send({ success: true, msg: 'start suucessfully' });
+        });
+    });
+    // ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /done-a-task
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc         
+    router.post('/done-a-task/:id', function (req, res) {
+        const DoneTask = task_status_assoc.build({
+            date_time: Date.now(),
+            task_id: req.params.id,
+            status_id: 5,
+            progress_id: 20
+        });
+        DoneTask.save().then(function (DoneTask1) {
+            res.send({ success: true, msg: 'done successfully' });
+        });
+    });
+    // ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /pause-a-task
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc         
+    router.post('/pause-a-task', function (req, res) {
+        console.log(req.body);
+        const pauseTask = task_status_assoc.build({
+            date_time: Date.now(),
+            task_id: req.body.id,
+            status_id: 2,
+            reason: req.body.reason
+        });
+        pauseTask.save().then(function (pauseTask1) {
+            res.send({ success: true, msg: 'puased successfully' });
+        });
+    });
+    // ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /complete-a-task
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc         
+    router.post('/complete-a-task', function (req, res) {
+        // console.log(req.body);
+        const completeTask = task_status_assoc.build({
+            date_time: Date.now(),
+            task_id: req.body.id,
+            status_id: 3,
+            progress_id: req.body.percentage
+        });
+        completeTask.save().then(function (completeTask1) {
+            res.send({ success: true, msg: 'complete successfully' });
+        });
+    });
+    // ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /hold-a-task
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc         
+    router.post('/hold-a-task', function (req, res) {
+        const holdaTask = task_status_assoc.build({
+            date_time: Date.now(),
+            task_id: req.body.id,
+            status_id: 4,
+            progress_id: req.body.percentage,
+            reason: req.body.reason
+        });
+        holdaTask.save().then(function (holdaTask1) {
+            res.send({ success: true, msg: 'Hold successfully' });
+        });
+    });
+    // ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /get-user-Profile
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc         
+    router.get('/get-user-Profile', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //     var authorization = req.headers.authorization.substring(4), decoded;
+        //     decoded = jwt.verify(authorization, Config.secret);
+        // loginid = decoded.id
+        loginid = 23;
+        User_profile.findAll({
+            where: { login_id: loginid },
+            include: [
+                {
+                    model: Team_assoc,
+                },
+            ]
+        }).then(userProfile => {
+            res.send(userProfile);
+        });
+        // else {
+        //     return res.status(401).send('Invalid User');
+        // }
+    });
+    // ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : new-task-request
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 30-03-2018
+    // Last Modified : 30-03-2018, Jooshifa
+    // Desc          : 
+    router.post('/new-task-request', function (req, res) {
+        // console.log("hreeee");
+        var startDate = new Date(req.body.start_date);
+        var endDate = new Date(req.body.end_date);
+        start_time = req.body.start_time;
+        end_time = req.body.end_time;
+        startDate.setHours(start_time.hour, start_time.minute, start_time.second);
+        endDate.setHours(end_time.hour, end_time.minute, end_time.second);
+        if (req.body.task_name == '' || req.body.planned_hour == 0 || req.body.assigned_person == '' || req.body.priority == '' || req.body.start_date == '' || req.body.start_time == '' || req.body.end_date == '' || req.body.end_time == '') {
+            res.send({ success: false, msg: 'Please fill all required fields' });
+            console.log("firs");
+        }
+        if (startDate >= endDate) {
+            res.send({ success: false, msg: 'End datetime should be greater than start date time' });
+        }
+        else {
+            if (req.body.docSrc) {
+                timestamp = new Date().getTime().toString();
+                docName = req.body.id + timestamp + Math.floor(100000 + Math.random() * 900000);
+                // console.log(req.body.docSrc);
+                var base64 = decodeBase64Image(req.body.docSrc);
+                // console.log(base64);
+                require("fs").writeFile('../taskit/public/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
+                    // console.log(err);
+                });
+                require("fs").writeFile('../taskit/angular/src/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
+                    // console.log(err);
+                });
+            }
+            const newtaskReq = new_task_requests.build({
+                planned_hours: req.body.planned_hour,
+                buffer_hours: req.body.buffer_hour,
+                description: req.body.description,
+                priority: req.body.priority,
+                planned_start_date: req.body.start_date,
+                planned_end_date: req.body.end_date,
+                request_status: "Pending",
+                project_module_id: req.body.module_id,
+                assigned_to_id: req.body.assigned_id,
+                complexity_id: req.body.complexity,
+                team_id: req.body.team,
+                task_name: req.body.task_name
+            });
+            newtaskReq.save().then(function (newRequest) {
+                const newTaskNotif = new_task_req_notifications.build({
+                    is_pm_viewed: false,
+                    is_admin_viewed: false,
+                    is_user_viewed: false,
+                    new_task_id: newRequest.id
+                });
+                newTaskNotif.save().then(function (newRequestNotification) {
+                    io.sockets.emit("newtaskrequest", {
+                        expiredSocketId: newRequestNotification.id
+                    });
+                    res.send({ success: true, msg: "Request Send successfully" });
+                });
+            });
+        }
+    });
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : time-extention-request
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 30-03-2018
+    // Last Modified : 30-03-2018, Jooshifa
+    // Desc          : 
+    router.post('/time-extention-request', function (req, res) {
+        // console.log("hreeee");
+        if (req.body.timerequired == '') {
+            res.send({ success: false, msg: 'Please fill the required time' });
+            console.log("firs");
+        }
+        else {
+            var time_extension_request = models.tbl_time_extension_request;
+            var time_extension_req_notification = models.tbl_time_extension_req_notification;
+            const timeExtention = time_extension_request.build({
+                additional_hours: req.body.timerequired,
+                req_status: "Pending",
+                task_id: req.body.id
+            });
+            timeExtention.save().then(function (newRequest) {
+                const TimeExtNotif = time_extension_req_notification.build({
+                    is_pm_viewed: false,
+                    is_admin_viewed: false,
+                    is_user_viewed: false,
+                    request_id: newRequest.id
+                });
+                TimeExtNotif.save().then(function (newRequestNotification) {
+                    io.sockets.emit("timeextention", {
+                        expiredSocketId: newRequestNotification.id
+                    });
+                    res.send({ success: true, msg: "Request Send successfully" });
+                });
+            });
+        }
+    });
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getMembers
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get list of teams and stregth
+    router.get('/getUserProjects', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //   var authorization = req.headers.authorization.substring(4), decoded;
+        //   //     try {
+        //   decoded = jwt.verify(authorization, config.secret);
+        //   var cmp_id = decoded._id;
+        var cmp_id = 1;
+        // res.json(req.body);
+        var user_id = 74;
+        Users.findAll({
+            include: [{
+                model: ProjectMemeberAssoc,
+                where: {
+                    user_profile_id: user_id
+                },
+                include: [{
+                    model: Projects,
+                    where: {
+                        cmp_id: cmp_id
+                    }
+                }]
+            }],
+        }).then(resProjects => {
+            res.json(resProjects);
+        }).catch(err => {
+            res.json({
+                status: 0,
+                message: "Error occured! Try again!"
+            })
+        })
+        // }
+    })
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getMembers
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get list of teams and stregth
+    router.get('/getUserProjectsDetails/:id', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //   var authorization = req.headers.authorization.substring(4), decoded;
+        //   //     try {
+        //   decoded = jwt.verify(authorization, config.secret);
+        //   var cmp_id = decoded._id;
+        var cmp_id = 1;
+        // res.json(req.body);
+        var user_id = 74;
+        Projects.findAll({
+            where: {
+                id: req.params.id,
+                cmp_id: cmp_id
+            },
+
+            include: [{
+                model: ProjectMemeberAssoc,
+                include: [{
+                    model: Users
+                }, {
+                    model: ProjectTeam
+                }]
+            }, {
+                model: Modules,
+
+                include: [{
+                    model: Tasks,
+
+                }]
+            }],
+
+        }).then(resProjects => {
+            if (resProjects.length <= 0) {
+                res.json({
+                    status: 0,
+                    message: "Project not found!"
+                })
+            } else {
+                res.json(resProjects);
+            }
+        }).catch(err => {
+            res.json({
+                status: 0,
+                message: "Error occured! Try again!"
+            })
+        })
+        // }
+    })
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getMembers
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get list of teams and stregth
+    router.post('/getSelectedProjects', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //   var authorization = req.headers.authorization.substring(4), decoded;
+        //   //     try {
+        //   decoded = jwt.verify(authorization, config.secret);
+        //   var cmp_id = decoded._id;
+        var cmp_id = 1;
+        // res.json(req.body);
+        var user_id = 74;
+        var proId = req.body.id
+        Users.findAll({
+            include: [{
+                model: ProjectMemeberAssoc,
+                where: {
+                    user_profile_id: user_id
+                },
+                include: [{
+                    model: Projects,
+                    where: {
+                        cmp_id: cmp_id,
+                        id: proId
+                    }
+                }]
+            }],
+        }).then(resProjects => {
+            if (resProjects.length <= 0) {
+                res.json({
+                    status: 0,
+                    message: "Project not found!"
+                })
+            } else {
+                res.json(resProjects);
+            }
+        }).catch(err => {
+            res.json({
+                status: 0,
+                message: "Error occured! Try again!"
+            })
+        })
+        // }
+    })
+    //  ---------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getMembers
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get list of teams and stregth
+    router.post('/getNotifications', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //   var authorization = req.headers.authorization.substring(4), decoded;
+        //   //     try {
+        //   decoded = jwt.verify(authorization, config.secret);
+        //   var cmp_id = decoded._id;
+        var cmp_id = 1;
+        // res.json(req.body);
+        var user_id = 74;
+        var role = req.body.id
+        Users.findAll({
+            include: [{
+                model: ProjectMemeberAssoc,
+                where: {
+                    user_profile_id: user_id
+                },
+                include: [{
+                    model: Projects,
+                    where: {
+                        cmp_id: cmp_id,
+                        id: proId
+                    }
+                }]
+            }],
+        }).then(resProjects => {
+            if (resProjects.length <= 0) {
+                res.json({
+                    status: 0,
+                    message: "Project not found!"
+                })
+            } else {
+                res.json(resProjects);
+            }
+        }).catch(err => {
+            res.json({
+                status: 0,
+                message: "Error occured! Try again!"
+            })
+        })
+        // }
+    })
+    //  ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      :singleuserlog
+    // Params        :
+    // Returns       :
+    // Author        : sudha
+    // Date          : 16-03-2018
+    // Last Modified :
+    // Desc          : user all activity log list
+    router.get('/singleuserlog', function (req, res) {
+        var login_id = 35;
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        User.findOne({
+            attributes: ['id'],
+            where: { login_id: login_id },
+        }).then(userlog => {
+            var user_id = userlog.id;
+            Log.findAll({
+                order: [['id', 'DESC']],
+                where: { user_profile_id: user_id },
+            }).then(userlog => {
+                res.json(userlog);
+            });
+        });
+    });
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : datefilterforlog
+    // Params        : data
+    // Returns       :
+    // Author        : sudha
+    // Date          : 16-01-2018
+    // Last Modified :
+    // Desc          :date filter for log
+    router.post('/datefilterforlog', (req, res, next) => {
+        console.log(req.body);
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        Log.findAll({
+            order: [['id', 'DESC']],
+            where: {
+                createdAt: {
+                    $between: [req.body.startDate, req.body.endDate]
+                }
+            },
+        }).then(userlog => {
+            console.log(userlog);
+            res.json(userlog);
+        });
+    });
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      :singleuserallleave
+    // Params        :
+    // Returns       :
+    // Author        : sudha
+    // Date          : 19-03-2018
+    // Last Modified :
+    // Desc          : single user all leave request
+    router.get('/singleuserallleave', function (req, res) {
+        var login_id = 39;
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        User.findOne({
+            attributes: ['id'],
+            where: { login_id: login_id },
+        }).then(userlog => {
+            var user_id = userlog.id;
+            Employeeleave.findAll({
+                order: [['id', 'DESC']],
+                where: { user_profile_id: user_id, delete_status: false },
+            }).then(userleave => {
+                res.json(userleave);
+            });
+        });
+    });
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : deleteuserleave
+    // Params        : id
+    // Returns       :
+    // Author        : sudha
+    // Date          : 28-03-2018
+    // Last Modified :
+    // Desc          : deleteuserleave
+    router.put('/deleteuserleave/:id', function (req, res) {
+        // console.log("id del"+req.params.id);
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        Employeeleave.update({
+            delete_status: true
+        }, {
+                where: {
+                    id: req.params.id
+                }
+            }).then(user => {
+                if (!user) {
+                    return res.json({ success: false, msg: 'Faild to delete  leave' });
+                } else {
+                    io.sockets.emit("deleteLeaveuser", {
+                        //user_id : req.params.id
+                    });
+                    return res.json({ success: true, msg: 'Delete  leave Successfully' });
+                }
+            });
+    });
+    // ----------------------------------End-----------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : adduserleave
+    // Params        : data
+    // Returns       :
+    // Author        : sudha
+    // Date          : 15-03-2018
+    // Last Modified : 28-03-2018
+    // Desc          : adduserleave
+    router.post('/adduserleave', (req, res, next) => {
+        console.log(req.body);
+        var login_id = 39;
+        // var cmp_id = 1;
+        var isErr = false;
+        errMsg = '';
+        var moment = require('moment');
+        var time = moment();
+        var time_format = time.format('YYYY-MM-DD');
+        console.log(time_format);
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        if (!isErr && req.body.startdate == '' || req.body.startdate == null) {
+            errMsg = "* Failed, Please Select Start Date!";
+            isErr = true;
+        }
+        if (!isErr && time_format >= req.body.startdate) {
+            errMsg = "* Failed, Wrong date selection!";
+            isErr = true;
+        }
+        if (!isErr && req.body.enddate == '' || req.body.enddate == null) {
+            errMsg = "* Failed, Please Select End Date!";
+            isErr = true;
+        }
+        if (!isErr && time_format >= req.body.enddate) {
+            errMsg = "* Failed, Wrong date selection!";
+            isErr = true;
+        }
+        if (!isErr && req.body.enddate < req.body.startdate) {
+            errMsg = "* Failed, Please Select  date Correctly!";
+            isErr = true;
+        }
+        if (!isErr && req.body.startavlhr == '' || req.body.startavlhr == null) {
+            errMsg = "* Failed, Please select start available hour!";
+            isErr = true;
+        }
+        if (!isErr && req.body.endavlhr == '' || req.body.endavlhr == null) {
+            errMsg = "* Failed, Please select end available hour!";
+            isErr = true;
+        }
+        User.findOne({
+            attributes: ['id', 'cmp_id'],
+            where: { login_id: login_id },
+        }).then(userlog => {
+            var user_id = userlog.id;
+            var cmp_id = userlog.cmp_id;
+            //  console.log(userlog.cmp_id)
+            const startDate = new Date(req.body.startdate);
+            const endDate = new Date(req.body.enddate);
+            var total_seconds = 0;
+            async.eachOfSeries(datesBetween(startDate, endDate), (daterng, key, callback) => {
+                // console.log(daterng);
+                public_holiday.findOne({
+                    where: { date: daterng, cmp_id: cmp_id },
+                }).then(holiday => {
+                    if (holiday) {
+                        // console.log(daterng+"holiday")
+                        callback();
+                    } else {
+                        // console.log(daterng+"not holiday")
+                        var d = new Date(daterng);
+                        var date = d.getDate(daterng);
+                        var day = d.getDay(daterng);//start 1
+                        var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
+                        var weekno = weekOfMonth + 1;
+                        //console.log(day);
+                        // console.log(weekno);
+                        //  console.log( parseInt(weekOfMonth));
+                        cmp_off_day.findOne({
+                            required: true,
+                            where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                            include: [{
+                                model: cmp_work_time,
+                                required: true,
+                            }]
+                        }).then(work_time => {
+                            if (work_time) {
+                                // parse time using 24-hour clock and use UTC to prevent DST issues
+                                var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
+                                var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
+                                // account for crossing over to midnight the next day
+                                if (end.isBefore(start)) end.add(1, 'day');
+                                // calculate the duration
+                                var d = moment.duration(end.diff(start));
+                                // subtract the lunch break
+                                // d.subtract(30, 'minutes');
+                                // format a string result
+                                var s = moment.utc(+d).format('HH:mm:ss');
+                                // console.log("s" + s);
+                                var a = s.split(':'); // split it at the colons
+                                // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+                                total_seconds = total_seconds + seconds;
+                                callback();
+                            } else {
+                                cmp_work_time.findOne({
+                                    required: true,
+                                    where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
+                                }).then(work_time1 => {
+                                    // parse time using 24-hour clock and use UTC to prevent DST issues
+                                    var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                    var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                    // account for crossing over to midnight the next day
+                                    if (end.isBefore(start)) end.add(1, 'day');
+                                    // calculate the duration
+                                    var d1 = moment.duration(end.diff(start));
+                                    // subtract the lunch break
+                                    // d.subtract(30, 'minutes');
+                                    // format a string result
+                                    var s1 = moment.utc(+d1).format('HH:mm:ss');
+                                    // console.log("e" + s1);
+                                    var a1 = s1.split(':'); // split it at the colons
+                                    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                    var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
+                                    total_seconds = total_seconds + seconds1;
+                                    callback();
+                                });
+                            }
+                        });
+                    }
+                });
+            }, function (err) {
+                console.log("tot" + total_seconds);
+                // });
+                if (!isErr) {
+                    async.series([
+                        function (callback) {
+                            if (!isErr && req.body.startavlhr.hour == null) {
+                                errMsg = "* Failed, Please select start available hour!";
+                                isErr = true;
+                            }
+                            if (!isErr && req.body.startavlhr.minute == null) {
+                                errMsg = "* Failed, Please select start available minute!";
+                                isErr = true;
+                            }
+                            if (!isErr && req.body.endavlhr.hour == null) {
+                                errMsg = "* Failed, Please select end available hour!";
+                                isErr = true;
+                            }
+                            if (!isErr && req.body.endavlhr.minute == null) {
+                                errMsg = "* Failed, Please select end available minute!";
+                                isErr = true;
+                            }
+                            public_holiday.findAll({
+                                attributes: ['title', 'date'],
+                                required: true,
+                                where: { cmp_id: cmp_id },
+                            }).then(holiday => {
+                                // console.log(holiday.title);
+                                holiday.forEach((element) => {
+                                    var startdate = dateFormat(req.body.startdate, "isoDate");
+                                    var enddate = dateFormat(req.body.enddate, "isoDate");
+                                    console.log("jk" + startdate);
+                                    console.log(element.date);
+                                    if (!isErr && startdate == element.date && enddate == element.date) {
+                                        errMsg = "*" + element.date + "" + element.title + "" + "Holiday! ";
+                                        isErr = true;
+                                    }
+                                }); callback();
+                            });
+                        }, function (callback) {
+                            var d = new Date(req.body.startdate);
+                            var date = d.getDate(req.body.startdate);
+                            var day = d.getDay(req.body.startdate);//start 1
+                            var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
+                            var weekno = weekOfMonth + 1;
+                            //console.log(day);
+                            // console.log(weekno);
+                            //  console.log( parseInt(weekOfMonth));
+                            cmp_off_day.findOne({
+                                required: true,
+                                where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                                include: [{
+                                    model: cmp_work_time,
+                                    required: true,
+                                }]
+                            }).then(work_time => {
+                                if (work_time) {
+                                    // console.log(work_time.tbl_cmp_work_time.start_time)
+                                    // console.log(work_time.tbl_cmp_work_time.end_time)
+                                    // parse time using 24-hour clock and use UTC to prevent DST issues
+                                    var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
+                                    var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
+                                    // account for crossing over to midnight the next day
+                                    if (end.isBefore(start)) end.add(1, 'day');
+                                    // calculate the duration
+                                    var d = moment.duration(end.diff(start));
+                                    // subtract the lunch break
+                                    // d.subtract(30, 'minutes');
+                                    // format a string result
+                                    var s = moment.utc(+d).format('H');
+                                    console.log("s" + s);
+                                    console.log(req.body.startavlhr.hour);
+                                    //  res.json(work_time);
+                                    if (!isErr && (parseFloat(s) < parseFloat(req.body.startavlhr.hour))) {
+                                        errMsg = "* Failed,working hour exceed available hour !";
+                                        isErr = true;
+                                    }
+                                    callback();
+                                    //else{  }
+                                } else {
+                                    // console.log(cmp_id);
+                                    cmp_work_time.findOne({
+                                        required: true,
+                                        where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
+                                    }).then(work_time1 => {
+                                        //  console.log("w"+work_time1);
+                                        //  console.log(work_time1.end_time)
+                                        // parse time using 24-hour clock and use UTC to prevent DST issues
+                                        var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                        var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                        // account for crossing over to midnight the next day
+                                        if (end.isBefore(start)) end.add(1, 'day');
+                                        // calculate the duration
+                                        var d1 = moment.duration(end.diff(start));
+                                        // subtract the lunch break
+                                        // d.subtract(30, 'minutes');
+                                        // format a string result
+                                        var s1 = moment.utc(+d1).format('H');
+                                        console.log("e" + s1);
+                                        console.log(req.body.endavlhr.hour);
+                                        //  res.json(work_time);
+                                        if (!isErr && (parseFloat(s1) < parseFloat(req.body.endavlhr.hour))) {
+                                            errMsg = "* Failed,working hour exceed available hour !";
+                                            isErr = true;
+                                        }
+                                        callback();
+                                        //else{  }
+                                    });
+                                }
+                            });
+                        }, function (callback) {
+                            if (!isErr) {
+                                Employeeleave.findAll({
+                                    required: true,
+                                    // where: {[Op.and]:[{start_date:req.body.startdate,end_date:req.body.enddate,cmp_id:cmp_id,user_profile_id:req.body.emp_id}]}
+                                    where: {
+                                        [Op.and]: [{ cmp_id: cmp_id, user_profile_id: user_id, delete_status: false }],
+                                        [Op.or]: [{ start_date: req.body.startdate, end_date: req.body.enddate }]
+                                    }
+                                }).then(leave => {
+                                    // console.log(user);
+                                    //return res.json(user);
+                                    if (!isErr && (leave.length > 0)) {
+                                        errMsg = " Already Exists";
+                                        isErr = true;
+                                        res.json({ success: false, msg: errMsg });
+                                    } else {
+                                        var hh = req.body.startavlhr.hour;
+                                        var mm = req.body.startavlhr.minute;
+                                        var ss = req.body.startavlhr.second;
+                                        if (hh < 10) { hh = "0" + hh; }
+                                        if (mm < 10) { mm = "0" + mm; }
+                                        if (ss < 10) { ss = "0" + ss; }
+                                        // This formats your string to HH:MM:SS
+                                        var startavailablehour = hh + ":" + mm + ":" + ss;
+                                        console.log("q" + startavailablehour);
+                                        var hh1 = req.body.endavlhr.hour;
+                                        var mm1 = req.body.endavlhr.minute;
+                                        var ss1 = req.body.endavlhr.second;
+                                        if (hh1 < 10) { hh = "0" + hh1; }
+                                        if (mm1 < 10) { mm = "0" + mm1; }
+                                        if (ss1 < 10) { ss = "0" + ss1; }
+                                        // This formats your string to HH:MM:SS
+                                        var endavlhravailablehour = hh + ":" + mm + ":" + ss;
+                                        console.log("d" + endavlhravailablehour);
+                                        var a2 = startavailablehour.split(':'); // split it at the colons
+                                        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                        var seconds3 = (+a2[0]) * 60 * 60 + (+a2[1]) * 60 + (+a2[2]);
+                                        var a3 = endavlhravailablehour.split(':'); // split it at the colons
+                                        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                        var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
+                                        var leavehr = total_seconds - (seconds3 + seconds4);
+                                        var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
+                                        console.log(leavehrs);
+                                        const addleave = Employeeleave.build({
+                                            start_date: req.body.startdate,
+                                            end_date: req.body.enddate,
+                                            cmp_id: cmp_id,
+                                            user_profile_id: user_id,
+                                            start_available_hrs: startavailablehour,
+                                            end_available_hrs: endavlhravailablehour,
+                                            leave_hrs: leavehrs,
+                                            delete_status: false,
+                                            request_status: "Pending",
+                                            is_admin_viewed: false,
+                                            is_user_viewed: false
+                                        })
+                                        addleave.save().then(function (leave) {
+                                            callback();
+                                        })
+                                    }
+                                });
+                            } else {
+                                callback();
+                            }
+                        }
+                    ],
+                        function (err) {
+                            if (!isErr) {
+                                io.sockets.emit("Leaveaddeduser", {
+                                    //user_id : req.params.id
+                                });
+                                res.json({ success: true, msg: "Leave added Successfully" });
+                            } else {
+                                res.json({ success: false, msg: errMsg });
+                            }
+                        });
+                } else {
+                    res.json({ success: false, msg: errMsg });
+                }
+            });
+        });
+    });
+    // ----------------------------------End-----------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : singleuserleave
+    // Params        : id
+    // Returns       :
+    // Author        : sudha
+    // Date          : 28-03-2018
+    // Last Modified :
+    // Desc          : singleuserleave
+    router.get('/singleuserleave/:id', (req, res, next) => {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        Employeeleave.findOne({
+            where: { id: req.params.id },
+        }).then(singleleave => {
+            return res.json(singleleave);
+        });
+    });
+    // ----------------------------------End-----------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : updateuserleave
+    // Params        : data
+    // Returns       :
+    // Author        : sudha
+    // Date          : 28-03-2018
+    // Last Modified : 03-04-2018
+    // Desc          : updateuserleave
+    router.post('/updateuserleave', (req, res, next) => {
+        console.log(req.body);
+        var login_id = 39;
+        var isErr = false;
+        errMsg = '';
+        var moment = require('moment');
+        var time = moment();
+        var time_format = time.format('YYYY-MM-DD');
+        console.log(time_format);
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        if (!isErr && req.body.start_date == '' || req.body.start_date == null) {
+            errMsg = "* Failed, Please Select Start Date!";
+            isErr = true;
+        }
+        if (!isErr && time_format >= req.body.start_date) {
+            errMsg = "* Failed, Wrong date selection!";
+            isErr = true;
+        }
+        if (!isErr && req.body.end_date == '' || req.body.end_date == null) {
+            errMsg = "* Failed, Please Select End Date!";
+            isErr = true;
+        }
+        if (!isErr && time_format >= req.body.end_date) {
+            errMsg = "* Failed, Wrong date selection!";
+            isErr = true;
+        }
+        if (!isErr && req.body.end_date < req.body.start_date) {
+            errMsg = "* Failed, Please Select  date Correctly!";
+            isErr = true;
+        }
+        if (!isErr && req.body.startavlhr == '' || req.body.startavlhr == null) {
+            errMsg = "* Failed, Please select start available hour!";
+            isErr = true;
+        }
+        if (!isErr && req.body.endavlhr == '' || req.body.endavlhr == null) {
+            errMsg = "* Failed, Please select end available hour!";
+            isErr = true;
+        }
+        User.findOne({
+            attributes: ['id', 'cmp_id'],
+            where: { login_id: login_id },
+        }).then(userlog => {
+            var user_id = userlog.id;
+            var cmp_id = userlog.cmp_id;
+            const startDate = new Date(req.body.start_date);
+            const endDate = new Date(req.body.end_date);
+            var total_seconds = 0;
+            async.eachOfSeries(datesBetween(startDate, endDate), (daterng, key, callback) => {
+                // console.log(daterng);
+                public_holiday.findOne({
+                    where: { date: daterng, cmp_id: cmp_id },
+                }).then(holiday => {
+                    if (holiday) {
+                        // console.log(daterng+"holiday")
+                        callback();
+                    } else {
+                        // console.log(daterng+"not holiday")
+                        var d = new Date(daterng);
+                        var date = d.getDate(daterng);
+                        var day = d.getDay(daterng);//start 1
+                        var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
+                        var weekno = weekOfMonth + 1;
+                        //console.log(day);
+                        // console.log(weekno);
+                        //  console.log( parseInt(weekOfMonth));
+                        cmp_off_day.findOne({
+                            required: true,
+                            where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                            include: [{
+                                model: cmp_work_time,
+                                required: true,
+                            }]
+                        }).then(work_time => {
+                            if (work_time) {
+                                // parse time using 24-hour clock and use UTC to prevent DST issues
+                                var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
+                                var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
+                                // account for crossing over to midnight the next day
+                                if (end.isBefore(start)) end.add(1, 'day');
+                                // calculate the duration
+                                var d = moment.duration(end.diff(start));
+                                // subtract the lunch break
+                                // d.subtract(30, 'minutes');
+                                // format a string result
+                                var s = moment.utc(+d).format('HH:mm:ss');
+                                // console.log("s" + s);
+                                var a = s.split(':'); // split it at the colons
+                                // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+                                total_seconds = total_seconds + seconds;
+                                callback();
+                            } else {
+                                cmp_work_time.findOne({
+                                    required: true,
+                                    where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
+                                }).then(work_time1 => {
+                                    // parse time using 24-hour clock and use UTC to prevent DST issues
+                                    var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                    var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                    // account for crossing over to midnight the next day
+                                    if (end.isBefore(start)) end.add(1, 'day');
+                                    // calculate the duration
+                                    var d1 = moment.duration(end.diff(start));
+                                    // subtract the lunch break
+                                    // d.subtract(30, 'minutes');
+                                    // format a string result
+                                    var s1 = moment.utc(+d1).format('HH:mm:ss');
+                                    // console.log("e" + s1);
+                                    var a1 = s1.split(':'); // split it at the colons
+                                    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                    var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
+                                    total_seconds = total_seconds + seconds1;
+                                    callback();
+                                });
+                            }
+                        });
+                    }
+                });
+            }, function (err) {
+                console.log("tot" + total_seconds);
+                // });
+                //  console.log(userlog.cmp_id)
+                if (!isErr) {
+                    async.series([
+                        function (callback) {
+                            public_holiday.findAll({
+                                attributes: ['title', 'date'],
+                                required: true,
+                                where: { cmp_id: cmp_id },
+                            }).then(holiday => {
+                                // console.log(holiday.title);
+                                holiday.forEach((element) => {
+                                    var startdate = dateFormat(req.body.start_date, "isoDate");
+                                    var enddate = dateFormat(req.body.end_date, "isoDate");
+                                    //  console.log("jk"+startdate);
+                                    //  console.log(element.date);
+                                    if (!isErr && startdate == element.date && enddate == element.date) {
+                                        errMsg = "*" + element.date + "" + element.title + "" + "Holiday! ";
+                                        isErr = true;
+                                    }
+                                }); callback();
+                            });
+                        }, function (callback) {
+                            var d = new Date(req.body.start_date);
+                            var date = d.getDate(req.body.start_date);
+                            var day = d.getDay(req.body.start_date);//start 1
+                            var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
+                            var weekno = weekOfMonth + 1;
+                            //console.log(day);
+                            // console.log(weekno);
+                            //  console.log( parseInt(weekOfMonth));
+                            cmp_off_day.findOne({
+                                required: true,
+                                where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                                include: [{
+                                    model: cmp_work_time,
+                                    required: true,
+                                }]
+                            }).then(work_time => {
+                                if (work_time) {
+                                    // console.log(work_time.tbl_cmp_work_time.start_time)
+                                    // console.log(work_time.tbl_cmp_work_time.end_time)
+                                    // parse time using 24-hour clock and use UTC to prevent DST issues
+                                    var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
+                                    var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
+                                    // account for crossing over to midnight the next day
+                                    if (end.isBefore(start)) end.add(1, 'day');
+                                    // calculate the duration
+                                    var d = moment.duration(end.diff(start));
+                                    // subtract the lunch break
+                                    // d.subtract(30, 'minutes');
+                                    // format a string result
+                                    var s = moment.utc(+d).format('H');
+                                    console.log("s" + s);
+                                    console.log(req.body.startavlhr.hour);
+                                    //  res.json(work_time);
+                                    if (!isErr && (parseFloat(s) < parseInt(req.body.startavlhr.hour))) {
+                                        errMsg = "* Failed,working hour exceed available hour !";
+                                        isErr = true;
+                                    }
+                                    callback();
+                                    //else{  }
+                                } else {
+                                    cmp_work_time.findOne({
+                                        required: true,
+                                        where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
+                                    }).then(work_time1 => {
+                                        //  console.log(work_time1.start_time)
+                                        //  console.log(work_time1.end_time)
+                                        // parse time using 24-hour clock and use UTC to prevent DST issues
+                                        var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                        var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                        // account for crossing over to midnight the next day
+                                        if (end.isBefore(start)) end.add(1, 'day');
+                                        // calculate the duration
+                                        var d1 = moment.duration(end.diff(start));
+                                        // subtract the lunch break
+                                        // d.subtract(30, 'minutes');
+                                        // format a string result
+                                        var s1 = moment.utc(+d1).format('H');
+                                        console.log("e" + s1);
+                                        console.log(req.body.endavlhr.hour);
+                                        //  res.json(work_time);
+                                        if (!isErr && (parseFloat(s1) < parseInt(req.body.endavlhr.hour))) {
+                                            errMsg = "* Failed,working hour exceed available hour !";
+                                            isErr = true;
+                                        }
+                                        callback();
+                                        //else{  }
+                                    });
+                                }
+                            });
+                        }, function (callback) {
+                            if (!isErr) {
+                                Employeeleave.findOne({
+                                    required: true,
+                                    // where: {[Op.and]:[{start_date:req.body.startdate,end_date:req.body.enddate,cmp_id:cmp_id,user_profile_id:req.body.emp_id}]}
+                                    where: {
+                                        [Op.and]: [{ cmp_id: cmp_id, user_profile_id: user_id, delete_status: false }],
+                                        [Op.or]: [{ start_date: req.body.start_date, end_date: req.body.end_date }]
+                                    }
+                                }).then(leave => {
+                                    // console.log(user);
+                                    //return res.json(user);
+                                    if (!isErr && leave && (leave.id != req.body.id)) {
+                                        // if (!isErr && (leave.length > 0)) {
+                                        errMsg = " Already Exists";
+                                        isErr = true;
+                                        res.json({ success: false, msg: errMsg });
+                                    } else {
+                                        var hh = parseInt(req.body.startavlhr.hour);
+                                        var mm = parseInt(req.body.startavlhr.minute);
+                                        var ss = parseInt(req.body.startavlhr.second);
+                                        if (hh < 10) { hh = "0" + hh; }
+                                        if (mm < 10) { mm = "0" + mm; }
+                                        if (ss < 10) { ss = "0" + ss; }
+                                        // This formats your string to HH:MM:SS
+                                        var startavailablehour = hh + ":" + mm + ":" + ss;
+                                        console.log("q" + startavailablehour);
+                                        var hh1 = parseInt(req.body.endavlhr.hour);
+                                        var mm1 = parseInt(req.body.endavlhr.minute);
+                                        var ss1 = parseInt(req.body.endavlhr.second);
+                                        if (hh1 < 10) { hh = "0" + hh1; }
+                                        if (mm1 < 10) { mm = "0" + mm1; }
+                                        if (ss1 < 10) { ss = "0" + ss1; }
+                                        // This formats your string to HH:MM:SS
+                                        var endavlhravailablehour = hh + ":" + mm + ":" + ss;
+                                        console.log("d" + endavlhravailablehour);
+                                        var a2 = startavailablehour.split(':'); // split it at the colons
+                                        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                        var seconds3 = (+a2[0]) * 60 * 60 + (+a2[1]) * 60 + (+a2[2]);
+                                        var a3 = endavlhravailablehour.split(':'); // split it at the colons
+                                        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                        var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
+                                        var leavehr = total_seconds - (seconds3 + seconds4);
+                                        var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
+                                        //    console.log("1"+seconds3);
+                                        //    console.log("1"+seconds3);
+                                        //    console.log("@"+seconds4);
+                                        console.log(leavehrs);
+                                        Employeeleave.update({
+                                            start_date: req.body.start_date,
+                                            end_date: req.body.end_date,
+                                            cmp_id: cmp_id,
+                                            user_profile_id: user_id,
+                                            start_available_hrs: startavailablehour,
+                                            end_available_hrs: endavlhravailablehour,
+                                            leave_hrs: leavehrs,
+                                            delete_status: false,
+                                            request_status: "Pending",
+                                            is_admin_viewed: false,
+                                            is_user_viewed: false
+                                        }, {
+                                                where: {
+                                                    id: req.body.id
+                                                }
+                                            }).then(updateempleave => {
+                                                callback();
+                                            })
+                                    }
+                                });
+                            } else {
+                                callback();
+                            }
+                        }
+                    ],
+                        function (err) {
+                            if (!isErr) {
+                                io.sockets.emit("Leaveaddeduser", {
+                                    //user_id : req.params.id
+                                });
+                                res.json({ success: true, msg: "Leave added Successfully" });
+                            } else {
+                                res.json({ success: false, msg: errMsg });
+                            }
+                        });
+                } else {
+                    res.json({ success: false, msg: errMsg });
+                }
+            });
+        });
+    });
+    // ----------------------------------End-----------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      :allmytimeextrequest
+    // Params        :
+    // Returns       :
+    // Author        : sudha
+    // Date          : 19-03-2018
+    // Last Modified : 29-03-2018
+    // Desc          : all my time extension request
+    router.get('/allmytimeextrequest', function (req, res) {
+        var login_id = 123;
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        User.findOne({
+            attributes: ['id'],
+            where: { login_id: login_id },
+        }).then(userlog => {
+            var user_id = userlog.id;
+            Time_extension.findAll({
+                order: [['id', 'DESC']],
+                required: true,
+                include: {
+                    model: Project_tasks,
+                    where: { assigned_to_id: user_id },
+                    required: true,
+                }
+            }).then(Time_extension => {
+                res.json(Time_extension);
+            });
+        });
+    });
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      :mytaskrequest
+    // Params        :
+    // Returns       :
+    // Author        : sudha
+    // Date          : 19-03-2018
+    // Last Modified : 29-03-2018
+    // Desc          : my task  request
+    router.get('/allmynewtaskrequest', function (req, res) {
+        var login_id = 37;
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        User.findOne({
+            //   attributes: ['id'],
+            where: { login_id: login_id },
+        }).then(userlog => {
+            var user_id = userlog.id;
+            New_task.findAll({
+                order: [['id', 'DESC']],
+                required: true,
+                where: { assigned_to_id: user_id },
+            }).then(usermynewtaskrequest => {
+                res.json(usermynewtaskrequest);
+            });
+        });
+    });
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      :userallprojects
+    // Params        :
+    // Returns       :
+    // Author        : sudha
+    // Date          : 21-03-2018
+    // Last Modified :
+    // Desc          : user all projects
+    router.get('/allProjects', function (req, res) {
+        var login_id = 123;
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        User.findOne({
+            attributes: ['id', 'cmp_id'],
+            where: { login_id: login_id },
+        }).then(user => {
+            var user_id = user.id;
+            var cmp_id = user.cmp_id;
+            Project.findAll({
+                attributes: ['id', 'project_name'],
+                required: true,
+                where: { cmp_id: cmp_id },
+                include: {
+                    attributes: [],
+                    model: Project_Module,
+                    required: true,
+                    include: {
+                        attributes: [],
+                        model: Project_tasks,
+                        required: true,
+                        where: { assigned_to_id: user_id },
+                    }
+                }
+            }).then(project => {
+                res.json(project);
+            });
+        });
+    });
+    // ----------------------------------End-------------------------------------------
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getMembers
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get list of teams and stregth
+    router.post('/getUserProjectsOnStatus', function (req, res) {
+        // if (req.headers && req.headers.authorization) {
+        //   var authorization = req.headers.authorization.substring(4), decoded;
+        //   //     try {
+        //   decoded = jwt.verify(authorization, config.secret);
+        //   var cmp_id = decoded._id;
+        var cmp_id = 1;
+        // res.json(req.body);
+        var user_id = 74;
+        var status = req.body.status
+        Users.findAll({
+            include: [{
+                model: ProjectMemeberAssoc,
+                where: {
+                    user_profile_id: user_id
+                },
+                include: [{
+                    model: Projects,
+                    where: {
+                        cmp_id: cmp_id,
+                        status: status
+                    }
+                }]
+            }],
+
+        }).then(resProjects => {
+            if (resProjects.length <= 0) {
+                res.json({
+                    status: 0,
+                    message: "Project not found!"
+                })
+            } else {
+                res.json(resProjects);
+            }
+        }).catch(err => {
+            res.json({
+                status: 0,
+                message: "Error occured! Try again!"
+            })
+        })
+        // }
+    })
+    //  ---------------------------------End-------------------------------------------
 
     // ---------------------------------Start-------------------------------------------
     // Function      : get pm by id

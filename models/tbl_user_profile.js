@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     join_date: DataTypes.DATE,
     gender: DataTypes.STRING,
     email: DataTypes.STRING,
-    status: DataTypes.BOOLEAN
+    status: DataTypes.BOOLEAN,
   }, {});
   tbl_user_profile.associate = function (models) {
     // associations can be defined here
@@ -22,6 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     });
     tbl_user_profile.hasMany(models.tbl_emp_leave, {
       foreignKey: 'user_profile_id',
+    });
+    tbl_user_profile.hasMany(models.tbl_project, {
+      foreignKey: 'pm_id',
+      as: 'pm_id',
+    });
+    tbl_user_profile.hasMany(models.tbl_project, {
+      foreignKey: 'assignee_id',
+      as: 'assignee_id',
     });
     tbl_user_profile.hasMany(models.tbl_log, {
       foreignKey: 'user_profile_id',
@@ -40,6 +48,14 @@ module.exports = (sequelize, DataTypes) => {
     });
     tbl_user_profile.hasMany(models.tbl_project_estimation_team_members, {
       foreignKey: 'user_profile_id',
+    });
+    tbl_user_profile.hasMany(models.tbl_estimation_notification, {
+      foreignKey: 'from_id',
+      as: 'from_id',
+    });
+    tbl_user_profile.hasMany(models.tbl_estimation_notification, {
+      foreignKey: 'to_id',
+      as: 'to_id',
     });
     tbl_user_profile.hasMany(models.tbl_project_member_assoc, {
       foreignKey: 'user_profile_id',

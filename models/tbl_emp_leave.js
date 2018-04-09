@@ -4,10 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     start_date: DataTypes.DATEONLY,
     end_date: DataTypes.DATEONLY,
     start_available_hrs: DataTypes.TIME,
-    end_available_hrs: DataTypes.DOUBLE,
-    leave_hrs: DataTypes.DOUBLE,
+    end_available_hrs: DataTypes.TIME,
+    leave_hrs: DataTypes.TIME,
     delete_status: DataTypes.BOOLEAN,
     request_status: DataTypes.STRING,
+    reject_reason: DataTypes.STRING,
     is_user_viewed: DataTypes.BOOLEAN,
     is_admin_viewed: DataTypes.BOOLEAN
   }, {});

@@ -12,7 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     tbl_task_status_assoc.belongsTo(models.tbl_task_status, {
       foreignKey: 'status_id',
     });
-
+    tbl_task_status_assoc.belongsTo(models.tbl_progress_percentage, {
+      foreignKey: 'progress_id',
+    });
 
   };
   return tbl_task_status_assoc;

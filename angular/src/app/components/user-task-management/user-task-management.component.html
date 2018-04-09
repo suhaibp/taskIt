@@ -1,0 +1,474 @@
+<body class="home">
+  <div class="container-fluid display-table">
+    <div class="row display-table-row">
+
+      <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
+        <!-- sidebar-->
+
+        <user-sidebar></user-sidebar>
+        <!-- end sidebar-->
+      </div>
+
+      <div class="col-md-12 col-xs-12">
+        <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+        <!-- topbar-->
+        <company-topbar></company-topbar>
+        <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->
+        <div id="additionalTask" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" #closeBtn>&times;</button>
+                <h4 class="modal-title">Additional task request </h4>
+              </div>
+              <div class="modal-body">
+                <form role="form" #f="ngForm" (ngSubmit)="addTask(index);">
+
+                  <div>
+                    <div class="example-container">
+                      <div class="col-md-4 col-xs-6"><label class="pad-top">Task Name * :</label></div>
+                      <div class="col-md-7 col-xs-6">
+                        <mat-form-field>
+                          <input matInput name="task_name" [(ngModel)]="newTasks.task_name" autofocus>
+                        </mat-form-field>
+                      </div>
+                      <br>
+                      <div class="example-container">
+                        <div class="col-md-4 col-xs-6"><label class="pad-top">Assigned person * :</label></div>
+                        <div class="col-md-7 col-xs-6" *ngFor="let userdata of  userData;">
+                          {{userdata.f_name}} {{userdata.l_name}}
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="example-container">
+                          <div class="col-md-4 col-xs-6"><label class="pad-top">Complexity :</label></div>
+                          <div class="col-md-7 col-xs-6">
+                            <mat-form-field class="inputfileds">
+
+                              <mat-select placeholder="Complexity" name='complexity' #group="ngModel" [(ngModel)]="newTasks.complexity">
+                                <mat-option [value]="complexity.id" *ngFor="let complexity of complexitys;">{{complexity.percentage}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="clearfix"></div>
+                          <br>
+                          <div class="col-md-4 col-xs-6"><label class="pad-top">Planned Hours *:</label></div>
+                          <div class="col-md-2 col-xs-6">
+                            <mat-form-field class="wdth">
+                              <input type="number" matInput name="planned_hour" min="0" name='planned_hour' [(ngModel)]="newTasks.planned_hour" required>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-3 col-xs-6"><label class="pad-top">Buffer Hours :</label></div>
+                          <div class="col-md-2 col-xs-6">
+
+                            <mat-form-field class="wdth">
+                              <input type="number" matInput name="buffer_time" min="0" name='buffer_hour' [(ngModel)]="newTasks.buffer_hour" required>
+                            </mat-form-field>
+                          </div>
+                          <div class="clearfix"></div>
+                          <br>
+                          <div class="col-md-4 col-xs-6"><label class="pad-top">Start Datetime *:</label></div>
+                          <!-- <div class="col-md-3 col-xs-6">
+                        <mat-form-field>
+                          <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date"
+                            name='start_date' [(ngModel)]="newTasks.start_date">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                      </div>  -->
+
+                          <div class="col-md-3 col-xs-6">
+                            <mat-form-field>
+                              <input matInput [matDatepicker]="picker" placeholder="Choose a date" name='start_date' [(ngModel)]="newTasks.start_date">
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                          <div class="clearfix"></div>
+
+                          <div class="clearfix"></div>
+                          <ngb-timepicker [meridian]="meridian" name="start_time" [(ngModel)]="newTasks.start_time"></ngb-timepicker>
+                          <hr>
+                          <div class="clearfix"></div>
+                          <div class="col-md-4 col-xs-6"><label class="pad-top">End Datetime *:</label></div>
+                          <div class="col-md-3 col-xs-6">
+                            <mat-form-field>
+                              <input matInput [matDatepicker]="picker1" placeholder="Choose a date" name='end_date' [(ngModel)]="newTasks.end_date">
+                              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                              <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                          <div class="clearfix"></div>
+
+                          <div class="clearfix"></div>
+                          <ngb-timepicker [meridian]="meridian" name="end_time" [(ngModel)]="newTasks.end_time"></ngb-timepicker>
+                          <hr>
+                          <div class="clearfix"></div>
+
+
+                          <div class="example-container">
+                            <div class="col-md-4 col-xs-6"><label class="pad-top">Task type :</label></div>
+                            <div class="col-md-7 col-xs-6">
+                              <mat-form-field class="inputfileds">
+                                <mat-select [(value)]="selected1" name='task_type' #group="ngModel" [(ngModel)]="newTasks.task_type">
+                                  <!-- <mat-option>None</mat-option> -->
+                                  <mat-option value="0">Billable</mat-option>
+                                  <mat-option value="1">Non Billable</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="example-container">
+                              <div class="col-md-4 col-xs-6"><label class="pad-top">Priority *:</label></div>
+                              <div class="col-md-7 col-xs-6">
+                                <mat-form-field class="inputfileds">
+                                  <mat-select [(value)]="selected2" name='priority' #group="ngModel" [(ngModel)]="newTasks.priority">
+                                    <!-- <mat-option>None</mat-option> -->
+                                    <mat-option value="0">High</mat-option>
+                                    <mat-option value="1">Medium</mat-option>
+                                    <mat-option value="2">Low</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                              <div *ngIf="showTeam">
+                                <div class="col-md-4 col-xs-6"><label class="pad-top">Select Team *:</label></div>
+                                <div class="col-md-7 col-xs-6">
+                                  <mat-form-field class="inputfileds">
+                                    <mat-select [(value)]="selected3" name='priority' #group="ngModel" [(ngModel)]="newTasks.team">
+                                      <!-- <mat-option>None</mat-option> -->
+                                      <mat-option value="1">Developer</mat-option>
+                                      <mat-option value="2">Designer</mat-option>
+                                      <mat-option value="3">QC</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="example-container">
+                                <div class="col-md-4 col-xs-6"><label class="pad-top">Description :</label></div>
+                                <div class="col-md-7 col-xs-6">
+                                  <mat-form-field>
+                                    <textarea matInput placeholder="Textarea" name='description' [(ngModel)]="newTasks.description"></textarea>
+                                  </mat-form-field>
+                                </div>
+                                <br>
+                                <!-- <div class="example-container">
+                                <div class="col-md-4 col-xs-5"><label class="pad-top">Checklist :</label></div>
+                                <div class="col-md-5 col-xs-5">
+                                  <div *ngFor="let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex">
+
+                                    <mat-form-field class="example-form-field">
+                                      <input matInput type="text" name="checklist{{i}}" required [(ngModel)]="newTasks.newChecklist[i].name" />
+                                      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                                    </mat-form-field>
+                                    <input type="button" value="X" (click)="closeChecklist(i)" class="close-bt">
+                                  </div>
+                                </div> -->
+
+                                <!-- <div class="col-md-3 col-xs-2"><input type="button" value="Add More" (click)="addMore()" class="round-button padd-bt"></div> -->
+                                <div class="clearfix"></div>
+                                <div class="example-container">
+                                  <div class="col-md-3 col-xs-6"><label class="pad-top">Attachment :</label></div>
+                                  <div class="col-md-7 col-xs-6">
+
+                                    <input (change)="displayDoc($event)" name="file" type="file" [(ngModel)]="newTasks.file" />
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="center">
+                                    <button type="submit" class="btn round-button dropdown-toggle mrg-tp">Send Request</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->
+
+        <!-- --------------------------------------------- add time extension ----------------------------------------------------------------- -->
+        <div id="extentionTask" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" #closeBtn1>&times;</button>
+                <h4 class="modal-title">Time Extension request </h4>
+              </div>
+              <div class="modal-body">
+                <form role="form" #f="ngForm" (ngSubmit)="TimeExtention(newTasks);">
+
+                  <div>
+                    <div class="example-container">
+                      <div class="col-md-4 col-xs-6"><label class="pad-top">Task Name  :</label></div>
+                      <div class="col-md-7 col-xs-6">
+
+                        <div class="col-md-7 col-xs-6">
+                          {{newTasks.task_name}}
+                        </div>
+                      </div>
+                      <br>
+                      <div class="example-container">
+                        <div class="col-md-4 col-xs-6"><label class="pad-top">Assigned person  :</label></div>
+                        <div class="col-md-7 col-xs-6" *ngFor="let userdata of  userData;">
+                          {{userdata.f_name}} {{userdata.l_name}}
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="example-container">
+
+                          <div class="col-md-4 col-xs-6"><label class="pad-top">Complexity :</label></div>
+                          <div class="col-md-7 col-xs-6">
+                            <div *ngIf="newTasks.complexity_id!=null">
+                              {{newTasks.tbl_complexity_percentage.percentage}}
+                            </div>
+                          </div>
+
+                          <div class="clearfix"></div>
+                          <br>
+                          <div class="col-md-4 col-xs-6"><label class="pad-top">Planned Hours :</label></div>
+                          <div class="col-md-2 col-xs-6">
+                            {{newTasks.planned_hour}}
+                            <!-- <mat-form-field class="wdth">
+                              <input type="number" matInput name="planned_hour" min="0" name='planned_hour' [(ngModel)]="newTasks.planned_hour" required>
+                            </mat-form-field> -->
+                          </div>
+
+                          <div class="col-md-3 col-xs-6"><label class="pad-top">Buffer Hours :</label></div>
+                          <div class="col-md-2 col-xs-6">
+
+                            {{newTasks.buffer_hour}}
+                          </div>
+                          <!-- <mat-form-field class="wdth">
+                              <input type="number" matInput name="buffer_time" min="0" name='buffer_hour' [(ngModel)]="newTasks.buffer_hour" required>
+                            </mat-form-field> -->
+
+                          <div class="clearfix"></div>
+                          <br>
+                          <div class="col-md-3 col-xs-6"><label class="pad-top"> Time required :*</label></div>
+                          <div class="col-md-2 col-xs-6">
+                            <mat-form-field class="wdth">
+                              <input type="number" matInput min="0" name='timerequired' [(ngModel)]="newTasks.timerequired" required>
+                            </mat-form-field>
+                          </div>
+                          <div class="clearfix"></div>
+                          <br>
+                          <div class="clearfix"></div>
+                          <div class="clearfix"></div>
+                          <div class="center">
+                            <button type="submit" class="btn round-button dropdown-toggle mrg-tp">Send Request</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- --------------------------------------------- end time extension ----------------------------------------------------------------- -->
+        <!-- end topbar-->
+        <div class="user-dashboard">
+          <!-- <h1>Hello, JS</h1> -->
+          <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12 gutter ">
+              <div class="white project-planning">
+                <div class="pull-right">
+                  <mat-form-field class="filter">
+                    <mat-select (change)="statusBasedData()" [(value)]="selected">
+
+                      <mat-option value="all">All</mat-option>
+                      <mat-option value="1">New </mat-option>
+                      <mat-option value="2">Paused</mat-option>
+                      <mat-option value="3">In Progress</mat-option>
+                      <mat-option value="4">Hold</mat-option>
+                      <mat-option value="5">Done</mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div *ngFor="let myTask of showDetails; let i = index">
+                  <div class="form-group">
+                    <div class="col-md-4"><label for="">Project Name</label><span>:</span></div>
+
+                    <div class="col-md-4">
+                      <div class="row"><label for="" class="label2">{{myTask.tbl_project.project_name}}</label></div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="clearfix"></div>
+                  <br>
+                  <div>
+                    <!-- <div  [dragula]='"myBag"' draggable="true" [class]="'groupClass'"> -->
+                    <div>
+                      <!-- <div *ngFor="let module of modules; let i = index"> -->
+                      <div>
+                        <div class="col-md-12 col-xs-12 pull-right">
+                          <div class="task">
+                            <div class="col-md-10 col-xs-7">
+                              <!-- <p>dfd</p> -->
+                              <h5>{{myTask.module_name}}</h5>
+                            </div>
+                            <div class="col-md-2 col-xs-5">
+                              <ul class="taskedit">
+                                <!-- {{module.time}} -->
+                                <!-- <li>22 Hr</li> -->
+                                <li class="pull-right">
+                                  <!-- <div class="col-md-12">
+            <button type="button" (click)="getId(i)" data-toggle="modal" data-target="#addTaskModal" class="btn round-button pull-right right-btn">Add Task</button>
+                                    </div> -->
+                                  <button (click)="getId(i,myTask.id)" data-toggle="modal" data-target="#additionalTask" class="add-project">+</button>
+                                </li>
+                                <!-- </div> -->
+                                <li class="pull-right"></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div [dragula]="'myBag'"> -->
+                        <!-- <div *ngFor="let task of myTasks[i].tbl_project_tasks; let j = index" > -->
+                        <div *ngFor="let task of myTask.tbl_project_tasks; let j = index">
+                          <!-- <div *ngFor="let task1 of myTasks[i].tbl_project_tasks[j].tbl_task_status_assocs; let y = index"> -->
+                          <div class="col-md-11 col-xs-12 pull-right">
+                            <!-- <div class="task assigned" ng-style="background-color :task.status?.tbl_task_status?.color" > -->
+                            <div class="task assigned" *ngIf="task.startdatenow == 'showtasks'" [ngStyle]="{'background-color': task.status?.tbl_task_status.color}">
+                              <div>
+                                <div class="col-md-8 col-xs-7 martop">
+                                  <!-- <h5> {{task.status?.tbl_task_status.color }}</h5>-->
+                                  <h5>{{task.task_name}}</h5>
+                                  <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="row">
+                                    <div class="col-md-4 col-xs-5">
+                                      <ul class="taskedit-request"><button title="Pause" (click)="getId1(task,i,j)" type="button" class="btn round-button request-bt"
+                                          data-toggle="modal" data-target="#extentionTask">Request</button></ul>
+                                    </div>
+                                    <div class="col-md-8 col-xs-5">
+                                      <!-- ---------------------------------------------------------------------------------------------------- -- -->
+                                      <ul class="taskedit">
+                                        <div class="wrapper">
+                                          
+                                          <p><span id="seconds">{{task.actual_hour}}</span></p>
+                                    
+                                        </div>
+                                        <li *ngIf="pause[task.id] || task.status?.status_id == 3"><button title="Pause" class="iconButton" data-toggle="dropdown" (click)="clearReason()"><i class="fa fa-pause" aria-hidden="true"></i></button>
+                                          <ul class="dropdown-menu puase-popup" role="menu">
+                                            <div class="col-md-8">
+                                              <div class="col-md-4 col-xs-6"><label class="pad-top">Reason *</label></div>
+                                              <textarea rows="4" cols="50" name="name" [(ngModel)]="newTasks.reason"> </textarea>
+                                              <!-- <input class="style" type="text" placeholder="Module Name" name="name" [(ngModel)]="module.module_name"> -->
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <br>
+                                            <div class="col-md-4">
+                                              <button type="submit" (click)="pauseTask(task)" class="btn round-button">Pause</button>
+                                            </div>
+                                          </ul>
+                                        </li>
+
+                                        <li *ngIf="completed[task.id] || task.status?.status_id == 3"><button title="Completed" class="iconButton" data-toggle="collapse" data-target="#demo"
+                                            (click)="clearprogress()"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                          <ul class="collapse" id="demo">
+                                            <div class="col-md-8">
+                                              <mat-form-field class="inputfileds">
+                                                <mat-select placeholder="Progress" name='progress' #group="ngModel" [(ngModel)]="newTasks.percentage">
+                                                  <mat-option [value]="percentage.id" *ngFor="let percentage of percentages;">{{percentage.percentage}}</mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-4">
+                                              <button type="submit" (click)="complete(task)" class="btn round-button closepanel">Save</button>
+                                            </div>
+                                          </ul>
+                                        </li>
+
+                                        <li *ngIf="hold[task.id] || task.status?.status_id == 3"><button title="Hold" class="iconButton" data-toggle="collapse" data-target="#demo1"
+                                            (click)="clearhold()" [disabled]="disableTask[task.id]"><i class="fa fa-stop" aria-hidden="true"></i></button>
+                                          <ul class="collapse" id="demo1">
+                                            <div class="col-md-8">
+                                              <mat-form-field class="inputfileds">
+                                                <mat-select placeholder="Progress" name='progress' #group="ngModel" [(ngModel)]="newTasks.percentage">
+                                                  <mat-option [value]="percentage.id" *ngFor="let percentage of percentages;">{{percentage.percentage}}</mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+                                              <div class="clearfix"></div>
+                                              <div class="col-md-4 col-xs-6"><label class="pad-top">Reason *</label></div>
+
+                                              <textarea rows="4" cols="50" name="name" [(ngModel)]="newTasks.reason"> </textarea>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <br>
+                                            <div class="col-md-4">
+                                              <button type="submit" (click)="holdTask(task)" class="btn round-button closepane">Save</button>
+                                            </div>
+                                          </ul>
+                                        </li>
+
+                                        <!-- <li *ngIf="hold[task.id]"><button title="Hold" class="iconButton" [disabled]="disableTask[task.id]"><i class="fa fa-stop" aria-hidden="true"></i></button>
+                                          <ul class="collapse">
+                                            <div class="col-md-8">
+                                              <div class="col-md-8">
+                                                <textarea rows="4" cols="50" name="name" [(ngModel)]="newTasks.reason"> </textarea>
+                               
+                                              </div>
+                                              <mat-form-field class="inputfileds">
+                                                <mat-select placeholder="Progress" name='progress' #group="ngModel" [(ngModel)]="newTasks.percentage">
+                                                  <mat-option [value]="percentage.id" *ngFor="let percentage of percentages;">{{percentage.percentage}}</mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-4">
+                                              <button type="submit" (click)="hold(task)" class="btn round-button closepane">Save</button>
+                                            </div>
+                                          </ul>
+                                        </li> -->
+                                        <!-- <li *ngIf="hold[task.id]"><button title="Hold" class="iconButton" [disabled]="disableTask[task.id]"><i class="fa fa-stop" aria-hidden="true"></i></button></li> -->
+                                        <!-- <li *ngIf="completed[task.id]"><button title="Completed" class="iconButton" [disabled]="disableTask[task.id]" (click)="completed(task)"><i class="fa fa-check" aria-hidden="true"></i></button></li> -->
+                                        <div *ngIf="play[task.id] ">
+                                          <li><button title="Start" class="iconButton" [disabled]="disableTask[task.id]" (click)="startTask(myTask.id,task,j)"><i class="fa fa-play" aria-hidden="true"></i></button></li>
+                                        </div>
+                                        <li *ngIf="done[task.id] || task.status?.status_id == 3"><button title="Finish" class="iconButton" [disabled]="disableTask[task.id]" (click)="Done(task)"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button></li>
+                                        <li *ngIf="Resume[task.id] || task.status?.status_id == 2 || task.status?.status_id == 4"><button title="Resume" class="iconButton" [disabled]="disableTask[task.id]" (click)="resume(task)"><i class="fa fa-play" aria-hidden="true"></i></button></li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                            </div>
+                            <!-- </div> -->
+                          </div>
+                          <!-- </div> -->
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+                <div class="col-md-12" *ngIf="viewAll1">
+                  <button type="button" class="btn round-button dropdown-toggle mrg-tp pull-right" data-toggle="dropdown" (click)="viewAll()">View All</button>
+                  <!-- <button type="button" (click)="getId(i)" data-toggle="modal" data-target="#addTaskModal" class="btn round-button pull-right right-btn">Add Task</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

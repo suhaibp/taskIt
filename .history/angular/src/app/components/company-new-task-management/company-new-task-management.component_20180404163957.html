@@ -1,0 +1,204 @@
+<body class="home">
+    <div class="container-fluid display-table">
+        <div class="row display-table-row">
+      
+            <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
+                 <!-- sidebar-->
+               
+                 <app-company-sidebar></app-company-sidebar> 
+                 <!-- end sidebar-->
+            </div>
+            
+            <div class="col-md-12 col-xs-12">
+                <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+                <!-- topbar-->
+                <app-company-topbar></app-company-topbar> 
+                
+                    <!-- end topbar-->
+                
+                
+                <div class="user-dashboard">
+                    <h2>Request Management</h2>
+                    <ul class="breadcrumb">
+                      
+                      <li>New Task Request View</li>
+                    </ul>
+                   
+                    <div class="row" *ngIf="!existStatus">
+                        
+              <div class="col-md-5 col-sm-12 col-xs-12 gutter ">
+               <div class="white">
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Project Name</label></div>
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="" class="label2">{{projectDetails.project_name}}</label></div>
+                 </div>
+                 
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Project Code</label></div>
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="" class="label2">{{projectDetails.project_code}}</label></div>
+                 </div>
+                 
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Project Start Date</label></div>
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="" class="label2">{{projectDetails.planned_start_date}}</label></div>
+                 </div>
+                 
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Team Members</label></div>
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="" class="label2 mrgn-0" *ngFor="let item of projectDetails.tbl_project_member_assocs">
+                  {{item.tbl_user_profile.f_name}} {{item.tbl_user_profile.l_name}} </label></div>
+                 </div>
+                 
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Reason</label></div>
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="" class="label2">{{taskRequest.reason}}</label></div>
+                 </div>
+<!--                  
+                 <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Time Taken In Hours For Estimation</label></div>
+                   <div class="col-md-4 col-sm-6 col-xs-6"><label for="" class="label2"><input class="style" type="text" placeholder="44:00 Hr"></label></div>
+                 </div>
+                 <div class="clearfix"></div> -->
+                 <!-- <div class="form-group">
+                   <div class="col-md-6 col-sm-6 col-xs-6"><label for="">Requirment Summery</label></div>
+                   <div class="col-md-4 col-sm-6 col-xs-6"><label for="" class="label2"></label><textarea class="style" type="text" placeholder=""></textarea></div>
+                 </div> -->
+                 
+                 <!-- <div class="form-group">
+                   <div class="col-md-6"><label for="">Upload </label></div>
+                   <div class="col-md-5">
+                     <span class="btn btn-file">
+                       <input type="file">
+                     </span>
+                   </div>
+                 </div> -->
+                 
+                 <!-- <div class="clearfix"></div>
+                 <div class="col-md-12 text-center">
+                 <button type="button" class="btn round-button center-bt">Submit</button>
+                 </div> -->
+                 
+               </div>
+              </div>
+                         <div class="col-md-7 col-sm-12 col-xs-12 gutter">
+ 
+                             <div class="white">
+                 <div class="col-md-12 mrg-2">
+                   <div class="col-md-4">
+                     <label>
+                       Total Hours
+                     </label>
+                   </div>
+                   <div class="col-md-4 col-xs-5">
+                     <!-- <input class="effect-1 style" type="text" placeholder="44:00 Hr"> -->
+                     <span class="focus-border">{{totalHours}}Hrs</span>
+                   </div>
+
+                 </div>
+                    <ng-container *ngFor="let i of projectDetails.tbl_project_modules">
+                        <div class="col-md-12 col-xs-12 pull-right">
+                            <div class="task">
+                              <div class="col-md-8 col-xs-7">
+                                <h5>{{i.module_name}}</h5>
+                              </div>
+                              <div class="col-md-4 col-xs-5">
+                                <ul class="taskedit">
+                                  <li>{{getHours(i.tbl_project_tasks)}}</li>
+                                  <!-- <li class="pull-right"><a href=""><i class="fa fa-close" aria-hidden="true"></i></a></li>
+                                  <li class="pull-right"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></li> -->
+                                  
+                                </ul>
+                              </div>
+                            </div>
+                          </div><!---task end-->
+                          <ng-container  *ngFor="let x of i.tbl_project_tasks">
+                              <div class="col-md-11 col-xs-12 pull-right">
+                                  <div class="task hash">
+                                    <div class="col-md-3 col-xs-7">
+                                      <h5>{{x.task_name}}</h5>
+                                    </div>
+                                    <div class="col-md-9 col-xs-5">
+                                      <ul class="pull-right">
+                                        <li>{{x.tbl_user_profile?.f_name}} {{x.tbl_user_profile?.l_name}}</li>
+                                        <li>{{x.planned_hour + x.buffer_hour}}Hrs</li>
+                                        <li>start time: {{x.planned_start_date_time | date:'EEE, d MMM,y'}}</li>
+                                        <li>end time: {{x.planned_end_date_time | date:'EEE, d MMM,y'}}</li>
+                                        <!-- <li class="pull-right"><a href=""><i class="fa fa-close" aria-hidden="true"></i></a></li>
+                                        <li class="pull-right"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></li> -->
+                                        
+                                      </ul>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    
+                                  </div>
+                                </div><!---task end-->
+                          </ng-container>
+                         
+                    </ng-container>
+                    
+                 
+                 <div class="col-md-11 col-xs-12 pull-right">
+                    <div class="task highlight">
+                      <div class="col-md-3 col-xs-7">
+                        <h5>Task Name</h5>
+                      </div>
+                      <div class="col-md-9 col-xs-5">
+                          <ul>
+                              <li>assign person</li>
+                              <li>total Hr</li>
+                          </ul>
+                          <div class="pull-right">
+                            <button class="bt"  (click)="getEditId(row.id)" data-toggle="modal" data-target="#editModal">Edit</button>
+                            <button class="bt">Approve</button>
+                            <button class="bt">Reject</button>
+                            <button class="bt">Send to admin</button>
+                          </div>  
+                        </div>
+                      <div class="clearfix"></div>
+                      
+                    </div>
+                  </div>
+                 <div class="clearfix"></div>
+                 <!-- <div class="col-md-12">
+                 <button type="button" class="btn round-button pull-right">Add Task</button>
+                 </div> -->
+                                 
+                             </div>
+                         </div>
+
+
+<!-- --------------------------------------------- edit modal ----------------------------------------------------------------- -->
+    
+  
+<div id="editModal" class="modal fade">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" #closeBtn1>&times;</button>
+          <h4 class="modal-title">Edit Requested Time</h4>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+
+    </div>
+  </div>
+<!-----------------------------------------------------------------edit modal-------------------------------------->
+
+                     </div>
+
+                </div>
+                
+            </div>
+                <!-- footer-->
+              
+       <!-- end footer-->
+        </div>
+         </div>
+        <!-- Modal -->
+     </body>

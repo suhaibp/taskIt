@@ -18,11 +18,17 @@
                 
                 
                 <div class="user-dashboard">
-                 <h1>Hello, JS</h1>
+                        <h2>COMPANY</h2>
+                        <ul class="breadcrumb">
+                          <li><a href="#">company</a></li>
+                          
+                          
+                          <li>{{viewComp}}</li>
+                        </ul>
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-12 gutter">
 
-                            <ul class="nav tabs">
+                            <ul class="nav tabs side-bar-menu">
                                 <li [ngClass]="{'active1': viewComp == 'AllCompanies'}"><a (click)="updateView('AllCompanies')" href="#tab1" data-toggle="tab">All Companies</a></li>
                                 <li [ngClass]="{'active1': viewComp == 'Subscribed'}"><a (click)="updateView('Subscribed')" href="#tab2" data-toggle="tab">Subscribed</a></li> 
                                 <li [ngClass]="{'active1': viewComp == 'Trial'}"><a (click)="updateView('Trial')" href="#tab3" data-toggle="tab">Trial</a></li>
@@ -31,7 +37,7 @@
                                               
                           </ul>
                         </div>
-                        <div class="col-md-7 col-sm-7 col-xs-12 gutter">
+                        <div class="col-md-10 col-sm-10 col-xs-12 gutter">
 
                             <div *ngIf="viewComp == 'AllCompanies'">
                                 <admin-all-companies></admin-all-companies>
