@@ -2035,13 +2035,6 @@ var returnRouter = function (io) {
                 res.json({ success: false, msg: "Password does'nt match!" });
             }
             else {
-                var bcr_password = '';
-                bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(req.body.password, salt, (err, hash) => {
-                        if (err) throw err;
-                        bcr_password = hash;
-                    })
-                });
                 User_profile.find({
                     where: {
                         login_id: decoded.id
@@ -2077,8 +2070,16 @@ var returnRouter = function (io) {
                         password = currentUser.tbl_login.password;
                     }
                     else {
-                        password = req.body.password;
+                        // password = req.body.password;
+                        var password = '';
+                        bcrypt.genSalt(10, (err, salt) => {
+                            bcrypt.hash(req.body.password, salt, (err, hash) => {
+                                if (err) throw err;
+                                password = hash;
+                            })
+                        });
                     }
+                    // console.log(password)
                     User_profile.update(
                         {
                             f_name: req.body.f_name,
@@ -2092,9 +2093,9 @@ var returnRouter = function (io) {
                             },
                         }).then(user => {
                             if (user == 1) {
-                                if (bcr_password != '') {
+                                if (password != '') {
                                     Login.update({
-                                        password: bcr_password,
+                                        password: password,
                                         profile_image: profile_image
                                     }, {
                                             where: {
