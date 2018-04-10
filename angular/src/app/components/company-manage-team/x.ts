@@ -54,7 +54,6 @@ export class CompanyManageTeamComponent implements OnInit {
   // Last Modified : 13-03-2018, Manu Prasad 
   // Desc          : Get Teams from database
 
-
   getTeams(){
   this.showSpinner =true
   this.companyService.getTeams().subscribe(teams =>{
@@ -81,7 +80,6 @@ export class CompanyManageTeamComponent implements OnInit {
 
   }
 //  ---------------------------------end-----------------------------------------------
-
  //  ---------------------------------Start-------------------------------------------
   // Function      : setTeam
   // Params        : 
@@ -90,7 +88,6 @@ export class CompanyManageTeamComponent implements OnInit {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, Manu Prasad 
   // Desc          : set value in modal
-
 
   setTeam(teamId, teamName){
     // this.showSpinner =true
@@ -125,7 +122,6 @@ export class CompanyManageTeamComponent implements OnInit {
           $('#assignModal').modal('show'); 
     }
   //  ---------------------------------end-----------------------------------------------
-
    //  ---------------------------------Start-------------------------------------------
   // Function      : setTeam
   // Params        : 
@@ -134,7 +130,6 @@ export class CompanyManageTeamComponent implements OnInit {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, Manu Prasad 
   // Desc          : set value in modal
-
 
   assignTeam(){
     // console.log(this.teamMembers);
@@ -166,7 +161,6 @@ export class CompanyManageTeamComponent implements OnInit {
     }
   //  ---------------------------------end-----------------------------------------------
 
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : setTeam
   // Params        : 
@@ -176,10 +170,9 @@ export class CompanyManageTeamComponent implements OnInit {
   // Last Modified : 13-03-2018, Manu Prasad 
   // Desc          : set value in modal
 
-
   memberSelect(member){
     console.log(member)
-    // if(member != ''){
+    if(member != ''){
       // this.heads = member;
       this.selectedTeamMembers = []
     member.forEach(element => {
@@ -191,13 +184,12 @@ export class CompanyManageTeamComponent implements OnInit {
         }
       });
     });
-    // }
+    }
     // console.log(member);
     
     // console.log(this.teamMembers[this.teamMembers.length-1]);
     }
   //  ---------------------------------end-----------------------------------------------
-
 
 
   //  ---------------------------------Start-------------------------------------------
@@ -209,7 +201,6 @@ export class CompanyManageTeamComponent implements OnInit {
   // Last Modified : 13-03-2018, Manu Prasad 
   // Desc          : set value in modal
 
-
   headSelect(head){
     if(head != ''){
       this.teamHead =head;
@@ -218,5 +209,4 @@ export class CompanyManageTeamComponent implements OnInit {
     // console.log(this.teamMembers[this.teamMembers.length-1]);
     }
   //  ---------------------------------end-----------------------------------------------
-  
 }

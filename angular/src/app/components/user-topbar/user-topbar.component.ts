@@ -3,6 +3,7 @@ import * as socketIo from 'socket.io-client';
 import { Config } from './../../config/config';
 import { UserService } from './../../services/user.service';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'user-topbar',
@@ -22,7 +23,7 @@ export class UserTopbarComponent implements OnInit {
   timeExtNotif: any;
   timeExtNotifCount: number = 0;
 
-  constructor(private config: Config, private userService: UserService, public snackBar: MatSnackBar) {
+  constructor(private config: Config, private userService: UserService, public snackBar: MatSnackBar,private routes: Router,) {
     this.socket = socketIo(config.siteUrl);
   }
 
@@ -162,6 +163,12 @@ export class UserTopbarComponent implements OnInit {
   refresh(){
     this.count = 0;
     this.count = this.timeExtNotifCount + this.newTaskNotifCount + this.teamHeadNotifCOunt;
+  }
+
+  logout() {
+    this.userService.logout();
+    this.routes.navigate(['/home']);
+    return false;
   }
 }
 

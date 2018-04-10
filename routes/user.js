@@ -2267,7 +2267,7 @@ var returnRouter = function (io) {
                 },
                 include: [
                     {
-                        model: TimeExtensionRequest,
+                        model: TimeExtensionRequest, as: 'xt',
                         where: {
                             $or: [
                                 {

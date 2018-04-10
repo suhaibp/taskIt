@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService} from './../../services/admin.service';
+import { CompanyService } from '../../services/company.service';
 import {Router} from '@angular/router';
 import { Config } from './../../config/config';
 import * as socketIo from 'socket.io-client';
@@ -15,6 +16,8 @@ export class AdminTopbarComponent implements OnInit {
   count : any;
   private socket: any;
   constructor(
+    private companyService: CompanyService,
+    private routes: Router,
     private adminService : AdminService,
     private router: Router,
     private config: Config
@@ -28,7 +31,6 @@ export class AdminTopbarComponent implements OnInit {
 // Last Modified : 
 // Desc          : Adminnotification
 refresh(){
- 
       this.adminService.getAdminnotification().subscribe(data=>{ 
       this.notif = data;
       this.count = data.length;
@@ -60,5 +62,10 @@ refresh(){
        
   });
 
+}
+logout() {
+  this.companyService.logout();
+  this.routes.navigate(['/home']);
+  return false;
 }
 }

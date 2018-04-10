@@ -535,6 +535,7 @@ export class UserService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.serviceUrl + 'singleuserallleave', { headers: headers })
+    .map(res => res.json());
   }
 	 // ---------------------------------Start-------------------------------------------
   // Function      : deleteEmpleave

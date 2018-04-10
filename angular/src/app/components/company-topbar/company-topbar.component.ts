@@ -308,7 +308,7 @@ export class CompanyTopbarComponent implements OnInit {
     // Last Modified : 
     // Desc          : check user leave request
     this.companyService.getAllemppendingleavesnotifi().subscribe(res => {
-      console.log(res)
+      // console.log(res)
       this.userpendingdata = res;
       this.userpendingdataCount = 0;
       this.userpendingdataCount = this.userpendingdata.length;
@@ -319,7 +319,7 @@ export class CompanyTopbarComponent implements OnInit {
   }
 
   closeNotif5(notif_id) {
-    console.log(notif_id);
+    // console.log(notif_id);
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of estimation approval
     // Params        : notification id
@@ -348,7 +348,7 @@ export class CompanyTopbarComponent implements OnInit {
     // Last Modified : 
     // Desc          : admin approval for time extension
     this.companyService.getAllSendtoadminnotif().subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.adminnotifdata = res;
       this.adminnotifdataCount = 0;
       this.adminnotifdataCount = this.adminnotifdata.length;
@@ -359,7 +359,7 @@ export class CompanyTopbarComponent implements OnInit {
   }
 
   closeNotif6(notif_id) {
-    console.log(notif_id);
+    // console.log(notif_id);
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of estimation approval
     // Params        : notification id
