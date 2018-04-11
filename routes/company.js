@@ -779,7 +779,7 @@ var returnRouter = function (io) {
     // Returns       : 
     // Author        : sudha
     // Date          : 12-03-2018
-    // Last Modified : 
+    // Last Modified : 11-04-2018, Rinsha
     // Desc          : allprojectcategory
     router.get('/allprojectcategory', function (req, res) {
         if (config.use_env_variable) {
@@ -787,12 +787,22 @@ var returnRouter = function (io) {
         } else {
             var sequelize = new Sequelize(config.database, config.username, config.password, config);
         }
-        Project_category.findAll({
-            order: [['id', 'DESC']],
-            where: { delete_status: false }
-        }).then(category => {
-            return res.json(category);
-        });
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            cmp_id = decoded.cmp_id;
+            Project_category.findAll({
+                order: [['id', 'DESC']],
+                where: {
+                    delete_status: false,
+                    cmp_id: cmp_id
+                }
+            }).then(category => {
+                return res.json(category);
+            });
+        } else {
+            return res.status(401).send('Invalid User');
+        }
     });
     // ----------------------------------End-------------------------------------------   
     // ---------------------------------Start-------------------------------------------
@@ -846,11 +856,11 @@ var returnRouter = function (io) {
     // Returns       : 
     // Author        : sudha
     // Date          : 12-01-2018
-    // Last Modified : 
+    // Last Modified : 11-04-2018, Rinsha
     // Desc          : addCategory
     router.post('/addCategory', (req, res, next) => {
-        console.log(req.body);
-        var cmp_id = 1;
+        // console.log(req.body);
+        // var cmp_id = 1;
         var isErr = false;
         errMsg = '';
         name = myTrim(req.body.name);
@@ -859,34 +869,41 @@ var returnRouter = function (io) {
         } else {
             var sequelize = new Sequelize(config.database, config.username, config.password, config);
         }
-        if (!isErr && req.body.name == '' || req.body.name == null) {
-            errMsg = "* Failed, Please Enter Category Name!";
-            isErr = true;
-        }
-        if (!isErr) {
-            Project_category.findAll({
-                where: { [Op.and]: [{ category_name: name, delete_status: false }] }
-            }).then(category => {
-                // console.log(user);
-                //return res.json(user);
-                if (!isErr && (category.length > 0)) {
-                    errMsg = "Category Name Already Exists";
-                    isErr = true;
-                    res.json({ success: false, msg: errMsg });
-                } else {
-                    const addcategory = Project_category.build({
-                        category_name: req.body.name,
-                        cmp_id: cmp_id,
-                        delete_status: false
-                    })
-                    addcategory.save().then(function (newcategory) {
-                        // console.log(newPlan);
-                        res.json({ success: true, msg: "Projecyt Category Created Successfully" });
-                    })
-                }
-            });
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            cmp_id = decoded.cmp_id;
+            if (!isErr && req.body.name == '' || req.body.name == null) {
+                errMsg = "* Failed, Please Enter Category Name!";
+                isErr = true;
+            }
+            if (!isErr) {
+                Project_category.findAll({
+                    where: { [Op.and]: [{ category_name: name, delete_status: false, cmp_id: cmp_id }] }
+                }).then(category => {
+                    // console.log(user);
+                    //return res.json(user);
+                    if (!isErr && (category.length > 0)) {
+                        errMsg = "Category Name Already Exists";
+                        isErr = true;
+                        res.json({ success: false, msg: errMsg });
+                    } else {
+                        const addcategory = Project_category.build({
+                            category_name: req.body.name,
+                            cmp_id: cmp_id,
+                            delete_status: false
+                        })
+                        addcategory.save().then(function (newcategory) {
+                            // console.log(newPlan);
+                            res.json({ success: true, msg: "Projecyt Category Created Successfully" });
+                        })
+                    }
+                });
+            } else {
+                res.json({ success: false, msg: errMsg });
+            }
         } else {
-            res.json({ success: false, msg: errMsg });
+            return res.status(401).send('Invalid User');
         }
     });
     // ----------------------------------End-----------------------------------------------  
@@ -2450,7 +2467,6 @@ var returnRouter = function (io) {
         } else {
             var sequelize = new Sequelize(config.database, config.username, config.password, config);
         }
-
         Plans.findById(req.params.id).then(plans => {
             res.json(plans);
         });
@@ -2473,7 +2489,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            cmp_id = decoded.id;
+            cmp_id = decoded.cmp_id;
             if (req.body.addr == '' || req.body.cardnum == '' || req.body.cardname == '' || req.body.cvv == '' || req.body.fname == '' || req.body.lname == '' || req.body.no == '' || req.body.no_months == '') {
                 res.json({ success: false, msg: "All fields are required" });
             }
@@ -2535,12 +2551,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            if (decoded.role_id == 1) {
-                cmp_id = decoded.id;
-            }
-            else {
-                cmp_id = decoded.cmp_id;
-            }
+            cmp_id = decoded.cmp_id;
             Project.findAll({
                 where: {
                     cmp_id: cmp_id
@@ -2571,12 +2582,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            if (decoded.role_id == 1) {
-                cmp_id = decoded.id;
-            }
-            else {
                 cmp_id = decoded.cmp_id;
-            }
             Users.findAll({
                 // order: [['id', 'DESC']],
                 include: [{
@@ -2614,12 +2620,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            if (decoded.role_id == 1) {
-                cmp_id = decoded.id;
-            }
-            else {
                 cmp_id = decoded.cmp_id;
-            }
             Category.findAll({
                 where: {
                     cmp_id: cmp_id,
@@ -2652,12 +2653,7 @@ var returnRouter = function (io) {
             } else {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
-            if (decoded.role_id == 1) {
-                cmp_id = decoded.id;
-            }
-            else {
                 cmp_id = decoded.cmp_id;
-            }
             if (req.body.project_name == '' || req.body.category_id == '' || req.body.project_type == '' || req.body.priority == '' || req.body.description == '') {
                 res.json({ success: false, msg: "All fields are required" });
             }
@@ -3309,18 +3305,15 @@ var returnRouter = function (io) {
             res.json(companieSize);
         });
     });
-    function validateEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email.toLowerCase());
-    }
     //  ---------------------------------Start-------------------------------------------
     // Function      : register_company
-    // Params        : 
-    // Returns       : 
+    // Params        :
+    // Returns       :
     // Author        : Manu Prasad
     // Date          : 09-03-2018
-    // Last Modified : 09-03-2018, 
+    // Last Modified : 09-03-2018,
     // Desc          : company registration
+
     router.post('/register_company', function (req, res) {
         try {
             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
@@ -3334,11 +3327,13 @@ var returnRouter = function (io) {
             if (!reg.test(req.body[0].ans.toLowerCase()) || !(/^\d+$/.test(req.body[4].ans))) {
                 res.send({ status: 0, message: "Check email and phone number!" });
                 res.end();
+
             }
             else {
                 if (typeof req.body.id == 'undefined') {
                     Login.findAll(
                         { where: { email: req.body[0].ans } }
+
                     ).then(login => {
                         //console.log(projects);
                         if (login.length == 0) {
@@ -3358,7 +3353,7 @@ var returnRouter = function (io) {
                                         profile_image: null,
                                         cmp_status: 'Not Verified',
                                         role_id: 1,
-                                        is_profile_completed: false,
+                                        is_profile_completed: true,
                                         cmp_id: null,
                                         google_id: null,
                                         google_token: null,
@@ -3366,19 +3361,20 @@ var returnRouter = function (io) {
                                     })
                                     // console.log(newLogin);
                                     newLogin.save().then(resLogin => {
-                                        // res.json(resLogin.length)                          
+                                        console.log(resLogin.id)
+
                                         // if(resLogin.length>0){
-                                        // res.json(resLogin)                          
+                                        // res.json(resLogin)
                                         // console.log("hh")
                                         Plan.find({
                                             where: { is_defualt: true }
                                         }).then(resPlan => {
-                                            // res.json(req.body);
+                                            console.log(req.body);
                                             let newCompany = Company.build({
                                                 cmp_name: req.body[1].ans,
                                                 cmp_code: req.body[2].ans,
                                                 contact_no: req.body[4].ans,
-                                                why_choosen: req.body[7].ans,
+                                                why_choosen: req.body[6].ans,
                                                 login_id: resLogin.id,
                                                 cmp_size_id: req.body[5].ans,
                                                 industry_id: req.body[3].ans,
@@ -3387,17 +3383,22 @@ var returnRouter = function (io) {
                                                 is_admin_viewed: false,
                                                 verification_code: req.body[9].ans
                                             })
+
                                             // console.log(newCompany);
-                                            newCompany.save().then(() => {
-                                                emailTemplate.sendVerificationMail(req.body[0].ans, req.body[1].ans, req.body[9].ans);
-                                                res.json({ status: 1, message: "Registered! Check your Email!" })
+                                            newCompany.save().then((resCmp) => {
+                                                // console.log("resCmp");
+                                                // console.log(resCmp);
+                                                Login.update({ cmp_id: resCmp.id }, { where: { id: resLogin.id } }).then(resLog => {
+                                                    emailTemplate.sendVerificationMail(req.body[0].ans, req.body[1].ans, req.body[9].ans);
+
+                                                    res.json({ status: 1, message: "Registered! Check your Email!" })
+                                                })
+
                                             })
                                         }).catch(errorx => {
                                             // res.json({status: 0, message:"Failed!"});
                                             res.json(errorx);
-
                                         })
-
                                         // }
                                     }).catch(error => {
                                         // Ooops, do some error-handling
@@ -3405,10 +3406,12 @@ var returnRouter = function (io) {
                                     })
                                 })
                             })
+
                         } else {
                             //email exist
                             res.json({ status: 0, message: "Already Registered!" });
                         }
+
                     });
                 } else {
                     //update for jooshifa
@@ -3425,6 +3428,7 @@ var returnRouter = function (io) {
                         is_admin_viewed: false,
                         verification_code: req.body[9].ans
                     })
+
                     Company.update({
                         cmp_name: req.body[1].ans,
                         cmp_code: req.body[2].ans,
@@ -3443,8 +3447,8 @@ var returnRouter = function (io) {
                         }).then(data1 => {
                         })
                 }
-            }
 
+            }
         } catch (err) {
             res.json({ status: 0, message: "Already Registered!" });
         }
@@ -3488,7 +3492,8 @@ var returnRouter = function (io) {
                     }
                 }).then(data1 => {
                     Login.update({
-                        is_profile_completed: true
+                        is_profile_completed: true,
+                        cmp_id: req.body[6].ans,
                     }, {
                             where: {
                                 id: companyData.login_id
@@ -4156,12 +4161,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            if (decoded.role_id == 1) {
-                cmp_id = decoded.id;
-            }
-            else {
                 cmp_id = decoded.cmp_id;
-            }
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4203,12 +4203,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            if (decoded.role_id == 1) {
-                cmp_id = decoded.id;
-            }
-            else {
                 cmp_id = decoded.cmp_id;
-            }
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4250,12 +4245,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            if (decoded.role_id == 1) {
-                cmp_id = decoded.id;
-            }
-            else {
                 cmp_id = decoded.cmp_id;
-            }
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4297,12 +4287,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            if (decoded.role_id == 1) {
-                cmp_id = decoded.id;
-            }
-            else {
                 cmp_id = decoded.cmp_id;
-            }
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4401,28 +4386,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-    // ---------------------------------Start-------------------------------------------
-    // Function      : decodeBase64Image
-    // Params        : base64encoded image
-    // Returns       : image type, extension, data
-    // Author        : sudha
-    // Date          : 08-03-2018
-    // Last Modified : 
-    // Desc          : for decoding base64encoded image
-    function decodeBase64Image(dataString) {
-        // console.log(dataString);
-        var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-        var response = {};
-        if (matches.length !== 3) {
-            return new Error('Invalid input string');
-        }
-        response.type = matches[1];
-        ext = matches[1].split("/");
-        response.ext = ext[1];
-        response.data = new Buffer(matches[2], 'base64');
-        return response;
-    }
-    // ----------------------------------End-------------------------------------------
 
     // ---------------------------------Start-------------------------------------------
     // Function      : edit project
@@ -4437,12 +4400,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            if (decoded.role_id == 1) {
-                cmp_id = decoded.id;
-            }
-            else {
                 cmp_id = decoded.cmp_id;
-            }
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4553,27 +4511,36 @@ var returnRouter = function (io) {
     // Desc          : getAllProjectByStatus
     router.get('/getAllProjectByStatus/:status', function (req, res) {
         // console.log(req.params.status);
-        if (config.use_env_variable) {
-            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+                cmp_id = decoded.cmp_id;
+            if (config.use_env_variable) {
+                var sequelize = new Sequelize(process.env[config.use_env_variable]);
+            } else {
+                var sequelize = new Sequelize(config.database, config.username, config.password, config);
+            }
+            if (req.params.status == 'all') {
+                Project.findAll({
+                    order: [['id', 'DESC']],
+                    where: { cmp_id: cmp_id }
+                }).then(project => {
+                    res.json(project);
+                });
+            }
+            else {
+                Project.findAll({
+                    order: [['id', 'DESC']],
+                    where: {
+                        status: req.params.status,
+                        cmp_id: cmp_id
+                    }
+                }).then(project => {
+                    res.json(project);
+                });
+            }
         } else {
-            var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        if (req.params.status == 'all') {
-            Project.findAll(
-                { order: [['id', 'DESC']] }
-            ).then(project => {
-                res.json(project);
-            });
-        }
-        else {
-            Project.findAll({
-                order: [['id', 'DESC']],
-                where: {
-                    status: req.params.status,
-                }
-            }).then(project => {
-                res.json(project);
-            });
+            return res.status(401).send('Invalid User');
         }
     });
     // -----------------------------------End------------------------------------------
@@ -7275,33 +7242,6 @@ var returnRouter = function (io) {
         });
     });
     // ----------------------------------End-----------------------------------
-    // ---------------------------------Start-------------------------------------------
-    // Function      : decodeBase64Image
-    // Params        : base64encoded image
-    // Returns       : image type, extension, data
-    // Author        : sudha
-    // Date          : 08-03-2018
-    // Last Modified :
-    // Desc          : for decoding base64encoded image
-
-    function decodeBase64Image(dataString) {
-        // console.log(dataString);
-        var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-        //   console.log(matches);
-        var response = {};
-
-        if (matches.length !== 3) {
-            return new Error('Invalid input string');
-        }
-
-        response.type = matches[1];
-        ext = matches[1].split("/");
-        response.ext = ext[1];
-        response.data = new Buffer(matches[2], 'base64');
-
-        return response;
-    }
-    // ----------------------------------End-------------------------------------------
 
     router.post('/approveTask', function (req, res) {
         // console.log("hreeee");

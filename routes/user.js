@@ -492,63 +492,84 @@ var returnRouter = function (io) {
         // }
     })
     //  ---------------------------------End-------------------------------------------
-    //  ---------------------------------Start-------------------------------------------
-    // Function      : getMembers
-    // Params        : 
-    // Returns       : 
-    // Author        : Manu Prasad
-    // Date          : 13-03-2018
-    // Last Modified : 13-03-2018, 
-    // Desc          : get list of teams and stregth
-    router.get('/getUserProjectsDetails/:id', function (req, res) {
-        // if (req.headers && req.headers.authorization) {
-        //   var authorization = req.headers.authorization.substring(4), decoded;
-        //   //     try {
-        //   decoded = jwt.verify(authorization, config.secret);
-        //   var cmp_id = decoded._id;
-        var cmp_id = 1;
-        // res.json(req.body);
-        var user_id = 74;
-        Projects.findAll({
-            where: {
-                id: req.params.id,
-                cmp_id: cmp_id
-            },
+       //  ---------------------------------Start-------------------------------------------
+  // Function      : getMembers
+  // Params        : 
+  // Returns       : 
+  // Author        : Manu Prasad
+  // Date          : 13-03-2018
+  // Last Modified : 13-03-2018, 
+  // Desc          : get list of teams and stregth
 
-            include: [{
-                model: ProjectMemeberAssoc,
-                include: [{
-                    model: Users
-                }, {
-                    model: ProjectTeam
-                }]
-            }, {
-                model: Modules,
-
-                include: [{
-                    model: Tasks,
-
-                }]
-            }],
-
-        }).then(resProjects => {
-            if (resProjects.length <= 0) {
-                res.json({
-                    status: 0,
-                    message: "Project not found!"
-                })
-            } else {
-                res.json(resProjects);
-            }
-        }).catch(err => {
-            res.json({
-                status: 0,
-                message: "Error occured! Try again!"
-            })
+  router.get('/getUserProjectsDetails/:id', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //     try {
+    //   decoded = jwt.verify(authorization, config.secret);
+    //   var cmp_id = decoded._id;
+    var cmp_id = 1;
+    // res.json(req.body);
+    var user_id = 74;
+    Projects.findAll({
+      where:{
+        id : req.params.id,
+        cmp_id : cmp_id
+      },
+   
+      include:[{
+        model: ProjectMemeberAssoc,
+        include: [{
+          model: Users
+        },{
+          model: ProjectTeam
+        }]
+      },{
+        model: Modules,
+        
+        include: [{
+          model:Tasks,
+          
+        }]
+      }],
+     
+    }).then( resProjects => {
+      if(resProjects.length<=0){
+        res.json({
+          status: 0,
+          message: "Project not found!"
         })
-        // }
+      }else{
+          temp = [];
+        resProjects.forEach(element=> {
+            temp2 = []
+                element.tbl_project_modules.forEach(ele => {
+                    // console.log(ele.module_name)
+                    time = 0;
+                    temp3 = [];
+                    ele.tbl_project_tasks.forEach(elem => {
+                    time = time+elem.planned_hour+elem.buffer_hour;
+                    temp3.push(elem)
+                    });
+                    temp2.push({id:ele.id, module_name:ele.module_name, project_id:ele.project_id,tbl_project_tasks:temp3, total_hour:time})
+                    
+                // temp.push(ele)
+
+            });
+            temp.push({id:element.id,planned_end_date:element.planned_end_date,planned_start_date:element.planned_start_date,project_name:element.project_name,tbl_project_member_assocs:element.tbl_project_member_assocs,project_code:element.project_code,status:element.status,tbl_project_modules:temp2})
+            
+            });
+        res.json(temp);
+        // res.json(resProjects);
+      }
+    }).catch(err =>{
+      res.json({
+        status: 0,
+        message: "Error occured! Try again!"
+      })
     })
-    //  ---------------------------------End-------------------------------------------
+    // }
+  })
+  //  ---------------------------------End-------------------------------------------
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        : 
@@ -2013,7 +2034,7 @@ var returnRouter = function (io) {
     // Desc          : 
     router.post('/updateUser', function (req, res) {
         isError = false;
-        // console.log(req.body.imgSrc)
+        // console.log(req.body)
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {

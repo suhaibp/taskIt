@@ -55,7 +55,7 @@ export class UserEditProfileComponent implements OnInit {
   }
 
   updateUser(profile) {
-    // console.log(profile)
+    // console.log(profile);
     // ---------------------------------Start-------------------------------------------
     // Function      : updateUser
     // Params        : user data

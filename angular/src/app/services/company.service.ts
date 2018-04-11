@@ -375,7 +375,7 @@ export class CompanyService {
   // Last Modified : 12-03-2018, Rinsha
   // Desc          : getAllProjectByStatus
   getAllProjectByStatus(status) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getAllProjectByStatus/' + status, { headers: headers })
       .map(res => res.json());
 
@@ -1683,7 +1683,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : allprojectcategory
   getAllprojectcategory() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allprojectcategory', { headers: headers })
       .map(res => res.json());
   }
@@ -1714,7 +1714,7 @@ deleteHoliday(data){
   //addCategory
   addCategory(name) {
    // console.log("er"+name);
-  let headers = this.setHeader();
+  let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'addcategory/' ,{name:name}, { headers: headers })
       .map(res => res.json());
   }

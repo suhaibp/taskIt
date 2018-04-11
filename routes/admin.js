@@ -1422,7 +1422,6 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 09-04-2018, Rinsha
   // Desc          : get all estimated project
   router.get('/getAllEstimatedProject', function (req, res) {
-    
     // EstimationTeam.findAll({
     //   include: [
     //     {
