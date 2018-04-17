@@ -252,7 +252,6 @@ export class CompanyTopbarComponent implements OnInit {
   // Last Modified : 08-03-2018, Rinsha
   // Desc          :  
   getLoggedDetails() {
-
     this.companyService.getLoggedinEntity().subscribe(data => {
       this.entity = data;
       if (this.entity.role_id == 3) {
