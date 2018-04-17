@@ -2503,7 +2503,7 @@ var returnRouter = function (io) {
                     upgraded_date_time: Date.now(),
                 }, {
                         where: {
-                            login_id: cmp_id
+                            id: cmp_id
                         }
                     }).then(data => {
                         if (data == 1) {
@@ -2511,7 +2511,7 @@ var returnRouter = function (io) {
                                 cmp_status: "Subscribed"
                             }, {
                                     where: {
-                                        id: cmp_id
+                                        id: decoded.id
                                     }
                                 }).then(data => {
                                     if (data == 1) {
@@ -2673,6 +2673,12 @@ var returnRouter = function (io) {
                         }
                     }).then(projects => {
                         projectLength = projects.length + 1;
+                        if(projectLength < 10){
+                            projectLength = '00' + projectLength;
+                        }
+                        if(projectLength < 100 && projectLength > 9){
+                            projectLength = '0' + projectLength;
+                        }
                         Plans.findById(cmp.plan_id).then(plan => {
                             no_projects = plan.no_projects;
                             if (no_projects != "Unlimited") {
@@ -2697,7 +2703,7 @@ var returnRouter = function (io) {
                                 const project = Project.build({
                                     project_name: project_name,
                                     category_id: req.body.category_id,
-                                    project_code: cmp_code + "PR/" + ('0' + projectLength).slice(-3) + "/" + cDate,
+                                    project_code: cmp_code + "PR/" + projectLength + "/" + cDate,
                                     status: 'Drafted',
                                     project_type: req.body.project_type,
                                     priority: req.body.priority,
