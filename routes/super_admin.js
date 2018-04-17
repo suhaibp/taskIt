@@ -4,14 +4,12 @@ const Sequelize = require('sequelize');
 var env       = process.env.NODE_ENV || 'development';
 var config    = require(__dirname + '/../config/config.json')[env];
 //var login = require('../models/tbl_login');
-
 var Models = require('./../models');
 var Projects = Models.tbl_project;
 var Users = Models.tbl_user_profile;
 var Login = Models.tbl_login;
 const Op = Sequelize.Op
 // var login = require('../models/login');
-
 // const student = models.student.build({
 //   name: "Asif",
 //   rollnumber: 123
@@ -21,7 +19,6 @@ if (config.use_env_variable) {
 } else {
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-
 var returnRouter = function (io) {
 router.get('/create', function(req, res) {
   console.log('xyz');
@@ -67,15 +64,12 @@ router.post('/get_counts_for_dashboard', function(req, res) {
     // }).then(projects => {
     //   res.json(projects);
     // })
-
     /*___________________COUNT IN MODEL EXAMPLE______________________*/
-
     // student.save().then(function(newStudent){
     //   console.log(newStudent);
     // })
    
   });
-
   router.get('/super_admin_pie_graph', function(req, res) {
       console.log('y')
       count = [];
@@ -123,7 +117,6 @@ router.post('/get_counts_for_dashboard', function(req, res) {
         
       })
   });
-
   module.exports = router;
   return router;
   }

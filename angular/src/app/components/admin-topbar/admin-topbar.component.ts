@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService} from './../../services/admin.service';
+import { CompanyService } from '../../services/company.service';
+import {Router} from '@angular/router';
+import { Config } from './../../config/config';
+import * as socketIo from 'socket.io-client';
 
 @Component({
   selector: 'admin-topbar',
@@ -6,43 +11,61 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-topbar.component.css']
 })
 export class AdminTopbarComponent implements OnInit {
-notification : any;
-  constructor() { }
+
+  notif : any;
+  count : any;
+  private socket: any;
+  constructor(
+    private companyService: CompanyService,
+    private routes: Router,
+    private adminService : AdminService,
+    private router: Router,
+    private config: Config
+  ) {   this.socket = socketIo(config.siteUrl);}
+// ---------------------------------Start-------------------------------------------
+// Function      : Admin  management
+// Params        : id
+// Returns       : 
+// Author        : sudha
+// Date          : 06-03-2018 
+// Last Modified : 
+// Desc          : Adminnotification
+refresh(){
+      this.adminService.getAdminnotification().subscribe(data=>{ 
+      this.notif = data;
+      this.count = data.length;
+       console.log(this.notif);
+    });
+    
+}
 
   ngOnInit() {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/assets/sw.js').then(function(registration) {
-          // Registration was successful
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function(err) {
-          // registration failed :(
-          console.log('ServiceWorker registration failed: ', err);
-        });
-      });
-    }
-    this.displayNotification();
+    this.refresh();
+    this.socket.on('new company', (data) => {
+      
+        this.refresh();
+      
+     });
   }
-   displayNotification() {
-    this.notification = Notification.requestPermission(function(status) {
-      console.log('Notification permission status:', status);
-   });
-  // alert('dd');
-    if (this.notification.permission == 'granted') {
-    alert('dd');
-      navigator.serviceWorker.getRegistration().then(function(reg) {
-        var options = {
-          body: 'Here is a notification body!',
-          icon: 'sample.jpg',
-          vibrate: [100, 50, 100],
-          data: {
-            dateOfArrival: Date.now(),
-            primaryKey: 1
-          }
-        };
-        reg.showNotification('Hello world!', options);
-      });
-    }
-  }
+  // viewstatus admin
+  viewstatus(id){ 
+    console.log("asf"+id) ;
+  this.adminService.viewstatusadmin(id).subscribe(data=>{
+    //console.log(data);
+    if(data.success){
+      this.refresh();   
+  
+         }
+         else{
+         
+        }
+       
+  });
 
+}
+logout() {
+  this.companyService.logout();
+  this.routes.navigate(['/home']);
+  return false;
+}
 }

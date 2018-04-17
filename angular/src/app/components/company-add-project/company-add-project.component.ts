@@ -37,7 +37,7 @@ export class CompanyAddProjectComponent implements OnInit {
     // Desc          :  
     this.companyService.getLoggedinEntity().subscribe(data => {
       this.entity = data;
-      if(this.entity.role_id != 3){
+      if(this.entity.role_id == 1){
         this.showPMlist = true;
       }
     });

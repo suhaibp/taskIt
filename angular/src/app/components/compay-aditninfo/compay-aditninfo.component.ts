@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from './../../services/admin.service'
 import { MatSnackBar } from '@angular/material';
-import { Router ,ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CompanyService } from '../../services/company.service';
 
 @Component({
@@ -10,10 +10,11 @@ import { CompanyService } from '../../services/company.service';
 	styleUrls: ['./compay-aditninfo.component.css']
 })
 export class CompayAditninfoComponent implements OnInit {
+	reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	timestamp = new Date().getTime().toString();
 	spinner: Boolean = false;
-	sub :any;
-	p_id :'';
+	sub: any;
+	p_id: '';
 	questions = [{
 		// 	question:"What's your Email?",
 		// 	type:"text",
@@ -60,7 +61,7 @@ export class CompayAditninfoComponent implements OnInit {
 		// 	ans:""
 		// },
 	];
-	array =[];
+	array = [];
 	industry: any;
 	cmpSize: any;
 	errMessage = '';
@@ -78,7 +79,7 @@ export class CompayAditninfoComponent implements OnInit {
 		verification_code: this.timestamp + Math.floor(100000 + Math.random() * 900000),
 
 	}
-	constructor(private adminService: AdminService,public snackBar: MatSnackBar,private routes: Router,private companyService: CompanyService,private route: ActivatedRoute) { }
+	constructor(private adminService: AdminService, public snackBar: MatSnackBar, private routes: Router, private companyService: CompanyService, private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.sub = this.route.params.subscribe(params => {
@@ -86,17 +87,17 @@ export class CompayAditninfoComponent implements OnInit {
 			// console.log("sub");
 			this.companyService.getCompanyDetailsById(this.p_id).subscribe(data => {
 				// console.log("data" + data.is_profile_completed);
-				if(data.is_profile_completed == true){
+				if (data.is_profile_completed == true) {
 					this.routes.navigate(['/company-dashboard']);
 					// console.log("completed");
 				}
-			
-			  });
+
+			});
 		});
 
 
-		this.companyService.getLoggedUSerDetails().subscribe(info =>{
-		// console.log("sdsss" + info);
+		this.companyService.getLoggedUSerDetails().subscribe(info => {
+			// console.log("sdsss" + info);
 			// if(info == null || info == ''){
 			//   this.routes.navigate(['/clogin']); 
 			// }
@@ -120,14 +121,14 @@ export class CompayAditninfoComponent implements OnInit {
 			// 	this.routes.navigate(['/additnInfo', info.id]);
 			//   }
 			// }
-		  });
+		});
 		// console.log(this.questions);
 		this.getIndustries();
 		this.getCompanySize();
 	}
 
 	register() {
-		this.questions.push({question : '',type: '',ans :this.p_id });
+		this.questions.push({ question: '', type: '', ans: this.p_id });
 		this.companyService.registerCompanyFromadtninfo(this.questions).subscribe(resData => {
 			this.spinner = true
 			// console.log(resData)
@@ -172,13 +173,27 @@ export class CompayAditninfoComponent implements OnInit {
 
 	}
 
-	validate() {
+
+	validate(i) {
+		console.log(this.questions[i].ans);
+		
 		if (this.questions[this.counter].ans == '') {
 			this.errMessage = "Please fill the fields";
 		}
+		else if (i == 3) {
+			if (!(/^\d+$/.test(this.questions[3].ans))) {
+				this.errMessage = "Enter valid phone number!";
+			}
+			else {
+				this.errMessage = "";
+				this.addCounter();
+	
+			}
+		}
 		else {
-			this.errMessage = '';
+			this.errMessage = "";
 			this.addCounter();
+
 		}
 	}
 }

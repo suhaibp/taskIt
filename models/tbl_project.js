@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     project_code: DataTypes.STRING,
     status: DataTypes.STRING,
     priority: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    requirement_summary: DataTypes.TEXT,
+    description: DataTypes.STRING,
+    requirement_summary: DataTypes.STRING,
     requirement_attatchment: DataTypes.STRING,
     is_estimation_completed: DataTypes.BOOLEAN,
     is_pm_viewed: DataTypes.BOOLEAN,
@@ -21,8 +21,6 @@ module.exports = (sequelize, DataTypes) => {
     planned_start_date: DataTypes.DATE,
     planned_end_date: DataTypes.DATE,
     actual_start_date: DataTypes.DATE,
-    // actual_end_date: DataTypes.DATE
-    // actual_start_date: DataTypes.DATE,
     actual_end_date: DataTypes.DATE,
     is_pm_viewed_for_planning: DataTypes.BOOLEAN,
   }, {});

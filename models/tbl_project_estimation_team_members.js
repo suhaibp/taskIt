@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     tbl_project_estimation_team_members.belongsTo(models.tbl_user_profile, {
       foreignKey: 'user_profile_id',  
     });
+    tbl_project_estimation_team_members.belongsTo(models.tbl_estimation, {
+      foreignKey: 'estimation_team_id',
+    });
   };
   return tbl_project_estimation_team_members;
 };

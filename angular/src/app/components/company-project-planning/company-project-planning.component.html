@@ -80,7 +80,7 @@
                               </div>
                               <div class="clearfix"></div>
                               <br>
-                              <div class="col-md-4 col-xs-6"><label class="pad-top">Start Datetime *:</label></div>
+                              <!-- <div class="col-md-4 col-xs-6"><label class="pad-top">Start Datetime *:</label></div>
                               <div class="col-md-3 col-xs-6">
                                 <mat-form-field>
                                   <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker1" placeholder="Choose a date" [formControl]="date"
@@ -88,18 +88,18 @@
                                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                   <mat-datepicker #picker1></mat-datepicker>
                                 </mat-form-field>
-                              </div>
-                              <br>
+                              </div> -->
+                              <!-- <br>
                               <div class="clearfix"></div>
                               <ngb-timepicker [meridian]="meridian" name="start_time" [(ngModel)]="newTasks.start_time"></ngb-timepicker>
                               <hr>
-                              <div class="clearfix"></div>
+                              <div class="clearfix"></div> -->
                               <!-- <div class="col-md-3 col-xs-6"><label class="pad-top">End Datetime :</label></div>
                               <div class="col-md-3 col-xs-6">
 
                               </div> -->
 
-                              <div class="clearfix"></div>
+                              <!-- <div class="clearfix"></div>
                               <br>
                               <div class="col-md-4 col-xs-6"><label class="pad-top">End Datetime *:</label></div>
                               <div class="col-md-3 col-xs-6">
@@ -109,13 +109,13 @@
                                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                   <mat-datepicker #picker2></mat-datepicker>
                                 </mat-form-field>
-                              </div>
-                              <div class="clearfix"></div>
+                              </div> -->
+                              <!-- <div class="clearfix"></div>
 
                               <ngb-timepicker name="timepicker1" [meridian]="meridian" name="end_time" [(ngModel)]="newTasks.end_time"></ngb-timepicker>
                               <hr>
                               <div class="clearfix"></div>
-                              <br>
+                              <br> -->
 
                               <div class="example-container">
                                 <div class="col-md-4 col-xs-6"><label class="pad-top">Task type :</label></div>
@@ -124,11 +124,8 @@
 
                                     <mat-select [(value)]="selected1" name='task_type' #group="ngModel" [(ngModel)]="newTasks.task_type">
                                       <!-- <mat-option>None</mat-option> -->
-
                                       <mat-option value="0">Billable</mat-option>
                                       <mat-option value="1">Non Billable</mat-option>
-
-
                                     </mat-select>
                                   </mat-form-field>
                                 </div>
@@ -327,7 +324,7 @@
                               </div> -->
                               <div class="clearfix"></div>
                               <br>
-                              <div class="col-md-4 col-xs-6"><label class="pad-top">Start Datetime *:</label></div>
+                              <!-- <div class="col-md-4 col-xs-6"><label class="pad-top">Start Datetime *:</label></div>
                               <div class="col-md-8 col-xs-6 date-time">
                                 <div class="col-md-3"> Date : </div>
 
@@ -335,19 +332,19 @@
                                 <div class="clearfix"></div>
                                 <!-- {{newTasks.start_time.hour, newTasks.start_time.minute, newTasks.start_time.second}} -->
 
-                                <div class="col-md-3">Time : </div>
+                              <!-- <div class="col-md-3">Time : </div>
                                 <div class="col-md-9">
                                   <div *ngIf="Projects.start_time">
                                     {{newTasks.start_time.hour}} : {{newTasks.start_time.minute}} <span *ngIf="Projects.start_time.hour">{{meridain }}</span>
                                   </div>
-                                </div>
-                                <!-- <mat-form-field>
+                                </div> -->
+                              <!-- <mat-form-field>
                                   <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="pickerf" placeholder="Choose a date" [formControl]="date"
                                     name='start_date' [(ngModel)]="newTasks.start_date">
                                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                   <mat-datepicker #picker1></mat-datepicker>
                                 </mat-form-field> -->
-                              </div>
+                              <!-- </div> -->
                               <br>
                               <div class="clearfix"></div>
                               <!-- <ngb-timepicker [meridian]="meridian" name="start_time1" [(ngModel)]="newTasks.start_time" disable></ngb-timepicker> -->
@@ -360,7 +357,7 @@
 
                               <div class="clearfix"></div>
                               <br>
-                              <div class="col-md-4 col-xs-6"><label class="pad-top">End Datetime *:</label></div>
+                              <!-- <div class="col-md-4 col-xs-6"><label class="pad-top">End Datetime *:</label></div>
                               <div class="col-md-3 col-xs-6">
                                 <mat-form-field>
                                   <input matInput [matDatepickerFilter]="myFilter1" [matDatepicker]="pickerm" placeholder="Choose a date" [formControl]="serializedDate"
@@ -368,13 +365,13 @@
                                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                   <mat-datepicker #picker2></mat-datepicker>
                                 </mat-form-field>
-                              </div>
-                              <div class="clearfix"></div>
+                              </div> -->
+                              <!-- <div class="clearfix"></div>
 
                               <ngb-timepicker name="timepicker1" [meridian]="meridian" name="end_time1" [(ngModel)]="newTasks.end_time"></ngb-timepicker>
                               <hr>
                               <div class="clearfix"></div>
-                              <br>
+                              <br> -->
 
                               <div class="example-container">
                                 <div class="col-md-4 col-xs-6"><label class="pad-top">Task type :</label></div>
@@ -506,20 +503,17 @@
                 <div class="col-md-9 psh-left">
                   <div class="form-group">
                     <div class="col-md-7"><label for="">Developers</label></div>
-
                     <mat-form-field class="inputfileds">
-
-                      <mat-select placeholder="Developers" name='selected' multiple [(ngModel)]="Projects.developer" (ngModelChange)="getuserAvalibality();">
+                      <mat-select placeholder="Developers" name='selected' multiple [(ngModel)]="Projects.developer" (ngModelChange)="getuserAvalibality1($event);">
                         <mat-option [value]="Developer" *ngFor="let Developer of Developers;">{{Developer.f_name}} {{Developer.l_name}} </mat-option>
                       </mat-select>
                     </mat-form-field>
-
                   </div>
                   <div class="form-group">
                     <div class="col-md-7"><label for="">Designers</label></div>
                     <mat-form-field class="inputfileds">
 
-                      <mat-select placeholder="Designers" name='selected' multiple [(ngModel)]="Projects.designer" (ngModelChange)="getuserAvalibality();">
+                      <mat-select placeholder="Designers" name='selected' multiple [(ngModel)]="Projects.designer" (ngModelChange)="getuserAvalibality1($event);">
                         <mat-option [value]="Designer" *ngFor="let Designer of Designers;">{{Designer.f_name}} {{Designer.l_name}}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -528,7 +522,7 @@
                     <div class="col-md-7"><label for="">QC</label></div>
                     <mat-form-field class="inputfileds">
 
-                      <mat-select placeholder="QC" name='selected' multiple [(ngModel)]="Projects.qc" (ngModelChange)="getuserAvalibality();">
+                      <mat-select placeholder="QC" name='selected' multiple [(ngModel)]="Projects.qc" (ngModelChange)="getuserAvalibality3($event);">
                         <mat-option [value]="QC" *ngFor="let QC of QCs;">{{QC.f_name}} {{QC.l_name}}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -540,6 +534,9 @@
                     <div class="col-md-4 col-xs-7 mrg-2">
 
                       <button type="button" class="btn round-button dropdown-toggle mrg-tp" data-toggle="dropdown" (click)="addModuleClear()">Add Module</button>
+                      <br>
+                      <button type="button" class="btn round-button dropdown-toggle mrg-tp" (click)="finish()"> Calculate End date</button>
+
                       <ul class="dropdown-menu addmodule" role="menu">
 
                         <div class="col-md-8">
@@ -680,7 +677,7 @@
                       <div class="pull-right">
                         <mat-form-field class="filter">
 
-                          <mat-select (change)="refresh()" [(value)]="selected">
+                          <mat-select (change)="getTableData()" [(value)]="selected">
                             <!-- <mat-option>None</mat-option> -->
                             <mat-option value="0">All</mat-option>
                             <mat-option value="2">Designer</mat-option>
@@ -704,27 +701,37 @@
                     <!-- Name Column -->
                     <ng-container matColumnDef="user">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> USER </mat-header-cell>
-                      <mat-cell *matCellDef="let row"> {{row.organization}} </mat-cell>
+                      <mat-cell *matCellDef="let row"> {{row.f_name}} {{row.l_name}}</mat-cell>
                     </ng-container>
-
                     <!-- Name Column -->
-                    <ng-container matColumnDef="start_date">
+                    <!-- <ng-container matColumnDef="start_date">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> START DATE </mat-header-cell>
-                      <mat-cell *matCellDef="let row"> {{row.contact_person_email}} </mat-cell>
+                      <mat-cell *matCellDef="let row"> {{row.start_date | date:'EEE, d MMM,y'}} </mat-cell>
+
+                    </ng-container> -->
+                    <ng-container matColumnDef="start_date">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>START DATE</mat-header-cell>
+                      <mat-cell *matCellDef="let row;let i = index">
+                        <input matInput [matDatepicker]="picker" name='start_date1' [(ngModel)]="row.start_date" (ngModelChange)="giveDate(i,row.id,row.start_date)">
+                        <!-- <input matInput [matDatepicker]="picker" name='start_date1' [(ngModel)]="row.start_date"  > -->
+
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-cell>
                     </ng-container>
                     <!-- Progress Column -->
                     <ng-container matColumnDef="end_date">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> END DATE</mat-header-cell>
-                      <mat-cell *matCellDef="let row"> {{row.contact_person_fname}}</mat-cell>
+                      <mat-cell *matCellDef="let row"> {{row.end_date | date:'EEE, d MMM,y'}} </mat-cell>
                     </ng-container>
                     <!-- Progress Column -->
                     <ng-container matColumnDef="hours">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> TOTAL HOURS </mat-header-cell>
-                      <mat-cell *matCellDef="let row"> {{row.contact_no}}</mat-cell>
+                      <mat-cell *matCellDef="let row"> {{row.hour}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="no_task">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> NO. TASKS</mat-header-cell>
-                      <mat-cell *matCellDef="let row"> {{row.cmp_status}}</mat-cell>
+                      <mat-cell *matCellDef="let row"> {{row.no_task}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="action">
