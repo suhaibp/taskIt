@@ -5,23 +5,27 @@ declare var $:any;
   selector: 'company-status-graph',
   templateUrl: './company-status-graph.component.html',
   styleUrls: ['./company-status-graph.component.css'],
-  inputs: ['containerId']
+  inputs: ['containerId','pieData']
 })
 export class CompanyStatusGraphComponent implements OnInit {
   containerId = '';
+  pieData:any;
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {}
+  ngAfterViewInit() {
     //console.log(this.containerId);
-    const pieData = [
-      {name: 'New - Yet to Start', value: 3, color: '#2778a7'},
-      {name: 'In Progress', value: 4, color: '#99b745'},
-      {name: 'Completed', value: 50, color: '#17a88f'},
-      {name: 'On Hold', value: 50, color: '#f2ac37'},
-      {name: 'Cancelled', value: 3, color: '#b74549'},
-      {name: 'Un Planned', value: 1, color: '#4d5d6e'},
-    ];
-    this.bakeDonut(pieData);
+    
+    // const pieData = [
+    //   {name: 'New - Yet to Start', value: 3, color: '#2778a7'},
+    //   {name: 'In Progress', value: 4, color: '#99b745'},
+    //   {name: 'Completed', value: 50, color: '#17a88f'},
+    //   {name: 'On Hold', value: 50, color: '#f2ac37'},
+    //   {name: 'Cancelled', value: 3, color: '#b74549'},
+    //   {name: 'Un Planned', value: 1, color: '#4d5d6e'},
+    // ];
+    // console.log(this.pieData);
+    this.bakeDonut(this.pieData);
   }
 
   bakeDonut(d) {

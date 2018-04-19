@@ -52,7 +52,6 @@ var cmp_break = models.tbl_cmp_break;
 var cmp_break_assoc = models.tbl_cmp_break_assoc;
 var Projects_member_assoc = models.tbl_project_member_assoc;
 var Plans = models.tbl_plan;
-var Project = models.tbl_project;
 var Category = models.tbl_project_category;
 var Team_assoc = models.tbl_team_assoc;
 var Project_estimation_team = models.tbl_project_estimation_team;
@@ -89,6 +88,9 @@ var Plan = models.tbl_plan;
 var Company = models.tbl_company;
 var Time_extension_request = models.tbl_time_extension_request;
 var Time_extension_request_notifications = models.tbl_time_extension_req_notification;
+var task_status_assoc = models.tbl_task_status_assoc;
+var task_statuses = models.tbl_task_status;
+
 'use strict';
 var returnRouter = function (io) {
     // ---------------------------------Start-------------------------------------------
@@ -149,7 +151,7 @@ var returnRouter = function (io) {
                 // where: {delete_status: false}
             }]
         }).then(user => {
-            //console.log(projects);
+            //// console.log(projects);
             return res.json(user);
         });
     });
@@ -174,7 +176,7 @@ var returnRouter = function (io) {
                 where: { delete_status: true }
             }]
         }).then(user => {
-            //console.log(projects);
+            //// console.log(projects);
             return res.json(user);
         });
     });
@@ -233,7 +235,7 @@ var returnRouter = function (io) {
                 where: { [Op.and]: [{ block_status: true, delete_status: false }] }
             }]
         }).then(user => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(user);
         });
     });
@@ -247,7 +249,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : block user
     router.put('/blockuser/:id', function (req, res) {
-        console.log(req.params.id);
+        // // console.log(req.params.id);
         Login.update({
             block_status: true
         }, {
@@ -275,7 +277,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : unblock user
     router.put('/unblockuser/:id', function (req, res) {
-        console.log(req.params.id);
+        // // console.log(req.params.id);
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -308,7 +310,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : delete user
     router.put('/deleteuser/:id', function (req, res) {
-        console.log("id del" + req.params.id);
+        // // console.log("id del" + req.params.id);
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -341,7 +343,7 @@ var returnRouter = function (io) {
         Designation.findAll({
             where: { delete_status: false }
         }).then(designation => {
-            //console.log(projects);
+            //// console.log(projects);
             return res.json(designation);
         });
     });
@@ -406,9 +408,9 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : for decoding base64encoded image
     function decodeBase64Image(dataString) {
-        // console.log(dataString);
+        // // console.log(dataString);
         var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-        //   console.log(dataString);
+        //   // console.log(dataString);
         var response = {};
         if (matches.length !== 3) {
             return new Error('Invalid input string');
@@ -430,7 +432,7 @@ var returnRouter = function (io) {
     // Desc          : adduser
     router.post('/adduser', (req, res, next) => {
         //  var regex  = /^\d+(?:\.\d{0,2})$/;
-        console.log(req.body);
+        // // console.log(req.body);
         var team = req.body.team;
         var cmp_id = 1;
         var photoName = '';
@@ -505,7 +507,7 @@ var returnRouter = function (io) {
                         errMsg = "* Failed, Please Select User Group!";
                         isErr = true;
                     }
-                    // console.log(req.body.join_date);
+                    // // console.log(req.body.join_date);
                     if (!isErr && req.body.join_date == '' || req.body.join_date == null) {
                         errMsg = "* Failed, Please Select join_date!";
                         isErr = true;
@@ -526,22 +528,22 @@ var returnRouter = function (io) {
                                 errMsg = "* Failed, Invalid Photo!";
                                 isErr = true;
                             }
-                            console.log(base64.type);
-                            console.log(base64.ext);
+                            // // console.log(base64.type);
+                            // // console.log(base64.ext);
                             photoName = new String(new Date().getTime()) + '_' + (Math.floor(100000 + Math.random() * 900000) + '.' + base64.ext);
-                            //console.log(photoName);
+                            //// console.log(photoName);
                             require("fs").writeFile('../taskIt/public/assets/profile_upload/' + photoName, base64.data, 'base64', function (err) {
-                                console.log(err);
+                                // // console.log(err);
                             });
                             require("fs").writeFile('../taskIt/angular/src/assets/profile_upload/' + photoName, base64.data, 'base64', function (err) {
-                                console.log(err);
+                                // // console.log(err);
                             });
                         }
                         var password = generator.generate({
                             length: 10,
                             numbers: true
                         });
-                        // console.log("generator pw:" + password);
+                        // // console.log("generator pw:" + password);
                         var bcr_password = '';
                         bcrypt.genSalt(10, (err, salt) => {
                             bcrypt.hash(password, salt, (err, hash) => {
@@ -549,18 +551,18 @@ var returnRouter = function (io) {
                                 bcr_password = hash;
                             })
                         })
-                        // console.log("bcryp:" + bcr_password)
+                        // // console.log("bcryp:" + bcr_password)
                         Login.findAll({
                             where: { [Op.and]: [{ email: email, delete_status: false, cmp_id: cmp_id }] }
                         }).then(user => {
-                            // console.log(user);
+                            // // console.log(user);
                             //return res.json(user);
                             if (!isErr && (user.length > 0)) {
                                 errMsg = "Email Already Exists";
                                 isErr = true;
                                 res.json({ success: false, msg: errMsg });
                             } else {
-                                console.log(cmp_id);
+                                // // console.log(cmp_id);
                                 const logindetails = Login.build({
                                     email: req.body.email,
                                     password: bcr_password,
@@ -599,7 +601,7 @@ var returnRouter = function (io) {
                                             });
                                         })
                                         emailTemplate.sendUsercredentialMail(req.body.email, req.body.f_name, password);
-                                        // console.log(newUser);
+                                        // // console.log(newUser);
                                         res.json({ success: true, msg: "NewUser Created Successfully" });
                                     })
                                 })
@@ -621,7 +623,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : singleuser
     router.post('/singleuser', function (req, res) {
-        // console.log(req.body.id);
+        // // console.log(req.body.id);
         // res.json({email:1})
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
@@ -637,7 +639,7 @@ var returnRouter = function (io) {
                 model: Teamassoc,
             }],
         }).then(user => {
-            //console.log(projects);
+            //// console.log(projects);
             return res.json(user);
             // res.json(user)
         });
@@ -652,7 +654,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : updateuser
     router.post('/updateuser', function (req, res) {
-        console.log(req.body.imgFile);
+        // // console.log(req.body.imgFile);
         // res.json({email:1})
         var teams = req.body.team;
         var cmp_id = 1;
@@ -664,7 +666,7 @@ var returnRouter = function (io) {
         } else {
             var sequelize = new Sequelize(config.database, config.username, config.password, config);
         }
-        // console.log("asd"+req.body.f_name);
+        // // console.log("asd"+req.body.f_name);
         if (!isErr && req.body.f_name == '' || req.body.f_name == null) {
             errMsg = "* Failed, Please Enter First Name!";
             isErr = true;
@@ -693,22 +695,22 @@ var returnRouter = function (io) {
                     require("fs").unlinkSync('../taskIt/angular/src/assets/profile_upload/' + req.body.photoSrc);
                 }
 
-                // console.log(req.body.editPhotoSrc);
+                // // console.log(req.body.editPhotoSrc);
                 ext = ['gif', 'png', 'jpg', 'jpeg']
                 var base64 = decodeBase64Image(req.body.editPhotoSrc);
                 if (!isErr && ext.indexOf(base64.ext.toLowerCase()) < 0) {
                     errMsg = "* Failed, Invalid Photo!";
                     isErr = true;
                 }
-                // console.log(base64.type);
-                //   console.log(base64.ext);
+                // // console.log(base64.type);
+                //   // console.log(base64.ext);
                 photoName = new String(new Date().getTime()) + '_' + (Math.floor(100000 + Math.random() * 900000) + '.' + base64.ext);
-                //console.log(photoName);
+                //// console.log(photoName);
                 require("fs").writeFile('../taskIt/public/assets/profile_upload/' + photoName, base64.data, 'base64', function (err) {
-                    console.log(err);
+                    // console.log(err);
                 });
                 require("fs").writeFile('../taskIt/angular/src/assets/profile_upload/' + photoName, base64.data, 'base64', function (err) {
-                    console.log(err);
+                    // console.log(err);
                 });
                 Login.update({
                     profile_image: photoName,
@@ -814,7 +816,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : delete category
     router.put('/deletecategory/:id', function (req, res) {
-        // console.log("id del"+req.params.id);
+        // // console.log("id del"+req.params.id);
         var isErr = false;
         errMsg = '';
         if (config.use_env_variable) {
@@ -825,7 +827,7 @@ var returnRouter = function (io) {
         Project.findAll({
             where: { category_id: req.params.id }
         }).then(catg => {
-            // console.log(user);
+            // // console.log(user);
             //return res.json(user);
             if (!isErr && (catg.length > 0)) {
                 errMsg = "Project category canot delete";
@@ -859,7 +861,7 @@ var returnRouter = function (io) {
     // Last Modified : 11-04-2018, Rinsha
     // Desc          : addCategory
     router.post('/addCategory', (req, res, next) => {
-        // console.log(req.body);
+        // // console.log(req.body);
         // var cmp_id = 1;
         var isErr = false;
         errMsg = '';
@@ -881,7 +883,7 @@ var returnRouter = function (io) {
                 Project_category.findAll({
                     where: { [Op.and]: [{ category_name: name, delete_status: false, cmp_id: cmp_id }] }
                 }).then(category => {
-                    // console.log(user);
+                    // // console.log(user);
                     //return res.json(user);
                     if (!isErr && (category.length > 0)) {
                         errMsg = "Category Name Already Exists";
@@ -894,7 +896,7 @@ var returnRouter = function (io) {
                             delete_status: false
                         })
                         addcategory.save().then(function (newcategory) {
-                            // console.log(newPlan);
+                            // // console.log(newPlan);
                             res.json({ success: true, msg: "Projecyt Category Created Successfully" });
                         })
                     }
@@ -924,7 +926,7 @@ var returnRouter = function (io) {
         Project_category.findOne({
             where: { id: req.params.id },
         }).then(category => {
-            //console.log(projects);
+            //// console.log(projects);
             return res.json(category);
             // res.json(user)
         });
@@ -939,7 +941,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : updatecategory
     router.post('/updatecategory', (req, res, next) => {
-        // console.log(req.body);
+        // // console.log(req.body);
         var isErr = false;
         errMsg = '';
         category_name = myTrim(req.body.category_name);
@@ -957,7 +959,7 @@ var returnRouter = function (io) {
                 "raw": true,
                 where: { [Op.and]: [{ category_name: req.body.category_name, delete_status: false }] }
             }).then(category => {
-                console.log(category);
+                // console.log(category);
                 //return res.json(user);
                 if (!isErr && category && (category.id != req.body.id)) {
                     errMsg = "Category Name Already Exists";
@@ -1059,7 +1061,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : deleteempleave
     router.put('/deleteempleave/:id', function (req, res) {
-        // console.log("id del"+req.params.id);
+        // // console.log("id del"+req.params.id);
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -1113,14 +1115,14 @@ var returnRouter = function (io) {
     // Last Modified : 28-03-2018
     // Desc          : addEmpleave
     router.post('/addEmpleave', (req, res, next) => {
-        console.log(req.body);
+        // console.log(req.body);
         var cmp_id = 1;
         var isErr = false;
         errMsg = '';
         var moment = require('moment');
         var time = moment();
         var time_format = time.format('YYYY-MM-DD');
-        console.log(time_format);
+        // console.log(time_format);
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -1162,7 +1164,7 @@ var returnRouter = function (io) {
         const endDate = new Date(req.body.enddate);
         var total_seconds = 0;
         async.eachOfSeries(datesBetween(startDate, endDate), (daterng, key, callback) => {
-            // console.log(daterng);
+            // // console.log(daterng);
 
             public_holiday.findOne({
 
@@ -1170,19 +1172,19 @@ var returnRouter = function (io) {
 
             }).then(holiday => {
                 if (holiday) {
-                    // console.log(daterng+"holiday")
+                    // // console.log(daterng+"holiday")
                     callback();
                 } else {
-                    // console.log(daterng+"not holiday")   
+                    // // console.log(daterng+"not holiday")   
                     var d = new Date(daterng);
                     var date = d.getDate(daterng);
                     var day = d.getDay(daterng);//start 1
 
                     var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
                     var weekno = weekOfMonth + 1;
-                    //console.log(day);
-                    // console.log(weekno);
-                    //  console.log( parseInt(weekOfMonth));          
+                    //// console.log(day);
+                    // // console.log(weekno);
+                    //  // console.log( parseInt(weekOfMonth));          
 
                     cmp_off_day.findOne({
 
@@ -1213,7 +1215,7 @@ var returnRouter = function (io) {
                             // format a string result
                             var s = moment.utc(+d).format('HH:mm:ss');
 
-                            // console.log("s" + s);
+                            // // console.log("s" + s);
                             var a = s.split(':'); // split it at the colons
 
                             // minutes are worth 60 seconds. Hours are worth 60 minutes.
@@ -1247,7 +1249,7 @@ var returnRouter = function (io) {
                                 // format a string result
                                 var s1 = moment.utc(+d1).format('HH:mm:ss');
 
-                                // console.log("e" + s1);
+                                // // console.log("e" + s1);
 
                                 var a1 = s1.split(':'); // split it at the colons
 
@@ -1270,7 +1272,7 @@ var returnRouter = function (io) {
 
 
         }, function (err) {
-            console.log("tot" + total_seconds);
+            // console.log("tot" + total_seconds);
             // });
             if (!isErr) {
                 async.series([
@@ -1296,12 +1298,12 @@ var returnRouter = function (io) {
                             required: true,
                             where: { cmp_id: cmp_id },
                         }).then(holiday => {
-                            // console.log(holiday.title); 
+                            // // console.log(holiday.title); 
                             holiday.forEach((element) => {
                                 var startdate = dateFormat(req.body.startdate, "isoDate");
                                 var enddate = dateFormat(req.body.enddate, "isoDate");
-                                console.log("jk" + startdate);
-                                console.log(element.date);
+                                // console.log("jk" + startdate);
+                                // console.log(element.date);
                                 if (!isErr && startdate == element.date && enddate == element.date) {
                                     errMsg = "*" + element.date + "" + element.title + "" + "Holiday! ";
                                     isErr = true;
@@ -1314,9 +1316,9 @@ var returnRouter = function (io) {
                         var day = d.getDay(req.body.startdate);//start 1
                         var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
                         var weekno = weekOfMonth + 1;
-                        //console.log(day);
-                        // console.log(weekno);
-                        //  console.log( parseInt(weekOfMonth));          
+                        //// console.log(day);
+                        // // console.log(weekno);
+                        //  // console.log( parseInt(weekOfMonth));          
                         cmp_off_day.findOne({
                             required: true,
                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1326,8 +1328,8 @@ var returnRouter = function (io) {
                             }]
                         }).then(work_time => {
                             if (work_time) {
-                                // console.log(work_time.tbl_cmp_work_time.start_time)
-                                // console.log(work_time.tbl_cmp_work_time.end_time)
+                                // // console.log(work_time.tbl_cmp_work_time.start_time)
+                                // // console.log(work_time.tbl_cmp_work_time.end_time)
                                 // parse time using 24-hour clock and use UTC to prevent DST issues
                                 var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                 var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
@@ -1339,8 +1341,8 @@ var returnRouter = function (io) {
                                 // d.subtract(30, 'minutes');
                                 // format a string result
                                 var s = moment.utc(+d).format('H');
-                                console.log("s" + s);
-                                console.log(req.body.startavlhr.hour);
+                                // console.log("s" + s);
+                                // console.log(req.body.startavlhr.hour);
                                 //  res.json(work_time);
                                 if (!isErr && (parseFloat(s) < parseFloat(req.body.startavlhr.hour))) {
                                     errMsg = "* Failed,working hour exceed available hour !";
@@ -1353,8 +1355,8 @@ var returnRouter = function (io) {
                                     required: true,
                                     where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                 }).then(work_time1 => {
-                                    //  console.log(work_time1.start_time)
-                                    //  console.log(work_time1.end_time)
+                                    //  // console.log(work_time1.start_time)
+                                    //  // console.log(work_time1.end_time)
                                     // parse time using 24-hour clock and use UTC to prevent DST issues
                                     var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                     var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
@@ -1366,8 +1368,8 @@ var returnRouter = function (io) {
                                     // d.subtract(30, 'minutes');
                                     // format a string result
                                     var s1 = moment.utc(+d1).format('H');
-                                    console.log("e" + s1);
-                                    console.log(req.body.endavlhr.hour);
+                                    // console.log("e" + s1);
+                                    // console.log(req.body.endavlhr.hour);
                                     //  res.json(work_time);
                                     if (!isErr && (parseFloat(s1) < parseFloat(req.body.endavlhr.hour))) {
                                         errMsg = "* Failed,working hour exceed available hour !";
@@ -1388,7 +1390,7 @@ var returnRouter = function (io) {
                                     [Op.or]: [{ start_date: req.body.startdate, end_date: req.body.enddate }]
                                 }
                             }).then(leave => {
-                                // console.log(user);
+                                // // console.log(user);
                                 //return res.json(user);
                                 if (!isErr && (leave.length > 0)) {
                                     errMsg = " Already Exists";
@@ -1403,7 +1405,7 @@ var returnRouter = function (io) {
                                     if (ss < 10) { ss = "0" + ss; }
                                     // This formats your string to HH:MM:SS
                                     var startavailablehour = hh + ":" + mm + ":" + ss;
-                                    console.log("q" + startavailablehour);
+                                    // console.log("q" + startavailablehour);
                                     var hh1 = req.body.endavlhr.hour;
                                     var mm1 = req.body.endavlhr.minute;
                                     var ss1 = req.body.endavlhr.second;
@@ -1412,7 +1414,7 @@ var returnRouter = function (io) {
                                     if (ss1 < 10) { ss = "0" + ss1; }
                                     // This formats your string to HH:MM:SS
                                     var endavlhravailablehour = hh + ":" + mm + ":" + ss;
-                                    console.log("d" + endavlhravailablehour);
+                                    // console.log("d" + endavlhravailablehour);
                                     var a2 = startavailablehour.split(':'); // split it at the colons
 
                                     // minutes are worth 60 seconds. Hours are worth 60 minutes.
@@ -1423,7 +1425,7 @@ var returnRouter = function (io) {
                                     var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
                                     var leavehr = total_seconds - (seconds3 + seconds4);
                                     var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
-                                    console.log(leavehrs);
+                                    // console.log(leavehrs);
                                     const addEmployeeleave = Employeeleave.build({
                                         start_date: req.body.startdate,
                                         end_date: req.body.enddate,
@@ -1472,14 +1474,14 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : updateempleave
     router.post('/updateempleave', (req, res, next) => {
-        console.log(req.body);
+        // console.log(req.body);
         var cmp_id = 1;
         var isErr = false;
         errMsg = '';
         var moment = require('moment');
         var time = moment();
         var time_format = time.format('YYYY-MM-DD');
-        console.log(time_format);
+        // console.log(time_format);
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -1521,7 +1523,7 @@ var returnRouter = function (io) {
         const endDate = new Date(req.body.end_date);
         var total_seconds = 0;
         async.eachOfSeries(datesBetween(startDate, endDate), (daterng, key, callback) => {
-            // console.log(daterng);
+            // // console.log(daterng);
 
             public_holiday.findOne({
 
@@ -1529,19 +1531,19 @@ var returnRouter = function (io) {
 
             }).then(holiday => {
                 if (holiday) {
-                    // console.log(daterng+"holiday")
+                    // // console.log(daterng+"holiday")
                     callback();
                 } else {
-                    // console.log(daterng+"not holiday")   
+                    // // console.log(daterng+"not holiday")   
                     var d = new Date(daterng);
                     var date = d.getDate(daterng);
                     var day = d.getDay(daterng);//start 1
 
                     var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
                     var weekno = weekOfMonth + 1;
-                    //console.log(day);
-                    // console.log(weekno);
-                    //  console.log( parseInt(weekOfMonth));          
+                    //// console.log(day);
+                    // // console.log(weekno);
+                    //  // console.log( parseInt(weekOfMonth));          
 
                     cmp_off_day.findOne({
 
@@ -1572,7 +1574,7 @@ var returnRouter = function (io) {
                             // format a string result
                             var s = moment.utc(+d).format('HH:mm:ss');
 
-                            // console.log("s" + s);
+                            // // console.log("s" + s);
                             var a = s.split(':'); // split it at the colons
 
                             // minutes are worth 60 seconds. Hours are worth 60 minutes.
@@ -1606,7 +1608,7 @@ var returnRouter = function (io) {
                                 // format a string result
                                 var s1 = moment.utc(+d1).format('HH:mm:ss');
 
-                                // console.log("e" + s1);
+                                // // console.log("e" + s1);
 
                                 var a1 = s1.split(':'); // split it at the colons
 
@@ -1629,7 +1631,7 @@ var returnRouter = function (io) {
 
 
         }, function (err) {
-            console.log("tot" + total_seconds);
+            // console.log("tot" + total_seconds);
             // });
             if (!isErr) {
                 async.series([
@@ -1639,12 +1641,12 @@ var returnRouter = function (io) {
                             required: true,
                             where: { cmp_id: cmp_id },
                         }).then(holiday => {
-                            // console.log(holiday.title); 
+                            // // console.log(holiday.title); 
                             holiday.forEach((element) => {
                                 var startdate = dateFormat(req.body.start_date, "isoDate");
                                 var enddate = dateFormat(req.body.end_date, "isoDate");
-                                //  console.log("jk"+startdate);
-                                //  console.log(element.date);  
+                                //  // console.log("jk"+startdate);
+                                //  // console.log(element.date);  
                                 if (!isErr && startdate == element.date && enddate == element.date) {
                                     errMsg = "*" + element.date + "" + element.title + "" + "Holiday! ";
                                     isErr = true;
@@ -1657,9 +1659,9 @@ var returnRouter = function (io) {
                         var day = d.getDay(req.body.start_date);//start 1
                         var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
                         var weekno = weekOfMonth + 1;
-                        //console.log(day);
-                        // console.log(weekno);
-                        //  console.log( parseInt(weekOfMonth));          
+                        //// console.log(day);
+                        // // console.log(weekno);
+                        //  // console.log( parseInt(weekOfMonth));          
                         cmp_off_day.findOne({
                             required: true,
                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1669,8 +1671,8 @@ var returnRouter = function (io) {
                             }]
                         }).then(work_time => {
                             if (work_time) {
-                                // console.log(work_time.tbl_cmp_work_time.start_time)
-                                // console.log(work_time.tbl_cmp_work_time.end_time)
+                                // // console.log(work_time.tbl_cmp_work_time.start_time)
+                                // // console.log(work_time.tbl_cmp_work_time.end_time)
                                 // parse time using 24-hour clock and use UTC to prevent DST issues
                                 var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                 var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
@@ -1682,8 +1684,8 @@ var returnRouter = function (io) {
                                 // d.subtract(30, 'minutes');
                                 // format a string result
                                 var s = moment.utc(+d).format('H');
-                                console.log("s" + s);
-                                console.log(req.body.startavlhr.hour);
+                                // console.log("s" + s);
+                                // console.log(req.body.startavlhr.hour);
                                 //  res.json(work_time);
                                 if (!isErr && (parseFloat(s) < parseInt(req.body.startavlhr.hour))) {
                                     errMsg = "* Failed,working hour exceed available hour !";
@@ -1696,8 +1698,8 @@ var returnRouter = function (io) {
                                     required: true,
                                     where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                 }).then(work_time1 => {
-                                    //  console.log(work_time1.start_time)
-                                    //  console.log(work_time1.end_time)
+                                    //  // console.log(work_time1.start_time)
+                                    //  // console.log(work_time1.end_time)
                                     // parse time using 24-hour clock and use UTC to prevent DST issues
                                     var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                     var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
@@ -1709,8 +1711,8 @@ var returnRouter = function (io) {
                                     // d.subtract(30, 'minutes');
                                     // format a string result
                                     var s1 = moment.utc(+d1).format('H');
-                                    console.log("e" + s1);
-                                    console.log(req.body.endavlhr.hour);
+                                    // console.log("e" + s1);
+                                    // console.log(req.body.endavlhr.hour);
                                     //  res.json(work_time);
                                     if (!isErr && (parseFloat(s1) < parseInt(req.body.endavlhr.hour))) {
                                         errMsg = "* Failed,working hour exceed available hour !";
@@ -1731,7 +1733,7 @@ var returnRouter = function (io) {
                                     [Op.or]: [{ start_date: req.body.start_date, end_date: req.body.end_date }]
                                 }
                             }).then(leave => {
-                                // console.log(user);
+                                // // console.log(user);
                                 //return res.json(user);
                                 // if (!isErr && (leave.length > 0)) {
                                 if (!isErr && leave && (leave.id != req.body.id)) {
@@ -1747,7 +1749,7 @@ var returnRouter = function (io) {
                                     if (ss < 10) { ss = "0" + ss; }
                                     // This formats your string to HH:MM:SS
                                     var startavailablehour = hh + ":" + mm + ":" + ss;
-                                    console.log("q" + startavailablehour);
+                                    // console.log("q" + startavailablehour);
                                     var hh1 = parseInt(req.body.endavlhr.hour);
                                     var mm1 = parseInt(req.body.endavlhr.minute);
                                     var ss1 = parseInt(req.body.endavlhr.second);
@@ -1756,7 +1758,7 @@ var returnRouter = function (io) {
                                     if (ss1 < 10) { ss = "0" + ss1; }
                                     // This formats your string to HH:MM:SS
                                     var endavlhravailablehour = hh + ":" + mm + ":" + ss;
-                                    console.log("d" + endavlhravailablehour);
+                                    // console.log("d" + endavlhravailablehour);
                                     var a2 = startavailablehour.split(':'); // split it at the colons
 
                                     // minutes are worth 60 seconds. Hours are worth 60 minutes.
@@ -1767,10 +1769,10 @@ var returnRouter = function (io) {
                                     var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
                                     var leavehr = total_seconds - (seconds3 + seconds4);
                                     var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
-                                    //    console.log("1"+seconds3);
-                                    //    console.log("1"+seconds3);
-                                    //    console.log("@"+seconds4);
-                                    console.log(leavehrs);
+                                    //    // console.log("1"+seconds3);
+                                    //    // console.log("1"+seconds3);
+                                    //    // console.log("@"+seconds4);
+                                    // console.log(leavehrs);
                                     Employeeleave.update({
                                         start_date: req.body.start_date,
                                         end_date: req.body.end_date,
@@ -1822,7 +1824,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          :date filter for log
     router.post('/datefilterforlog', (req, res, next) => {
-        console.log(req.body.startDate);
+        // console.log(req.body.startDate);
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -1842,7 +1844,7 @@ var returnRouter = function (io) {
                     required: true,
                 }]
             }).then(userlog => {
-                //console.log(userlog);
+                //// console.log(userlog);
                 res.json(userlog);
             });
         } else {
@@ -1859,7 +1861,7 @@ var returnRouter = function (io) {
                     required: true,
                 }]
             }).then(userlog => {
-                // console.log(userlog);
+                // // console.log(userlog);
                 res.json(userlog);
             });
         }
@@ -1912,7 +1914,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : leave notif close(status change)
     router.get('/leavenotifclose/:id', (req, res, next) => {
-        console.log(req.params.id)
+        // console.log(req.params.id)
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -1984,7 +1986,7 @@ var returnRouter = function (io) {
     // Last Modified : 03-04-2018
     // Desc          : userleave
     router.get('/userleave/:id', (req, res, next) => {
-        // console.log(req.params.id)
+        // // console.log(req.params.id)
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -2060,8 +2062,8 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : addrejectleave
     router.post('/addrejectleave', (req, res, next) => {
-        console.log(req.body.id);
-        console.log(req.body.reject_reason);
+        // console.log(req.body.id);
+        // console.log(req.body.reject_reason);
         var isErr = false;
         errMsg = '';
 
@@ -2238,10 +2240,10 @@ var returnRouter = function (io) {
                     taskassign.forEach((elm, i) => {
                         elm.tbl_project_tasks.forEach((elm1, i) => {
                             names.push(elm1.tbl_user_profile.f_name);
-                            // console.log(elm1.tbl_user_profile.f_name)
+                            // // console.log(elm1.tbl_user_profile.f_name)
                         });
                     });
-                    console.log(names);
+                    // console.log(names);
                     uniqueArray = names.filter(function (elem, pos) {
                         return names.indexOf(elem) == pos;
                     })
@@ -2287,7 +2289,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : rejecttimeextreq
     router.put('/rejecttimeextreq/:id', function (req, res) {
-        // console.log("id del" + req.params.id);
+        // // console.log("id del" + req.params.id);
         Time_extension_request.update({
             req_status: "Rejected"
         }, {
@@ -2315,7 +2317,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : send to admin(time extension request)
     router.put('/sendtoadmin/:id', function (req, res) {
-        // console.log("id del" + req.params.id);
+        // // console.log("id del" + req.params.id);
         Time_extension_request.update({
             req_status: "Approval"
         }).then(user => {
@@ -2414,7 +2416,7 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : leave notif close(status change)
     router.get('/admintimeextnotifclose/:id', (req, res, next) => {
-        console.log(req.params.id)
+        // console.log(req.params.id)
         Time_extension_request_notifications.update({
 
             is_admin_viewed: true
@@ -2446,7 +2448,7 @@ var returnRouter = function (io) {
         Employeeleave.findAll({
             where: { user_profile_id: req.params.id },
         }).then(userleave => {
-            // console.log(projects);
+            // // console.log(projects);
             return res.json(userleave);
             // res.json(user)
         });
@@ -2582,7 +2584,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             Users.findAll({
                 // order: [['id', 'DESC']],
                 include: [{
@@ -2620,7 +2622,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             Category.findAll({
                 where: {
                     cmp_id: cmp_id,
@@ -2653,7 +2655,7 @@ var returnRouter = function (io) {
             } else {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (req.body.project_name == '' || req.body.category_id == '' || req.body.project_type == '' || req.body.priority == '' || req.body.description == '') {
                 res.json({ success: false, msg: "All fields are required" });
             }
@@ -2673,10 +2675,10 @@ var returnRouter = function (io) {
                         }
                     }).then(projects => {
                         projectLength = projects.length + 1;
-                        if(projectLength < 10){
+                        if (projectLength < 10) {
                             projectLength = '00' + projectLength;
                         }
-                        if(projectLength < 100 && projectLength > 9){
+                        if (projectLength < 100 && projectLength > 9) {
                             projectLength = '0' + projectLength;
                         }
                         Plans.findById(cmp.plan_id).then(plan => {
@@ -2761,7 +2763,7 @@ var returnRouter = function (io) {
             }
         }).then(login => {
             // res.json(login);
-            // console.log(login);
+            // // console.log(login);
             if (login == null || login == [] || login == '') {
                 const loginAttempt = Login_attempt.build({
                     ip: ip.address(),
@@ -2787,7 +2789,7 @@ var returnRouter = function (io) {
                                     loginAttemptFalse.forEach(allFalseAttempt => {
                                         array.push({ id: allFalseAttempt.id });
                                     })
-                                    // console.log(array.length);
+                                    // // console.log(array.length);
                                     if (array.length > 3) {
                                         return res.json({ caseno: 1, success: false, msg: 'User not found' });
                                         if (req.body.captcha == undefined || req.body.captcha == '' || req.body.captcha == null) {
@@ -2858,7 +2860,7 @@ var returnRouter = function (io) {
                 });
             }
             else if (login != null || login != [] || login != '') {
-                // console.log("else if");
+                // // console.log("else if");
                 comparePassword(password, login.password, (err, isMatch) => {
                     if (err) {
                         throw err;
@@ -2867,11 +2869,11 @@ var returnRouter = function (io) {
                     if (isMatch) {
                         if (login.block_status == true) {
                             return res.json({ success: false, msg: 'Account blocked' });
-                            // console.log("Account blocked");
+                            // // console.log("Account blocked");
                         }
                         else if (login.delete_status == true) {
                             return res.json({ success: false, msg: 'Account deleted' });
-                            // console.log("Account deleted");
+                            // // console.log("Account deleted");
                         }
                         else if (login.role_id == 1 || login.role_id == 3) {
 
@@ -2888,7 +2890,7 @@ var returnRouter = function (io) {
                             //     });
                             // }
                             else {
-                                // console.log("else condition");
+                                // // console.log("else condition");
                                 const token = jwt.sign(login.toJSON(), Config.secret, { expiresIn: 60400 }); // sec 1 week
                                 User_profile.update({
                                     login_id: login.id
@@ -2978,7 +2980,7 @@ var returnRouter = function (io) {
                                             loginAttemptFalse.forEach(allFalseAttempt => {
                                                 array.push({ id: allFalseAttempt.id });
                                             })
-                                            // console.log(array.length);
+                                            // // console.log(array.length);
                                             if (array.length > 3) {
                                                 return res.json({ caseno: 1, success: false, msg: 'Wrong Password' });
                                                 if (req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null) {
@@ -3067,7 +3069,7 @@ var returnRouter = function (io) {
                 decoded;
             decoded = jwt.verify(authorization, Config.secret);
             res.json(decoded);
-            // console.log(decoded);
+            // // console.log(decoded);
         } else {
             res.json('');
         }
@@ -3106,7 +3108,7 @@ var returnRouter = function (io) {
                                 id: Company.login_id,
                             }
                         }).then(login1 => {
-                            // console.log(login2.is_verified);
+                            // // console.log(login2.is_verified);
                             if (login2.is_verified == true) {
                                 return res.json({ success: false, msg: 'Already verified' });
                             }
@@ -3140,7 +3142,7 @@ var returnRouter = function (io) {
     // Last Modified : 07-03-2018, Jooshifa
     // Desc          : 
     router.post('/forgotPassword', function (req, res) {
-        // console.log(req.body);
+        // // console.log(req.body);
         if (req.body.email == 'undefined' || req.body.email == '' || req.body.email == null || req.body.email == []) {
             return res.json({ success: false, msg: 'Email is required' });
         }
@@ -3150,27 +3152,27 @@ var returnRouter = function (io) {
             }
         }).then(login => {
             if (!login || login == 'undefined' || login == '' || login == null || login == []) {
-                // console.log("Email not found! Plase enter a valid email");
+                // // console.log("Email not found! Plase enter a valid email");
                 return res.json({ success: false, msg: 'Email not found! Plase enter a valid email' });
             }
             else if (login.block_status == true) {
-                // console.log("Account blocked");
+                // // console.log("Account blocked");
                 return res.json({ success: false, msg: 'Account blocked' });
             }
             else if (login.delete_status == true) {
-                // console.log("Account deleted");
+                // // console.log("Account deleted");
                 return res.json({ success: false, msg: 'Account deleted' });
             }
             else if (login.cmp_status == "Not Verified" || login.is_verified == false) {
-                // console.log("Company not verified'");
+                // // console.log("Company not verified'");
                 return res.json({ success: false, msg: 'Company not verified' });
             }
             // else if (login.is_profile_completed == false) {
-            //     console.log("Profile not completed'");
+            //     // console.log("Profile not completed'");
             //     return res.json({ success: false, msg: 'Profile not completed' });
             // }
             else if (req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null) {
-                // console.log("captcah not exist");
+                // // console.log("captcah not exist");
                 return res.json({ "success": false, "msg": "Please select captcha" });
             }
             else {
@@ -3179,16 +3181,16 @@ var returnRouter = function (io) {
                 request(verifyUrl, (err, response, body) => {
                     body = JSON.parse(body);
                     if (body.success !== undefined && !body.success) {
-                        // console.log("captchs not success");
+                        // // console.log("captchs not success");
                         return res.json({ "success": false, "msg": "Failed captcha verification" });
                     }
                     else if (body.success) {
-                        // console.log("captchs ");
+                        // // console.log("captchs ");
                         var password = generator.generate({
                             length: 10,
                             numbers: true
                         });
-                        // console.log("assword created" );
+                        // // console.log("assword created" );
                         bcrypt.genSalt(10, (err, salt) => {
                             bcrypt.hash(password, salt, (err, hash) => {
                                 if (err) throw err;
@@ -3199,27 +3201,27 @@ var returnRouter = function (io) {
                                             email: req.body.email
                                         }
                                     }).then(data1 => {
-                                        // console.log(login);
-                                        // console/.log("passeord updarted");
+                                        // // console.log(login);
+                                        // // console/.log("passeord updarted");
                                         Company.findOne({
                                             where: {
                                                 login_id: login.id
                                             }
                                         }).then(company => {
-                                            // console.log("routes is oke");
+                                            // // console.log("routes is oke");
                                             // emailTemplate.sendResetPasswordMail(req.body.email, company.cmp_name, password);
                                             emailTemplate.sendResetPasswordMail(req.body.email, password);
                                             return res.json({ "success": true, "msg": "Reset password successfully.Please check your email" });
                                         });
                                     });
-                                // console.log(password + "    password");
-                                //    console.log(hash + "   bcrpted password");
+                                // // console.log(password + "    password");
+                                //    // console.log(hash + "   bcrpted password");
                             })
                         })
                         // return res.json({ "success": false, "msg": "Captcha Verified Successfully" });
                     }
                 });
-                // console.log("Email found");
+                // // console.log("Email found");
             }
         });
 
@@ -3240,7 +3242,7 @@ var returnRouter = function (io) {
                 model: Company, where: { id: req.params.id }
             }]
         }).then(data => {
-            // console.log(data.is_profile_completed);
+            // // console.log(data.is_profile_completed);
             res.json(data);
         });
     });
@@ -3272,7 +3274,7 @@ var returnRouter = function (io) {
                 }
             ]
         }).then(DesignerUsers => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(DesignerUsers);
         });
 
@@ -3292,7 +3294,7 @@ var returnRouter = function (io) {
 
     router.get('/get_industries', function (req, res) {
         Industries.findAll().then(industries => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(industries);
         });
     });
@@ -3307,7 +3309,7 @@ var returnRouter = function (io) {
     // Desc          : get industry list
     router.get('/get_cmp_size', function (req, res) {
         CompanySize.findAll().then(companieSize => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(companieSize);
         });
     });
@@ -3329,7 +3331,7 @@ var returnRouter = function (io) {
                     res.end();
                 }
             });
-            // console.log(validateEmail(req.body[0].ans));
+            // // console.log(validateEmail(req.body[0].ans));
             if (!reg.test(req.body[0].ans.toLowerCase()) || !(/^\d+$/.test(req.body[4].ans))) {
                 res.send({ status: 0, message: "Check email and phone number!" });
                 res.end();
@@ -3341,12 +3343,12 @@ var returnRouter = function (io) {
                         { where: { email: req.body[0].ans } }
 
                     ).then(login => {
-                        //console.log(projects);
+                        //// console.log(projects);
                         if (login.length == 0) {
                             var newPassword;
                             bcrypt.genSalt(10, (err, salt) => {
                                 bcrypt.hash(req.body[7].ans, salt, (err, hash) => {
-                                    // console.log(hash);
+                                    // // console.log(hash);
                                     if (err) throw err;
                                     newPassword = hash;
                                     let newLogin = Login.build({
@@ -3365,17 +3367,17 @@ var returnRouter = function (io) {
                                         google_token: null,
                                         password: hash
                                     })
-                                    // console.log(newLogin);
+                                    // // console.log(newLogin);
                                     newLogin.save().then(resLogin => {
-                                        console.log(resLogin.id)
+                                        // console.log(resLogin.id)
 
                                         // if(resLogin.length>0){
                                         // res.json(resLogin)
-                                        // console.log("hh")
+                                        // // console.log("hh")
                                         Plan.find({
                                             where: { is_defualt: true }
                                         }).then(resPlan => {
-                                            console.log(req.body);
+                                            // console.log(req.body);
                                             let newCompany = Company.build({
                                                 cmp_name: req.body[1].ans,
                                                 cmp_code: req.body[2].ans,
@@ -3390,10 +3392,10 @@ var returnRouter = function (io) {
                                                 verification_code: req.body[9].ans
                                             })
 
-                                            // console.log(newCompany);
+                                            // // console.log(newCompany);
                                             newCompany.save().then((resCmp) => {
-                                                // console.log("resCmp");
-                                                // console.log(resCmp);
+                                                // // console.log("resCmp");
+                                                // // console.log(resCmp);
                                                 Login.update({ cmp_id: resCmp.id }, { where: { id: resLogin.id } }).then(resLog => {
                                                     emailTemplate.sendVerificationMail(req.body[0].ans, req.body[1].ans, req.body[9].ans);
 
@@ -3470,20 +3472,20 @@ var returnRouter = function (io) {
     // Last Modified : 09-03-2018, 
     // Desc          : company registration
     router.post('/register_company2', function (req, res) {
-        //    console.log(req.body[0].ans + "      company name");
-        //    console.log(req.body[1].ans+ "      company code");
-        //    console.log(req.body[2].ans + "      company industry");
-        //    console.log(req.body[3].ans + "      contact number");
-        //    console.log(req.body[4].ans + "      company size");
-        //    console.log(req.body[5].ans + "      why choosen");
-        //    console.log(req.body[6].ans + "      id");
+        //    // console.log(req.body[0].ans + "      company name");
+        //    // console.log(req.body[1].ans+ "      company code");
+        //    // console.log(req.body[2].ans + "      company industry");
+        //    // console.log(req.body[3].ans + "      contact number");
+        //    // console.log(req.body[4].ans + "      company size");
+        //    // console.log(req.body[5].ans + "      why choosen");
+        //    // console.log(req.body[6].ans + "      id");
         // res.json(req.body);
         Company.findOne({
             where: {
                 id: req.body[6].ans
             }
         }).then(companyData => {
-            // console.log(companyData)
+            // // console.log(companyData)
             Company.update({
                 cmp_name: req.body[0].ans,
                 cmp_code: req.body[1].ans,
@@ -3520,8 +3522,8 @@ var returnRouter = function (io) {
 
     //   sequelize.query("select * from GetAllSt();").spread(
     //     function (actualres, settingName2) {
-    //       console.log(actualres);
-    //       console.log(settingName2);
+    //       // console.log(actualres);
+    //       // console.log(settingName2);
     //       res.json(actualres);
     // });
     // ---------------------------------End-------------------------------------------
@@ -3562,7 +3564,7 @@ var returnRouter = function (io) {
                                 id: Company.login_id,
                             }
                         }).then(login1 => {
-                            // console.log(login2.is_verified);
+                            // // console.log(login2.is_verified);
                             if (login2.is_verified == true) {
                                 return res.json({ success: false, msg: 'Already verified' });
                             }
@@ -3607,7 +3609,7 @@ var returnRouter = function (io) {
             },
             raw: true
         }).then(data => {
-            console.log(data);
+            // console.log(data);
             return res.json(data);
         });
     });
@@ -3629,13 +3631,20 @@ var returnRouter = function (io) {
             //     }
             // },
             include: [
-                { model: Projects_member_assoc, required: true },
+                {
+                    model: Projects_member_assoc,
+                    required: true,
+                    include: {
+                        model: Project,
+                        where: { id: req.params.id }
+                    }
+                },
                 { model: Login, where: { [Op.and]: [{ block_status: false, delete_status: false }] }, required: true }
 
             ],
             raw: true
         }).then(data => {
-            console.log(data);
+            // // console.log(data);
             return res.json(data);
         });
     });
@@ -3660,7 +3669,7 @@ var returnRouter = function (io) {
         var teamName;
         var team = [];
         Teams.findAll().then(teams => {
-            // console.log(projects);
+            // // console.log(projects);
             teamName = teams.team_name;
             // teams.forEach(element => {
             async.eachOfSeries(teams, function (element, key, callback) {
@@ -3740,7 +3749,7 @@ var returnRouter = function (io) {
                 }
             ]
         }).then(DesignerUsers => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(DesignerUsers);
         });
     });
@@ -3771,7 +3780,7 @@ var returnRouter = function (io) {
             },
             raw: true,
         }).then(users => {
-            //  console.log(users);
+            //  // console.log(users);
             //res.json(users);
             // teamName = teams.team_name;
             // users.forEach(element => {
@@ -3780,19 +3789,19 @@ var returnRouter = function (io) {
             var tmp5 = [];
             async.eachOfSeries(users, function (element, key, callback) {
                 users[key].onTeam = false;
-                // console.log(element)
+                // // console.log(element)
                 TeamAssoc.findAll({
                     raw: true,
                     where: { user_profile_id: element.id, cmp_id: cmp_id, team_id: req.params.id }
                 }).then(resUser => {
                     // res.json(resUser);
-                    // console.log(resUser)
+                    // // console.log(resUser)
                     if (resUser.length > 0) {
                         users[key].onTeam = true;
                         tmp3.push(element.id);
                         tmp5.push(element);
                     }
-                    // console.log(element.id)
+                    // // console.log(element.id)
                     tmp[element.id] = users[key];
                     // members.push({f_name:resUser.f_name, l_name:resUser.l_name, id:resUser.id})
                     callback();
@@ -3837,7 +3846,7 @@ var returnRouter = function (io) {
         // res.json(req.body);
         var teamName;
         var team = [];
-        // console.log(req.body)
+        // // console.log(req.body)
         TeamAssoc.destroy({
             where: {
                 user_profile_id: { [Op.in]: req.body[0] },
@@ -3864,7 +3873,7 @@ var returnRouter = function (io) {
                     })
                 }
                 teamassoc.save().then((resTeamAssoc) => {
-                    // console.log(resTeamAssoc);
+                    // // console.log(resTeamAssoc);
                     res.json({
                         status: 1,
                         Message: "Successfully assigned!"
@@ -3905,7 +3914,7 @@ var returnRouter = function (io) {
                 }
             ]
         }).then(QCUsers => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(QCUsers);
         });
     });
@@ -3956,7 +3965,7 @@ var returnRouter = function (io) {
                 }
             ]
         }).then(AllUsers => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(AllUsers);
         });
     });
@@ -3972,7 +3981,7 @@ var returnRouter = function (io) {
     router.get('/get-complexity-percentage', function (req, res) {
         Complexity_percentage.findAll({
         }).then(Complexity_percentage => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(Complexity_percentage);
         });
     });
@@ -4011,15 +4020,15 @@ var returnRouter = function (io) {
     // ----------------------------------End-----------------------------------
     // ---------------------------------Start-------------------------------------------
     router.get('/get-availablity/:id', function (req, res) {
-        // console.log("hello");
-        // console.log(req.params.id);
+        // // console.log("hello");
+        // // console.log(req.params.id);
         Emp_leave.findAll({
             where: {
                 [Op.and]: [{ user_profile_id: req.params.id, request_status: 'Accept' }]
             }
         }).then(empLeave => {
             res.json(empLeave);
-            // console.log(empLeave);
+            // // console.log(empLeave);
         });
     });
     // ----------------------------------End-----------------------------------
@@ -4041,7 +4050,7 @@ var returnRouter = function (io) {
             where: { cmp_id: 1 },
         }).then(PublicHoliday => {
             res.json(PublicHoliday);
-            // console.log(PublicHoliday)
+            // // console.log(PublicHoliday)
         });
         // }
         // else {
@@ -4069,7 +4078,7 @@ var returnRouter = function (io) {
                 }
             ]
         }).then(workTime => {
-            // console.log(workTime);
+            // // console.log(workTime);
             res.json(workTime);
         });
         // }
@@ -4098,7 +4107,7 @@ var returnRouter = function (io) {
                 }
             ]
         }).then(offdays => {
-            // console.log(offdays);
+            // // console.log(offdays);
             res.json(offdays);
         });
         // }
@@ -4127,7 +4136,7 @@ var returnRouter = function (io) {
                 }
             ]
         }).then(cmp_break => {
-            // console.log(cmp_breaks);
+            // // console.log(cmp_breaks);
             res.json(cmp_break);
         });
         // }
@@ -4167,7 +4176,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4209,7 +4218,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4251,7 +4260,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4293,13 +4302,13 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
-            // console.log(req.body.forward_to);
+            // // console.log(req.body.forward_to);
             if (req.body.developer_id == '' && req.body.designer_id == '' && req.body.qc_id == '') {
                 res.json({ success: false, msg: "Please select atleast one Team Head" });
             }
@@ -4327,17 +4336,17 @@ var returnRouter = function (io) {
             else {
                 timestamp = new Date().getTime().toString();
                 docName = req.body.project_id + timestamp + Math.floor(100000 + Math.random() * 900000);
-                // console.log("docSrc --------------------------------------------------")
-                // console.log(req.body.docSrc);
+                // // console.log("docSrc --------------------------------------------------")
+                // // console.log(req.body.docSrc);
                 var base64 = decodeBase64Image(req.body.docSrc);
-                // console.log(base64);
+                // // console.log(base64);
                 require("fs").writeFile('../taskit/public/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                    // console.log(err);
+                    // // console.log(err);
                 });
                 require("fs").writeFile('../taskit/angular/src/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                    // console.log(err);
+                    // // console.log(err);
                 });
-                // console.log(req.body);
+                // // console.log(req.body);
                 Project.update({
                     requirement_summary: req.body.requirement,
                     requirement_attatchment: docName + '.' + base64.ext,
@@ -4402,17 +4411,17 @@ var returnRouter = function (io) {
     // Last Modified : 09-03-2018, Rinsha
     // Desc          :
     router.post('/editProject', function (req, res) {
-        // console.log(req.body)
+        // // console.log(req.body)
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
-            // console.log(req.body);
+            // // console.log(req.body);
             if (req.body.project_name == '' || req.body.category_id == '' || req.body.project_type == '' || req.body.priority == '' || req.body.requirement_summary == '' || req.body.description == '') {
                 res.json({ success: false, msg: "All fields are required" });
             }
@@ -4422,10 +4431,10 @@ var returnRouter = function (io) {
                     docName = req.body.project_id + timestamp + Math.floor(100000 + Math.random() * 900000);
                     var base64 = decodeBase64Image(req.body.docSrc);
                     require("fs").writeFile('../taskit/public/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                        // console.log(err);
+                        // // console.log(err);
                     });
                     require("fs").writeFile('../taskit/angular/src/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                        // console.log(err);
+                        // // console.log(err);
                     });
                     requirement_attatchment = docName + '.' + base64.ext;
                     projectUpdate();
@@ -4436,7 +4445,7 @@ var returnRouter = function (io) {
                         projectUpdate();
                     });
                 }
-                // console.log(req.body);
+                // // console.log(req.body);
                 function projectUpdate() {
                     Project.update({
                         project_name: req.body.project_name,
@@ -4516,11 +4525,11 @@ var returnRouter = function (io) {
     // Last Modified : 12-03-2018, Rinsha
     // Desc          : getAllProjectByStatus
     router.get('/getAllProjectByStatus/:status', function (req, res) {
-        // console.log(req.params.status);
+        // // console.log(req.params.status);
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -5089,7 +5098,7 @@ var returnRouter = function (io) {
     // Desc          : resubmitProject
     router.post('/resubmitProject', function (req, res) {
         is_pm_viewed = true;
-        // console.log(req.body.pm_id);
+        // // console.log(req.body.pm_id);
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -5311,7 +5320,7 @@ var returnRouter = function (io) {
             },
             raw: true,
         }).then(users => {
-            //  console.log(users);
+            //  // console.log(users);
             //res.json(users);
             // teamName = teams.team_name;
             // users.forEach(element => {
@@ -5320,20 +5329,20 @@ var returnRouter = function (io) {
             var tmp5 = [];
             async.eachOfSeries(users, function (element, key, callback) {
                 users[key].onTeam = false;
-                // console.log(element)
+                // // console.log(element)
                 TeamAssoc.findAll({
                     raw: true,
                     where: { user_profile_id: element.id, cmp_id: cmp_id, team_id: req.params.id }
                 }).then(resUser => {
                     // res.json(resUser);
-                    // console.log(resUser)
+                    // // console.log(resUser)
 
                     if (resUser.length > 0) {
                         users[key].onTeam = true;
                         tmp3.push(element.id);
                         tmp5.push(element);
                     }
-                    // console.log(element.id)
+                    // // console.log(element.id)
                     tmp[element.id] = users[key];
                     // members.push({f_name:resUser.f_name, l_name:resUser.l_name, id:resUser.id})
                     callback();
@@ -5383,7 +5392,7 @@ var returnRouter = function (io) {
         // res.json(req.body);
         var teamName;
         var team = [];
-        // console.log(req.body)
+        // // console.log(req.body)
         TeamAssoc.destroy({
             where: {
                 user_profile_id: { [Op.in]: req.body[0] },
@@ -5410,7 +5419,7 @@ var returnRouter = function (io) {
                     })
                 }
                 teamassoc.save().then((resTeamAssoc) => {
-                    console.log(resTeamAssoc);
+                    // console.log(resTeamAssoc);
                     res.json({
                         status: 1,
                         Message: "Successfully assigned!"
@@ -5453,7 +5462,7 @@ var returnRouter = function (io) {
                 is_visible: true
             }
         }).then(Roles => {
-            // console.log(projects);
+            // // console.log(projects);
             res.json(Roles);
             // });
         });
@@ -5492,7 +5501,7 @@ var returnRouter = function (io) {
     //         async.eachOfSeries(rights, (element,key,callback)=>{
     //             id = element.id;
     //             name = element.name;
-    //             console.log(name);
+    //             // console.log(name);
 
     //             AccessRights.findAndCountAll({
     //               where:{
@@ -5508,7 +5517,7 @@ var returnRouter = function (io) {
     //               }],
     //               raw:true
     //             }).then(resx =>{
-    //               console.log(element);
+    //               // console.log(element);
     //               element.jijo = resx;
     //               rights[key] =element;
     //               callback();
@@ -5604,10 +5613,10 @@ var returnRouter = function (io) {
         //   //     try {
         //   decoded = jwt.verify(authorization, config.secret);
         //   var cmp_id = decoded._id;
-        // console.log(req.body[1])
+        // // console.log(req.body[1])
         var cmp_id = 1;
         role_id = parseInt(req.params.id);
-        console.log(role_id);
+        // console.log(role_id);
         req.body.forEach(element => {
             async.eachOfSeries(element.sub, (ele, key, callback) => {
                 if (ele.checked == true) {
@@ -5618,7 +5627,7 @@ var returnRouter = function (io) {
                             role_id: role_id
                         }
                     }).then(resAssoc => {
-                        console.log(resAssoc)
+                        // console.log(resAssoc)
                         if (resAssoc.count == 0) {
                             let assoc = AccessRightsAssoc.build({
                                 cmp_id: cmp_id,
@@ -5628,7 +5637,7 @@ var returnRouter = function (io) {
                             assoc.save().then(res => {
 
                             })
-                            console.log(resAssoc.count)
+                            // console.log(resAssoc.count)
                         }
 
                     });
@@ -5668,7 +5677,7 @@ var returnRouter = function (io) {
                 cmp_id: cmp_id
             }
         }).then(wrktime => {
-            // console.log(projects);
+            // // console.log(projects);
             // if(wrktime){
             //   res.json({status:0,message:"no default time set!"})
             // }else{
@@ -5714,7 +5723,7 @@ var returnRouter = function (io) {
         //   var authorization = req.headers.authorization.substring(4), decoded;
         //   //     try {
         //   decoded = jwt.verify(authorization, config.secret);
-        console.log(req.body)
+        // console.log(req.body)
         //   var cmp_id = decoded._id;
         var cmp_id = 1;
         if (req.body.start.hour == '' || !(/^\d+$/.test(req.body.start.hour)) || req.body.start.minute == '' || !(/^\d+$/.test(req.body.start.minute)) || req.body.end.hour == '' || !(/^\d+$/.test(req.body.end.hour)) || req.body.end.minute == '' || !(/^\d+$/.test(req.body.end.minute))) {
@@ -5829,7 +5838,7 @@ var returnRouter = function (io) {
         //   var cmp_id = decoded._id;
         var cmp_id = 1;
         // role_id = req.params.id;
-        // console.log(req.body)
+        // // console.log(req.body)
         if (req.body.title == '') {
             res.json({
                 status: 0,
@@ -5907,7 +5916,7 @@ var returnRouter = function (io) {
                 tmp2[element.day_no] = tmp;
                 //  });
             });
-            console.log(tmp2);
+            // console.log(tmp2);
             res.json(tmp2)
 
         });
@@ -5918,8 +5927,8 @@ var returnRouter = function (io) {
 
     // ---------------------------------Start-------------------------------------------
     router.get('/get-availablity/:id', function (req, res) {
-        // console.log("hello");
-        // console.log(req.params.id);
+        // // console.log("hello");
+        // // console.log(req.params.id);
         Emp_leave.findAll({
 
             where: {
@@ -5928,7 +5937,7 @@ var returnRouter = function (io) {
             }
         }).then(empLeave => {
             res.json(empLeave);
-            // console.log(empLeave);
+            // // console.log(empLeave);
         });
 
     });
@@ -5954,7 +5963,7 @@ var returnRouter = function (io) {
 
         }).then(PublicHoliday => {
             res.json(PublicHoliday);
-            // console.log(PublicHoliday)
+            // // console.log(PublicHoliday)
         });
         // }
         // else {
@@ -5984,7 +5993,7 @@ var returnRouter = function (io) {
                 }
             ]
         }).then(workTime => {
-            console.log(workTime);
+            // console.log(workTime);
             res.json(workTime);
         });
         // }
@@ -6016,7 +6025,7 @@ var returnRouter = function (io) {
                 }
             ]
         }).then(offdays => {
-            // console.log(offdays);
+            // // console.log(offdays);
             res.json(offdays);
         });
         // }
@@ -6048,7 +6057,7 @@ var returnRouter = function (io) {
                 }
             ]
         }).then(cmp_break => {
-            // console.log(cmp_breaks);
+            // // console.log(cmp_breaks);
             res.json(cmp_break);
         });
         // }
@@ -6103,7 +6112,7 @@ var returnRouter = function (io) {
         //   var cmp_id = decoded._id;
         var cmp_id = 1;
         // role_id = req.params.id;
-        console.log(req.body)
+        // console.log(req.body)
         if (req.body.year == null) {
             res.json({
                 status: 0,
@@ -6117,7 +6126,7 @@ var returnRouter = function (io) {
             startDate = d + "-01-01";
             endDate = d + "-12-31";
 
-            console.log(d);
+            // console.log(d);
             Holiday.findAll({
                 where: {
                     date: { [Op.between]: [startDate, endDate] },
@@ -6151,7 +6160,7 @@ var returnRouter = function (io) {
         //   var cmp_id = decoded._id;
         var cmp_id = 1;
         // role_id = req.params.id;
-        console.log(req.body.date)
+        // console.log(req.body.date)
         if (req.body.date == '' || req.body.date == null) {
             res.json({
                 status: 0,
@@ -6224,7 +6233,7 @@ var returnRouter = function (io) {
         //   var cmp_id = decoded._id;
         var cmp_id = 1;
         // role_id = req.params.id;
-        console.log(req.body.id)
+        // console.log(req.body.id)
         if (req.body.id == '' || req.body.id == null) {
             res.json({
                 status: 0,
@@ -6268,9 +6277,9 @@ var returnRouter = function (io) {
         //   var cmp_id = decoded._id;
         var cmp_id = 1;
         // role_id = req.params.id;
-        // console.log(req.body.date + 5.5);
+        // // console.log(req.body.date + 5.5);
 
-        console.log(new Date().getTimezoneOffset());
+        // console.log(new Date().getTimezoneOffset());
         if (req.body.title == '' || req.body.title == null) {
             res.json({
                 status: 0,
@@ -6302,7 +6311,7 @@ var returnRouter = function (io) {
                         cmp_id: cmp_id,
                         date: req.body.date
                     }).save().then(resSave => {
-                        // console.log(resSave)
+                        // // console.log(resSave)
                         res.json({
                             status: 1,
                             message: "Successfully saved!"
@@ -6490,7 +6499,7 @@ var returnRouter = function (io) {
                     role: newdata.role_id,
                 }
             });
-            // console.log(projects);
+            // // console.log(projects);
             // res.json(data);
         });
     });
@@ -6511,7 +6520,7 @@ var returnRouter = function (io) {
                 id: req.params.id
             }
         }).then(projectData => {
-            // console.log(projectData);
+            // // console.log(projectData);
             res.send(projectData);
         });
     });
@@ -6677,7 +6686,7 @@ var returnRouter = function (io) {
                     }]
                 }]
             }).then(resReq => {
-                // console.log(resReq.tbl_time_extension_request.tbl_project_task.tbl_project_module)
+                // // console.log(resReq.tbl_time_extension_request.tbl_project_task.tbl_project_module)
                 // TimeExtentionNotification.findAll({
                 //   where: {
                 //     is_pm_viewed: false,
@@ -7080,7 +7089,7 @@ var returnRouter = function (io) {
         var cmp_id = 1;
         var role_id = 3
         id = req.params.id;
-        //  console.log("\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+id);
+        //  // console.log("\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+id);
         NewTaskreq.find({
             where: {
                 id: id
@@ -7122,7 +7131,7 @@ var returnRouter = function (io) {
             //   let response = {};
             //   response["data"] = resBack;
             //   response["members"] = resMembers;
-            //   console.log(response);
+            //   // console.log(response);
             res.json(resBack);
 
             // }).catch(err => {
@@ -7157,7 +7166,7 @@ var returnRouter = function (io) {
         //   var cmp_id = decoded._id;
         var cmp_id = 1;
         // res.json(req.body);
-        console.log(req.params.id)
+        // console.log(req.params.id)
         var user_id = 74;
         Projects.find({
             where: {
@@ -7196,7 +7205,7 @@ var returnRouter = function (io) {
                         count = count + (ele.planned_hour + ele.buffer_hour);
                     });
                 });
-                // console.log(count)
+                // // console.log(count)
 
                 res.json({ "data": resProjects, "hours": count });
             }
@@ -7243,14 +7252,14 @@ var returnRouter = function (io) {
         Complexity_percentage.findAll({
 
         }).then(Complexity_percentage => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(Complexity_percentage);
         });
     });
     // ----------------------------------End-----------------------------------
 
     router.post('/approveTask', function (req, res) {
-        // console.log("hreeee");
+        // // console.log("hreeee");
         // if (req.headers && req.headers.authorization) {
         //   var authorization = req.headers.authorization.substring(4), decoded;
         //   //     try {
@@ -7263,10 +7272,10 @@ var returnRouter = function (io) {
         end_time = req.body.end_time;
         startDate.setHours(start_time.hour, start_time.minute, start_time.second);
         endDate.setHours(end_time.hour, end_time.minute, end_time.second);
-        console.log(req.body)
+        // console.log(req.body)
         if (req.body.task_name == '' || req.body.team_id == 0 || req.body.req_id == 0 || req.body.planned_hour == 0 || req.body.assigned_person == '' || req.body.priority == '' || req.body.start_date == '' || req.body.start_time == '' || req.body.end_date == '' || req.body.end_time == '') {
             res.send({ success: false, msg: 'Please fill all required fields' });
-            console.log("firs");
+            // console.log("firs");
         }
         if (startDate >= endDate) {
             res.send({ success: false, msg: 'End datetime should be greater than start date time' });
@@ -7276,14 +7285,14 @@ var returnRouter = function (io) {
             if (req.body.docSrc) {
                 timestamp = new Date().getTime().toString();
                 docName = req.body.id + timestamp + Math.floor(100000 + Math.random() * 900000);
-                // console.log(req.body.docSrc);
+                // // console.log(req.body.docSrc);
                 var base64 = decodeBase64Image(req.body.docSrc);
-                // console.log(base64);
+                // // console.log(base64);
                 require("fs").writeFile('../taskit/public/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                    // console.log(err);
+                    // // console.log(err);
                 });
                 require("fs").writeFile('../taskit/angular/src/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                    // console.log(err);
+                    // // console.log(err);
                 });
             }
             const newtaskReq = Tasks.build({
@@ -7334,6 +7343,382 @@ var returnRouter = function (io) {
         // }
     });
     //  ---------------------------------End-------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTasksByUser
+    // Params        : pro_id, user_id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  17-04-2018
+    // Last Modified : 
+    // Desc          : 
+    router.post('/getTasksByUser/:id', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        if (req.body.user_id == "all") {
+            Modules.findAll({
+                where: { project_id: req.params.id },
+                include: [
+                    {
+                        model: Tasks,
+                        include: [
+                            {
+                                model: task_status_assoc,
+
+                                include: [
+                                    {
+                                        model: task_statuses,
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }).then(myTasks => {
+                res.send(myTasks);
+            });
+        }
+        else {
+            Modules.findAll({
+                where: { project_id: req.params.id },
+                include: [
+                    {
+                        model: Tasks,
+                        where: { assigned_to_id: req.body.user_id },
+                        include: [
+                            {
+                                model: task_status_assoc,
+
+                                include: [
+                                    {
+                                        model: task_statuses,
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }).then(myTasks => {
+                res.send(myTasks);
+            });
+        }
+
+    });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTasksByProject
+    // Params        : pro_id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  17-04-2018
+    // Last Modified : 
+    // Desc          : 
+    router.get('/getTasksByProject/:id', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        Modules.findAll({
+            where: { project_id: req.params.id },
+            include: [
+                {
+                    model: Project
+                },
+                {
+                    model: Tasks,
+                    include: [
+                        {
+                            model: task_status_assoc,
+
+                            include: [
+                                {
+                                    model: task_statuses,
+                                }
+                            ],
+                        }
+                    ],
+                },
+            ]
+        }).then(myTasks => {
+            res.send(myTasks);
+        });
+    });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTasksforResourceGraph
+    // Params        : pro_id, users
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  18-04-2018
+    // Last Modified : 
+    // Desc          :  
+    router.post('/getTasksforResourceGraph/:id', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        // console.log(req.body.user);
+        users = req.body.user;
+        var offensesByYear = [];
+        async.eachOfSeries(users, function (user, key, callback) {
+            // users.forEach(user => {
+            var last_status_id = 0;
+            var total_tasks = 0;
+            var new_tasks = 0;
+            var in_progress_tasks = 0;
+            var completed_tasks = 0;
+            var onHold_tasks = 0;
+            var paused_tasks = 0;
+            var new_tasksHr = 0;
+            var in_progress_tasksHr = 0;
+            var completed_tasksHr = 0;
+            var onHold_tasksHr = 0;
+            var paused_tasksHr = 0;
+            var totalCompletedHr = 0;
+            Modules.findAll({
+                where: { project_id: req.params.id },
+                include: [
+                    {
+                        model: Tasks,
+                        where: { assigned_to_id: user.id },
+                        include: [
+                            {
+                                model: task_status_assoc,
+
+                                include: [
+                                    {
+                                        model: task_statuses,
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }).then(data => {
+                data.forEach(module => {
+                    total_tasks = total_tasks + module.tbl_project_tasks.length;
+                    module.tbl_project_tasks.forEach(task => {
+                        last_status_id = 0;
+                        last_status = {};
+                        task.tbl_task_status_assocs.forEach(statuses => {
+                            if (statuses.id > last_status_id) {
+                                last_status_id = statuses.id;
+                                last_status = statuses;
+                            }
+                        });
+                        if (last_status && last_status.status_id == 1) {
+                            new_tasks = new_tasks + 1;
+                            new_tasksHr = new_tasksHr + task.planned_hour + task.buffer_hour;
+                        }
+                        if (last_status && last_status.status_id == 2) {
+                            paused_tasks = paused_tasks + 1;
+                            paused_tasksHr = paused_tasksHr + task.planned_hour + task.buffer_hour;
+                        }
+                        if (last_status && last_status.status_id == 3) {
+                            in_progress_tasks = in_progress_tasks + 1;
+                            in_progress_tasksHr = in_progress_tasksHr + task.planned_hour + task.buffer_hour;
+                        }
+                        if (last_status && last_status.status_id == 4) {
+                            onHold_tasks = onHold_tasks + 1;
+                            onHold_tasksHr = onHold_tasksHr + task.planned_hour + task.buffer_hour;
+                        }
+                        if (last_status && last_status.status_id == 5) {
+                            completed_tasks = completed_tasks + 1;
+                            completed_tasksHr = completed_tasksHr + task.planned_hour + task.buffer_hour;
+                            totalCompletedHr = totalCompletedHr + task.actual_hour;
+                        }
+                    });
+                });
+                offensesByYear.push(
+                    {
+                        "New- Yet to Start": new_tasksHr,
+                        "In Progress": in_progress_tasksHr,
+                        "Completed": completed_tasksHr,
+                        "On Hold": onHold_tasksHr,
+                        "Paused": paused_tasksHr,
+                        "totalCompletedHr": totalCompletedHr
+                    });
+                callback();
+            });
+        }, () => {
+
+            res.send(offensesByYear)
+        });
+    });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------new Start-------------------------------------------
+    // Function      : getHoursforResourceGraph
+    // Params        :
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  18-04-2018
+    // Last Modified : 
+    // Desc          : 
+    router.post('/getHoursforResourceGraph', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            cmp_id = decoded.cmp_id;
+            // var project_names = [];
+            var offensesByYear = [];
+            // Project.findAll({
+            //     where: {
+            //         cmp_id: cmp_id,
+            //         [Op.or]: [{ status: "Planned", status: "Completed", status: "In Progress" }]
+            //     }
+            // }).then(projects => {
+            projects = req.body.project;
+            async.eachOfSeries(projects, function (project, key, callback) {
+                var last_status_id = 0;
+                var total_tasks = 0;
+                var new_tasks = 0;
+                var in_progress_tasks = 0;
+                var completed_tasks = 0;
+                var onHold_tasks = 0;
+                var paused_tasks = 0;
+                var new_tasksHr = 0;
+                var in_progress_tasksHr = 0;
+                var completed_tasksHr = 0;
+                var onHold_tasksHr = 0;
+                var paused_tasksHr = 0;
+                var totalCompletedHr = 0;
+                Modules.findAll({
+                    where: { project_id: project.id },
+                    include: [
+                        {
+                            model: Tasks,
+                            include: [
+                                {
+                                    model: task_status_assoc,
+                                    include: [
+                                        {
+                                            model: task_statuses,
+                                        }
+                                    ],
+                                }
+                            ],
+                        },
+                    ]
+                }).then(data => {
+                    data.forEach(module => {
+                        total_tasks = total_tasks + module.tbl_project_tasks.length;
+                        module.tbl_project_tasks.forEach(task => {
+                            last_status_id = 0;
+                            last_status = {};
+                            task.tbl_task_status_assocs.forEach(statuses => {
+                                if (statuses.id > last_status_id) {
+                                    last_status_id = statuses.id;
+                                    last_status = statuses;
+                                }
+                            });
+                            if (last_status && last_status.status_id == 1) {
+                                new_tasks = new_tasks + 1;
+                                new_tasksHr = new_tasksHr + task.planned_hour + task.buffer_hour;
+                            }
+                            if (last_status && last_status.status_id == 2) {
+                                paused_tasks = paused_tasks + 1;
+                                paused_tasksHr = paused_tasksHr + task.planned_hour + task.buffer_hour;
+                            }
+                            if (last_status && last_status.status_id == 3) {
+                                in_progress_tasks = in_progress_tasks + 1;
+                                in_progress_tasksHr = in_progress_tasksHr + task.planned_hour + task.buffer_hour;
+                            }
+                            if (last_status && last_status.status_id == 4) {
+                                onHold_tasks = onHold_tasks + 1;
+                                onHold_tasksHr = onHold_tasksHr + task.planned_hour + task.buffer_hour;
+                            }
+                            if (last_status && last_status.status_id == 5) {
+                                completed_tasks = completed_tasks + 1;
+                                completed_tasksHr = completed_tasksHr + task.planned_hour + task.buffer_hour;
+                                totalCompletedHr = totalCompletedHr + task.actual_hour;
+                            }
+                        });
+                    });
+                    offensesByYear.push(
+                        {
+                            "New- Yet to Start": new_tasksHr,
+                            "In Progress": in_progress_tasksHr,
+                            "Completed": completed_tasksHr,
+                            "On Hold": onHold_tasksHr,
+                            "Paused": paused_tasksHr,
+                            "totalCompletedHr": totalCompletedHr
+                        });
+                    callback();
+                });
+            }, () => {
+
+                res.send(offensesByYear);
+            });
+            // });
+        }
+        else {
+            return res.status(401).send('Invalid User');
+        }
+    });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getdataforProjectVsStatusGraph
+    // Params        : projects
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  19-04-2018
+    // Last Modified : 
+    // Desc          : 
+    router.post('/getdataforProjectVsStatusGraph', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        var data = [];
+        projects = req.body.project;
+        async.eachOfSeries(projects, function (project, key, callback) {
+            Modules.findAll({
+                where: { project_id: project.id },
+                include: [
+                    {
+                        model: Project
+                    },
+                    {
+                        model: Tasks,
+                        include: [
+                            {
+                                model: task_status_assoc,
+
+                                include: [
+                                    {
+                                        model: task_statuses,
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }).then(myTasks => {
+                data.push(myTasks);
+                callback();
+            });
+        }, () => {
+
+            res.send(data);
+        });
+    });
+    // -----------------------------------End------------------------------------------
+
     module.exports = router;
     return router;
 }

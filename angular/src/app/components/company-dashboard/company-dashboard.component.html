@@ -43,85 +43,39 @@
                         </div>
                       <div class="col-md-12 col-sm-12 col-xs-12 ">
                             <div class="sales">
-                                <h1>Sample Heading</h1>
+                                <h1>Module Vs Status</h1>
                                 <div class="row">
                                     <div class="col-md-8 col-md-push-1">
                                         <div class="col-md-3 bg-g">*Select Project</div>
                                         <div class="col-md-3 bg-hash">
-                                        <select>
-                                            <option>Taskit</option>
-                                            <option>Survey</option>
-                                        </select>
+                                            <mat-select  name="projet_id" [(ngModel)]="project_id" (ngModelChange)="changeProject($event)" required>
+                                                <mat-option *ngFor="let prj of projects" [value]="prj.id">
+                                                  {{prj.project_name}}
+                                                </mat-option>
+                                              </mat-select>
                                         </div> 
                                         <div class="col-md-3">
-                                            <span class="total">Total 7 Milestone</span>
+                                            <span class="total">Total {{module_count}} Milestone</span>
                                         </div>
                                     </div> 
                                 </div>
                                 <ul class="graph-ul">
-                                    <li >
-                                        <div class="divModule" >Module-1</div>
+                                    <li *ngFor="let module of modules" >
+                                        <div class="divModule" >{{module?.module_name}}</div>
                                         <div class="row">
-                                            <div class="col-md-6">Planned Hour <br>100</div>
-                                            <div class="col-md-6">Actual Hour<br> 20 </div>
-                                            <div id="module-1-progress"></div>
-                                            <company-progress-graph [containerId]="'module-1-progress'" [progper]="92"></company-progress-graph>
+                                            <div class="col-md-6">Planned Hour <br>{{module?.planned_hour}}</div>
+                                            <div class="col-md-6">Actual Hour<br> {{module?.actual_hour}} </div>
+                                            <div id="module-{{module.id}}-progress"></div>
+                                            <company-progress-graph [containerId]="'module-'+ module.id +'-progress'" [progper]="module?.per"></company-progress-graph>
                                             <div class="clearfix"></div>
                                             <div class="col-md-12 label-bg">
-                                                <div class="number">10</div>
+                                                <div class="number">{{module?.total_tasks}}</div>
                                             </div>
-                                            <div id="module-1-status"></div>
-                                            <company-status-graph [containerId]="'module-1-status'"></company-status-graph>
+                                            <div id="module-{{module.id}}-status"></div>
+                                            <company-status-graph [containerId]="'module-'+ module.id +'-status'" [pieData]="module?.pieData"></company-status-graph>
                                         </div>
                                     </li>
-                                    <li >
-                                        <div class="divModule">Module-2</div>
-                                        <div class="row">
-                                            <div class="col-md-6">Planned Hour <br>100</div>
-                                            <div class="col-md-6">Actual Hour<br> 20 </div>
-                                            <div id="module-2-progress"></div>
-                                            <company-progress-graph [containerId]="'module-2-progress'" [progper]="60"></company-progress-graph>
-                                            <div class="clearfix"></div>
-                                            <div class="col-md-12 label-bg">
-                                                <div class="number">7</div>
-                                            </div>
-                                            <div id="module-2-status"></div>
-                                            <company-status-graph [containerId]="'module-2-status'"></company-status-graph>
-                                        </div>
-                                    </li>
-                                    <li >
-                                        <div class="divModule" >Module-3</div>
-                                        <div class="row">
-                                            <div class="col-md-6">Planned Hour <br>100</div>
-                                            <div class="col-md-6">Actual Hour<br> 20 </div>
-                                            <div id="module-3-progress"></div>
-                                            <company-progress-graph [containerId]="'module-3-progress'" [progper]="55"></company-progress-graph>
-                                            <div class="clearfix"></div>
-                                            <div class="col-md-12 label-bg">
-                                                <div class="number">9</div>
-                                            </div>
-                                            <div id="module-3-status"></div>
-                                            <company-status-graph [containerId]="'module-3-status'"></company-status-graph>
-                                        </div>
-                                    </li>
-                                    <li >
-                                        <div class="divModule" >Module-4</div>
-                                        <div class="row">
-                                            <div class="col-md-6">Planned Hour <br>100</div>
-                                            <div class="col-md-6">Actual Hour<br> 20 </div>
-                                            <div id="module-4-progress"></div>
-                                            <company-progress-graph [containerId]="'module-4-progress'" [progper]="55"></company-progress-graph>
-                                            <div class="clearfix"></div>
-                                            <div class="col-md-12 label-bg">
-                                                <div class="number">9</div>
-                                            </div>
-                                            <div id="module-4-status"></div>
-                                            <company-status-graph [containerId]="'module-4-status'"></company-status-graph>
-                                        </div>
-                                    </li>
-                                   
-                                   
-                                   
+                                    
                                 </ul>
                             </div>
                            
@@ -137,23 +91,23 @@
                                                 <div class="secondRow firstColumn">Progress</div>
                                                 <div class="ThirdRow firstColumn">Planned <br>vs<br> Actual Hours</div>
                                             </li>
-                                            <li >
-                                                <div class="prjtitle1">Taskit</div>
+                                            <li *ngFor="let project of projectforProVsStatusGraph;let i = index;">
+                                                <div class="prjtitle1">{{project[0]?.tbl_project?.project_name}}</div>
                                                 <div class="col-md-8 mr-top">
-                                                <div class="datelabel">Start <span class="pull-right">24-03-2018</span></div>
-                                                <div class="datelabel">End <span class="pull-right">29-03-2018</span></div>
+                                                <div class="datelabel">Start <span class="pull-right">{{project[0]?.tbl_project?.planned_start_date | date:'EEE, d MMM,y'}}</span></div>
+                                                <div class="datelabel">End <span class="pull-right">{{project[0]?.tbl_project?.planned_end_date | date:'EEE, d MMM,y'}}</span></div>
                                                 </div>
                                                 <div class="clearfix"></div>
                                                 <!-- <div style="clear: both;"></div> -->
                                                 <hr>
-                                                <div id="projct-1-progress"></div>
-                                                <company-progress-graph [containerId]="'projct-1-progress'" [progper]="55"></company-progress-graph>
-                                                <label>0/36 In Progress</label>
+                                                <div id="projct-{{i}}-progress"></div>
+                                                <company-progress-graph [containerId]="'projct-'+ i +'-progress'" [progper]="project.per"></company-progress-graph>
+                                                <label>{{project?.in_progress_tasks}}/{{project?.total_tasks}} In Progress</label>
                                                 <hr>
-                                                <div id="projct-1-bar"></div>
-                                                <company-bar-graph [containerId]="'projct-1-bar'" [actual]="5" [planning]="8"></company-bar-graph>
+                                                <div id="projct-{{i}}-bar"></div>
+                                                <company-bar-graph [containerId]="'projct-'+ i +'-bar'" [actual]="project.actual_hour" [planning]="project.planned_hour"></company-bar-graph>
                                             </li>
-                                            <li class="hash">
+                                            <!-- <li class="hash">
                                                 <div class="prjtitle2 bg-g">Taskit</div>
                                                 <div class="col-md-8 mr-top">
                                                         <div class="datelabel">Start <span class="pull-right">24-03-2018</span></div>
@@ -167,7 +121,7 @@
                                                 <hr>
                                                 <div id="projct-2-bar"></div>
                                                 <company-bar-graph [containerId]="'projct-2-bar'" [actual]="10" [planning]="4"></company-bar-graph>
-                                            </li>
+                                            </li> -->
                                     </ul>       
                             </div>
                         </div>

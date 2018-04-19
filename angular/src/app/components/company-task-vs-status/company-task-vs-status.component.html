@@ -5,17 +5,28 @@
       <div class="col-md-8 col-md-offset-2">
       <div class="col-md-6 bg-g">*Select Project</div>
       <div class="col-md-6 bg-hash">
-        <select>
+        <!-- <select>
           <option *ngFor="let prj of projects" value="{{prj.id}}">{{prj.project_name}}</option>
-        </select>
+        </select> -->
+        <mat-select  name="projet_id" [(ngModel)]="project.id" (ngModelChange)="changeProject($event)" required>
+        <mat-option *ngFor="let prj of projects" [value]="prj.id">
+          {{prj.project_name}}
+        </mat-option>
+      </mat-select>
       </div> 
       <br>
       <br>
       <div class="col-md-6 bg-g">*Select Person</div>
       <div class="col-md-6 bg-hash">
-        <select>
-            <option *ngFor="let usr of users" value="{{usr.id}}">{{usr.f_name}} {{usr.l_name}}</option>
-        </select>
+        <!-- <select>
+          <option *ngFor="let usr of users" value="{{usr.id}}">{{usr.f_name}} {{usr.l_name}}</option>
+        </select> -->
+        <mat-select [(ngModel)]="user_id" (ngModelChange)="changeUser($event)" required>
+          <mat-option *ngIf="showUsers" value="all">All</mat-option>
+            <mat-option *ngFor="let usr of users" [value]="usr.id">
+                {{usr.f_name}} {{usr.l_name}}
+            </mat-option>
+          </mat-select>
       </div> 
       <div class="clearfix"></div>
       <div class="row">
@@ -23,7 +34,7 @@
           <div class="tasklabel">
           TASKS ASSIGNED
           <br>
-          2
+          {{total_tasks}}
         </div>
         </div>
 
@@ -31,28 +42,30 @@
             <div class="tasklabel">
             TASKS COMPLETED
             <br>
-            10
+            {{completed_tasks}}
            </div>
           </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <div class="tasklabel">
-          DUE THIS WEEK
+          <!-- DUE THIS WEEK -->
+          TASKS ON HOLD
           <br>
-          10
+          {{onHold_tasks}}
         </div>
         </div>
 
         <div class="col-md-6">
             <div class="tasklabel">
-           DUE NEXT WEEK
+           <!-- DUE NEXT WEEK -->
+           TASKS IN PROGRESS
             <br>
-            10
+            {{in_progress_tasks}}
            </div>
           </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-6">
           <div class="tasklabel">
           DUE THIS MONTH
@@ -68,7 +81,7 @@
             10
            </div>
           </div>
-      </div>
+      </div> -->
     </div>
     </div>
 

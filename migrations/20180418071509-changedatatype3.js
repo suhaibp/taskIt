@@ -2,16 +2,14 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    up: (queryInterface, Sequelize) => {
-      return queryInterface.addColumn(
-        'tbl_new_task_requests',
+    queryInterface.addColumn(
+      'tbl_project_tasks',
+      'actual_hour',
+      {
+        type: Sequelize.DOUBLE,
         
-        'task_name',
-        {
-          type:  Sequelize.STRING,
-          allowNull: true
-        }
-      )
+      }
+    );
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.

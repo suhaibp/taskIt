@@ -4251,17 +4251,17 @@ var CompanyBarGraphComponent = (function () {
         this.actual = '';
         this.planning = '';
     }
-    CompanyBarGraphComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    CompanyBarGraphComponent.prototype.ngOnInit = function () { };
+    CompanyBarGraphComponent.prototype.ngAfterViewInit = function () {
         var offenseNames = [
             "Hours",
         ];
         var years = ["Planned", "Actual"];
         var offensesByYear = [
             {
-                "Hours": 1000,
+                "Hours": this.planning,
             },
-            { "Hours": 2010,
+            { "Hours": this.actual,
             },
         ];
         var generateClassStr = function (str) {
@@ -4332,6 +4332,13 @@ var CompanyBarGraphComponent = (function () {
             //  // alert(i);
             return '#7fc97f';
         });
+        var tooltip = d3.select("body")
+            .append("div")
+            .style("position", "absolute")
+            .style("z-index", "10")
+            .style("visibility", "hidden")
+            .style("background", "#96A7B9")
+            .text("a simple tooltip");
         var rect = layer
             .selectAll(".bar")
             .data(function (d) {
@@ -4346,9 +4353,11 @@ var CompanyBarGraphComponent = (function () {
             .attr("width", x.bandwidth())
             .attr("height", 0)
             .on("mouseover", function (d) {
-            d3.select(_this)
-                .style("opacity", 0.6);
-        });
+            tooltip.text("Total " + d.year + " Hour: " + d.data.Hours + " Hr");
+            return tooltip.style("visibility", "visible");
+        })
+            .on("mousemove", function () { return tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px"); })
+            .on("mouseout", function () { return tooltip.style("visibility", "hidden"); });
         rect
             .transition()
             .delay(function (d, i) {
@@ -4402,7 +4411,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-dashboard/company-dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n      <div class=\"row display-table-row\">\r\n    \r\n          <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n               <!-- sidebar-->\r\n             \r\n               <company-sidebar></company-sidebar> \r\n               <!-- end sidebar-->\r\n          </div>\r\n          \r\n          <div class=\"col-md-12 col-xs-12\">\r\n              <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n              <!-- topbar-->\r\n              <company-topbar></company-topbar> \r\n              \r\n                  <!-- end topbar-->\r\n              \r\n              \r\n              <div class=\"user-dashboard\">\r\n                 \r\n                  <div class=\"row\">\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                              \r\n                          <company-task-vs-status></company-task-vs-status>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-resoure-vs-hour></company-resoure-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-project-vs-hour></company-project-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                            <company-project-vs-status></company-project-vs-status>\r\n                            </div>\r\n                        </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                <h1>Sample Heading</h1>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-8 col-md-push-1\">\r\n                                        <div class=\"col-md-3 bg-g\">*Select Project</div>\r\n                                        <div class=\"col-md-3 bg-hash\">\r\n                                        <select>\r\n                                            <option>Taskit</option>\r\n                                            <option>Survey</option>\r\n                                        </select>\r\n                                        </div> \r\n                                        <div class=\"col-md-3\">\r\n                                            <span class=\"total\">Total 7 Milestone</span>\r\n                                        </div>\r\n                                    </div> \r\n                                </div>\r\n                                <ul class=\"graph-ul\">\r\n                                    <li >\r\n                                        <div class=\"divModule\" >Module-1</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-1-progress\"></div>\r\n                                            <company-progress-graph [containerId]=\"'module-1-progress'\" [progper]=\"92\"></company-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">10</div>\r\n                                            </div>\r\n                                            <div id=\"module-1-status\"></div>\r\n                                            <company-status-graph [containerId]=\"'module-1-status'\"></company-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    <li >\r\n                                        <div class=\"divModule\">Module-2</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-2-progress\"></div>\r\n                                            <company-progress-graph [containerId]=\"'module-2-progress'\" [progper]=\"60\"></company-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">7</div>\r\n                                            </div>\r\n                                            <div id=\"module-2-status\"></div>\r\n                                            <company-status-graph [containerId]=\"'module-2-status'\"></company-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    <li >\r\n                                        <div class=\"divModule\" >Module-3</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-3-progress\"></div>\r\n                                            <company-progress-graph [containerId]=\"'module-3-progress'\" [progper]=\"55\"></company-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">9</div>\r\n                                            </div>\r\n                                            <div id=\"module-3-status\"></div>\r\n                                            <company-status-graph [containerId]=\"'module-3-status'\"></company-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    <li >\r\n                                        <div class=\"divModule\" >Module-4</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-4-progress\"></div>\r\n                                            <company-progress-graph [containerId]=\"'module-4-progress'\" [progper]=\"55\"></company-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">9</div>\r\n                                            </div>\r\n                                            <div id=\"module-4-status\"></div>\r\n                                            <company-status-graph [containerId]=\"'module-4-status'\"></company-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                   \r\n                                   \r\n                                   \r\n                                </ul>\r\n                            </div>\r\n                           \r\n                        </div>\r\n\r\n                        <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                    <h1>Project Vs Status</h1>\r\n\r\n                                    <ul class=\"graph-ul-hour\">\r\n                                            <li>\r\n                                                <div class=\"firstRow firstColumn\">PROJECTS</div>\r\n                                                <div class=\"secondRow firstColumn\">Progress</div>\r\n                                                <div class=\"ThirdRow firstColumn\">Planned <br>vs<br> Actual Hours</div>\r\n                                            </li>\r\n                                            <li >\r\n                                                <div class=\"prjtitle1\">Taskit</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                <div class=\"datelabel\">Start <span class=\"pull-right\">24-03-2018</span></div>\r\n                                                <div class=\"datelabel\">End <span class=\"pull-right\">29-03-2018</span></div>\r\n                                                </div>\r\n                                                <div class=\"clearfix\"></div>\r\n                                                <!-- <div style=\"clear: both;\"></div> -->\r\n                                                <hr>\r\n                                                <div id=\"projct-1-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-1-progress'\" [progper]=\"55\"></company-progress-graph>\r\n                                                <label>0/36 In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-1-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-1-bar'\" [actual]=\"5\" [planning]=\"8\"></company-bar-graph>\r\n                                            </li>\r\n                                            <li class=\"hash\">\r\n                                                <div class=\"prjtitle2 bg-g\">Taskit</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                        <div class=\"datelabel\">Start <span class=\"pull-right\">24-03-2018</span></div>\r\n                                                        <div class=\"datelabel\">End <span class=\"pull-right\">29-03-2018</span></div>\r\n                                                 </div>\r\n                                                 <div class=\"clearfix\"></div>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-2-progress'\" [progper]=\"45\"></company-progress-graph>\r\n                                                <label>2/23 In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-2-bar'\" [actual]=\"10\" [planning]=\"4\"></company-bar-graph>\r\n                                            </li>\r\n                                    </ul>       \r\n                            </div>\r\n                        </div>\r\n                      \r\n                  </div>\r\n              </div>\r\n              \r\n          </div>\r\n              <!-- footer-->\r\n              <admin-footer></admin-footer>\r\n     <!-- end footer-->\r\n      </div>\r\n       </div>\r\n      <!-- Modal -->\r\n   </body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n      <div class=\"row display-table-row\">\r\n    \r\n          <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n               <!-- sidebar-->\r\n             \r\n               <company-sidebar></company-sidebar> \r\n               <!-- end sidebar-->\r\n          </div>\r\n          \r\n          <div class=\"col-md-12 col-xs-12\">\r\n              <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n              <!-- topbar-->\r\n              <company-topbar></company-topbar> \r\n              \r\n                  <!-- end topbar-->\r\n              \r\n              \r\n              <div class=\"user-dashboard\">\r\n                 \r\n                  <div class=\"row\">\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                              \r\n                          <company-task-vs-status></company-task-vs-status>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-resoure-vs-hour></company-resoure-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-project-vs-hour></company-project-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                            <company-project-vs-status></company-project-vs-status>\r\n                            </div>\r\n                        </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                <h1>Module Vs Status</h1>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-8 col-md-push-1\">\r\n                                        <div class=\"col-md-3 bg-g\">*Select Project</div>\r\n                                        <div class=\"col-md-3 bg-hash\">\r\n                                            <mat-select  name=\"projet_id\" [(ngModel)]=\"project_id\" (ngModelChange)=\"changeProject($event)\" required>\r\n                                                <mat-option *ngFor=\"let prj of projects\" [value]=\"prj.id\">\r\n                                                  {{prj.project_name}}\r\n                                                </mat-option>\r\n                                              </mat-select>\r\n                                        </div> \r\n                                        <div class=\"col-md-3\">\r\n                                            <span class=\"total\">Total {{module_count}} Milestone</span>\r\n                                        </div>\r\n                                    </div> \r\n                                </div>\r\n                                <ul class=\"graph-ul\">\r\n                                    <li *ngFor=\"let module of modules\" >\r\n                                        <div class=\"divModule\" >{{module?.module_name}}</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>{{module?.planned_hour}}</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> {{module?.actual_hour}} </div>\r\n                                            <div id=\"module-{{module.id}}-progress\"></div>\r\n                                            <company-progress-graph [containerId]=\"'module-'+ module.id +'-progress'\" [progper]=\"module?.per\"></company-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">{{module?.total_tasks}}</div>\r\n                                            </div>\r\n                                            <div id=\"module-{{module.id}}-status\"></div>\r\n                                            <company-status-graph [containerId]=\"'module-'+ module.id +'-status'\" [pieData]=\"module?.pieData\"></company-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    \r\n                                </ul>\r\n                            </div>\r\n                           \r\n                        </div>\r\n\r\n                        <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                    <h1>Project Vs Status</h1>\r\n\r\n                                    <ul class=\"graph-ul-hour\">\r\n                                            <li>\r\n                                                <div class=\"firstRow firstColumn\">PROJECTS</div>\r\n                                                <div class=\"secondRow firstColumn\">Progress</div>\r\n                                                <div class=\"ThirdRow firstColumn\">Planned <br>vs<br> Actual Hours</div>\r\n                                            </li>\r\n                                            <li *ngFor=\"let project of projectforProVsStatusGraph;let i = index;\">\r\n                                                <div class=\"prjtitle1\">{{project[0]?.tbl_project?.project_name}}</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                <div class=\"datelabel\">Start <span class=\"pull-right\">{{project[0]?.tbl_project?.planned_start_date | date:'EEE, d MMM,y'}}</span></div>\r\n                                                <div class=\"datelabel\">End <span class=\"pull-right\">{{project[0]?.tbl_project?.planned_end_date | date:'EEE, d MMM,y'}}</span></div>\r\n                                                </div>\r\n                                                <div class=\"clearfix\"></div>\r\n                                                <!-- <div style=\"clear: both;\"></div> -->\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-'+ i +'-progress'\" [progper]=\"project.per\"></company-progress-graph>\r\n                                                <label>{{project?.in_progress_tasks}}/{{project?.total_tasks}} In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-'+ i +'-bar'\" [actual]=\"project.actual_hour\" [planning]=\"project.planned_hour\"></company-bar-graph>\r\n                                            </li>\r\n                                            <!-- <li class=\"hash\">\r\n                                                <div class=\"prjtitle2 bg-g\">Taskit</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                        <div class=\"datelabel\">Start <span class=\"pull-right\">24-03-2018</span></div>\r\n                                                        <div class=\"datelabel\">End <span class=\"pull-right\">29-03-2018</span></div>\r\n                                                 </div>\r\n                                                 <div class=\"clearfix\"></div>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-2-progress'\" [progper]=\"45\"></company-progress-graph>\r\n                                                <label>2/23 In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-2-bar'\" [actual]=\"10\" [planning]=\"4\"></company-bar-graph>\r\n                                            </li> -->\r\n                                    </ul>       \r\n                            </div>\r\n                        </div>\r\n                      \r\n                  </div>\r\n              </div>\r\n              \r\n          </div>\r\n              <!-- footer-->\r\n              <admin-footer></admin-footer>\r\n     <!-- end footer-->\r\n      </div>\r\n       </div>\r\n      <!-- Modal -->\r\n   </body>"
 
 /***/ }),
 
@@ -4412,8 +4421,7 @@ module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid displa
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyDashboardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_dragula__ = __webpack_require__("../../../../ng2-dragula/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_dragula___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_ng2_dragula__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4426,67 +4434,244 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var CompanyDashboardComponent = (function () {
-    function CompanyDashboardComponent(_dragulaService) {
-        this._dragulaService = _dragulaService;
-        this.categories = [
-            {
-                id: 1,
-                name: 'Category 1',
-                subCategories: [
-                    {
-                        id: 5,
-                        name: 'Sub-category 5',
-                        dragulaName: 'category-1'
-                    },
-                    {
-                        id: 6,
-                        name: 'Sub-category 6',
-                        dragulaName: 'category-1'
-                    },
-                    {
-                        id: 7,
-                        name: 'Sub-category 7',
-                        dragulaName: 'category-1'
-                    },
-                    {
-                        id: 8,
-                        name: 'Sub-category 8',
-                        dragulaName: 'category-1'
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: 'Category 2',
-                subCategories: []
-            },
-            {
-                id: 3,
-                name: 'Category3',
-                subCategories: []
-            },
-            {
-                id: 4,
-                name: 'Category 4',
-                subCategories: []
-            },
-        ];
+    // categories: any = [
+    //   {
+    //     id: 1,
+    //     name: 'Category 1',
+    //     subCategories: [
+    //       {
+    //         id: 5,
+    //         name: 'Sub-category 5',
+    //         dragulaName: 'category-1'
+    //       },
+    //       {
+    //         id: 6,
+    //         name: 'Sub-category 6',
+    //         dragulaName: 'category-1'
+    //       },
+    //       {
+    //         id: 7,
+    //         name: 'Sub-category 7',
+    //         dragulaName: 'category-1'
+    //       },
+    //       {
+    //         id: 8,
+    //         name: 'Sub-category 8',
+    //         dragulaName: 'category-1'
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     id: 2,
+    //     name: 'Category 2',
+    //     subCategories: []
+    //   },
+    //   {
+    //     id: 3,
+    //     name: 'Category3',
+    //     subCategories: []
+    //   },
+    //   {
+    //     id: 4,
+    //     name: 'Category 4',
+    //     subCategories: []
+    //   },
+    // ];
+    function CompanyDashboardComponent(companyService) {
+        this.companyService = companyService;
+        this.projects = [];
+        this.users = [];
+        this.total_tasks = 0;
+        this.new_tasks = 0;
+        this.in_progress_tasks = 0;
+        this.completed_tasks = 0;
+        this.onHold_tasks = 0;
+        this.paused_tasks = 0;
+        this.planned_hour = 0;
+        this.actual_hour = 0;
+        this.module_count = 0;
+        this.modules = [];
+        this.projectforProVsStatusGraph = [];
     }
     CompanyDashboardComponent.prototype.ngOnInit = function () {
-        this._dragulaService.setOptions('categories', {
-            moves: function (el, container, handle) {
-                return handle.className === 'handler';
-            }
-        });
-        this._dragulaService.drop.asObservable().subscribe(function (value) {
-            console.log(value);
-        });
+        this.getAllProjects();
+        // this._dragulaService.setOptions('categories', {
+        //   moves: function (el, container, handle) {
+        //     return handle.className === 'handler';
+        //   }
+        // });
+        // this._dragulaService.drop.asObservable().subscribe((value) => {
+        //   console.log(value);
+        // });
         /**
          * Used to get the dragged question original position.
          */
-        this._dragulaService.drag.asObservable().subscribe(function (value) {
-            console.log(value);
+        // this._dragulaService.drag.asObservable().subscribe((value) => {
+        //   console.log(value);
+        // });
+    };
+    CompanyDashboardComponent.prototype.getAllProjects = function () {
+        var _this = this;
+        this.projectforProVsStatusGraph = [];
+        this.companyService.getAllProject().subscribe(function (data) {
+            _this.projects = [];
+            data.forEach(function (element) {
+                if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
+                    _this.projects.push(element);
+                }
+            });
+            if (_this.projects.length == 0) {
+                //no data in charts
+            }
+            else {
+                _this.project_id = _this.projects[0].id;
+                _this.getData(_this.project_id);
+                // ---------------------------------Start-------------------------------------------
+                // Function      : getdataforProjectVsStatusGraph
+                // Params        : projects
+                // Returns       : 
+                // Author        : Rinsha
+                // Date          :  19-04-2018
+                // Last Modified : 
+                // Desc          : 
+                _this.companyService.getdataforProjectVsStatusGraph(_this.projects).subscribe(function (info) {
+                    var last_status;
+                    var last_status_id = 0;
+                    _this.projectforProVsStatusGraph = info;
+                    _this.projectforProVsStatusGraph.forEach(function (project, key) {
+                        var total_tasks = 0;
+                        var planned_hour = 0;
+                        var actual_hour = 0;
+                        var completed_tasks = 0;
+                        var in_progress_tasks = 0;
+                        project.forEach(function (module1) {
+                            total_tasks = total_tasks + module1.tbl_project_tasks.length;
+                            module1.tbl_project_tasks.forEach(function (task) {
+                                if (task.planned_hour != null) {
+                                    planned_hour = planned_hour + task.planned_hour + task.buffer_hour;
+                                }
+                                if (task.actual_hour != null) {
+                                    actual_hour = actual_hour + task.actual_hour;
+                                }
+                                last_status_id = 0;
+                                last_status = {};
+                                task.tbl_task_status_assocs.forEach(function (statuses) {
+                                    if (statuses.id > last_status_id) {
+                                        last_status_id = statuses.id;
+                                        last_status = statuses;
+                                    }
+                                });
+                                if (last_status && last_status.status_id == 5) {
+                                    completed_tasks = completed_tasks + 1;
+                                }
+                                if (last_status && last_status.status_id == 3) {
+                                    in_progress_tasks = in_progress_tasks + 1;
+                                }
+                            });
+                        });
+                        _this.projectforProVsStatusGraph[key].total_tasks = total_tasks;
+                        _this.projectforProVsStatusGraph[key].planned_hour = planned_hour;
+                        _this.projectforProVsStatusGraph[key].actual_hour = actual_hour;
+                        _this.projectforProVsStatusGraph[key].completed_tasks = completed_tasks;
+                        _this.projectforProVsStatusGraph[key].in_progress_tasks = in_progress_tasks;
+                        _this.projectforProVsStatusGraph[key].per = completed_tasks / _this.projectforProVsStatusGraph[key].total_tasks * 100;
+                    });
+                    // -----------------------------------End------------------------------------------
+                });
+            }
         });
+    };
+    CompanyDashboardComponent.prototype.changeProject = function (pro_id) {
+        this.getData(pro_id);
+    };
+    CompanyDashboardComponent.prototype.getData = function (pro_id) {
+        var _this = this;
+        var last_status;
+        var last_status_id = 0;
+        // this.total_tasks = 0;
+        // this.new_tasks = 0;
+        // this.in_progress_tasks = 0;
+        // this.completed_tasks = 0;
+        // this.onHold_tasks = 0;
+        // this.paused_tasks = 0;
+        // this.planned_hour = 0;
+        // this.actual_hour = 0;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getTasksByUser
+        // Params        : pro_id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 17-04-2018
+        // Last Modified : 
+        // Desc          : 
+        this.companyService.getTasksByProject(pro_id).subscribe(function (data) {
+            // console.log(data);
+            _this.module_count = 0;
+            _this.modules = [];
+            _this.module_count = data.length;
+            _this.modules = data;
+            data.forEach(function (module, key) {
+                _this.total_tasks = 0;
+                _this.modules[key].total_tasks = module.tbl_project_tasks.length;
+                _this.start_date = module.tbl_project.planned_start_date;
+                _this.end_date = module.tbl_project.planned_end_date;
+                var planned_hour = 0;
+                var actual_hour = 0;
+                var new_tasks = 0;
+                var paused_tasks = 0;
+                var in_progress_tasks = 0;
+                var onHold_tasks = 0;
+                var completed_tasks = 0;
+                module.tbl_project_tasks.forEach(function (task) {
+                    if (task.planned_hour != null) {
+                        planned_hour = planned_hour + task.planned_hour + task.buffer_hour;
+                    }
+                    if (task.actual_hour != null) {
+                        actual_hour = actual_hour + task.actual_hour;
+                    }
+                    // console.log(task)
+                    last_status_id = 0;
+                    last_status = {};
+                    task.tbl_task_status_assocs.forEach(function (statuses) {
+                        if (statuses.id > last_status_id) {
+                            last_status_id = statuses.id;
+                            last_status = statuses;
+                        }
+                    });
+                    if (last_status && last_status.status_id == 1) {
+                        new_tasks = new_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 2) {
+                        paused_tasks = paused_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 3) {
+                        in_progress_tasks = in_progress_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 4) {
+                        onHold_tasks = onHold_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 5) {
+                        completed_tasks = completed_tasks + 1;
+                    }
+                });
+                _this.modules[key].planned_hour = planned_hour;
+                _this.modules[key].actual_hour = actual_hour;
+                // this.modules[key].new_tasks = new_tasks;
+                _this.modules[key].paused_tasks = paused_tasks;
+                _this.modules[key].in_progress_tasks = in_progress_tasks;
+                _this.modules[key].onHold_tasks = onHold_tasks;
+                _this.modules[key].completed_tasks = completed_tasks;
+                _this.modules[key].per = completed_tasks / (module.tbl_project_tasks.length) * 100;
+                _this.modules[key].pieData = [
+                    { name: 'New - Yet to Start', value: new_tasks, color: '#2778a7' },
+                    { name: 'In Progress', value: in_progress_tasks, color: '#99b745' },
+                    { name: 'Completed', value: completed_tasks, color: '#17a88f' },
+                    { name: 'On Hold', value: onHold_tasks, color: '#f2ac37' },
+                    { name: 'Paused', value: paused_tasks, color: '#b74549' },
+                ];
+            });
+        });
+        // -----------------------------------End------------------------------------------
     };
     CompanyDashboardComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -4494,7 +4679,7 @@ var CompanyDashboardComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/company-dashboard/company-dashboard.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/company-dashboard/company-dashboard.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ng2_dragula__["DragulaService"]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_company_service__["a" /* CompanyService */]])
     ], CompanyDashboardComponent);
     return CompanyDashboardComponent;
 }());
@@ -6585,7 +6770,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var CompanyProgressGraphComponent = (function () {
     function CompanyProgressGraphComponent() {
     }
-    CompanyProgressGraphComponent.prototype.ngOnInit = function () {
+    CompanyProgressGraphComponent.prototype.ngOnInit = function () { };
+    CompanyProgressGraphComponent.prototype.ngAfterViewInit = function () {
         // console.log(this.containerId);
         var colors = {
             'pink': '#E1499A',
@@ -7733,7 +7919,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-project-vs-hour/company-project-vs-hour.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <h1>Project Vs Task Hours</h1>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-12 col-sm-12 col-xs-12\">\r\n            <div class=\"widget\">\r\n                <div id=\"chart\" class=\"chart-container\">\r\n            \r\n                </div>\r\n               \r\n                  <div id=\"stacked-bar-chart-container1\">\r\n                    </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    "
+module.exports = "<div>\r\n    <h1>Project Vs Task Hours</h1>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-12 col-sm-12 col-xs-12\">\r\n            <div class=\"widget\">\r\n                <!-- <div id=\"chart\" class=\"chart-container\">\r\n            \r\n                </div> -->\r\n               \r\n                  <div id=\"stacked-bar-chart-container1\">\r\n                    </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    "
 
 /***/ }),
 
@@ -7743,6 +7929,7 @@ module.exports = "<div>\r\n    <h1>Project Vs Task Hours</h1>\r\n    <div class=
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyProjectVsHourComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7753,40 +7940,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var CompanyProjectVsHourComponent = (function () {
-    function CompanyProjectVsHourComponent() {
+    function CompanyProjectVsHourComponent(companyService) {
+        this.companyService = companyService;
     }
     CompanyProjectVsHourComponent.prototype.ngOnInit = function () {
-        console.clear();
-        var offenseNames = [
+        this.getHoursforResourceGraph();
+        this.offenseNames = [
+            "New- Yet to Start",
+            "In Progress",
             "Completed",
-            "Fondling",
-            "Statutory Completed",
-            "Sa"
+            "On Hold",
+            "Paused"
         ];
-        var years = ["Taskit", "Survey", "Auction"
-            // ,"Asif","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","20291","20219","21029","12029","20229","20229","202229","20529","25029","52029","20269","20629","62029","27029","2w029"
-        ];
-        var offensesByYear = [
-            {
-                "Completed": 50,
-                "Fondling": 10,
-                "Statutory Completed": 3,
-                "Sa": 2
-            },
-            {
-                "Completed": 26,
-                "Fondling": 4,
-                "Statutory Completed": 5,
-                "Sa": 3
-            },
-            {
-                "Completed": 25,
-                "Fondling": 11,
-                "Statutory Completed": 3,
-                "Sa": 2
-            },
-        ];
+    };
+    CompanyProjectVsHourComponent.prototype.getHoursforResourceGraph = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getTasksforResourceGraph
+        // Params        : pro_id, users
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          :  18-04-2018
+        // Last Modified : 
+        // Desc          : 
+        this.companyService.getAllProject().subscribe(function (data) {
+            _this.projects = [];
+            _this.years = [];
+            data.forEach(function (element) {
+                if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
+                    _this.projects.push(element);
+                    _this.years.push(element.project_name);
+                }
+            });
+            if (_this.projects.length == 0) {
+                //no data in charts
+            }
+            else {
+                _this.companyService.getHoursforResourceGraph(_this.projects).subscribe(function (info) {
+                    // console.log(info)s
+                    _this.drawGraph(_this.offenseNames, _this.years, info);
+                });
+            }
+            ;
+        });
+        // -----------------------------------End------------------------------------------
+    };
+    CompanyProjectVsHourComponent.prototype.drawGraph = function (offenseNames, years, offensesByYear) {
+        d3.select('#stacked-bar-chart-container1').selectAll("svg").remove();
         var generateClassStr = function (str) {
             return str.replace(/\s+/g, '-').toLowerCase();
         };
@@ -7809,7 +8011,7 @@ var CompanyProjectVsHourComponent = (function () {
             });
         });
         var margin = { top: 70, right: 15, bottom: 140, left: 50 }, fullChartWidth = 600, fullChartHeight = 400, width = fullChartWidth - margin.left - margin.right, height = fullChartHeight - margin.top - margin.bottom;
-        d3.select("#stacked-bar-chart-container")
+        d3.select("#stacked-bar-chart-container1")
             .style("width", fullChartWidth)
             .style("height", fullChartHeight);
         var x = d3
@@ -7849,7 +8051,7 @@ var CompanyProjectVsHourComponent = (function () {
         // alert(x.bandwidth());
         // alert(m);
         var myLPadd = 950;
-        var myTPadd = 620;
+        var myTPadd = 720;
         var rect = layer
             .selectAll(".bar")
             .data(function (d) {
@@ -7870,9 +8072,10 @@ var CompanyProjectVsHourComponent = (function () {
             //   .style("opacity", 0.6)
         })
             .on("mousemove", function (d) {
+            var msgy = (d.data.totalCompletedHr != 0 && d.offenseName == 'Completed') ? ', Actual hour taken : ' + d.data.totalCompletedHr + ' Hr' : '';
             tooltip
                 .style("opacity", .9)
-                .html("<b>" + d.value + "</b> cases of " + d.offenseName + " in " + d.year)
+                .html("<b>" + d.value + "</b> Hr task is " + d.offenseName + " for " + d.year + msgy)
                 .style("left", (d3.mouse(this)[0]) + myLPadd + "px")
                 .style("top", (d3.mouse(this)[1]) + myTPadd + 40 + "px");
         })
@@ -8000,7 +8203,7 @@ var CompanyProjectVsHourComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/company-project-vs-hour/company-project-vs-hour.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/company-project-vs-hour/company-project-vs-hour.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_company_service__["a" /* CompanyService */]])
     ], CompanyProjectVsHourComponent);
     return CompanyProjectVsHourComponent;
 }());
@@ -8030,7 +8233,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-project-vs-status/company-project-vs-status.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <h1>Project Vs Status</h1>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n          <div class=\"col-md-8 col-md-offset-2\">\r\n          <div class=\"col-md-6 bg-g\">*Select Project</div>\r\n          <div class=\"col-md-6 bg-hash\">\r\n            <select>\r\n              <option>Taskit</option>\r\n              <option>Survey</option>\r\n            </select>\r\n          </div> \r\n          <div class=\"clearfix\"></div>\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n              TASKS ASSIGNED\r\n              <br>\r\n              2\r\n            </div>\r\n            </div>\r\n    \r\n            <div class=\"col-md-6\">\r\n                <div class=\"tasklabel\">\r\n                TASKS COMPLETED\r\n                <br>\r\n                10\r\n               </div>\r\n              </div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n              DUE THIS WEEK\r\n              <br>\r\n              10\r\n            </div>\r\n            </div>\r\n    \r\n            <div class=\"col-md-6\">\r\n                <div class=\"tasklabel\">\r\n               DUE NEXT WEEK\r\n                <br>\r\n                10\r\n               </div>\r\n              </div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n              DUE THIS MONTH\r\n              <br>\r\n              10\r\n            </div>\r\n            </div>\r\n    \r\n            <div class=\"col-md-6\">\r\n                <div class=\"tasklabel\">\r\n                DUE THIS YEAR\r\n                <br>\r\n                10\r\n               </div>\r\n              </div>\r\n          </div>\r\n        </div>\r\n        </div>\r\n    \r\n        <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n            <div class=\"widget\">\r\n                <div class=\"header\">Task Vs Status</div>\r\n                <div id=\"chart2\" class=\"chart-container\">\r\n            \r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    "
+module.exports = "<div>\r\n    <h1>Project Vs Status</h1>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n          <div class=\"col-md-8 col-md-offset-2\">\r\n          <div class=\"col-md-6 bg-g\">*Select Project</div>\r\n          <div class=\"col-md-6 bg-hash\">\r\n              <mat-select  name=\"projet_id\" [(ngModel)]=\"project_id\" (ngModelChange)=\"changeProject($event)\" required>\r\n                  <mat-option *ngFor=\"let prj of projects\" [value]=\"prj.id\">\r\n                    {{prj.project_name}}\r\n                  </mat-option>\r\n                </mat-select>\r\n          </div> \r\n          <div class=\"clearfix\"></div>\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n              START DATE \r\n              <br>\r\n              {{start_date | date:'EEE, d MMM,y'}}\r\n            </div>\r\n            </div>\r\n    \r\n            <div class=\"col-md-6\">\r\n                <div class=\"tasklabel\">\r\n                END DATE\r\n                <br>\r\n                {{end_date | date:'EEE, d MMM,y'}}\r\n               </div>\r\n              </div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n              TOTAL TASKS \r\n              <br>\r\n              {{total_tasks}}\r\n              <br>\r\n              ({{planned_hour}} Hour)\r\n            </div>\r\n            </div>\r\n    \r\n            <div class=\"col-md-6\">\r\n                <div class=\"tasklabel\">\r\n                TASKS COMPLETED\r\n                <br>\r\n                {{completed_tasks}}\r\n                <br>\r\n                ({{actual_hour}} Hour)\r\n               </div>\r\n              </div>\r\n          </div>\r\n        </div>\r\n        </div>\r\n    \r\n        <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n            <div class=\"widget\">\r\n                <div class=\"header\">Task Vs Status</div>\r\n                <div id=\"chart2\" class=\"chart-container\">\r\n            \r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    "
 
 /***/ }),
 
@@ -8040,6 +8243,7 @@ module.exports = "<div>\r\n    <h1>Project Vs Status</h1>\r\n    <div class=\"ro
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyProjectVsStatusComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8050,21 +8254,122 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var CompanyProjectVsStatusComponent = (function () {
-    function CompanyProjectVsStatusComponent() {
+    function CompanyProjectVsStatusComponent(companyService) {
+        this.companyService = companyService;
+        this.total_tasks = 0;
+        this.new_tasks = 0;
+        this.in_progress_tasks = 0;
+        this.completed_tasks = 0;
+        this.onHold_tasks = 0;
+        this.paused_tasks = 0;
+        this.planned_hour = 0;
+        this.actual_hour = 0;
     }
     CompanyProjectVsStatusComponent.prototype.ngOnInit = function () {
-        var pieData = [
-            { name: 'New - Yet to Start', value: 3, color: '#2778a7' },
-            { name: 'In Progress', value: 4, color: '#99b745' },
-            { name: 'Completed', value: 50, color: '#17a88f' },
-            { name: 'On Hold', value: 50, color: '#f2ac37' },
-            { name: 'Cancelled', value: 3, color: '#b74549' },
-            { name: 'Un Planned', value: 1, color: '#4d5d6e' },
+        this.pieData = [
+            { name: 'New - Yet to Start', value: this.new_tasks, color: '#2778a7' },
+            { name: 'In Progress', value: this.in_progress_tasks, color: '#99b745' },
+            { name: 'Completed', value: this.completed_tasks, color: '#17a88f' },
+            { name: 'On Hold', value: this.onHold_tasks, color: '#f2ac37' },
+            { name: 'Cancelled', value: this.paused_tasks, color: '#b74549' },
         ];
-        this.bakeDonut(pieData);
+        this.bakeDonut(this.pieData);
+        this.getAllProjects();
+    };
+    CompanyProjectVsStatusComponent.prototype.getAllProjects = function () {
+        var _this = this;
+        this.companyService.getAllProject().subscribe(function (data) {
+            _this.projects = [];
+            data.forEach(function (element) {
+                if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
+                    _this.projects.push(element);
+                }
+            });
+            if (_this.projects.length == 0) {
+            }
+            else {
+                _this.project_id = _this.projects[0].id;
+                _this.getData(_this.project_id);
+            }
+        });
+    };
+    CompanyProjectVsStatusComponent.prototype.changeProject = function (pro_id) {
+        this.getData(pro_id);
+    };
+    CompanyProjectVsStatusComponent.prototype.getData = function (pro_id) {
+        var _this = this;
+        var last_status;
+        var last_status_id = 0;
+        this.total_tasks = 0;
+        this.new_tasks = 0;
+        this.in_progress_tasks = 0;
+        this.completed_tasks = 0;
+        this.onHold_tasks = 0;
+        this.paused_tasks = 0;
+        this.planned_hour = 0;
+        this.actual_hour = 0;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getTasksByUser
+        // Params        : pro_id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          : 17-04-2018
+        // Last Modified : 
+        // Desc          : 
+        this.companyService.getTasksByProject(pro_id).subscribe(function (data) {
+            // console.log(data);
+            data.forEach(function (module) {
+                _this.total_tasks = _this.total_tasks + module.tbl_project_tasks.length;
+                _this.start_date = module.tbl_project.planned_start_date;
+                _this.end_date = module.tbl_project.planned_end_date;
+                module.tbl_project_tasks.forEach(function (task) {
+                    if (task.planned_hour != null) {
+                        _this.planned_hour = _this.planned_hour + task.planned_hour + task.buffer_hour;
+                    }
+                    if (task.actual_hour != null) {
+                        _this.actual_hour = _this.actual_hour + task.actual_hour;
+                    }
+                    // console.log(task)
+                    last_status_id = 0;
+                    last_status = {};
+                    task.tbl_task_status_assocs.forEach(function (statuses) {
+                        if (statuses.id > last_status_id) {
+                            last_status_id = statuses.id;
+                            last_status = statuses;
+                        }
+                    });
+                    if (last_status && last_status.status_id == 1) {
+                        _this.new_tasks = _this.new_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 2) {
+                        _this.paused_tasks = _this.paused_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 3) {
+                        _this.in_progress_tasks = _this.in_progress_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 4) {
+                        _this.onHold_tasks = _this.onHold_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 5) {
+                        _this.completed_tasks = _this.completed_tasks + 1;
+                    }
+                });
+            });
+            _this.pieData = [
+                { name: 'New - Yet to Start', value: _this.new_tasks, color: '#2778a7' },
+                { name: 'In Progress', value: _this.in_progress_tasks, color: '#99b745' },
+                { name: 'Completed', value: _this.completed_tasks, color: '#17a88f' },
+                { name: 'On Hold', value: _this.onHold_tasks, color: '#f2ac37' },
+                { name: 'Paused', value: _this.paused_tasks, color: '#b74549' },
+            ];
+            _this.bakeDonut(_this.pieData);
+        });
+        // -----------------------------------End------------------------------------------
     };
     CompanyProjectVsStatusComponent.prototype.bakeDonut = function (d) {
+        d3.select('#chart2').selectAll("svg").remove();
         var activeSegment;
         var data = d.sort(function (a, b) { return b['value'] - a['value']; }), viewWidth = 500, viewHeight = 300, svgWidth = viewHeight, svgHeight = viewHeight, thickness = 40, colorArray = data.map(function (k) { return k.color; }), el = d3.select('#chart2'), radius = Math.min(svgWidth, svgHeight) / 2, color = d3.scaleOrdinal()
             .range(colorArray);
@@ -8176,7 +8481,7 @@ var CompanyProjectVsStatusComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/company-project-vs-status/company-project-vs-status.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/company-project-vs-status/company-project-vs-status.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_company_service__["a" /* CompanyService */]])
     ], CompanyProjectVsStatusComponent);
     return CompanyProjectVsStatusComponent;
 }());
@@ -8206,7 +8511,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-project/company-project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <company-sidebar></company-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <!-- topbar-->\n        <company-topbar></company-topbar>\n\n        <!-- end topbar-->\n\n\n        <div class=\"user-dashboard\">\n\n          <div class=\"row\">\n            <!-----------------------------------------------------------------table-------------------------------------->\n\n            <div class=\"col-md-12\">\n              <div class=\"row\">\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\n                  <div class=\"\">\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div>\n                </div> -->\n\n\n                <div class=\"col-md-12 optionz\">\n                  <div class=\"row\">\n                    <div class=\"col-md-6\">\n                      <div class=\"example-header\">\n                        <mat-form-field>\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                        </mat-form-field>\n                      </div>\n                    </div>\n                    <div class=\"col-md-2 pull-right\">\n                      <div>\n                        <mat-form-field class=\"filter\">\n\n                          <mat-select (change)=\"getProject()\" [(value)]=\"selected\">\n                            <mat-option value=\"all\">All</mat-option>\n                            <mat-option value=\"In Progress\">In Progress</mat-option>\n                            <mat-option value=\"Drafted\">Drafted</mat-option>\n                            <mat-option value=\"Planned\">Planned</mat-option>\n                            <mat-option value=\"Completed\">Completed</mat-option>\n                            <mat-option value=\"Cancelled\">Cancelled</mat-option>\n                          </mat-select>\n                        </mat-form-field>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"example-container mat-elevation-z8\">\n                  <mat-table [dataSource]=\"dataSource\" matSort>\n                    <ng-container matColumnDef=\"slno\">\n                      <mat-header-cell *matHeaderCellDef> SL NO. </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"project_name\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"startdate\">\n                      <mat-header-cell *matHeaderCellDef > ACTUAL/PLANNED START DATE</mat-header-cell>\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : row.planned_start_date ==\n                        null : row.actual_start_date}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"enddate\">\n                      <mat-header-cell *matHeaderCellDef> ACTUAL/PLANNED END DATE</mat-header-cell>\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :\n                        row.actual_end_date}}\n                      </mat-cell>\n                    </ng-container>\n\n                    <ng-container matColumnDef=\"action\">\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\n                        <mat-menu #menu=\"matMenu\">\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.pm_id == loggedin_id\" (click)=\"assign(row.id)\">\n                            <!-- <i class=\"fa fa-user\"></i> -->\n                            <mat-icon><i class=\"material-icons\">group</i></mat-icon>\n                            <span>Assign Team Head</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id\"\n                            (click)=\"approve(row.id)\">\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\n                            <span>Approve Estimation</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id\"\n                            (click)=\"approveProject(row.id)\">\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\n                            <span>Approve Project</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id\"\n                            (click)=\"approveProject(row.id)\">\n                            <mat-icon><i class=\"material-icons\">event_available</i></mat-icon>\n                            <span>Plan Project</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.is_approved == false && row.assignee_id == loggedin_id && row.status == 'Drafted' \" (click)=\"edit(row.id)\">\n                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                            <span>Edit</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id\"\n                            (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \n                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\n                            <span>Delete</span>\n                          </button>\n                          <button mat-menu-item (click)=\"viewProject(row.id)\"> \n                            <mat-icon><i class=\"material-icons\">description</i></mat-icon>\n                            <span>View Project</span>\n                          </button>\n                        </mat-menu>\n                      </mat-cell>\n\n                    </ng-container>\n\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n                  </mat-table>\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n                    <div class=\"col-md-4 col-md-offset-4\">\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n                    </div>\n                  </div>\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n                </div>\n\n\n              </div>\n            </div>\n            <div class=\"add-button\">\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\n            </div>\n\n            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\n            <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                    <h4 class=\"modal-title\">Delete </h4>\n                  </div>\n                  <!-- <div class=\"modal-header\"> -->\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                  <!-- </div> -->\n                  <div class=\"modal-body delete-popup\">\n                    <i class=\"fa fa-exclamation\"></i>\n\n\n                    <h4 class=\"textalign\">Are you sure?</h4>\n\n                  </div>\n\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\n                    <button type=\"button\" (click)=\"deleteProject(Pid)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n\n            <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------\n          \n            <!-----------------------------------------------------------------end table-------------------------------------->\n          </div>\n        </div>\n\n      </div>\n      <!-- footer-->\n      <!-- <company-footer></company-footer> -->\n      <!-- end footer-->\n    </div>\n  </div>\n</body>"
+module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <company-sidebar></company-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <!-- topbar-->\n        <company-topbar></company-topbar>\n\n        <!-- end topbar-->\n\n\n        <div class=\"user-dashboard\">\n\n          <div class=\"row\">\n            <!-----------------------------------------------------------------table-------------------------------------->\n\n            <div class=\"col-md-12\">\n              <div class=\"row\">\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\n                  <div class=\"\">\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div>\n                </div> -->\n\n\n                <div class=\"col-md-12 optionz\">\n                  <div class=\"row\">\n                    <div class=\"col-md-6\">\n                      <div class=\"example-header\">\n                        <mat-form-field>\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                        </mat-form-field>\n                      </div>\n                    </div>\n                    <div class=\"col-md-2 pull-right\">\n                      <div>\n                        <mat-form-field class=\"filter\">\n\n                          <mat-select (change)=\"getProject()\" [(value)]=\"selected\">\n                            <mat-option value=\"all\">All</mat-option>\n                            <mat-option value=\"Drafted\">Drafted</mat-option>\n                            <mat-option value=\"In Progress\">In Progress</mat-option>\n                            <mat-option value=\"Planned\">Planned</mat-option>\n                            <mat-option value=\"Completed\">Completed</mat-option>\n                            <mat-option value=\"Cancelled\">Cancelled</mat-option>\n                          </mat-select>\n                        </mat-form-field>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"example-container mat-elevation-z8\">\n                  <mat-table [dataSource]=\"dataSource\" matSort>\n                    <ng-container matColumnDef=\"slno\">\n                      <mat-header-cell *matHeaderCellDef> SL NO. </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"project_name\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"startdate\">\n                      <mat-header-cell *matHeaderCellDef > ACTUAL/PLANNED START DATE</mat-header-cell>\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : row.planned_start_date ==\n                        null : row.actual_start_date}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"enddate\">\n                      <mat-header-cell *matHeaderCellDef> ACTUAL/PLANNED END DATE</mat-header-cell>\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :\n                        row.actual_end_date}}\n                      </mat-cell>\n                    </ng-container>\n\n                    <ng-container matColumnDef=\"action\">\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\n                        <mat-menu #menu=\"matMenu\">\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.pm_id == loggedin_id\" (click)=\"assign(row.id)\">\n                            <!-- <i class=\"fa fa-user\"></i> -->\n                            <mat-icon><i class=\"material-icons\">group</i></mat-icon>\n                            <span>Assign Team Head</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id\"\n                            (click)=\"approve(row.id)\">\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\n                            <span>Approve Estimation</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id\"\n                            (click)=\"approveProject(row.id)\">\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\n                            <span>Approve Project</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id\"\n                            (click)=\"approveProject(row.id)\">\n                            <mat-icon><i class=\"material-icons\">event_available</i></mat-icon>\n                            <span>Plan Project</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.is_approved == false && row.assignee_id == loggedin_id && row.status == 'Drafted' \" (click)=\"edit(row.id)\">\n                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                            <span>Edit</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id\"\n                            (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \n                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\n                            <span>Delete</span>\n                          </button>\n                          <button mat-menu-item (click)=\"viewProject(row.id)\"> \n                            <mat-icon><i class=\"material-icons\">description</i></mat-icon>\n                            <span>View Project</span>\n                          </button>\n                        </mat-menu>\n                      </mat-cell>\n\n                    </ng-container>\n\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n                  </mat-table>\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n                    <div class=\"col-md-4 col-md-offset-4\">\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n                    </div>\n                  </div>\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n                </div>\n\n\n              </div>\n            </div>\n            <div class=\"add-button\">\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\n            </div>\n\n            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\n            <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                    <h4 class=\"modal-title\">Delete </h4>\n                  </div>\n                  <!-- <div class=\"modal-header\"> -->\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                  <!-- </div> -->\n                  <div class=\"modal-body delete-popup\">\n                    <i class=\"fa fa-exclamation\"></i>\n\n\n                    <h4 class=\"textalign\">Are you sure?</h4>\n\n                  </div>\n\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\n                    <button type=\"button\" (click)=\"deleteProject(Pid)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n\n            <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------\n          \n            <!-----------------------------------------------------------------end table-------------------------------------->\n          </div>\n        </div>\n\n      </div>\n      <!-- footer-->\n      <!-- <company-footer></company-footer> -->\n      <!-- end footer-->\n    </div>\n  </div>\n</body>"
 
 /***/ }),
 
@@ -8534,7 +8839,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "body {\r\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n    margin: auto;\r\n    position: relative;\r\n  }\r\n  \r\n  text {\r\n    font: 15px sans-serif;\r\n  }\r\n  \r\n  .axis path,\r\n  .axis line {\r\n    fill: none;\r\n    stroke: #000;\r\n    shape-rendering: crispEdges;\r\n  }\r\n  \r\n  #stacked-bar-chart-container {\r\n    /* position: relative;\r\n    border: 2px solid black; */\r\n    width: 510px;\r\n  }\r\n  \r\n  form {\r\n    position: absolute;\r\n    left: 20px;\r\n    top: 20px;\r\n  }\r\n  \r\n  div.tooltip { \r\n    position: absolute;     \r\n    min-width: 60px;          \r\n    padding: 4px;       \r\n    font: 12px sans-serif;    \r\n    background: lightsteelblue; \r\n    border: 0px;    \r\n    border-radius: 8px;     \r\n    pointer-events: none;     \r\n  }\r\n  \r\n  .grid line {\r\n    stroke: white;\r\n    stroke-opacity: 0.7;\r\n    shape-rendering: crispEdges;\r\n  }\r\n  \r\n  g.grid {\r\n    stroke-opacity: 0;\r\n  }\r\n\r\n\r\n\r\n\r\n  svg {\r\n    font: 10px sans-serif;\r\n    shape-rendering: crispEdges;\r\n  }\r\n\r\n  .axis path,\r\n  .axis line {\r\n    fill: none;\r\n    stroke: #000;\r\n  }\r\n \r\n  path.domain {\r\n    stroke: none;\r\n  }\r\n \r\n  .y .tick line {\r\n    stroke: #ddd;\r\n  }\r\n  h1{padding-left: 6%;}\r\n  .sales{margin-top: 25px;}", ""]);
+exports.push([module.i, "body {\r\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n    margin: auto;\r\n    position: relative;\r\n  }\r\n  \r\n  text {\r\n    font: 15px sans-serif;\r\n  }\r\n  \r\n  .axis path,\r\n  .axis line {\r\n    fill: none;\r\n    stroke: #000;\r\n    shape-rendering: crispEdges;\r\n  }\r\n  \r\n  #stacked-bar-chart-container {\r\n    /* position: relative;\r\n    border: 2px solid black; */\r\n    width: 510px;\r\n  }\r\n  \r\n  form {\r\n    position: absolute;\r\n    left: 20px;\r\n    top: 20px;\r\n  }\r\n  \r\n  div.tooltip { \r\n    position: absolute;     \r\n    min-width: 60px;          \r\n    padding: 4px;       \r\n    font: 12px sans-serif;    \r\n    background: lightsteelblue; \r\n    border: 0px;    \r\n    border-radius: 8px;     \r\n    pointer-events: none;     \r\n  }\r\n  \r\n  .grid line {\r\n    stroke: white;\r\n    stroke-opacity: 0.7;\r\n    shape-rendering: crispEdges;\r\n  }\r\n  \r\n  g.grid {\r\n    stroke-opacity: 0;\r\n  }\r\n\r\n\r\n\r\n\r\n  svg {\r\n    font: 10px sans-serif;\r\n    shape-rendering: crispEdges;\r\n  }\r\n\r\n  .axis path,\r\n  .axis line {\r\n    fill: none;\r\n    stroke: #000;\r\n  }\r\n \r\n  path.domain {\r\n    stroke: none;\r\n  }\r\n \r\n  .y .tick line {\r\n    stroke: #ddd;\r\n  }\r\n  h1{padding-left: 6%;}\r\n  .sales{margin-top: 25px;}\r\n  .bg-g{\r\n    background: #17a88f;\r\n    color: #fff;\r\n    padding: 10px;\r\n    margin-bottom: 10px;\r\n}\r\n.bg-hash{\r\n  background: #E9E9E9;\r\n  padding: 10px;\r\n  margin-bottom: 10px;\r\n}", ""]);
 
 // exports
 
@@ -8547,7 +8852,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-resoure-vs-hour/company-resoure-vs-hour.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <h1>Resources Vs Task Hours</h1>\r\n  <div class=\"row\">\r\n      <div class=\"col-md-12 col-sm-12 col-xs-12\">\r\n          <div class=\"widget\">\r\n              <div id=\"chart\" class=\"chart-container\">\r\n          \r\n              </div>\r\n             \r\n                <div id=\"stacked-bar-chart-container\">\r\n                  </div>\r\n          </div>\r\n      </div>\r\n  </div>\r\n  "
+module.exports = "<div>\r\n  <h1>Resources Vs Task Hours</h1>\r\n  <div class=\"row\">\r\n    <br>\r\n    <div class=\"col-md-8 col-sm-8 col-xs-12\">\r\n      <div class=\"col-md-10 col-md-offset-1\">\r\n        <div class=\"col-md-6 bg-g\">*Select Project</div>\r\n        <div class=\"col-md-6 bg-hash\">\r\n          <mat-select name=\"projet_id\" required [(ngModel)]=\"project_id\" (ngModelChange)=\"changeProject($event)\">\r\n            <mat-option *ngFor=\"let prj of projects\" [value]=\"prj.id\">\r\n              {{prj.project_name}}\r\n            </mat-option>\r\n          </mat-select>\r\n        </div>\r\n\r\n        <div class=\"clearfix\"></div>\r\n\r\n\r\n      </div>\r\n    </div>\r\n    <br>\r\n    <div class=\"col-md-12 col-sm-12 col-xs-12\">\r\n      <div class=\"widget\">\r\n        <!-- <div id=\"chart\" class=\"chart-container\">\r\n\r\n        </div> -->\r\n\r\n        <div id=\"stacked-bar-chart-container\">\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -8557,6 +8862,7 @@ module.exports = "<div>\r\n  <h1>Resources Vs Task Hours</h1>\r\n  <div class=\"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyResoureVsHourComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8567,43 +8873,166 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var CompanyResoureVsHourComponent = (function () {
-    function CompanyResoureVsHourComponent() {
+    function CompanyResoureVsHourComponent(companyService) {
+        this.companyService = companyService;
+        this.total_tasks = 0;
+        this.new_tasks = 0;
+        this.in_progress_tasks = 0;
+        this.completed_tasks = 0;
+        this.onHold_tasks = 0;
+        this.paused_tasks = 0;
+        this.count = 0;
+        this.user_count = 0;
     }
     CompanyResoureVsHourComponent.prototype.ngOnInit = function () {
-        console.clear();
-        var offenseNames = [
+        this.getAllProjects();
+        this.offenseNames = [
+            // "Completed",
+            // "Fondling",
+            // "Statutory Completed",
+            // "Sa"
+            "New- Yet to Start",
+            "In Progress",
             "Completed",
-            "Fondling",
-            "Statutory Completed",
-            "Sa"
+            "On Hold",
+            "Paused"
         ];
-        var years = ["Yasir", "Rinsha", "Sudha"
-            // ,"Asif","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","20291","20219","21029","12029","20229","20229","202229","20529","25029","52029","20269","20629","62029","27029","2w029"
-        ];
-        var offensesByYear = [
-            {
-                "Completed": 400,
-                "Fondling": 10,
-                "Statutory Completed": 3,
-                "Sa": 2
-            },
-            {
-                "Completed": 26,
-                "Fondling": 4,
-                "Statutory Completed": 5,
-                "Sa": 3
-            },
-            {
-                "Completed": 25,
-                "Fondling": 11,
-                "Statutory Completed": 3,
-                "Sa": 2
-            },
-        ];
-        var generateClassStr = function (str) {
-            return str.replace(/\s+/g, '-').toLowerCase();
-        };
+        // this.years = ["Yasir", "Rinsha", "Sudha"];
+    };
+    CompanyResoureVsHourComponent.prototype.getAllProjects = function () {
+        var _this = this;
+        this.companyService.getAllProject().subscribe(function (data) {
+            _this.projects = [];
+            data.forEach(function (element) {
+                if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
+                    _this.projects.push(element);
+                }
+            });
+            if (_this.projects.length == 0) {
+                _this.users = [];
+                //no data in charts
+            }
+            else {
+                _this.project_id = _this.projects[0].id;
+                _this.getTeamMembers(_this.projects[0].id);
+            }
+        });
+    };
+    CompanyResoureVsHourComponent.prototype.changeProject = function (pro_id) {
+        this.getTeamMembers(pro_id);
+    };
+    CompanyResoureVsHourComponent.prototype.getTeamMembers = function (projId) {
+        var _this = this;
+        this.companyService.getUsers(projId).subscribe(function (data) {
+            _this.users = data;
+            if (_this.users.length == 0) {
+                // no data in charts
+            }
+            else {
+                // this.years = ["Yasir", "Rinsha", "Sudha"];
+                _this.years = [];
+                // console.log(this.users)
+                _this.users.forEach(function (element) {
+                    _this.years.push(element.f_name + " " + element.l_name);
+                });
+                _this.getData(projId, _this.users);
+            }
+        });
+    };
+    CompanyResoureVsHourComponent.prototype.getData = function (projId, users) {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getTasksforResourceGraph
+        // Params        : pro_id, users
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          :  18-04-2018
+        // Last Modified : 
+        // Desc          : 
+        this.companyService.getTasksforResourceGraph(projId, users).subscribe(function (data) {
+            _this.offensesByYear = data;
+            _this.drawGraph(_this.offenseNames, _this.years, _this.offensesByYear);
+        });
+    };
+    // -----------------------------------End------------------------------------------
+    // this.offensesByYear = [];
+    // this.user_count = 0;
+    // this.count = 0;
+    // this.user_count = this.users.length;
+    // users.forEach(user => {
+    //   let last_status: any;
+    //   let last_status_id = 0;
+    //   this.total_tasks = 0;
+    //   this.new_tasks = 0;
+    //   this.in_progress_tasks = 0;
+    //   this.completed_tasks = 0;
+    //   this.onHold_tasks = 0;
+    //   this.paused_tasks = 0;
+    //   // ---------------------------------Start-------------------------------------------
+    //   // Function      : getTasksByUser
+    //   // Params        : pro_id, user_id
+    //   // Returns       : 
+    //   // Author        : Rinsha
+    //   // Date          :  17-04-2018
+    //   // Last Modified : 
+    //   // Desc          : 
+    //   this.companyService.getTasksByUser(projId, user.id).subscribe(data => {
+    //     // console.log(data);
+    //     data.forEach(module => {
+    //       this.total_tasks = this.total_tasks + module.tbl_project_tasks.length;
+    //       module.tbl_project_tasks.forEach(task => {
+    //         last_status_id = 0;
+    //         last_status = {};
+    //         task.tbl_task_status_assocs.forEach(statuses => {
+    //           if (statuses.id > last_status_id) {
+    //             last_status_id = statuses.id;
+    //             last_status = statuses;
+    //           }
+    //         });
+    //         if (last_status && last_status.status_id == 1) {
+    //           this.new_tasks = this.new_tasks + 1;
+    //         }
+    //         if (last_status && last_status.status_id == 2) {
+    //           this.paused_tasks = this.paused_tasks + 1;
+    //         }
+    //         if (last_status && last_status.status_id == 3) {
+    //           this.in_progress_tasks = this.in_progress_tasks + 1;
+    //         }
+    //         if (last_status && last_status.status_id == 4) {
+    //           this.onHold_tasks = this.onHold_tasks + 1;
+    //         }
+    //         if (last_status && last_status.status_id == 5) {
+    //           this.completed_tasks = this.completed_tasks + 1;
+    //         }
+    //       });
+    //     });
+    //     // console.log("total task:" + this.total_tasks);
+    //     // console.log("new task:" + this.new_tasks);
+    //     // console.log("in pro task:" + this.in_progress_tasks);
+    //     // console.log("completed task:" + this.completed_tasks);
+    //     // console.log("onhold task:" + this.onHold_tasks);
+    //     // console.log("paused task:" + this.paused_tasks);
+    //     this.offensesByYear.push(
+    //       {
+    //         "New- Yet to Start": this.new_tasks,
+    //         "In Progress": this.in_progress_tasks,
+    //         "Completed": this.completed_tasks,
+    //         "On Hold": this.onHold_tasks,
+    //         "Paused": this.paused_tasks
+    //       });
+    //     this.count = this.count + 1;
+    //   });
+    // });
+    // //  console.log(this.offensesByYear)
+    // if (this.count == this.user_count) { 
+    //   console.log(this.offensesByYear)
+    //   this.drawGraph(this.offenseNames, this.years, this.offensesByYear);
+    // }
+    // // -----------------------------------End------------------------------------------
+    CompanyResoureVsHourComponent.prototype.drawGraph = function (offenseNames, years, offensesByYear) {
+        d3.select('#stacked-bar-chart-container').selectAll("svg").remove();
         var n = offenseNames.length, // number of layers
         m = offensesByYear.length, // number of samples per layer
         stack = d3.stack().keys(offenseNames);
@@ -8611,12 +9040,16 @@ var CompanyResoureVsHourComponent = (function () {
         layers.forEach(function (d, i) {
             // add keys to every datapoint
             d.forEach(function (dd, j) {
+                // console.log(dd);
                 dd.year = years[j];
                 dd.offenseName = offenseNames[i];
                 dd.class = generateClassStr(dd.offenseName);
                 dd.value = dd.data[dd.offenseName];
             });
         });
+        function generateClassStr(str) {
+            return str.replace(/\s+/g, '-').toLowerCase();
+        }
         var yStackMax = d3.max(layers, function (layer) {
             return d3.max(layer, function (d) {
                 return d[1];
@@ -8663,7 +9096,8 @@ var CompanyResoureVsHourComponent = (function () {
         // alert(x.bandwidth());
         // alert(m);
         var myLPadd = 250;
-        var myTPadd = 620;
+        // var myTPadd = 620;
+        var myTPadd = 820;
         var rect = layer
             .selectAll(".bar")
             .data(function (d) {
@@ -8684,11 +9118,13 @@ var CompanyResoureVsHourComponent = (function () {
             //   .style("opacity", 0.6)
         })
             .on("mousemove", function (d) {
+            // console.log(d);
+            var msgy = (d.data.totalCompletedHr != 0 && d.offenseName == 'Completed') ? ', Actual hour taken : ' + d.data.totalCompletedHr + ' Hr' : '';
             tooltip
                 .style("opacity", .9)
-                .html("<b>" + d.value + "</b> cases of " + d.offenseName + " in " + d.year)
+                .html("<b>" + d.value + "</b> Hr task is " + d.offenseName + " for " + d.year + msgy)
                 .style("left", (d3.mouse(this)[0]) + myLPadd + "px")
-                .style("top", (d3.mouse(this)[1]) + myTPadd + 40 + "px");
+                .style("top", (d3.mouse(this)[1]) + myTPadd + "px");
         })
             .on("mouseout", function (d) {
             d3.selectAll(".bar").style("opacity", 1);
@@ -8814,7 +9250,7 @@ var CompanyResoureVsHourComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/company-resoure-vs-hour/company-resoure-vs-hour.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/company-resoure-vs-hour/company-resoure-vs-hour.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_company_service__["a" /* CompanyService */]])
     ], CompanyResoureVsHourComponent);
     return CompanyResoureVsHourComponent;
 }());
@@ -9138,17 +9574,19 @@ var CompanyStatusGraphComponent = (function () {
     function CompanyStatusGraphComponent() {
         this.containerId = '';
     }
-    CompanyStatusGraphComponent.prototype.ngOnInit = function () {
+    CompanyStatusGraphComponent.prototype.ngOnInit = function () { };
+    CompanyStatusGraphComponent.prototype.ngAfterViewInit = function () {
         //console.log(this.containerId);
-        var pieData = [
-            { name: 'New - Yet to Start', value: 3, color: '#2778a7' },
-            { name: 'In Progress', value: 4, color: '#99b745' },
-            { name: 'Completed', value: 50, color: '#17a88f' },
-            { name: 'On Hold', value: 50, color: '#f2ac37' },
-            { name: 'Cancelled', value: 3, color: '#b74549' },
-            { name: 'Un Planned', value: 1, color: '#4d5d6e' },
-        ];
-        this.bakeDonut(pieData);
+        // const pieData = [
+        //   {name: 'New - Yet to Start', value: 3, color: '#2778a7'},
+        //   {name: 'In Progress', value: 4, color: '#99b745'},
+        //   {name: 'Completed', value: 50, color: '#17a88f'},
+        //   {name: 'On Hold', value: 50, color: '#f2ac37'},
+        //   {name: 'Cancelled', value: 3, color: '#b74549'},
+        //   {name: 'Un Planned', value: 1, color: '#4d5d6e'},
+        // ];
+        // console.log(this.pieData);
+        this.bakeDonut(this.pieData);
     };
     CompanyStatusGraphComponent.prototype.bakeDonut = function (d) {
         var containerId = this.containerId;
@@ -9265,7 +9703,7 @@ var CompanyStatusGraphComponent = (function () {
             selector: 'company-status-graph',
             template: __webpack_require__("../../../../../src/app/components/company-status-graph/company-status-graph.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/company-status-graph/company-status-graph.component.css")],
-            inputs: ['containerId']
+            inputs: ['containerId', 'pieData']
         }),
         __metadata("design:paramtypes", [])
     ], CompanyStatusGraphComponent);
@@ -9438,7 +9876,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-task-vs-status/company-task-vs-status.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n<h1>Task Vs Status</h1>\r\n<div class=\"row\">\r\n    <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n      <div class=\"col-md-8 col-md-offset-2\">\r\n      <div class=\"col-md-6 bg-g\">*Select Project</div>\r\n      <div class=\"col-md-6 bg-hash\">\r\n        <select>\r\n          <option *ngFor=\"let prj of projects\" value=\"{{prj.id}}\">{{prj.project_name}}</option>\r\n        </select>\r\n      </div> \r\n      <br>\r\n      <br>\r\n      <div class=\"col-md-6 bg-g\">*Select Person</div>\r\n      <div class=\"col-md-6 bg-hash\">\r\n        <select>\r\n            <option *ngFor=\"let usr of users\" value=\"{{usr.id}}\">{{usr.f_name}} {{usr.l_name}}</option>\r\n        </select>\r\n      </div> \r\n      <div class=\"clearfix\"></div>\r\n      <div class=\"row\">\r\n        <div class=\"col-md-6\">\r\n          <div class=\"tasklabel\">\r\n          TASKS ASSIGNED\r\n          <br>\r\n          2\r\n        </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6\">\r\n            <div class=\"tasklabel\">\r\n            TASKS COMPLETED\r\n            <br>\r\n            10\r\n           </div>\r\n          </div>\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"col-md-6\">\r\n          <div class=\"tasklabel\">\r\n          DUE THIS WEEK\r\n          <br>\r\n          10\r\n        </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6\">\r\n            <div class=\"tasklabel\">\r\n           DUE NEXT WEEK\r\n            <br>\r\n            10\r\n           </div>\r\n          </div>\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"col-md-6\">\r\n          <div class=\"tasklabel\">\r\n          DUE THIS MONTH\r\n          <br>\r\n          10\r\n        </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6\">\r\n            <div class=\"tasklabel\">\r\n            DUE THIS YEAR\r\n            <br>\r\n            10\r\n           </div>\r\n          </div>\r\n      </div>\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n        <div class=\"widget\">\r\n           \r\n            <div id=\"chart\" class=\"chart-container\">\r\n        \r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div>\r\n<h1>Task Vs Status</h1>\r\n<div class=\"row\">\r\n    <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n      <div class=\"col-md-8 col-md-offset-2\">\r\n      <div class=\"col-md-6 bg-g\">*Select Project</div>\r\n      <div class=\"col-md-6 bg-hash\">\r\n        <!-- <select>\r\n          <option *ngFor=\"let prj of projects\" value=\"{{prj.id}}\">{{prj.project_name}}</option>\r\n        </select> -->\r\n        <mat-select  name=\"projet_id\" [(ngModel)]=\"project.id\" (ngModelChange)=\"changeProject($event)\" required>\r\n        <mat-option *ngFor=\"let prj of projects\" [value]=\"prj.id\">\r\n          {{prj.project_name}}\r\n        </mat-option>\r\n      </mat-select>\r\n      </div> \r\n      <br>\r\n      <br>\r\n      <div class=\"col-md-6 bg-g\">*Select Person</div>\r\n      <div class=\"col-md-6 bg-hash\">\r\n        <!-- <select>\r\n          <option *ngFor=\"let usr of users\" value=\"{{usr.id}}\">{{usr.f_name}} {{usr.l_name}}</option>\r\n        </select> -->\r\n        <mat-select [(ngModel)]=\"user_id\" (ngModelChange)=\"changeUser($event)\" required>\r\n          <mat-option *ngIf=\"showUsers\" value=\"all\">All</mat-option>\r\n            <mat-option *ngFor=\"let usr of users\" [value]=\"usr.id\">\r\n                {{usr.f_name}} {{usr.l_name}}\r\n            </mat-option>\r\n          </mat-select>\r\n      </div> \r\n      <div class=\"clearfix\"></div>\r\n      <div class=\"row\">\r\n        <div class=\"col-md-6\">\r\n          <div class=\"tasklabel\">\r\n          TASKS ASSIGNED\r\n          <br>\r\n          {{total_tasks}}\r\n        </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6\">\r\n            <div class=\"tasklabel\">\r\n            TASKS COMPLETED\r\n            <br>\r\n            {{completed_tasks}}\r\n           </div>\r\n          </div>\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"col-md-6\">\r\n          <div class=\"tasklabel\">\r\n          <!-- DUE THIS WEEK -->\r\n          TASKS ON HOLD\r\n          <br>\r\n          {{onHold_tasks}}\r\n        </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6\">\r\n            <div class=\"tasklabel\">\r\n           <!-- DUE NEXT WEEK -->\r\n           TASKS IN PROGRESS\r\n            <br>\r\n            {{in_progress_tasks}}\r\n           </div>\r\n          </div>\r\n      </div>\r\n      <!-- <div class=\"row\">\r\n        <div class=\"col-md-6\">\r\n          <div class=\"tasklabel\">\r\n          DUE THIS MONTH\r\n          <br>\r\n          10\r\n        </div>\r\n        </div>\r\n\r\n        <div class=\"col-md-6\">\r\n            <div class=\"tasklabel\">\r\n            DUE THIS YEAR\r\n            <br>\r\n            10\r\n           </div>\r\n          </div>\r\n      </div> -->\r\n    </div>\r\n    </div>\r\n\r\n    <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n        <div class=\"widget\">\r\n           \r\n            <div id=\"chart\" class=\"chart-container\">\r\n        \r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -9465,28 +9903,53 @@ var CompanyTaskVsStatusComponent = (function () {
         this.companyService = companyService;
         this.projects = [];
         this.users = [];
+        this.project = {
+            id: '',
+        };
+        this.total_tasks = 0;
+        this.new_tasks = 0;
+        this.in_progress_tasks = 0;
+        this.completed_tasks = 0;
+        this.onHold_tasks = 0;
+        this.paused_tasks = 0;
+        this.showUsers = false;
     }
     CompanyTaskVsStatusComponent.prototype.ngOnInit = function () {
-        this.getAllProjects();
-        var pieData = [
-            { name: 'New - Yet to Start', value: 3, color: '#2778a7' },
-            { name: 'In Progress', value: 4, color: '#99b745' },
-            { name: 'Completed', value: 50, color: '#17a88f' },
-            { name: 'On Hold', value: 50, color: '#f2ac37' },
-            { name: 'Cancelled', value: 3, color: '#b74549' },
-            { name: 'Un Planned', value: 1, color: '#4d5d6e' },
+        this.showUsers = false;
+        this.pieData = [
+            { name: 'New - Yet to Start', value: this.new_tasks, color: '#2778a7' },
+            { name: 'In Progress', value: this.in_progress_tasks, color: '#99b745' },
+            { name: 'Completed', value: this.completed_tasks, color: '#17a88f' },
+            { name: 'On Hold', value: this.onHold_tasks, color: '#f2ac37' },
+            { name: 'Paused', value: this.paused_tasks, color: '#b74549' },
         ];
-        this.bakeDonut(pieData);
+        this.bakeDonut(this.pieData);
+        this.getAllProjects();
+        // const pieData = [
+        //   { name: 'New - Yet to Start', value: 0, color: '#2778a7' },
+        //   { name: 'In Progress', value: 0, color: '#99b745' },
+        //   { name: 'Completed', value: 0, color: '#17a88f' },
+        //   { name: 'On Hold', value: 0, color: '#f2ac37' },
+        //   // {name: 'Cancelled', value: 3, color: '#b74549'},
+        //   // {name: 'Un Planned', value: 1, color: '#4d5d6e'},
+        // ];
+        // this.bakeDonut(pieData);
     };
     CompanyTaskVsStatusComponent.prototype.getAllProjects = function () {
         var _this = this;
         this.companyService.getAllProject().subscribe(function (data) {
-            console.log(data);
-            _this.projects = data;
+            _this.projects = [];
+            data.forEach(function (element) {
+                if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
+                    _this.projects.push(element);
+                }
+            });
             if (_this.projects.length == 0) {
                 _this.users = [];
+                //no data in charts
             }
             else {
+                _this.project.id = _this.projects[0].id;
                 _this.getUsers(_this.projects[0].id);
             }
         });
@@ -9495,9 +9958,90 @@ var CompanyTaskVsStatusComponent = (function () {
         var _this = this;
         this.companyService.getUsers(projId).subscribe(function (data) {
             _this.users = data;
+            if (_this.users.length == 0) {
+                // no data in charts
+            }
+            else {
+                _this.showUsers = true;
+                _this.user_id = "all";
+                _this.getData(projId, _this.user_id);
+            }
         });
     };
+    CompanyTaskVsStatusComponent.prototype.changeProject = function (pro) {
+        this.showUsers = false;
+        this.getUsers(pro);
+    };
+    CompanyTaskVsStatusComponent.prototype.changeUser = function (user_id) {
+        this.getData(this.project.id, user_id);
+    };
+    CompanyTaskVsStatusComponent.prototype.getData = function (pro_id, user_id) {
+        var _this = this;
+        var last_status;
+        var last_status_id = 0;
+        this.total_tasks = 0;
+        this.new_tasks = 0;
+        this.in_progress_tasks = 0;
+        this.completed_tasks = 0;
+        this.onHold_tasks = 0;
+        this.paused_tasks = 0;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : getTasksByUser
+        // Params        : pro_id, user_id
+        // Returns       : 
+        // Author        : Rinsha
+        // Date          :  17-04-2018
+        // Last Modified : 
+        // Desc          : 
+        this.companyService.getTasksByUser(pro_id, user_id).subscribe(function (data) {
+            // console.log(data);
+            data.forEach(function (module) {
+                _this.total_tasks = _this.total_tasks + module.tbl_project_tasks.length;
+                module.tbl_project_tasks.forEach(function (task) {
+                    last_status_id = 0;
+                    last_status = {};
+                    task.tbl_task_status_assocs.forEach(function (statuses) {
+                        if (statuses.id > last_status_id) {
+                            last_status_id = statuses.id;
+                            last_status = statuses;
+                        }
+                    });
+                    if (last_status && last_status.status_id == 1) {
+                        _this.new_tasks = _this.new_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 2) {
+                        _this.paused_tasks = _this.paused_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 3) {
+                        _this.in_progress_tasks = _this.in_progress_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 4) {
+                        _this.onHold_tasks = _this.onHold_tasks + 1;
+                    }
+                    if (last_status && last_status.status_id == 5) {
+                        _this.completed_tasks = _this.completed_tasks + 1;
+                    }
+                });
+            });
+            // console.log("total task:" + this.total_tasks);
+            // console.log("new task:" + this.new_tasks);
+            // console.log("in pro task:" + this.in_progress_tasks);
+            // console.log("completed task:" + this.completed_tasks);
+            // console.log("onhold task:" + this.onHold_tasks);
+            // console.log("paused task:" + this.paused_tasks);
+            _this.pieData = [
+                { name: 'New - Yet to Start', value: _this.new_tasks, color: '#2778a7' },
+                { name: 'In Progress', value: _this.in_progress_tasks, color: '#99b745' },
+                { name: 'Completed', value: _this.completed_tasks, color: '#17a88f' },
+                { name: 'On Hold', value: _this.onHold_tasks, color: '#f2ac37' },
+                { name: 'Paused', value: _this.paused_tasks, color: '#b74549' },
+            ];
+            _this.bakeDonut(_this.pieData);
+        });
+        // -----------------------------------End------------------------------------------
+    };
     CompanyTaskVsStatusComponent.prototype.bakeDonut = function (d) {
+        d3.select('#chart').selectAll("svg").remove();
         var activeSegment;
         var data = d.sort(function (a, b) { return b['value'] - a['value']; }), viewWidth = 500, viewHeight = 300, svgWidth = viewHeight, svgHeight = viewHeight, thickness = 40, colorArray = data.map(function (k) { return k.color; }), el = d3.select('#chart'), radius = Math.min(svgWidth, svgHeight) / 2, color = d3.scaleOrdinal()
             .range(colorArray);
@@ -16768,7 +17312,7 @@ var CompanyService = (function () {
     // Desc          : getAllProjects 
     CompanyService.prototype.getAllProject = function () {
         var headers = this.setHeaderWithAuthorization();
-        return this.http.get(this.serviceUrl + 'getAllProjects', { headers: headers })
+        return this.http.get(this.serviceUrl + 'getAllProject', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // -----------------------------------End------------------------------------------
@@ -18548,6 +19092,80 @@ var CompanyService = (function () {
     CompanyService.prototype.closeNotif6 = function (id) {
         var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'admintimeextnotifclose/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTasksByUser
+    // Params        : pro_id, user_id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  17-04-2018
+    // Last Modified : 
+    // Desc          : 
+    CompanyService.prototype.getTasksByUser = function (pro_id, user_id) {
+        var userid = { user_id: user_id };
+        var headers = this.setHeader();
+        return this.http.post(this.serviceUrl + 'getTasksByUser/' + pro_id, userid, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTasksByProject
+    // Params        : pro_id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  17-04-2018
+    // Last Modified : 
+    // Desc          : 
+    CompanyService.prototype.getTasksByProject = function (pro_id) {
+        var headers = this.setHeader();
+        return this.http.get(this.serviceUrl + 'getTasksByProject/' + pro_id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTasksforResourceGraph
+    // Params        : pro_id, users
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  18-04-2018
+    // Last Modified : 
+    // Desc          : 
+    CompanyService.prototype.getTasksforResourceGraph = function (pro_id, users) {
+        var user = { user: users };
+        var headers = this.setHeader();
+        return this.http.post(this.serviceUrl + 'getTasksforResourceGraph/' + pro_id, user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getHoursforResourceGraph
+    // Params        : projects
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  18-04-2018
+    // Last Modified : 
+    // Desc          : 
+    CompanyService.prototype.getHoursforResourceGraph = function (projects) {
+        var project = { project: projects };
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'getHoursforResourceGraph', project, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getdataforProjectVsStatusGraph
+    // Params        : projects
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  19-04-2018
+    // Last Modified : 
+    // Desc          : 
+    CompanyService.prototype.getdataforProjectVsStatusGraph = function (projects) {
+        var project = { project: projects };
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'getdataforProjectVsStatusGraph', project, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     CompanyService = __decorate([
