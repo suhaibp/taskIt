@@ -82,7 +82,7 @@ export class CompanyTopbarComponent implements OnInit {
     this.socket.on('newtaskrequestApproval', (data) => {
       this.getNotifications();
     });
-    
+
     this.getAllemppendingleavesnotifi();
     this.socket.on('Leaveaddeduser', (data) => {
       this.getAllemppendingleavesnotifi();
@@ -286,18 +286,18 @@ export class CompanyTopbarComponent implements OnInit {
       // this.accessRights = accessRights;
       // console.log(resNotifications)
       this.notifications = resNotifications;
-      if(resNotifications.back && resNotifications.back.length > 0){
-      // if (resNotifications.back.length > 0) {
+      if (resNotifications.back && resNotifications.back.length > 0) {
+        // if (resNotifications.back.length > 0) {
         this.newTaskreqBackCount = resNotifications.back.length
         this.newTaskApp = resNotifications.back
         this.dispStatus = true;
       } else {
         this.newTaskApp = [];
         this.dispStatus = true;
-        
+
       }
-      if(resNotifications.req && resNotifications.req.length > 0){
-      // if (resNotifications.req.length > 0) {
+      if (resNotifications.req && resNotifications.req.length > 0) {
+        // if (resNotifications.req.length > 0) {
         this.newTaskreqCount = resNotifications.req.length
         this.newTaskreq = resNotifications.req
         this.dispStatus = true;
@@ -305,7 +305,7 @@ export class CompanyTopbarComponent implements OnInit {
       } else {
         this.newTaskreq = [];
         this.dispStatus = true;
-        
+
       }
       this.showNotifications = true;
       this.refresh();
@@ -364,11 +364,13 @@ export class CompanyTopbarComponent implements OnInit {
     // Desc          : admin approval for time extension
     this.companyService.getAllSendtoadminnotif().subscribe(res => {
       // console.log(res);
-      this.adminnotifdata = res;
-      this.adminnotifdataCount = 0;
-      this.adminnotifdataCount = this.adminnotifdata.length;
-      // console.log( this.adminnotifdata);
-      this.refresh();
+      if (res != "no data") {
+        this.adminnotifdata = res;
+        this.adminnotifdataCount = 0;
+        this.adminnotifdataCount = this.adminnotifdata.length;
+        // console.log( this.adminnotifdata);
+        this.refresh();
+      }
     });
     // ---------------------------------End-------------------------------------------
   }

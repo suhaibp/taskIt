@@ -68,6 +68,7 @@ export class CompanyResoureVsHourComponent implements OnInit {
   }
 
   getTeamMembers(projId) {
+    this.users = [];
     this.companyService.getUsers(projId).subscribe(data => {
       this.users = data;
       if (this.users.length == 0) {

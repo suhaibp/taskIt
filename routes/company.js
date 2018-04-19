@@ -2778,7 +2778,7 @@ var returnRouter = function (io) {
                 })
             }
             else {
-
+                return res.json("no data");
             }
         } else {
             return res.status(401).send('Invalid User');
@@ -4081,13 +4081,17 @@ var returnRouter = function (io) {
                 //     }
                 // },
                 include: [
-                    { model: Projects_member_assoc, required: true },
+                    { model: Projects_member_assoc, 
+                        required: true,
+                        where: {
+                            project_id: req.params.id,
+                        }
+                    },
                     { model: Login, where: { [Op.and]: [{ block_status: false, delete_status: false }] }, required: true }
 
                 ],
                 raw: true
             }).then(data => {
-                console.log(data);
                 return res.json(data);
             });
         } else {

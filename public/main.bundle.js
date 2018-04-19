@@ -9171,6 +9171,7 @@ var CompanyResoureVsHourComponent = (function () {
     };
     CompanyResoureVsHourComponent.prototype.getTeamMembers = function (projId) {
         var _this = this;
+        this.users = [];
         this.companyService.getUsers(projId).subscribe(function (data) {
             _this.users = data;
             if (_this.users.length == 0) {
@@ -11034,11 +11035,13 @@ var CompanyTopbarComponent = (function () {
         // Desc          : admin approval for time extension
         this.companyService.getAllSendtoadminnotif().subscribe(function (res) {
             // console.log(res);
-            _this.adminnotifdata = res;
-            _this.adminnotifdataCount = 0;
-            _this.adminnotifdataCount = _this.adminnotifdata.length;
-            // console.log( this.adminnotifdata);
-            _this.refresh();
+            if (res != "no data") {
+                _this.adminnotifdata = res;
+                _this.adminnotifdataCount = 0;
+                _this.adminnotifdataCount = _this.adminnotifdata.length;
+                // console.log( this.adminnotifdata);
+                _this.refresh();
+            }
         });
         // ---------------------------------End-------------------------------------------
     };
