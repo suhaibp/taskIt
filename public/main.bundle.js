@@ -353,7 +353,7 @@ var appRoutes = [
     { path: 'company-access-rights', component: __WEBPACK_IMPORTED_MODULE_84__components_company_manage_access_rights_company_manage_access_rights_component__["a" /* CompanyManageAccessRightsComponent */] },
     { path: 'company-working-time', component: __WEBPACK_IMPORTED_MODULE_96__components_company_working_time_company_working_time_component__["a" /* CompanyWorkingTimeComponent */] },
     { path: 'company-manage-holyday', component: __WEBPACK_IMPORTED_MODULE_99__components_company_manage_holidays_company_manage_holidays_component__["a" /* CompanyManageHolidaysComponent */] },
-    { path: 'company-task-requests/:id', component: __WEBPACK_IMPORTED_MODULE_103__components_company_task_requests_company_task_requests_component__["a" /* CompanyTaskRequestsComponent */] },
+    { path: 'company-task-requests', component: __WEBPACK_IMPORTED_MODULE_103__components_company_task_requests_company_task_requests_component__["a" /* CompanyTaskRequestsComponent */] },
     { path: 'company-task-manage/:id', component: __WEBPACK_IMPORTED_MODULE_104__components_company_new_task_management_company_new_task_management_component__["a" /* CompanyNewTaskManagementComponent */] },
     { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_59__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
     { path: 'compay-aditninfo/:id', component: __WEBPACK_IMPORTED_MODULE_78__components_compay_aditninfo_compay_aditninfo_component__["a" /* CompayAditninfoComponent */] },
@@ -372,6 +372,7 @@ var appRoutes = [
     { path: 'spinner', component: __WEBPACK_IMPORTED_MODULE_80__components_spinner_spinner_component__["a" /* SpinnerComponent */] },
     { path: 'user-projects', component: __WEBPACK_IMPORTED_MODULE_100__components_user_projects_user_projects_component__["a" /* UserProjectsComponent */] },
     { path: 'user-view-project/:id', component: __WEBPACK_IMPORTED_MODULE_101__components_user_view_project_user_view_project_component__["a" /* UserViewProjectComponent */] },
+    { path: 'estimate-project/:id1/:id2', component: __WEBPACK_IMPORTED_MODULE_63__components_user_project_estimation_user_project_estimation_component__["a" /* UserProjectEstimationComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
@@ -538,6 +539,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_14__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_97_ngx_treeview__["a" /* TreeviewModule */].forRoot(), __WEBPACK_IMPORTED_MODULE_98_primeng_primeng__["TreeModule"], __WEBPACK_IMPORTED_MODULE_98_primeng_primeng__["SharedModule"],
                 __WEBPACK_IMPORTED_MODULE_7_angular2_recaptcha__["ReCaptchaModule"],
+                __WEBPACK_IMPORTED_MODULE_14__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_97_ngx_treeview__["a" /* TreeviewModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_10_ng2_daterangepicker__["Daterangepicker"],
             ],
             providers: [__WEBPACK_IMPORTED_MODULE_6__config_config__["a" /* Config */], __WEBPACK_IMPORTED_MODULE_12__services_company_service__["a" /* CompanyService */], __WEBPACK_IMPORTED_MODULE_11__services_admin_service__["a" /* AdminService */], __WEBPACK_IMPORTED_MODULE_90__services_super_admin_service__["a" /* SuperAdminService */], __WEBPACK_IMPORTED_MODULE_94_ng2_simple_timer__["SimpleTimer"], __WEBPACK_IMPORTED_MODULE_13__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_91__services_timer_service__["a" /* TimerService */]],
@@ -848,7 +851,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-dashboard-bar/admin-dashboard-bar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<!-- <h1>{{title}}</h1> -->\r\n<!-- <h2>{{subtitle}}</h2> -->\r\n<div  class=\"col-md-12 no-g-data\">\r\n    <!-- <svg  width=\"960\" height=\"500\"></svg> -->\r\n    <div id=\"chart\"></div>\r\n\r\n</div>\r\n    \r\n<ng-template #empty>\r\n    <div class=\"col-md-12 no-g-data\">\r\n        <!-- <img src=\"assets/images/sad.png\" alt=\"sad\"> -->\r\n        <h4>No Data Available!</h4>\r\n    </div>\r\n</ng-template>"
+module.exports = "\r\n<!-- <h1>{{title}}</h1> -->\r\n<!-- <h2>{{subtitle}}</h2> -->\r\n<div  class=\"col-md-12 no-g-data\" *ngIf=\"empty else empty\">\r\n    <!-- <svg  width=\"960\" height=\"500\"></svg> -->\r\n    <h4>Company vs Projects</h4>\r\n    <div id=\"containerId\"></div>\r\n\r\n</div>\r\n\r\n<ng-template #empty>\r\n    <div class=\"col-md-12 no-g-data\">\r\n        <!-- <img src=\"assets/images/sad.png\" alt=\"sad\"> -->\r\n        <h4>No Data Available!</h4>\r\n    </div>\r\n</ng-template>"
 
 /***/ }),
 
@@ -872,15 +875,201 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var $;
 var AdminDashboardBarComponent = (function () {
+    // years = [];
+    // offensesByYear = [];
+    // offenseNames = [
+    //   "count",
+    // ];
     function AdminDashboardBarComponent(superAdminService) {
         this.superAdminService = superAdminService;
         // public barchart: count[] =[ ] ;
         this.graphData = true;
-        this.title = 'Company vs Survey';
+        this.title = '';
         this.margin = { top: 20, right: 20, bottom: 30, left: 40 };
+        this.empty = true;
     }
     AdminDashboardBarComponent.prototype.ngOnInit = function () {
         this.refresh();
+        this.bargraph();
+    };
+    AdminDashboardBarComponent.prototype.getGraphData = function () {
+        // this.superAdminService.getBarDataforAdminDashboard().subscribe(data=>{
+        //   console.log(data)
+        //   if(data.length>0){
+        //     data.forEach(element => {
+        //       this.years.push(element.cmp_name)
+        //       this.offensesByYear.push({"count":element.tbl_projects.length})
+        //     });
+        // this.bargraph()
+        //   }
+        // })
+    };
+    AdminDashboardBarComponent.prototype.bargraph = function () {
+        var _this = this;
+        // const years = ["On Hold", "Completed","In Progress","New-Yet to Star"];
+        // const offensesByYear = [
+        //   {
+        //     "count": 6,
+        //    },
+        //   { "count":  5,
+        //   },
+        //   {
+        //     "count": 8,
+        //    },
+        //   { "count": 12,
+        //   },
+        // ];
+        var offenseNames = [
+            "count",
+        ];
+        var years = [];
+        var offensesByYear = [];
+        this.superAdminService.getBarDataforAdminDashboard().subscribe(function (data) {
+            console.log(data);
+            if (data.length > 0) {
+                data.forEach(function (element) {
+                    if (element.tbl_projects.length > 0) {
+                        years.push(element.cmp_name);
+                        offensesByYear.push({ "count": element.tbl_projects.length });
+                    }
+                });
+                var generateClassStr_1 = function (str) {
+                    return str.replace(/\s+/g, '-').toLowerCase();
+                };
+                // console.log(offensesByYear)
+                // console.log(years)
+                var n = offenseNames.length, // number of layers
+                m = offensesByYear.length, // number of samples per layer
+                stack = d3.stack().keys(offenseNames);
+                var layers = stack(offensesByYear); // calculate the stack layout
+                layers.forEach(function (d, i) {
+                    // add keys to every datapoint
+                    d.forEach(function (dd, j) {
+                        dd.year = years[j];
+                        dd.offenseName = offenseNames[i];
+                        dd.class = generateClassStr_1(dd.offenseName);
+                        dd.value = dd.data[dd.offenseName];
+                    });
+                });
+                var yStackMax = d3.max(layers, function (layer) {
+                    return d3.max(layer, function (d) {
+                        return d[1];
+                    });
+                });
+                var margin = { top: 50, right: 15, bottom: 40, left: 50 }, fullChartWidth = 700, fullChartHeight = 400, width = fullChartWidth - margin.left - margin.right, height = fullChartHeight - margin.top - margin.bottom;
+                d3.select("#containerId")
+                    .style("width", fullChartWidth)
+                    .style("height", fullChartHeight);
+                var x_1 = d3
+                    .scaleBand()
+                    .domain(years)
+                    .rangeRound([0, width])
+                    .padding(0.08);
+                var y_1 = d3
+                    .scaleLinear()
+                    .domain([0, yStackMax])
+                    .range([height, 0]);
+                var z = d3
+                    .scaleBand()
+                    .domain(offenseNames)
+                    .rangeRound([0, x_1.bandwidth()]);
+                var color = ["#beaed4", "#7fc97f", "#fdc086"];
+                var svg = d3
+                    .select("#containerId")
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right + 20)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + (margin.left + 20) + "," + margin.top + ")");
+                var mycount = 1;
+                var layer = svg
+                    .selectAll(".layer")
+                    .data(layers)
+                    .enter()
+                    .append("g")
+                    .attr("class", "layer")
+                    .style("fill", function (d, i) {
+                    // mycount++;
+                    //  alert(mycount);
+                    // alert(i);
+                    // if(mycount == 0){
+                    //   mycount++;
+                    //   return '#7fc97f';
+                    // }else{
+                    //   mycount++;
+                    //   return  '#279428';
+                    // }
+                    //   alert(d);
+                    //  // alert(i);
+                    return '#7fc97f';
+                });
+                var rect = layer
+                    .selectAll(".bar")
+                    .data(function (d) {
+                    return d;
+                })
+                    .enter()
+                    .append("rect")
+                    .attr("x", function (d) {
+                    return x_1(d.year);
+                })
+                    .attr("y", height)
+                    .attr("width", x_1.bandwidth())
+                    .attr("height", 0)
+                    .on("mouseover", function (d) {
+                    d3.select(_this);
+                    // .filter(dd => dd.class != d.class)
+                    //  .style("opacity", 0.6)
+                });
+                rect
+                    .transition()
+                    .delay(function (d, i) {
+                    return i * 10;
+                })
+                    .attr("y", function (d) {
+                    return y_1(d[1]);
+                })
+                    .attr("height", function (d) {
+                    return y_1(d[0]) - y_1(d[1]);
+                });
+                svg
+                    .append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x_1));
+                svg.append("g")
+                    .call(d3.axisLeft(y_1));
+                // text label for the y axis    
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - margin.left - 30)
+                    .attr("x", 0 - (height / 2))
+                    .attr("dy", "3em")
+                    .style("text-anchor", "middle")
+                    .text("No of Tasks");
+            }
+            else {
+                // console.log("hhh")
+                _this.empty = true;
+            }
+        });
+        // console.log(this.years)
+        // console.log(this.offensesByYear)
+        // const years = ["On Hold", "Completed","In Progress","New-Yet to Star"];
+        // const offensesByYear = [
+        //   {
+        //     "count": 5,
+        //    },
+        //   { "count":  10,
+        //   },
+        //   {
+        //     "count": 8,
+        //    },
+        //   { "count": 6,
+        //   },
+        // ];
+        // console.log(years)
+        // console.log(offensesByYear)
     };
     AdminDashboardBarComponent.prototype.refresh = function () {
         //     this.superAdminService.getBarDataforAdminDashboard().subscribe(data=>{
@@ -1195,7 +1384,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".count-txt{\r\n    font-weight: 700;\r\n}\r\n.count-sub-txt{\r\n    font-size: 14px;\r\n}\r\n.gr-cont{\r\n    padding-top: 30px;\r\n}", ""]);
+exports.push([module.i, ".count-txt{\r\n    font-weight: 700;\r\n}\r\n.count-sub-txt{\r\n    font-size: 14px;\r\n}\r\n.gr-cont{\r\n    padding-top: 30px;\r\n}\r\n.bg-white{\r\n    background-color: #fff;\r\n    padding: 29px;\r\n}", ""]);
 
 // exports
 
@@ -1208,7 +1397,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\" *ngIf=\"counts\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n\r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                <!-- sidebar-->\r\n\r\n                <admin-sidebar></admin-sidebar>\r\n                <!-- end sidebar-->\r\n            </div>\r\n\r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <admin-topbar></admin-topbar>\r\n\r\n                <!-- end topbar-->\r\n\r\n\r\n                <div class=\"user-dashboard\">\r\n                    <!-- <h1>Hello, JS</h1> -->\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-9 col-sm-5 col-xs-12 gutter ad-tp\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"fa fa-users\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.users}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Users</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-industry\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.companies}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Companies</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-code-fork\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.projects}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Projects</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n                        </div>\r\n                        \r\n                        <div class=\"col-md-12 gr-cont\">\r\n                            <div class=\"col-md-6\">\r\n                                <app-admin-dashboard-pie></app-admin-dashboard-pie>\r\n                            </div>\r\n                            <div class=\"col-md-6\">\r\n                                    <app-admin-dashboard-bar></app-admin-dashboard-bar>\r\n                                </div>\r\n                        </div>\r\n                    </div>\r\n                   \r\n                </div>\r\n               \r\n\r\n            </div>\r\n            <!-- footer-->\r\n            <!-- <admin-footer></admin-footer> -->\r\n            <!-- end footer-->\r\n        </div>\r\n    </div>\r\n    <!-- Modal -->\r\n</body>"
+module.exports = "<body class=\"home\" *ngIf=\"counts\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n\r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                <!-- sidebar-->\r\n\r\n                <admin-sidebar></admin-sidebar>\r\n                <!-- end sidebar-->\r\n            </div>\r\n\r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <admin-topbar></admin-topbar>\r\n\r\n                <!-- end topbar-->\r\n\r\n\r\n                <div class=\"user-dashboard\">\r\n                    <!-- <h1>Hello, JS</h1> -->\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-9 col-sm-5 col-xs-12 gutter ad-tp\">\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"fa fa-users\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.users}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Users</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-industry\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.companies}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Companies</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-md-4\">\r\n                                <div class=\"cnts\">\r\n                                    <div class=\"col-md-4 text-center lh\">\r\n                                        <i class=\"la la-code-fork\" aria-hidden=\"true\"></i>\r\n                                    </div>\r\n                                    <div class=\"col-md-8\">\r\n                                        <h2 class=\"count-txt\">{{counts.projects}}</h2>\r\n                                        <h4 class=\"count-sub-txt\">Total no. of Projects</h4>\r\n                                    </div>\r\n                                </div>\r\n\r\n                            </div>\r\n                        </div>\r\n                        \r\n                        <div class=\"col-md-12 gr-cont\">\r\n                            <div class=\"col-md-6 bg-white\">\r\n                                <h4>Company vs Projects</h4>                                \r\n                                <app-admin-dashboard-pie></app-admin-dashboard-pie>\r\n                            </div>\r\n                            <div class=\"col-md-6\">\r\n                                    <app-admin-dashboard-bar></app-admin-dashboard-bar>\r\n                                </div>\r\n                        </div>\r\n                    </div>\r\n                   \r\n                </div>\r\n               \r\n\r\n            </div>\r\n            <!-- footer-->\r\n            <!-- <admin-footer></admin-footer> -->\r\n            <!-- end footer-->\r\n        </div>\r\n    </div>\r\n    <!-- Modal -->\r\n</body>"
 
 /***/ }),
 
@@ -3062,7 +3251,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-add-project/company-add-project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <company-sidebar></company-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <company-topbar></company-topbar>\n        <br>\n        <div class=\"col-md-12\"><h2>Add Project</h2></div>\n        <div class=\"col-md-5 col-xs-12\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-body mrg-top\">\n\n              <!-- <h3>Add Project</h3> -->\n              <div class=\"row\">\n\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <input matInput [(ngModel)]=\"project.project_name\" name=\"project_name\" autofocus required formControlName=\"project_nameValidation\">\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Type :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"project_type\" [(ngModel)]=\"project.project_type\" required formControlName=\"project_typeValidation\">\n                      <mat-option value=\"Billable\">Billable</mat-option>\n                      <mat-option value=\"Non-billable\">Non-billable</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select [(ngModel)]=\"project.category_id\" name=\"category_id\" required formControlName=\"category_idValidation\">\n                      <mat-option *ngFor=\"let item of categories\" [value]=\"item.id\">\n                        {{ item.category_name }}\n                      </mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                  <span *ngIf=\"showPMlist\" matTooltip=\"To add a new category, please go to the Project Category by clicking the master settings on the left corner !\"><i class=\"material-icons info-icon\">info_outline</i></span>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <mat-select name=\"priority\" [(ngModel)]=\"project.priority\" required formControlName=\"priorityValidation\">\n                      <mat-option value=\"Low\">Low</mat-option>\n                      <mat-option value=\"Medium\">Medium</mat-option>\n                      <mat-option value=\"High\">High</mat-option>\n                    </mat-select>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\n                <div class=\"col-md-7 col-xs-6\">\n                  <mat-form-field [formGroup]=\"formGroup\">\n                    <textarea matInput [(ngModel)]=\"project.description\" name=\"description\" required formControlName=\"descriptionValidation\"\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\n                  </mat-form-field>\n                </div>\n                <br>\n\n                <div *ngIf=\"showPMlist\">\n                  <div class=\"col-md-4 col-xs-6\"><label>Assigned To :</label></div>\n                  <div class=\"col-md-7 col-xs-6\">\n                    <mat-form-field [formGroup]=\"formGroup\">\n                      <mat-select [(ngModel)]=\"project.pm_id\" name=\"pm_id\" required formControlName=\"pm_idValidation\">\n                        <mat-option value=\"Me\">Me</mat-option>\n                        <mat-option *ngFor=\"let item of pm\" [value]=\"item.login_id\">\n                          {{ item.f_name }} {{ item.l_name }}\n                        </mat-option>\n                      </mat-select>\n                    </mat-form-field>\n                  </div>\n                </div>\n                <br>\n\n                <div class=\"row\">\n                  <div class=\"col-md-4\">\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"addProject(project)\" class=\"btn round-button center-bt\">Submit</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\r\n        <company-sidebar></company-sidebar>\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <company-topbar></company-topbar>\r\n        <br>\r\n        <div class=\"col-md-12\"><h2>Add Project</h2></div>\r\n        <div class=\"col-md-5 col-xs-12\">\r\n          <div class=\"panel panel-default\">\r\n            <div class=\"panel-body mrg-top\">\r\n\r\n              <!-- <h3>Add Project</h3> -->\r\n              <div class=\"row\">\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <input matInput [(ngModel)]=\"project.project_name\" name=\"project_name\" autofocus required formControlName=\"project_nameValidation\">\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Type :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <mat-select name=\"project_type\" [(ngModel)]=\"project.project_type\" required formControlName=\"project_typeValidation\">\r\n                      <mat-option value=\"Billable\">Billable</mat-option>\r\n                      <mat-option value=\"Non-billable\">Non-billable</mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <mat-select [(ngModel)]=\"project.category_id\" name=\"category_id\" required formControlName=\"category_idValidation\">\r\n                      <mat-option *ngFor=\"let item of categories\" [value]=\"item.id\">\r\n                        {{ item.category_name }}\r\n                      </mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                  <!-- <span *ngIf=\"showPMlist\" matTooltip=\"To add a new category, please go to the Project Category by clicking the master settings on the left corner !\"><i class=\"material-icons info-icon\">info_outline</i></span> -->\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <mat-select name=\"priority\" [(ngModel)]=\"project.priority\" required formControlName=\"priorityValidation\">\r\n                      <mat-option value=\"Low\">Low</mat-option>\r\n                      <mat-option value=\"Medium\">Medium</mat-option>\r\n                      <mat-option value=\"High\">High</mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <textarea matInput [(ngModel)]=\"project.description\" name=\"description\" required formControlName=\"descriptionValidation\"\r\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div *ngIf=\"showPMlist\">\r\n                  <div class=\"col-md-4 col-xs-6\"><label>Assigned To :</label></div>\r\n                  <div class=\"col-md-7 col-xs-6\">\r\n                    <mat-form-field [formGroup]=\"formGroup\">\r\n                      <mat-select [(ngModel)]=\"project.pm_id\" name=\"pm_id\" required formControlName=\"pm_idValidation\">\r\n                        <mat-option value=\"Me\">Me</mat-option>\r\n                        <mat-option *ngFor=\"let item of pm\" [value]=\"item.login_id\">\r\n                          {{ item.f_name }} {{ item.l_name }}\r\n                        </mat-option>\r\n                      </mat-select>\r\n                    </mat-form-field>\r\n                  </div>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-4\">\r\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"addProject(project)\" class=\"btn round-button center-bt\">Submit</button>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</body>"
 
 /***/ }),
 
@@ -4398,7 +4587,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".graph-ul li{\r\n    float :left;\r\n    padding: 10px 2px;\r\n    border: 1px solid #ddd;\r\n    margin-top: 10px;\r\n    width: 300px;\r\n    display: table;\r\n    overflow:hidden;\r\n    padding-top: 0px;\r\n   \r\n}\r\n.graph-ul li .divModule{\r\n    background:#ccc;\r\n    padding: 20px 5px;\r\n    margin-bottom: 10px;\r\n}\r\n.graph-ul{\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    overflow-x: scroll;\r\n    max-width:1170px;\r\n    float: none;\r\n    margin: 0 auto;\r\n}\r\n.bg-g{background:#17a88f;color:#fff; padding: 10px;}\r\n.bg-hash{background:#E9E9E9;padding: 10px;}\r\n.bg-hash select{background:none;border:none;width:100%;}\r\n.total{font-weight:700;padding-top: 20px; line-height: 36px;}\r\n.sales{margin-bottom: 25px;border:none;    box-shadow: 4px 7px 31px #e8e8e8;}\r\n.label-bg{background:#ccc;padding:20px;position:relative;margin-bottom: 15px;}\r\n.label-bg .number{width:50px;height:50px;border-radius:50%;background:#fff;left:0;right:0;position:absolute;z-index:10;margin:0 auto;text-align:center;    top: -4px;\r\n    box-shadow: 10px 4px 18px #b1b1b1;\r\n    border: 1px solid #b5b3b3;    font-size: 20px;\r\n    font-weight: bold;\r\n    color: #05b8cc;\r\n    padding-top: 15px;}\r\n\r\n    .graph-ul-hour li .divModule{\r\n        background:#ccc;\r\n        padding: 20px 5px;\r\n        margin-bottom: 10px;\r\n    }\r\n    .graph-ul-hour{\r\n        display: -ms-flexbox;\r\n        display: flex;\r\n        overflow-x: scroll;\r\n        max-width:1170px;\r\n        float: none;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .firstColumn{\r\n        background: #e4e4e4;\r\n        padding:0 40px;\r\n    }\r\n\r\n    .firstRow{\r\n        \r\n        font-weight:bold;\r\n        font-weight: bold;\r\n        min-height: 135px;\r\n        border-bottom: 1px solid #ccc;\r\n        text-transform:uppercase;\r\n        padding-top: 35%;\r\n    }\r\n    .secondRow{\r\n       \r\n        font-weight:bold;\r\n        min-height: 330px;\r\n        border-bottom: 1px solid #ccc;\r\n        text-transform:uppercase;\r\n        padding-top: 64%;\r\n    }\r\n    .ThirdRow{\r\n        \r\n        font-weight:bold;\r\n        min-height: 224px;\r\n        text-align:uppercase;\r\n        padding-top: 43%;\r\n    }\r\n    .prjtitle1{\r\n        background: #237cbe;\r\n        padding: 10px;\r\n        color:#fff;\r\n    }\r\n    .prjtitle2{\r\n       \r\n        padding: 10px;\r\n    }\r\n    .hash{    background: #f3f3f3;}\r\n    .datelabel{font-weight:bold;padding-bottom: 10px;}\r\n    .user-dashboard h1{text-align:center;}\r\n    .mr-top{margin-top: 20px;}\r\n\r\n\r\n\r\n\r\n    p {\r\n        font-family: Lato;\r\n      }\r\n      \r\n      .gu-mirror {\r\n        position: fixed !important;\r\n        margin: 0 !important;\r\n        z-index: 9999 !important;\r\n        opacity: 0.8;\r\n        -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)\";\r\n        filter: alpha(opacity=80);\r\n      }\r\n      \r\n      .gu-hide {\r\n        display: none !important;\r\n      }\r\n      \r\n      .gu-unselectable {\r\n        -webkit-user-select: none !important;\r\n        -moz-user-select: none !important;\r\n        -ms-user-select: none !important;\r\n        user-select: none !important;\r\n      }\r\n      .gu-transit {\r\n        opacity: 0.2;\r\n        -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)\";\r\n        filter: alpha(opacity=20);\r\n      }\r\n      \r\n      .handler, .child-handler{\r\n        padding: 0 5px;\r\n        margin-right: 5px;\r\n        background-color: #e0e0e0;\r\n        cursor: move;\r\n      }\r\n      \r\n      .child-handler{\r\n        background-color: #a0a0a0;\r\n      }\r\n", ""]);
+exports.push([module.i, ".graph-ul li{\r\n    float :left;\r\n    padding: 10px 2px;\r\n    border: 1px solid #ddd;\r\n    margin-top: 10px;\r\n    width: 300px;\r\n    display: table;\r\n    overflow:hidden;\r\n    padding-top: 0px;\r\n    text-align: center;\r\n   \r\n}\r\n.graph-ul li .divModule{\r\n    background:#ccc;\r\n    padding: 20px 5px;\r\n    margin-bottom: 10px;\r\n}\r\n.graph-ul{\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    overflow-x: scroll;\r\n    max-width:1170px;\r\n    float: none;\r\n    margin: 0 auto;\r\n}\r\n.bg-g{background:#17a88f;color:#fff; padding: 10px;}\r\n.bg-hash{background:#E9E9E9;padding: 10px;}\r\n.bg-hash select{background:none;border:none;width:100%;}\r\n.total{font-weight:700;padding-top: 20px; line-height: 36px;}\r\n.sales{margin-bottom: 25px;border:none;    box-shadow: 4px 7px 31px #e8e8e8;}\r\n.label-bg{background:#ccc;padding:20px;position:relative;margin-bottom: 15px;}\r\n.label-bg .number{width:50px;height:50px;border-radius:50%;background:#fff;left:0;right:0;position:absolute;z-index:10;margin:0 auto;text-align:center;    top: -4px;\r\n    box-shadow: 10px 4px 18px #b1b1b1;\r\n    border: 1px solid #b5b3b3;    font-size: 20px;\r\n    font-weight: bold;\r\n    color: #05b8cc;\r\n    padding-top: 15px;}\r\n\r\n    .graph-ul-hour li .divModule{\r\n        background:#ccc;\r\n        padding: 20px 5px;\r\n        margin-bottom: 10px;\r\n    }\r\n    .graph-ul-hour{\r\n        display: -ms-flexbox;\r\n        display: flex;\r\n        overflow-x: scroll;\r\n        max-width:1170px;\r\n        float: none;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .firstColumn{\r\n        background: #e4e4e4;\r\n        padding:0 40px;\r\n    }\r\n\r\n    .firstRow{\r\n        \r\n        font-weight:bold;\r\n        font-weight: bold;\r\n        min-height: 135px;\r\n        border-bottom: 1px solid #ccc;\r\n        text-transform:uppercase;\r\n        padding-top: 35%;\r\n    }\r\n    .secondRow{\r\n       \r\n        font-weight:bold;\r\n        min-height: 330px;\r\n        border-bottom: 1px solid #ccc;\r\n        text-transform:uppercase;\r\n        padding-top: 64%;\r\n    }\r\n    .ThirdRow{\r\n        \r\n        font-weight:bold;\r\n        min-height: 224px;\r\n        text-align:uppercase;\r\n        padding-top: 43%;\r\n    }\r\n    .prjtitle1{\r\n        background: #237cbe;\r\n        padding: 10px;\r\n        color:#fff;\r\n    }\r\n    .prjtitle2{\r\n       \r\n        padding: 10px;\r\n    }\r\n    .hash{    background: #f3f3f3;}\r\n    .datelabel{font-weight:bold;padding-bottom: 10px;}\r\n    .user-dashboard h1{text-align:center;}\r\n    .mr-top{margin-top: 20px;}\r\n\r\n\r\n\r\n\r\n    p {\r\n        font-family: Lato;\r\n      }\r\n      \r\n      .gu-mirror {\r\n        position: fixed !important;\r\n        margin: 0 !important;\r\n        z-index: 9999 !important;\r\n        opacity: 0.8;\r\n        -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)\";\r\n        filter: alpha(opacity=80);\r\n      }\r\n      \r\n      .gu-hide {\r\n        display: none !important;\r\n      }\r\n      \r\n      .gu-unselectable {\r\n        -webkit-user-select: none !important;\r\n        -moz-user-select: none !important;\r\n        -ms-user-select: none !important;\r\n        user-select: none !important;\r\n      }\r\n      .gu-transit {\r\n        opacity: 0.2;\r\n        -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)\";\r\n        filter: alpha(opacity=20);\r\n      }\r\n      \r\n      .handler, .child-handler{\r\n        padding: 0 5px;\r\n        margin-right: 5px;\r\n        background-color: #e0e0e0;\r\n        cursor: move;\r\n      }\r\n      \r\n      .child-handler{\r\n        background-color: #a0a0a0;\r\n      }\r\n.text-center2{\r\n    text-align: center !important\r\n}", ""]);
 
 // exports
 
@@ -4411,7 +4600,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-dashboard/company-dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n      <div class=\"row display-table-row\">\r\n    \r\n          <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n               <!-- sidebar-->\r\n             \r\n               <company-sidebar></company-sidebar> \r\n               <!-- end sidebar-->\r\n          </div>\r\n          \r\n          <div class=\"col-md-12 col-xs-12\">\r\n              <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n              <!-- topbar-->\r\n              <company-topbar></company-topbar> \r\n              \r\n                  <!-- end topbar-->\r\n              \r\n              \r\n              <div class=\"user-dashboard\">\r\n                 \r\n                  <div class=\"row\">\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                              \r\n                          <company-task-vs-status></company-task-vs-status>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-resoure-vs-hour></company-resoure-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-project-vs-hour></company-project-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                            <company-project-vs-status></company-project-vs-status>\r\n                            </div>\r\n                        </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                <h1>Module Vs Status</h1>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-8 col-md-push-1\">\r\n                                        <div class=\"col-md-3 bg-g\">*Select Project</div>\r\n                                        <div class=\"col-md-3 bg-hash\">\r\n                                            <mat-select  name=\"projet_id\" [(ngModel)]=\"project_id\" (ngModelChange)=\"changeProject($event)\" required>\r\n                                                <mat-option *ngFor=\"let prj of projects\" [value]=\"prj.id\">\r\n                                                  {{prj.project_name}}\r\n                                                </mat-option>\r\n                                              </mat-select>\r\n                                        </div> \r\n                                        <div class=\"col-md-3\">\r\n                                            <span class=\"total\">Total {{module_count}} Milestone</span>\r\n                                        </div>\r\n                                    </div> \r\n                                </div>\r\n                                <ul class=\"graph-ul\">\r\n                                    <li *ngFor=\"let module of modules\" >\r\n                                        <div class=\"divModule\" >{{module?.module_name}}</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>{{module?.planned_hour}}</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> {{module?.actual_hour}} </div>\r\n                                            <div id=\"module-{{module.id}}-progress\"></div>\r\n                                            <company-progress-graph [containerId]=\"'module-'+ module.id +'-progress'\" [progper]=\"module?.per\"></company-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">{{module?.total_tasks}}</div>\r\n                                            </div>\r\n                                            <div id=\"module-{{module.id}}-status\"></div>\r\n                                            <company-status-graph [containerId]=\"'module-'+ module.id +'-status'\" [pieData]=\"module?.pieData\"></company-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    \r\n                                </ul>\r\n                            </div>\r\n                           \r\n                        </div>\r\n\r\n                        <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                    <h1>Project Vs Status</h1>\r\n\r\n                                    <ul class=\"graph-ul-hour\">\r\n                                            <li>\r\n                                                <div class=\"firstRow firstColumn\">PROJECTS</div>\r\n                                                <div class=\"secondRow firstColumn\">Progress</div>\r\n                                                <div class=\"ThirdRow firstColumn\">Planned <br>vs<br> Actual Hours</div>\r\n                                            </li>\r\n                                            <li *ngFor=\"let project of projectforProVsStatusGraph;let i = index;\">\r\n                                                <div class=\"prjtitle1\">{{project[0]?.tbl_project?.project_name}}</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                <div class=\"datelabel\">Start <span class=\"pull-right\">{{project[0]?.tbl_project?.planned_start_date | date:'EEE, d MMM,y'}}</span></div>\r\n                                                <div class=\"datelabel\">End <span class=\"pull-right\">{{project[0]?.tbl_project?.planned_end_date | date:'EEE, d MMM,y'}}</span></div>\r\n                                                </div>\r\n                                                <div class=\"clearfix\"></div>\r\n                                                <!-- <div style=\"clear: both;\"></div> -->\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-'+ i +'-progress'\" [progper]=\"project.per\"></company-progress-graph>\r\n                                                <label>{{project?.in_progress_tasks}}/{{project?.total_tasks}} In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-'+ i +'-bar'\" [actual]=\"project.actual_hour\" [planning]=\"project.planned_hour\"></company-bar-graph>\r\n                                            </li>\r\n                                            <!-- <li class=\"hash\">\r\n                                                <div class=\"prjtitle2 bg-g\">Taskit</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                        <div class=\"datelabel\">Start <span class=\"pull-right\">24-03-2018</span></div>\r\n                                                        <div class=\"datelabel\">End <span class=\"pull-right\">29-03-2018</span></div>\r\n                                                 </div>\r\n                                                 <div class=\"clearfix\"></div>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-2-progress'\" [progper]=\"45\"></company-progress-graph>\r\n                                                <label>2/23 In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-2-bar'\" [actual]=\"10\" [planning]=\"4\"></company-bar-graph>\r\n                                            </li> -->\r\n                                    </ul>       \r\n                            </div>\r\n                        </div>\r\n                      \r\n                  </div>\r\n              </div>\r\n              \r\n          </div>\r\n              <!-- footer-->\r\n              <admin-footer></admin-footer>\r\n     <!-- end footer-->\r\n      </div>\r\n       </div>\r\n      <!-- Modal -->\r\n   </body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n      <div class=\"row display-table-row\">\r\n    \r\n          <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n               <!-- sidebar-->\r\n             \r\n               <company-sidebar></company-sidebar> \r\n               <!-- end sidebar-->\r\n          </div>\r\n          \r\n          <div class=\"col-md-12 col-xs-12\">\r\n              <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n              <!-- topbar-->\r\n              <company-topbar></company-topbar> \r\n              \r\n                  <!-- end topbar-->\r\n              \r\n              \r\n              <div class=\"user-dashboard\">\r\n                 \r\n                  <div class=\"row\">\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                              \r\n                          <company-task-vs-status></company-task-vs-status>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-resoure-vs-hour></company-resoure-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-project-vs-hour></company-project-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                            <company-project-vs-status></company-project-vs-status>\r\n                            </div>\r\n                        </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                <h1>Module Vs Status</h1>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-8 col-md-push-1\">\r\n                                        <div class=\"col-md-3 bg-g\">*Select Project</div>\r\n                                        <div class=\"col-md-3 bg-hash\">\r\n                                            <mat-select  name=\"projet_id\" [(ngModel)]=\"project_id\" (ngModelChange)=\"changeProject($event)\" required>\r\n                                                <mat-option *ngFor=\"let prj of projects\" [value]=\"prj.id\">\r\n                                                  {{prj.project_name}}\r\n                                                </mat-option>\r\n                                              </mat-select>\r\n                                        </div> \r\n                                        <div class=\"col-md-3\">\r\n                                            <span class=\"total\">Total {{module_count}} Milestone</span>\r\n                                        </div>\r\n                                    </div> \r\n                                </div>\r\n                                <ul class=\"graph-ul\">\r\n                                    <li *ngFor=\"let module of modules\" >\r\n                                        <div class=\"divModule\" >{{module?.module_name}}</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>{{module?.planned_hour}}</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> {{module?.actual_hour}} </div>\r\n                                            <div id=\"module-{{module.id}}-progress\"></div>\r\n                                            <company-progress-graph [containerId]=\"'module-'+ module.id +'-progress'\" [progper]=\"module?.per\"></company-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">{{module?.total_tasks}}</div>\r\n                                            </div>\r\n                                            <div id=\"module-{{module.id}}-status\"></div>\r\n                                            <company-status-graph [containerId]=\"'module-'+ module.id +'-status'\" [pieData]=\"module?.pieData\"></company-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    \r\n                                </ul>\r\n                            </div>\r\n                           \r\n                        </div>\r\n\r\n                        <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                    <h1>Project Vs Status</h1>\r\n\r\n                                    <ul class=\"graph-ul-hour\">\r\n                                            <li class=\"text-center2\">\r\n                                                <div class=\"firstRow firstColumn\">PROJECTS</div>\r\n                                                <div class=\"secondRow firstColumn\">Progress</div>\r\n                                                <div class=\"ThirdRow firstColumn\">Planned <br>vs<br> Actual Hours</div>\r\n                                            </li>\r\n                                            <li class=\"text-center2\" *ngFor=\"let project of projectforProVsStatusGraph;let i = index;\">\r\n                                                <div class=\"prjtitle1\">{{project[0]?.tbl_project?.project_name}}</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                <div class=\"datelabel\">Start <span class=\"pull-right\">{{project[0]?.tbl_project?.planned_start_date | date:'EEE, d MMM,y'}}</span></div>\r\n                                                <div class=\"datelabel\">End <span class=\"pull-right\">{{project[0]?.tbl_project?.planned_end_date | date:'EEE, d MMM,y'}}</span></div>\r\n                                                </div>\r\n                                                <div class=\"clearfix\"></div>\r\n                                                <!-- <div style=\"clear: both;\"></div> -->\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-'+ i +'-progress'\" [progper]=\"project.per\"></company-progress-graph>\r\n                                                <label>{{project?.in_progress_tasks}}/{{project?.total_tasks}} In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-'+ i +'-bar'\" [actual]=\"project.actual_hour\" [planning]=\"project.planned_hour\"></company-bar-graph>\r\n                                            </li>\r\n                                            <!-- <li class=\"hash\">\r\n                                                <div class=\"prjtitle2 bg-g\">Taskit</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                        <div class=\"datelabel\">Start <span class=\"pull-right\">24-03-2018</span></div>\r\n                                                        <div class=\"datelabel\">End <span class=\"pull-right\">29-03-2018</span></div>\r\n                                                 </div>\r\n                                                 <div class=\"clearfix\"></div>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-2-progress'\" [progper]=\"45\"></company-progress-graph>\r\n                                                <label>2/23 In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-2-bar'\" [actual]=\"10\" [planning]=\"4\"></company-bar-graph>\r\n                                            </li> -->\r\n                                    </ul>       \r\n                            </div>\r\n                        </div>\r\n                      \r\n                  </div>\r\n              </div>\r\n              \r\n          </div>\r\n              <!-- footer-->\r\n              <admin-footer></admin-footer>\r\n     <!-- end footer-->\r\n      </div>\r\n       </div>\r\n      <!-- Modal -->\r\n   </body>"
 
 /***/ }),
 
@@ -5660,7 +5849,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-manage-access-rights/company-manage-access-rights.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\" >\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n  \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                <!-- sidebar-->\r\n  \r\n                <admin-sidebar></admin-sidebar>\r\n                <!-- end sidebar-->\r\n            </div>\r\n  \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <admin-topbar></admin-topbar>\r\n                <!-- end topbar-->\r\n  \r\n  \r\n                <div class=\"user-dashboard\">\r\n                    <!-- <h1>Hello, JS</h1> -->\r\n                    <div class=\"row\">\r\n                      \r\n                        <div class=\"col-md-12 col-sm-5 col-xs-12 gutter ad-tp dash-tbl\">\r\n                          <div class=\"col-md-12 spinner-cont\" *ngIf=\"showSpinner\">\r\n                              <app-spinner  class=\"tbl-spnner\"></app-spinner>\r\n                          </div>\r\n  \r\n                            <div class=\"example-header\" >\r\n                                <mat-form-field class=\"mat-fltr padd-10\">\r\n                                  <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                                </mat-form-field>\r\n                            </div>\r\n                         \r\n                      <div class=\"example-container mat-elevation-z8 \">\r\n                      <mat-table #table [dataSource]=\"dataSource\" matSort>\r\n        \r\n                        <!-- ID Column -->\r\n                        <ng-container matColumnDef=\"id\">\r\n                          <mat-header-cell matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\r\n                          <mat-cell matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                        </ng-container>\r\n                    \r\n                        <!-- Theme Name -->\r\n                        <ng-container matColumnDef=\"role\">\r\n                          <mat-header-cell matHeaderCellDef mat-sort-header> TEAM NAME </mat-header-cell>\r\n                          <mat-cell matCellDef=\"let row\"> {{row.role}} </mat-cell>\r\n                        </ng-container>\r\n                      \r\n  \r\n                      \r\n                        <!-- ID Column -->\r\n                        <ng-container matColumnDef=\"status\">\r\n                            <mat-header-cell matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\r\n                            <mat-cell matCellDef=\"let row\"> <button mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n                              <mat-icon>more_vert</mat-icon>\r\n                            </button>\r\n                            <mat-menu #menu=\"matMenu\">\r\n                              \r\n                              <button mat-menu-item (click)=\"setRights(row.id, row.role)\">\r\n                                <mat-icon><i class=\"material-icons mat-assign-icn\">add_box</i></mat-icon>\r\n                                <span>Assign</span>\r\n                              </button>\r\n                            </mat-menu>\r\n                             </mat-cell>\r\n                          </ng-container>\r\n                        <mat-header-row matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                        <mat-row matRowDef=\"let row; columns: displayedColumns;\">\r\n                        </mat-row>\r\n                     \r\n                      </mat-table>\r\n                      <div class=\"col-md-12 noItemFound\" ngIf=\"existStatus\">\r\n                          <div class=\"col-md-4 col-md-offset-4\">\r\n                              <mat-toolbar   class=\"back-color\">No item found!</mat-toolbar>\r\n                          </div>\r\n                          </div>\r\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                      </div>\r\n                      </div>\r\n                    </div>\r\n                   \r\n                </div>\r\n               \r\n  \r\n            </div>\r\n            <!-- footer-->\r\n            <!-- <admin-footer></admin-footer> -->\r\n            <!-- end footer-->\r\n        </div>\r\n    </div>\r\n    <!-- Modal -->\r\n  \r\n  \r\n  \r\n    <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\r\n        <div class=\"modal-dialog\">\r\n  \r\n          <!-- Modal content-->\r\n          <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n              <button type=\"button\" class=\"close\" data-dismiss=\"modal\">×</button>\r\n              <h4 class=\"modal-title\"></h4>\r\n            </div>\r\n            <!-- <div class=\"modal-header\"> -->\r\n            <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n            <!-- </div> -->\r\n            <div class=\"modal-body delete-popup\">\r\n              <div class=\"col-md-12\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-12\">\r\n                        <div class=\"col-md-4\">\r\n                            <label class=\"modal-lft-lbl\">User Group:</label> \r\n                        </div>\r\n                        <div class=\"col-md-7\">\r\n                            <label id=\"team-nm\" class=\"modal-lft-lbl\">{{teamName}}</label>\r\n            \r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-12\">\r\n                        <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Access Rights :</label></div>\r\n                        <div class=\"col-md-7 padd-15\">\r\n                          <div class=\"col-md-12\"  ngFor=\"let item of accessRights\">\r\n                              <mat-checkbox class=\"example-margin\" [(ngModel)]=\"item.checked\" name=\"{{i}}\" (ngModelChange)=\"changeMaster(item.id)\">{{item.name}}</mat-checkbox>\r\n                              <div class=\"col-md-10 col-md-offset-1\" ngFor=\"let rights of item.sub\">\r\n                                <mat-checkbox class=\"example-margin\" [(ngModel)]=\"rights.checked\" name=\"{{i}}\" (ngModelChange)=\"change(item.id)\">{{rights.access_right}}</mat-checkbox>                              \r\n                              </div>\r\n                          </div>\r\n                          \r\n                        </div>\r\n                    </div>\r\n  \r\n                    <div class=\"col-md-12\">\r\n                      {{errMessage}}\r\n                    </div>\r\n                  </div>\r\n                  \r\n              </div>\r\n             \r\n\r\n          </div>\r\n          <!-- footer-->\r\n          <!-- <admin-footer></admin-footer> -->\r\n          <!-- end footer-->\r\n      </div>\r\n  </div>\r\n  </div>\r\n  <!-- Modal -->\r\n\r\n\r\n\r\n  <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\r\n      <div class=\"modal-dialog\">\r\n\r\n        <!-- Modal content-->\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n            <h4 class=\"modal-title\"></h4>\r\n          </div>\r\n          <!-- <div class=\"modal-header\"> -->\r\n          <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n          <!-- </div> -->\r\n          <div class=\"modal-body delete-popup\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-12\">\r\n                      <div class=\"col-md-4\">\r\n                          <label class=\"modal-lft-lbl\">User Group:</label> \r\n                      </div>\r\n                      <div class=\"col-md-7\">\r\n                          <label id=\"team-nm\" class=\"modal-lft-lbl\">{{teamName}}</label>\r\n          \r\n                      </div>\r\n                  </div>\r\n                  <div class=\"col-md-12\">\r\n                      <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Access Rights :</label></div>\r\n                      <div class=\"col-md-7 padd-15\">\r\n                        <div class=\"col-md-12\"  *ngFor=\"let item of accessRights\">\r\n                            <mat-checkbox class=\"example-margin\" [(ngModel)]=\"item.checked\" name=\"{{i}}\" (ngModelChange)=\"changeMaster(item.id)\">{{item.name}}</mat-checkbox>\r\n                            <div class=\"col-md-10 col-md-offset-1\" *ngFor=\"let rights of item.sub\">\r\n                              <mat-checkbox class=\"example-margin\" [(ngModel)]=\"rights.checked\" name=\"{{i}}\" (ngModelChange)=\"change(item.id)\">{{rights.access_right}}</mat-checkbox>                              \r\n                            </div>\r\n                        </div>\r\n                        \r\n                      </div>\r\n                  </div>\r\n\r\n                  <div class=\"col-md-12\">\r\n                    {{errMessage}}\r\n                  </div>\r\n                </div>\r\n                \r\n              \r\n  \r\n            </div>\r\n  \r\n            <div class=\"modal-footer\">\r\n              <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n              <button *ngIf=\"!spinner\" type=\"button\" (click)=\"assignRights()\" class=\"btn round-button\" >Assign</button>\r\n            </div>\r\n          </div>\r\n  \r\n        </div>\r\n      </div>\r\n      </div>\r\n  </body>"
+module.exports = "<body class=\"home\" >\r\n        <div class=\"container-fluid display-table\">\r\n            <div class=\"row display-table-row\">\r\n      \r\n                <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                    <!-- sidebar-->\r\n      \r\n                    <admin-sidebar></admin-sidebar>\r\n                    <!-- end sidebar-->\r\n                </div>\r\n      \r\n                <div class=\"col-md-12 col-xs-12\">\r\n                    <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                    <!-- topbar-->\r\n                    <admin-topbar></admin-topbar>\r\n                    <!-- end topbar-->\r\n      \r\n      \r\n                    <div class=\"user-dashboard\">\r\n                        <!-- <h1>Hello, JS</h1> -->\r\n                        <div class=\"row\">\r\n                          \r\n                            <div class=\"col-md-12 col-sm-5 col-xs-12 gutter ad-tp dash-tbl\">\r\n                              <div class=\"col-md-12 spinner-cont\" *ngIf=\"showSpinner\">\r\n                                  <app-spinner  class=\"tbl-spnner\"></app-spinner>\r\n                              </div>\r\n      \r\n                                <div class=\"example-header\" >\r\n                                    <mat-form-field class=\"mat-fltr padd-10\">\r\n                                      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                                    </mat-form-field>\r\n                                </div>\r\n                             \r\n                          <div class=\"example-container mat-elevation-z8 \">\r\n                          <mat-table #table [dataSource]=\"dataSource\" matSort>\r\n            \r\n                            <!-- ID Column -->\r\n                            <ng-container matColumnDef=\"id\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                            </ng-container>\r\n                        \r\n                            <!-- Theme Name -->\r\n                            <ng-container matColumnDef=\"role\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> TEAM NAME </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row\"> {{row.role}} </mat-cell>\r\n                            </ng-container>\r\n                          \r\n      \r\n                          \r\n                            <!-- ID Column -->\r\n                            <ng-container matColumnDef=\"status\">\r\n                                <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\r\n                                <mat-cell *matCellDef=\"let row\"> <button mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n                                  <mat-icon>more_vert</mat-icon>\r\n                                </button>\r\n                                <mat-menu #menu=\"matMenu\">\r\n                                  \r\n                                  <button mat-menu-item (click)=\"setRights(row.id, row.role)\">\r\n                                    <mat-icon><i class=\"material-icons mat-assign-icn\">add_box</i></mat-icon>\r\n                                    <span>Assign</span>\r\n                                  </button>\r\n                                </mat-menu>\r\n                                 </mat-cell>\r\n                              </ng-container>\r\n                            <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                            <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\r\n                            </mat-row>\r\n                         \r\n                          </mat-table>\r\n                          <div class=\"col-md-12 noItemFound\" *ngIf=\"existStatus\">\r\n                              <div class=\"col-md-4 col-md-offset-4\">\r\n                                  <mat-toolbar   class=\"back-color\">No item found!</mat-toolbar>\r\n                              </div>\r\n                              </div>\r\n                      <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                          </div>\r\n                          </div>\r\n                        </div>\r\n                       \r\n                    </div>\r\n                   \r\n      \r\n                </div>\r\n                <!-- footer-->\r\n                <!-- <admin-footer></admin-footer> -->\r\n                <!-- end footer-->\r\n            </div>\r\n        </div>\r\n        <!-- Modal -->\r\n      \r\n      \r\n      \r\n        <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\r\n            <div class=\"modal-dialog\">\r\n      \r\n              <!-- Modal content-->\r\n              <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                  <h4 class=\"modal-title\"></h4>\r\n                </div>\r\n                <!-- <div class=\"modal-header\"> -->\r\n                <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                <!-- </div> -->\r\n                <div class=\"modal-body delete-popup\">\r\n                  <div class=\"col-md-12\">\r\n                      <div class=\"row\">\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-4\">\r\n                                <label class=\"modal-lft-lbl\">User Group:</label> \r\n                            </div>\r\n                            <div class=\"col-md-7\">\r\n                                <label id=\"team-nm\" class=\"modal-lft-lbl\">{{teamName}}</label>\r\n                \r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Access Rights :</label></div>\r\n                            <div class=\"col-md-7 padd-15\">\r\n                              <div class=\"col-md-12\"  >\r\n                                  <div class=\"col-md-12\" *ngFor=\"let item of accessRights\">\r\n                                        <mat-checkbox class=\"example-margin\" [(indeterminate)]=\"item.intermediate\" [(ngModel)]=\"item.checked\" name=\"{{i}}\" (ngModelChange)=\"changeMaster(item.id)\">{{item.name}}</mat-checkbox>\r\n                                        <div class=\"col-md-10 col-md-offset-1\" *ngFor=\"let rights of item.sub\">\r\n                                          <mat-checkbox class=\"example-margin\"  [(ngModel)]=\"rights.checked\" name=\"{{i}}\" (ngModelChange)=\"change(item.id)\">{{rights.access_right}}</mat-checkbox>                              \r\n                                        </div>\r\n                                  </div>\r\n                                  \r\n                              </div>\r\n                              \r\n                            </div>\r\n                        </div>\r\n      \r\n                        <div class=\"col-md-12\">\r\n                          {{errMessage}}\r\n                        </div>\r\n                      </div>\r\n                      <div class=\"clear-fix\"></div>\r\n                      <!-- <ngx-treeview\r\n                      [config]=\"config\"\r\n                      [items]=\"items\" (selectedChange)=\"change($event)\"\r\n                      >\r\n                  </ngx-treeview> -->\r\n                  </div>\r\n                  \r\n                \r\n      \r\n                </div>\r\n      \r\n                <div class=\"modal-footer\">\r\n                  <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n                  <button *ngIf=\"!spinner\" type=\"button\" (click)=\"assignRights()\" class=\"btn round-button\" >Assign</button>\r\n                </div>\r\n              </div>\r\n      \r\n            </div>\r\n          </div>\r\n      </body>"
 
 /***/ }),
 
@@ -5784,11 +5973,12 @@ var CompanyManageAccessRightsComponent = (function () {
     };
     //  ---------------------------------end-----------------------------------------------
     CompanyManageAccessRightsComponent.prototype.change = function (event) {
-        // console.log(this.accessRights)
+        console.log(this.accessRights);
         var allChecked = true;
         // async.forEachOf(this.accessRights, (element, key, callback)=>{
         this.accessRights.forEach(function (element) {
             if (element.id == event) {
+                element.intermediate = true;
                 element.sub.forEach(function (ele) {
                     // console.log(typeof ele.checked);
                     if (ele.checked == false || typeof ele.checked == 'undefined') {
@@ -5798,6 +5988,7 @@ var CompanyManageAccessRightsComponent = (function () {
                 });
                 if (allChecked == true) {
                     element.checked = true;
+                    element.intermediate = false;
                 }
                 else {
                     element.checked = false;
@@ -6319,6 +6510,7 @@ var CompanyManageTeamComponent = (function () {
                 }
             });
         });
+        console.log(this.selectedTeamMembers);
         // }
         // console.log(member);
         // console.log(this.teamMembers[this.teamMembers.length-1]);
@@ -6385,7 +6577,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-new-task-management/company-new-task-management.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <company-sidebar></company-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <company-topbar></company-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                \r\n                \r\n                <div class=\"user-dashboard\">\r\n                    <h2>Request Management</h2>\r\n                    <ul class=\"breadcrumb\">\r\n                      \r\n                      <li>New Task Request View</li>\r\n                    </ul>\r\n                   \r\n                    <div class=\"row\" *ngIf=\"!existStatus\">\r\n                        \r\n              <div class=\"col-md-5 col-sm-12 col-xs-12 gutter \">\r\n               <div class=\"white\">\r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Name</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{projectDetails?.project_name}}</label></div>\r\n                 </div>\r\n                 \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Code</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{projectDetails?.project_code}}</label></div>\r\n                 </div>\r\n                 \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Start Date</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{projectDetails?.planned_start_date}}</label></div>\r\n                 </div>\r\n                 \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Team Members</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2 mrgn-0\" *ngFor=\"let item of projectDetails?.tbl_project_member_assocs\">\r\n                  {{item.tbl_user_profile.f_name}} {{item.tbl_user_profile.l_name}} </label></div>\r\n                 </div>\r\n                 \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Reason</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{taskRequest.reason}}</label></div>\r\n                 </div>\r\n<!--                  \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Time Taken In Hours For Estimation</label></div>\r\n                   <div class=\"col-md-4 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\"><input class=\"style\" type=\"text\" placeholder=\"44:00 Hr\"></label></div>\r\n                 </div>\r\n                 <div class=\"clearfix\"></div> -->\r\n                 <!-- <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Requirment Summery</label></div>\r\n                   <div class=\"col-md-4 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\"></label><textarea class=\"style\" type=\"text\" placeholder=\"\"></textarea></div>\r\n                 </div> -->\r\n                 \r\n                 <!-- <div class=\"form-group\">\r\n                   <div class=\"col-md-6\"><label for=\"\">Upload </label></div>\r\n                   <div class=\"col-md-5\">\r\n                     <span class=\"btn btn-file\">\r\n                       <input type=\"file\">\r\n                     </span>\r\n                   </div>\r\n                 </div> -->\r\n                 \r\n                 <!-- <div class=\"clearfix\"></div>\r\n                 <div class=\"col-md-12 text-center\">\r\n                 <button type=\"button\" class=\"btn round-button center-bt\">Submit</button>\r\n                 </div> -->\r\n                 \r\n               </div>\r\n              </div>\r\n                         <div class=\"col-md-7 col-sm-12 col-xs-12 gutter\">\r\n \r\n                             <div class=\"white\">\r\n                 <div class=\"col-md-12 mrg-2\">\r\n                   <div class=\"col-md-4\">\r\n                     <label>\r\n                       Total Hours\r\n                     </label>\r\n                   </div>\r\n                   <div class=\"col-md-4 col-xs-5\">\r\n                     <!-- <input class=\"effect-1 style\" type=\"text\" placeholder=\"44:00 Hr\"> -->\r\n                     <label>{{totalHours}}Hrs</label>\r\n                   </div>\r\n\r\n                 </div>\r\n                    <ng-container *ngFor=\"let i of projectDetails?.tbl_project_modules\">\r\n                        <div class=\"col-md-12 col-xs-12 pull-right\">\r\n                            <div class=\"task\">\r\n                              <div class=\"col-md-8 col-xs-7\">\r\n                                <h5>{{i.module_name}}</h5>\r\n                              </div>\r\n                              <div class=\"col-md-4 col-xs-5\">\r\n                                <ul class=\"taskedit\">\r\n                                  <li>{{getHours(i.tbl_project_tasks)}}Hrs</li>\r\n                                  <!-- <li class=\"pull-right\"><a href=\"\"><i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\r\n                                  <li class=\"pull-right\"><a href=\"\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></li> -->\r\n                                  \r\n                                </ul>\r\n                              </div>\r\n                            </div>\r\n                          </div><!---task end-->\r\n                          <ng-container  *ngFor=\"let x of i.tbl_project_tasks\">\r\n                              <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                                  <div class=\"task hash\">\r\n                                    <div class=\"col-md-3 col-xs-7\">\r\n                                      <h5>{{x.task_name}}</h5>\r\n                                    </div>\r\n                                    <div class=\"col-md-9 col-xs-5\">\r\n                                      <ul class=\"pull-right\">\r\n                                        <li>{{x.tbl_user_profile?.f_name}} {{x.tbl_user_profile?.l_name}}</li>\r\n                                        <li>{{x.planned_hour + x.buffer_hour}}Hrs</li>\r\n                                        <li>start time: {{x.planned_start_date_time | date:'EEE, d MMM,y'}}</li>\r\n                                        <li>end time: {{x.planned_end_date_time | date:'EEE, d MMM,y'}}</li>\r\n                                        <!-- <li class=\"pull-right\"><a href=\"\"><i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\r\n                                        <li class=\"pull-right\"><a href=\"\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></li> -->\r\n                                        \r\n                                      </ul>\r\n                                    </div>\r\n                                    <div class=\"clearfix\"></div>\r\n                                    \r\n                                  </div>\r\n                                </div><!---task end-->\r\n                          </ng-container>\r\n                          <ng-container *ngIf=\"taskRequest.tbl_project_module.id == i.id\">\r\n                              <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                                  <div class=\"task highlight\">\r\n                                    <div class=\"col-md-3 col-xs-7\">\r\n                                      <h5>{{taskRequest?.task_name}}</h5>\r\n                                    </div>\r\n                                    <div class=\"col-md-9 col-xs-5\">\r\n                                        <ul>\r\n                                            <li>{{taskRequest?.tbl_user_profile.f_name}} {{taskRequest?.tbl_user_profile.l_name}}</li>\r\n                                            <li>{{taskRequest?.planned_hours+taskRequest.buffer_hours}}Hrs</li>\r\n                                        </ul>\r\n                                        <div class=\"pull-right\">\r\n                                          <button class=\"bt\"  (click)=\"setEdit(taskRequest.id)\" data-toggle=\"modal\" data-target=\"#editModal\">Edit</button>\r\n                                          <button class=\"bt\"  (click)=\"approve()\">Approve</button>\r\n                                          <button class=\"bt\">Reject</button>\r\n                                          <button class=\"bt\" *ngIf=\"role == 3\">Send to admin</button>\r\n                                        </div>  \r\n                                      </div>\r\n                                    <div class=\"clearfix\"></div>\r\n                                    \r\n                                  </div>\r\n                                </div>\r\n                               <div class=\"clearfix\"></div>\r\n                          </ng-container>\r\n                    </ng-container>\r\n                    \r\n                 \r\n                 \r\n                 <!-- <div class=\"col-md-12\">\r\n                 <button type=\"button\" class=\"btn round-button pull-right\">Add Task</button>\r\n                 </div> -->\r\n                                 \r\n                             </div>\r\n                         </div>\r\n\r\n\r\n <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->\r\n <div id=\"editModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn (click)=\"closeModal()\">&times;</button>\r\n          <h4 class=\"modal-title\">Additional task request </h4>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          <form role=\"form\" #f=\"ngForm\" >\r\n\r\n            <div class=\"col-md-12\">\r\n              <div class=\"example-container\">\r\n                  <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Reason:</label></div>\r\n                  <div class=\"col-md-7 col-xs-6\">\r\n                   <label for=\"\">{{taskRequest?.reason}}</label>\r\n                  </div>\r\n                  <div class=\"clearfix\"></div>\r\n                  \r\n                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field>\r\n                    <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n                <div class=\"example-container\">\r\n                  <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\r\n                  <div class=\"col-md-7 col-xs-6\" >\r\n                    <label for=\"\">{{taskRequest.tbl_user_profile.f_name}} {{taskRequest.tbl_user_profile.l_name}}</label>\r\n                  </div>\r\n\r\n                  <div class=\"clearfix\"></div>\r\n                  <div class=\"example-container\">\r\n                    <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                    <div class=\"col-md-7 col-xs-6\">\r\n                      <mat-form-field class=\"inputfileds\">\r\n\r\n                        <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\r\n                          <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\r\n                        </mat-select>\r\n                      </mat-form-field>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                    <br>\r\n                    <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                    <div class=\"col-md-7 col-xs-6\">\r\n                      <mat-form-field class=\"wdth\">\r\n                        <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                      </mat-form-field>\r\n                    </div>\r\n\r\n                    <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                    <div class=\"col-md-7 col-xs-6\">\r\n\r\n                      <mat-form-field class=\"wdth\">\r\n                        <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                      </mat-form-field>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                    <br>\r\n                    <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div>\r\n                    <!-- <div class=\"col-md-3 col-xs-6\">\r\n                  <mat-form-field>\r\n                    <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"picker\" placeholder=\"Choose a date\" [formControl]=\"date\"\r\n                      name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #picker1></mat-datepicker>\r\n                  </mat-form-field>\r\n                </div>  -->\r\n\r\n                    <div class=\"col-md-3 col-xs-6\">\r\n                      <mat-form-field>\r\n                        <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                        <mat-datepicker #picker></mat-datepicker>\r\n                      </mat-form-field>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n\r\n                    <div class=\"clearfix\"></div>\r\n                    <ngb-timepicker [meridian]=\"meridian\" name=\"start_time\" [(ngModel)]=\"newTasks.start_time\"></ngb-timepicker>\r\n                    <hr>\r\n                    <div class=\"clearfix\"></div>\r\n                    <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\r\n                    <div class=\"col-md-3 col-xs-6\">\r\n                      <mat-form-field>\r\n                        <input matInput [matDatepicker]=\"picker1\" placeholder=\"Choose a date\" name='end_date' [(ngModel)]=\"newTasks.end_date\">\r\n                        <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\r\n                        <mat-datepicker #picker1></mat-datepicker>\r\n                      </mat-form-field>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n\r\n                    <div class=\"clearfix\"></div>\r\n                    <ngb-timepicker [meridian]=\"meridian\" name=\"end_time\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\r\n                    <hr>\r\n                    <div class=\"clearfix\"></div>\r\n\r\n\r\n                    <div class=\"example-container\">\r\n                      <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\r\n                      <div class=\"col-md-7 col-xs-6\">\r\n                        <mat-form-field class=\"inputfileds\">\r\n                          <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\r\n                            <!-- <mat-option>None</mat-option> -->\r\n                            <mat-option value=\"billable\">Billable</mat-option>\r\n                            <mat-option value=\"non billable\">Non Billable</mat-option>\r\n                          </mat-select>\r\n                        </mat-form-field>\r\n                      </div>\r\n                      <div class=\"clearfix\"></div>\r\n                      <div class=\"example-container\">\r\n                        <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\r\n                        <div class=\"col-md-7 col-xs-6\">\r\n                          <mat-form-field class=\"inputfileds\">\r\n                            <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\r\n                              <!-- <mat-option>None</mat-option> -->\r\n                              <mat-option value=\"high\">High</mat-option>\r\n                              <mat-option value=\"medium\">Medium</mat-option>\r\n                              <mat-option value=\"low\">Low</mat-option>\r\n                            </mat-select>\r\n                          </mat-form-field>\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                        \r\n                        <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                          <div class=\"col-md-7 col-xs-5\">\r\n                            <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n\r\n                              <mat-form-field class=\"example-form-field\">\r\n                                <input matInput type=\"text\" name=\"checklist{{i}}\" [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                <mat-icon>close</mat-icon>\r\n                              </button>\r\n                              </mat-form-field>\r\n                              <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                            </div>\r\n                            <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div>\r\n                            <div class=\"clearfix\"></div>\r\n\r\n                          </div>\r\n                        <div class=\"clearfix\"></div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Description :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <textarea matInput placeholder=\"Textarea\" name='description' [(ngModel)]=\"newTasks.description\"></textarea>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <br>\r\n                          <!-- <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                          <div class=\"col-md-5 col-xs-5\">\r\n                            <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n\r\n                              <mat-form-field class=\"example-form-field\">\r\n                                <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                            <mat-icon>close</mat-icon>\r\n                          </button>\r\n                              </mat-form-field>\r\n                              <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                            </div>\r\n                          </div> -->\r\n\r\n                          <!-- <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div> -->\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"example-container\">\r\n                            <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\r\n                            <div class=\"col-md-7 col-xs-6\">\r\n\r\n                              <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\r\n                            </div>\r\n                            <div class=\"clearfix\"></div>\r\n                            <div class=\"center\">\r\n                              <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\" (click)=\"submit()\" >Submit  </button>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->\r\n                     </div>\r\n\r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n              \r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
+module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <company-sidebar></company-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <company-topbar></company-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                \r\n                \r\n                <div class=\"user-dashboard\">\r\n                    <h2>Request Management</h2>\r\n                    <ul class=\"breadcrumb\">\r\n                      \r\n                      <li>New Task Request View</li>\r\n                    </ul>\r\n                   \r\n                    <div class=\"row\" *ngIf=\"!existStatus\">\r\n                        \r\n              <div class=\"col-md-5 col-sm-12 col-xs-12 gutter \">\r\n               <div class=\"white\">\r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Name</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{projectDetails?.project_name}}</label></div>\r\n                 </div>\r\n                 \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Code</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{projectDetails?.project_code}}</label></div>\r\n                 </div>\r\n                 \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Start Date</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{projectDetails?.planned_start_date}}</label></div>\r\n                 </div>\r\n                 \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Team Members</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2 mrgn-0\" *ngFor=\"let item of projectDetails?.tbl_project_member_assocs\">\r\n                  {{item.tbl_user_profile.f_name}} {{item.tbl_user_profile.l_name}} </label></div>\r\n                 </div>\r\n                 \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Reason</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{taskRequest.reason}}</label></div>\r\n                 </div>\r\n<!--                  \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Time Taken In Hours For Estimation</label></div>\r\n                   <div class=\"col-md-4 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\"><input class=\"style\" type=\"text\" placeholder=\"44:00 Hr\"></label></div>\r\n                 </div>\r\n                 <div class=\"clearfix\"></div> -->\r\n                 <!-- <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Requirment Summery</label></div>\r\n                   <div class=\"col-md-4 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\"></label><textarea class=\"style\" type=\"text\" placeholder=\"\"></textarea></div>\r\n                 </div> -->\r\n                 \r\n                 <!-- <div class=\"form-group\">\r\n                   <div class=\"col-md-6\"><label for=\"\">Upload </label></div>\r\n                   <div class=\"col-md-5\">\r\n                     <span class=\"btn btn-file\">\r\n                       <input type=\"file\">\r\n                     </span>\r\n                   </div>\r\n                 </div> -->\r\n                 \r\n                 <!-- <div class=\"clearfix\"></div>\r\n                 <div class=\"col-md-12 text-center\">\r\n                 <button type=\"button\" class=\"btn round-button center-bt\">Submit</button>\r\n                 </div> -->\r\n                 \r\n               </div>\r\n              </div>\r\n                         <div class=\"col-md-7 col-sm-12 col-xs-12 gutter\">\r\n \r\n                             <div class=\"white\">\r\n                 <div class=\"col-md-12 mrg-2\">\r\n                   <div class=\"col-md-4\">\r\n                     <label>\r\n                       Total Hours\r\n                     </label>\r\n                   </div>\r\n                   <div class=\"col-md-4 col-xs-5\">\r\n                     <!-- <input class=\"effect-1 style\" type=\"text\" placeholder=\"44:00 Hr\"> -->\r\n                     <label>{{totalHours}}Hrs</label>\r\n                   </div>\r\n\r\n                 </div>\r\n                    <ng-container *ngFor=\"let i of projectDetails?.tbl_project_modules\">\r\n                        <div class=\"col-md-12 col-xs-12 pull-right\">\r\n                            <div class=\"task\">\r\n                              <div class=\"col-md-8 col-xs-7\">\r\n                                <h5>{{i.module_name}}</h5>\r\n                              </div>\r\n                              <div class=\"col-md-4 col-xs-5\">\r\n                                <ul class=\"taskedit\">\r\n                                  <li>{{getHours(i.tbl_project_tasks)}}Hrs</li>\r\n                                  <!-- <li class=\"pull-right\"><a href=\"\"><i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\r\n                                  <li class=\"pull-right\"><a href=\"\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></li> -->\r\n                                  \r\n                                </ul>\r\n                              </div>\r\n                            </div>\r\n                          </div><!---task end-->\r\n                          <ng-container  *ngFor=\"let x of i.tbl_project_tasks\">\r\n                              <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                                  <div class=\"task hash\">\r\n                                    <div class=\"col-md-3 col-xs-7\">\r\n                                      <h5>{{x.task_name}}</h5>\r\n                                    </div>\r\n                                    <div class=\"col-md-9 col-xs-5\">\r\n                                      <ul class=\"pull-right\">\r\n                                        <li>{{x.tbl_user_profile?.f_name}} {{x.tbl_user_profile?.l_name}}</li>\r\n                                        <li>{{x.planned_hour + x.buffer_hour}}Hrs</li>\r\n                                        <li>start time: {{x.planned_start_date_time | date:'EEE, d MMM,y'}}</li>\r\n                                        <li>end time: {{x.planned_end_date_time | date:'EEE, d MMM,y'}}</li>\r\n                                        <!-- <li class=\"pull-right\"><a href=\"\"><i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\r\n                                        <li class=\"pull-right\"><a href=\"\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a></li> -->\r\n                                        \r\n                                      </ul>\r\n                                    </div>\r\n                                    <div class=\"clearfix\"></div>\r\n                                    \r\n                                  </div>\r\n                                </div><!---task end-->\r\n                          </ng-container>\r\n                          <ng-container *ngIf=\"taskRequest.tbl_project_module.id == i.id && taskRequest.request_status!='Accepted'\">\r\n                              <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                                  <div class=\"task highlight\">\r\n                                    <div class=\"col-md-3 col-xs-7\">\r\n                                      <h5>{{taskRequest?.task_name}}</h5>\r\n                                    </div>\r\n                                    <div class=\"col-md-9 col-xs-5\">\r\n                                        <ul>\r\n                                            <li>{{taskRequest?.tbl_user_profile.f_name}} {{taskRequest?.tbl_user_profile.l_name}}</li>\r\n                                            <li>{{taskRequest?.planned_hours+taskRequest.buffer_hours}}Hrs</li>\r\n                                        </ul>\r\n                                        <div class=\"pull-right\" *ngIf=\"(role != 3 && taskRequest.request_status == 'Approval') || (role != 1 && taskRequest.request_status == 'Pending')\">\r\n                                          <button class=\"bt\"  (click)=\"setEdit(taskRequest.id)\" data-toggle=\"modal\" data-target=\"#editModal\">Edit</button>\r\n                                          <button class=\"bt\"  (click)=\"approve()\">Approve</button>\r\n                                          <button class=\"bt\" (click)=\"reject(taskRequest.id)\">Reject</button>\r\n                                          <button class=\"bt\" (click)=\"sendApproval(taskRequest.id)\" *ngIf=\"role == 3\">Send to admin</button>\r\n                                        </div>  \r\n                                      </div>\r\n                                    <div class=\"clearfix\"></div>\r\n                                    \r\n                                  </div>\r\n                                </div>\r\n                               <div class=\"clearfix\"></div>\r\n                          </ng-container>\r\n                    </ng-container>\r\n                    \r\n                 \r\n                 \r\n                 <!-- <div class=\"col-md-12\">\r\n                 <button type=\"button\" class=\"btn round-button pull-right\">Add Task</button>\r\n                 </div> -->\r\n                                 \r\n                             </div>\r\n                         </div>\r\n\r\n\r\n <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->\r\n <div id=\"editModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn (click)=\"closeModal()\">&times;</button>\r\n          <h4 class=\"modal-title\">Additional task request </h4>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          <form role=\"form\" #f=\"ngForm\" >\r\n\r\n            <div class=\"col-md-12\">\r\n              <div class=\"example-container\">\r\n                  <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Reason:</label></div>\r\n                  <div class=\"col-md-7 col-xs-6\">\r\n                   <label for=\"\">{{taskRequest?.reason}}</label>\r\n                  </div>\r\n                  <div class=\"clearfix\"></div>\r\n                  \r\n                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field>\r\n                    <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n                <div class=\"example-container\">\r\n                  <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\r\n                  <div class=\"col-md-7 col-xs-6\" >\r\n                    <label for=\"\">{{taskRequest.tbl_user_profile.f_name}} {{taskRequest.tbl_user_profile.l_name}}</label>\r\n                  </div>\r\n\r\n                  <div class=\"clearfix\"></div>\r\n                  <div class=\"example-container\">\r\n                    <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                    <div class=\"col-md-7 col-xs-6\">\r\n                      <mat-form-field class=\"inputfileds\">\r\n\r\n                        <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\r\n                          <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\r\n                        </mat-select>\r\n                      </mat-form-field>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                    <br>\r\n                    <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                    <div class=\"col-md-7 col-xs-6\">\r\n                      <mat-form-field class=\"wdth\">\r\n                        <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                      </mat-form-field>\r\n                    </div>\r\n\r\n                    <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                    <div class=\"col-md-7 col-xs-6\">\r\n\r\n                      <mat-form-field class=\"wdth\">\r\n                        <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                      </mat-form-field>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                    <br>\r\n                    <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div>\r\n                    <!-- <div class=\"col-md-3 col-xs-6\">\r\n                  <mat-form-field>\r\n                    <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"picker\" placeholder=\"Choose a date\" [formControl]=\"date\"\r\n                      name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #picker1></mat-datepicker>\r\n                  </mat-form-field>\r\n                </div>  -->\r\n\r\n                    <div class=\"col-md-3 col-xs-6\">\r\n                      <mat-form-field>\r\n                        <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                        <mat-datepicker #picker></mat-datepicker>\r\n                      </mat-form-field>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n\r\n                    <div class=\"clearfix\"></div>\r\n                    <ngb-timepicker [meridian]=\"meridian\" name=\"start_time\" [(ngModel)]=\"newTasks.start_time\"></ngb-timepicker>\r\n                    <hr>\r\n                    <div class=\"clearfix\"></div>\r\n                    <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\r\n                    <div class=\"col-md-3 col-xs-6\">\r\n                      <mat-form-field>\r\n                        <input matInput [matDatepicker]=\"picker1\" placeholder=\"Choose a date\" name='end_date' [(ngModel)]=\"newTasks.end_date\">\r\n                        <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\r\n                        <mat-datepicker #picker1></mat-datepicker>\r\n                      </mat-form-field>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n\r\n                    <div class=\"clearfix\"></div>\r\n                    <ngb-timepicker [meridian]=\"meridian\" name=\"end_time\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\r\n                    <hr>\r\n                    <div class=\"clearfix\"></div>\r\n\r\n\r\n                    <div class=\"example-container\">\r\n                      <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\r\n                      <div class=\"col-md-7 col-xs-6\">\r\n                        <mat-form-field class=\"inputfileds\">\r\n                          <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\r\n                            <!-- <mat-option>None</mat-option> -->\r\n                            <mat-option value=\"billable\">Billable</mat-option>\r\n                            <mat-option value=\"non billable\">Non Billable</mat-option>\r\n                          </mat-select>\r\n                        </mat-form-field>\r\n                      </div>\r\n                      <div class=\"clearfix\"></div>\r\n                      <div class=\"example-container\">\r\n                        <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\r\n                        <div class=\"col-md-7 col-xs-6\">\r\n                          <mat-form-field class=\"inputfileds\">\r\n                            <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\r\n                              <!-- <mat-option>None</mat-option> -->\r\n                              <mat-option value=\"high\">High</mat-option>\r\n                              <mat-option value=\"medium\">Medium</mat-option>\r\n                              <mat-option value=\"low\">Low</mat-option>\r\n                            </mat-select>\r\n                          </mat-form-field>\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                        \r\n                        <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                          <div class=\"col-md-7 col-xs-5\">\r\n                            <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n\r\n                              <mat-form-field class=\"example-form-field\">\r\n                                <input matInput type=\"text\" name=\"checklist{{i}}\" [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                <mat-icon>close</mat-icon>\r\n                              </button>\r\n                              </mat-form-field>\r\n                              <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                            </div>\r\n                            <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div>\r\n                            <div class=\"clearfix\"></div>\r\n\r\n                          </div>\r\n                        <div class=\"clearfix\"></div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Description :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <textarea matInput placeholder=\"Textarea\" name='description' [(ngModel)]=\"newTasks.description\"></textarea>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <br>\r\n                          <!-- <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                          <div class=\"col-md-5 col-xs-5\">\r\n                            <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n\r\n                              <mat-form-field class=\"example-form-field\">\r\n                                <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                            <mat-icon>close</mat-icon>\r\n                          </button>\r\n                              </mat-form-field>\r\n                              <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                            </div>\r\n                          </div> -->\r\n\r\n                          <!-- <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div> -->\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"example-container\">\r\n                            <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\r\n                            <div class=\"col-md-7 col-xs-6\">\r\n\r\n                              <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\r\n                            </div>\r\n                            <div class=\"clearfix\"></div>\r\n                            <div class=\"center\">\r\n                              <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\" (click)=\"submit()\" >Submit  </button>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->\r\n                     </div>\r\n\r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n              \r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
 
 /***/ }),
 
@@ -6453,13 +6645,14 @@ var CompanyNewTaskManagementComponent = (function () {
         this.checkRole();
         this.companyService.getComplexity().subscribe(function (complexity) {
             _this.complexitys = complexity;
-            console.log(_this.complexitys);
+            // console.log(this.complexitys)
         });
         this.getNewTaskRequests();
     };
     CompanyNewTaskManagementComponent.prototype.checkRole = function () {
         var _this = this;
         this.companyService.checkRole().subscribe(function (role) {
+            // console.log(role);
             _this.role = role;
         });
     };
@@ -6479,20 +6672,24 @@ var CompanyNewTaskManagementComponent = (function () {
             // console.log(this.surveyId + "surveyid");
         });
         this.companyService.getNewTaskRequest(this.id).subscribe(function (requests) {
+            console.log(requests);
             _this.showSpinner = false;
-            if (requests.length <= 0) {
-                _this.existStatus = true;
-            }
-            else {
-                console.log(requests);
-                _this.taskRequest = requests;
-                var projectId = requests.tbl_project_module.project_id;
-                _this.companyService.getProjectsDetails(projectId).subscribe(function (projectDetails) {
-                    console.log(projectDetails);
-                    _this.projectDetails = projectDetails.data;
-                    _this.totalHours = projectDetails.hours;
-                    _this.existStatus = false;
-                });
+            if (requests != null) {
+                if (requests.length <= 0) {
+                    _this.existStatus = true;
+                }
+                else {
+                    // console.log(requests)
+                    _this.newTasks.req_id = requests.id;
+                    _this.taskRequest = requests;
+                    var projectId = requests.tbl_project_module.project_id;
+                    _this.companyService.getProjectDetails(projectId).subscribe(function (projectDetails) {
+                        console.log(projectDetails);
+                        _this.projectDetails = projectDetails.data;
+                        _this.totalHours = projectDetails.hours;
+                        _this.existStatus = false;
+                    });
+                }
             }
             if (requests.status == 0) {
                 var snackBarRef = _this.snackBar.open(requests.message, '', {
@@ -6546,7 +6743,7 @@ var CompanyNewTaskManagementComponent = (function () {
         this.newTasks.start_date = date[0];
         var time = date[1].split(':');
         this.newTasks.start_time = { hour: parseInt(time[0]), minute: parseInt(time[1]) };
-        console.log(this.newTasks.start_time);
+        // console.log(this.newTasks.start_time)
         this.newTasks.start_date = date[0];
         date = this.taskRequest.planned_end_date.split('T');
         this.newTasks.end_date = date[0];
@@ -6590,9 +6787,58 @@ var CompanyNewTaskManagementComponent = (function () {
         this.newTasks.newChecklist = [{ name: '' }];
     };
     CompanyNewTaskManagementComponent.prototype.approve = function () {
+        var _this = this;
+        console.log(this.newTasks);
+        // var zero = 0;
+        // var end_date_time = this.newTasks.end_date.setHours(end_time.hour,end_time.minute,zero);
+        // var start_date_time = this.newTasks.start_date.setHours(start_time.hour,start_time.minute,zero);
         this.companyService.approveTask(this.newTasks).subscribe(function (res) {
             console.log(res);
+            if (res.success == false) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 2000
+                });
+            }
+            if (res.success == true) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 2000
+                });
+                _this.getNewTaskRequests();
+            }
             // this.role = res;
+        });
+    };
+    CompanyNewTaskManagementComponent.prototype.reject = function (taskReqId) {
+        var _this = this;
+        this.companyService.rejectTask(taskReqId).subscribe(function (res) {
+            if (res.success == false) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 2000
+                });
+            }
+            if (res.success == true) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 2000
+                });
+                _this.getNewTaskRequests();
+            }
+        });
+    };
+    CompanyNewTaskManagementComponent.prototype.sendApproval = function (taskReqId) {
+        var _this = this;
+        this.companyService.sendApproval(taskReqId).subscribe(function (res) {
+            console.log(res);
+            if (res.success == false) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 2000
+                });
+            }
+            if (res.success == true) {
+                var snackBarRef = _this.snackBar.open(res.msg, '', {
+                    duration: 2000
+                });
+                _this.getNewTaskRequests();
+            }
         });
     };
     CompanyNewTaskManagementComponent = __decorate([
@@ -8511,7 +8757,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-project/company-project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\n        <company-sidebar></company-sidebar>\n      </div>\n      <div class=\"col-md-12 col-xs-12\">\n        <!-- topbar-->\n        <company-topbar></company-topbar>\n\n        <!-- end topbar-->\n\n\n        <div class=\"user-dashboard\">\n\n          <div class=\"row\">\n            <!-----------------------------------------------------------------table-------------------------------------->\n\n            <div class=\"col-md-12\">\n              <div class=\"row\">\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\n                  <div class=\"\">\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\n                        />\n                      </path>\n                    </svg>\n                  </div>\n                </div> -->\n\n\n                <div class=\"col-md-12 optionz\">\n                  <div class=\"row\">\n                    <div class=\"col-md-6\">\n                      <div class=\"example-header\">\n                        <mat-form-field>\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                        </mat-form-field>\n                      </div>\n                    </div>\n                    <div class=\"col-md-2 pull-right\">\n                      <div>\n                        <mat-form-field class=\"filter\">\n\n                          <mat-select (change)=\"getProject()\" [(value)]=\"selected\">\n                            <mat-option value=\"all\">All</mat-option>\n                            <mat-option value=\"Drafted\">Drafted</mat-option>\n                            <mat-option value=\"In Progress\">In Progress</mat-option>\n                            <mat-option value=\"Planned\">Planned</mat-option>\n                            <mat-option value=\"Completed\">Completed</mat-option>\n                            <mat-option value=\"Cancelled\">Cancelled</mat-option>\n                          </mat-select>\n                        </mat-form-field>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"example-container mat-elevation-z8\">\n                  <mat-table [dataSource]=\"dataSource\" matSort>\n                    <ng-container matColumnDef=\"slno\">\n                      <mat-header-cell *matHeaderCellDef> SL NO. </mat-header-cell>\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"project_name\">\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"startdate\">\n                      <mat-header-cell *matHeaderCellDef > ACTUAL/PLANNED START DATE</mat-header-cell>\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : row.planned_start_date ==\n                        null : row.actual_start_date}}</mat-cell>\n                    </ng-container>\n                    <ng-container matColumnDef=\"enddate\">\n                      <mat-header-cell *matHeaderCellDef> ACTUAL/PLANNED END DATE</mat-header-cell>\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :\n                        row.actual_end_date}}\n                      </mat-cell>\n                    </ng-container>\n\n                    <ng-container matColumnDef=\"action\">\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\n                        <mat-menu #menu=\"matMenu\">\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.pm_id == loggedin_id\" (click)=\"assign(row.id)\">\n                            <!-- <i class=\"fa fa-user\"></i> -->\n                            <mat-icon><i class=\"material-icons\">group</i></mat-icon>\n                            <span>Assign Team Head</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id\"\n                            (click)=\"approve(row.id)\">\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\n                            <span>Approve Estimation</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id\"\n                            (click)=\"approveProject(row.id)\">\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\n                            <span>Approve Project</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id\"\n                            (click)=\"approveProject(row.id)\">\n                            <mat-icon><i class=\"material-icons\">event_available</i></mat-icon>\n                            <span>Plan Project</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.is_approved == false && row.assignee_id == loggedin_id && row.status == 'Drafted' \" (click)=\"edit(row.id)\">\n                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\n                            <span>Edit</span>\n                          </button>\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id\"\n                            (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \n                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\n                            <span>Delete</span>\n                          </button>\n                          <button mat-menu-item (click)=\"viewProject(row.id)\"> \n                            <mat-icon><i class=\"material-icons\">description</i></mat-icon>\n                            <span>View Project</span>\n                          </button>\n                        </mat-menu>\n                      </mat-cell>\n\n                    </ng-container>\n\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n                  </mat-table>\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\n                    <div class=\"col-md-4 col-md-offset-4\">\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\n                    </div>\n                  </div>\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n                </div>\n\n\n              </div>\n            </div>\n            <div class=\"add-button\">\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\n            </div>\n\n            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\n            <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\n              <div class=\"modal-dialog\">\n\n                <!-- Modal content-->\n                <div class=\"modal-content\">\n                  <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                    <h4 class=\"modal-title\">Delete </h4>\n                  </div>\n                  <!-- <div class=\"modal-header\"> -->\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                  <!-- </div> -->\n                  <div class=\"modal-body delete-popup\">\n                    <i class=\"fa fa-exclamation\"></i>\n\n\n                    <h4 class=\"textalign\">Are you sure?</h4>\n\n                  </div>\n\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\n                    <button type=\"button\" (click)=\"deleteProject(Pid)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n\n            <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------\n          \n            <!-----------------------------------------------------------------end table-------------------------------------->\n          </div>\n        </div>\n\n      </div>\n      <!-- footer-->\n      <!-- <company-footer></company-footer> -->\n      <!-- end footer-->\n    </div>\n  </div>\n</body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\r\n        <company-sidebar></company-sidebar>\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!-- topbar-->\r\n        <company-topbar></company-topbar>\r\n\r\n        <!-- end topbar-->\r\n\r\n\r\n        <div class=\"user-dashboard\">\r\n\r\n          <div class=\"row\">\r\n            <!-----------------------------------------------------------------table-------------------------------------->\r\n            <h2>Projects</h2>\r\n            <ul class=\"breadcrumb\">\r\n              <!-- <li><a routerLink=\"/\">Request Management</a></li> -->\r\n              <!-- <li><a routerLink=\"/company-request-management\">Time Extension Request List</a></li> -->\r\n              \r\n              <li>Projects</li>\r\n            </ul>\r\n            <div class=\"col-md-12\">\r\n              <div class=\"row\">\r\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\r\n                  <div class=\"\">\r\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\r\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\r\n                        />\r\n                      </path>\r\n                    </svg>\r\n                  </div>\r\n                </div> -->\r\n\r\n\r\n                <div class=\"col-md-12 optionz\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"example-header\">\r\n                        <mat-form-field>\r\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 pull-right\">\r\n                      <div>\r\n                        <mat-form-field class=\"filter\">\r\n\r\n                          <mat-select (change)=\"getProject()\" [(value)]=\"selected\">\r\n                            <mat-option value=\"all\">All</mat-option>\r\n                            <mat-option value=\"Drafted\">Drafted</mat-option>\r\n                            <mat-option value=\"In Progress\">In Progress</mat-option>\r\n                            <mat-option value=\"Planned\">Planned</mat-option>\r\n                            <mat-option value=\"Completed\">Completed</mat-option>\r\n                            <mat-option value=\"Cancelled\">Cancelled</mat-option>\r\n                          </mat-select>\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"example-container mat-elevation-z8\">\r\n                  <mat-table [dataSource]=\"dataSource\" matSort>\r\n                    <ng-container matColumnDef=\"slno\">\r\n                      <mat-header-cell *matHeaderCellDef> SL NO. </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"project_name\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"startdate\">\r\n                      <mat-header-cell *matHeaderCellDef > ACTUAL/PLANNED START DATE</mat-header-cell>\r\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : row.planned_start_date ==\r\n                        null : row.actual_start_date}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"enddate\">\r\n                      <mat-header-cell *matHeaderCellDef> ACTUAL/PLANNED END DATE</mat-header-cell>\r\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :\r\n                        row.actual_end_date}}\r\n                      </mat-cell>\r\n                    </ng-container>\r\n\r\n                    <ng-container matColumnDef=\"action\">\r\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\r\n                        <mat-menu #menu=\"matMenu\">\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.pm_id == loggedin_id\" (click)=\"assign(row.id)\">\r\n                            <!-- <i class=\"fa fa-user\"></i> -->\r\n                            <mat-icon><i class=\"material-icons\">group</i></mat-icon>\r\n                            <span>Assign Team Head</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id\"\r\n                            (click)=\"approve(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\r\n                            <span>Approve Estimation</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id\"\r\n                            (click)=\"approveProject(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\r\n                            <span>Approve Project</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id\"\r\n                            (click)=\"approveProject(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">event_available</i></mat-icon>\r\n                            <span>Plan Project</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.is_approved == false && row.assignee_id == loggedin_id && row.status == 'Drafted' \" (click)=\"edit(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\r\n                            <span>Edit</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id\"\r\n                            (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \r\n                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\r\n                            <span>Delete</span>\r\n                          </button>\r\n                          <button mat-menu-item (click)=\"viewProject(row.id)\"> \r\n                            <mat-icon><i class=\"material-icons\">description</i></mat-icon>\r\n                            <span>View Project</span>\r\n                          </button>\r\n                        </mat-menu>\r\n                      </mat-cell>\r\n\r\n                    </ng-container>\r\n\r\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\r\n                  </mat-table>\r\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\r\n                    <div class=\"col-md-4 col-md-offset-4\">\r\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\r\n                    </div>\r\n                  </div>\r\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                </div>\r\n\r\n\r\n              </div>\r\n            </div>\r\n            <div class=\"add-button\">\r\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\r\n            </div>\r\n\r\n            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\r\n            <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n\r\n                <!-- Modal content-->\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                    <h4 class=\"modal-title\">Delete </h4>\r\n                  </div>\r\n                  <!-- <div class=\"modal-header\"> -->\r\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                  <!-- </div> -->\r\n                  <div class=\"modal-body delete-popup\">\r\n                    <i class=\"fa fa-exclamation\"></i>\r\n\r\n\r\n                    <h4 class=\"textalign\">Are you sure?</h4>\r\n\r\n                  </div>\r\n\r\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\r\n                    <button type=\"button\" (click)=\"deleteProject(Pid)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n            </div>\r\n\r\n            <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------\r\n          \r\n            <!-----------------------------------------------------------------end table-------------------------------------->\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      <!-- footer-->\r\n      <!-- <company-footer></company-footer> -->\r\n      <!-- end footer-->\r\n    </div>\r\n  </div>\r\n</body>"
 
 /***/ }),
 
@@ -9328,7 +9574,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "button, select{outline:none;}\r\n.logn{height:100%;overflow-x:hidden;background:#fff;}\r\n.logn-img{height:100%;width:100%;position:relative;overflow:hidden;}\r\n.paragraph{    width: 56%;\r\n    left: 22%;\r\n    bottom: 10%;\r\n    z-index: 100;\r\n    min-height: 20px;\r\n    color: #fff;\r\n    text-align: left;\r\n    font-size: 14px;\r\n    position: absolute;\r\n    line-height: 22px;}\r\n.social-login{\r\n  position:relative;\r\n  float: none;\r\n  margin:0 auto;\r\n  height:auto;\r\n  padding: 10px 0 15px 0;\r\n  border-bottom: 1px solid #eee;\r\n  display: table;\r\n      width: 79%;\r\n}\r\n\r\n.social-login a{\r\n     position: relative;\r\n    float: left;\r\n    width: 48%;\r\n    text-decoration: none;\r\n    color: #fff;\r\n    border: 1px solid rgba(0,0,0,0.05);\r\n    padding: 7px 12px;\r\n    border-radius: 12px;\r\n    font-size: 12px;\r\n   \r\n        margin: 0px 1%;\r\n    text-align: center;\r\n}\r\n.social-login a i{\r\n  position: relative;\r\n  float: left;\r\n  width: 20px;\r\n  top: 2px;\r\n}\r\n.social-login a:first-child{\r\n  background-color: #49639F;\r\n}\r\n.social-login a:last-child{\r\n  background-color: #DF4A32;\r\n}\r\n.email-login,.email-signup{\r\n  position:relative;\r\n  float: left;\r\n  width: 100%;\r\n  height:auto;\r\n  margin-top: 20px;\r\n  text-align:center;\r\n}\r\nbody {\r\n  background: #e9e9e9;\r\n  color: #666666;\r\n  font-family: 'RobotoDraft', 'Roboto', sans-serif;\r\n  font-size: 14px;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n}\r\n\r\n/* Pen Title */\r\n.pen-title {\r\n  padding: 20px 0;\r\n  text-align: center;\r\n  letter-spacing: 2px;\r\n}\r\n.pen-title h1 {\r\n  margin: 0 0 20px;\r\n  font-size: 40px;\r\n  font-weight: 300;\r\n}\r\n.pen-title span {\r\n  font-size: 12px;\r\n}\r\n.pen-title span .fa {\r\n  color: #ed2553;\r\n}\r\n.pen-title span a {\r\n  color: #ed2553;\r\n  font-weight: 600;\r\n  text-decoration: none;\r\n}\r\n\r\n/* Rerun */\r\n.rerun {\r\n  margin: 0 0 30px;\r\n  text-align: center;\r\n}\r\n.rerun a {\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  background: #ed2553;\r\n  border-radius: 3px;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  padding: 10px 20px;\r\n  color: #ffffff;\r\n  text-decoration: none;\r\n  transition: 0.3s ease;\r\n}\r\n.rerun a:hover {\r\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* Scroll To Bottom */\r\n#codepen, #portfolio {\r\n  position: fixed;\r\n  bottom: 30px;\r\n  right: 30px;\r\n  background: #ec2652;\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 100%;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  transition: 0.3s ease;\r\n  color: #ffffff;\r\n  text-align: center;\r\n}\r\n#codepen i, #portfolio i {\r\n  line-height: 56px;\r\n}\r\n#codepen:hover, #portfolio:hover {\r\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* CodePen */\r\n#portfolio {\r\n  bottom: 96px;\r\n  right: 36px;\r\n  background: #ec2652;\r\n  width: 44px;\r\n  height: 44px;\r\n  animation: buttonFadeInUp 1s ease;\r\n}\r\n#portfolio i {\r\n  line-height: 44px;\r\n}\r\n\r\n/* Container */\r\n.container {\r\n  position: relative;\r\n  max-width: 460px;\r\n  width: 100%;\r\n  margin: 0 auto 100px;\r\n}\r\n.container.active .card:first-child {\r\n  background: #f2f2f2;\r\n  margin: 0 15px;\r\n}\r\n.container.active .card:nth-child(2) {\r\n  background: #fafafa;\r\n  margin: 0 10px;\r\n}\r\n.container.active .card.alt {\r\n  top: 20px;\r\n  right: 0;\r\n  width: 100%;\r\n  min-width: 100%;\r\n  height: auto;\r\n  border-radius: 5px;\r\n  padding: 60px 0 40px;\r\n  overflow: hidden;\r\n}\r\n.container.active .card.alt .toggle {\r\n  position: absolute;\r\n  top: 40px;\r\n  right: -70px;\r\n  box-shadow: none;\r\n  transform: scale(15);\r\n  transition: transform .5s ease;\r\n}\r\n.container.active .card.alt .toggle:before {\r\n  content: '';\r\n}\r\n.container.active .card.alt .title,\r\n.container.active .card.alt .input-container,\r\n.container.active .card.alt .button-container {\r\n  left: 0;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  transition: .3s ease;\r\n}\r\n.container.active .card.alt .title {\r\n  transition-delay: .3s;\r\n}\r\n.container.active .card.alt .input-container {\r\n  transition-delay: .4s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(2) {\r\n  transition-delay: .5s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(3) {\r\n  transition-delay: .6s;\r\n}\r\n.container.active .card.alt .button-container {\r\n  transition-delay: .7s;\r\n}\r\n\r\n\r\n/* Keyframes */\r\n@keyframes buttonFadeInUp {\r\n  0% {\r\n    bottom: 30px;\r\n    opacity: 0;\r\n  }\r\n}\r\n.g-recaptcha {\r\n    transform:scale(0.89);\r\n    transform-origin:0 0;\r\n}\r\n.round-button{border-radius:20px;margin:0 auto;float:none;background:#f37600;color:#fff;    padding: 10px 32px; /* Safari */\r\n    transition: background 2s;}\r\n.round-button:hover{background:#ffaa05;color:#fff;}\r\n.padd-lft{padding-left:20px;}\r\n\r\n\r\n\r\n@media only screen and (max-width : 768px) {\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n}\r\n\r\n@media only screen and (max-width : 480px)  { \r\n.card .input-container{    margin: 12px;}\r\n.logn-img{display:none;}\r\nform{text-align:center;}\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n.logn-img img{width:100%;}\r\n}\r\n@media only screen and (max-width : 320px) { \r\n\t.card .input-container{    width: 74%;\r\n        margin: 24px auto;\r\n    float: none;}\r\n\t.card .input-container .bar{left: 3%;}\r\n\t.container{max-width:100%;}\r\n\tform{text-align:center;}\r\n}\r\n\r\n.loder{\r\n  position: absolute;\r\n  top: 0px;\r\n}\r\nlogn{\r\n  position: relative\r\n}\r\n.btn-nxt{\r\n  position: absolute;\r\n  top: 68px;\r\n  right: 0;\r\n  background: transparent;\r\n  border: none;\r\n}\r\n\r\n.nxt-cntainer{\r\n  position: relative;\r\n}\r\nselect,input{\r\n  width: 100%;\r\n  margin-top: 20px;\r\n  outline: none;\r\n  padding: 10px;\r\n  font-size: 20px;\r\n  padding-right: 44px;\r\n}\r\nselect{\r\n  cursor: pointer;\r\n}\r\n.inp-hd{\r\n  font-size: 25px;\r\n}\r\n.errMsg{\r\n  font-size: 13px;color: #ff336a;\r\n}\r\n.progress-bar{\r\n  background-color: #28d685 !important;\r\n}\r\n.inp-top{\r\n  top: 89px;\r\n}\r\n.submit-form{\r\n  position: absolute;\r\n    top: 138px;\r\n    right: 0;\r\n    background: transparent;\r\n    border: none;\r\n  transition: color 1s ease;\r\n    \r\n}\r\n.trans-clr{\r\n  color: #20ad6b;\r\n  \r\n}\r\n.bgz{padding-top:12em;}", ""]);
+exports.push([module.i, "button, select{outline:none;}\r\n.logn{height:100%;overflow-x:hidden;background:#fff;}\r\n.logn-img{height:100%;width:100%;position:relative;overflow:hidden;}\r\n.paragraph{    width: 56%;\r\n    left: 22%;\r\n    bottom: 10%;\r\n    z-index: 100;\r\n    min-height: 20px;\r\n    color: #fff;\r\n    text-align: left;\r\n    font-size: 14px;\r\n    position: absolute;\r\n    line-height: 22px;}\r\n.social-login{\r\n  position:relative;\r\n  float: none;\r\n  margin:0 auto;\r\n  height:auto;\r\n  padding: 10px 0 15px 0;\r\n  border-bottom: 1px solid #eee;\r\n  display: table;\r\n      width: 79%;\r\n}\r\n\r\n.social-login a{\r\n     position: relative;\r\n    float: left;\r\n    width: 48%;\r\n    text-decoration: none;\r\n    color: #fff;\r\n    border: 1px solid rgba(0,0,0,0.05);\r\n    padding: 7px 12px;\r\n    border-radius: 12px;\r\n    font-size: 12px;\r\n   \r\n        margin: 0px 1%;\r\n    text-align: center;\r\n}\r\n.social-login a i{\r\n  position: relative;\r\n  float: left;\r\n  width: 20px;\r\n  top: 2px;\r\n}\r\n.social-login a:first-child{\r\n  background-color: #49639F;\r\n}\r\n.social-login a:last-child{\r\n  background-color: #DF4A32;\r\n}\r\n.email-login,.email-signup{\r\n  position:relative;\r\n  float: left;\r\n  width: 100%;\r\n  height:auto;\r\n  margin-top: 20px;\r\n  text-align:center;\r\n}\r\nbody {\r\n  background: #e9e9e9;\r\n  color: #666666;\r\n  font-family: 'RobotoDraft', 'Roboto', sans-serif;\r\n  font-size: 14px;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n}\r\n\r\n/* Pen Title */\r\n.pen-title {\r\n  padding: 20px 0;\r\n  text-align: center;\r\n  letter-spacing: 2px;\r\n}\r\n.pen-title h1 {\r\n  margin: 0 0 20px;\r\n  font-size: 40px;\r\n  font-weight: 300;\r\n}\r\n.pen-title span {\r\n  font-size: 12px;\r\n}\r\n.pen-title span .fa {\r\n  color: #ed2553;\r\n}\r\n.pen-title span a {\r\n  color: #ed2553;\r\n  font-weight: 600;\r\n  text-decoration: none;\r\n}\r\n\r\n/* Rerun */\r\n.rerun {\r\n  margin: 0 0 30px;\r\n  text-align: center;\r\n}\r\n.rerun a {\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  background: #ed2553;\r\n  border-radius: 3px;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  padding: 10px 20px;\r\n  color: #ffffff;\r\n  text-decoration: none;\r\n  transition: 0.3s ease;\r\n}\r\n.rerun a:hover {\r\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* Scroll To Bottom */\r\n#codepen, #portfolio {\r\n  position: fixed;\r\n  bottom: 30px;\r\n  right: 30px;\r\n  background: #ec2652;\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 100%;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n  transition: 0.3s ease;\r\n  color: #ffffff;\r\n  text-align: center;\r\n}\r\n#codepen i, #portfolio i {\r\n  line-height: 56px;\r\n}\r\n#codepen:hover, #portfolio:hover {\r\n  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n/* CodePen */\r\n#portfolio {\r\n  bottom: 96px;\r\n  right: 36px;\r\n  background: #ec2652;\r\n  width: 44px;\r\n  height: 44px;\r\n  animation: buttonFadeInUp 1s ease;\r\n}\r\n#portfolio i {\r\n  line-height: 44px;\r\n}\r\n\r\n/* Container */\r\n.container {\r\n  position: relative;\r\n  max-width: 460px;\r\n  width: 100%;\r\n  margin: 0 auto 100px;\r\n}\r\n.container.active .card:first-child {\r\n  background: #f2f2f2;\r\n  margin: 0 15px;\r\n}\r\n.container.active .card:nth-child(2) {\r\n  background: #fafafa;\r\n  margin: 0 10px;\r\n}\r\n.container.active .card.alt {\r\n  top: 20px;\r\n  right: 0;\r\n  width: 100%;\r\n  min-width: 100%;\r\n  height: auto;\r\n  border-radius: 5px;\r\n  padding: 60px 0 40px;\r\n  overflow: hidden;\r\n}\r\n.container.active .card.alt .toggle {\r\n  position: absolute;\r\n  top: 40px;\r\n  right: -70px;\r\n  box-shadow: none;\r\n  transform: scale(15);\r\n  transition: transform .5s ease;\r\n}\r\n.container.active .card.alt .toggle:before {\r\n  content: '';\r\n}\r\n.container.active .card.alt .title,\r\n.container.active .card.alt .input-container,\r\n.container.active .card.alt .button-container {\r\n  left: 0;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  transition: .3s ease;\r\n}\r\n.container.active .card.alt .title {\r\n  transition-delay: .3s;\r\n}\r\n.container.active .card.alt .input-container {\r\n  transition-delay: .4s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(2) {\r\n  transition-delay: .5s;\r\n}\r\n.container.active .card.alt .input-container:nth-child(3) {\r\n  transition-delay: .6s;\r\n}\r\n.container.active .card.alt .button-container {\r\n  transition-delay: .7s;\r\n}\r\n\r\n\r\n/* Keyframes */\r\n@keyframes buttonFadeInUp {\r\n  0% {\r\n    bottom: 30px;\r\n    opacity: 0;\r\n  }\r\n}\r\n.g-recaptcha {\r\n    transform:scale(0.89);\r\n    transform-origin:0 0;\r\n}\r\n.round-button{border-radius:20px;margin:0 auto;float:none;background:#f37600;color:#fff;    padding: 10px 32px; /* Safari */\r\n    transition: background 2s;}\r\n.round-button:hover{background:#ffaa05;color:#fff;}\r\n.padd-lft{padding-left:20px;}\r\n\r\n\r\n\r\n@media only screen and (max-width : 768px) {\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n}\r\n\r\n@media only screen and (max-width : 480px)  { \r\n.card .input-container{    margin: 12px;}\r\n.logn-img{display:none;}\r\nform{text-align:center;}\r\n.logn-img {\r\n    height: 72%;\r\n    width: 98%;\r\n\tmax-height:300px;\r\n}\r\n.logn-img img{width:100%;}\r\n}\r\n@media only screen and (max-width : 320px) { \r\n\t.card .input-container{    width: 74%;\r\n        margin: 24px auto;\r\n    float: none;}\r\n\t.card .input-container .bar{left: 3%;}\r\n\t.container{max-width:100%;}\r\n\tform{text-align:center;}\r\n}\r\n\r\n.loder{\r\n  position: absolute;\r\n  top: 0px;\r\n}\r\nlogn{\r\n  position: relative\r\n}\r\n.btn-nxt{\r\n  /* position: absolute; */\r\n  top: 68px;\r\n  right: -45px;\r\n  background: transparent;\r\n  border: none;\r\n  position: absolute;\r\n}\r\n\r\n.nxt-cntainer{\r\n  position: relative;\r\n}\r\nselect,input{\r\n  width: 100%;\r\n  margin-top: 20px;\r\n  outline: none;\r\n  padding: 10px;\r\n  font-size: 20px;\r\n  padding-right: 44px;\r\n}\r\nselect{\r\n  cursor: pointer;\r\n}\r\n.inp-hd{\r\n  font-size: 25px;\r\n}\r\n.errMsg{\r\n  font-size: 13px;color: #ff336a;\r\n}\r\n.progress-bar{\r\n  background-color: #28d685 !important;\r\n}\r\n.inp-top{\r\n  top: 89px;\r\n}\r\n.submit-form{\r\n  position: absolute;\r\n    top: 138px;\r\n    right: 0;\r\n    background: transparent;\r\n    border: none;\r\n  transition: color 1s ease;\r\n    \r\n}\r\n.trans-clr{\r\n  color: #20ad6b;\r\n  \r\n}\r\n.simform .progress::before{\r\n  width: 100%;\r\n}\r\nsection{\r\n  padding: 5em 7em 10em !important;\r\n}\r\n.bgz{padding-top:12em;}\r\n", ""]);
 
 // exports
 
@@ -9341,7 +9587,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-signup/company-signup.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"logn\">\r\n    <div class=\"row\">\r\n\t   <div class=\"col-md-8\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"logn-img\">\r\n\t\t\t\t\t<img src=\"./assets/images/sign.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t<div class=\"paragraph\">\r\n\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\">\r\n\t\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t   </div>\r\n\t   <div class=\"col-md-4 bgz\">\r\n\t\t\t<h3>Registration</h3>\r\n\t\t\t<section>\r\n\t\t\t\t<form id=\"theForm\" class=\"simform\" autocomplete=\"off\">\r\n\t\t\t\t\t<div class=\"text-center\" *ngIf=\"registr\">\r\n\t\t\t\t\t<label>{{ssMsg}}</label>\t\t\t\t\t\t\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"text-center\" *ngIf=\"showLoader\">\r\n\t\t\t\t\t\t<app-spinner></app-spinner>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"simform-inner\" *ngIf=\"!registr\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<div  *ngFor=\"let item of questions;let i=index;\" class=\"nxt-cntainer\">\r\n\t\t\t\t\t\t\t<ng-container *ngIf=\"counter == i\">\r\n\t\t\t\t\t\t\t\t\t<label class=\"inp-hd\" >{{item.question}}</label>\r\n\t\t\t\t\t\t\t\t\t<input type=\"text\" *ngIf=\"item.type == 'text' else password\" [(ngModel)]=\"item.ans\" name=\"item.ans\" [attr.autofocus]=\"counter == i\">\r\n\t\t\t\t\t\t\t\t\t<ng-template #password>\r\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" *ngIf=\"item.type == 'password' else multiple\" [(ngModel)]=\"item.ans\" name=\"item.ans\" autofocus>\r\n\t\t\t\t\t\t\t\t\t\t<ng-template #multiple>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<select class=\"inp\"  [(ngModel)]=\"item.ans\" name=\"item.ans\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngIf=\"i == 3 else size\" >\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let c of industry\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option  value=\"{{c.id}}\">{{c.industry}}</option>\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-template #size>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let s of cmpSize\">\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option  value=\"{{s.id}}\">{{s.size_range}}</option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-template>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <option>Select Company Size</option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option>1-10</option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option>1-20</option> -->\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t\t\t\t\t</ng-template>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t</ng-template>\r\n\t\t\t\t\t\t\t<button *ngIf=\"counter != 8\" class=\"btn-nxt\" type=\"submit\" (click)=\"validate(i)\" [ngClass]=\"{'inp-top': counter==6}\"><i class=\"la la-arrow-right\"></i></button>\r\n\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"progress\">\r\n\t\t\t\t\t\t\t\t<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\"\r\n\t\t\t\t\t\t\t\taria-valuemin=\"0\" aria-valuemax=\"100\" [style.width.%]=\"progressBarWidth\">\r\n\t\t\t\t\t\t\t\t  <span class=\"sr-only\">70% Complete</span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t  </div>\r\n\t\t\t\t\t\t<div class=\"errMsg\" *ngIf=\"counter == 8|| counter == 7\">{{passMessage}}</div>\r\n\t\t\t\t\t\t\t  \r\n\t\t\t\t\t\t<div class=\"errMsg\">{{errMessage}}</div>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<button *ngIf=\"counter == 8\" class=\"submit-form trans-clr\" type=\"submit\" (click)=\"register()\"><i class=\"la la-arrow-right\"></i></button>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t</div><!-- /simform-inner -->\r\n\t\t\t\t\t<span class=\"final-message\"></span>\r\n\t\t\t\t</form><!-- /simform -->\t\t\t\r\n\t\t\t</section>\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t</div>\r\n\t\t\t\r\n\t\t  \r\n\t   \r\n   </div>\r\n\r\n    <!-- Modal -->\r\n \r\n\t\t<script>\r\n\t\t\t\r\n\t\t</script>\r\n\r\n</body>"
+module.exports = "<body class=\"logn\">\r\n    <div class=\"row\">\r\n\t   <div class=\"col-md-8\">\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"logn-img\">\r\n\t\t\t\t\t<img src=\"./assets/images/sign.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t<div class=\"paragraph\">\r\n\t\t\t\t\t\t<div class=\"col-md-12\" style=\"text-align:center;\">\r\n\t\t\t\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt bibendum malesuada. Fusce tincidunt nibh quis nisi tristique, sed ultrices lorem aliquam. Nam facilisis posuere vehicula. Integer tempus rhoncus volutpat.\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t   </div>\r\n\t   <div class=\"col-md-4 bgz\">\r\n\t\t\t<h3>Registration</h3>\r\n\t\t\t<section>\r\n\t\t\t\t<form id=\"theForm\" class=\"simform\" autocomplete=\"off\">\r\n\t\t\t\t\t<div class=\"text-center\" *ngIf=\"registr\">\r\n\t\t\t\t\t<label>{{ssMsg}}</label>\t\t\t\t\t\t\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"text-center\" *ngIf=\"showLoader\">\r\n\t\t\t\t\t\t<app-spinner></app-spinner>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"simform-inner\" *ngIf=\"!registr\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<div  *ngFor=\"let item of questions;let i=index;\" class=\"nxt-cntainer\">\r\n\t\t\t\t\t\t\t<ng-container *ngIf=\"counter == i\">\r\n\t\t\t\t\t\t\t\t\t<label class=\"inp-hd\" >{{item.question}}</label>\r\n\t\t\t\t\t\t\t\t\t<input type=\"text\" [attr.maxlength]=\"item.length\" *ngIf=\"item.type == 'text' else password\" [(ngModel)]=\"item.ans\" name=\"item.ans\" [attr.autofocus]=\"counter == i\">\r\n\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t<ng-template #password>\r\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" *ngIf=\"item.type == 'password' else multiple\" [(ngModel)]=\"item.ans\" name=\"item.ans\" autofocus>\r\n\t\t\t\t\t\t\t\t\t\t<ng-template #multiple>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<select class=\"inp\"  [(ngModel)]=\"item.ans\" name=\"item.ans\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngIf=\"i == 3 else size\" >\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let c of industry\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option  value=\"{{c.id}}\">{{c.industry}}</option>\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-template #size>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let s of cmpSize\">\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option  value=\"{{s.id}}\">{{s.size_range}}</option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</ng-template>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- <option>Select Company Size</option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option>1-10</option>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option>1-20</option> -->\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</select>\r\n\t\t\t\t\t\t\t\t\t\t</ng-template>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t</ng-template>\r\n\t\t\t\t\t\t\t<button *ngIf=\"counter != 8\" class=\"btn-nxt\" type=\"submit\" (click)=\"validate(i)\" [ngClass]=\"{'inp-top': counter==6}\"><i class=\"la la-arrow-right\"></i></button>\r\n\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t</ng-container>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"progress\">\r\n\t\t\t\t\t\t\t\t<div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"70\"\r\n\t\t\t\t\t\t\t\taria-valuemin=\"0\" aria-valuemax=\"100\" [style.width.%]=\"progressBarWidth\">\r\n\t\t\t\t\t\t\t\t  <span class=\"sr-only\">70% Complete</span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t  </div>\r\n\t\t\t\t\t\t<div class=\"errMsg\" *ngIf=\"counter == 8|| counter == 7\">{{passMessage}}</div>\r\n\t\t\t\t\t\t\t  \r\n\t\t\t\t\t\t<div class=\"errMsg\">{{errMessage}}</div>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<button *ngIf=\"counter == 8\" class=\"submit-form trans-clr\" type=\"submit\" (click)=\"register()\"><i class=\"la la-arrow-right\"></i></button>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t</div><!-- /simform-inner -->\r\n\t\t\t\t\t<span class=\"final-message\"></span>\r\n\t\t\t\t</form><!-- /simform -->\t\t\t\r\n\t\t\t</section>\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t</div>\r\n\t\t\t\r\n\t\t  \r\n\t   \r\n   </div>\r\n\r\n    <!-- Modal -->\r\n \r\n\t\t<script>\r\n\t\t\t\r\n\t\t</script>\r\n\r\n</body>"
 
 /***/ }),
 
@@ -9370,47 +9616,56 @@ var CompanySignupComponent = (function () {
         this.questions = [{
                 question: "What's your Email?",
                 type: "text",
-                ans: ""
+                ans: "",
+                length: 100
             },
             {
                 question: "What's your Company Name?",
                 type: "text",
-                ans: ""
+                ans: "",
+                length: 100
             },
             {
                 question: "Your Company Code?",
                 type: "text",
-                ans: ""
+                ans: "",
+                length: 3
             },
             {
                 question: "Industry?",
                 type: "multiple",
-                ans: ""
+                ans: "",
+                length: 100
             },
             {
                 question: "Your Contact Number ?",
                 type: "text",
-                ans: ""
+                ans: "",
+                length: 100
             },
             {
                 question: "Company Size?",
                 type: "multiple",
-                ans: ""
+                ans: "",
+                length: 100
             },
             {
                 question: "Why are you looking for task managment software?",
                 type: "text",
-                ans: ""
+                ans: "",
+                length: 100
             },
             {
                 question: "Your Password",
                 type: "password",
-                ans: ""
+                ans: "",
+                length: 100
             },
             {
                 question: "Confirm Password",
                 type: "password",
-                ans: ""
+                ans: "",
+                length: 100
             },
         ];
         this.errMessage = '';
@@ -9434,7 +9689,7 @@ var CompanySignupComponent = (function () {
             this.errMessage = "";
             this.registr = true;
             this.showLoader = true;
-            this.questions.push({ question: 'verification', type: 'text', ans: this.verification_code });
+            this.questions.push({ question: 'verification', type: 'text', ans: this.verification_code, length: 1 });
             this.companyService.registerCompany(this.questions).subscribe(function (resData) {
                 _this.showLoader = false;
                 _this.ssMsg = resData.message;
@@ -9476,6 +9731,8 @@ var CompanySignupComponent = (function () {
         // console.log(this.progressBarWidth );
     };
     CompanySignupComponent.prototype.validate = function (i) {
+        console.log("nkfdh");
+        $('input').focus();
         if (this.questions[this.counter].ans == '') {
             this.errMessage = "Please fill the fields";
         }
@@ -9735,7 +9992,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-task-requests/company-task-requests.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n    <body class=\"home\" >\r\n        <div class=\"container-fluid display-table\">\r\n            <div class=\"row display-table-row\">\r\n      \r\n                <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                    <!-- sidebar-->\r\n      \r\n                    <company-sidebar></company-sidebar>\r\n                    <!-- end sidebar-->\r\n                </div>\r\n      \r\n                <div class=\"col-md-12 col-xs-12\">\r\n                    <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                    <!-- topbar-->\r\n                    <company-topbar></company-topbar>\r\n                    <!-- end topbar-->\r\n      \r\n      \r\n                    <div class=\"user-dashboard\">\r\n                        <!-- <h1>Hello, JS</h1> -->\r\n                        <h2>Request Management</h2>\r\n                        <ul class=\"breadcrumb\">\r\n                          <li>\r\n                            <a routerLink=\"company-request-management\">Request Management</a>\r\n                          </li>\r\n\r\n\r\n                          <li>New Task Request list </li>\r\n                        </ul>\r\n                        <div class=\"row\">\r\n                          \r\n                            <div class=\"col-md-12 col-sm-5 col-xs-12 gutter ad-tp dash-tbl\" >\r\n                              <div class=\"col-md-12 spinner-cont\" *ngIf=\"showSpinner\">\r\n                                  <app-spinner  class=\"tbl-spnner\"></app-spinner>\r\n                              </div>\r\n      \r\n                                <div class=\"example-header\" >\r\n                                    <mat-form-field class=\"mat-fltr\">\r\n                                      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                                    </mat-form-field>\r\n                                </div>\r\n                             \r\n                          <div class=\"example-container mat-elevation-z8 \">\r\n                          <mat-table #table [dataSource]=\"dataSource\" matSort>\r\n            \r\n                            <!-- ID Column -->\r\n                            <ng-container matColumnDef=\"id\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                            </ng-container>\r\n                        \r\n                            <ng-container matColumnDef=\"profile\">\r\n                                <mat-header-cell *matHeaderCellDef mat-sort-header>Requester</mat-header-cell>\r\n                                <mat-cell *matCellDef=\"let row\">\r\n                                  <div class=\"user\" *ngIf=\"profilCheck(row.tbl_new_task_request.tbl_user_profile.tbl_login.profile_image); else image\"><i class=\"fa fa-user\"></i></div>\r\n                                  <ng-template #image>\r\n                                      <div class=\"user\" ><img src=\"./assets/images/sign.jpg\"></div>\r\n                                  </ng-template>\r\n                                </mat-cell>\r\n                              </ng-container>\r\n\r\n                            <!-- Theme Name -->\r\n                            <ng-container matColumnDef=\"name\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT NAME  </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row\"> {{row.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}} </mat-cell>\r\n                            </ng-container>\r\n                          \r\n      \r\n                            <ng-container matColumnDef=\"strength\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> MODULE NAME </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row\"> {{row.tbl_new_task_request.tbl_project_module.module_name}} </mat-cell>\r\n                            </ng-container>\r\n                            <!-- Progress Column -->\r\n                            <!-- <ng-container matColumnDef=\"mybid\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> Your Bids </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row\">  -->\r\n                                \r\n                                <!-- {{row.status}} -->\r\n                                <!-- {{row.h_font_family }} -->\r\n                                <!-- <p *ngFor=\"let bid of row.mybid\">{{row.h_font_family }} : {{bid.date_time | date: 'dd-MM-yyyy h:mm a'}}</p> -->\r\n                              <!-- </mat-cell>\r\n                            </ng-container> -->\r\n                          \r\n                            <!-- ID Column -->\r\n                            <!-- <ng-container matColumnDef=\"topbid\">\r\n                                <mat-header-cell *matHeaderCellDef mat-sort-header> Top Bid </mat-header-cell>\r\n                                <mat-cell *matCellDef=\"let row\"> {{row.progress_text_color }} </mat-cell>\r\n                              </ng-container> -->\r\n                          \r\n                            <!-- ID Column -->\r\n                            <ng-container matColumnDef=\"status\">\r\n                                <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\r\n                                <mat-cell *matCellDef=\"let row\"> <button mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n                                  <mat-icon>more_vert</mat-icon>\r\n                                </button>\r\n                                <mat-menu #menu=\"matMenu\">\r\n                                  \r\n                                  <!-- <button mat-menu-item [routerLink]=\"['/edit-theme/',row._id]\">\r\n                                    <mat-icon>mode_edit</mat-icon>\r\n                                    <span>Edit</span>\r\n                                  </button> -->\r\n                                  <button mat-menu-item   [routerLink]=\"['/company-task-manage', row.tbl_new_task_request.id]\"> \r\n                                      <mat-icon class=\"mat-menu-icn\"><i class=\"material-icons mat-assign-icn\">visibility</i></mat-icon>\r\n                                      <span>View</span>\r\n                                    </button>\r\n                                </mat-menu>\r\n                                 </mat-cell>\r\n                              </ng-container>\r\n                            <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                            <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\r\n                            </mat-row>\r\n                         \r\n                          </mat-table>\r\n                          <div class=\"col-md-12 noItemFound\" *ngIf=\"existStatus\">\r\n                              <div class=\"col-md-4 col-md-offset-4\">\r\n                                  <mat-toolbar   class=\"back-color\">No item found!</mat-toolbar>\r\n                              </div>\r\n                              </div>\r\n                      <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                          </div>\r\n                          </div>\r\n                        </div>\r\n                       \r\n                    </div>\r\n                   \r\n      \r\n                </div>\r\n                <!-- footer-->\r\n                <!-- <admin-footer></admin-footer> -->\r\n                <!-- end footer-->\r\n            </div>\r\n        </div>\r\n        <!-- Modal -->\r\n      \r\n      \r\n      \r\n        <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\r\n            <div class=\"modal-dialog\">\r\n      \r\n              <!-- Modal content-->\r\n              <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                  <h4 class=\"modal-title\"></h4>\r\n                </div>\r\n                <!-- <div class=\"modal-header\"> -->\r\n                <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                <!-- </div> -->\r\n                <div class=\"modal-body delete-popup\">\r\n                  <div class=\"col-md-12\">\r\n                      <div class=\"row\">\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-4\">\r\n                                <label class=\"modal-lft-lbl\">Team Name:</label> \r\n                            </div>\r\n                            <div class=\"col-md-7\">\r\n                                <label id=\"team-nm\" class=\"modal-lft-lbl\">{{teamName}}</label>\r\n                \r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Team Members :</label></div>\r\n                            <div class=\"col-md-7 \">\r\n                              <mat-form-field class=\"inputfileds\"> \r\n                                <mat-select name='selected' multiple [(ngModel)]=\"teamMembers\" (ngModelChange)=\"memberSelect($event)\">\r\n                                  <mat-option [value]=\"member.id\" *ngFor=\"let member of members; let i=index\" >{{member.f_name}} {{member.l_name}}</mat-option>\r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n                        </div>\r\n      \r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Team Head :</label></div>\r\n                            <div class=\"col-md-7 \">\r\n                              <mat-form-field class=\"inputfileds\">\r\n                                <mat-select name='selected2'  [(ngModel)]=\"teamHead\" (ngModelChange)=\"headSelect($event)\">\r\n                                  \r\n                                    <mat-option *ngFor=\"let member of selectedTeamMembers;\" [value]=\"member.id\" >{{member.f_name}} {{member.l_name}}</mat-option>\r\n                                  \r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-12\">\r\n                          {{errMessage}}\r\n                        </div>\r\n                      </div>\r\n                      \r\n                  </div>\r\n                  \r\n      \r\n                </div>\r\n      \r\n                <div class=\"modal-footer\">\r\n                  <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n                  <button *ngIf=\"!spinner\" type=\"button\" (click)=\"assignTeam()\" class=\"btn round-button\" >Assign</button>\r\n                </div>\r\n              </div>\r\n      \r\n            </div>\r\n          </div>\r\n      </body>"
+module.exports = "\r\n\r\n    <body class=\"home\" >\r\n        <div class=\"container-fluid display-table\">\r\n            <div class=\"row display-table-row\">\r\n      \r\n                <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                    <!-- sidebar-->\r\n      \r\n                    <company-sidebar></company-sidebar>\r\n                    <!-- end sidebar-->\r\n                </div>\r\n      \r\n                <div class=\"col-md-12 col-xs-12\">\r\n                    <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                    <!-- topbar-->\r\n                    <company-topbar></company-topbar>\r\n                    <!-- end topbar-->\r\n      \r\n      \r\n                    <div class=\"user-dashboard\">\r\n                        <!-- <h1>Hello, JS</h1> -->\r\n                        <h2>Request Management</h2>\r\n                        <ul class=\"breadcrumb\">\r\n                          <li>\r\n                            <a routerLink=\"company-request-management\">Request Management</a>\r\n                          </li>\r\n\r\n\r\n                          <li>New Task Request list </li>\r\n                        </ul>\r\n                        <div class=\"row\">\r\n                          \r\n                            <div class=\"col-md-12 col-sm-5 col-xs-12 gutter ad-tp dash-tbl\" >\r\n                              <div class=\"col-md-12 spinner-cont\" *ngIf=\"showSpinner\">\r\n                                  <app-spinner  class=\"tbl-spnner\"></app-spinner>\r\n                              </div>\r\n      \r\n                                <div class=\"example-header\" >\r\n                                    <mat-form-field class=\"mat-fltr\">\r\n                                      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                                    </mat-form-field>\r\n                                </div>\r\n                             \r\n                          <div class=\"example-container mat-elevation-z8 \">\r\n                          <mat-table #table [dataSource]=\"dataSource\" matSort>\r\n            \r\n                            <!-- ID Column -->\r\n                            <ng-container matColumnDef=\"id\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                            </ng-container>\r\n                        \r\n                            <ng-container matColumnDef=\"profile\">\r\n                                <mat-header-cell *matHeaderCellDef mat-sort-header>Requester</mat-header-cell>\r\n                                <mat-cell *matCellDef=\"let row\">\r\n                                  <div class=\"user\" *ngIf=\"profilCheck(row?.tbl_new_task_request?.tbl_user_profile?.tbl_login?.profile_image); else image\"><i class=\"fa fa-user\"></i></div>\r\n                                  <ng-template #image>\r\n                                      <div class=\"user\" ><img src=\"./assets/images/sign.jpg\"></div>\r\n                                  </ng-template>\r\n                                </mat-cell>\r\n                              </ng-container>\r\n\r\n                            <!-- Theme Name -->\r\n                            <ng-container matColumnDef=\"name\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT NAME  </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request?.tbl_project_module?.tbl_project?.project_nam}} </mat-cell>\r\n                            </ng-container>\r\n                          \r\n      \r\n                            <ng-container matColumnDef=\"strength\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> MODULE NAME </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request?.tbl_project_module?.module_name}} </mat-cell>\r\n                            </ng-container>\r\n\r\n                            <ng-container matColumnDef=\"task name\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> TASK NAME </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request?.task_name}} </mat-cell>\r\n                            </ng-container>\r\n\r\n                            <ng-container matColumnDef=\"reqstatus\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request?.request_status}} </mat-cell>\r\n                            </ng-container>\r\n                            <!-- Progress Column -->\r\n                            <!-- <ng-container matColumnDef=\"mybid\">\r\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> Your Bids </mat-header-cell>\r\n                              <mat-cell *matCellDef=\"let row\">  -->\r\n                                \r\n                                <!-- {{row.status}} -->\r\n                                <!-- {{row.h_font_family }} -->\r\n                                <!-- <p *ngFor=\"let bid of row.mybid\">{{row.h_font_family }} : {{bid.date_time | date: 'dd-MM-yyyy h:mm a'}}</p> -->\r\n                              <!-- </mat-cell>\r\n                            </ng-container> -->\r\n                          \r\n                            <!-- ID Column -->\r\n                            <!-- <ng-container matColumnDef=\"topbid\">\r\n                                <mat-header-cell *matHeaderCellDef mat-sort-header> Top Bid </mat-header-cell>\r\n                                <mat-cell *matCellDef=\"let row\"> {{row.progress_text_color }} </mat-cell>\r\n                              </ng-container> -->\r\n                          \r\n                            <!-- ID Column -->\r\n                            <ng-container matColumnDef=\"status\">\r\n                                <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\r\n                                <mat-cell *matCellDef=\"let row\"> <button mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n                                  <mat-icon>more_vert</mat-icon>\r\n                                </button>\r\n                                <mat-menu #menu=\"matMenu\">\r\n                                  \r\n                                  <!-- <button mat-menu-item [routerLink]=\"['/edit-theme/',row._id]\">\r\n                                    <mat-icon>mode_edit</mat-icon>\r\n                                    <span>Edit</span>\r\n                                  </button> -->\r\n                                  <button mat-menu-item   [routerLink]=\"['/company-task-manage', row?.tbl_new_task_request.id]\"> \r\n                                      <mat-icon class=\"mat-menu-icn\"><i class=\"material-icons mat-assign-icn\">visibility</i></mat-icon>\r\n                                      <span>View</span>\r\n                                    </button>\r\n                                </mat-menu>\r\n                                 </mat-cell>\r\n                              </ng-container>\r\n                            <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                            <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\r\n                            </mat-row>\r\n                         \r\n                          </mat-table>\r\n                          <div class=\"col-md-12 noItemFound\" *ngIf=\"existStatus\">\r\n                              <div class=\"col-md-4 col-md-offset-4\">\r\n                                  <mat-toolbar   class=\"back-color\">No item found!</mat-toolbar>\r\n                              </div>\r\n                              </div>\r\n                      <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                          </div>\r\n                          </div>\r\n                        </div>\r\n                       \r\n                    </div>\r\n                   \r\n      \r\n                </div>\r\n                <!-- footer-->\r\n                <!-- <admin-footer></admin-footer> -->\r\n                <!-- end footer-->\r\n            </div>\r\n        </div>\r\n        <!-- Modal -->\r\n      \r\n      \r\n      \r\n        <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\r\n            <div class=\"modal-dialog\">\r\n      \r\n              <!-- Modal content-->\r\n              <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                  <h4 class=\"modal-title\"></h4>\r\n                </div>\r\n                <!-- <div class=\"modal-header\"> -->\r\n                <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                <!-- </div> -->\r\n                <div class=\"modal-body delete-popup\">\r\n                  <div class=\"col-md-12\">\r\n                      <div class=\"row\">\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-4\">\r\n                                <label class=\"modal-lft-lbl\">Team Name:</label> \r\n                            </div>\r\n                            <div class=\"col-md-7\">\r\n                                <label id=\"team-nm\" class=\"modal-lft-lbl\">{{teamName}}</label>\r\n                \r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Team Members :</label></div>\r\n                            <div class=\"col-md-7 \">\r\n                              <mat-form-field class=\"inputfileds\"> \r\n                                <mat-select name='selected' multiple [(ngModel)]=\"teamMembers\" (ngModelChange)=\"memberSelect($event)\">\r\n                                  <mat-option [value]=\"member.id\" *ngFor=\"let member of members; let i=index\" >{{member.f_name}} {{member.l_name}}</mat-option>\r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n                        </div>\r\n      \r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Team Head :</label></div>\r\n                            <div class=\"col-md-7 \">\r\n                              <mat-form-field class=\"inputfileds\">\r\n                                <mat-select name='selected2'  [(ngModel)]=\"teamHead\" (ngModelChange)=\"headSelect($event)\">\r\n                                  \r\n                                    <mat-option *ngFor=\"let member of selectedTeamMembers;\" [value]=\"member.id\" >{{member.f_name}} {{member.l_name}}</mat-option>\r\n                                  \r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-12\">\r\n                          {{errMessage}}\r\n                        </div>\r\n                      </div>\r\n                      \r\n                  </div>\r\n                  \r\n      \r\n                </div>\r\n      \r\n                <div class=\"modal-footer\">\r\n                  <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n                  <button *ngIf=\"!spinner\" type=\"button\" (click)=\"assignTeam()\" class=\"btn round-button\" >Assign</button>\r\n                </div>\r\n              </div>\r\n      \r\n            </div>\r\n          </div>\r\n      </body>"
 
 /***/ }),
 
@@ -9766,7 +10023,7 @@ var CompanyTaskRequestsComponent = (function () {
         this.companyService = companyService;
         this.routes = routes;
         this.snackBar = snackBar;
-        this.displayedColumns = ['id', 'profile', 'name', 'strength', 'status'];
+        this.displayedColumns = ['id', 'profile', 'name', 'task name', 'strength', 'reqstatus', 'status'];
         this.showSpinner = false;
         this.existStatus = false;
         this.displatStat = false;
@@ -9792,7 +10049,7 @@ var CompanyTaskRequestsComponent = (function () {
         this.showSpinner = true;
         this.companyService.getNewTaskRequests().subscribe(function (requests) {
             _this.showSpinner = false;
-            // console.log(requests);
+            console.log(requests);
             if (requests.length <= 0) {
                 // console.log("theme is empty");
                 _this.existStatus = true;
@@ -9821,7 +10078,7 @@ var CompanyTaskRequestsComponent = (function () {
         // Date          : 03-04-2018
         // Last Modified : 03-04-2018,
         // Desc          : check image is empty or not
-        console.log('xx-' + image);
+        // console.log('xx-'+image)
         if (image == '') {
             return false;
         }
@@ -10404,7 +10661,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-topbar/company-topbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div class=\"row\">\r\n  <header>\r\n      \r\n      <div class=\"col-md-5 pull-right\">\r\n          <div class=\"header-rightside\">\r\n              <ul class=\"list-inline header-top pull-right\">\r\n                  <li class=\"\"><a href=\"#\" class=\"add-project\">Add Project</a></li>\r\n                  \r\n                  <li class=\"dropdown\">\r\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\r\n                        <b class=\"caret\"></b></a>\r\n                    <ul class=\"dropdown-menu\" *ngIf=\"showNotifications\">\r\n                        <li *ngFor=\"let items of newTaskreq\">\r\n                            <a routerLink=\"/company-task-requests\">\r\n                                <h4>New Task Request</h4>\r\n                                <h5>{{items.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>\r\n                                <h5>{{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>\r\n                            </a>\r\n                        </li>\r\n                        <li *ngFor=\"let item of notifications.back\">\r\n                                <a routerLink=\"/company-task-requests\">\r\n                                    <h4>New Task Approval Request</h4>\r\n                                    <h5>{{item.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>\r\n                                    <h5>{{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>\r\n                                    <h5>Status: {{items.tbl_new_task_request.request_status}}</h5>\r\n                                </a>\r\n                            </li>\r\n                    </ul>\r\n                </li>\r\n                  <li class=\"dropdown\">\r\n                      <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                          <b class=\"caret\"></b></a>\r\n                      <ul class=\"dropdown-menu\">\r\n                          <li>\r\n                              <div class=\"navbar-content\">\r\n                                  <span>JS Krishna</span>\r\n                                  <p class=\"text-muted small\">\r\n                                      me@jskrishna.com\r\n                                  </p>\r\n                                  <div class=\"divider\">\r\n                                  </div>\r\n                                  <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\r\n                              </div>\r\n                          </li>\r\n                      </ul>\r\n                  </li>\r\n                  <li (click)=\"logout()\"> <i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></li>\r\n              </ul>\r\n          </div>\r\n      </div>\r\n  </header>\r\n</div> -->\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n<div class=\"row\">\r\n        <header>\r\n    \r\n            <div class=\"col-md-5 pull-right\">\r\n                <div class=\"header-rightside\">\r\n                    <ul class=\"list-inline header-top pull-right\">\r\n                        <li *ngIf=\"upgradeBtnShow\" class=\"\"><a [routerLink]=\"['/planlist']\" class=\"add-project\">Upgrade</a></li>\r\n                        <li class=\"\"><a [routerLink]=\"['/add-project']\" class=\"add-project\">Add Project</a></li>\r\n    \r\n                        <li class=\"dropdown drp2\">\r\n                            <a class=\"icon-info dropdown-toggle\" data-toggle=\"dropdown\">\r\n                                <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\r\n                                <span class=\"label label-primary\">{{count}}</span>\r\n    \r\n                            </a>\r\n    \r\n                            <ul class=\"dropdown-menu\">\r\n    \r\n                                <li class=\"head\">\r\n                                    <div class=\"navbar-content\">\r\n                                        <h4>New Project Notification</h4>\r\n                                        <div *ngFor=\"let item of project\">\r\n                                            <a (click)=\"closeNotif(item.id)\" [routerLink]=\"['/assign-project', item.id]\">\r\n                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif(item.id)\">x</button>\r\n                                                </div>\r\n                                                <h5 class=\"media-heading\">{{item.project_name}}</h5>\r\n                                                <p><a class=\"content\">You are assignd for a new project. Click here to assign team heads.</a></p>\r\n                                            </a>\r\n                                        </div>\r\n                                    </div>\r\n                                </li>\r\n                                <div class=\"divider\"> </div>\r\n    \r\n                                <li class=\"head\">\r\n                                    <div class=\"navbar-content\">\r\n                                        <h4>Estimation Approval Notification</h4>\r\n                                        <div *ngFor=\"let list of estimationApproval\">\r\n                                            <a (click)=\"closeNotif2(list.id)\" [routerLink]=\"['/approve-estimation', list.tbl_project.id]\">\r\n                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif2(list.id)\">x</button>\r\n                                                </div>\r\n                                                <h5 class=\"media-heading\">{{list.tbl_project.project_name}}</h5>\r\n                                                <p><a class=\"content\">Click here to approve the Estimation</a></p>\r\n                                            </a>\r\n                                        </div>\r\n                                    </div>\r\n                                </li>\r\n                                <div class=\"divider\"> </div>\r\n    \r\n                                <li class=\"head\">\r\n                                    <div class=\"navbar-content\">\r\n                                        <h4>Estimation Resubmit Notification</h4>\r\n                                        <div *ngFor=\"let item1 of resubmitEstimation\">\r\n                                            <a (click)=\"closeNotif(item1.id)\" [routerLink]=\"['/approve-estimation', item1.id]\">\r\n                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif(item1.id)\">x</button>\r\n                                                </div>\r\n                                                <h5 class=\"media-heading\">{{item1.project_name}}</h5>\r\n                                                <p><a class=\"content\">Click here to re-estimate the project.</a></p>\r\n                                            </a>\r\n                                        </div>\r\n                                    </div>\r\n                                </li>\r\n                                <div class=\"divider\"> </div>\r\n    \r\n                                <li class=\"head\">\r\n                                    <div class=\"navbar-content\">\r\n                                        <h4>Project Approve Notification</h4>\r\n                                        <div *ngFor=\"let item2 of approveProject\">\r\n                                            <a (click)=\"closeNotif3(item2.id)\" [routerLink]=\"['/approve-project', item2.id]\">\r\n                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif3(item2.id)\">x</button>\r\n                                                </div>\r\n                                                <h5 class=\"media-heading\">{{item2.project_name}}</h5>\r\n                                                <p><a class=\"content\">Click here to approve the project.</a></p>\r\n                                            </a>\r\n                                        </div>\r\n                                    </div>\r\n                                </li>\r\n                                <div class=\"divider\"> </div>\r\n    \r\n                                <li class=\"head\">\r\n                                    <div class=\"navbar-content\">\r\n                                        <h4>Project Plan Notification</h4>\r\n                                        <div *ngFor=\"let item3 of planProject\">\r\n                                            <a (click)=\"closeNotif4(item3.id)\" [routerLink]=\"['/project-planning', item3.id]\">\r\n                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif4(item3.id)\">x</button>\r\n                                                </div>\r\n                                                <h5 class=\"media-heading\">{{item3.project_name}}</h5>\r\n                                                <p><a class=\"content\">Click here to plan the project.</a></p>\r\n                                            </a>\r\n                                        </div>\r\n                                    </div>\r\n                                </li>\r\n                                <div class=\"divider\"> </div>\r\n                                <li class=\"head\">\r\n                                        <div class=\"navbar-content\">\r\n                                            <h4>Leave Request</h4>\r\n                                            <div *ngFor=\"let item5 of userpendingdata\">\r\n                                                <a (click)=\"closeNotif5(item5.id)\" [routerLink]=\"['/company-user-leave-request', item5.id]\">\r\n                                                    <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif5(item5.id)\">x</button>\r\n                                                    </div>\r\n                                                    <h5 class=\"media-heading\">{{item5.tbl_user_profile.f_name}}</h5>\r\n                                                    <p><a class=\"content\">Click here to view leave details.</a></p>\r\n                                                </a>\r\n                                            </div>\r\n                                        </div>\r\n                                    </li>\r\n                                    <div class=\"divider\"> </div>\r\n                                    <li class=\"head\">\r\n                                            <div class=\"navbar-content\">\r\n                                                <h4>Time Extension Approval</h4>\r\n                                                <div *ngFor=\"let item6 of adminnotifdata\">\r\n                                                    <a (click)=\"closeNotif6(item6.id)\" [routerLink]=\"['/company-time-extension-request', item6.request_id,item6.xt.tbl_project_task.tbl_project_module.project_id]\">\r\n                                                        <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif6(item6.id)\">x</button>\r\n                                                        </div>\r\n                                                        <h5 class=\"media-heading\">{{item6.xt.tbl_project_task.tbl_user_profile.f_name}}</h5>\r\n                                                        <p><a class=\"content\">Click here to view leave details.</a></p>\r\n                                                    </a>\r\n                                                </div>\r\n                                            </div>\r\n                                        </li>\r\n                                        <div class=\"divider\"> </div>\r\n    <!------------------------------------------>\r\n                                <li class=\"head\">\r\n                                        <div class=\"navbar-content\">\r\n                                            <h4>New Task Requests</h4>\r\n                                            <ng-container *ngIf=\"dispStatus\">\r\n                                                <div *ngFor=\"let items of newTaskreq\">\r\n                                                    <a (click)=\"closeNotifReq(items.id)\" [routerLink]=\"['/company-task-requests', items.id]\">\r\n                                                        <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotifReq(items.id)\">x</button>\r\n                                                        </div>\r\n                                                        <h5>Project: {{items.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>\r\n                                                        <h5>Requester: {{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>\r\n                                                        <p><a class=\"content\">Click here to view.</a></p>\r\n                                                    </a>\r\n                                                </div>\r\n                                            </ng-container>\r\n                                            \r\n                                        </div>\r\n                                    </li>\r\n                                    <div class=\"divider\"> </div>\r\n\r\n                                    <li class=\"head\">\r\n                                        <div class=\"navbar-content\">\r\n                                            <h4>New Task Approval</h4>\r\n                                            <ng-container *ngIf=\"dispStatus\">\r\n                                                <div *ngFor=\"let items of newTaskApp\">\r\n                                                    <a (click)=\"closeNotifAproval(items.id)\" [routerLink]=\"['/company-task-requests', items.id]\">\r\n                                                        <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotifAproval(items.id)\">x</button>\r\n                                                        </div>\r\n                                                        <h5>Project: {{items.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>\r\n                                                        <h5>Requester: {{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>\r\n                                                        <h5>Status: {{items.tbl_new_task_request.request_status}}</h5>\r\n                                                        <p><a class=\"content\">Click here to view.</a></p>\r\n                                                    </a>\r\n                                                </div>\r\n                                            </ng-container>\r\n                                            \r\n                                        </div>\r\n                                    </li>\r\n                                        <!-- <div class=\"divider\"> </div> -->\r\n                                <div *ngIf=\"count == 0\">\r\n                                    <h5 style=\"color : red; margin-left:20px; \">No Data</h5>\r\n                                </div>\r\n                            </ul>\r\n    \r\n                        </li>\r\n                        <!-- <li class=\"dropdown\">\r\n                            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                                <b class=\"caret\"></b></a>\r\n                            <ul class=\"dropdown-menu\">\r\n                                <li>\r\n                                    <div class=\"navbar-content\">\r\n                                        <span>JS Krishna</span>\r\n                                        <p class=\"text-muted small\">\r\n                                            me@jskrishna.com\r\n                                        </p>\r\n                                        <div class=\"divider\">\r\n                                        </div>\r\n                                        <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\r\n                                    </div>\r\n                                </li>\r\n                            </ul>\r\n                        </li> -->\r\n                        <li><a href=\"#\" (click)=\"logout()\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </header>\r\n    </div>\r\n"
+module.exports = "<!-- <div class=\"row\">\r\n  <header>\r\n      \r\n      <div class=\"col-md-5 pull-right\">\r\n          <div class=\"header-rightside\">\r\n              <ul class=\"list-inline header-top pull-right\">\r\n                  <li class=\"\"><a href=\"#\" class=\"add-project\">Add Project</a></li>\r\n                  \r\n                  <li class=\"dropdown\">\r\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\r\n                        <b class=\"caret\"></b></a>\r\n                    <ul class=\"dropdown-menu\" *ngIf=\"showNotifications\">\r\n                        <li *ngFor=\"let items of newTaskreq\">\r\n                            <a routerLink=\"/company-task-requests\">\r\n                                <h4>New Task Request</h4>\r\n                                <h5>{{items.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>\r\n                                <h5>{{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>\r\n                            </a>\r\n                        </li>\r\n                        <li *ngFor=\"let item of notifications.back\">\r\n                                <a routerLink=\"/company-task-requests\">\r\n                                    <h4>New Task Approval Request</h4>\r\n                                    <h5>{{item.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>\r\n                                    <h5>{{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>\r\n                                    <h5>Status: {{items.tbl_new_task_request.request_status}}</h5>\r\n                                </a>\r\n                            </li>\r\n                    </ul>\r\n                </li>\r\n                  <li class=\"dropdown\">\r\n                      <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                          <b class=\"caret\"></b></a>\r\n                      <ul class=\"dropdown-menu\">\r\n                          <li>\r\n                              <div class=\"navbar-content\">\r\n                                  <span>JS Krishna</span>\r\n                                  <p class=\"text-muted small\">\r\n                                      me@jskrishna.com\r\n                                  </p>\r\n                                  <div class=\"divider\">\r\n                                  </div>\r\n                                  <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\r\n                              </div>\r\n                          </li>\r\n                      </ul>\r\n                  </li>\r\n                  <li><a href=\"#\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\r\n              </ul>\r\n          </div>\r\n      </div>\r\n  </header>\r\n</div> -->\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n<div class=\"row\">\r\n        <header>\r\n    \r\n            <div class=\"col-md-5 pull-right\">\r\n                <div class=\"header-rightside\">\r\n                    <ul class=\"list-inline header-top pull-right\">\r\n                        <li *ngIf=\"upgradeBtnShow\" class=\"\"><a [routerLink]=\"['/planlist']\" class=\"add-project\">Upgrade</a></li>\r\n                        <li class=\"\"><a [routerLink]=\"['/add-project']\" class=\"add-project\">Add Project</a></li>\r\n    \r\n                        <li class=\"dropdown drp2\" *ngIf=\"dispStatus\">\r\n                            <a class=\"icon-info dropdown-toggle\" data-toggle=\"dropdown\">\r\n                                <i class=\"fa fa-bell\" aria-hidden=\"true\"></i>\r\n                                <span class=\"label label-primary\">{{count}}</span>\r\n    \r\n                            </a>\r\n    \r\n                            <ul class=\"dropdown-menu\">\r\n    \r\n                                <li class=\"head\">\r\n                                    <div class=\"navbar-content\">\r\n                                        <h4>New Project Notification</h4>\r\n                                        <div *ngFor=\"let item of project\">\r\n                                            <a (click)=\"closeNotif(item.id)\" [routerLink]=\"['/assign-project', item.id]\">\r\n                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif(item.id)\">x</button>\r\n                                                </div>\r\n                                                <h5 class=\"media-heading\">{{item.project_name}}</h5>\r\n                                                <p><a class=\"content\">You are assignd for a new project. Click here to assign team heads.</a></p>\r\n                                            </a>\r\n                                        </div>\r\n                                    </div>\r\n                                </li>\r\n                                <div class=\"divider\"> </div>\r\n    \r\n                                <li class=\"head\">\r\n                                    <div class=\"navbar-content\">\r\n                                        <h4>Estimation Approval Notification</h4>\r\n                                        <div *ngFor=\"let list of estimationApproval\">\r\n                                            <a (click)=\"closeNotif2(list.id)\" [routerLink]=\"['/approve-estimation', list.tbl_project.id]\">\r\n                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif2(list.id)\">x</button>\r\n                                                </div>\r\n                                                <h5 class=\"media-heading\">{{list.tbl_project.project_name}}</h5>\r\n                                                <p><a class=\"content\">Click here to approve the Estimation</a></p>\r\n                                            </a>\r\n                                        </div>\r\n                                    </div>\r\n                                </li>\r\n                                <div class=\"divider\"> </div>\r\n    \r\n                                <li class=\"head\">\r\n                                    <div class=\"navbar-content\">\r\n                                        <h4>Estimation Resubmit Notification</h4>\r\n                                        <div *ngFor=\"let item1 of resubmitEstimation\">\r\n                                            <a (click)=\"closeNotif(item1.id)\" [routerLink]=\"['/approve-estimation', item1.id]\">\r\n                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif(item1.id)\">x</button>\r\n                                                </div>\r\n                                                <h5 class=\"media-heading\">{{item1.project_name}}</h5>\r\n                                                <p><a class=\"content\">Click here to re-estimate the project.</a></p>\r\n                                            </a>\r\n                                        </div>\r\n                                    </div>\r\n                                </li>\r\n                                <div class=\"divider\"> </div>\r\n    \r\n                                <li class=\"head\">\r\n                                    <div class=\"navbar-content\">\r\n                                        <h4>Project Approve Notification</h4>\r\n                                        <div *ngFor=\"let item2 of approveProject\">\r\n                                            <a (click)=\"closeNotif3(item2.id)\" [routerLink]=\"['/approve-project', item2.id]\">\r\n                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif3(item2.id)\">x</button>\r\n                                                </div>\r\n                                                <h5 class=\"media-heading\">{{item2.project_name}}</h5>\r\n                                                <p><a class=\"content\">Click here to approve the project.</a></p>\r\n                                            </a>\r\n                                        </div>\r\n                                    </div>\r\n                                </li>\r\n                                <div class=\"divider\"> </div>\r\n    \r\n                                <li class=\"head\">\r\n                                    <div class=\"navbar-content\">\r\n                                        <h4>Project Plan Notification</h4>\r\n                                        <div *ngFor=\"let item3 of planProject\">\r\n                                            <a (click)=\"closeNotif4(item3.id)\" [routerLink]=\"['/project-planning', item3.id]\">\r\n                                                <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotif4(item3.id)\">x</button>\r\n                                                </div>\r\n                                                <h5 class=\"media-heading\">{{item3.project_name}}</h5>\r\n                                                <p><a class=\"content\">Click here to plan the project.</a></p>\r\n                                            </a>\r\n                                        </div>\r\n                                    </div>\r\n                                </li>\r\n                                <div class=\"divider\"> </div>\r\n    <!------------------------------------------>\r\n                                <li class=\"head\">\r\n                                        <div class=\"navbar-content\">\r\n                                            <h4>New Task Requests</h4>\r\n                                            <ng-container *ngIf=\"dispStatus\">\r\n                                                <div *ngFor=\"let items of newTaskreq\">\r\n                                                    <a (click)=\"closeNotifReq(items.id)\" [routerLink]=\"['/company-task-requests', items.id]\">\r\n                                                        <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotifReq(items.id)\">x</button>\r\n                                                        </div>\r\n                                                        <h5>Project: {{items.tbl_new_task_request?.tbl_project_module?.tbl_project?.project_nam}}</h5>\r\n                                                        <h5>Requester: {{items.tbl_new_task_request?.tbl_user_profile?.f_name}} {{items.tbl_new_task_request?.tbl_user_profile?.l_name}}</h5>\r\n                                                        <p><a class=\"content\">Click here to view.</a></p>\r\n                                                    </a>\r\n                                                </div>\r\n                                            </ng-container>\r\n                                            \r\n                                        </div>\r\n                                    </li>\r\n                                    <div class=\"divider\"> </div>\r\n\r\n                                    <li class=\"head\">\r\n                                        <div class=\"navbar-content\">\r\n                                            <h4>New Task Approval</h4>\r\n                                            <ng-container *ngIf=\"dispStatus\">\r\n                                                <div *ngFor=\"let items of newTaskApp\">\r\n                                                    <a (click)=\"closeNotifAproval(items.id)\" [routerLink]=\"['/company-task-requests', items.id]\">\r\n                                                        <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)=\"closeNotifAproval(items.id)\">x</button>\r\n                                                        </div>\r\n                                                        <h5>Project: {{items.tbl_new_task_request?.tbl_project_module?.tbl_project?.project_nam}}</h5>\r\n                                                        <h5>Requester: {{items.tbl_new_task_request?.tbl_user_profile?.f_name}} {{items.tbl_new_task_request?.tbl_user_profile?.l_name}}</h5>\r\n                                                        <h5>Status: {{items.tbl_new_task_request?.request_status}}</h5>\r\n                                                        <p><a class=\"content\">Click here to view.</a></p>\r\n                                                    </a>\r\n                                                </div>\r\n                                            </ng-container>\r\n                                            \r\n                                        </div>\r\n                                    </li>\r\n                                        <!-- <div class=\"divider\"> </div> -->\r\n                                <div *ngIf=\"count == 0\">\r\n                                    <h5 style=\"color : red; margin-left:20px; \">No Data</h5>\r\n                                </div>\r\n                            </ul>\r\n    \r\n                        </li>\r\n                        <!-- <li class=\"dropdown\">\r\n                            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n                                <b class=\"caret\"></b></a>\r\n                            <ul class=\"dropdown-menu\">\r\n                                <li>\r\n                                    <div class=\"navbar-content\">\r\n                                        <span>JS Krishna</span>\r\n                                        <p class=\"text-muted small\">\r\n                                            me@jskrishna.com\r\n                                        </p>\r\n                                        <div class=\"divider\">\r\n                                        </div>\r\n                                        <a href=\"#\" class=\"view btn-sm active\">View Profile</a>\r\n                                    </div>\r\n                                </li>\r\n                            </ul>\r\n                        </li> -->\r\n                        <li><a href=\"#\" (click)=\"logout()\"><i class=\"fa fa-power-off\" aria-hidden=\"true\"></i></a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </header>\r\n    </div>\r\n"
 
 /***/ }),
 
@@ -10484,6 +10741,15 @@ var CompanyTopbarComponent = (function () {
         this.resubmitEstimationNotification();
         this.socket.on('reEstimateProject', function (data) {
             _this.resubmitEstimationNotification();
+        });
+        this.socket.on('newtaskrequestAccepted', function (data) {
+            _this.getNotifications();
+        });
+        this.socket.on('newtaskrequestRejected', function (data) {
+            _this.getNotifications();
+        });
+        this.socket.on('newtaskrequestApproval', function (data) {
+            _this.getNotifications();
         });
         this.getAllemppendingleavesnotifi();
         this.socket.on('Leaveaddeduser', function (data) {
@@ -10690,21 +10956,25 @@ var CompanyTopbarComponent = (function () {
             // this.accessRights = accessRights;
             // console.log(resNotifications)
             _this.notifications = resNotifications;
-            if (resNotifications.back.length > 0) {
+            if (resNotifications.back && resNotifications.back.length > 0) {
+                // if (resNotifications.back.length > 0) {
                 _this.newTaskreqBackCount = resNotifications.back.length;
                 _this.newTaskApp = resNotifications.back;
                 _this.dispStatus = true;
             }
             else {
                 _this.newTaskApp = [];
+                _this.dispStatus = true;
             }
-            if (resNotifications.req.length > 0) {
+            if (resNotifications.req && resNotifications.req.length > 0) {
+                // if (resNotifications.req.length > 0) {
                 _this.newTaskreqCount = resNotifications.req.length;
                 _this.newTaskreq = resNotifications.req;
                 _this.dispStatus = true;
             }
             else {
                 _this.newTaskreq = [];
+                _this.dispStatus = true;
             }
             _this.showNotifications = true;
             _this.refresh();
@@ -11581,7 +11851,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".thin-lbl{\r\n    font-weight: 400 !important;\r\n}\r\n.bg-grey-btn{\r\n    background-color: rgb(236, 236, 236);\r\n    border-radius: 4px;\r\n    border: none;\r\n    padding: 2px 7px;\r\n}\r\n.bg-grey-btn:hover{\r\n    background-color: #fe6a07;\r\n    color: #fff;\r\n}\r\n.rnd-btn{\r\n    position: absolute;\r\n    bottom: -13px;\r\n    right: 104px;\r\n}\r\n.white{\r\n    position: relative;\r\n}\r\n", ""]);
+exports.push([module.i, ".thin-lbl{\r\n    font-weight: 400 !important;\r\n}\r\n.bg-grey-btn{\r\n    background-color: rgb(236, 236, 236);\r\n    border-radius: 4px;\r\n    border: none;\r\n    padding: 2px 7px;\r\n}\r\n.bg-grey-btn:hover{\r\n    background-color: #fe6a07;\r\n    color: #fff;\r\n}\r\n.rnd-btn{\r\n    position: absolute;\r\n    bottom: -13px;\r\n    right: 104px;\r\n}\r\n.white{\r\n    position: relative;\r\n}\r\n.week-btn{\r\n    background-color: transparent;\r\n    min-width: 90px;\r\n    text-align: center;\r\n    padding: 7px;\r\n    border: none;\r\n    border-bottom: 1px solid #ccc;\r\n    color: #848484;\r\n}\r\ntd{\r\n    padding: 7px;\r\n}\r\nth{\r\n    text-align: center !important;\r\n}\r\n.clr-green{\r\n    color: #00cc6f;\r\n    font-weight: 500;\r\n}\r\n.week-nm{\r\n    font-weight: 600\r\n}\r\n.plus-btn {\r\n    float: right;\r\n    margin-right: 35px !important;}\r\n\r\n.add-brk{\r\n    padding: 4px;\r\n    background-color: transparent;\r\n    color: #00b136;\r\n    /* font-weight: 800; */\r\n    margin-top: 25px;\r\n    font-size: 20px;\r\n}\r\n.mrgn-tp{\r\n    margin-top: 18px;\r\n    width: 100%;\r\n}\r\n\r\n.plus-btn{\r\n    box-shadow: 2px 2px 5px #ffbb8e !important;\r\n}\r\n.dsbld{\r\n    background-color: #ccc;\r\n    box-shadow: none !important;\r\n    \r\n}\r\n.mrgn-ed{\r\n    margin-top: 0;\r\n}\r\n.red{\r\n    color: #ff0023\r\n}", ""]);
 
 // exports
 
@@ -11594,7 +11864,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-working-time/company-working-time.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n\r\n      <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n        <!-- sidebar-->\r\n\r\n        <admin-sidebar></admin-sidebar>\r\n        <!-- end sidebar-->\r\n      </div>\r\n\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n        <!-- topbar-->\r\n        <admin-topbar></admin-topbar>\r\n        <!-- end topbar-->\r\n\r\n\r\n        <div class=\"user-dashboard\">\r\n          <!-- <h1>Hello, JS</h1> -->\r\n          <div class=\"row\">\r\n              <div class=\"col-md-5 col-sm-12 col-xs-12 gutter \">\r\n                <div class=\"white\">\r\n                  <div class=\"col-md-10 col-md-offset-1\">\r\n                    <div class=\"form-group\">\r\n                      <div class=\"col-md-11\"><label for=\"\"><b>Working Hours</b></label></div>\r\n                      <div class=\"col-md-1\"><button class=\"bg-grey-btn\" (click)=\"setWorkTime()\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></button></div>\r\n                      <div class=\"col-md-12 padd-15\">\r\n                        <div class=\"col-md-6\">\r\n                          <label class=\"thin-lbl\" for=\"\">Office Start Time</label>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                          <label *ngIf=\"show\" for=\"\">{{default.start_time}}</label>\r\n                        </div>\r\n                      </div>\r\n                      <div class=\"col-md-12 padd-15\">\r\n                        <div class=\"col-md-6\">\r\n                          <label class=\"thin-lbl\" for=\"\">Office End Time</label>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                          <label *ngIf=\"show\" for=\"\">{{default.end_time}}</label>\t\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  \r\n                    <div class=\"form-group padd-15\">\r\n                      <div class=\"col-md-11 padd-15\"><label for=\"\"><b>Breaks</b></label></div>\r\n                      \r\n                      <div class=\"col-md-12 padd-15\" *ngFor=\"let item of breaks; let i = index; trackBy:trackByIndex\">\r\n                        <div class=\"col-md-6\">\r\n                          <label class=\"thin-lbl\" for=\"\">{{item.title}}</label>\r\n                        </div>\r\n                        <div class=\"col-md-5\">\r\n                          <label *ngIf=\"show\" for=\"\">{{item.start_time}}</label> - \r\n                          <label *ngIf=\"show\" for=\"\">{{item.end_time}}</label>\r\n                        </div>\r\n                        <div class=\"col-md-1\">\r\n                            <button class=\"bg-grey-btn bg-trans\" (click)=\"deleteBreak(item.id)\"><i class=\"la la-trash\"></i></button>\r\n                        </div>\r\n                        \r\n                      </div>\r\n                      \r\n                    </div>\r\n                  \r\n                  \r\n                \r\n                  </div>\r\n                 \r\n                  <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n                  \r\n                  <button class=\"rnd-btn\" (click)=\"addBreak()\">+</button>\r\n                </div><!--white-->\r\n               </div>\r\n               \r\n               <div class=\"col-md-7\">\r\n                 <div class=\"white\">\r\n                   <h4>Day Settings</h4>\r\n                   <table>\r\n                     <thead>\r\n                        <tr>\r\n                            <th></th>\r\n                            <th>Mon</th>\r\n                            <th>Tue</th>\r\n                            <th>Wed</th>\r\n                            <th>Thu</th>\r\n                            <th>Fri</th>\r\n                            <th>Sat</th>\r\n                            <th>Sun</th>\r\n                         </tr>\r\n                     </thead>\r\n                     \r\n                     \r\n                     <tbody *ngIf=\"showTbl\">\r\n\r\n                          <ng-container *ngFor=\"let item of createRange(5)\">\r\n                              <tr>\r\n                                <td>{{item}} Week</td>\r\n                                <td *ngFor=\"let i of createRange(7); let x=index\">\r\n                                   <!-- <button *ngIf=\" checkType(timings[item][i])\" >Changed</button>\r\n                                  <button *ngIf=\"!checkType(timings[item][i]) else sik\" >Default</button>\r\n                                  <button  >Changed</button> -->\r\n                                  <!-- <h4 *ngIf=\"timings[item][i] && timings[item]\">x</h4>\r\n                                  <h4 *ngIf=\"(!timings[item][i] || !timings[item]) || checkType(item)\">y</h4>\r\n                                  <div *ngIf=\"!timings\">gg</div> -->\r\n                                  <!-- {{checkType(i,item)}} -->\r\n                                  <!--<ng-template #sik>\r\n                                  <button  >Changed</button>\r\n                                    \r\n                                  </ng-template> -->\r\n                                  \r\n                                </td>\r\n                              </tr>\r\n                          </ng-container>\r\n                          \r\n                       <!-- <tr>\r\n                         <td>1<sup>st</sup>Week</td>\r\n                         <td><button>Default</button></td>\r\n                         <td><button>Default</button></td>\r\n                         <td><button>Default</button></td>\r\n                         <td><button>Default</button></td>\r\n                         <td><button>Default</button></td>\r\n                         <td><button>Default</button></td>\r\n                         <td><button>Default</button></td>\r\n                        </tr>\r\n                       <tr>\r\n                          <td>2<sup>nd</sup>Week</td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                       </tr>\r\n                       <tr>\r\n                          <td>3<sup>rd</sup>Week</td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                       </tr>\r\n                       <tr>\r\n                          <td>4<sup>th</sup>Week</td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                       </tr>\r\n                       <tr>\r\n                          <td>5<sup>th</sup>Week</td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                          <td><button>Default</button></td>\r\n                       </tr> -->\r\n                       \r\n                     </tbody>\r\n                   </table>\r\n                 </div>\r\n               </div>\r\n\r\n        </div>\r\n\r\n\r\n      </div>\r\n      <!-- footer-->\r\n      <!-- <admin-footer></admin-footer> -->\r\n      <!-- end footer-->\r\n    </div>\r\n  </div>\r\n  </div>\r\n  <!-- Modal -->\r\n\r\n\r\n\r\n  <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n\r\n      <!-- Modal content-->\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n          <h4 class=\"modal-title\">Edit Working Hours</h4>\r\n        </div>\r\n        <!-- <div class=\"modal-header\"> -->\r\n        <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n        <!-- </div> -->\r\n        <div class=\"modal-body delete-popup\">\r\n          <div class=\"col-md-12\">\r\n            <div class=\"row\">\r\n              <div class=\"col-md-12\">\r\n                <div class=\"col-md-4\">\r\n                  <label class=\"modal-lft-lbl\">Office Start Time:</label>\r\n                </div>\r\n                <div class=\"col-md-7\">\r\n                    \r\n                  <ngb-timepicker [(ngModel)]=\"startTime\" ></ngb-timepicker>\r\n                    \r\n\r\n                </div>\r\n              </div>\r\n              <div class=\"col-md-12\">\r\n                <div class=\"col-md-4\">\r\n                  <label class=\"modal-lft-lbl\">Office End Time:</label>\r\n                </div>\r\n                <div class=\"col-md-7\">\r\n                   \r\n                  <ngb-timepicker [(ngModel)]=\"endTime\"></ngb-timepicker>\r\n                    \r\n\r\n                </div>\r\n              </div>\r\n\r\n            </div>\r\n\r\n          </div>\r\n\r\n\r\n        </div>\r\n\r\n        <div class=\"modal-footer\">\r\n          <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n          <button *ngIf=\"!spinner\" type=\"button\" (click)=\"saveWorkTime()\" class=\"btn round-button\">Save</button>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n\r\n\r\n\r\n   <!--Break Modal -->\r\n\r\n\r\n\r\n   <div id=\"breakModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n\r\n      <!-- Modal content-->\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n          <h4 class=\"modal-title\">Add Break</h4>\r\n        </div>\r\n        <!-- <div class=\"modal-header\"> -->\r\n        <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n        <!-- </div> -->\r\n        <div class=\"modal-body delete-popup\">\r\n          <div class=\"col-md-12\">\r\n            <div class=\"row\">\r\n              <div class=\"col-md-12\">\r\n                  <div class=\"col-md-4\">\r\n                      <label class=\"modal-lft-lbl\">Break Title:</label>\r\n                    </div>\r\n                    <div class=\"col-md-7\">\r\n                        \r\n                        <mat-form-field>\r\n                            <input matInput placeholder=\"Input\" [(ngModel)]=\"breakTitle\">\r\n                          </mat-form-field>\r\n                        \r\n    \r\n                    </div>\r\n\r\n                <div class=\"col-md-4\">\r\n                  <label class=\"modal-lft-lbl\">Break Start Time:</label>\r\n                </div>\r\n                <div class=\"col-md-7\">\r\n                    \r\n                  <ngb-timepicker [(ngModel)]=\"breakStartTime\" ></ngb-timepicker>\r\n                    \r\n\r\n                </div>\r\n              </div>\r\n              <div class=\"col-md-12\">\r\n                <div class=\"col-md-4\">\r\n                  <label class=\"modal-lft-lbl\">Break End Time:</label>\r\n                </div>\r\n                <div class=\"col-md-7\">\r\n                   \r\n                  <ngb-timepicker [(ngModel)]=\"breakEndTime\" ></ngb-timepicker>\r\n                    \r\n\r\n                </div>\r\n              </div>\r\n\r\n            </div>\r\n\r\n          </div>\r\n\r\n\r\n        </div>\r\n\r\n        <div class=\"modal-footer\">\r\n          <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n          <button *ngIf=\"!spinner\" type=\"button\" (click)=\"saveBreak()\" class=\"btn round-button\">Add Break</button>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n\r\n\r\n\r\n\r\n  <!----------------------------------------------- delete modal ----------------------------------------------------------------- -->\r\n  <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\r\n      <div class=\"modal-dialog\">\r\n\r\n        <!-- Modal content-->\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n            <h4 class=\"modal-title\">Delete </h4>\r\n          </div>\r\n          <!-- <div class=\"modal-header\"> -->\r\n          <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n          <!-- </div> -->\r\n          <div class=\"modal-body delete-popup text-center\">\r\n            <i class=\"fa fa-exclamation\"></i>\r\n\r\n\r\n            <h4 class=\"textalign\">Are you sure?</h4>\r\n\r\n          </div>\r\n\r\n          <div class=\"modal-footer\" style=\"text-align:center;\">\r\n            <button type=\"button\" (click)=\"confirm(planId)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n\r\n  <!--delete modal------>\r\n</body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n\r\n      <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n        <!-- sidebar-->\r\n\r\n        <company-sidebar></company-sidebar>\r\n        <!-- end sidebar-->\r\n      </div>\r\n\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n        <!-- topbar-->\r\n        <company-topbar></company-topbar>\r\n        <!-- end topbar-->\r\n\r\n\r\n        <div class=\"user-dashboard\">\r\n          <!-- <h1>Hello, JS</h1> -->\r\n          <div class=\"row\">\r\n              <h2>Master Settings</h2>\r\n              <ul class=\"breadcrumb\">\r\n                <li><a routerLink=\"/\">Master Settings</a></li>\r\n                <!-- <li><a routerLink=\"/company-request-management\">Time Extension Request List</a></li> -->\r\n                \r\n                <li>Office Time</li>\r\n              </ul>\r\n              <div class=\"col-md-5 col-sm-12 col-xs-12 gutter \">\r\n                <div class=\"white\">\r\n                  <div class=\"col-md-10 col-md-offset-1\">\r\n                    <div class=\"form-group\">\r\n                      <div class=\"col-md-11\"><label for=\"\"><b>Working Hours</b></label></div>\r\n                      <div class=\"col-md-1\"><button class=\"bg-grey-btn\" (click)=\"setWorkTime()\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></button></div>\r\n                      <div class=\"col-md-12 padd-15\">\r\n                        <div class=\"col-md-6\">\r\n                          <label class=\"thin-lbl\" for=\"\">Office Start Time</label>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                          <label *ngIf=\"show\" for=\"\">{{default.start_time}}</label>\r\n                        </div>\r\n                      </div>\r\n                      <div class=\"col-md-12 padd-15\">\r\n                        <div class=\"col-md-6\">\r\n                          <label class=\"thin-lbl\" for=\"\">Office End Time</label>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                          <label *ngIf=\"show\" for=\"\">{{default.end_time}}</label>\t\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  \r\n                    <div class=\"form-group padd-15\">\r\n                      <div class=\"col-md-11 padd-15\"><label for=\"\"><b>Breaks</b></label></div>\r\n                      \r\n                      <div class=\"col-md-12 padd-15\" *ngFor=\"let item of breaks; let i = index; trackBy:trackByIndex\">\r\n                        <div class=\"col-md-6\">\r\n                          <label class=\"thin-lbl\" for=\"\">{{item.title}}</label>\r\n                        </div>\r\n                        <div class=\"col-md-5\">\r\n                          <label *ngIf=\"show\" for=\"\">{{item.start_time}}</label> - \r\n                          <label *ngIf=\"show\" for=\"\">{{item.end_time}}</label>\r\n                        </div>\r\n                        <div class=\"col-md-1\">\r\n                            <button class=\"bg-grey-btn bg-trans\" (click)=\"deleteBreak(item.id)\"><i class=\"la la-trash\"></i></button>\r\n                        </div>\r\n                        \r\n                      </div>\r\n                      \r\n                    </div>\r\n                  \r\n                  \r\n                \r\n                  </div>\r\n                 \r\n                  <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n                  \r\n                  <button class=\"rnd-btn plus-btn\" (click)=\"addBreak()\">+</button>\r\n                </div><!--white-->\r\n               </div>\r\n               \r\n               <div class=\"col-md-7\">\r\n                 <div class=\"white\">\r\n                   <h4>Day Settings</h4>\r\n                   <table>\r\n                     <thead>\r\n                        <tr>\r\n                            <th></th>\r\n                            <th>Mon</th>\r\n                            <th>Tue</th>\r\n                            <th>Wed</th>\r\n                            <th>Thu</th>\r\n                            <th>Fri</th>\r\n                            <th>Sat</th>\r\n                            <th>Sun</th>\r\n                         </tr>\r\n                     </thead>\r\n                     \r\n                     \r\n                     <tbody *ngIf=\"showTbl\">\r\n\r\n                          <ng-container *ngFor=\"let item of createRange(5)\">\r\n                              <tr>\r\n                                <td class=\"week-nm\">{{item}} Week</td>\r\n                                <td *ngFor=\"let i of createRange(7); let x=index\">\r\n                                   <button class=\"week-btn clr-green\" *ngIf=\"timings[i][item].id else chngd\" (click)=\"openModal(i,item)\">Changed</button>\r\n                                   <ng-template #chngd>\r\n                                   <button class=\"week-btn\" (click)=\"openModal(i,item)\" >Default</button>\r\n                                    \r\n                                   </ng-template>\r\n                                \r\n                                  \r\n                                </td>\r\n                              </tr>\r\n                          </ng-container>\r\n                  \r\n                       \r\n                     </tbody>\r\n                   </table>\r\n                 </div>\r\n               </div>\r\n               \r\n        </div>\r\n\r\n\r\n      </div>\r\n      <!-- footer-->\r\n      <!-- <admin-footer></admin-footer> -->\r\n      <!-- end footer-->\r\n    </div>\r\n  </div>\r\n  </div>\r\n  <!-- Modal -->\r\n\r\n\r\n\r\n  <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n\r\n      <!-- Modal content-->\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n          <h4 class=\"modal-title\">Edit Working Hours</h4>\r\n        </div>\r\n        <!-- <div class=\"modal-header\"> -->\r\n        <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n        <!-- </div> -->\r\n        <div class=\"modal-body delete-popup\">\r\n          <div class=\"col-md-12\">\r\n            <div class=\"row\">\r\n              <div class=\"col-md-12\">\r\n                <div class=\"col-md-4\">\r\n                  <label class=\"modal-lft-lbl\">Office Start Time:</label>\r\n                </div>\r\n                <div class=\"col-md-7\">\r\n                    \r\n                  <ngb-timepicker [(ngModel)]=\"startTime\" ></ngb-timepicker>\r\n                    \r\n\r\n                </div>\r\n              </div>\r\n              <div class=\"col-md-12\">\r\n                <div class=\"col-md-4\">\r\n                  <label class=\"modal-lft-lbl\">Office End Time:</label>\r\n                </div>\r\n                <div class=\"col-md-7\">\r\n                   \r\n                  <ngb-timepicker [(ngModel)]=\"endTime\"></ngb-timepicker>\r\n                    \r\n\r\n                </div>\r\n              </div>\r\n\r\n            </div>\r\n\r\n          </div>\r\n\r\n\r\n        </div>\r\n\r\n        <div class=\"modal-footer\">\r\n          <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n          <button *ngIf=\"!spinner\" type=\"button\" (click)=\"saveWorkTime()\" class=\"btn round-button\">Save</button>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n\r\n\r\n\r\n   <!--Break Modal -->\r\n\r\n\r\n\r\n   <div id=\"breakModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n\r\n      <!-- Modal content-->\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n          <h4 class=\"modal-title\">Add Break</h4>\r\n        </div>\r\n        <!-- <div class=\"modal-header\"> -->\r\n        <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n        <!-- </div> -->\r\n        <div class=\"modal-body delete-popup\">\r\n          <div class=\"col-md-12\">\r\n            <div class=\"row\">\r\n              <div class=\"col-md-12\">\r\n                  <div class=\"col-md-4\">\r\n                      <label class=\"modal-lft-lbl\">Break Title:</label>\r\n                    </div>\r\n                    <div class=\"col-md-7\">\r\n                        \r\n                        <mat-form-field>\r\n                            <input matInput placeholder=\"Input\" [(ngModel)]=\"breakTitle\">\r\n                          </mat-form-field>\r\n                        \r\n    \r\n                    </div>\r\n\r\n                <div class=\"col-md-4\">\r\n                  <label class=\"modal-lft-lbl\">Break Start Time:</label>\r\n                </div>\r\n                <div class=\"col-md-7\">\r\n                    \r\n                  <ngb-timepicker [(ngModel)]=\"breakStartTime\" ></ngb-timepicker>\r\n                    \r\n\r\n                </div>\r\n              </div>\r\n              <div class=\"col-md-12\">\r\n                <div class=\"col-md-4\">\r\n                  <label class=\"modal-lft-lbl\">Break End Time:</label>\r\n                </div>\r\n                <div class=\"col-md-7\">\r\n                   \r\n                  <ngb-timepicker [(ngModel)]=\"breakEndTime\" ></ngb-timepicker>\r\n                    \r\n\r\n                </div>\r\n              </div>\r\n\r\n            </div>\r\n\r\n          </div>\r\n\r\n\r\n        </div>\r\n\r\n        <div class=\"modal-footer\">\r\n          <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n          <button *ngIf=\"!spinner\" type=\"button\" (click)=\"saveBreak()\" class=\"btn round-button\">Add Break</button>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n\r\n\r\n\r\n\r\n  <!----------------------------------------------- delete modal ----------------------------------------------------------------- -->\r\n  <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\r\n      <div class=\"modal-dialog\">\r\n\r\n        <!-- Modal content-->\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n            <h4 class=\"modal-title\">Delete </h4>\r\n          </div>\r\n          <!-- <div class=\"modal-header\"> -->\r\n          <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n          <!-- </div> -->\r\n          <div class=\"modal-body delete-popup text-center\">\r\n            <i class=\"fa fa-exclamation\"></i>\r\n\r\n\r\n            <h4 class=\"textalign\">Are you sure?</h4>\r\n\r\n          </div>\r\n\r\n          <div class=\"modal-footer\" style=\"text-align:center;\">\r\n            <button type=\"button\" (click)=\"confirm(planId)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n\r\n  <!--delete modal------>\r\n\r\n\r\n  <!--Break Modal -->\r\n\r\n  <div id=\"weekModal\" class=\"modal fade\" role=\"dialog\">\r\n      <div class=\"modal-dialog\">\r\n  \r\n        <!-- Modal content-->\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <button type=\"button\" class=\"close\" (click)=\"closeDayPopup()\">&times;</button>\r\n            <h4 class=\"modal-title\">Edit Working Hours</h4>\r\n          </div>\r\n          <!-- <div class=\"modal-header\"> -->\r\n          <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n          <!-- </div> -->\r\n          <div class=\"modal-body delete-popup\">\r\n            <div class=\"col-md-12\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-12\">\r\n                        <div class=\"col-md-12 text-left\">\r\n                            <mat-checkbox [(ngModel)]=\"holiday\" >Off day?</mat-checkbox> \r\n                      <!-- {{holiday}} -->\r\n                          </div>\r\n                      <div class=\"col-md-4\">\r\n                        <label class=\"modal-lft-lbl\">Office Start Time:</label>\r\n                      </div>\r\n                      <div class=\"col-md-7\">\r\n                          \r\n                        <ngb-timepicker [(ngModel)]=\"xtime\" [readonlyInputs]=\"holiday\" [spinners]=\"!holiday\"></ngb-timepicker>\r\n                          \r\n      \r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-md-12\">\r\n                      <div class=\"col-md-4\">\r\n                        <label class=\"modal-lft-lbl\">Office End Time:</label>\r\n                      </div>\r\n                      <div class=\"col-md-7\">\r\n                         \r\n                        <ngb-timepicker [(ngModel)]=\"ytime\" [readonlyInputs]=\"holiday\" [spinners]=\"!holiday\"></ngb-timepicker>\r\n                          \r\n      \r\n                      </div>\r\n                    </div>\r\n      \r\n                    <div class=\"form-group padd-7\">\r\n                        <div class=\"col-md-11 padd-7 text-left\"><label for=\"\"><b>Breaks</b></label></div>\r\n                        \r\n                        <div class=\"col-md-12 padd-7\" *ngFor=\"let item of breaks; let i = index; trackBy:trackByIndex\">\r\n                          <div class=\"col-md-6\">\r\n                            <label class=\"thin-lbl\" for=\"\">{{item.title}}</label>\r\n                          </div>\r\n                          <div class=\"col-md-5\">\r\n                            <label *ngIf=\"show\" for=\"\">{{item.start_time}}</label> - \r\n                            <label *ngIf=\"show\" for=\"\">{{item.end_time}}</label>\r\n                          </div>\r\n                          <!-- <div class=\"col-md-1\">\r\n                              <button class=\"bg-grey-btn bg-trans\" (click)=\"deleteBreak(item.id)\"><i class=\"la la-trash\"></i></button>\r\n                          </div> -->\r\n                          \r\n                        </div>\r\n                        \r\n                        <div class=\"col-md-12 padd-7\" *ngFor=\"let item of dayBreak; let i = index; trackBy:trackByIndex\">\r\n                            <div class=\"col-md-6\">\r\n                              <label class=\"thin-lbl\" for=\"\">{{item.title}}</label>\r\n                            </div>\r\n                            <div class=\"col-md-5\">\r\n                              <label *ngIf=\"show\" for=\"\">{{item.start_time}}</label> - \r\n                              <label *ngIf=\"show\" for=\"\">{{item.end_time}}</label>\r\n                            </div>\r\n                            <div class=\"col-md-1\">\r\n                                <button class=\"bg-grey-btn bg-trans\" (click)=\"deleteExtraBreak(item.id)\" [disabled]=\"holiday\"><i class=\"la la-trash\"></i></button>\r\n                            </div>\r\n                            \r\n                          </div>\r\n                          <div class=\"col-md-12\" *ngIf=\"showAddBreak\">\r\n                              <!-- <div class=\"row\"> -->\r\n                               \r\n                                      <div class=\"col-md-4\">\r\n                                          <div class=\"row\">\r\n                                              <mat-form-field>\r\n                                                  <input matInput placeholder=\"Title\" [(ngModel)]=\"xtrabreakTitle\" [disabled]=\"holiday\" class=\"mrgn-tp\">\r\n                                                </mat-form-field>\r\n                                          </div>\r\n                                         \r\n                                          \r\n                      \r\n                                      </div>\r\n                  \r\n                                  \r\n                                  <div class=\"col-md-3\">\r\n                                      \r\n                                    <ngb-timepicker [(ngModel)]=\"atime\" [readonlyInputs]=\"holiday\" [spinners]=\"!holiday\"></ngb-timepicker>\r\n                                      \r\n                  \r\n                                  </div>\r\n                                \r\n                                  <div class=\"col-md-3\">\r\n                                     \r\n                                    <ngb-timepicker [(ngModel)]=\"btime\" [readonlyInputs]=\"holiday\" [spinners]=\"!holiday\"></ngb-timepicker>\r\n                                      \r\n                  \r\n                                  </div>\r\n                                  <div class=\"col-md-2\">\r\n                                    <button class=\"btn add-brk\" (click)=\"saveExtraBreak()\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></button>\r\n                                    <button class=\"btn add-brk red\" (click)=\"closeExtraBreak()\">x</button>\r\n                                    \r\n                                  </div>\r\n                  \r\n                              <!-- </div> -->\r\n                  \r\n                            </div>\r\n                          <button class=\" plus-btn mrgn-ed\" (click)=\"addExtraBreak()\" [disabled]=\"holiday\" [ngClass]=\"{ 'dsbld' : holiday}\">+</button>\r\n\r\n                          \r\n                      </div>\r\n                  </div>\r\n      \r\n                </div>\r\n\r\n  \r\n  \r\n          </div>\r\n  \r\n          <div class=\"modal-footer\">\r\n            <app-spinner *ngIf=\"spinner\"></app-spinner>\r\n            <button *ngIf=\"!spinner\" type=\"button\" (click)=\"saveDayWorkTime()\" class=\"btn round-button\">Save</button>\r\n          </div>\r\n        </div>\r\n  \r\n      </div>\r\n    </div>\r\n  \r\n</body>"
 
 /***/ }),
 
@@ -11633,6 +11903,14 @@ var CompanyWorkingTimeComponent = (function () {
         this.time = { hour: 13, minute: 30 };
         this.meridian = true;
         this.spinner = false;
+        this.holiday = false;
+        this.showAddBreak = false;
+        this.xtime = { hour: 0, minute: 0 };
+        this.ytime = { hour: 0, minute: 0 };
+        this.atime = { hour: 0, minute: 0 };
+        this.btime = { hour: 0, minute: 0 };
+        this.readOnly = false;
+        this.xtrabreakTitle = '';
     }
     CompanyWorkingTimeComponent.prototype.ngOnInit = function () {
         this.getTimings();
@@ -11657,8 +11935,8 @@ var CompanyWorkingTimeComponent = (function () {
             _this.startTime = { hour: parseInt(time[0]), minute: parseInt(time[1]) };
             _this.endTime = { hour: parseInt(etime[0]), minute: parseInt(etime[1]) };
             _this.show = true;
-            console.log(_this.endTime);
-            console.log(_this.startTime);
+            // console.log(this.endTime);  
+            // console.log(this.startTime);  
         });
     };
     //  ---------------------------------end-----------------------------------------------
@@ -11797,6 +12075,117 @@ var CompanyWorkingTimeComponent = (function () {
                 }
             });
         }
+    };
+    CompanyWorkingTimeComponent.prototype.checkType = function (obj) {
+        // console.log( obj.length);
+        if (obj.length > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    CompanyWorkingTimeComponent.prototype.openModal = function (day, week) {
+        // console.log('day:'+day)
+        // console.log('week:'+week)
+        this.selectedWeek = week;
+        this.selectedDay = day;
+        this.getDayBreaks(day, week);
+        this.getDayDetails(day, week);
+    };
+    CompanyWorkingTimeComponent.prototype.getDayBreaks = function (day, week) {
+        var _this = this;
+        this.companyService.getDayBreaks(day, week).subscribe(function (res) {
+            console.log(res);
+            _this.dayBreak = res;
+            // $('#weekModal').modal('show');
+        });
+    };
+    CompanyWorkingTimeComponent.prototype.getDayDetails = function (day, week) {
+        var _this = this;
+        this.companyService.getDayDetails(day, week).subscribe(function (res2) {
+            console.log(res2);
+            if (!res2[0].start_time) {
+                _this.holiday = true;
+            }
+            else {
+                _this.specificTime = res2[0];
+                var time = res2[0].start_time.split(':');
+                var etime = res2[0].end_time.split(':');
+                _this.xtime = { hour: parseInt(time[0]), minute: parseInt(time[1]) };
+                _this.ytime = { hour: parseInt(etime[0]), minute: parseInt(etime[1]) };
+                _this.xtime['hours'] =
+                    console.log(_this.specificTime);
+            }
+            $('#weekModal').modal({ backdrop: 'static', keyboard: false });
+            $('#weekModal').modal('show');
+        });
+    };
+    CompanyWorkingTimeComponent.prototype.addExtraBreak = function () {
+        this.xtrabreakTitle = '';
+        this.showAddBreak = true;
+    };
+    CompanyWorkingTimeComponent.prototype.saveExtraBreak = function () {
+        var _this = this;
+        this.companyService.saveDayBreak(this.selectedDay, this.selectedWeek, this.atime, this.btime, this.xtrabreakTitle).subscribe(function (res2) {
+            if (res2.status == 1) {
+                var snackBarRef = _this.snackBar.open(res2.message, '', {
+                    duration: 2000
+                });
+                _this.showAddBreak = false;
+                _this.getDayBreaks(_this.selectedDay, _this.selectedWeek);
+            }
+            else {
+                var snackBarRef = _this.snackBar.open(res2.message, '', {
+                    duration: 2000
+                });
+            }
+        });
+    };
+    CompanyWorkingTimeComponent.prototype.saveDayWorkTime = function () {
+        var _this = this;
+        this.companyService.saveDayWorkTime(this.holiday, this.xtime, this.ytime, this.selectedDay, this.selectedWeek).subscribe(function (res2) {
+            // console.log(res2)
+            if (res2.status == 1) {
+                var snackBarRef = _this.snackBar.open(res2.message, '', {
+                    duration: 2000
+                });
+                _this.showAddBreak = false;
+                _this.getTimings();
+                _this.getWeekTimings();
+                $('#weekModal').modal('hide');
+            }
+            else {
+                var snackBarRef = _this.snackBar.open(res2.message, '', {
+                    duration: 2000
+                });
+            }
+        });
+    };
+    CompanyWorkingTimeComponent.prototype.closeDayPopup = function () {
+        this.showAddBreak = false;
+        this.holiday = false;
+        $('#weekModal').modal('hide');
+    };
+    CompanyWorkingTimeComponent.prototype.closeExtraBreak = function () {
+        this.showAddBreak = false;
+    };
+    CompanyWorkingTimeComponent.prototype.deleteExtraBreak = function (breakId) {
+        var _this = this;
+        this.companyService.deleteExtraBreak(breakId).subscribe(function (res2) {
+            if (res2.status == 1) {
+                var snackBarRef = _this.snackBar.open(res2.message, '', {
+                    duration: 2000
+                });
+                _this.showAddBreak = false;
+                _this.getDayBreaks(_this.selectedDay, _this.selectedWeek);
+            }
+            else {
+                var snackBarRef = _this.snackBar.open(res2.message, '', {
+                    duration: 2000
+                });
+            }
+        });
     };
     CompanyWorkingTimeComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -14524,7 +14913,7 @@ var UserProjectEstimationComponent = (function () {
                     var snackBarRef = _this.snackBar.open(notif.msg, '', {
                         duration: 2000
                     });
-                    // this.routes.navigate(['/project']);
+                    _this.routes.navigate(['/user-dashboard']);
                 }
             });
             // ---------------------------------End-------------------------------------------
@@ -14751,7 +15140,7 @@ var UserProjectEstimationComponent = (function () {
                     duration: 4000
                 });
                 if (data.success == true) {
-                    _this.routes.navigate(['/test-user']);
+                    _this.routes.navigate(['/user-dashboard']);
                 }
             });
             // -----------------------------------End------------------------------------------
@@ -16348,6 +16737,7 @@ var UserTopbarComponent = (function () {
         // Desc          : 
         this.newTaskNotifCount = 0;
         this.userService.getNewTaskRequestNotification().subscribe(function (info) {
+            // console.log(info)
             _this.newTaskNotif = info;
             _this.newTaskNotifCount = _this.newTaskNotif.length;
             _this.refresh();
@@ -16491,6 +16881,7 @@ var UserViewProjectComponent = (function () {
         this._activatedRoute = _activatedRoute;
         this.spinner = false;
         this.showData = false;
+        this.xShow = false;
     }
     UserViewProjectComponent.prototype.ngOnInit = function () {
         this.getProjectDetails();
@@ -16626,6 +17017,16 @@ var AdminService = (function () {
         headers.append('Content-Type', 'application/json');
         return (headers);
     };
+    AdminService.prototype.setHeaderWithAuthorization = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return (headers);
+    };
+    AdminService.prototype.loadToken = function () {
+        this.authToken = localStorage.getItem('id_token');
+    };
     // ---------------------------------Start-------------------------------------------
     // Function      : Admin company management
     // Params        : 
@@ -16635,8 +17036,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all companieslist
     AdminService.prototype.getAllcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16650,8 +17050,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : Allactivecompanies
     AdminService.prototype.getAllactivecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allactivecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16666,8 +17065,7 @@ var AdminService = (function () {
     // Desc          : all blocked companies
     //all blocked companies
     AdminService.prototype.getAllblockedcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allblockedcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16682,8 +17080,7 @@ var AdminService = (function () {
     // Desc          : all deleted companies
     //all deleted companies
     AdminService.prototype.getAlldeletedcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alldeletedcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16698,8 +17095,7 @@ var AdminService = (function () {
     // Desc          : delete company
     //delete company
     AdminService.prototype.deleteCompany = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'deletecompany/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16714,8 +17110,7 @@ var AdminService = (function () {
     // Desc          : block company
     //block company
     AdminService.prototype.blockCompany = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'blockcompany/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16730,8 +17125,7 @@ var AdminService = (function () {
     // Desc          : unblock company
     //unblock company
     AdminService.prototype.unblockCompany = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'unblockcompany/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16761,8 +17155,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all subscribedactivecompanies
     AdminService.prototype.getAllsubactivecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allsubactivecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16791,8 +17184,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all subscribeddeletecompanies
     AdminService.prototype.getAllsubdeletecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allsubdeletecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16806,8 +17198,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all trailcompanies
     AdminService.prototype.getAlltrialcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alltrialcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16821,8 +17212,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all trialactivecompanies
     AdminService.prototype.getAlltrialactivecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alltrialactivecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16851,8 +17241,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all trialdeletecompanies
     AdminService.prototype.getAlltrialdeletecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alltrialdeletecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16867,8 +17256,7 @@ var AdminService = (function () {
     // Desc          : all notverifiedcompanies
     //all not verified companies
     AdminService.prototype.getAllnotverficompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allnotverficompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16882,8 +17270,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all notverfiactivecompanies
     AdminService.prototype.getAllnotverfiactivecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allnotverfiactivecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16897,8 +17284,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all notverfiblockcompanies
     AdminService.prototype.getAllnotverfiblockcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allnotverfiblockcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16912,8 +17298,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all notverfideletecompanies
     AdminService.prototype.getAllnotverfideletecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allnotverfideletecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16928,8 +17313,7 @@ var AdminService = (function () {
     // Desc          : all expired companies
     //all expired companies
     AdminService.prototype.getAllexpiredcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allexpiredcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16943,8 +17327,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all expiredactivecompanies
     AdminService.prototype.getAllexpiredactivecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allexpiredactivecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16958,8 +17341,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all expiredblockcompanies
     AdminService.prototype.getAllexpiredblockcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allexpiredblockcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16973,8 +17355,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all expireddeletecompanies
     AdminService.prototype.getAllexpireddeletecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allexpireddeletecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16988,8 +17369,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : notification
     AdminService.prototype.getAdminnotification = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'adminnotification', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17003,8 +17383,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : view status user notifcation
     AdminService.prototype.viewstatusadmin = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'viewstatusadmin/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17047,7 +17426,7 @@ var AdminService = (function () {
     // Last Modified : 05-03-2018, Rinsha
     // Desc          : getAllplans
     AdminService.prototype.getAllplans = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allplans', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17061,7 +17440,7 @@ var AdminService = (function () {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : getAllplans without default
     AdminService.prototype.getPlansWithoutDefault = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allPlansWithoutDefault', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17075,7 +17454,7 @@ var AdminService = (function () {
     // Last Modified : 02-03-2018, Jooshifa 
     // Desc          : for getting count of companies,projects,users
     AdminService.prototype.getCountsforAdminDashboard = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -17089,7 +17468,7 @@ var AdminService = (function () {
     // Last Modified : 06-03-2018, 
     // Desc          : get piegraph data
     AdminService.prototype.getPieDataforAdminDashboard = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/super_admin_pie_graph", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -17103,7 +17482,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : add plan 
     AdminService.prototype.addPlan = function (plan) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'addPlan', plan, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17117,7 +17496,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : to change a plan to best
     AdminService.prototype.bestPlan = function (id, value) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'bestPlan/' + id, { status: value }, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17131,7 +17510,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : to delete a plan which is'nt used by any company
     AdminService.prototype.deletePlan = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'deletePlan/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17145,7 +17524,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : getplan
     AdminService.prototype.getPlan = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17160,7 +17539,7 @@ var AdminService = (function () {
     // Desc          : update a plan
     AdminService.prototype.updatePlan = function (plan) {
         // console.log(plan);
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'updatePlan', plan, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17174,7 +17553,7 @@ var AdminService = (function () {
     // Last Modified : 06-03-2018, 
     // Desc          : get piegraph data
     AdminService.prototype.getBarDataforAdminDashboard = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/super_admin_bar_graph", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -17188,7 +17567,7 @@ var AdminService = (function () {
     // Last Modified : 06-04-2018, Rinsha
     // Desc          : get all estimated project
     AdminService.prototype.getEstimatedProject = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getEstimatedProject', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17283,7 +17662,7 @@ var CompanyService = (function () {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : getplan
     CompanyService.prototype.getPlan = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17415,20 +17794,20 @@ var CompanyService = (function () {
             .map(function (response) { return response.json(); });
     };
     // ---------------------------------------End--------------------------------------------
-    // ---------------------------------Start-------------------------------------------
-    // Function      : Get logged in entity
-    // Params        : 
-    // Returns       : Get logged in entity
-    // Author        : Rinsha
-    // Date          : 08-03-2018
-    // Last Modified : 08-03-2018, Rinsha
-    // Desc          :  
-    CompanyService.prototype.getLoggedinEntity = function () {
-        var headers = this.setHeaderWithAuthorization();
-        return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: headers })
-            .map(function (res) { return res.json(); });
-    };
-    // -----------------------------------End------------------------------------------
+    // // ---------------------------------Start-------------------------------------------
+    // // Function      : Get logged in entity
+    // // Params        : 
+    // // Returns       : Get logged in entity
+    // // Author        : Rinsha
+    // // Date          : 08-03-2018
+    // // Last Modified : 08-03-2018, Rinsha
+    // // Desc          :  
+    // getLoggedinEntity() {
+    //   let headers = this.setHeaderWithAuthorization();
+    //   return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: headers })
+    //     .map(res => res.json());
+    // }
+    // // -----------------------------------End------------------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : get project by id
     // Params        : id
@@ -17438,7 +17817,7 @@ var CompanyService = (function () {
     // Last Modified : 08-03-2018, Rinsha
     // Desc          : getProject
     CompanyService.prototype.getProject = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getProjectById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17522,7 +17901,7 @@ var CompanyService = (function () {
     // Last Modified : 08-03-2018, Rinsha
     // Desc          : getCategoryById
     CompanyService.prototype.getCategoryById = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getCategoryById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17536,7 +17915,7 @@ var CompanyService = (function () {
     // Last Modified : 12-03-2018, Rinsha
     // Desc          : to delete a project
     CompanyService.prototype.deleteProject = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'deleteProject/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17578,7 +17957,7 @@ var CompanyService = (function () {
     // Last Modified : 12-03-2018, Rinsha
     // Desc          : close notification when pm sees the assign team head notification
     CompanyService.prototype.closeNotif = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'closeNotif/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17620,7 +17999,7 @@ var CompanyService = (function () {
     // Last Modified : 15-03-2018, Rinsha
     // Desc          :  
     CompanyService.prototype.getProjectstimations = function (pro_id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getProjectstimations/' + pro_id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17691,7 +18070,7 @@ var CompanyService = (function () {
     // Last Modified : 19-03-2018, Rinsha
     // Desc          :  
     CompanyService.prototype.getTotalEstimations = function (pro_id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getTotalEstimations/' + pro_id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17903,7 +18282,7 @@ var CompanyService = (function () {
     // Last Modified : 13-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getCompanyDetailsById = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getCompanyDetails/" + id, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -17932,7 +18311,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc :get project details of a purticular id
     CompanyService.prototype.getProjectById = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getProjects/" + id, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -17946,7 +18325,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : to get developer users
     CompanyService.prototype.getDeveloperUsers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-developer-users', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17960,7 +18339,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getDesignerrUsers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-designer-users', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17974,7 +18353,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getQcUsers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-qc-users', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17988,7 +18367,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getTasksModules = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-modules-tasks/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18002,7 +18381,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getAllUsers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-all-users', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18016,7 +18395,7 @@ var CompanyService = (function () {
     // Last Modified : 16-03-2018, Jooshifa
     // Desc          
     CompanyService.prototype.getComplexity = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-complexity-percentage', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18030,7 +18409,7 @@ var CompanyService = (function () {
     // Last Modified : 19-03-2018, Jooshifa
     // Desc          
     CompanyService.prototype.getDatetime = function (newTasks) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "/get-date-time", newTasks, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -18044,7 +18423,7 @@ var CompanyService = (function () {
     // Last Modified : 13-03-2018, 
     // Desc          : get team names and strength from db
     CompanyService.prototype.getTeams = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getTeams", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18058,7 +18437,7 @@ var CompanyService = (function () {
     // Last Modified : 13-03-2018, 
     // Desc          : get team members based on id passed from db
     CompanyService.prototype.getTeamMembers = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getMembers/" + id, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18072,7 +18451,7 @@ var CompanyService = (function () {
     // Last Modified : 09-03-2018, Yasir Poongadan
     // Desc          : 
     CompanyService.prototype.getUsers = function (projId) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getUsersByProject/" + projId, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18085,7 +18464,7 @@ var CompanyService = (function () {
     // Last Modified : 13-03-2018, 
     // Desc          : get team members based on id passed from db
     CompanyService.prototype.assignTeam = function (members, head, teamId) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         var data = [];
         data.push(members);
         data.push(head);
@@ -18103,7 +18482,7 @@ var CompanyService = (function () {
     // Last Modified : 15-03-2018, 
     // Desc          : get user groups  from db
     CompanyService.prototype.getUserGroups = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getUserGroups", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18117,7 +18496,7 @@ var CompanyService = (function () {
     // Last Modified : 15-03-2018, 
     // Desc          : get Access Rights  from db
     CompanyService.prototype.getAccessRights = function (roleId) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getAccessRights/" + roleId, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18131,7 +18510,7 @@ var CompanyService = (function () {
     // Last Modified : 16-03-2018, 
     // Desc          : assign tights to usergroup
     CompanyService.prototype.assignRights = function (rights, id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "assignRights/" + id, rights, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18145,7 +18524,7 @@ var CompanyService = (function () {
     // Last Modified : 16-03-2018, 
     // Desc          : assign tights to usergroup
     CompanyService.prototype.getWorkTimes = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.get(this.serviceUrl + "getWorkingTimes", { headers: h })
             .map(function (response) { return response.json(); });
@@ -18159,7 +18538,7 @@ var CompanyService = (function () {
     // Last Modified : 16-03-2018, 
     // Desc          : assign tights to usergroup
     CompanyService.prototype.getWeekTimes = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.get(this.serviceUrl + "getWeekHours", { headers: h })
             .map(function (response) { return response.json(); });
@@ -18179,7 +18558,7 @@ var CompanyService = (function () {
             start: start,
             end: end
         };
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "saveWorkingTimes", data, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18197,7 +18576,7 @@ var CompanyService = (function () {
         var data = {
             id: id
         };
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "deleteBreak", data, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18212,7 +18591,7 @@ var CompanyService = (function () {
     // Last Modified : 20-03-2018, 
     // Desc          : save company work time to DB
     CompanyService.prototype.saveBreak = function (time) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "saveBreak", time, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18229,7 +18608,7 @@ var CompanyService = (function () {
         var data = {
             year: value
         };
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "getHoliday", data, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18243,7 +18622,7 @@ var CompanyService = (function () {
     // Last Modified : 22-03-2018, 
     // Desc          : get Holidays from DB
     CompanyService.prototype.getYears = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.get(this.serviceUrl + "getYears", { headers: h })
             .map(function (response) { return response.json(); });
@@ -18257,7 +18636,7 @@ var CompanyService = (function () {
     // Last Modified : 22-03-2018, 
     // Desc          : update holiday in DB
     CompanyService.prototype.updateHoliday = function (data) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "updateHoliday", data, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18274,7 +18653,7 @@ var CompanyService = (function () {
         var d = {
             id: data
         };
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "deleteHoliday", d, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18293,11 +18672,25 @@ var CompanyService = (function () {
             date: date,
             title: title
         };
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "saveHoliday", data, { headers: h })
             .map(function (response) { return response.json(); });
     };
     // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 08-03-2018
+    // Last Modified : 08-03-2018, Rinsha
+    // Desc          :  
+    CompanyService.prototype.getLoggedinEntity = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : getAvailablity
     // Params        : 
@@ -18307,7 +18700,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getAvailablity = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-availablity/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18321,7 +18714,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getPublicHolidays = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/get-public-holidays", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -18335,7 +18728,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getWorkingTime = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/get-working-time", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -18349,7 +18742,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getOffDays = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/get-off-days-assoc", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -18363,7 +18756,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getbreakTime = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/get-break-time", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -18391,7 +18784,7 @@ var CompanyService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : get details of project involved by user based on status from db
     CompanyService.prototype.getNotifications = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getNotifications2", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18405,7 +18798,7 @@ var CompanyService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : close the notification of new request
     CompanyService.prototype.closeNotifnewTaskReq = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         var data = {
             id: id
         };
@@ -18422,7 +18815,7 @@ var CompanyService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.closeNotifAproval = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         var data = {
             id: id
         };
@@ -18439,7 +18832,7 @@ var CompanyService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.getNewTaskRequests = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getNewTaskRequests", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18454,7 +18847,7 @@ var CompanyService = (function () {
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.getNewTaskRequest = function (id) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getNewTaskRequest/" + id, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18467,9 +18860,9 @@ var CompanyService = (function () {
     // Date          : 26-03-2018
     // Last Modified : 26-03-2018, 
     // Desc          : close the notification of new  Aproval 
-    CompanyService.prototype.getProjectsDetails = function (id) {
+    CompanyService.prototype.getProjectDetails = function (id) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getProjectsDetails/" + id, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18484,7 +18877,7 @@ var CompanyService = (function () {
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.checkRole = function () {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "checkRole/", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18499,8 +18892,135 @@ var CompanyService = (function () {
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.approveTask = function (data) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "approveTask/", data, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : closeNotifAproval
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 26-03-2018
+    // Last Modified : 26-03-2018, 
+    // Desc          : close the notification of new  Aproval 
+    CompanyService.prototype.rejectTask = function (taskReqId) {
+        // console.log("h")
+        var h = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + "rejectTaskRequest/" + taskReqId, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : rejectTask
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 07-04-2018
+    // Last Modified : 07-04-2018, 
+    // Desc          : Reject new Task request
+    CompanyService.prototype.sendApproval = function (taskReqId) {
+        // console.log("h")
+        var h = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + "sendApproval/" + taskReqId, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : getDayBreaks
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 07-04-2018
+    // Last Modified : 07-04-2018, 
+    // Desc          : Get breaks in the day
+    CompanyService.prototype.getDayBreaks = function (day, week) {
+        // console.log("h")
+        var h = this.setHeaderWithAuthorization();
+        var data = {
+            day: day,
+            week: week
+        };
+        return this.http.post(this.serviceUrl + "getDayBreaks/", data, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : getDayBreaks
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 07-04-2018
+    // Last Modified : 07-04-2018, 
+    // Desc          : Get breaks in the day
+    CompanyService.prototype.getDayDetails = function (day, week) {
+        // console.log("h")
+        var h = this.setHeader();
+        var data = {
+            day: day,
+            week: week
+        };
+        return this.http.post(this.serviceUrl + "getDayDetails/", data, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : saveDayBreak
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 12-04-2018
+    // Last Modified : 12-04-2018, 
+    // Desc          : Get breaks in the day
+    CompanyService.prototype.saveDayBreak = function (day, week, xtime, ytime, title) {
+        // console.log("h")
+        var h = this.setHeader();
+        var data = {
+            day: day,
+            week: week,
+            startTime: xtime,
+            endTime: ytime,
+            title: title
+        };
+        return this.http.post(this.serviceUrl + "saveDayBreak/", data, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : deleteExtraBreak
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 12-04-2018
+    // Last Modified : 12-04-2018, 
+    // Desc          : Delete breaks of days
+    CompanyService.prototype.deleteExtraBreak = function (breakId) {
+        // console.log("h")
+        var h = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + "deleteExtraBreak/" + breakId, { headers: h })
+            .map(function (response) { return response.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+    // Function      : saveDayWorkTime
+    // Params        : 
+    // Returns       : 
+    // Author        : MANU PRASAD
+    // Date          : 12-04-2018
+    // Last Modified : 12-04-2018, 
+    // Desc          : save working time of a day
+    CompanyService.prototype.saveDayWorkTime = function (holiday, startTime, endTime, day, week) {
+        // console.log("h")
+        var h = this.setHeaderWithAuthorization();
+        var data = {
+            holiday: holiday,
+            startTime: startTime,
+            endTime: endTime,
+            day: day,
+            week: week
+        };
+        return this.http.post(this.serviceUrl + "saveDayWorkTime/", data, { headers: h })
             .map(function (response) { return response.json(); });
     };
     // ---------------------------------------End--------------------------------------------
@@ -18514,7 +19034,7 @@ var CompanyService = (function () {
     // Desc          : to get All Estimated Project
     CompanyService.prototype.getAllEstimatedProject = function () {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getAllEstimatedProject", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18528,7 +19048,8 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : all users 
     CompanyService.prototype.getAllusers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
+        console.log(headers);
         return this.http.get(this.serviceUrl + 'allusers', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18543,10 +19064,10 @@ var CompanyService = (function () {
     // Desc          : delete User
     //delete User
     CompanyService.prototype.deleteUser = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
-        return this.http.put(this.serviceUrl + 'deleteuser/' + id, { headers: headers })
-            .map(function (res) { return res.json(); });
+        var header = this.setHeaderWithAuthorization();
+        console.log(header);
+        return this.http.post(this.serviceUrl + 'deleteuser/' + id, {}, { headers: header })
+            .map(function (response) { return response.json(); });
     };
     // -----------------------------------End------------------------------------------
     // ---------------------------------Start-------------------------------------------
@@ -18559,8 +19080,7 @@ var CompanyService = (function () {
     // Desc          : block User
     //block User
     CompanyService.prototype.blockUser = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'blockuser/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18575,8 +19095,7 @@ var CompanyService = (function () {
     // Desc          : unblock User
     //unblock User
     CompanyService.prototype.unblockUser = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'unblockuser/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18590,7 +19109,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of active users
     CompanyService.prototype.getAllactiveusers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allactiveusers', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18604,7 +19123,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of block users
     CompanyService.prototype.getAllblockedusers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allblockedusers', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18618,7 +19137,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of all delete users
     CompanyService.prototype.getAlldeleteusers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alldeleteusers', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18633,7 +19152,7 @@ var CompanyService = (function () {
     // Desc          : adduser
     CompanyService.prototype.addUser = function (data) {
         // console.log(data)
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'adduser', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18647,7 +19166,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of usergroup
     CompanyService.prototype.getAllusergroup = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allusergroup', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18661,7 +19180,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Prevexp
     CompanyService.prototype.getAllPrevexp = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allprevexp', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18675,7 +19194,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Team
     CompanyService.prototype.getAllTeam = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allteam', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18689,7 +19208,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Designation
     CompanyService.prototype.getAllDesignation = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alldesignation', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18704,7 +19223,7 @@ var CompanyService = (function () {
     // Desc          : Singleuser
     //unblock User
     CompanyService.prototype.getSingleuser = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'singleuser', { id: id }, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18719,7 +19238,7 @@ var CompanyService = (function () {
     // Desc          : to updateuser 
     CompanyService.prototype.updateUser = function (user) {
         // console.log(plan);
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'updateuser', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18748,7 +19267,7 @@ var CompanyService = (function () {
     // Desc          : deleteCategory
     //deleteCategory
     CompanyService.prototype.deleteCategory = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'deletecategory/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18794,7 +19313,7 @@ var CompanyService = (function () {
     // Desc          : singlecategory
     //unblock User
     CompanyService.prototype.getSinglecategory = function (project_id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "singlecategory/" + project_id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18808,7 +19327,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Allemployeeleaves
     CompanyService.prototype.getAllemployeeleaves = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allempleaves', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18822,7 +19341,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Allcompanyemployee
     CompanyService.prototype.getAllcompanyemployee = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allcompanyemployee', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18837,7 +19356,7 @@ var CompanyService = (function () {
     // Desc          : deleteEmpleaveeCategory
     //deleteEmpleave
     CompanyService.prototype.deleteEmpleave = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'deleteempleave/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18852,7 +19371,7 @@ var CompanyService = (function () {
     // Desc          : singleempleave
     //unblock User
     CompanyService.prototype.getSingleempleave = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "singleempleave/" + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18867,7 +19386,7 @@ var CompanyService = (function () {
     // Desc          : addEmpleave
     CompanyService.prototype.addnewEmpleave = function (data) {
         // console.log(data)
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'addEmpleave', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18882,7 +19401,7 @@ var CompanyService = (function () {
     // Desc          : to updateEmpleave 
     CompanyService.prototype.updateEmpleave = function (Empleave) {
         // console.log(Empleave);
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'updateempleave', Empleave, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18897,7 +19416,7 @@ var CompanyService = (function () {
     // Desc          : datefilterforlog
     CompanyService.prototype.getDatefilterforlog = function (data) {
         // console.log(data)
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'datefilterforlog', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18911,7 +19430,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of getAllemppendingleaves
     CompanyService.prototype.getAllemppendingleaves = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allemppendingleaves', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18926,7 +19445,7 @@ var CompanyService = (function () {
     // Desc          : userleave
     //userleave
     CompanyService.prototype.getuserleave = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "userleave/" + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18941,7 +19460,7 @@ var CompanyService = (function () {
     // Desc          : add reject reason
     //updateCategory
     CompanyService.prototype.addReason = function (reason) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'addrejectleave/', reason, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18956,7 +19475,7 @@ var CompanyService = (function () {
     // Desc          : add accept reason
     //addaccept
     CompanyService.prototype.addaccept = function (accept) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'addacceptleave/', accept, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18970,7 +19489,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of get All emp pending leaves notification
     CompanyService.prototype.getAllemppendingleavesnotifi = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allemppendingleavesnotifi', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18985,7 +19504,7 @@ var CompanyService = (function () {
     // Desc          : close Notif for leave request
     //closeNotif5
     CompanyService.prototype.closeNotif5 = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'leavenotifclose/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18999,7 +19518,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Altime extension request
     CompanyService.prototype.getAlltimeextensionrequest = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alltimeextension', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19015,7 +19534,7 @@ var CompanyService = (function () {
     //userleave
     CompanyService.prototype.gettimerequest = function (reqid, projid) {
         var data = { reqid: reqid, projid: projid };
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         // console.log("a"+data)
         return this.http.post(this.serviceUrl + "timerequest", data, { headers: headers })
             .map(function (res) { return res.json(); });
@@ -19031,7 +19550,7 @@ var CompanyService = (function () {
     // Desc          : Reject time ext req to pm
     //Rejecttimeextreq
     CompanyService.prototype.Rejecttimeextreq = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'rejecttimeextreq/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19046,7 +19565,7 @@ var CompanyService = (function () {
     // Desc          : get User leave data(time extension request)
     //unblock User
     CompanyService.prototype.getUserleavedata = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "userleavedata/" + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19061,7 +19580,7 @@ var CompanyService = (function () {
     // Desc          : Send to admin (time ext req )
     //Sendtoadmin
     CompanyService.prototype.Sendtoadmin = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'sendtoadmin/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19075,7 +19594,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : send to admin notif(time extension approval)
     CompanyService.prototype.getAllSendtoadminnotif = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'sendtoadminnotif', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19090,7 +19609,7 @@ var CompanyService = (function () {
     // Desc          : close Notif for time extension approval
     //closeNotif6
     CompanyService.prototype.closeNotif6 = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'admintimeextnotifclose/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19361,7 +19880,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.getMyTasks = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-my-tasks', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19375,7 +19894,7 @@ var UserService = (function () {
     // Last Modified : 16-03-2018, Jooshifa
     // Desc          
     UserService.prototype.getPercentage = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-progress-percentage', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19389,7 +19908,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.getAllTasksInModule = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-all-task-in-module', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19403,7 +19922,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.getTaskTime = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-task-time', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19417,7 +19936,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.doneAtask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'done-a-task/' + task, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19431,7 +19950,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.pauseTask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'pause-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19445,7 +19964,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.completeATask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'complete-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19459,7 +19978,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.holdATask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'hold-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19473,7 +19992,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.startAtask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'start-a-task/' + task, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19501,7 +20020,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.getUserProfile = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-user-Profile', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19515,7 +20034,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.newTaskRequest = function (task) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "new-task-request", task, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -19529,7 +20048,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.newTimeExtention = function (task) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "time-extention-request", task, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -19543,7 +20062,7 @@ var UserService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : get details of project involved by user from db
     UserService.prototype.getUserProjects = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getUserProjects", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -19557,7 +20076,7 @@ var UserService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : get details of project involved by user from db
     UserService.prototype.getProjectDetails = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getUserProjectsDetails/" + id, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -19571,7 +20090,7 @@ var UserService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : get details of project involved by user based on status from db
     UserService.prototype.getUserProjectsOnStatus = function (status) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "getUserProjectsOnStatus", { status: status }, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -19585,7 +20104,7 @@ var UserService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : get details of project involved by user based on status from db
     UserService.prototype.getUserProjectSelected = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "getSelectedProjects", { id: id }, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -19599,7 +20118,7 @@ var UserService = (function () {
     // Last Modified : 13-03-2018, Rinsha
     // Desc          : getPmByLoginid
     UserService.prototype.getPmByLoginid = function (login_id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getPmByLoginid/' + login_id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19767,8 +20286,7 @@ var UserService = (function () {
     // Last Modified : 
     // Desc          :user all activity log list
     UserService.prototype.getSingleUserActivitylog = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'singleuserlog', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19783,8 +20301,7 @@ var UserService = (function () {
     // Desc          : datefilterforlog
     UserService.prototype.getDatefilterforlog = function (data) {
         // console.log(data)
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'datefilterforlog', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19798,8 +20315,7 @@ var UserService = (function () {
     // Last Modified : 
     // Desc          :get Single User all leaves
     UserService.prototype.getSingleUserallleaves = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'singleuserallleave', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19813,8 +20329,7 @@ var UserService = (function () {
     // Desc          : deleteuser leave
     //deleteuser leave
     UserService.prototype.deleteuserleave = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'deleteuserleave/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19829,8 +20344,7 @@ var UserService = (function () {
     // Desc          : add USER leave
     UserService.prototype.addUserleave = function (data) {
         // console.log(data)
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'adduserleave', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19845,8 +20359,7 @@ var UserService = (function () {
     // Desc          : single user leave
     //unblock User
     UserService.prototype.getSingleuserleave = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "singleuserleave/" + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19919,8 +20432,7 @@ var UserService = (function () {
     // Last Modified :
     // Desc          : 
     UserService.prototype.getAllProject = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "allProjects", { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19934,8 +20446,7 @@ var UserService = (function () {
     // Last Modified :
     // Desc          : 
     UserService.prototype.getAllMyTimeextensionrequest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "allmytimeextrequest", { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19949,8 +20460,7 @@ var UserService = (function () {
     // Last Modified :
     // Desc          : 
     UserService.prototype.getAllMyNewTaskrequest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "allmynewtaskrequest", { headers: headers })
             .map(function (res) { return res.json(); });
     };

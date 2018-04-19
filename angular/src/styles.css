@@ -1526,6 +1526,15 @@ fieldset{
 .white-imp{
     background-color: #fff !important;
 }
+.btn-link {
+    padding: 0
+}
+.ngb-tp-hour input{
+    padding: 0 10px
+}
+.padd-7{
+    padding: 7px !important;
+}
 
 button.close {
     -webkit-appearance: none;
@@ -1592,3 +1601,25 @@ ul.breadcrumb li a:hover {
 .breadcrumb{      margin: 9px 15px 9px 15px;;  background-color: #f6f7fa;}
 fieldset{border:none;}
 h3{padding: 0;}
+.form-inline i{
+    display: inline;
+}
+.form-check{
+    display: inline;
+}
+.ng-star-inserted {
+    /* margin-left: 10px; */
+    text-align: left;
+}
+.form-inline{
+    display: -webkit-box; 
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}

@@ -73,6 +73,16 @@ export class CompanyTopbarComponent implements OnInit {
     this.socket.on('reEstimateProject', (data) => {
       this.resubmitEstimationNotification();
     });
+    this.socket.on('newtaskrequestAccepted', (data) => {
+      this.getNotifications();
+    });
+    this.socket.on('newtaskrequestRejected', (data) => {
+      this.getNotifications();
+    });
+    this.socket.on('newtaskrequestApproval', (data) => {
+      this.getNotifications();
+    });
+    
     this.getAllemppendingleavesnotifi();
     this.socket.on('Leaveaddeduser', (data) => {
       this.getAllemppendingleavesnotifi();
@@ -276,20 +286,26 @@ export class CompanyTopbarComponent implements OnInit {
       // this.accessRights = accessRights;
       // console.log(resNotifications)
       this.notifications = resNotifications;
-      if (resNotifications.back.length > 0) {
+      if(resNotifications.back && resNotifications.back.length > 0){
+      // if (resNotifications.back.length > 0) {
         this.newTaskreqBackCount = resNotifications.back.length
         this.newTaskApp = resNotifications.back
         this.dispStatus = true;
       } else {
         this.newTaskApp = [];
+        this.dispStatus = true;
+        
       }
-      if (resNotifications.req.length > 0) {
+      if(resNotifications.req && resNotifications.req.length > 0){
+      // if (resNotifications.req.length > 0) {
         this.newTaskreqCount = resNotifications.req.length
         this.newTaskreq = resNotifications.req
         this.dispStatus = true;
 
       } else {
         this.newTaskreq = [];
+        this.dispStatus = true;
+        
       }
       this.showNotifications = true;
       this.refresh();

@@ -1,0 +1,27 @@
+.thin-lbl{
+    font-weight: 400 !important;
+}
+.bg-grey-btn{
+    background-color: rgb(236, 236, 236);
+    border-radius: 4px;
+    border: none;
+    padding: 2px 7px;
+}
+.bg-grey-btn:hover{
+    background-color: #fe6a07;
+    color: #fff;
+}
+.rnd-btn{
+    position: absolute;
+    bottom: -13px;
+    right: 104px;
+}
+.white{
+    position: relative;
+}
+.week-btn{
+    background-color: transparent;
+}
+td{
+    padding: 7px;
+}

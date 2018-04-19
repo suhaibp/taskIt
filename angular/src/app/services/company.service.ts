@@ -76,7 +76,7 @@ export class CompanyService {
   // Desc          : getplan
 
   getPlan(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
       .map(res => res.json());
 
@@ -224,20 +224,20 @@ export class CompanyService {
   }
   // ---------------------------------------End--------------------------------------------
 
-  // ---------------------------------Start-------------------------------------------
-  // Function      : Get logged in entity
-  // Params        : 
-  // Returns       : Get logged in entity
-  // Author        : Rinsha
-  // Date          : 08-03-2018
-  // Last Modified : 08-03-2018, Rinsha
-  // Desc          :  
-  getLoggedinEntity() {
-    let headers = this.setHeaderWithAuthorization();
-    return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: headers })
-      .map(res => res.json());
-  }
-  // -----------------------------------End------------------------------------------
+  // // ---------------------------------Start-------------------------------------------
+  // // Function      : Get logged in entity
+  // // Params        : 
+  // // Returns       : Get logged in entity
+  // // Author        : Rinsha
+  // // Date          : 08-03-2018
+  // // Last Modified : 08-03-2018, Rinsha
+  // // Desc          :  
+  // getLoggedinEntity() {
+  //   let headers = this.setHeaderWithAuthorization();
+  //   return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: headers })
+  //     .map(res => res.json());
+  // }
+  // // -----------------------------------End------------------------------------------
 
   // ---------------------------------Start-------------------------------------------
   // Function      : get project by id
@@ -248,7 +248,7 @@ export class CompanyService {
   // Last Modified : 08-03-2018, Rinsha
   // Desc          : getProject
   getProject(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getProjectById/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -343,7 +343,7 @@ export class CompanyService {
   // Last Modified : 08-03-2018, Rinsha
   // Desc          : getCategoryById
   getCategoryById(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getCategoryById/' + id, { headers: headers })
       .map(res => res.json());
 
@@ -360,7 +360,7 @@ export class CompanyService {
   // Desc          : to delete a project
 
   deleteProject(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'deleteProject/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -407,7 +407,7 @@ export class CompanyService {
   // Last Modified : 12-03-2018, Rinsha
   // Desc          : close notification when pm sees the assign team head notification
   closeNotif(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'closeNotif/' + id, { headers: headers })
       .map(res => res.json());
 
@@ -454,7 +454,7 @@ export class CompanyService {
   // Last Modified : 15-03-2018, Rinsha
   // Desc          :  
   getProjectstimations(pro_id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getProjectstimations/' + pro_id, { headers: headers })
       .map(res => res.json());
 
@@ -535,7 +535,7 @@ export class CompanyService {
   // Last Modified : 19-03-2018, Rinsha
   // Desc          :  
   getTotalEstimations(pro_id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getTotalEstimations/' + pro_id, { headers: headers })
       .map(res => res.json());
 
@@ -771,7 +771,7 @@ export class CompanyService {
   // Last Modified : 13-03-2018, Jooshifa
   // Desc          : 
   getCompanyDetailsById(id) {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "getCompanyDetails/" + id, { headers: h })
       .map(res => res.json());
   }
@@ -801,7 +801,7 @@ export class CompanyService {
   // Last Modified : 14-03-2018, Jooshifa
   // Desc :get project details of a purticular id
   getProjectById(id) {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "getProjects/" + id, { headers: h })
       .map(res => res.json())
   }
@@ -816,7 +816,7 @@ export class CompanyService {
   // Desc          : to get developer users
 
   getDeveloperUsers() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-developer-users', { headers: headers })
       .map(res => res.json());
   }
@@ -833,7 +833,7 @@ export class CompanyService {
   // Desc          : 
 
   getDesignerrUsers() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-designer-users', { headers: headers })
       .map(res => res.json());
   }
@@ -850,7 +850,7 @@ export class CompanyService {
   // Desc          : 
 
   getQcUsers() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-qc-users', { headers: headers })
       .map(res => res.json());
   }
@@ -867,7 +867,7 @@ export class CompanyService {
   // Desc          : 
 
   getTasksModules(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-modules-tasks/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -883,7 +883,7 @@ export class CompanyService {
   // Last Modified : 14-03-2018, Jooshifa
   // Desc          : 
   getAllUsers() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-all-users', { headers: headers })
       .map(res => res.json());
   }
@@ -899,7 +899,7 @@ export class CompanyService {
   // Last Modified : 16-03-2018, Jooshifa
   // Desc          
   getComplexity() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-complexity-percentage', { headers: headers })
       .map(res => res.json());
   }
@@ -915,7 +915,7 @@ export class CompanyService {
   // Last Modified : 19-03-2018, Jooshifa
   // Desc          
   getDatetime(newTasks) {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + "/get-date-time", newTasks, { headers: h })
       .map(res => res.json());
   }
@@ -930,7 +930,7 @@ export class CompanyService {
   // Last Modified : 13-03-2018, 
   // Desc          : get team names and strength from db
   getTeams() {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "getTeams", { headers: h })
       .map((response: Response) => response.json());
   }
@@ -945,7 +945,7 @@ export class CompanyService {
   // Last Modified : 13-03-2018, 
   // Desc          : get team members based on id passed from db
   getTeamMembers(id) {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "getMembers/" + id, { headers: h })
       .map((response: Response) => response.json());
   }
@@ -960,7 +960,7 @@ export class CompanyService {
   // Last Modified : 09-03-2018, Yasir Poongadan
   // Desc          : 
   getUsers(projId) {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "getUsersByProject/" + projId, { headers: h })
       .map((response: Response) => response.json());
   }
@@ -974,7 +974,7 @@ export class CompanyService {
   // Last Modified : 13-03-2018, 
   // Desc          : get team members based on id passed from db
   assignTeam(members, head, teamId) {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     let data = [];
     data.push(members);
     data.push(head);
@@ -993,7 +993,7 @@ export class CompanyService {
   // Last Modified : 15-03-2018, 
   // Desc          : get user groups  from db
   getUserGroups() {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "getUserGroups", { headers: h })
       .map((response: Response) => response.json());
   }
@@ -1008,7 +1008,7 @@ export class CompanyService {
   // Last Modified : 15-03-2018, 
   // Desc          : get Access Rights  from db
   getAccessRights(roleId) {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "getAccessRights/" + roleId, { headers: h })
       .map((response: Response) => response.json());
   }
@@ -1024,7 +1024,7 @@ export class CompanyService {
   // Desc          : assign tights to usergroup
   assignRights(rights, id) {
 
-    let h = this.setHeader();;
+    let h = this.setHeaderWithAuthorization();;
     return this.http.post(this.serviceUrl + "assignRights/"+id,rights, { headers: h })
       .map((response: Response) => response.json());
   }
@@ -1039,14 +1039,11 @@ export class CompanyService {
   // Desc          : assign tights to usergroup
   getWorkTimes(){
 
-    let h = this.setHeader();;
+    let h = this.setHeaderWithAuthorization();;
     return this.http.get(this.serviceUrl + "getWorkingTimes", { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
-
-
 
       // Function      : assignRights
   // Params        : 
@@ -1057,14 +1054,11 @@ export class CompanyService {
   // Desc          : assign tights to usergroup
   getWeekTimes(){
 
-    let h = this.setHeader();;
+    let h = this.setHeaderWithAuthorization();;
     return this.http.get(this.serviceUrl + "getWeekHours", { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
-
-
 
   // ---------------------------------------End--------------------------------------------
 
@@ -1082,12 +1076,11 @@ export class CompanyService {
       start:start,
       end:end
     }
-    let h = this.setHeader();;
+    let h = this.setHeaderWithAuthorization();;
     return this.http.post(this.serviceUrl + "saveWorkingTimes",data, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
 
    // ---------------------------------------End--------------------------------------------
 
@@ -1103,15 +1096,12 @@ export class CompanyService {
     let data = {
       id:id
     }
-    let h = this.setHeader();;
+    let h = this.setHeaderWithAuthorization();;
     return this.http.post(this.serviceUrl + "deleteBreak",data, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
 
-
-
-  
    // ---------------------------------------End--------------------------------------------
 
     // Function      : saveWorkTimes
@@ -1123,13 +1113,11 @@ export class CompanyService {
   // Desc          : save company work time to DB
   saveBreak(time){
 
-    let h = this.setHeader();;
+    let h = this.setHeaderWithAuthorization();;
     return this.http.post(this.serviceUrl + "saveBreak",time, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
-
 
        // Function      : getHoliday
   // Params        : 
@@ -1142,7 +1130,7 @@ export class CompanyService {
     let data = {
       year:value
     }
-    let h = this.setHeader();;
+    let h = this.setHeaderWithAuthorization();;
     return this.http.post(this.serviceUrl + "getHoliday",data, { headers: h })
       .map((response: Response) => response.json());
   }
@@ -1156,12 +1144,11 @@ export class CompanyService {
   // Last Modified : 22-03-2018, 
   // Desc          : get Holidays from DB
   getYears(){
-    let h = this.setHeader();;
+    let h = this.setHeaderWithAuthorization();;
     return this.http.get(this.serviceUrl + "getYears", { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
 
 // Function      : updateHoliday
 // Params        : 
@@ -1172,12 +1159,11 @@ export class CompanyService {
 // Desc          : update holiday in DB
 updateHoliday(data){
   
-  let h = this.setHeader();;
+  let h = this.setHeaderWithAuthorization();;
   return this.http.post(this.serviceUrl + "updateHoliday",data, { headers: h })
     .map((response: Response) => response.json());
 }
 // ---------------------------------------End--------------------------------------------
-
 
 // Function      : updateHoliday
 // Params        : 
@@ -1190,13 +1176,11 @@ deleteHoliday(data){
   let d = {
     id:data
   }
-  let h = this.setHeader();;
+  let h = this.setHeaderWithAuthorization();;
   return this.http.post(this.serviceUrl + "deleteHoliday",d, { headers: h })
     .map((response: Response) => response.json());
 }
 // ---------------------------------------End--------------------------------------------
-
-
 
  // ---------------------------------Start------------------------------------------------
   // Function      : getAccessRights
@@ -1211,12 +1195,27 @@ deleteHoliday(data){
       date: date,
       title: title
     }
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + "saveHoliday", data, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
 
+    // ---------------------------------Start-------------------------------------------
+  // Function      : Get logged in entity
+  // Params        : 
+  // Returns       : Get logged in entity
+  // Author        : Rinsha
+  // Date          : 08-03-2018
+  // Last Modified : 08-03-2018, Rinsha
+  // Desc          :  
+  getLoggedinEntity() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getLoggedinCompany', { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+  
   // ---------------------------------Start-------------------------------------------
   // Function      : getAvailablity
   // Params        : 
@@ -1227,7 +1226,7 @@ deleteHoliday(data){
   // Desc          : 
   getAvailablity(id) {
 
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-availablity/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -1242,7 +1241,7 @@ deleteHoliday(data){
   // Last Modified : 21-03-2018, Jooshifa
   // Desc          : 
   getPublicHolidays() {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "/get-public-holidays", { headers: h })
       .map(res => res.json());
 
@@ -1258,7 +1257,7 @@ deleteHoliday(data){
   // Last Modified : 21-03-2018, Jooshifa
   // Desc          : 
   getWorkingTime() {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "/get-working-time", { headers: h })
       .map(res => res.json());
 
@@ -1274,7 +1273,7 @@ deleteHoliday(data){
   // Last Modified : 21-03-2018, Jooshifa
   // Desc          : 
   getOffDays() {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "/get-off-days-assoc", { headers: h })
       .map(res => res.json());
   }
@@ -1290,7 +1289,7 @@ deleteHoliday(data){
   // Desc          : 
 
   getbreakTime() {
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "/get-break-time", { headers: h })
       .map(res => res.json());
   }
@@ -1320,7 +1319,7 @@ deleteHoliday(data){
   // Desc          : get details of project involved by user based on status from db
   getNotifications(){
    
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "getNotifications2",  { headers: h })
       .map((response: Response) => response.json());
   }
@@ -1336,7 +1335,7 @@ deleteHoliday(data){
   // Desc          : close the notification of new request
   closeNotifnewTaskReq(id){
    
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     let data = {
        id: id
     }
@@ -1355,7 +1354,7 @@ deleteHoliday(data){
   // Desc          : close the notification of new  Aproval 
   closeNotifAproval(id){
    
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     let data = {
        id: id
     }
@@ -1374,7 +1373,7 @@ deleteHoliday(data){
   // Desc          : close the notification of new  Aproval 
   getNewTaskRequests(){
    
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     
     return this.http.get(this.serviceUrl + "getNewTaskRequests", { headers: h })
       .map((response: Response) => response.json());
@@ -1391,7 +1390,7 @@ deleteHoliday(data){
   // Desc          : close the notification of new  Aproval 
   getNewTaskRequest(id){
     // console.log("h")
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     
     return this.http.get(this.serviceUrl + "getNewTaskRequest/"+id, { headers: h })
       .map((response: Response) => response.json());
@@ -1406,9 +1405,9 @@ deleteHoliday(data){
   // Date          : 26-03-2018
   // Last Modified : 26-03-2018, 
   // Desc          : close the notification of new  Aproval 
-  getProjectsDetails(id){
+  getProjectDetails(id){
     // console.log("h")
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     
     return this.http.get(this.serviceUrl + "getProjectsDetails/"+id, { headers: h })
       .map((response: Response) => response.json());
@@ -1425,7 +1424,7 @@ deleteHoliday(data){
   // Desc          : close the notification of new  Aproval 
   checkRole(){
     // console.log("h")
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     
     return this.http.get(this.serviceUrl + "checkRole/", { headers: h })
       .map((response: Response) => response.json());
@@ -1442,12 +1441,143 @@ deleteHoliday(data){
   // Desc          : close the notification of new  Aproval 
   approveTask(data){
     // console.log("h")
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     
     return this.http.post(this.serviceUrl + "approveTask/",data, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
+   // ---------------------------------Start------------------------------------------------
+  // Function      : closeNotifAproval
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : close the notification of new  Aproval 
+  rejectTask(taskReqId){
+    // console.log("h")
+    let h = this.setHeaderWithAuthorization();
+    
+    return this.http.post(this.serviceUrl + "rejectTaskRequest/"+taskReqId, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+   // ---------------------------------Start------------------------------------------------
+  // Function      : rejectTask
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 07-04-2018
+  // Last Modified : 07-04-2018, 
+  // Desc          : Reject new Task request
+  sendApproval(taskReqId){
+    // console.log("h")
+    let h = this.setHeaderWithAuthorization();
+    
+    return this.http.post(this.serviceUrl + "sendApproval/"+taskReqId, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+  // Function      : getDayBreaks
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 07-04-2018
+  // Last Modified : 07-04-2018, 
+  // Desc          : Get breaks in the day
+  getDayBreaks(day,week){
+    // console.log("h")
+    let h = this.setHeaderWithAuthorization();
+    let data = {
+      day: day,
+      week: week
+    }
+    return this.http.post(this.serviceUrl + "getDayBreaks/", data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start------------------------------------------------
+  // Function      : getDayBreaks
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 07-04-2018
+  // Last Modified : 07-04-2018, 
+  // Desc          : Get breaks in the day
+  getDayDetails(day,week){
+    // console.log("h")
+    let h = this.setHeader();
+    let data = {
+      day: day,
+      week: week
+    }
+    return this.http.post(this.serviceUrl + "getDayDetails/", data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+     // ---------------------------------Start------------------------------------------------
+  // Function      : saveDayBreak
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 12-04-2018
+  // Last Modified : 12-04-2018, 
+  // Desc          : Get breaks in the day
+  saveDayBreak(day,week,xtime,ytime,title){
+    // console.log("h")
+    let h = this.setHeader();
+    let data = {
+      day: day,
+      week: week,
+      startTime: xtime,
+      endTime: ytime,
+      title: title
+    }
+    return this.http.post(this.serviceUrl + "saveDayBreak/", data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+     // ---------------------------------Start------------------------------------------------
+  // Function      : deleteExtraBreak
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 12-04-2018
+  // Last Modified : 12-04-2018, 
+  // Desc          : Delete breaks of days
+  deleteExtraBreak(breakId){
+    // console.log("h")
+    let h = this.setHeaderWithAuthorization();
+    
+    return this.http.post(this.serviceUrl + "deleteExtraBreak/"+breakId,  { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+  // ---------------------------------Start------------------------------------------------
+  // Function      : saveDayWorkTime
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 12-04-2018
+  // Last Modified : 12-04-2018, 
+  // Desc          : save working time of a day
+  saveDayWorkTime(holiday, startTime, endTime, day,week){
+    // console.log("h")
+    let h = this.setHeaderWithAuthorization();
+    let data = {
+      holiday: holiday,
+      startTime: startTime,
+      endTime: endTime,
+      day: day,
+      week: week
+    }
+    return this.http.post(this.serviceUrl + "saveDayWorkTime/", data, { headers: h })
+      .map((response: Response) => response.json());
+  }
+  // ---------------------------------------End--------------------------------------------
+
   // ---------------------------------Start------------------------------------------------
   // Function      : geTAllEstimatedProject
   // Params        : 
@@ -1458,7 +1588,7 @@ deleteHoliday(data){
   // Desc          : to get All Estimated Project
   getAllEstimatedProject(){
     // console.log("h")
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     
     return this.http.get(this.serviceUrl + "getAllEstimatedProject", { headers: h })
       .map((response: Response) => response.json());
@@ -1475,7 +1605,8 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : all users 
   getAllusers() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
+    console.log(headers);
     return this.http.get(this.serviceUrl + 'allusers', { headers: headers })
       .map(res => res.json());
   }
@@ -1490,10 +1621,10 @@ deleteHoliday(data){
   // Desc          : delete User
   //delete User
   deleteUser(id) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.put(this.serviceUrl + 'deleteuser/' + id, { headers: headers })
-      .map(res => res.json());
+    let header = this.setHeaderWithAuthorization();
+    console.log(header);
+    return this.http.post(this.serviceUrl + 'deleteuser/' + id,{}, { headers: header })
+      .map((response: Response) => response.json());
   }
   // -----------------------------------End------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1506,8 +1637,7 @@ deleteHoliday(data){
   // Desc          : block User
   //block User
   blockUser(id) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeaderWithAuthorization();
     return this.http.put(this.serviceUrl + 'blockuser/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -1522,8 +1652,7 @@ deleteHoliday(data){
   // Desc          : unblock User
   //unblock User
   unblockUser(id) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeaderWithAuthorization();
     return this.http.put(this.serviceUrl + 'unblockuser/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -1537,7 +1666,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of active users
   getAllactiveusers() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allactiveusers', { headers: headers })
       .map(res => res.json());
   }
@@ -1551,7 +1680,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of block users
   getAllblockedusers() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allblockedusers', { headers: headers })
       .map(res => res.json());
   }
@@ -1565,7 +1694,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of all delete users
   getAlldeleteusers() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'alldeleteusers', { headers: headers })
       .map(res => res.json());
   }
@@ -1580,7 +1709,7 @@ deleteHoliday(data){
   // Desc          : adduser
   addUser(data: any) {
     // console.log(data)
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
    
     return this.http.post(this.serviceUrl + 'adduser', data, { headers: headers })
       .map(res => res.json());
@@ -1595,7 +1724,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of usergroup
   getAllusergroup() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allusergroup', { headers: headers })
       .map(res => res.json());
   }
@@ -1609,7 +1738,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of Prevexp
   getAllPrevexp() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allprevexp', { headers: headers })
       .map(res => res.json());
   }
@@ -1623,7 +1752,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of Team
   getAllTeam() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allteam', { headers: headers })
       .map(res => res.json());
   }
@@ -1637,7 +1766,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of Designation
   getAllDesignation() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'alldesignation', { headers: headers })
       .map(res => res.json());
   }
@@ -1652,7 +1781,7 @@ deleteHoliday(data){
   // Desc          : Singleuser
   //unblock User
   getSingleuser(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'singleuser',{id:id}, { headers: headers })
       .map(res => res.json());
   }
@@ -1667,7 +1796,7 @@ deleteHoliday(data){
   // Desc          : to updateuser 
   updateUser(user: any) {
     // console.log(plan);
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
      
        return this.http.post(this.serviceUrl + 'updateuser', user, { headers: headers})
          .map(res => res.json())
@@ -1698,7 +1827,7 @@ deleteHoliday(data){
   // Desc          : deleteCategory
   //deleteCategory
   deleteCategory(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.put(this.serviceUrl + 'deletecategory/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -1745,7 +1874,7 @@ deleteHoliday(data){
   //unblock User
   getSinglecategory(project_id: any) {
     
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
      return this.http.get(this.serviceUrl + "singlecategory/" + project_id, { headers: headers})
        .map(res => res.json())
    }
@@ -1760,7 +1889,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of Allemployeeleaves
   getAllemployeeleaves() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allempleaves', { headers: headers }) 
       .map(res => res.json());
   }
@@ -1774,7 +1903,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of Allcompanyemployee
   getAllcompanyemployee() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allcompanyemployee', { headers: headers })
       .map(res => res.json());
   }
@@ -1789,7 +1918,7 @@ deleteHoliday(data){
   // Desc          : deleteEmpleaveeCategory
   //deleteEmpleave
   deleteEmpleave(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.put(this.serviceUrl + 'deleteempleave/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -1805,7 +1934,7 @@ deleteHoliday(data){
   //unblock User
   getSingleempleave(id: any) {
     
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
      return this.http.get(this.serviceUrl + "singleempleave/" + id, { headers: headers})
        .map(res => res.json())
    }
@@ -1821,7 +1950,7 @@ deleteHoliday(data){
   // Desc          : addEmpleave
   addnewEmpleave(data: any) {
     // console.log(data)
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
    
     return this.http.post(this.serviceUrl + 'addEmpleave', data, { headers: headers })
       .map(res => res.json());
@@ -1837,7 +1966,7 @@ deleteHoliday(data){
   // Desc          : to updateEmpleave 
   updateEmpleave(Empleave: any) {
     // console.log(Empleave);
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
      
        return this.http.post(this.serviceUrl + 'updateempleave', Empleave, { headers: headers})
          .map(res => res.json())
@@ -1855,7 +1984,7 @@ deleteHoliday(data){
  
   getDatefilterforlog(data: any) {
     // console.log(data)
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'datefilterforlog', data, { headers: headers })
       .map(res => res.json());
   }
@@ -1869,7 +1998,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of getAllemppendingleaves
   getAllemppendingleaves() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allemppendingleaves', { headers: headers }) 
       .map(res => res.json());
   }
@@ -1885,7 +2014,7 @@ deleteHoliday(data){
   //userleave
   getuserleave(id: any) {
     
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
      return this.http.get(this.serviceUrl + "userleave/" + id, { headers: headers})
        .map(res => res.json())
    }
@@ -1901,7 +2030,7 @@ deleteHoliday(data){
   // Desc          : add reject reason
   //updateCategory
   addReason(reason:any) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
       return this.http.post(this.serviceUrl + 'addrejectleave/' ,reason, { headers: headers })
         .map(res => res.json());
     }
@@ -1916,7 +2045,7 @@ deleteHoliday(data){
   // Desc          : add accept reason
   //addaccept
   addaccept(accept:any) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
       return this.http.post(this.serviceUrl + 'addacceptleave/' ,accept, { headers: headers })
         .map(res => res.json());
     }
@@ -1930,7 +2059,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of get All emp pending leaves notification
   getAllemppendingleavesnotifi() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allemppendingleavesnotifi', { headers: headers }) 
       .map(res => res.json());
   }
@@ -1945,7 +2074,7 @@ deleteHoliday(data){
   // Desc          : close Notif for leave request
   //closeNotif5
   closeNotif5(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'leavenotifclose/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -1959,7 +2088,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : list of Altime extension request
   getAlltimeextensionrequest() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'alltimeextension', { headers: headers }) 
       .map(res => res.json());
   }
@@ -1975,7 +2104,7 @@ deleteHoliday(data){
   //userleave
   gettimerequest(reqid,projid) {
     var data = { reqid: reqid, projid: projid }
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     // console.log("a"+data)
      return this.http.post(this.serviceUrl + "timerequest" ,data,  { headers: headers})
        .map(res => res.json())
@@ -1992,7 +2121,7 @@ deleteHoliday(data){
   // Desc          : Reject time ext req to pm
   //Rejecttimeextreq
   Rejecttimeextreq(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.put(this.serviceUrl + 'rejecttimeextreq/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -2008,7 +2137,7 @@ deleteHoliday(data){
   //unblock User
   getUserleavedata(id) {
     
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
      return this.http.get(this.serviceUrl + "userleavedata/" + id, { headers: headers})
        .map(res => res.json())
    }
@@ -2024,7 +2153,7 @@ deleteHoliday(data){
   // Desc          : Send to admin (time ext req )
   //Sendtoadmin
   Sendtoadmin(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.put(this.serviceUrl + 'sendtoadmin/' + id, { headers: headers })
       .map(res => res.json());
   }
@@ -2038,7 +2167,7 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : send to admin notif(time extension approval)
   getAllSendtoadminnotif() {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'sendtoadminnotif', { headers: headers }) 
       .map(res => res.json());
   }
@@ -2054,7 +2183,7 @@ deleteHoliday(data){
   // Desc          : close Notif for time extension approval
   //closeNotif6
   closeNotif6(id) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'admintimeextnotifclose/' + id, { headers: headers })
       .map(res => res.json());
   }

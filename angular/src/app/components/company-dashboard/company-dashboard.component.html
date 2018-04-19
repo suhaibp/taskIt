@@ -86,12 +86,12 @@
                                     <h1>Project Vs Status</h1>
 
                                     <ul class="graph-ul-hour">
-                                            <li>
+                                            <li class="text-center2">
                                                 <div class="firstRow firstColumn">PROJECTS</div>
                                                 <div class="secondRow firstColumn">Progress</div>
                                                 <div class="ThirdRow firstColumn">Planned <br>vs<br> Actual Hours</div>
                                             </li>
-                                            <li *ngFor="let project of projectforProVsStatusGraph;let i = index;">
+                                            <li class="text-center2" *ngFor="let project of projectforProVsStatusGraph;let i = index;">
                                                 <div class="prjtitle1">{{project[0]?.tbl_project?.project_name}}</div>
                                                 <div class="col-md-8 mr-top">
                                                 <div class="datelabel">Start <span class="pull-right">{{project[0]?.tbl_project?.planned_start_date | date:'EEE, d MMM,y'}}</span></div>
