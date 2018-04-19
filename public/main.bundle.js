@@ -353,7 +353,7 @@ var appRoutes = [
     { path: 'company-access-rights', component: __WEBPACK_IMPORTED_MODULE_84__components_company_manage_access_rights_company_manage_access_rights_component__["a" /* CompanyManageAccessRightsComponent */] },
     { path: 'company-working-time', component: __WEBPACK_IMPORTED_MODULE_96__components_company_working_time_company_working_time_component__["a" /* CompanyWorkingTimeComponent */] },
     { path: 'company-manage-holyday', component: __WEBPACK_IMPORTED_MODULE_99__components_company_manage_holidays_company_manage_holidays_component__["a" /* CompanyManageHolidaysComponent */] },
-    { path: 'company-task-requests/:id', component: __WEBPACK_IMPORTED_MODULE_103__components_company_task_requests_company_task_requests_component__["a" /* CompanyTaskRequestsComponent */] },
+    { path: 'company-task-requests', component: __WEBPACK_IMPORTED_MODULE_103__components_company_task_requests_company_task_requests_component__["a" /* CompanyTaskRequestsComponent */] },
     { path: 'company-task-manage/:id', component: __WEBPACK_IMPORTED_MODULE_104__components_company_new_task_management_company_new_task_management_component__["a" /* CompanyNewTaskManagementComponent */] },
     { path: 'company-login', component: __WEBPACK_IMPORTED_MODULE_59__components_company_login_company_login_component__["a" /* CompanyLoginComponent */] },
     { path: 'compay-aditninfo/:id', component: __WEBPACK_IMPORTED_MODULE_78__components_compay_aditninfo_compay_aditninfo_component__["a" /* CompayAditninfoComponent */] },
@@ -372,6 +372,7 @@ var appRoutes = [
     { path: 'spinner', component: __WEBPACK_IMPORTED_MODULE_80__components_spinner_spinner_component__["a" /* SpinnerComponent */] },
     { path: 'user-projects', component: __WEBPACK_IMPORTED_MODULE_100__components_user_projects_user_projects_component__["a" /* UserProjectsComponent */] },
     { path: 'user-view-project/:id', component: __WEBPACK_IMPORTED_MODULE_101__components_user_view_project_user_view_project_component__["a" /* UserViewProjectComponent */] },
+    { path: 'estimate-project/:id1/:id2', component: __WEBPACK_IMPORTED_MODULE_63__components_user_project_estimation_user_project_estimation_component__["a" /* UserProjectEstimationComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
@@ -3250,7 +3251,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-add-project/company-add-project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\r\n        <company-sidebar></company-sidebar>\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <company-topbar></company-topbar>\r\n        <br>\r\n        <div class=\"col-md-12\"><h2>Add Project</h2></div>\r\n        <div class=\"col-md-5 col-xs-12\">\r\n          <div class=\"panel panel-default\">\r\n            <div class=\"panel-body mrg-top\">\r\n\r\n              <!-- <h3>Add Project</h3> -->\r\n              <div class=\"row\">\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <input matInput [(ngModel)]=\"project.project_name\" name=\"project_name\" autofocus required formControlName=\"project_nameValidation\">\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Type :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <mat-select name=\"project_type\" [(ngModel)]=\"project.project_type\" required formControlName=\"project_typeValidation\">\r\n                      <mat-option value=\"Billable\">Billable</mat-option>\r\n                      <mat-option value=\"Non-billable\">Non-billable</mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <mat-select [(ngModel)]=\"project.category_id\" name=\"category_id\" required formControlName=\"category_idValidation\">\r\n                      <mat-option *ngFor=\"let item of categories\" [value]=\"item.id\">\r\n                        {{ item.category_name }}\r\n                      </mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                  <span *ngIf=\"showPMlist\" matTooltip=\"To add a new category, please go to the Project Category by clicking the master settings on the left corner !\"><i class=\"material-icons info-icon\">info_outline</i></span>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <mat-select name=\"priority\" [(ngModel)]=\"project.priority\" required formControlName=\"priorityValidation\">\r\n                      <mat-option value=\"Low\">Low</mat-option>\r\n                      <mat-option value=\"Medium\">Medium</mat-option>\r\n                      <mat-option value=\"High\">High</mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <textarea matInput [(ngModel)]=\"project.description\" name=\"description\" required formControlName=\"descriptionValidation\"\r\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div *ngIf=\"showPMlist\">\r\n                  <div class=\"col-md-4 col-xs-6\"><label>Assigned To :</label></div>\r\n                  <div class=\"col-md-7 col-xs-6\">\r\n                    <mat-form-field [formGroup]=\"formGroup\">\r\n                      <mat-select [(ngModel)]=\"project.pm_id\" name=\"pm_id\" required formControlName=\"pm_idValidation\">\r\n                        <mat-option value=\"Me\">Me</mat-option>\r\n                        <mat-option *ngFor=\"let item of pm\" [value]=\"item.login_id\">\r\n                          {{ item.f_name }} {{ item.l_name }}\r\n                        </mat-option>\r\n                      </mat-select>\r\n                    </mat-form-field>\r\n                  </div>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-4\">\r\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"addProject(project)\" class=\"btn round-button center-bt\">Submit</button>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\r\n        <company-sidebar></company-sidebar>\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <company-topbar></company-topbar>\r\n        <br>\r\n        <div class=\"col-md-12\"><h2>Add Project</h2></div>\r\n        <div class=\"col-md-5 col-xs-12\">\r\n          <div class=\"panel panel-default\">\r\n            <div class=\"panel-body mrg-top\">\r\n\r\n              <!-- <h3>Add Project</h3> -->\r\n              <div class=\"row\">\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Project Name :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <input matInput [(ngModel)]=\"project.project_name\" name=\"project_name\" autofocus required formControlName=\"project_nameValidation\">\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Type :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <mat-select name=\"project_type\" [(ngModel)]=\"project.project_type\" required formControlName=\"project_typeValidation\">\r\n                      <mat-option value=\"Billable\">Billable</mat-option>\r\n                      <mat-option value=\"Non-billable\">Non-billable</mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Category :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <mat-select [(ngModel)]=\"project.category_id\" name=\"category_id\" required formControlName=\"category_idValidation\">\r\n                      <mat-option *ngFor=\"let item of categories\" [value]=\"item.id\">\r\n                        {{ item.category_name }}\r\n                      </mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                  <!-- <span *ngIf=\"showPMlist\" matTooltip=\"To add a new category, please go to the Project Category by clicking the master settings on the left corner !\"><i class=\"material-icons info-icon\">info_outline</i></span> -->\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Priority :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <mat-select name=\"priority\" [(ngModel)]=\"project.priority\" required formControlName=\"priorityValidation\">\r\n                      <mat-option value=\"Low\">Low</mat-option>\r\n                      <mat-option value=\"Medium\">Medium</mat-option>\r\n                      <mat-option value=\"High\">High</mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"col-md-4 col-xs-6\"><label>Description :</label></div>\r\n                <div class=\"col-md-7 col-xs-6\">\r\n                  <mat-form-field [formGroup]=\"formGroup\">\r\n                    <textarea matInput [(ngModel)]=\"project.description\" name=\"description\" required formControlName=\"descriptionValidation\"\r\n                      matTextareaAutosize matAutosizeMinRows=\"3\" matAutosizeMaxRows=\"6\"></textarea>\r\n                  </mat-form-field>\r\n                </div>\r\n                <br>\r\n\r\n                <div *ngIf=\"showPMlist\">\r\n                  <div class=\"col-md-4 col-xs-6\"><label>Assigned To :</label></div>\r\n                  <div class=\"col-md-7 col-xs-6\">\r\n                    <mat-form-field [formGroup]=\"formGroup\">\r\n                      <mat-select [(ngModel)]=\"project.pm_id\" name=\"pm_id\" required formControlName=\"pm_idValidation\">\r\n                        <mat-option value=\"Me\">Me</mat-option>\r\n                        <mat-option *ngFor=\"let item of pm\" [value]=\"item.login_id\">\r\n                          {{ item.f_name }} {{ item.l_name }}\r\n                        </mat-option>\r\n                      </mat-select>\r\n                    </mat-form-field>\r\n                  </div>\r\n                </div>\r\n                <br>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-4\">\r\n                    <button type=\"submit\" [disabled]=\"btnDisbled\" (click)=\"addProject(project)\" class=\"btn round-button center-bt\">Submit</button>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</body>"
 
 /***/ }),
 
@@ -6467,7 +6468,7 @@ var CompanyNewTaskManagementComponent = (function () {
         var _this = this;
         this.companyService.checkRole().subscribe(function (role) {
             // console.log(role);
-            _this.role = 3;
+            _this.role = role;
         });
     };
     //  ---------------------------------Start-------------------------------------------
@@ -8451,7 +8452,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-project/company-project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\r\n        <company-sidebar></company-sidebar>\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!-- topbar-->\r\n        <company-topbar></company-topbar>\r\n\r\n        <!-- end topbar-->\r\n\r\n\r\n        <div class=\"user-dashboard\">\r\n\r\n          <div class=\"row\">\r\n            <!-----------------------------------------------------------------table-------------------------------------->\r\n\r\n            <div class=\"col-md-12\">\r\n              <div class=\"row\">\r\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\r\n                  <div class=\"\">\r\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\r\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\r\n                        />\r\n                      </path>\r\n                    </svg>\r\n                  </div>\r\n                </div> -->\r\n\r\n\r\n                <div class=\"col-md-12 optionz\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"example-header\">\r\n                        <mat-form-field>\r\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 pull-right\">\r\n                      <div>\r\n                        <mat-form-field class=\"filter\">\r\n\r\n                          <mat-select (change)=\"getProject()\" [(value)]=\"selected\">\r\n                            <mat-option value=\"all\">All</mat-option>\r\n                            <mat-option value=\"Drafted\">Drafted</mat-option>\r\n                            <mat-option value=\"In Progress\">In Progress</mat-option>\r\n                            <mat-option value=\"Planned\">Planned</mat-option>\r\n                            <mat-option value=\"Completed\">Completed</mat-option>\r\n                            <mat-option value=\"Cancelled\">Cancelled</mat-option>\r\n                          </mat-select>\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"example-container mat-elevation-z8\">\r\n                  <mat-table [dataSource]=\"dataSource\" matSort>\r\n                    <ng-container matColumnDef=\"slno\">\r\n                      <mat-header-cell *matHeaderCellDef> SL NO. </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"project_name\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"startdate\">\r\n                      <mat-header-cell *matHeaderCellDef > ACTUAL/PLANNED START DATE</mat-header-cell>\r\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : row.planned_start_date ==\r\n                        null : row.actual_start_date}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"enddate\">\r\n                      <mat-header-cell *matHeaderCellDef> ACTUAL/PLANNED END DATE</mat-header-cell>\r\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :\r\n                        row.actual_end_date}}\r\n                      </mat-cell>\r\n                    </ng-container>\r\n\r\n                    <ng-container matColumnDef=\"action\">\r\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\r\n                        <mat-menu #menu=\"matMenu\">\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.pm_id == loggedin_id\" (click)=\"assign(row.id)\">\r\n                            <!-- <i class=\"fa fa-user\"></i> -->\r\n                            <mat-icon><i class=\"material-icons\">group</i></mat-icon>\r\n                            <span>Assign Team Head</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id\"\r\n                            (click)=\"approve(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\r\n                            <span>Approve Estimation</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id\"\r\n                            (click)=\"approveProject(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\r\n                            <span>Approve Project</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id\"\r\n                            (click)=\"approveProject(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">event_available</i></mat-icon>\r\n                            <span>Plan Project</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.is_approved == false && row.assignee_id == loggedin_id && row.status == 'Drafted' \" (click)=\"edit(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\r\n                            <span>Edit</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id\"\r\n                            (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \r\n                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\r\n                            <span>Delete</span>\r\n                          </button>\r\n                          <button mat-menu-item (click)=\"viewProject(row.id)\"> \r\n                            <mat-icon><i class=\"material-icons\">description</i></mat-icon>\r\n                            <span>View Project</span>\r\n                          </button>\r\n                        </mat-menu>\r\n                      </mat-cell>\r\n\r\n                    </ng-container>\r\n\r\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\r\n                  </mat-table>\r\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\r\n                    <div class=\"col-md-4 col-md-offset-4\">\r\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\r\n                    </div>\r\n                  </div>\r\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                </div>\r\n\r\n\r\n              </div>\r\n            </div>\r\n            <div class=\"add-button\">\r\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\r\n            </div>\r\n\r\n            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\r\n            <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n\r\n                <!-- Modal content-->\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                    <h4 class=\"modal-title\">Delete </h4>\r\n                  </div>\r\n                  <!-- <div class=\"modal-header\"> -->\r\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                  <!-- </div> -->\r\n                  <div class=\"modal-body delete-popup\">\r\n                    <i class=\"fa fa-exclamation\"></i>\r\n\r\n\r\n                    <h4 class=\"textalign\">Are you sure?</h4>\r\n\r\n                  </div>\r\n\r\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\r\n                    <button type=\"button\" (click)=\"deleteProject(Pid)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n            </div>\r\n\r\n            <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------\r\n          \r\n            <!-----------------------------------------------------------------end table-------------------------------------->\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      <!-- footer-->\r\n      <!-- <company-footer></company-footer> -->\r\n      <!-- end footer-->\r\n    </div>\r\n  </div>\r\n</body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\r\n        <company-sidebar></company-sidebar>\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!-- topbar-->\r\n        <company-topbar></company-topbar>\r\n\r\n        <!-- end topbar-->\r\n\r\n\r\n        <div class=\"user-dashboard\">\r\n\r\n          <div class=\"row\">\r\n            <!-----------------------------------------------------------------table-------------------------------------->\r\n            <h2>Projects</h2>\r\n            <ul class=\"breadcrumb\">\r\n              <!-- <li><a routerLink=\"/\">Request Management</a></li> -->\r\n              <!-- <li><a routerLink=\"/company-request-management\">Time Extension Request List</a></li> -->\r\n              \r\n              <li>Projects</li>\r\n            </ul>\r\n            <div class=\"col-md-12\">\r\n              <div class=\"row\">\r\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\r\n                  <div class=\"\">\r\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\r\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\r\n                        />\r\n                      </path>\r\n                    </svg>\r\n                  </div>\r\n                </div> -->\r\n\r\n\r\n                <div class=\"col-md-12 optionz\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"example-header\">\r\n                        <mat-form-field>\r\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 pull-right\">\r\n                      <div>\r\n                        <mat-form-field class=\"filter\">\r\n\r\n                          <mat-select (change)=\"getProject()\" [(value)]=\"selected\">\r\n                            <mat-option value=\"all\">All</mat-option>\r\n                            <mat-option value=\"Drafted\">Drafted</mat-option>\r\n                            <mat-option value=\"In Progress\">In Progress</mat-option>\r\n                            <mat-option value=\"Planned\">Planned</mat-option>\r\n                            <mat-option value=\"Completed\">Completed</mat-option>\r\n                            <mat-option value=\"Cancelled\">Cancelled</mat-option>\r\n                          </mat-select>\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"example-container mat-elevation-z8\">\r\n                  <mat-table [dataSource]=\"dataSource\" matSort>\r\n                    <ng-container matColumnDef=\"slno\">\r\n                      <mat-header-cell *matHeaderCellDef> SL NO. </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"project_name\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"startdate\">\r\n                      <mat-header-cell *matHeaderCellDef > ACTUAL/PLANNED START DATE</mat-header-cell>\r\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : row.planned_start_date ==\r\n                        null : row.actual_start_date}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"enddate\">\r\n                      <mat-header-cell *matHeaderCellDef> ACTUAL/PLANNED END DATE</mat-header-cell>\r\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :\r\n                        row.actual_end_date}}\r\n                      </mat-cell>\r\n                    </ng-container>\r\n\r\n                    <ng-container matColumnDef=\"action\">\r\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\r\n                        <mat-menu #menu=\"matMenu\">\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.pm_id == loggedin_id\" (click)=\"assign(row.id)\">\r\n                            <!-- <i class=\"fa fa-user\"></i> -->\r\n                            <mat-icon><i class=\"material-icons\">group</i></mat-icon>\r\n                            <span>Assign Team Head</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id\"\r\n                            (click)=\"approve(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\r\n                            <span>Approve Estimation</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id\"\r\n                            (click)=\"approveProject(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\r\n                            <span>Approve Project</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id\"\r\n                            (click)=\"approveProject(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">event_available</i></mat-icon>\r\n                            <span>Plan Project</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.is_approved == false && row.assignee_id == loggedin_id && row.status == 'Drafted' \" (click)=\"edit(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\r\n                            <span>Edit</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id\"\r\n                            (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \r\n                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\r\n                            <span>Delete</span>\r\n                          </button>\r\n                          <button mat-menu-item (click)=\"viewProject(row.id)\"> \r\n                            <mat-icon><i class=\"material-icons\">description</i></mat-icon>\r\n                            <span>View Project</span>\r\n                          </button>\r\n                        </mat-menu>\r\n                      </mat-cell>\r\n\r\n                    </ng-container>\r\n\r\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\r\n                  </mat-table>\r\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\r\n                    <div class=\"col-md-4 col-md-offset-4\">\r\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\r\n                    </div>\r\n                  </div>\r\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                </div>\r\n\r\n\r\n              </div>\r\n            </div>\r\n            <div class=\"add-button\">\r\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\r\n            </div>\r\n\r\n            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\r\n            <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n\r\n                <!-- Modal content-->\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                    <h4 class=\"modal-title\">Delete </h4>\r\n                  </div>\r\n                  <!-- <div class=\"modal-header\"> -->\r\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                  <!-- </div> -->\r\n                  <div class=\"modal-body delete-popup\">\r\n                    <i class=\"fa fa-exclamation\"></i>\r\n\r\n\r\n                    <h4 class=\"textalign\">Are you sure?</h4>\r\n\r\n                  </div>\r\n\r\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\r\n                    <button type=\"button\" (click)=\"deleteProject(Pid)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n            </div>\r\n\r\n            <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------\r\n          \r\n            <!-----------------------------------------------------------------end table-------------------------------------->\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      <!-- footer-->\r\n      <!-- <company-footer></company-footer> -->\r\n      <!-- end footer-->\r\n    </div>\r\n  </div>\r\n</body>"
 
 /***/ }),
 
@@ -9553,7 +9554,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-task-requests/company-task-requests.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n    <body class=\"home\" >\n        <div class=\"container-fluid display-table\">\n            <div class=\"row display-table-row\">\n      \n                <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\n                    <!-- sidebar-->\n      \n                    <company-sidebar></company-sidebar>\n                    <!-- end sidebar-->\n                </div>\n      \n                <div class=\"col-md-12 col-xs-12\">\n                    <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n                    <!-- topbar-->\n                    <company-topbar></company-topbar>\n                    <!-- end topbar-->\n      \n      \n                    <div class=\"user-dashboard\">\n                        <!-- <h1>Hello, JS</h1> -->\n                        <h2>Request Management</h2>\n                        <ul class=\"breadcrumb\">\n                          <li>\n                            <a routerLink=\"company-request-management\">Request Management</a>\n                          </li>\n\n\n                          <li>New Task Request list </li>\n                        </ul>\n                        <div class=\"row\">\n                          \n                            <div class=\"col-md-12 col-sm-5 col-xs-12 gutter ad-tp dash-tbl\" >\n                              <div class=\"col-md-12 spinner-cont\" *ngIf=\"showSpinner\">\n                                  <app-spinner  class=\"tbl-spnner\"></app-spinner>\n                              </div>\n      \n                                <div class=\"example-header\" >\n                                    <mat-form-field class=\"mat-fltr\">\n                                      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                                    </mat-form-field>\n                                </div>\n                             \n                          <div class=\"example-container mat-elevation-z8 \">\n                          <mat-table #table [dataSource]=\"dataSource\" matSort>\n            \n                            <!-- ID Column -->\n                            <ng-container matColumnDef=\"id\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n                            </ng-container>\n                        \n                            <ng-container matColumnDef=\"profile\">\n                                <mat-header-cell *matHeaderCellDef mat-sort-header>Requester</mat-header-cell>\n                                <mat-cell *matCellDef=\"let row\">\n                                  <div class=\"user\" *ngIf=\"profilCheck(row?.tbl_new_task_request?.tbl_user_profile?.tbl_login?.profile_image); else image\"><i class=\"fa fa-user\"></i></div>\n                                  <ng-template #image>\n                                      <div class=\"user\" ><img src=\"./assets/images/sign.jpg\"></div>\n                                  </ng-template>\n                                </mat-cell>\n                              </ng-container>\n\n                            <!-- Theme Name -->\n                            <ng-container matColumnDef=\"name\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT NAME  </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}} </mat-cell>\n                            </ng-container>\n                          \n      \n                            <ng-container matColumnDef=\"strength\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> MODULE NAME </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request.tbl_project_module.module_name}} </mat-cell>\n                            </ng-container>\n\n                            <ng-container matColumnDef=\"task name\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> TASK NAME </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request.task_name}} </mat-cell>\n                            </ng-container>\n\n                            <ng-container matColumnDef=\"reqstatus\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request.request_status}} </mat-cell>\n                            </ng-container>\n                            <!-- Progress Column -->\n                            <!-- <ng-container matColumnDef=\"mybid\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> Your Bids </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row\">  -->\n                                \n                                <!-- {{row.status}} -->\n                                <!-- {{row.h_font_family }} -->\n                                <!-- <p *ngFor=\"let bid of row.mybid\">{{row.h_font_family }} : {{bid.date_time | date: 'dd-MM-yyyy h:mm a'}}</p> -->\n                              <!-- </mat-cell>\n                            </ng-container> -->\n                          \n                            <!-- ID Column -->\n                            <!-- <ng-container matColumnDef=\"topbid\">\n                                <mat-header-cell *matHeaderCellDef mat-sort-header> Top Bid </mat-header-cell>\n                                <mat-cell *matCellDef=\"let row\"> {{row.progress_text_color }} </mat-cell>\n                              </ng-container> -->\n                          \n                            <!-- ID Column -->\n                            <ng-container matColumnDef=\"status\">\n                                <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\n                                <mat-cell *matCellDef=\"let row\"> <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n                                  <mat-icon>more_vert</mat-icon>\n                                </button>\n                                <mat-menu #menu=\"matMenu\">\n                                  \n                                  <!-- <button mat-menu-item [routerLink]=\"['/edit-theme/',row._id]\">\n                                    <mat-icon>mode_edit</mat-icon>\n                                    <span>Edit</span>\n                                  </button> -->\n                                  <button mat-menu-item   [routerLink]=\"['/company-task-manage', row?.tbl_new_task_request.id]\"> \n                                      <mat-icon class=\"mat-menu-icn\"><i class=\"material-icons mat-assign-icn\">visibility</i></mat-icon>\n                                      <span>View</span>\n                                    </button>\n                                </mat-menu>\n                                 </mat-cell>\n                              </ng-container>\n                            <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n                            <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\n                            </mat-row>\n                         \n                          </mat-table>\n                          <div class=\"col-md-12 noItemFound\" *ngIf=\"existStatus\">\n                              <div class=\"col-md-4 col-md-offset-4\">\n                                  <mat-toolbar   class=\"back-color\">No item found!</mat-toolbar>\n                              </div>\n                              </div>\n                      <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n                          </div>\n                          </div>\n                        </div>\n                       \n                    </div>\n                   \n      \n                </div>\n                <!-- footer-->\n                <!-- <admin-footer></admin-footer> -->\n                <!-- end footer-->\n            </div>\n        </div>\n        <!-- Modal -->\n      \n      \n      \n        <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\n            <div class=\"modal-dialog\">\n      \n              <!-- Modal content-->\n              <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                  <h4 class=\"modal-title\"></h4>\n                </div>\n                <!-- <div class=\"modal-header\"> -->\n                <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                <!-- </div> -->\n                <div class=\"modal-body delete-popup\">\n                  <div class=\"col-md-12\">\n                      <div class=\"row\">\n                        <div class=\"col-md-12\">\n                            <div class=\"col-md-4\">\n                                <label class=\"modal-lft-lbl\">Team Name:</label> \n                            </div>\n                            <div class=\"col-md-7\">\n                                <label id=\"team-nm\" class=\"modal-lft-lbl\">{{teamName}}</label>\n                \n                            </div>\n                        </div>\n                        <div class=\"col-md-12\">\n                            <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Team Members :</label></div>\n                            <div class=\"col-md-7 \">\n                              <mat-form-field class=\"inputfileds\"> \n                                <mat-select name='selected' multiple [(ngModel)]=\"teamMembers\" (ngModelChange)=\"memberSelect($event)\">\n                                  <mat-option [value]=\"member.id\" *ngFor=\"let member of members; let i=index\" >{{member.f_name}} {{member.l_name}}</mat-option>\n                                </mat-select>\n                              </mat-form-field>\n                            </div>\n                        </div>\n      \n                        <div class=\"col-md-12\">\n                            <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Team Head :</label></div>\n                            <div class=\"col-md-7 \">\n                              <mat-form-field class=\"inputfileds\">\n                                <mat-select name='selected2'  [(ngModel)]=\"teamHead\" (ngModelChange)=\"headSelect($event)\">\n                                  \n                                    <mat-option *ngFor=\"let member of selectedTeamMembers;\" [value]=\"member.id\" >{{member.f_name}} {{member.l_name}}</mat-option>\n                                  \n                                </mat-select>\n                              </mat-form-field>\n                            </div>\n                        </div>\n                        <div class=\"col-md-12\">\n                          {{errMessage}}\n                        </div>\n                      </div>\n                      \n                  </div>\n                  \n      \n                </div>\n      \n                <div class=\"modal-footer\">\n                  <app-spinner *ngIf=\"spinner\"></app-spinner>\n                  <button *ngIf=\"!spinner\" type=\"button\" (click)=\"assignTeam()\" class=\"btn round-button\" >Assign</button>\n                </div>\n              </div>\n      \n            </div>\n          </div>\n      </body>"
+module.exports = "\n\n    <body class=\"home\" >\n        <div class=\"container-fluid display-table\">\n            <div class=\"row display-table-row\">\n      \n                <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\n                    <!-- sidebar-->\n      \n                    <company-sidebar></company-sidebar>\n                    <!-- end sidebar-->\n                </div>\n      \n                <div class=\"col-md-12 col-xs-12\">\n                    <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n                    <!-- topbar-->\n                    <company-topbar></company-topbar>\n                    <!-- end topbar-->\n      \n      \n                    <div class=\"user-dashboard\">\n                        <!-- <h1>Hello, JS</h1> -->\n                        <h2>Request Management</h2>\n                        <ul class=\"breadcrumb\">\n                          <li>\n                            <a routerLink=\"company-request-management\">Request Management</a>\n                          </li>\n\n\n                          <li>New Task Request list </li>\n                        </ul>\n                        <div class=\"row\">\n                          \n                            <div class=\"col-md-12 col-sm-5 col-xs-12 gutter ad-tp dash-tbl\" >\n                              <div class=\"col-md-12 spinner-cont\" *ngIf=\"showSpinner\">\n                                  <app-spinner  class=\"tbl-spnner\"></app-spinner>\n                              </div>\n      \n                                <div class=\"example-header\" >\n                                    <mat-form-field class=\"mat-fltr\">\n                                      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                                    </mat-form-field>\n                                </div>\n                             \n                          <div class=\"example-container mat-elevation-z8 \">\n                          <mat-table #table [dataSource]=\"dataSource\" matSort>\n            \n                            <!-- ID Column -->\n                            <ng-container matColumnDef=\"id\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> SL NO. </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\n                            </ng-container>\n                        \n                            <ng-container matColumnDef=\"profile\">\n                                <mat-header-cell *matHeaderCellDef mat-sort-header>Requester</mat-header-cell>\n                                <mat-cell *matCellDef=\"let row\">\n                                  <div class=\"user\" *ngIf=\"profilCheck(row?.tbl_new_task_request?.tbl_user_profile?.tbl_login?.profile_image); else image\"><i class=\"fa fa-user\"></i></div>\n                                  <ng-template #image>\n                                      <div class=\"user\" ><img src=\"./assets/images/sign.jpg\"></div>\n                                  </ng-template>\n                                </mat-cell>\n                              </ng-container>\n\n                            <!-- Theme Name -->\n                            <ng-container matColumnDef=\"name\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT NAME  </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request?.tbl_project_module?.tbl_project?.project_nam}} </mat-cell>\n                            </ng-container>\n                          \n      \n                            <ng-container matColumnDef=\"strength\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> MODULE NAME </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request?.tbl_project_module?.module_name}} </mat-cell>\n                            </ng-container>\n\n                            <ng-container matColumnDef=\"task name\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> TASK NAME </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request?.task_name}} </mat-cell>\n                            </ng-container>\n\n                            <ng-container matColumnDef=\"reqstatus\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row\"> {{row?.tbl_new_task_request?.request_status}} </mat-cell>\n                            </ng-container>\n                            <!-- Progress Column -->\n                            <!-- <ng-container matColumnDef=\"mybid\">\n                              <mat-header-cell *matHeaderCellDef mat-sort-header> Your Bids </mat-header-cell>\n                              <mat-cell *matCellDef=\"let row\">  -->\n                                \n                                <!-- {{row.status}} -->\n                                <!-- {{row.h_font_family }} -->\n                                <!-- <p *ngFor=\"let bid of row.mybid\">{{row.h_font_family }} : {{bid.date_time | date: 'dd-MM-yyyy h:mm a'}}</p> -->\n                              <!-- </mat-cell>\n                            </ng-container> -->\n                          \n                            <!-- ID Column -->\n                            <!-- <ng-container matColumnDef=\"topbid\">\n                                <mat-header-cell *matHeaderCellDef mat-sort-header> Top Bid </mat-header-cell>\n                                <mat-cell *matCellDef=\"let row\"> {{row.progress_text_color }} </mat-cell>\n                              </ng-container> -->\n                          \n                            <!-- ID Column -->\n                            <ng-container matColumnDef=\"status\">\n                                <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\n                                <mat-cell *matCellDef=\"let row\"> <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n                                  <mat-icon>more_vert</mat-icon>\n                                </button>\n                                <mat-menu #menu=\"matMenu\">\n                                  \n                                  <!-- <button mat-menu-item [routerLink]=\"['/edit-theme/',row._id]\">\n                                    <mat-icon>mode_edit</mat-icon>\n                                    <span>Edit</span>\n                                  </button> -->\n                                  <button mat-menu-item   [routerLink]=\"['/company-task-manage', row?.tbl_new_task_request.id]\"> \n                                      <mat-icon class=\"mat-menu-icn\"><i class=\"material-icons mat-assign-icn\">visibility</i></mat-icon>\n                                      <span>View</span>\n                                    </button>\n                                </mat-menu>\n                                 </mat-cell>\n                              </ng-container>\n                            <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n                            <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\n                            </mat-row>\n                         \n                          </mat-table>\n                          <div class=\"col-md-12 noItemFound\" *ngIf=\"existStatus\">\n                              <div class=\"col-md-4 col-md-offset-4\">\n                                  <mat-toolbar   class=\"back-color\">No item found!</mat-toolbar>\n                              </div>\n                              </div>\n                      <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n                          </div>\n                          </div>\n                        </div>\n                       \n                    </div>\n                   \n      \n                </div>\n                <!-- footer-->\n                <!-- <admin-footer></admin-footer> -->\n                <!-- end footer-->\n            </div>\n        </div>\n        <!-- Modal -->\n      \n      \n      \n        <div id=\"assignModal\" class=\"modal fade\" role=\"dialog\">\n            <div class=\"modal-dialog\">\n      \n              <!-- Modal content-->\n              <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                  <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                  <h4 class=\"modal-title\"></h4>\n                </div>\n                <!-- <div class=\"modal-header\"> -->\n                <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\n                <!-- </div> -->\n                <div class=\"modal-body delete-popup\">\n                  <div class=\"col-md-12\">\n                      <div class=\"row\">\n                        <div class=\"col-md-12\">\n                            <div class=\"col-md-4\">\n                                <label class=\"modal-lft-lbl\">Team Name:</label> \n                            </div>\n                            <div class=\"col-md-7\">\n                                <label id=\"team-nm\" class=\"modal-lft-lbl\">{{teamName}}</label>\n                \n                            </div>\n                        </div>\n                        <div class=\"col-md-12\">\n                            <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Team Members :</label></div>\n                            <div class=\"col-md-7 \">\n                              <mat-form-field class=\"inputfileds\"> \n                                <mat-select name='selected' multiple [(ngModel)]=\"teamMembers\" (ngModelChange)=\"memberSelect($event)\">\n                                  <mat-option [value]=\"member.id\" *ngFor=\"let member of members; let i=index\" >{{member.f_name}} {{member.l_name}}</mat-option>\n                                </mat-select>\n                              </mat-form-field>\n                            </div>\n                        </div>\n      \n                        <div class=\"col-md-12\">\n                            <div class=\"col-md-4 \"><label class=\"modal-lft-lbl\">Team Head :</label></div>\n                            <div class=\"col-md-7 \">\n                              <mat-form-field class=\"inputfileds\">\n                                <mat-select name='selected2'  [(ngModel)]=\"teamHead\" (ngModelChange)=\"headSelect($event)\">\n                                  \n                                    <mat-option *ngFor=\"let member of selectedTeamMembers;\" [value]=\"member.id\" >{{member.f_name}} {{member.l_name}}</mat-option>\n                                  \n                                </mat-select>\n                              </mat-form-field>\n                            </div>\n                        </div>\n                        <div class=\"col-md-12\">\n                          {{errMessage}}\n                        </div>\n                      </div>\n                      \n                  </div>\n                  \n      \n                </div>\n      \n                <div class=\"modal-footer\">\n                  <app-spinner *ngIf=\"spinner\"></app-spinner>\n                  <button *ngIf=\"!spinner\" type=\"button\" (click)=\"assignTeam()\" class=\"btn round-button\" >Assign</button>\n                </div>\n              </div>\n      \n            </div>\n          </div>\n      </body>"
 
 /***/ }),
 
@@ -14368,7 +14369,7 @@ var UserProjectEstimationComponent = (function () {
                     var snackBarRef = _this.snackBar.open(notif.msg, '', {
                         duration: 2000
                     });
-                    // this.routes.navigate(['/project']);
+                    _this.routes.navigate(['/user-dashboard']);
                 }
             });
             // ---------------------------------End-------------------------------------------
@@ -14595,7 +14596,7 @@ var UserProjectEstimationComponent = (function () {
                     duration: 4000
                 });
                 if (data.success == true) {
-                    _this.routes.navigate(['/test-user']);
+                    _this.routes.navigate(['/user-dashboard']);
                 }
             });
             // -----------------------------------End------------------------------------------
@@ -16192,6 +16193,7 @@ var UserTopbarComponent = (function () {
         // Desc          : 
         this.newTaskNotifCount = 0;
         this.userService.getNewTaskRequestNotification().subscribe(function (info) {
+            // console.log(info)
             _this.newTaskNotif = info;
             _this.newTaskNotifCount = _this.newTaskNotif.length;
             _this.refresh();
@@ -16471,6 +16473,16 @@ var AdminService = (function () {
         headers.append('Content-Type', 'application/json');
         return (headers);
     };
+    AdminService.prototype.setHeaderWithAuthorization = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return (headers);
+    };
+    AdminService.prototype.loadToken = function () {
+        this.authToken = localStorage.getItem('id_token');
+    };
     // ---------------------------------Start-------------------------------------------
     // Function      : Admin company management
     // Params        : 
@@ -16480,8 +16492,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all companieslist
     AdminService.prototype.getAllcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16495,8 +16506,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : Allactivecompanies
     AdminService.prototype.getAllactivecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allactivecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16511,8 +16521,7 @@ var AdminService = (function () {
     // Desc          : all blocked companies
     //all blocked companies
     AdminService.prototype.getAllblockedcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allblockedcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16527,8 +16536,7 @@ var AdminService = (function () {
     // Desc          : all deleted companies
     //all deleted companies
     AdminService.prototype.getAlldeletedcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alldeletedcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16543,8 +16551,7 @@ var AdminService = (function () {
     // Desc          : delete company
     //delete company
     AdminService.prototype.deleteCompany = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'deletecompany/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16559,8 +16566,7 @@ var AdminService = (function () {
     // Desc          : block company
     //block company
     AdminService.prototype.blockCompany = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'blockcompany/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16575,8 +16581,7 @@ var AdminService = (function () {
     // Desc          : unblock company
     //unblock company
     AdminService.prototype.unblockCompany = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'unblockcompany/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16606,8 +16611,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all subscribedactivecompanies
     AdminService.prototype.getAllsubactivecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allsubactivecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16636,8 +16640,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all subscribeddeletecompanies
     AdminService.prototype.getAllsubdeletecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allsubdeletecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16651,8 +16654,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all trailcompanies
     AdminService.prototype.getAlltrialcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alltrialcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16666,8 +16668,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all trialactivecompanies
     AdminService.prototype.getAlltrialactivecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alltrialactivecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16696,8 +16697,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all trialdeletecompanies
     AdminService.prototype.getAlltrialdeletecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alltrialdeletecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16712,8 +16712,7 @@ var AdminService = (function () {
     // Desc          : all notverifiedcompanies
     //all not verified companies
     AdminService.prototype.getAllnotverficompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allnotverficompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16727,8 +16726,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all notverfiactivecompanies
     AdminService.prototype.getAllnotverfiactivecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allnotverfiactivecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16742,8 +16740,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all notverfiblockcompanies
     AdminService.prototype.getAllnotverfiblockcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allnotverfiblockcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16757,8 +16754,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all notverfideletecompanies
     AdminService.prototype.getAllnotverfideletecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allnotverfideletecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16773,8 +16769,7 @@ var AdminService = (function () {
     // Desc          : all expired companies
     //all expired companies
     AdminService.prototype.getAllexpiredcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allexpiredcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16788,8 +16783,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all expiredactivecompanies
     AdminService.prototype.getAllexpiredactivecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allexpiredactivecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16803,8 +16797,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all expiredblockcompanies
     AdminService.prototype.getAllexpiredblockcompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allexpiredblockcompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16818,8 +16811,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : all expireddeletecompanies
     AdminService.prototype.getAllexpireddeletecompanies = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allexpireddeletecompanies', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16833,8 +16825,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : notification
     AdminService.prototype.getAdminnotification = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'adminnotification', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16848,8 +16839,7 @@ var AdminService = (function () {
     // Last Modified : 
     // Desc          : view status user notifcation
     AdminService.prototype.viewstatusadmin = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'viewstatusadmin/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16892,7 +16882,7 @@ var AdminService = (function () {
     // Last Modified : 05-03-2018, Rinsha
     // Desc          : getAllplans
     AdminService.prototype.getAllplans = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allplans', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16906,7 +16896,7 @@ var AdminService = (function () {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : getAllplans without default
     AdminService.prototype.getPlansWithoutDefault = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allPlansWithoutDefault', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16920,7 +16910,7 @@ var AdminService = (function () {
     // Last Modified : 02-03-2018, Jooshifa 
     // Desc          : for getting count of companies,projects,users
     AdminService.prototype.getCountsforAdminDashboard = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "/get_counts_for_dashboard", {}, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -16934,7 +16924,7 @@ var AdminService = (function () {
     // Last Modified : 06-03-2018, 
     // Desc          : get piegraph data
     AdminService.prototype.getPieDataforAdminDashboard = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/super_admin_pie_graph", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -16948,7 +16938,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : add plan 
     AdminService.prototype.addPlan = function (plan) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'addPlan', plan, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16962,7 +16952,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : to change a plan to best
     AdminService.prototype.bestPlan = function (id, value) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'bestPlan/' + id, { status: value }, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16976,7 +16966,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : to delete a plan which is'nt used by any company
     AdminService.prototype.deletePlan = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'deletePlan/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -16990,7 +16980,7 @@ var AdminService = (function () {
     // Last Modified : 07-03-2018, Rinsha
     // Desc          : getplan
     AdminService.prototype.getPlan = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17005,7 +16995,7 @@ var AdminService = (function () {
     // Desc          : update a plan
     AdminService.prototype.updatePlan = function (plan) {
         // console.log(plan);
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'updatePlan', plan, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17019,7 +17009,7 @@ var AdminService = (function () {
     // Last Modified : 06-03-2018, 
     // Desc          : get piegraph data
     AdminService.prototype.getBarDataforAdminDashboard = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/super_admin_bar_graph", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -17033,7 +17023,7 @@ var AdminService = (function () {
     // Last Modified : 06-04-2018, Rinsha
     // Desc          : get all estimated project
     AdminService.prototype.getEstimatedProject = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getEstimatedProject', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17128,7 +17118,7 @@ var CompanyService = (function () {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : getplan
     CompanyService.prototype.getPlan = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17283,7 +17273,7 @@ var CompanyService = (function () {
     // Last Modified : 08-03-2018, Rinsha
     // Desc          : getProject
     CompanyService.prototype.getProject = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getProjectById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17367,7 +17357,7 @@ var CompanyService = (function () {
     // Last Modified : 08-03-2018, Rinsha
     // Desc          : getCategoryById
     CompanyService.prototype.getCategoryById = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getCategoryById/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17381,7 +17371,7 @@ var CompanyService = (function () {
     // Last Modified : 12-03-2018, Rinsha
     // Desc          : to delete a project
     CompanyService.prototype.deleteProject = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'deleteProject/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17423,7 +17413,7 @@ var CompanyService = (function () {
     // Last Modified : 12-03-2018, Rinsha
     // Desc          : close notification when pm sees the assign team head notification
     CompanyService.prototype.closeNotif = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'closeNotif/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17465,7 +17455,7 @@ var CompanyService = (function () {
     // Last Modified : 15-03-2018, Rinsha
     // Desc          :  
     CompanyService.prototype.getProjectstimations = function (pro_id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getProjectstimations/' + pro_id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17536,7 +17526,7 @@ var CompanyService = (function () {
     // Last Modified : 19-03-2018, Rinsha
     // Desc          :  
     CompanyService.prototype.getTotalEstimations = function (pro_id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getTotalEstimations/' + pro_id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17748,7 +17738,7 @@ var CompanyService = (function () {
     // Last Modified : 13-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getCompanyDetailsById = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getCompanyDetails/" + id, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -17777,7 +17767,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc :get project details of a purticular id
     CompanyService.prototype.getProjectById = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getProjects/" + id, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -17791,7 +17781,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : to get developer users
     CompanyService.prototype.getDeveloperUsers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-developer-users', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17805,7 +17795,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getDesignerrUsers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-designer-users', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17819,7 +17809,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getQcUsers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-qc-users', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17833,7 +17823,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getTasksModules = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-modules-tasks/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17847,7 +17837,7 @@ var CompanyService = (function () {
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getAllUsers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-all-users', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17861,7 +17851,7 @@ var CompanyService = (function () {
     // Last Modified : 16-03-2018, Jooshifa
     // Desc          
     CompanyService.prototype.getComplexity = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-complexity-percentage', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17875,7 +17865,7 @@ var CompanyService = (function () {
     // Last Modified : 19-03-2018, Jooshifa
     // Desc          
     CompanyService.prototype.getDatetime = function (newTasks) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "/get-date-time", newTasks, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -17889,7 +17879,7 @@ var CompanyService = (function () {
     // Last Modified : 13-03-2018, 
     // Desc          : get team names and strength from db
     CompanyService.prototype.getTeams = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getTeams", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -17903,7 +17893,7 @@ var CompanyService = (function () {
     // Last Modified : 13-03-2018, 
     // Desc          : get team members based on id passed from db
     CompanyService.prototype.getTeamMembers = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getMembers/" + id, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -17917,7 +17907,7 @@ var CompanyService = (function () {
     // Last Modified : 09-03-2018, Yasir Poongadan
     // Desc          : 
     CompanyService.prototype.getUsers = function (projId) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getUsersByProject/" + projId, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -17930,7 +17920,7 @@ var CompanyService = (function () {
     // Last Modified : 13-03-2018, 
     // Desc          : get team members based on id passed from db
     CompanyService.prototype.assignTeam = function (members, head, teamId) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         var data = [];
         data.push(members);
         data.push(head);
@@ -17948,7 +17938,7 @@ var CompanyService = (function () {
     // Last Modified : 15-03-2018, 
     // Desc          : get user groups  from db
     CompanyService.prototype.getUserGroups = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getUserGroups", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -17962,7 +17952,7 @@ var CompanyService = (function () {
     // Last Modified : 15-03-2018, 
     // Desc          : get Access Rights  from db
     CompanyService.prototype.getAccessRights = function (roleId) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getAccessRights/" + roleId, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -17976,7 +17966,7 @@ var CompanyService = (function () {
     // Last Modified : 16-03-2018, 
     // Desc          : assign tights to usergroup
     CompanyService.prototype.assignRights = function (rights, id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "assignRights/" + id, rights, { headers: h })
             .map(function (response) { return response.json(); });
@@ -17990,7 +17980,7 @@ var CompanyService = (function () {
     // Last Modified : 16-03-2018, 
     // Desc          : assign tights to usergroup
     CompanyService.prototype.getWorkTimes = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.get(this.serviceUrl + "getWorkingTimes", { headers: h })
             .map(function (response) { return response.json(); });
@@ -18004,7 +17994,7 @@ var CompanyService = (function () {
     // Last Modified : 16-03-2018, 
     // Desc          : assign tights to usergroup
     CompanyService.prototype.getWeekTimes = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.get(this.serviceUrl + "getWeekHours", { headers: h })
             .map(function (response) { return response.json(); });
@@ -18024,7 +18014,7 @@ var CompanyService = (function () {
             start: start,
             end: end
         };
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "saveWorkingTimes", data, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18042,7 +18032,7 @@ var CompanyService = (function () {
         var data = {
             id: id
         };
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "deleteBreak", data, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18057,7 +18047,7 @@ var CompanyService = (function () {
     // Last Modified : 20-03-2018, 
     // Desc          : save company work time to DB
     CompanyService.prototype.saveBreak = function (time) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "saveBreak", time, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18074,7 +18064,7 @@ var CompanyService = (function () {
         var data = {
             year: value
         };
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "getHoliday", data, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18088,7 +18078,7 @@ var CompanyService = (function () {
     // Last Modified : 22-03-2018, 
     // Desc          : get Holidays from DB
     CompanyService.prototype.getYears = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.get(this.serviceUrl + "getYears", { headers: h })
             .map(function (response) { return response.json(); });
@@ -18102,7 +18092,7 @@ var CompanyService = (function () {
     // Last Modified : 22-03-2018, 
     // Desc          : update holiday in DB
     CompanyService.prototype.updateHoliday = function (data) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "updateHoliday", data, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18119,7 +18109,7 @@ var CompanyService = (function () {
         var d = {
             id: data
         };
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         ;
         return this.http.post(this.serviceUrl + "deleteHoliday", d, { headers: h })
             .map(function (response) { return response.json(); });
@@ -18138,7 +18128,7 @@ var CompanyService = (function () {
             date: date,
             title: title
         };
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "saveHoliday", data, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18166,7 +18156,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getAvailablity = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-availablity/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18180,7 +18170,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getPublicHolidays = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/get-public-holidays", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -18194,7 +18184,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getWorkingTime = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/get-working-time", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -18208,7 +18198,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getOffDays = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/get-off-days-assoc", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -18222,7 +18212,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getbreakTime = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "/get-break-time", { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -18250,7 +18240,7 @@ var CompanyService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : get details of project involved by user based on status from db
     CompanyService.prototype.getNotifications = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getNotifications2", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18264,7 +18254,7 @@ var CompanyService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : close the notification of new request
     CompanyService.prototype.closeNotifnewTaskReq = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         var data = {
             id: id
         };
@@ -18281,7 +18271,7 @@ var CompanyService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.closeNotifAproval = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         var data = {
             id: id
         };
@@ -18298,7 +18288,7 @@ var CompanyService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.getNewTaskRequests = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getNewTaskRequests", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18313,7 +18303,7 @@ var CompanyService = (function () {
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.getNewTaskRequest = function (id) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getNewTaskRequest/" + id, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18328,7 +18318,7 @@ var CompanyService = (function () {
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.getProjectDetails = function (id) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getProjectsDetails/" + id, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18343,7 +18333,7 @@ var CompanyService = (function () {
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.checkRole = function () {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "checkRole/", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18358,7 +18348,7 @@ var CompanyService = (function () {
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.approveTask = function (data) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "approveTask/", data, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18373,7 +18363,7 @@ var CompanyService = (function () {
     // Desc          : close the notification of new  Aproval 
     CompanyService.prototype.rejectTask = function (taskReqId) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "rejectTaskRequest/" + taskReqId, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18388,7 +18378,7 @@ var CompanyService = (function () {
     // Desc          : Reject new Task request
     CompanyService.prototype.sendApproval = function (taskReqId) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "sendApproval/" + taskReqId, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18403,7 +18393,7 @@ var CompanyService = (function () {
     // Desc          : Get breaks in the day
     CompanyService.prototype.getDayBreaks = function (day, week) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         var data = {
             day: day,
             week: week
@@ -18463,7 +18453,7 @@ var CompanyService = (function () {
     // Desc          : Delete breaks of days
     CompanyService.prototype.deleteExtraBreak = function (breakId) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "deleteExtraBreak/" + breakId, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18478,7 +18468,7 @@ var CompanyService = (function () {
     // Desc          : save working time of a day
     CompanyService.prototype.saveDayWorkTime = function (holiday, startTime, endTime, day, week) {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         var data = {
             holiday: holiday,
             startTime: startTime,
@@ -18500,7 +18490,7 @@ var CompanyService = (function () {
     // Desc          : to get All Estimated Project
     CompanyService.prototype.getAllEstimatedProject = function () {
         // console.log("h")
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getAllEstimatedProject", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -18514,7 +18504,8 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : all users 
     CompanyService.prototype.getAllusers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
+        console.log(headers);
         return this.http.get(this.serviceUrl + 'allusers', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18529,10 +18520,10 @@ var CompanyService = (function () {
     // Desc          : delete User
     //delete User
     CompanyService.prototype.deleteUser = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
-        return this.http.put(this.serviceUrl + 'deleteuser/' + id, { headers: headers })
-            .map(function (res) { return res.json(); });
+        var header = this.setHeaderWithAuthorization();
+        console.log(header);
+        return this.http.post(this.serviceUrl + 'deleteuser/' + id, {}, { headers: header })
+            .map(function (response) { return response.json(); });
     };
     // -----------------------------------End------------------------------------------
     // ---------------------------------Start-------------------------------------------
@@ -18545,8 +18536,7 @@ var CompanyService = (function () {
     // Desc          : block User
     //block User
     CompanyService.prototype.blockUser = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'blockuser/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18561,8 +18551,7 @@ var CompanyService = (function () {
     // Desc          : unblock User
     //unblock User
     CompanyService.prototype.unblockUser = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'unblockuser/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18576,7 +18565,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of active users
     CompanyService.prototype.getAllactiveusers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allactiveusers', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18590,7 +18579,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of block users
     CompanyService.prototype.getAllblockedusers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allblockedusers', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18604,7 +18593,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of all delete users
     CompanyService.prototype.getAlldeleteusers = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alldeleteusers', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18619,7 +18608,7 @@ var CompanyService = (function () {
     // Desc          : adduser
     CompanyService.prototype.addUser = function (data) {
         // console.log(data)
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'adduser', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18633,7 +18622,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of usergroup
     CompanyService.prototype.getAllusergroup = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allusergroup', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18647,7 +18636,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Prevexp
     CompanyService.prototype.getAllPrevexp = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allprevexp', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18661,7 +18650,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Team
     CompanyService.prototype.getAllTeam = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allteam', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18675,7 +18664,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Designation
     CompanyService.prototype.getAllDesignation = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alldesignation', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18690,7 +18679,7 @@ var CompanyService = (function () {
     // Desc          : Singleuser
     //unblock User
     CompanyService.prototype.getSingleuser = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'singleuser', { id: id }, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18705,7 +18694,7 @@ var CompanyService = (function () {
     // Desc          : to updateuser 
     CompanyService.prototype.updateUser = function (user) {
         // console.log(plan);
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'updateuser', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18734,7 +18723,7 @@ var CompanyService = (function () {
     // Desc          : deleteCategory
     //deleteCategory
     CompanyService.prototype.deleteCategory = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'deletecategory/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18780,7 +18769,7 @@ var CompanyService = (function () {
     // Desc          : singlecategory
     //unblock User
     CompanyService.prototype.getSinglecategory = function (project_id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "singlecategory/" + project_id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18794,7 +18783,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Allemployeeleaves
     CompanyService.prototype.getAllemployeeleaves = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allempleaves', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18808,7 +18797,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Allcompanyemployee
     CompanyService.prototype.getAllcompanyemployee = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allcompanyemployee', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18823,7 +18812,7 @@ var CompanyService = (function () {
     // Desc          : deleteEmpleaveeCategory
     //deleteEmpleave
     CompanyService.prototype.deleteEmpleave = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'deleteempleave/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18838,7 +18827,7 @@ var CompanyService = (function () {
     // Desc          : singleempleave
     //unblock User
     CompanyService.prototype.getSingleempleave = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "singleempleave/" + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18853,7 +18842,7 @@ var CompanyService = (function () {
     // Desc          : addEmpleave
     CompanyService.prototype.addnewEmpleave = function (data) {
         // console.log(data)
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'addEmpleave', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18868,7 +18857,7 @@ var CompanyService = (function () {
     // Desc          : to updateEmpleave 
     CompanyService.prototype.updateEmpleave = function (Empleave) {
         // console.log(Empleave);
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'updateempleave', Empleave, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18883,7 +18872,7 @@ var CompanyService = (function () {
     // Desc          : datefilterforlog
     CompanyService.prototype.getDatefilterforlog = function (data) {
         // console.log(data)
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'datefilterforlog', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18897,7 +18886,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of getAllemppendingleaves
     CompanyService.prototype.getAllemppendingleaves = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allemppendingleaves', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18912,7 +18901,7 @@ var CompanyService = (function () {
     // Desc          : userleave
     //userleave
     CompanyService.prototype.getuserleave = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "userleave/" + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18927,7 +18916,7 @@ var CompanyService = (function () {
     // Desc          : add reject reason
     //updateCategory
     CompanyService.prototype.addReason = function (reason) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'addrejectleave/', reason, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18942,7 +18931,7 @@ var CompanyService = (function () {
     // Desc          : add accept reason
     //addaccept
     CompanyService.prototype.addaccept = function (accept) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'addacceptleave/', accept, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18956,7 +18945,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of get All emp pending leaves notification
     CompanyService.prototype.getAllemppendingleavesnotifi = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allemppendingleavesnotifi', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18971,7 +18960,7 @@ var CompanyService = (function () {
     // Desc          : close Notif for leave request
     //closeNotif5
     CompanyService.prototype.closeNotif5 = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'leavenotifclose/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -18985,7 +18974,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : list of Altime extension request
     CompanyService.prototype.getAlltimeextensionrequest = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'alltimeextension', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19001,7 +18990,7 @@ var CompanyService = (function () {
     //userleave
     CompanyService.prototype.gettimerequest = function (reqid, projid) {
         var data = { reqid: reqid, projid: projid };
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         // console.log("a"+data)
         return this.http.post(this.serviceUrl + "timerequest", data, { headers: headers })
             .map(function (res) { return res.json(); });
@@ -19017,7 +19006,7 @@ var CompanyService = (function () {
     // Desc          : Reject time ext req to pm
     //Rejecttimeextreq
     CompanyService.prototype.Rejecttimeextreq = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'rejecttimeextreq/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19032,7 +19021,7 @@ var CompanyService = (function () {
     // Desc          : get User leave data(time extension request)
     //unblock User
     CompanyService.prototype.getUserleavedata = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "userleavedata/" + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19047,7 +19036,7 @@ var CompanyService = (function () {
     // Desc          : Send to admin (time ext req )
     //Sendtoadmin
     CompanyService.prototype.Sendtoadmin = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'sendtoadmin/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19061,7 +19050,7 @@ var CompanyService = (function () {
     // Last Modified : 
     // Desc          : send to admin notif(time extension approval)
     CompanyService.prototype.getAllSendtoadminnotif = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'sendtoadminnotif', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19076,7 +19065,7 @@ var CompanyService = (function () {
     // Desc          : close Notif for time extension approval
     //closeNotif6
     CompanyService.prototype.closeNotif6 = function (id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'admintimeextnotifclose/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19273,7 +19262,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.getMyTasks = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-my-tasks', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19287,7 +19276,7 @@ var UserService = (function () {
     // Last Modified : 16-03-2018, Jooshifa
     // Desc          
     UserService.prototype.getPercentage = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-progress-percentage', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19301,7 +19290,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.getAllTasksInModule = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-all-task-in-module', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19315,7 +19304,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.getTaskTime = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-task-time', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19329,7 +19318,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.doneAtask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'done-a-task/' + task, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19343,7 +19332,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.pauseTask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'pause-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19357,7 +19346,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.completeATask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'complete-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19371,7 +19360,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.holdATask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'hold-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19385,7 +19374,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.startAtask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'start-a-task/' + task, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19413,7 +19402,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.getUserProfile = function () {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'get-user-Profile', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19427,7 +19416,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.newTaskRequest = function (task) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "new-task-request", task, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -19441,7 +19430,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.newTimeExtention = function (task) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "time-extention-request", task, { headers: h })
             .map(function (res) { return res.json(); });
     };
@@ -19455,7 +19444,7 @@ var UserService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : get details of project involved by user from db
     UserService.prototype.getUserProjects = function () {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getUserProjects", { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -19469,7 +19458,7 @@ var UserService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : get details of project involved by user from db
     UserService.prototype.getProjectDetails = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "getUserProjectsDetails/" + id, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -19483,7 +19472,7 @@ var UserService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : get details of project involved by user based on status from db
     UserService.prototype.getUserProjectsOnStatus = function (status) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "getUserProjectsOnStatus", { status: status }, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -19497,7 +19486,7 @@ var UserService = (function () {
     // Last Modified : 26-03-2018, 
     // Desc          : get details of project involved by user based on status from db
     UserService.prototype.getUserProjectSelected = function (id) {
-        var h = this.setHeader();
+        var h = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + "getSelectedProjects", { id: id }, { headers: h })
             .map(function (response) { return response.json(); });
     };
@@ -19511,7 +19500,7 @@ var UserService = (function () {
     // Last Modified : 13-03-2018, Rinsha
     // Desc          : getPmByLoginid
     UserService.prototype.getPmByLoginid = function (login_id) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getPmByLoginid/' + login_id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19679,8 +19668,7 @@ var UserService = (function () {
     // Last Modified : 
     // Desc          :user all activity log list
     UserService.prototype.getSingleUserActivitylog = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'singleuserlog', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19695,8 +19683,7 @@ var UserService = (function () {
     // Desc          : datefilterforlog
     UserService.prototype.getDatefilterforlog = function (data) {
         // console.log(data)
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'datefilterforlog', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19710,8 +19697,7 @@ var UserService = (function () {
     // Last Modified : 
     // Desc          :get Single User all leaves
     UserService.prototype.getSingleUserallleaves = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'singleuserallleave', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19725,8 +19711,7 @@ var UserService = (function () {
     // Desc          : deleteuser leave
     //deleteuser leave
     UserService.prototype.deleteuserleave = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.put(this.serviceUrl + 'deleteuserleave/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19741,8 +19726,7 @@ var UserService = (function () {
     // Desc          : add USER leave
     UserService.prototype.addUserleave = function (data) {
         // console.log(data)
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'adduserleave', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19757,8 +19741,7 @@ var UserService = (function () {
     // Desc          : single user leave
     //unblock User
     UserService.prototype.getSingleuserleave = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "singleuserleave/" + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19831,8 +19814,7 @@ var UserService = (function () {
     // Last Modified :
     // Desc          : 
     UserService.prototype.getAllProject = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "allProjects", { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19846,8 +19828,7 @@ var UserService = (function () {
     // Last Modified :
     // Desc          : 
     UserService.prototype.getAllMyTimeextensionrequest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "allmytimeextrequest", { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -19861,8 +19842,7 @@ var UserService = (function () {
     // Last Modified :
     // Desc          : 
     UserService.prototype.getAllMyNewTaskrequest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "allmynewtaskrequest", { headers: headers })
             .map(function (res) { return res.json(); });
     };
