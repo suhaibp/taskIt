@@ -98,7 +98,6 @@
                                                 <div class="datelabel">End <span class="pull-right">{{project[0]?.tbl_project?.planned_end_date | date:'EEE, d MMM,y'}}</span></div>
                                                 </div>
                                                 <div class="clearfix"></div>
-                                                <!-- <div style="clear: both;"></div> -->
                                                 <hr>
                                                 <div id="projct-{{i}}-progress"></div>
                                                 <company-progress-graph [containerId]="'projct-'+ i +'-progress'" [progper]="project.per"></company-progress-graph>

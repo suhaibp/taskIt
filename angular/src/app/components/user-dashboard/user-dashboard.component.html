@@ -65,7 +65,6 @@
                                         <div class="row">
                                             <div class="col-md-6">Planned Hour <br>{{proj.totalplaned_hr}}</div>
                                             <div class="col-md-6">Actual Hour<br>{{proj.totalactual_hr}} </div>
-                                            <!-- <div id="module-progress-{{i}}"></div> -->
                                             <div id="module-progress-{{i}}"></div>
                                             <user-progress-graph [containerId]="'module-progress-'+ i" [progper]="totalprogress1"></user-progress-graph>
                                             <div class="clearfix"></div>
@@ -76,54 +75,7 @@
                                             <user-status-graph [containerId]="'module-status-'+ i" [New]="proj.countasknew" [Progress]="proj.countaskinprogress" [Completed]="proj.countaskdone"  [Hold]="proj.countaskhold"></user-status-graph>
                                         </div>
                                     </li>
-                                    <!-- <li >
-                                        <div class="divModule">Module-2</div>
-                                        <div class="row">
-                                            <div class="col-md-6">Planned Hour <br>100</div>
-                                            <div class="col-md-6">Actual Hour<br> 20 </div>
-                                            <div id="module-2-progress"></div>
-                                            <user-progress-graph [containerId]="'module-2-progress'" [progper]="60"></user-progress-graph>
-                                            <div class="clearfix"></div>
-                                            <div class="col-md-12 label-bg">
-                                                <div class="number">7</div>
-                                            </div>
-                                            <div id="module-2-status"></div>
-                                            <user-status-graph [containerId]="'module-2-status'"></user-status-graph>
-                                        </div>
-                                    </li> -->
-                                    <!-- <li >
-                                        <div class="divModule" >Module-3</div>
-                                        <div class="row">
-                                            <div class="col-md-6">Planned Hour <br>100</div>
-                                            <div class="col-md-6">Actual Hour<br> 20 </div>
-                                            <div id="module-3-progress"></div>
-                                            <user-progress-graph [containerId]="'module-3-progress'" [progper]="55"></user-progress-graph>
-                                            <div class="clearfix"></div>
-                                            <div class="col-md-12 label-bg">
-                                                <div class="number">9</div>
-                                            </div>
-                                            <div id="module-3-status"></div>
-                                            <user-status-graph [containerId]="'module-3-status'"></user-status-graph>
-                                        </div>
-                                    </li> -->
-                                    <!-- <li >
-                                        <div class="divModule" >Module-4</div>
-                                        <div class="row">
-                                            <div class="col-md-6">Planned Hour <br>100</div>
-                                            <div class="col-md-6">Actual Hour<br> 20 </div>
-                                            <div id="module-4-progress"></div>
-                                            <user-progress-graph [containerId]="'module-4-progress'" [progper]="55"></user-progress-graph>
-                                            <div class="clearfix"></div>
-                                            <div class="col-md-12 label-bg">
-                                                <div class="number">9</div>
-                                            </div>
-                                            <div id="module-4-status"></div>
-                                            <user-status-graph [containerId]="'module-4-status'"></user-status-graph>
-                                        </div>
-                                    </li> -->
-                                   
-                                   
-                                   
+                                    
                                 </ul>
                             </div>
                             </div>
@@ -157,21 +109,7 @@
                                                 <div id="projct-{{i}}-bar"></div>
                                                 <user-bar-graph [containerId]="'projct-'+ i+'-bar'" [actual]="project.actualhr" [planning]="project.totalplannedhr"></user-bar-graph>
                                             </li>
-                                            <!-- <li class="hash">
-                                                <div class="prjtitle2 bg-g">Taskit</div>
-                                                <div class="col-md-8 mr-top">
-                                                        <div class="datelabel">Start <span class="pull-right">24-03-2018</span></div>
-                                                        <div class="datelabel">End <span class="pull-right">29-03-2018</span></div>
-                                                 </div>
-                                                 <div class="clearfix"></div>
-                                                <hr>
-                                                <div id="projct-2-progress"></div>
-                                                <user-progress-graph [containerId]="'projct-2-progress'" [progper]="45"></user-progress-graph>
-                                                <label>2/23 In Progress</label>
-                                                <hr>
-                                                <div id="projct-2-bar"></div>
-                                                <user-bar-graph [containerId]="'projct-2-bar'" [actual]="10" [planning]="4"></user-bar-graph>
-                                            </li> -->
+                                          
                                     </ul>   
                                 </div>    
                             </div>

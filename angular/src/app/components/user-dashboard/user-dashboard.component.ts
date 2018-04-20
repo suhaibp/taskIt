@@ -106,7 +106,7 @@ export class UserDashboardComponent implements OnInit {
           //   // console.log(this.moduletaskcount.length);
           let last_status_id = 0;
           this.lastStatus1 = {};
-          elm_task.st.forEach(statuses => {
+          elm_task.tbl_task_status_assocs.forEach(statuses => {
             if (statuses.id > last_status_id) {
               last_status_id = statuses.id;
               this.lastStatus1 = statuses;
@@ -178,7 +178,7 @@ export class UserDashboardComponent implements OnInit {
             }
             let last_status_id = 0;
             let last_status = {};
-            elm_task.st.forEach(statuses => {
+            elm_task.tbl_task_status_assocs.forEach(statuses => {
               if (statuses.id > last_status_id) {
                 last_status_id = statuses.id;
                 this.lastStatus1 = statuses;

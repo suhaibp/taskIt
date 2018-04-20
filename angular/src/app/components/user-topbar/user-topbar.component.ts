@@ -225,7 +225,7 @@ export class UserTopbarComponent implements OnInit {
     // Last Modified : 19-04-2018, Manu Prasad
     // Desc          : 
     this.userService.getAccessRightsforRole().subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.rights = res;
       this.disp = true;
       // console.log(res);      
@@ -234,7 +234,7 @@ export class UserTopbarComponent implements OnInit {
     // ---------------------------------End-------------------------------------------
   }
   exist(id){
-    console.log(id)
+    // console.log(id)
     let x = false;
     this.rights.forEach(element => {
       if(element.access_rights_id == id){

@@ -63,7 +63,7 @@ export class UserTaskstatusGraphComponent implements OnInit {
        
           elm_mod.tbl_project_tasks.forEach(elm_task => {
             this.countask.push(elm_task.id);
-              this.lastStatus2 = elm_task.st[elm_task.st.length - 1];
+              this.lastStatus2 = elm_task.tbl_task_status_assocs[elm_task.tbl_task_status_assocs.length - 1];
 
             if (this.lastStatus2 !== undefined) {
             if(this.lastStatus2.tbl_task_status.status == 'done'){

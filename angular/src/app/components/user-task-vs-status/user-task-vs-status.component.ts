@@ -25,8 +25,6 @@ export class UserTaskVsStatusComponent implements OnInit {
     ngOnInit() {
       
       this.getAllProjects();
-      
-  
     
     }
     
@@ -60,7 +58,7 @@ export class UserTaskVsStatusComponent implements OnInit {
             // console.log(elm_mod)
             elm_mod.tbl_project_tasks.forEach(elm_task => {
               this.countask.push(elm_task.id);
-                this.lastStatus = elm_task.st[elm_task.st.length - 1];
+                this.lastStatus = elm_task.tbl_task_status_assocs[elm_task.tbl_task_status_assocs.length - 1];
                 // console.log(this.lastStatus.tbl_task_status.status)
                 // console.log(this.lastStatus.tbl_task_status.id)
               // });

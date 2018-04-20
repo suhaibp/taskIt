@@ -78,7 +78,7 @@ export class CompanySidebarComponent implements OnInit {
     // Last Modified : 19-04-2018, Manu Prasad
     // Desc          : 
     this.companyService.getAccessRightsforRole().subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.rights = res;
       this.disp = true;
       // console.log(res);      
@@ -96,7 +96,7 @@ export class CompanySidebarComponent implements OnInit {
     // Last Modified : 19-04-2018, Manu Prasad
     // Desc          : 
     this.companyService.checkRole().subscribe(res => {
-      console.log(res);
+      // console.log(res);
       // console.log(res);      
       // console.log("res");
       this.role = res;
@@ -120,9 +120,9 @@ export class CompanySidebarComponent implements OnInit {
   }
   exist2(a,b,c,d,e){
     let arr = [a,b,c,d,e]
-    console.log("gsg")
-    console.log(arr);
-    console.log("gsg")
+    // console.log("gsg")
+    // console.log(arr);
+    // console.log("gsg")
     
     let trust = false;
     arr.forEach(ele=>{
@@ -132,7 +132,7 @@ export class CompanySidebarComponent implements OnInit {
         }
       });
     })
-    console.log(trust);
+    // console.log(trust);
     return trust
   }
 }
