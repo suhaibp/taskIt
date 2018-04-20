@@ -515,7 +515,7 @@ export class UserService {
 
   getDatefilterforlog(data: any) {
     // console.log(data)
-    let headers = this.setHeaderWithAuthorization()
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'datefilterforlog', data, { headers: headers })
       .map(res => res.json());
   }
@@ -594,10 +594,9 @@ export class UserService {
 
   updateUserleave(userleave: any) {
     // console.log(Empleave);
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeaderWithAuthorization();
        return this.http.post(this.serviceUrl + 'updateuserleave', userleave, { headers: headers})
-         .map(res => res.json())
+         .map(res => res.json());
      }
    
      // < ----------------------------------End------------------------------------------- 
@@ -611,9 +610,9 @@ export class UserService {
   // Desc          :get My all request
 
   getMyallrequest() {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allmyrequest', { headers: headers })
+    .map(res => res.json());
   }
 	     // ---------------------------------Start-------------------------------------------
   // Function      : getMyallTimeextnrequest
@@ -625,8 +624,7 @@ export class UserService {
   // Desc          :get my time extension request
 
   getMyallTimeextnrequest() {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'mytimeextrequest', { headers: headers })
       .map(res => res.json());
 
@@ -642,8 +640,7 @@ export class UserService {
   // Desc          :get my all new task request
 
   getMyallnewtaskrequest() {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'mynewtaskrequest', { headers: headers })
       .map(res => res.json());
 

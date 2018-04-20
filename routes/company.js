@@ -3307,7 +3307,7 @@ var returnRouter = function (io) {
                         }
                         else if (login.role_id == 1 || login.role_id == 3) {
 
-                            if (login.cmp_status == "Not Verified" || login.is_verified == false) {
+                            if (login.role_id == 1 && login.cmp_status == "Not Verified" || login.is_verified == false) {
                                 return res.json({ success: false, msg: 'Company not verified' });
                             }
                             // if (login.is_profile_completed == false) {

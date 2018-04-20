@@ -128,7 +128,7 @@
               </div>
               <br>
               <div class="col-md-12">
-                <button type="button" (click)="getEstIdtoResubmit(item.id, item.tbl_project_estimation_team.tbl_user_profile.login_id)" data-toggle="modal" data-target="#resubmitModal" class="btn round-button pull-right right-btn">ReSubmit</button>
+                <button type="button" (click)="getEstIdtoResubmit(item.id, item.tbl_project_estimation_team.tbl_user_profile.login_id)" data-toggle="modal" data-target="#resubmitModal" class="btn round-button pull-right right-btn" data-backdrop="static" data-keyboard="false">ReSubmit</button>
                 <button type="button" *ngIf="!acceptButtonHide[item.id]" (click)="acceptEstimation(item.id)" class="btn round-button pull-right right-btn">Accept</button>
               </div>
               <div class="clearfix"></div>
@@ -138,7 +138,7 @@
 
           <div class="col-md-12">
             <button type="button" *ngIf="sendApprovalButtonShow" (click)="sendForApproval()" class="btn round-button pull-right right-btn">{{sendForApprovalBtn}}</button>
-            <button type="button" *ngIf="forwardButtonShow" data-toggle="modal" data-target="#forwardModal" class="btn round-button pull-right right-btn">Forward To</button>
+            <button type="button" *ngIf="forwardButtonShow" data-toggle="modal" data-target="#forwardModal" class="btn round-button pull-right right-btn" data-backdrop="static" data-keyboard="false">Forward To</button>
           </div>
         </div>
 

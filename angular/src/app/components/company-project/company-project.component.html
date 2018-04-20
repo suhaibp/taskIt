@@ -115,7 +115,7 @@
                             <span>Edit</span>
                           </button>
                           <button mat-menu-item *ngIf="row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id"
-                            (click)="getId(row.id)" data-toggle="modal" data-target="#deleteModal"> 
+                            (click)="getId(row.id)" data-toggle="modal" data-target="#deleteModal" data-backdrop="static" data-keyboard="false"> 
                             <mat-icon><i class="material-icons">delete</i></mat-icon>
                             <span>Delete</span>
                           </button>
