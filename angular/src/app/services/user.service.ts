@@ -692,4 +692,19 @@ export class UserService {
   }
   // ---------------------------------------End--------------------------------------------
 
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Get logged in entity
+  // Params        : 
+  // Returns       : Get logged in entity
+  // Author        : Rinsha
+  // Date          : 20-04-2018
+  // Last Modified : 20-04-2018, Rinsha
+  // Desc          :  
+  getLoggedinEntity() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getLoggedinUser', { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
 }

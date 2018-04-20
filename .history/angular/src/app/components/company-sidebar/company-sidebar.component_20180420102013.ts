@@ -99,7 +99,6 @@ export class CompanySidebarComponent implements OnInit {
       console.log(res);
       // console.log(res);      
       // console.log("res");
-      this.role = res;
       if(res == 3){
         this.getAccessRightsforRole();
 

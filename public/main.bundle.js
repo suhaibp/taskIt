@@ -2475,6 +2475,8 @@ module.exports = "<div class=\"logo\">\r\n    <a href=\"\"><img src=\"./assets/i
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminSidebarComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2485,10 +2487,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var AdminSidebarComponent = (function () {
-    function AdminSidebarComponent() {
+    function AdminSidebarComponent(routes, adminService) {
+        this.routes = routes;
+        this.adminService = adminService;
     }
     AdminSidebarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 20-04-2018
+        // Last Modified : 20-04-2018, Rinsha
+        // Desc          :  
+        this.adminService.getLoggedinEntity().subscribe(function (data) {
+            if (data == null || data == '') {
+                _this.routes.navigate(['/home']);
+            }
+            if (data.role_id == 2) {
+                //super admin
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/home']);
+                }
+                // this.routes.navigate(['/admin-dashboard']);
+            }
+            if (data.role_id == 3 || data.role_id == 1) {
+                //company admin or pm
+                if (data.delete_status == true || data.block_status == true || data.cmp_status == "Not Verified") {
+                    _this.routes.navigate(['/company-login']);
+                }
+                if (data.cmp_status == "Expired") {
+                    _this.routes.navigate(['/expired']);
+                }
+                if (data.is_profile_completed == false) {
+                    _this.routes.navigate(['/compay-aditninfo', data.cmp_id]);
+                }
+                _this.routes.navigate(['/company-dashboard']);
+            }
+            if (data.role_id == 4) {
+                //user
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/company-login']);
+                }
+                _this.routes.navigate(['/user-dashboard']);
+            }
+        });
+        // -----------------------------------End------------------------------------------
     };
     AdminSidebarComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -2496,7 +2544,8 @@ var AdminSidebarComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/admin-sidebar/admin-sidebar.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/admin-sidebar/admin-sidebar.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["Router"],
+            __WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */]])
     ], AdminSidebarComponent);
     return AdminSidebarComponent;
 }());
@@ -2788,6 +2837,47 @@ var AdminTopbarComponent = (function () {
     };
     AdminTopbarComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 20-04-2018
+        // Last Modified : 20-04-2018, Rinsha
+        // Desc          :  
+        this.adminService.getLoggedinEntity().subscribe(function (data) {
+            if (data == null || data == '') {
+                _this.routes.navigate(['/home']);
+            }
+            if (data.role_id == 2) {
+                //super admin
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/home']);
+                }
+                // this.routes.navigate(['/admin-dashboard']);
+            }
+            if (data.role_id == 3 || data.role_id == 1) {
+                //company admin or pm
+                if (data.delete_status == true || data.block_status == true || data.cmp_status == "Not Verified") {
+                    _this.routes.navigate(['/company-login']);
+                }
+                if (data.cmp_status == "Expired") {
+                    _this.routes.navigate(['/expired']);
+                }
+                if (data.is_profile_completed == false) {
+                    _this.routes.navigate(['/compay-aditninfo', data.cmp_id]);
+                }
+                _this.routes.navigate(['/company-dashboard']);
+            }
+            if (data.role_id == 4) {
+                //user
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/company-login']);
+                }
+                _this.routes.navigate(['/user-dashboard']);
+            }
+        });
+        // -----------------------------------End------------------------------------------
         this.refresh();
         this.socket.on('new company', function (data) {
             _this.refresh();
@@ -4633,7 +4723,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-dashboard/company-dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n      <div class=\"row display-table-row\">\r\n    \r\n          <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n               <!-- sidebar-->\r\n             \r\n               <company-sidebar></company-sidebar> \r\n               <!-- end sidebar-->\r\n          </div>\r\n          \r\n          <div class=\"col-md-12 col-xs-12\">\r\n              <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n              <!-- topbar-->\r\n              <company-topbar></company-topbar> \r\n              \r\n                  <!-- end topbar-->\r\n              \r\n              \r\n              <div class=\"user-dashboard\">\r\n                 \r\n                  <div class=\"row\">\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                              \r\n                          <company-task-vs-status></company-task-vs-status>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-resoure-vs-hour></company-resoure-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-project-vs-hour></company-project-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                            <company-project-vs-status></company-project-vs-status>\r\n                            </div>\r\n                        </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                <h1>Module Vs Status</h1>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-8 col-md-push-1\">\r\n                                        <div class=\"col-md-3 bg-g\">*Select Project</div>\r\n                                        <div class=\"col-md-3 bg-hash\">\r\n                                            <mat-select  name=\"projet_id\" [(ngModel)]=\"project_id\" (ngModelChange)=\"changeProject($event)\" required>\r\n                                                <mat-option *ngFor=\"let prj of projects\" [value]=\"prj.id\">\r\n                                                  {{prj.project_name}}\r\n                                                </mat-option>\r\n                                              </mat-select>\r\n                                        </div> \r\n                                        <div class=\"col-md-3\">\r\n                                            <span class=\"total\">Total {{module_count}} Milestone</span>\r\n                                        </div>\r\n                                    </div> \r\n                                </div>\r\n                                <ul class=\"graph-ul\">\r\n                                    <li *ngFor=\"let module of modules\" >\r\n                                        <div class=\"divModule\" >{{module?.module_name}}</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>{{module?.planned_hour}}</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> {{module?.actual_hour}} </div>\r\n                                            <div id=\"module-{{module.id}}-progress\"></div>\r\n                                            <company-progress-graph [containerId]=\"'module-'+ module.id +'-progress'\" [progper]=\"module?.per\"></company-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">{{module?.total_tasks}}</div>\r\n                                            </div>\r\n                                            <div id=\"module-{{module.id}}-status\"></div>\r\n                                            <company-status-graph [containerId]=\"'module-'+ module.id +'-status'\" [pieData]=\"module?.pieData\"></company-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    \r\n                                </ul>\r\n                            </div>\r\n                           \r\n                        </div>\r\n\r\n                        <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                    <h1>Project Vs Status</h1>\r\n\r\n                                    <ul class=\"graph-ul-hour\">\r\n                                            <li class=\"text-center2\">\r\n                                                <div class=\"firstRow firstColumn\">PROJECTS</div>\r\n                                                <div class=\"secondRow firstColumn\">Progress</div>\r\n                                                <div class=\"ThirdRow firstColumn\">Planned <br>vs<br> Actual Hours</div>\r\n                                            </li>\r\n                                            <li class=\"text-center2\" *ngFor=\"let project of projectforProVsStatusGraph;let i = index;\">\r\n                                                <div class=\"prjtitle1\">{{project[0]?.tbl_project?.project_name}}</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                <div class=\"datelabel\">Start <span class=\"pull-right\">{{project[0]?.tbl_project?.planned_start_date | date:'EEE, d MMM,y'}}</span></div>\r\n                                                <div class=\"datelabel\">End <span class=\"pull-right\">{{project[0]?.tbl_project?.planned_end_date | date:'EEE, d MMM,y'}}</span></div>\r\n                                                </div>\r\n                                                <div class=\"clearfix\"></div>\r\n                                                <!-- <div style=\"clear: both;\"></div> -->\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-'+ i +'-progress'\" [progper]=\"project.per\"></company-progress-graph>\r\n                                                <label>{{project?.in_progress_tasks}}/{{project?.total_tasks}} In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-'+ i +'-bar'\" [actual]=\"project.actual_hour\" [planning]=\"project.planned_hour\"></company-bar-graph>\r\n                                            </li>\r\n                                            <!-- <li class=\"hash\">\r\n                                                <div class=\"prjtitle2 bg-g\">Taskit</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                        <div class=\"datelabel\">Start <span class=\"pull-right\">24-03-2018</span></div>\r\n                                                        <div class=\"datelabel\">End <span class=\"pull-right\">29-03-2018</span></div>\r\n                                                 </div>\r\n                                                 <div class=\"clearfix\"></div>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-2-progress'\" [progper]=\"45\"></company-progress-graph>\r\n                                                <label>2/23 In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-2-bar'\" [actual]=\"10\" [planning]=\"4\"></company-bar-graph>\r\n                                            </li> -->\r\n                                    </ul>       \r\n                            </div>\r\n                        </div>\r\n                      \r\n                  </div>\r\n              </div>\r\n              \r\n          </div>\r\n              <!-- footer-->\r\n              <admin-footer></admin-footer>\r\n     <!-- end footer-->\r\n      </div>\r\n       </div>\r\n      <!-- Modal -->\r\n   </body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n      <div class=\"row display-table-row\">\r\n    \r\n          <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n               <!-- sidebar-->\r\n             \r\n               <company-sidebar></company-sidebar> \r\n               <!-- end sidebar-->\r\n          </div>\r\n          \r\n          <div class=\"col-md-12 col-xs-12\">\r\n              <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n              <!-- topbar-->\r\n              <company-topbar></company-topbar> \r\n              \r\n                  <!-- end topbar-->\r\n              \r\n              \r\n              <div class=\"user-dashboard\">\r\n                 \r\n                  <div class=\"row\">\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                              \r\n                          <company-task-vs-status></company-task-vs-status>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-resoure-vs-hour></company-resoure-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-sm-6 col-xs-12 \">\r\n                          <div class=\"sales\">\r\n                          <company-project-vs-hour></company-project-vs-hour>\r\n                          </div>\r\n                      </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                            <company-project-vs-status></company-project-vs-status>\r\n                            </div>\r\n                        </div>\r\n                      <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                <h1>Module Vs Status</h1>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-8 col-md-push-1\">\r\n                                        <div class=\"col-md-3 bg-g\">*Select Project</div>\r\n                                        <div class=\"col-md-3 bg-hash\">\r\n                                            <mat-select  name=\"projet_id\" [(ngModel)]=\"project_id\" (ngModelChange)=\"changeProject($event)\" required>\r\n                                                <mat-option *ngFor=\"let prj of projects\" [value]=\"prj.id\">\r\n                                                  {{prj.project_name}}\r\n                                                </mat-option>\r\n                                              </mat-select>\r\n                                        </div> \r\n                                        <div class=\"col-md-3\">\r\n                                            <span class=\"total\">Total {{module_count}} Milestone</span>\r\n                                        </div>\r\n                                    </div> \r\n                                </div>\r\n                                <ul class=\"graph-ul\">\r\n                                    <li *ngFor=\"let module of modules\" >\r\n                                        <div class=\"divModule\" >{{module?.module_name}}</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>{{module?.planned_hour}}</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> {{module?.actual_hour}} </div>\r\n                                            <div id=\"module-{{module.id}}-progress\"></div>\r\n                                            <company-progress-graph [containerId]=\"'module-'+ module.id +'-progress'\" [progper]=\"module?.per\"></company-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">{{module?.total_tasks}}</div>\r\n                                            </div>\r\n                                            <div id=\"module-{{module.id}}-status\"></div>\r\n                                            <company-status-graph [containerId]=\"'module-'+ module.id +'-status'\" [pieData]=\"module?.pieData\"></company-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    \r\n                                </ul>\r\n                            </div>\r\n                           \r\n                        </div>\r\n\r\n                        <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                    <h1>Project Vs Status</h1>\r\n\r\n                                    <ul class=\"graph-ul-hour\">\r\n                                            <li class=\"text-center2\">\r\n                                                <div class=\"firstRow firstColumn\">PROJECTS</div>\r\n                                                <div class=\"secondRow firstColumn\">Progress</div>\r\n                                                <div class=\"ThirdRow firstColumn\">Planned <br>vs<br> Actual Hours</div>\r\n                                            </li>\r\n                                            <li class=\"text-center2\" *ngFor=\"let project of projectforProVsStatusGraph;let i = index;\">\r\n                                                <div class=\"prjtitle1\">{{project[0]?.tbl_project?.project_name}}</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                <div class=\"datelabel\">Start <span class=\"pull-right\">{{project[0]?.tbl_project?.planned_start_date | date:'EEE, d MMM,y'}}</span></div>\r\n                                                <div class=\"datelabel\">End <span class=\"pull-right\">{{project[0]?.tbl_project?.planned_end_date | date:'EEE, d MMM,y'}}</span></div>\r\n                                                </div>\r\n                                                <div class=\"clearfix\"></div>\r\n                                                <!-- <div style=\"clear: both;\"></div> -->\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-progress\"></div>\r\n                                                <company-progress-graph [containerId]=\"'projct-'+ i +'-progress'\" [progper]=\"project.per\"></company-progress-graph>\r\n                                                <label>{{project?.in_progress_tasks}}/{{project?.total_tasks}} In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-bar\"></div>\r\n                                                <company-bar-graph [containerId]=\"'projct-'+ i +'-bar'\" [actual]=\"project.actual_hour\" [planning]=\"project.planned_hour\"></company-bar-graph>\r\n                                            </li>\r\n                                    </ul>       \r\n                            </div>\r\n                        </div>\r\n                      \r\n                  </div>\r\n              </div>\r\n              \r\n          </div>\r\n              <!-- footer-->\r\n              <admin-footer></admin-footer>\r\n     <!-- end footer-->\r\n      </div>\r\n       </div>\r\n      <!-- Modal -->\r\n   </body>"
 
 /***/ }),
 
@@ -8790,7 +8880,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-project/company-project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\r\n        <company-sidebar></company-sidebar>\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!-- topbar-->\r\n        <company-topbar></company-topbar>\r\n\r\n        <!-- end topbar-->\r\n\r\n\r\n        <div class=\"user-dashboard\">\r\n\r\n          <div class=\"row\">\r\n            <!-----------------------------------------------------------------table-------------------------------------->\r\n            <h2>Projects</h2>\r\n            <ul class=\"breadcrumb\">\r\n              <!-- <li><a routerLink=\"/\">Request Management</a></li> -->\r\n              <!-- <li><a routerLink=\"/company-request-management\">Time Extension Request List</a></li> -->\r\n              \r\n              <li>Projects</li>\r\n            </ul>\r\n            <div class=\"col-md-12\">\r\n              <div class=\"row\">\r\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\r\n                  <div class=\"\">\r\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\r\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\r\n                        />\r\n                      </path>\r\n                    </svg>\r\n                  </div>\r\n                </div> -->\r\n\r\n\r\n                <div class=\"col-md-12 optionz\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"example-header\">\r\n                        <mat-form-field>\r\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 pull-right\">\r\n                      <div>\r\n                        <mat-form-field class=\"filter\">\r\n\r\n                          <mat-select (change)=\"getProject()\" [(value)]=\"selected\">\r\n                            <mat-option value=\"all\">All</mat-option>\r\n                            <mat-option value=\"Drafted\">Drafted</mat-option>\r\n                            <mat-option value=\"In Progress\">In Progress</mat-option>\r\n                            <mat-option value=\"Planned\">Planned</mat-option>\r\n                            <mat-option value=\"Completed\">Completed</mat-option>\r\n                            <mat-option value=\"Cancelled\">Cancelled</mat-option>\r\n                          </mat-select>\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"example-container mat-elevation-z8\">\r\n                  <mat-table [dataSource]=\"dataSource\" matSort>\r\n                    <ng-container matColumnDef=\"slno\">\r\n                      <mat-header-cell *matHeaderCellDef> SL NO. </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"project_name\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"startdate\">\r\n                      <mat-header-cell *matHeaderCellDef > ACTUAL/PLANNED START DATE</mat-header-cell>\r\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : row.planned_start_date ==\r\n                        null : row.actual_start_date}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"enddate\">\r\n                      <mat-header-cell *matHeaderCellDef> ACTUAL/PLANNED END DATE</mat-header-cell>\r\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :\r\n                        row.actual_end_date}}\r\n                      </mat-cell>\r\n                    </ng-container>\r\n\r\n                    <ng-container matColumnDef=\"action\">\r\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\r\n                        <mat-menu #menu=\"matMenu\">\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.pm_id == loggedin_id\" (click)=\"assign(row.id)\">\r\n                            <!-- <i class=\"fa fa-user\"></i> -->\r\n                            <mat-icon><i class=\"material-icons\">group</i></mat-icon>\r\n                            <span>Assign Team Head</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id\"\r\n                            (click)=\"approve(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\r\n                            <span>Approve Estimation</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id\"\r\n                            (click)=\"approveProject(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\r\n                            <span>Approve Project</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id\"\r\n                            (click)=\"approveProject(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">event_available</i></mat-icon>\r\n                            <span>Plan Project</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.is_approved == false && row.assignee_id == loggedin_id && row.status == 'Drafted' \" (click)=\"edit(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\r\n                            <span>Edit</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id\"\r\n                            (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \r\n                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\r\n                            <span>Delete</span>\r\n                          </button>\r\n                          <button mat-menu-item (click)=\"viewProject(row.id)\"> \r\n                            <mat-icon><i class=\"material-icons\">description</i></mat-icon>\r\n                            <span>View Project</span>\r\n                          </button>\r\n                        </mat-menu>\r\n                      </mat-cell>\r\n\r\n                    </ng-container>\r\n\r\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\r\n                  </mat-table>\r\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\r\n                    <div class=\"col-md-4 col-md-offset-4\">\r\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\r\n                    </div>\r\n                  </div>\r\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                </div>\r\n\r\n\r\n              </div>\r\n            </div>\r\n            <div class=\"add-button\">\r\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\r\n            </div>\r\n\r\n            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\r\n            <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n\r\n                <!-- Modal content-->\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                    <h4 class=\"modal-title\">Delete </h4>\r\n                  </div>\r\n                  <!-- <div class=\"modal-header\"> -->\r\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                  <!-- </div> -->\r\n                  <div class=\"modal-body delete-popup\">\r\n                    <i class=\"fa fa-exclamation\"></i>\r\n\r\n\r\n                    <h4 class=\"textalign\">Are you sure?</h4>\r\n\r\n                  </div>\r\n\r\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\r\n                    <button type=\"button\" (click)=\"deleteProject(Pid)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n            </div>\r\n\r\n            <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------\r\n          \r\n            <!-----------------------------------------------------------------end table-------------------------------------->\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      <!-- footer-->\r\n      <!-- <company-footer></company-footer> -->\r\n      <!-- end footer-->\r\n    </div>\r\n  </div>\r\n</body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-2 display-table-cell v-align box\" id=\"navigation\">\r\n        <company-sidebar></company-sidebar>\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!-- topbar-->\r\n        <company-topbar></company-topbar>\r\n\r\n        <!-- end topbar-->\r\n\r\n\r\n        <div class=\"user-dashboard\">\r\n\r\n          <div class=\"row\">\r\n            <!-----------------------------------------------------------------table-------------------------------------->\r\n            <h2>Projects</h2>\r\n            <ul class=\"breadcrumb\">\r\n              <!-- <li><a routerLink=\"/\">Request Management</a></li> -->\r\n              <!-- <li><a routerLink=\"/company-request-management\">Time Extension Request List</a></li> -->\r\n              \r\n              <li>Projects</li>\r\n            </ul>\r\n            <div class=\"col-md-12\">\r\n              <div class=\"row\">\r\n                <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\">\r\n                  <div class=\"\">\r\n                    <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n                      width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\r\n                      <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n                        <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\r\n                        />\r\n                      </path>\r\n                    </svg>\r\n                  </div>\r\n                </div> -->\r\n\r\n\r\n                <div class=\"col-md-12 optionz\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"example-header\">\r\n                        <mat-form-field>\r\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 pull-right\">\r\n                      <div>\r\n                        <mat-form-field class=\"filter\">\r\n\r\n                          <mat-select (change)=\"getProject()\" [(value)]=\"selected\">\r\n                            <mat-option value=\"all\">All</mat-option>\r\n                            <mat-option value=\"Drafted\">Drafted</mat-option>\r\n                            <mat-option value=\"In Progress\">In Progress</mat-option>\r\n                            <mat-option value=\"Planned\">Planned</mat-option>\r\n                            <mat-option value=\"Completed\">Completed</mat-option>\r\n                            <mat-option value=\"Cancelled\">Cancelled</mat-option>\r\n                          </mat-select>\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"example-container mat-elevation-z8\">\r\n                  <mat-table [dataSource]=\"dataSource\" matSort>\r\n                    <ng-container matColumnDef=\"slno\">\r\n                      <mat-header-cell *matHeaderCellDef> SL NO. </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row; let i = index\"> {{i+1}} </mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"project_name\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.project_name}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"startdate\">\r\n                      <mat-header-cell *matHeaderCellDef > ACTUAL/PLANNED START DATE</mat-header-cell>\r\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : (row.planned_start_date| date:'EEE, d MMM,y') : (row.actual_start_date| date:'EEE, d MMM,y')}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"enddate\">\r\n                      <mat-header-cell *matHeaderCellDef> ACTUAL/PLANNED END DATE</mat-header-cell>\r\n                      <!-- <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : (row.planned_end_date| date:'EEE, d MMM,y') :(row.actual_end_date| date:'EEE, d MMM,y')}}\r\n                      </mat-cell>\r\n                    </ng-container>\r\n\r\n                    <ng-container matColumnDef=\"action\">\r\n                      <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"><button mat-icon-button [matMenuTriggerFor]=\"menu\"><mat-icon>more_vert</mat-icon> </button>\r\n                        <mat-menu #menu=\"matMenu\">\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.pm_id == loggedin_id\" (click)=\"assign(row.id)\">\r\n                            <!-- <i class=\"fa fa-user\"></i> -->\r\n                            <mat-icon><i class=\"material-icons\">group</i></mat-icon>\r\n                            <span>Assign Team Head</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == false && row.is_estimation_completed == false && row.pm_id == loggedin_id\"\r\n                            (click)=\"approve(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\r\n                            <span>Approve Estimation</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null &&  row.is_approved == false && row.is_estimation_completed == true && row.project_cost == null && row.assignee_id == loggedin_id\"\r\n                            (click)=\"approveProject(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">assignment_turned_in</i></mat-icon>\r\n                            <span>Approve Project</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary !== null && row.is_approved == true && row.status == 'Drafted' && row.project_cost !== null && row.pm_id == loggedin_id\"\r\n                            (click)=\"approveProject(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">event_available</i></mat-icon>\r\n                            <span>Plan Project</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.is_approved == false && row.assignee_id == loggedin_id && row.status == 'Drafted' \" (click)=\"edit(row.id)\">\r\n                            <mat-icon><i class=\"material-icons\">mode_edit</i></mat-icon>\r\n                            <span>Edit</span>\r\n                          </button>\r\n                          <button mat-menu-item *ngIf=\"row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id\"\r\n                            (click)=\"getId(row.id)\" data-toggle=\"modal\" data-target=\"#deleteModal\"> \r\n                            <mat-icon><i class=\"material-icons\">delete</i></mat-icon>\r\n                            <span>Delete</span>\r\n                          </button>\r\n                          <button mat-menu-item (click)=\"viewProject(row.id)\"> \r\n                            <mat-icon><i class=\"material-icons\">description</i></mat-icon>\r\n                            <span>View Project</span>\r\n                          </button>\r\n                        </mat-menu>\r\n                      </mat-cell>\r\n\r\n                    </ng-container>\r\n\r\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\r\n                  </mat-table>\r\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\r\n                    <div class=\"col-md-4 col-md-offset-4\">\r\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\r\n                    </div>\r\n                  </div>\r\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                </div>\r\n\r\n\r\n              </div>\r\n            </div>\r\n            <div class=\"add-button\">\r\n              <button type=\"button\" class=\"add-project\" (click)=\"open()\" data-backdrop=\"static\">+</button>\r\n            </div>\r\n\r\n            <!-- --------------------------------------------- delete modal ----------------------------------------------------------------- -->\r\n            <div id=\"deleteModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n\r\n                <!-- Modal content-->\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                    <h4 class=\"modal-title\">Delete </h4>\r\n                  </div>\r\n                  <!-- <div class=\"modal-header\"> -->\r\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                  <!-- </div> -->\r\n                  <div class=\"modal-body delete-popup\">\r\n                    <i class=\"fa fa-exclamation\"></i>\r\n\r\n\r\n                    <h4 class=\"textalign\">Are you sure?</h4>\r\n\r\n                  </div>\r\n\r\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\r\n                    <button type=\"button\" (click)=\"deleteProject(Pid)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n            </div>\r\n\r\n            <!-- ----------------------------------------------------------------------delete modal------------------------------------------------------------------\r\n          \r\n            <!-----------------------------------------------------------------end table-------------------------------------->\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n      <!-- footer-->\r\n      <!-- <company-footer></company-footer> -->\r\n      <!-- end footer-->\r\n    </div>\r\n  </div>\r\n</body>"
 
 /***/ }),
 
@@ -8839,7 +8929,33 @@ var CompanyProjectComponent = (function () {
         this.companyService.getLoggedinEntity().subscribe(function (data) {
             _this.entity = data;
             _this.loggedin_id = _this.entity.id;
-            // console.log(data);
+            if (data == null || data == '') {
+                _this.routes.navigate(['/home']);
+            }
+            if (data.role_id == 2) {
+                //super admin
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/home']);
+                }
+            }
+            if (data.role_id == 1) {
+                //company admin
+                if (data.delete_status == true || data.block_status == true || data.cmp_status == "Not Verified") {
+                    _this.routes.navigate(['/company-login']);
+                }
+                if (data.cmp_status == "Expired") {
+                    _this.routes.navigate(['/expired']);
+                }
+                if (data.is_profile_completed == false) {
+                    _this.routes.navigate(['/compay-aditninfo', data.cmp_id]);
+                }
+            }
+            if (data.role_id == 3 || data.role_id == 4) {
+                //company admin
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/company-login']);
+                }
+            }
         });
         // -----------------------------------End------------------------------------------
         this.getProject();
@@ -9601,7 +9717,49 @@ var CompanySidebarComponent = (function () {
         this.socket = __WEBPACK_IMPORTED_MODULE_4_socket_io_client__(config.socketURL);
     }
     CompanySidebarComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.checkRole();
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getLoggedinEntity().subscribe(function (data) {
+            if (data == null || data == '') {
+                _this.routes.navigate(['/home']);
+            }
+            if (data.role_id == 2) {
+                //super admin
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/home']);
+                }
+                _this.routes.navigate(['/admin-dashboard']);
+            }
+            if (data.role_id == 3 || data.role_id == 1) {
+                //company admin or pm
+                if (data.delete_status == true || data.block_status == true || data.cmp_status == "Not Verified") {
+                    _this.routes.navigate(['/company-login']);
+                }
+                if (data.cmp_status == "Expired") {
+                    _this.routes.navigate(['/expired']);
+                }
+                if (data.is_profile_completed == false) {
+                    _this.routes.navigate(['/compay-aditninfo', data.cmp_id]);
+                }
+                // this.routes.navigate(['/company-dashboard']);
+            }
+            if (data.role_id == 4) {
+                //user
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/company-login']);
+                }
+                _this.routes.navigate(['/user-dashboard']);
+            }
+        });
+        // -----------------------------------End------------------------------------------
     };
     CompanySidebarComponent.prototype.getAccessRightsforRole = function () {
         var _this = this;
@@ -9636,8 +9794,12 @@ var CompanySidebarComponent = (function () {
             console.log(res);
             // console.log(res);      
             // console.log("res");
-            if (res == 1) {
+            _this.role = res;
+            if (res == 3) {
                 _this.getAccessRightsforRole();
+            }
+            else {
+                _this.disp = true;
             }
         });
         // ---------------------------------End-------------------------------------------
@@ -10830,6 +10992,47 @@ var CompanyTopbarComponent = (function () {
     }
     CompanyTopbarComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 08-03-2018
+        // Last Modified : 08-03-2018, Rinsha
+        // Desc          :  
+        this.companyService.getLoggedinEntity().subscribe(function (data) {
+            if (data == null || data == '') {
+                _this.routes.navigate(['/home']);
+            }
+            if (data.role_id == 2) {
+                //super admin
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/home']);
+                }
+                _this.routes.navigate(['/admin-dashboard']);
+            }
+            if (data.role_id == 3 || data.role_id == 1) {
+                //company admin or pm
+                if (data.delete_status == true || data.block_status == true || data.cmp_status == "Not Verified") {
+                    _this.routes.navigate(['/company-login']);
+                }
+                if (data.cmp_status == "Expired") {
+                    _this.routes.navigate(['/expired']);
+                }
+                if (data.is_profile_completed == false) {
+                    _this.routes.navigate(['/compay-aditninfo', data.cmp_id]);
+                }
+                // this.routes.navigate(['/company-dashboard']);
+            }
+            if (data.role_id == 4) {
+                //user
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/company-login']);
+                }
+                _this.routes.navigate(['/user-dashboard']);
+            }
+        });
+        // -----------------------------------End------------------------------------------
         this.getLoggedDetails();
         this.getNotifications();
         this.socket.on('newtaskrequest', function (data) {
@@ -15641,6 +15844,8 @@ module.exports = "<div class=\"logo\">\r\n    <a href=\"\"><img src=\"./assets/i
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserSidebarComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15651,10 +15856,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var UserSidebarComponent = (function () {
-    function UserSidebarComponent() {
+    function UserSidebarComponent(userService, routes) {
+        this.userService = userService;
+        this.routes = routes;
     }
     UserSidebarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 20-04-2018
+        // Last Modified : 20-04-2018, Rinsha
+        // Desc          :  
+        this.userService.getLoggedinEntity().subscribe(function (data) {
+            if (data == null || data == '') {
+                _this.routes.navigate(['/home']);
+            }
+            if (data.role_id == 2) {
+                //super admin
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/home']);
+                }
+                _this.routes.navigate(['/admin-dashboard']);
+            }
+            if (data.role_id == 3 || data.role_id == 1) {
+                //company admin or pm
+                if (data.delete_status == true || data.block_status == true || data.cmp_status == "Not Verified") {
+                    _this.routes.navigate(['/company-login']);
+                }
+                if (data.cmp_status == "Expired") {
+                    _this.routes.navigate(['/expired']);
+                }
+                if (data.is_profile_completed == false) {
+                    _this.routes.navigate(['/compay-aditninfo', data.cmp_id]);
+                }
+                _this.routes.navigate(['/company-dashboard']);
+            }
+            if (data.role_id == 4) {
+                //user
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/company-login']);
+                }
+                // this.routes.navigate(['/user-dashboard']);
+            }
+        });
+        // -----------------------------------End------------------------------------------
     };
     UserSidebarComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -15662,7 +15913,7 @@ var UserSidebarComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/user-sidebar/user-sidebar.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/user-sidebar/user-sidebar.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["Router"]])
     ], UserSidebarComponent);
     return UserSidebarComponent;
 }());
@@ -16788,6 +17039,47 @@ var UserTopbarComponent = (function () {
     }
     UserTopbarComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // ---------------------------------Start-------------------------------------------
+        // Function      : Get logged in entity
+        // Params        : 
+        // Returns       : Get logged in entity
+        // Author        : Rinsha
+        // Date          : 20-04-2018
+        // Last Modified : 20-04-2018, Rinsha
+        // Desc          :  
+        this.userService.getLoggedinEntity().subscribe(function (data) {
+            if (data == null || data == '') {
+                _this.routes.navigate(['/home']);
+            }
+            if (data.role_id == 2) {
+                //super admin
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/home']);
+                }
+                _this.routes.navigate(['/admin-dashboard']);
+            }
+            if (data.role_id == 3 || data.role_id == 1) {
+                //company admin or pm
+                if (data.delete_status == true || data.block_status == true || data.cmp_status == "Not Verified") {
+                    _this.routes.navigate(['/company-login']);
+                }
+                if (data.cmp_status == "Expired") {
+                    _this.routes.navigate(['/expired']);
+                }
+                if (data.is_profile_completed == false) {
+                    _this.routes.navigate(['/compay-aditninfo', data.cmp_id]);
+                }
+                _this.routes.navigate(['/company-dashboard']);
+            }
+            if (data.role_id == 4) {
+                //user
+                if (data.delete_status == true || data.block_status == true) {
+                    _this.routes.navigate(['/company-login']);
+                }
+                // this.routes.navigate(['/user-dashboard']);
+            }
+        });
+        // -----------------------------------End------------------------------------------
         this.count = 0;
         this.TeamHeadNotification();
         this.socket.on('doEstimation', function (data) {
@@ -17687,6 +17979,20 @@ var AdminService = (function () {
     AdminService.prototype.getEstimatedProject = function () {
         var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getEstimatedProject', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 20-04-2018
+    // Last Modified : 20-04-2018, Rinsha
+    // Desc          :  
+    AdminService.prototype.getLoggedinEntity = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getLoggedinUser', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AdminService = __decorate([
@@ -20595,6 +20901,20 @@ var UserService = (function () {
     UserService.prototype.getAllMyNewTaskrequest = function () {
         var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + "allmynewtaskrequest", { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 20-04-2018
+    // Last Modified : 20-04-2018, Rinsha
+    // Desc          :  
+    UserService.prototype.getLoggedinEntity = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + 'getLoggedinUser', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     UserService = __decorate([

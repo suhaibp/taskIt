@@ -1641,6 +1641,27 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   }
   });
   // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 20-04-2018
+    // Last Modified : 20-04-2018, Rinsha
+    // Desc          :   
+    router.get('/getLoggedinUser', (req, res, next) => {
+      if (req.headers && req.headers.authorization) {
+          var authorization = req.headers.authorization.substring(4),
+              decoded;
+          decoded = jwt.verify(authorization, Config.secret);
+          res.json(decoded);
+          // // console.log(decoded);
+      } else {
+          return res.status(401).send('Invalid User');
+      }
+  });
+  // ----------------------------------End-------------------------------------------
   module.exports = router;
   return router;
 }

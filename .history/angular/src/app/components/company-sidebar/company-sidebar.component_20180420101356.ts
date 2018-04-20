@@ -12,7 +12,7 @@ import { Config } from './../../config/config';
 })
 export class CompanySidebarComponent implements OnInit {
   private socket: any;
-  role ;
+  role = 0;
   rights:any
   disp = false;
   constructor(
@@ -24,7 +24,6 @@ export class CompanySidebarComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.checkRole()    
     // ---------------------------------Start-------------------------------------------
     // Function      : Get logged in entity
     // Params        : 
@@ -66,6 +65,7 @@ export class CompanySidebarComponent implements OnInit {
       }
     });
     // -----------------------------------End------------------------------------------
+    this.checkRole()
   }
 
   getAccessRightsforRole() {
@@ -99,13 +99,9 @@ export class CompanySidebarComponent implements OnInit {
       console.log(res);
       // console.log(res);      
       // console.log("res");
-      this.role = res;
-      if(res == 3){
+      if(res == 1){
         this.getAccessRightsforRole();
 
-      }else{
-      this.disp = true;
-        
       }
       
     });

@@ -269,7 +269,7 @@ var returnRouter = function (io) {
                     res.send({ success: true, msg: 'start suucessfully' });
                 });
             })
-            
+
         }
         else {
             return res.status(401).send('Invalid User');
@@ -303,11 +303,11 @@ var returnRouter = function (io) {
                     progress_id: 20
                 });
                 DoneTask.save().then(function (DoneTask1) {
-                    saveLog("Task "+req.params.id+" completed", user_id);
+                    saveLog("Task " + req.params.id + " completed", user_id);
                     res.send({ success: true, msg: 'done successfully' });
                 });
             })
-            
+
         }
         else {
             return res.status(401).send('Invalid User');
@@ -341,11 +341,11 @@ var returnRouter = function (io) {
                     reason: req.body.reason
                 });
                 pauseTask.save().then(function (pauseTask1) {
-                    saveLog("Task "+req.body.id+" paused!", user_id);
+                    saveLog("Task " + req.body.id + " paused!", user_id);
                     res.send({ success: true, msg: 'puased successfully' });
                 });
             })
-            
+
         }
         else {
             return res.status(401).send('Invalid User');
@@ -379,7 +379,7 @@ var returnRouter = function (io) {
                     progress_id: req.body.percentage
                 });
                 completeTask.save().then(function (completeTask1) {
-                    saveLog("Task "+req.body.id+" completed !", user_id);                    
+                    saveLog("Task " + req.body.id + " completed !", user_id);
                     res.send({ success: true, msg: 'complete successfully' });
                 });
             })
@@ -417,7 +417,7 @@ var returnRouter = function (io) {
                     reason: req.body.reason
                 });
                 holdaTask.save().then(function (holdaTask1) {
-                    saveLog("Task "+req.body.id+" holded !", user_id);                                        
+                    saveLog("Task " + req.body.id + " holded !", user_id);
                     res.send({ success: true, msg: 'Hold successfully' });
                 });
             })
@@ -466,7 +466,7 @@ var returnRouter = function (io) {
     // Last Modified : 30-03-2018, Jooshifa
     // Desc          : 
     router.post('/new-task-request', function (req, res) {
-         if (req.headers && req.headers.authorization) {
+        if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             var startDate = new Date(req.body.start_date);
@@ -521,7 +521,7 @@ var returnRouter = function (io) {
                         io.sockets.emit("newtaskrequest", {
                             expiredSocketId: newRequestNotification.id
                         });
-                        saveLog("New task requested!", req.body.assigned_id);                                         
+                        saveLog("New task requested!", req.body.assigned_id);
                         res.send({ success: true, msg: "Request Send successfully" });
                     });
                 });
@@ -575,7 +575,7 @@ var returnRouter = function (io) {
                             io.sockets.emit("timeextention", {
                                 expiredSocketId: newRequestNotification.id
                             });
-                        saveLog("Task time extention requested!", user_id);                                                                     
+                            saveLog("Task time extention requested!", user_id);
                             res.send({ success: true, msg: "Request Send successfully" });
                         });
                     });
@@ -602,132 +602,132 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
             var id = decoded.id;
-            
+
             // var cmp_id = 1;
             // res.json(req.body);
             var user_id;
-                Users.find({
-                    where: {
-                        login_id: id
-                    }
-                }).then(resUser => {
-                    user_id = resUser.id;
-                    Users.findAll({
+            Users.find({
+                where: {
+                    login_id: id
+                }
+            }).then(resUser => {
+                user_id = resUser.id;
+                Users.findAll({
+                    include: [{
+                        model: ProjectMemeberAssoc,
+                        where: {
+                            user_profile_id: user_id
+                        },
                         include: [{
-                            model: ProjectMemeberAssoc,
+                            model: Projects,
                             where: {
-                                user_profile_id: user_id
-                            },
-                            include: [{
-                                model: Projects,
-                                where: {
-                                    cmp_id: cmp_id
-                                }
-                            }]
-                        }],
-                    }).then(resProjects => {
-                        res.json(resProjects);
-                    }).catch(err => {
-                        res.json({
-                            status: 0,
-                            message: "Error occured! Try again!"
-                        })
+                                cmp_id: cmp_id
+                            }
+                        }]
+                    }],
+                }).then(resProjects => {
+                    res.json(resProjects);
+                }).catch(err => {
+                    res.json({
+                        status: 0,
+                        message: "Error occured! Try again!"
                     })
                 })
+            })
         }
         else {
             return res.status(401).send('Invalid User');
         }
     })
     //  ---------------------------------End-------------------------------------------
-       //  ---------------------------------Start-------------------------------------------
-  // Function      : getMembers
-  // Params        : 
-  // Returns       : 
-  // Author        : Manu Prasad
-  // Date          : 13-03-2018
-  // Last Modified : 13-03-2018, 
-  // Desc          : get list of teams and stregth
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getMembers
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get list of teams and stregth
 
-  router.get('/getUserProjectsDetails/:id', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        //     try {
-        decoded = jwt.verify(authorization, Config.secret);
-        var cmp_id = decoded.cmp_id;
-        // var cmp_id = 1;
-        // res.json(req.body);
-        var user_id;
-        Users.find({
-            where: {
-                login_id: id
-            }
-        }).then(resUser => {
-            user_id = resUser.id;
-            Projects.findAll({
-                where:{
-                  id : req.params.id,
-                  cmp_id : cmp_id
-                },
-             
-                include:[{
-                  model: ProjectMemeberAssoc,
-                  include: [{
-                    model: Users
-                  },{
-                    model: ProjectTeam
-                  }]
-                },{
-                  model: Modules,
-                  
-                  include: [{
-                    model:Tasks,
-                    
-                  }]
-                }],
-               
-              }).then( resProjects => {
-                if(resProjects.length<=0){
-                  res.json({
-                    status: 0,
-                    message: "Project not found!"
-                  })
-                }else{
-                    temp = [];
-                  resProjects.forEach(element=> {
-                      temp2 = []
-                          element.tbl_project_modules.forEach(ele => {
-                              // console.log(ele.module_name)
-                              time = 0;
-                              temp3 = [];
-                              ele.tbl_project_tasks.forEach(elem => {
-                              time = time+elem.planned_hour+elem.buffer_hour;
-                              temp3.push(elem)
-                              });
-                              temp2.push({id:ele.id, module_name:ele.module_name, project_id:ele.project_id,tbl_project_tasks:temp3, total_hour:time})
-                              
-                          // temp.push(ele)
-          
-                      });
-                      temp.push({id:element.id,planned_end_date:element.planned_end_date,planned_start_date:element.planned_start_date,project_name:element.project_name,tbl_project_member_assocs:element.tbl_project_member_assocs,project_code:element.project_code,status:element.status,tbl_project_modules:temp2})
-                      
-                      });
-                  res.json(temp);
-                  // res.json(resProjects);
+    router.get('/getUserProjectsDetails/:id', function (req, res) {
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            // var cmp_id = 1;
+            // res.json(req.body);
+            var user_id;
+            Users.find({
+                where: {
+                    login_id: id
                 }
-              }).catch(err =>{
-                res.json({
-                  status: 0,
-                  message: "Error occured! Try again!"
+            }).then(resUser => {
+                user_id = resUser.id;
+                Projects.findAll({
+                    where: {
+                        id: req.params.id,
+                        cmp_id: cmp_id
+                    },
+
+                    include: [{
+                        model: ProjectMemeberAssoc,
+                        include: [{
+                            model: Users
+                        }, {
+                            model: ProjectTeam
+                        }]
+                    }, {
+                        model: Modules,
+
+                        include: [{
+                            model: Tasks,
+
+                        }]
+                    }],
+
+                }).then(resProjects => {
+                    if (resProjects.length <= 0) {
+                        res.json({
+                            status: 0,
+                            message: "Project not found!"
+                        })
+                    } else {
+                        temp = [];
+                        resProjects.forEach(element => {
+                            temp2 = []
+                            element.tbl_project_modules.forEach(ele => {
+                                // console.log(ele.module_name)
+                                time = 0;
+                                temp3 = [];
+                                ele.tbl_project_tasks.forEach(elem => {
+                                    time = time + elem.planned_hour + elem.buffer_hour;
+                                    temp3.push(elem)
+                                });
+                                temp2.push({ id: ele.id, module_name: ele.module_name, project_id: ele.project_id, tbl_project_tasks: temp3, total_hour: time })
+
+                                // temp.push(ele)
+
+                            });
+                            temp.push({ id: element.id, planned_end_date: element.planned_end_date, planned_start_date: element.planned_start_date, project_name: element.project_name, tbl_project_member_assocs: element.tbl_project_member_assocs, project_code: element.project_code, status: element.status, tbl_project_modules: temp2 })
+
+                        });
+                        res.json(temp);
+                        // res.json(resProjects);
+                    }
+                }).catch(err => {
+                    res.json({
+                        status: 0,
+                        message: "Error occured! Try again!"
+                    })
                 })
-              })
-        })
-    }
-    else {
-        return res.status(401).send('Invalid User');
-    }
-  })
-  //  ---------------------------------End-------------------------------------------
+            })
+        }
+        else {
+            return res.status(401).send('Invalid User');
+        }
+    })
+    //  ---------------------------------End-------------------------------------------
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        : 
@@ -806,42 +806,42 @@ var returnRouter = function (io) {
             var id = decoded.id;
             var role = req.body.id
             var user_id;
-                Users.find({
-                    where: {
-                        login_id: id
-                    }
-                }).then(resUser => {
-                    user_id = resUser.id;
-                    Users.findAll({
+            Users.find({
+                where: {
+                    login_id: id
+                }
+            }).then(resUser => {
+                user_id = resUser.id;
+                Users.findAll({
+                    include: [{
+                        model: ProjectMemeberAssoc,
+                        where: {
+                            user_profile_id: user_id
+                        },
                         include: [{
-                            model: ProjectMemeberAssoc,
+                            model: Projects,
                             where: {
-                                user_profile_id: user_id
-                            },
-                            include: [{
-                                model: Projects,
-                                where: {
-                                    cmp_id: cmp_id,
-                                    id: proId
-                                }
-                            }]
-                        }],
-                    }).then(resProjects => {
-                        if (resProjects.length <= 0) {
-                            res.json({
-                                status: 0,
-                                message: "Project not found!"
-                            })
-                        } else {
-                            res.json(resProjects);
-                        }
-                    }).catch(err => {
+                                cmp_id: cmp_id,
+                                id: proId
+                            }
+                        }]
+                    }],
+                }).then(resProjects => {
+                    if (resProjects.length <= 0) {
                         res.json({
                             status: 0,
-                            message: "Error occured! Try again!"
+                            message: "Project not found!"
                         })
+                    } else {
+                        res.json(resProjects);
+                    }
+                }).catch(err => {
+                    res.json({
+                        status: 0,
+                        message: "Error occured! Try again!"
                     })
                 })
+            })
         }
         else {
             return res.status(401).send('Invalid User');
@@ -938,7 +938,7 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
             var login_id = decoded.id;
-             // var login_id = 39;
+            // var login_id = 39;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -977,7 +977,7 @@ var returnRouter = function (io) {
             //     try {
             decoded = jwt.verify(authorization, Config.secret);
             // var cmp_id = decoded.cmp_id;
-                // var login_id = decoded.id;
+            // var login_id = decoded.id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -1000,7 +1000,7 @@ var returnRouter = function (io) {
                         return res.json({ success: true, msg: 'Delete  leave Successfully' });
                     }
                 });
-            }
+        }
         else {
             return res.status(401).send('Invalid User');
         }
@@ -1024,12 +1024,12 @@ var returnRouter = function (io) {
             var login_id = decoded.id;
             var role = req.body.id
             var user_id;
-                Users.find({
-                    where: {
-                        login_id: login_id
-                    }
-                }).then(resUser => {
-                    user_id = resUser.id;
+            Users.find({
+                where: {
+                    login_id: login_id
+                }
+            }).then(resUser => {
+                user_id = resUser.id;
                 // var login_id = 39;
                 // var cmp_id = 1;
                 var isErr = false;
@@ -1396,7 +1396,7 @@ var returnRouter = function (io) {
             var cmp_id = decoded.cmp_id;
             var login_id = decoded.id;
             var role = req.body.id
-            
+
             // var login_id = 39;
             var isErr = false;
             errMsg = '';
@@ -1863,39 +1863,39 @@ var returnRouter = function (io) {
                 }
             }).then(resUser => {
                 user_id = resUser.id;
-            // var user_id = 74;
-            var status = req.body.status
-            Users.findAll({
-                include: [{
-                    model: ProjectMemeberAssoc,
-                    where: {
-                        user_profile_id: user_id
-                    },
+                // var user_id = 74;
+                var status = req.body.status
+                Users.findAll({
                     include: [{
-                        model: Projects,
+                        model: ProjectMemeberAssoc,
                         where: {
-                            cmp_id: cmp_id,
-                            status: status
-                        }
-                    }]
-                }],
+                            user_profile_id: user_id
+                        },
+                        include: [{
+                            model: Projects,
+                            where: {
+                                cmp_id: cmp_id,
+                                status: status
+                            }
+                        }]
+                    }],
 
-            }).then(resProjects => {
-                if (resProjects.length <= 0) {
+                }).then(resProjects => {
+                    if (resProjects.length <= 0) {
+                        res.json({
+                            status: 0,
+                            message: "Project not found!"
+                        })
+                    } else {
+                        res.json(resProjects);
+                    }
+                }).catch(err => {
                     res.json({
                         status: 0,
-                        message: "Project not found!"
+                        message: "Error occured! Try again!"
                     })
-                } else {
-                    res.json(resProjects);
-                }
-            }).catch(err => {
-                res.json({
-                    status: 0,
-                    message: "Error occured! Try again!"
                 })
             })
-        })
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -2065,7 +2065,7 @@ var returnRouter = function (io) {
                         //         }
                         //     });
                         // }
-    
+
                         if (isError = false && req.body.modules.length == 0) {
                             isError = true;
                             res.json({ success: true, msg: "Atleast one module is required!" });
@@ -2131,9 +2131,9 @@ var returnRouter = function (io) {
                                             }
                                         }).then(data => {
                                         });
-    
+
                                 });
-                                saveLog("Estimation added for project "+ project_id+" !",user_id)
+                                saveLog("Estimation added for project " + project_id + " !", user_id)
                             });
                             io.sockets.emit("approveEstimation", {
                             });
@@ -2142,7 +2142,7 @@ var returnRouter = function (io) {
                     });
                 });
             })
-            
+
         }
         else {
             return res.status(401).send('Invalid User');
@@ -2517,151 +2517,151 @@ var returnRouter = function (io) {
         return response;
     }
     // ----------------------------------End-------------------------------------------
-   //  ---------------------------------Start-------------------------------------------
-  // Function      : getMembers
-  // Params        : 
-  // Returns       : 
-  // Author        : Manu Prasad
-  // Date          : 13-03-2018
-  // Last Modified : 13-03-2018, 
-  // Desc          : get list of teams and stregth
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getMembers
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get list of teams and stregth
 
-  router.get('/getUserProjects', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        //     try {
-        decoded = jwt.verify(authorization, Config.secret);
-        var cmp_id = decoded.cmp_id;
-        var id = decoded.id;
-        var user_id;
-        Users.find({
-            where: {
-                login_id: id
-            }
-        }).then(resUser => {
-            user_id = resUser.id;
-        // var user_id = 74;
-            Users.findAll({
-                include:[{
-                    model:ProjectMemeberAssoc,
-                    where:{
-                        user_profile_id : user_id
-                    },
+    router.get('/getUserProjects', function (req, res) {
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            var id = decoded.id;
+            var user_id;
+            Users.find({
+                where: {
+                    login_id: id
+                }
+            }).then(resUser => {
+                user_id = resUser.id;
+                // var user_id = 74;
+                Users.findAll({
                     include: [{
-                        model:Projects,
-                        where : {
-                        cmp_id: cmp_id
-                        }
-                    }]
+                        model: ProjectMemeberAssoc,
+                        where: {
+                            user_profile_id: user_id
+                        },
+                        include: [{
+                            model: Projects,
+                            where: {
+                                cmp_id: cmp_id
+                            }
+                        }]
                     }],
-                
-                }).then( resProjects => {
+
+                }).then(resProjects => {
                     res.json(resProjects);
-                }).catch(err =>{
+                }).catch(err => {
                     res.json({
-                    status: 0,
-                    message: "Error occured! Try again!"
+                        status: 0,
+                        message: "Error occured! Try again!"
                     })
                 })
-        })
-    } else {
-        return res.status(401).send('Invalid User');
-    }
-  })
-  //  ---------------------------------End-------------------------------------------
+            })
+        } else {
+            return res.status(401).send('Invalid User');
+        }
+    })
+    //  ---------------------------------End-------------------------------------------
 
     //  ---------------------------------Start-------------------------------------------
-  // Function      : getMembers
-  // Params        : 
-  // Returns       : 
-  // Author        : Manu Prasad
-  // Date          : 13-03-2018
-  // Last Modified : 13-03-2018, 
-  // Desc          : get list of teams and stregth
+    // Function      : getMembers
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 13-03-2018
+    // Last Modified : 13-03-2018, 
+    // Desc          : get list of teams and stregth
 
-  router.get('/getUserProjectsDetails/:id', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        //     try {
-        decoded = jwt.verify(authorization, Config.secret);
-        var cmp_id = decoded.cmp_id;
-        var id = decoded.id;
-        var role = req.body.id
-        var user_id;
-        Users.find({
-            where: {
-                login_id: id
-            }
-        }).then(resUser => {
-            user_id = resUser.id;
-                // var cmp_id = 1;
-            // res.json(req.body);
-            // var user_id = 74;
-            Projects.findAll({
-                where:{
-                id : req.params.id,
-                cmp_id : cmp_id
-                },
-            
-                include:[{
-                model: ProjectMemeberAssoc,
-                include: [{
-                    model: Users
-                },{
-                    model: ProjectTeam
-                }]
-                },{
-                model: Modules,
-                
-                include: [{
-                    model:Tasks,
-                    
-                }]
-                }],
-            
-            }).then( resProjects => {
-                if(resProjects.length<=0){
-                res.json({
-                    status: 0,
-                    message: "Project not found!"
-                })
-                }else{
-                    temp = [];
-                resProjects.forEach(element=> {
-                    temp2 = []
-                        element.tbl_project_modules.forEach(ele => {
-                            // console.log(ele.module_name)
-                            time = 0;
-                            temp3 = [];
-                            ele.tbl_project_tasks.forEach(elem => {
-                            time = time+elem.planned_hour+elem.buffer_hour;
-                            temp3.push(elem)
-                            });
-                            temp2.push({id:ele.id, module_name:ele.module_name, project_id:ele.project_id,tbl_project_tasks:temp3, total_hour:time})
-                            
-                        // temp.push(ele)
-        
-                    });
-                    temp.push({id:element.id,planned_end_date:element.planned_end_date,planned_start_date:element.planned_start_date,project_name:element.project_name,tbl_project_member_assocs:element.tbl_project_member_assocs,project_code:element.project_code,status:element.status,tbl_project_modules:temp2})
-                    
-                    });
-                res.json(temp);
-                // res.json(resProjects);
+    router.get('/getUserProjectsDetails/:id', function (req, res) {
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            var id = decoded.id;
+            var role = req.body.id
+            var user_id;
+            Users.find({
+                where: {
+                    login_id: id
                 }
-            }).catch(err =>{
-                res.json({
-                status: 0,
-                message: "Error occured! Try again!"
+            }).then(resUser => {
+                user_id = resUser.id;
+                // var cmp_id = 1;
+                // res.json(req.body);
+                // var user_id = 74;
+                Projects.findAll({
+                    where: {
+                        id: req.params.id,
+                        cmp_id: cmp_id
+                    },
+
+                    include: [{
+                        model: ProjectMemeberAssoc,
+                        include: [{
+                            model: Users
+                        }, {
+                            model: ProjectTeam
+                        }]
+                    }, {
+                        model: Modules,
+
+                        include: [{
+                            model: Tasks,
+
+                        }]
+                    }],
+
+                }).then(resProjects => {
+                    if (resProjects.length <= 0) {
+                        res.json({
+                            status: 0,
+                            message: "Project not found!"
+                        })
+                    } else {
+                        temp = [];
+                        resProjects.forEach(element => {
+                            temp2 = []
+                            element.tbl_project_modules.forEach(ele => {
+                                // console.log(ele.module_name)
+                                time = 0;
+                                temp3 = [];
+                                ele.tbl_project_tasks.forEach(elem => {
+                                    time = time + elem.planned_hour + elem.buffer_hour;
+                                    temp3.push(elem)
+                                });
+                                temp2.push({ id: ele.id, module_name: ele.module_name, project_id: ele.project_id, tbl_project_tasks: temp3, total_hour: time })
+
+                                // temp.push(ele)
+
+                            });
+                            temp.push({ id: element.id, planned_end_date: element.planned_end_date, planned_start_date: element.planned_start_date, project_name: element.project_name, tbl_project_member_assocs: element.tbl_project_member_assocs, project_code: element.project_code, status: element.status, tbl_project_modules: temp2 })
+
+                        });
+                        res.json(temp);
+                        // res.json(resProjects);
+                    }
+                }).catch(err => {
+                    res.json({
+                        status: 0,
+                        message: "Error occured! Try again!"
+                    })
                 })
             })
-        })
-    } else {
-        return res.status(401).send('Invalid User');
-    }
-  })
-  //  ---------------------------------End-------------------------------------------
+        } else {
+            return res.status(401).send('Invalid User');
+        }
+    })
+    //  ---------------------------------End-------------------------------------------
 
-   // ---------------------------------Start-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
     // Function      : Get company details by id
     // Params        : id
     // Returns       : company details
@@ -2711,7 +2711,7 @@ var returnRouter = function (io) {
                         },
                         include: {
                             model: User_profile,
-                            required : true,
+                            required: true,
                             include: {
                                 model: Login,
                                 where: {
@@ -2869,16 +2869,37 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-function saveLog(action, userId){
-    Log.build({
-        action: action,
-        user_profile_id: userId
-    }).save().then(resLog => {
-        return true;
-    }).catchI(err => {
-        return false;
-    })
-}
+    function saveLog(action, userId) {
+        Log.build({
+            action: action,
+            user_profile_id: userId
+        }).save().then(resLog => {
+            return true;
+        }).catchI(err => {
+            return false;
+        })
+    }
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 20-04-2018
+    // Last Modified : 20-04-2018, Rinsha
+    // Desc          :   
+    router.get('/getLoggedinUser', (req, res, next) => {
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4),
+                decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            res.json(decoded);
+            // // console.log(decoded);
+        } else {
+            return res.status(401).send('Invalid User');
+        }
+    });
+    // ----------------------------------End-------------------------------------------
     module.exports = router;
 
     return router;
