@@ -3496,7 +3496,6 @@ var returnRouter = function (io) {
             var authorization = req.headers.authorization.substring(4),
                 decoded;
             decoded = jwt.verify(authorization, Config.secret);
-
             res.json(decoded);
             // console.log(decoded);
         } else {
@@ -6688,20 +6687,19 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
-            console.log(cmp_id)
             WorkingTimeAssoc.findAll({
                 order: [
                     ['day_no', 'ASC']
                 ],
                 include: [
                     {
-                        model: WorkingTime, 
-                        require: true, 
-                        where: {
+                        model: WorkingTime, require: true, where: {
                             cmp_id: cmp_id
                         }
                     }],
             }).then(wrktime => {
+
+                
                 let tmp = {};
                 tmp2 = {};
                 wrktime.forEach((element) => {
@@ -6727,7 +6725,7 @@ var returnRouter = function (io) {
                     //  });
                 });
                 cmp_off_day_assoc.findAll({
-                    where:{cmp_id: cmp_id  }              
+                    cmp_id: cmp_id                
                 }).then(resOff => {
                     resOff.forEach(element => {
                         if(tmp2[element.day_no]){
@@ -6755,7 +6753,7 @@ var returnRouter = function (io) {
                             }
                             
                         }
-                        // console.log(tp);
+                        console.log(tp);
                         x[i] = tp
                         // console.log(x);
                     }
@@ -9209,10 +9207,10 @@ function closeNotifApproval(role_id,id){
             // var cmp_id = 1;
             var role_id = decoded.role_id;
             AccessRightsAssoc.findAll({
-                // where:{
-                //     role_id: role_id,
-                //     // cmp_id: cmp_id
-                // }
+                where:{
+                    role_id: role_id,
+                    // cmp_id: cmp_id
+                }
             }).then(resRights => {
                 res.json(resRights)
             })

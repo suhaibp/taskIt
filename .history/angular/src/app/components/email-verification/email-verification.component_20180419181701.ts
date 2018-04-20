@@ -30,8 +30,6 @@ export class EmailVerificationComponent implements OnInit {
           let snackBarRef = this.snackBar.open(this.msg, '', {
             duration: 2000
           });
-          this.routes.navigate(['/company-login']);
-          
           // this.routes.navigate(['/dashboard']); dashboard
           // setTimeout(() => {  
 

@@ -14,7 +14,6 @@ export class CompanySidebarComponent implements OnInit {
   private socket: any;
   role;
   rights:any
-  disp = false;
   constructor(
     private companyService: CompanyService,
     private routes: Router,
@@ -39,7 +38,6 @@ export class CompanySidebarComponent implements OnInit {
     this.companyService.getAccessRightsforRole().subscribe(res => {
       console.log(res);
       this.rights = res;
-      this.disp = true;
       // console.log(res);      
       // console.log("res");
     });

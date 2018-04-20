@@ -60,7 +60,6 @@ export class CompanyWorkingTimeComponent implements OnInit {
 
   getTimings(){
     this.companyService.getWorkTimes().subscribe(timings =>{
-      console.log(timings);
       this.default = timings.default;
       this.breaks = timings.break
       let time = this.default.start_time.split(':');

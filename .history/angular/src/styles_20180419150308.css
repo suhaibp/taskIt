@@ -1625,6 +1625,6 @@ h3{padding: 0;}
 }
 .mat-toolbar-row, .mat-toolbar-single-row {
     
-    background-color: #fff !important;
-    color: #686868 !important;
+    background-color: #fff;
+    color: #686868;
 }

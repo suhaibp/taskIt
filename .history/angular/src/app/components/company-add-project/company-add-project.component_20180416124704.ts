@@ -27,39 +27,6 @@ export class CompanyAddProjectComponent implements OnInit {
   constructor(public snackBar: MatSnackBar, private companyService: CompanyService, private routes: Router, private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
-      // ---------------------------------Start-------------------------------------------
-// Function      : get logged user details
-// Params        : 
-// Returns       : user details
-// Author        : Rinsha
-// Date          : 16-1-2018
-// Last Modified : 16-1-2018, Rinsha
-// Desc          :
-this.companyService.getLoggedUSerDetails().subscribe(info =>{
-  // console.log(info);
-  if(info == null || info == '' ){
-    this.routes.navigate(['/home']); 
-  }
-  if(info.role == "user"){
-    if(info.delete_status == true || info.block_status == true){
-      this.routes.navigate(['/404']); 
-    }
-    this.routes.navigate(['/survey', info.surveyId]); 
-  }
-  if(info.role == "company"){
-    if(info.delete_status == true || info.block_status == true || info.cmp_status == "Not Verified"){
-      this.routes.navigate(['/clogin']); 
-    }
-    if(info.cmp_status == "Expired"){
-      this.routes.navigate(['/expired']);
-    }
-    if(info.is_profile_completed == false){
-      this.routes.navigate(['/additnInfo', info._id]);
-    }
-    this.routes.navigate(['/dashboard']);
-  }
-});
-// ---------------------------------End-------------------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : Get logged in entity
     // Params        : 

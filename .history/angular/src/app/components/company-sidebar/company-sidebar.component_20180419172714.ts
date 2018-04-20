@@ -12,9 +12,7 @@ import { Config } from './../../config/config';
 })
 export class CompanySidebarComponent implements OnInit {
   private socket: any;
-  role;
-  rights:any
-  disp = false;
+
   constructor(
     private companyService: CompanyService,
     private routes: Router,
@@ -24,7 +22,7 @@ export class CompanySidebarComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.checkRole()
+    this.getAccessRightsforRole();
   }
 
   getAccessRightsforRole() {
@@ -37,53 +35,10 @@ export class CompanySidebarComponent implements OnInit {
     // Last Modified : 19-04-2018, Manu Prasad
     // Desc          : 
     this.companyService.getAccessRightsforRole().subscribe(res => {
-      console.log(res);
-      this.rights = res;
-      this.disp = true;
+      // console.log("res");
       // console.log(res);      
       // console.log("res");
     });
     // ---------------------------------End-------------------------------------------
-  }
-
-  checkRole() {
-    // ---------------------------------Start-------------------------------------------
-    // Function      : getAccessRightsforRole
-    // Params        : 
-    // Returns       : Access rights based on role
-    // Author        : Manu Prasad
-    // Date          : 19-04-2018
-    // Last Modified : 19-04-2018, Manu Prasad
-    // Desc          : 
-    this.companyService.checkRole().subscribe(res => {
-      console.log(res);
-      // console.log(res);      
-      // console.log("res");
-      if(res == 1){
-        this.getAccessRightsforRole();
-
-      }
-      
-    });
-    // ---------------------------------End-------------------------------------------
-  }
-  exist(id){
-    this.rights.forEach(element => {
-      if(element.access_rights_id == id){
-        return true;
-      }
-    });
-  }
-  exist2(a,b,c,d,e){
-    let arr = [a,b,c,d,e]
-    let trust = false;
-    arr.forEach(ele=>{
-      this.rights.forEach(element => {
-        if(element.access_rights_id == ele){
-          trust = true;
-        }
-      });
-    })
-    return trust
   }
 }

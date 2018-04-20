@@ -2188,17 +2188,17 @@ deleteHoliday(data){
   }
   // -----------------------------------End------------------------------------------
   // ---------------------------------Start-------------------------------------------
-  // Function      : getAccessRightsforRole
-  // Params        : 
+  // Function      : closeNotif6
+  // Params        : id
   // Returns       : 
-  // Author        : Manu Prasad
-  // Date          : 19-04-2018
+  // Author        : sudha
+  // Date          :  06-04-2018
   // Last Modified : 
-  // Desc          : getAccessRightsforRole
+  // Desc          : close Notif for time extension approval
   //closeNotif6
   getAccessRightsforRole() {
     let headers = this.setHeaderWithAuthorization();
-    return this.http.get(this.serviceUrl + 'getAccessRightsforRole', { headers: headers })
+    return this.http.get(this.serviceUrl + '', { headers: headers })
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------

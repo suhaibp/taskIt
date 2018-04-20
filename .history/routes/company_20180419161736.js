@@ -3496,7 +3496,6 @@ var returnRouter = function (io) {
             var authorization = req.headers.authorization.substring(4),
                 decoded;
             decoded = jwt.verify(authorization, Config.secret);
-
             res.json(decoded);
             // console.log(decoded);
         } else {
@@ -3837,18 +3836,8 @@ var returnRouter = function (io) {
                                                 // console.log(resCmp);
                                                 Login.update({cmp_id:resCmp.id},{where:{id:resLogin.id}}).then(resLog => {
                                                     emailTemplate.sendVerificationMail(req.body[0].ans, req.body[1].ans, req.body[9].ans);
-                                                    WorkingTime.build({
-                                                        title: "9:00 - 17:00",
-                                                        cmp_id: resCmp.id,
-                                                        start_time: "09:00:00",
-                                                        end_time: "17:00:00",
-                                                        is_default: true
-                                                    }).save().then(resTiming => {
-                                                        res.json({ status: 1, message: "Registered! Check your Email!" })
 
-                                                    }).catch(err => {
-                                                        console.log(err);
-                                                    })
+                                                    res.json({ status: 1, message: "Registered! Check your Email!" })
                                                 })
                                                 
                                             })
@@ -6428,7 +6417,7 @@ var returnRouter = function (io) {
           //     try {
           decoded = jwt.verify(authorization, Config.secret);
           var cmp_id = decoded.cmp_id;
-            // var cmp_id = 1;
+            var cmp_id = 1;
             WorkingTime.find({
                 where: {
                     is_default: true,
@@ -6688,20 +6677,19 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
-            console.log(cmp_id)
             WorkingTimeAssoc.findAll({
                 order: [
                     ['day_no', 'ASC']
                 ],
                 include: [
                     {
-                        model: WorkingTime, 
-                        require: true, 
-                        where: {
+                        model: WorkingTime, require: true, where: {
                             cmp_id: cmp_id
                         }
                     }],
             }).then(wrktime => {
+
+                
                 let tmp = {};
                 tmp2 = {};
                 wrktime.forEach((element) => {
@@ -6727,7 +6715,7 @@ var returnRouter = function (io) {
                     //  });
                 });
                 cmp_off_day_assoc.findAll({
-                    where:{cmp_id: cmp_id  }              
+                    cmp_id: cmp_id                
                 }).then(resOff => {
                     resOff.forEach(element => {
                         if(tmp2[element.day_no]){
@@ -6755,7 +6743,7 @@ var returnRouter = function (io) {
                             }
                             
                         }
-                        // console.log(tp);
+                        console.log(tp);
                         x[i] = tp
                         // console.log(x);
                     }
@@ -9208,14 +9196,7 @@ function closeNotifApproval(role_id,id){
             var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
             var role_id = decoded.role_id;
-            AccessRightsAssoc.findAll({
-                // where:{
-                //     role_id: role_id,
-                //     // cmp_id: cmp_id
-                // }
-            }).then(resRights => {
-                res.json(resRights)
-            })
+            id = req.params.id;
         }
         })
     // ----------------------------------End-----------------------------------

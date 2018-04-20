@@ -3496,7 +3496,7 @@ var returnRouter = function (io) {
             var authorization = req.headers.authorization.substring(4),
                 decoded;
             decoded = jwt.verify(authorization, Config.secret);
-
+            
             res.json(decoded);
             // console.log(decoded);
         } else {
@@ -9209,10 +9209,10 @@ function closeNotifApproval(role_id,id){
             // var cmp_id = 1;
             var role_id = decoded.role_id;
             AccessRightsAssoc.findAll({
-                // where:{
-                //     role_id: role_id,
-                //     // cmp_id: cmp_id
-                // }
+                where:{
+                    role_id: role_id,
+                    // cmp_id: cmp_id
+                }
             }).then(resRights => {
                 res.json(resRights)
             })

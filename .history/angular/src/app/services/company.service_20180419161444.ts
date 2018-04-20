@@ -2198,7 +2198,7 @@ deleteHoliday(data){
   //closeNotif6
   getAccessRightsforRole() {
     let headers = this.setHeaderWithAuthorization();
-    return this.http.get(this.serviceUrl + 'getAccessRightsforRole', { headers: headers })
+    return this.http.get(this.serviceUrl + '', { headers: headers })
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------

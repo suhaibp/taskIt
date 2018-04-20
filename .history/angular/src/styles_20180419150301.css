@@ -1624,7 +1624,8 @@ h3{padding: 0;}
     align-items: center;
 }
 .mat-toolbar-row, .mat-toolbar-single-row {
-    
-    background-color: #fff !important;
-    color: #686868 !important;
+    height: 64px;
+    text-align: center;
+    background-color: #fff;
+    color: #686868;
 }

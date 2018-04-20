@@ -36,7 +36,7 @@ export class CompanyAddProjectComponent implements OnInit {
 // Last Modified : 16-1-2018, Rinsha
 // Desc          :
 this.companyService.getLoggedUSerDetails().subscribe(info =>{
-  // console.log(info);
+  console.log(info);
   if(info == null || info == '' ){
     this.routes.navigate(['/home']); 
   }
