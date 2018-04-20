@@ -77,7 +77,8 @@
                                     </p>
                                     <div class="divider">
                                     </div>
-                                    <a *ngIf="exist(8)" [routerLink]="['/edit-profile']" class="view btn-sm active">View Profile</a>
+                                    {{exist(8)}}
+                                    <a *ngIf="!exist(8)" [routerLink]="['/edit-profile']" class="view btn-sm active">View Profile</a>
                                 </div>
                             </li>
                         </ul>

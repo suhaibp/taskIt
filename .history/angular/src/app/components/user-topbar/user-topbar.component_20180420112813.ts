@@ -234,15 +234,11 @@ export class UserTopbarComponent implements OnInit {
     // ---------------------------------End-------------------------------------------
   }
   exist(id){
-    console.log(id)
-    let x = false;
     this.rights.forEach(element => {
       if(element.access_rights_id == id){
-        // console.log("hh")
-        x =  true;
+        return true;
       }
     });
-    return x;
   }
 }
 
