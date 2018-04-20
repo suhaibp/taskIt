@@ -13,7 +13,8 @@ containerId:String;
 progper:any;
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {}
+  ngAfterViewInit() {
    // console.log(this.containerId);
     var colors = {
       'pink': '#E1499A',

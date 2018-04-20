@@ -52,7 +52,6 @@ var cmp_break = models.tbl_cmp_break;
 var cmp_break_assoc = models.tbl_cmp_break_assoc;
 var Projects_member_assoc = models.tbl_project_member_assoc;
 var Plans = models.tbl_plan;
-var Project = models.tbl_project;
 var Category = models.tbl_project_category;
 var Team_assoc = models.tbl_team_assoc;
 var Project_estimation_team = models.tbl_project_estimation_team;
@@ -89,6 +88,9 @@ var Plan = models.tbl_plan;
 var Company = models.tbl_company;
 var Time_extension_request = models.tbl_time_extension_request;
 var Time_extension_request_notifications = models.tbl_time_extension_req_notification;
+var task_status_assoc = models.tbl_task_status_assoc;
+var task_statuses = models.tbl_task_status;
+
 'use strict';
 var returnRouter = function (io) {
     // ---------------------------------Start-------------------------------------------
@@ -291,9 +293,9 @@ var returnRouter = function (io) {
                         return res.json({ success: true, msg: 'block user Successfully' });
                     }
                 });
-            } else {
-                return res.status(401).send('Invalid User');
-            }
+        } else {
+            return res.status(401).send('Invalid User');
+        }
     });
     // ----------------------------------End-------------------------------------------
     // ---------------------------------Start-------------------------------------------
@@ -330,9 +332,9 @@ var returnRouter = function (io) {
                         return res.json({ success: true, msg: 'User unblock Successfully' });
                     }
                 });
-            } else {
-                return res.status(401).send('Invalid User');
-            }
+        } else {
+            return res.status(401).send('Invalid User');
+        }
     });
     // ----------------------------------End-------------------------------------------
     // ---------------------------------Start-------------------------------------------
@@ -476,9 +478,9 @@ var returnRouter = function (io) {
     // Last Modified : 
     // Desc          : for decoding base64encoded image
     function decodeBase64Image(dataString) {
-        // console.log(dataString);
+        // // console.log(dataString);
         var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-        //   console.log(dataString);
+        //   // console.log(dataString);
         var response = {};
         if (matches.length !== 3) {
             return new Error('Invalid input string');
@@ -682,7 +684,7 @@ var returnRouter = function (io) {
                                                 }
                                             }).then(resUser => {
                                                 user_id = resUser.id;
-                                            saveLog("New User created!",user_id)
+                                                saveLog("New User created!", user_id)
                                             })
                                             res.json({ success: true, msg: "NewUser Created Successfully" });
                                         })
@@ -862,17 +864,17 @@ var returnRouter = function (io) {
                                 }
                             });
                     });
-                    var id = decoded.id;
-                    // var role = req.body.id
-                    var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("User profile updated!",user_id)
-                        })
+                var id = decoded.id;
+                // var role = req.body.id
+                var user_id;
+                Users.find({
+                    where: {
+                        login_id: id
+                    }
+                }).then(resUser => {
+                    user_id = resUser.id;
+                    saveLog("User profile updated!", user_id)
+                })
                 res.json({ success: true, msg: "User Updated Successfully" });
             } else {
                 res.json({ success: false, msg: errMsg });
@@ -1040,7 +1042,7 @@ var returnRouter = function (io) {
                             }).then(resUser => {
                                 console.log(resUser)
                                 user_id = resUser.id;
-                                saveLog("Category "+req.body.name+" added!",user_id)
+                                saveLog("Category " + req.body.name + " added!", user_id)
                             })
                             res.json({ success: true, msg: "Project Category Created Successfully" });
                         })
@@ -1053,7 +1055,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-    // ----------------------------------End-----------------------------------------------  
+    // ----------------------------------End----------------------------------------------- 
     // ---------------------------------Start-------------------------------------------
     // Function      : singlecategory
     // Params        : 
@@ -1129,17 +1131,17 @@ var returnRouter = function (io) {
                                 }
                             }).then(data1 => {
                                 // console.log(newPlan);
-                            var id = decoded.id;
-                            // var role = req.body.id
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                user_id = resUser.id;
-                                saveLog("Category "+req.body.category_name+" updated!",user_id)
-                            })
+                                var id = decoded.id;
+                                // var role = req.body.id
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("Category " + req.body.category_name + " updated!", user_id)
+                                })
                                 res.json({ success: true, msg: "Project Category updated Successfully" });
                             })
                     }
@@ -1276,7 +1278,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("Category "+req.body.category_name+" updated!",user_id)
+                            saveLog("Category " + req.body.category_name + " updated!", user_id)
                         })
                         return res.json({ success: true, msg: 'Delete Employee leave Successfully' });
                     }
@@ -1674,7 +1676,7 @@ var returnRouter = function (io) {
                                     }
                                 }).then(resUser => {
                                     user_id = resUser.id;
-                                    saveLog("Leave added successfully!",user_id)
+                                    saveLog("Leave added successfully!", user_id)
                                 })
                                 res.json({ success: true, msg: "Leave added Successfully" });
                             } else {
@@ -1689,7 +1691,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-    // ----------------------------------End-----------------------------------------------  
+    // ----------------------------------End-----------------------------------------------    
     // ---------------------------------Start-------------------------------------------
     // Function      : updateempleave
     // Params        : data
@@ -2041,7 +2043,7 @@ var returnRouter = function (io) {
                                     }
                                 }).then(resUser => {
                                     user_id = resUser.id;
-                                    saveLog("Leave updated!",user_id)
+                                    saveLog("Leave updated!", user_id)
                                 })
                                 res.json({ success: true, msg: "Leave updated Successfully" });
                             } else {
@@ -2056,7 +2058,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-    // ----------------------------------End-----------------------------------------------  
+    // ----------------------------------End-----------------------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : datefilterforlog
     // Params        : data
@@ -2198,7 +2200,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("User status changed!",user_id)
+                            saveLog("User status changed!", user_id)
                         })
                         res.json({ success: true, msg: "user status change Successfully" });
                     } else {
@@ -2384,7 +2386,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("Leave Rejected!",user_id)
+                            saveLog("Leave Rejected!", user_id)
                         })
                         res.json({ success: true, msg: "Leave Reject Successfully" });
                     })
@@ -2435,7 +2437,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("Leave Accepted!",user_id)
+                            saveLog("Leave Accepted!", user_id)
                         })
                         res.json({ success: true, msg: "Leave Accept Successfully" });
                     } else {
@@ -2443,9 +2445,9 @@ var returnRouter = function (io) {
                     }
 
                 })
-            } else {
-                return res.status(401).send('Invalid User');
-            }
+        } else {
+            return res.status(401).send('Invalid User');
+        }
     });
     // ----------------------------------End-----------------------------------------------   
     // ---------------------------------Start-------------------------------------------
@@ -2648,7 +2650,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("Rejected Time extention request",user_id)
+                            saveLog("Rejected Time extention request", user_id)
                         })
                         return res.json({ success: true, msg: 'Rejected Successfully' });
                     }
@@ -2699,7 +2701,7 @@ var returnRouter = function (io) {
                                 }
                             }).then(resUser => {
                                 user_id = resUser.id;
-                                saveLog("Time extention request sent to admin!",user_id)
+                                saveLog("Time extention request sent to admin!", user_id)
                             })
                             return res.json({ success: true, msg: 'send to admin Successfully' });
                         }
@@ -2776,7 +2778,7 @@ var returnRouter = function (io) {
                 })
             }
             else {
-
+                return res.json("no data");
             }
         } else {
             return res.status(401).send('Invalid User');
@@ -2807,16 +2809,16 @@ var returnRouter = function (io) {
                     io.sockets.emit("adminviewstatuschange", {
                     });
                     if (data1) {
-                        
+
                         res.json({ success: true, msg: "admin status change Successfully" });
                     } else {
                         res.json({ success: false, msg: " admin status change Faild" });
                     }
 
                 })
-            } else {
-                return res.status(401).send('Invalid User');
-            }
+        } else {
+            return res.status(401).send('Invalid User');
+        }
     });
     // ----------------------------------End-----------------------------------------------   
     // ---------------------------------Start-------------------------------------------
@@ -2857,7 +2859,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                // cmp_id = decoded.cmp_id;
+            // cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -2883,7 +2885,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                // cmp_id = decoded.cmp_id;
+            // cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -2919,17 +2921,17 @@ var returnRouter = function (io) {
                                     }).then(data => {
                                         if (data == 1) {
                                             // console.log(newPlan);
-                                        var id = decoded.id;
-                                        // var role = req.body.id
-                                        var user_id;
-                                        Users.find({
-                                            where: {
-                                                login_id: id
-                                            }
-                                        }).then(resUser => {
-                                            user_id = resUser.id;
-                                            saveLog("Subscription upgraded!",user_id)
-                                        })
+                                            var id = decoded.id;
+                                            // var role = req.body.id
+                                            var user_id;
+                                            Users.find({
+                                                where: {
+                                                    login_id: id
+                                                }
+                                            }).then(resUser => {
+                                                user_id = resUser.id;
+                                                saveLog("Subscription upgraded!", user_id)
+                                            })
                                             res.json({ success: true, msg: "Success" });
                                         }
                                         else {
@@ -2959,7 +2961,7 @@ var returnRouter = function (io) {
     // Author        : Rinsha
     // Date          : 07-03-2018
     // Last Modified : 07-03-2018, Rinsha
-    // Desc          : getAllProjects 
+    // Desc          : getAllProject
     router.get('/getAllProject', function (req, res) {
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
@@ -3000,7 +3002,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             Users.findAll({
                 // order: [['id', 'DESC']],
                 include: [{
@@ -3038,7 +3040,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             Category.findAll({
                 where: {
                     cmp_id: cmp_id,
@@ -3071,7 +3073,7 @@ var returnRouter = function (io) {
             } else {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (req.body.project_name == '' || req.body.category_id == '' || req.body.project_type == '' || req.body.priority == '' || req.body.description == '') {
                 res.json({ success: false, msg: "All fields are required" });
             }
@@ -3091,10 +3093,10 @@ var returnRouter = function (io) {
                         }
                     }).then(projects => {
                         projectLength = projects.length + 1;
-                        if(projectLength < 10){
+                        if (projectLength < 10) {
                             projectLength = '00' + projectLength;
                         }
-                        if(projectLength < 100 && projectLength > 9){
+                        if (projectLength < 100 && projectLength > 9) {
                             projectLength = '0' + projectLength;
                         }
                         Plans.findById(cmp.plan_id).then(plan => {
@@ -3147,7 +3149,7 @@ var returnRouter = function (io) {
                                         }
                                     }).then(resUser => {
                                         user_id = resUser.id;
-                                        saveLog("Project "+project_name+" created!",user_id)
+                                        saveLog("Project " + project_name + " created!", user_id)
                                     })
                                     res.json({ success: true, msg: "Project Created Successfully, Your Project code is " + project.project_code, id: newProject.id });
                                 })
@@ -3191,7 +3193,7 @@ var returnRouter = function (io) {
             }
         }).then(login => {
             // res.json(login);
-            // console.log(login);
+            // // console.log(login);
             if (login == null || login == [] || login == '') {
                 const loginAttempt = Login_attempt.build({
                     ip: ip.address(),
@@ -3217,7 +3219,7 @@ var returnRouter = function (io) {
                                     loginAttemptFalse.forEach(allFalseAttempt => {
                                         array.push({ id: allFalseAttempt.id });
                                     })
-                                    // console.log(array.length);
+                                    // // console.log(array.length);
                                     if (array.length > 3) {
                                         return res.json({ caseno: 1, success: false, msg: 'User not found' });
                                         if (req.body.captcha == undefined || req.body.captcha == '' || req.body.captcha == null) {
@@ -3288,7 +3290,7 @@ var returnRouter = function (io) {
                 });
             }
             else if (login != null || login != [] || login != '') {
-                // console.log("else if");
+                // // console.log("else if");
                 comparePassword(password, login.password, (err, isMatch) => {
                     if (err) {
                         throw err;
@@ -3297,11 +3299,11 @@ var returnRouter = function (io) {
                     if (isMatch) {
                         if (login.block_status == true) {
                             return res.json({ success: false, msg: 'Account blocked' });
-                            // console.log("Account blocked");
+                            // // console.log("Account blocked");
                         }
                         else if (login.delete_status == true) {
                             return res.json({ success: false, msg: 'Account deleted' });
-                            // console.log("Account deleted");
+                            // // console.log("Account deleted");
                         }
                         else if (login.role_id == 1 || login.role_id == 3) {
 
@@ -3318,7 +3320,7 @@ var returnRouter = function (io) {
                             //     });
                             // }
                             else {
-                                // console.log("else condition");
+                                // // console.log("else condition");
                                 const token = jwt.sign(login.toJSON(), Config.secret, { expiresIn: 60400 }); // sec 1 week
                                 User_profile.update({
                                     login_id: login.id
@@ -3408,7 +3410,7 @@ var returnRouter = function (io) {
                                             loginAttemptFalse.forEach(allFalseAttempt => {
                                                 array.push({ id: allFalseAttempt.id });
                                             })
-                                            // console.log(array.length);
+                                            // // console.log(array.length);
                                             if (array.length > 3) {
                                                 return res.json({ caseno: 1, success: false, msg: 'Wrong Password' });
                                                 if (req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null) {
@@ -3498,7 +3500,7 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
 
             res.json(decoded);
-            // console.log(decoded);
+            // // console.log(decoded);
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -3537,7 +3539,7 @@ var returnRouter = function (io) {
                                 id: Company.login_id,
                             }
                         }).then(login1 => {
-                            // console.log(login2.is_verified);
+                            // // console.log(login2.is_verified);
                             if (login2.is_verified == true) {
                                 return res.json({ success: false, msg: 'Already verified' });
                             }
@@ -3545,7 +3547,7 @@ var returnRouter = function (io) {
                                 const token = jwt.sign(login1.toJSON(), Config.secret, {
                                     expiresIn: 60400 // sec 1 week
                                 });
-                                
+
                                 return res.json({
                                     success: true,
                                     msg: "Successfully verified",
@@ -3572,7 +3574,7 @@ var returnRouter = function (io) {
     // Last Modified : 07-03-2018, Jooshifa
     // Desc          : 
     router.post('/forgotPassword', function (req, res) {
-        // console.log(req.body);
+        // // console.log(req.body);
         if (req.body.email == 'undefined' || req.body.email == '' || req.body.email == null || req.body.email == []) {
             return res.json({ success: false, msg: 'Email is required' });
         }
@@ -3582,27 +3584,27 @@ var returnRouter = function (io) {
             }
         }).then(login => {
             if (!login || login == 'undefined' || login == '' || login == null || login == []) {
-                // console.log("Email not found! Plase enter a valid email");
+                // // console.log("Email not found! Plase enter a valid email");
                 return res.json({ success: false, msg: 'Email not found! Plase enter a valid email' });
             }
             else if (login.block_status == true) {
-                // console.log("Account blocked");
+                // // console.log("Account blocked");
                 return res.json({ success: false, msg: 'Account blocked' });
             }
             else if (login.delete_status == true) {
-                // console.log("Account deleted");
+                // // console.log("Account deleted");
                 return res.json({ success: false, msg: 'Account deleted' });
             }
             else if (login.cmp_status == "Not Verified" || login.is_verified == false) {
-                // console.log("Company not verified'");
+                // // console.log("Company not verified'");
                 return res.json({ success: false, msg: 'Company not verified' });
             }
             // else if (login.is_profile_completed == false) {
-            //     console.log("Profile not completed'");
+            //     // console.log("Profile not completed'");
             //     return res.json({ success: false, msg: 'Profile not completed' });
             // }
             else if (req.body.captcha === undefined || req.body.captcha === '' || req.body.captcha === null) {
-                // console.log("captcah not exist");
+                // // console.log("captcah not exist");
                 return res.json({ "success": false, "msg": "Please select captcha" });
             }
             else {
@@ -3611,16 +3613,16 @@ var returnRouter = function (io) {
                 request(verifyUrl, (err, response, body) => {
                     body = JSON.parse(body);
                     if (body.success !== undefined && !body.success) {
-                        // console.log("captchs not success");
+                        // // console.log("captchs not success");
                         return res.json({ "success": false, "msg": "Failed captcha verification" });
                     }
                     else if (body.success) {
-                        // console.log("captchs ");
+                        // // console.log("captchs ");
                         var password = generator.generate({
                             length: 10,
                             numbers: true
                         });
-                        // console.log("assword created" );
+                        // // console.log("assword created" );
                         bcrypt.genSalt(10, (err, salt) => {
                             bcrypt.hash(password, salt, (err, hash) => {
                                 if (err) throw err;
@@ -3631,27 +3633,27 @@ var returnRouter = function (io) {
                                             email: req.body.email
                                         }
                                     }).then(data1 => {
-                                        // console.log(login);
-                                        // console/.log("passeord updarted");
+                                        // // console.log(login);
+                                        // // console/.log("passeord updarted");
                                         Company.findOne({
                                             where: {
                                                 login_id: login.id
                                             }
                                         }).then(company => {
-                                            // console.log("routes is oke");
+                                            // // console.log("routes is oke");
                                             // emailTemplate.sendResetPasswordMail(req.body.email, company.cmp_name, password);
                                             emailTemplate.sendResetPasswordMail(req.body.email, password);
                                             return res.json({ "success": true, "msg": "Reset password successfully.Please check your email" });
                                         });
                                     });
-                                // console.log(password + "    password");
-                                //    console.log(hash + "   bcrpted password");
+                                // // console.log(password + "    password");
+                                //    // console.log(hash + "   bcrpted password");
                             })
                         })
                         // return res.json({ "success": false, "msg": "Captcha Verified Successfully" });
                     }
                 });
-                // console.log("Email found");
+                // // console.log("Email found");
             }
         });
 
@@ -3733,7 +3735,7 @@ var returnRouter = function (io) {
 
     router.get('/get_industries', function (req, res) {
         Industries.findAll().then(industries => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(industries);
         });
     });
@@ -3748,7 +3750,7 @@ var returnRouter = function (io) {
     // Desc          : get industry list
     router.get('/get_cmp_size', function (req, res) {
         CompanySize.findAll().then(companieSize => {
-            //console.log(projects);
+            //// console.log(projects);
             res.json(companieSize);
         });
     });
@@ -3770,7 +3772,7 @@ var returnRouter = function (io) {
                     res.end();
                 }
             });
-            // console.log(validateEmail(req.body[0].ans));
+            // // console.log(validateEmail(req.body[0].ans));
             if (!reg.test(req.body[0].ans.toLowerCase()) || !(/^\d+$/.test(req.body[4].ans))) {
                 res.send({ status: 0, message: "Check email and phone number!" });
                 res.end();
@@ -3782,12 +3784,12 @@ var returnRouter = function (io) {
                         { where: { email: req.body[0].ans } }
 
                     ).then(login => {
-                        //console.log(projects);
+                        //// console.log(projects);
                         if (login.length == 0) {
                             var newPassword;
                             bcrypt.genSalt(10, (err, salt) => {
                                 bcrypt.hash(req.body[7].ans, salt, (err, hash) => {
-                                    // console.log(hash);
+                                    // // console.log(hash);
                                     if (err) throw err;
                                     newPassword = hash;
                                     let newLogin = Login.build({
@@ -3806,17 +3808,17 @@ var returnRouter = function (io) {
                                         google_token: null,
                                         password: hash
                                     })
-                                    // console.log(newLogin);
+                                    // // console.log(newLogin);
                                     newLogin.save().then(resLogin => {
-                                        console.log(resLogin.id)
+                                        // console.log(resLogin.id)
 
                                         // if(resLogin.length>0){
                                         // res.json(resLogin)
-                                        // console.log("hh")
+                                        // // console.log("hh")
                                         Plan.find({
                                             where: { is_defualt: true }
                                         }).then(resPlan => {
-                                            console.log(req.body);
+                                            // console.log(req.body);
                                             let newCompany = Company.build({
                                                 cmp_name: req.body[1].ans,
                                                 cmp_code: req.body[2].ans,
@@ -3831,11 +3833,11 @@ var returnRouter = function (io) {
                                                 verification_code: req.body[9].ans
                                             })
 
-                                            // console.log(newCompany);
+                                            // // console.log(newCompany);
                                             newCompany.save().then((resCmp) => {
                                                 // console.log("resCmp");
                                                 // console.log(resCmp);
-                                                Login.update({cmp_id:resCmp.id},{where:{id:resLogin.id}}).then(resLog => {
+                                                Login.update({ cmp_id: resCmp.id }, { where: { id: resLogin.id } }).then(resLog => {
                                                     emailTemplate.sendVerificationMail(req.body[0].ans, req.body[1].ans, req.body[9].ans);
                                                     WorkingTime.build({
                                                         title: "9:00 - 17:00",
@@ -3850,7 +3852,7 @@ var returnRouter = function (io) {
                                                         console.log(err);
                                                     })
                                                 })
-                                                
+
                                             })
                                         }).catch(errorx => {
                                             // res.json({status: 0, message:"Failed!"});
@@ -3921,20 +3923,20 @@ var returnRouter = function (io) {
     // Last Modified : 09-03-2018, 
     // Desc          : company registration
     router.post('/register_company2', function (req, res) {
-        //    console.log(req.body[0].ans + "      company name");
-        //    console.log(req.body[1].ans+ "      company code");
-        //    console.log(req.body[2].ans + "      company industry");
-        //    console.log(req.body[3].ans + "      contact number");
-        //    console.log(req.body[4].ans + "      company size");
-        //    console.log(req.body[5].ans + "      why choosen");
-        //    console.log(req.body[6].ans + "      id");
+        //    // console.log(req.body[0].ans + "      company name");
+        //    // console.log(req.body[1].ans+ "      company code");
+        //    // console.log(req.body[2].ans + "      company industry");
+        //    // console.log(req.body[3].ans + "      contact number");
+        //    // console.log(req.body[4].ans + "      company size");
+        //    // console.log(req.body[5].ans + "      why choosen");
+        //    // console.log(req.body[6].ans + "      id");
         // res.json(req.body);
         Company.findOne({
             where: {
                 id: req.body[6].ans
             }
         }).then(companyData => {
-            // console.log(companyData)
+            // // console.log(companyData)
             Company.update({
                 cmp_name: req.body[0].ans,
                 cmp_code: req.body[1].ans,
@@ -3971,8 +3973,8 @@ var returnRouter = function (io) {
 
     //   sequelize.query("select * from GetAllSt();").spread(
     //     function (actualres, settingName2) {
-    //       console.log(actualres);
-    //       console.log(settingName2);
+    //       // console.log(actualres);
+    //       // console.log(settingName2);
     //       res.json(actualres);
     // });
     // ---------------------------------End-------------------------------------------
@@ -4013,7 +4015,7 @@ var returnRouter = function (io) {
                                 id: Company.login_id,
                             }
                         }).then(login1 => {
-                            // console.log(login2.is_verified);
+                            // // console.log(login2.is_verified);
                             if (login2.is_verified == true) {
                                 return res.json({ success: false, msg: 'Already verified' });
                             }
@@ -4090,13 +4092,17 @@ var returnRouter = function (io) {
                 //     }
                 // },
                 include: [
-                    { model: Projects_member_assoc, required: true },
+                    { model: Projects_member_assoc, 
+                        required: true,
+                        where: {
+                            project_id: req.params.id,
+                        }
+                    },
                     { model: Login, where: { [Op.and]: [{ block_status: false, delete_status: false }] }, required: true }
 
                 ],
                 raw: true
             }).then(data => {
-                console.log(data);
                 return res.json(data);
             });
         } else {
@@ -4113,12 +4119,12 @@ var returnRouter = function (io) {
     // Date          : 14-03-2018
     // Last Modified : 14-03-2018, 
     // Desc          
-    router.get('/getTeams',  function (req, res) {
+    router.get('/getTeams', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
             var teamName;
             var team = [];
@@ -4128,7 +4134,7 @@ var returnRouter = function (io) {
                 // teams.forEach(element => {
                 async.eachOfSeries(teams, function (element, key, callback) {
                     TeamAssoc.findAndCountAll({
-                        where: { team_id: element.id, cmp_id:cmp_id }
+                        where: { team_id: element.id, cmp_id: cmp_id }
                     }).then(resTeam => {
                         team.push({ team_name: element.team_name, count: resTeam.count, team_id: element.id })
                         callback();
@@ -4282,7 +4288,7 @@ var returnRouter = function (io) {
                 })
                 // });
             });
-        // }
+            // }
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -4343,7 +4349,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("Team members assigned!",user_id)
+                            saveLog("Team members assigned!", user_id)
                         })
                         res.json({
                             status: 1,
@@ -4501,7 +4507,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (req.body.task_name == '' || req.body.planned_hour == 0 || req.body.assigned_person == '' || req.body.priority == '' || req.body.start_date == '' || req.body.start_time == '' || req.body.end_date == '' || req.body.end_time == '') {
                 res.send({ success: false, msg: 'Please fill all required fields' });
             }
@@ -4532,7 +4538,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             // console.log("hello");
             // console.log(req.params.id);
             Emp_leave.findAll({
@@ -4698,7 +4704,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4740,7 +4746,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4782,7 +4788,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -4830,7 +4836,7 @@ var returnRouter = function (io) {
             } else {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
-            // console.log(req.body.forward_to);
+            // // console.log(req.body.forward_to);
             if (req.body.developer_id == '' && req.body.designer_id == '' && req.body.qc_id == '') {
                 res.json({ success: false, msg: "Please select atleast one Team Head" });
             }
@@ -4858,17 +4864,17 @@ var returnRouter = function (io) {
             else {
                 timestamp = new Date().getTime().toString();
                 docName = req.body.project_id + timestamp + Math.floor(100000 + Math.random() * 900000);
-                // console.log("docSrc --------------------------------------------------")
-                // console.log(req.body.docSrc);
+                // // console.log("docSrc --------------------------------------------------")
+                // // console.log(req.body.docSrc);
                 var base64 = decodeBase64Image(req.body.docSrc);
-                // console.log(base64);
+                // // console.log(base64);
                 require("fs").writeFile('../taskit/public/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                    // console.log(err);
+                    // // console.log(err);
                 });
                 require("fs").writeFile('../taskit/angular/src/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                    // console.log(err);
+                    // // console.log(err);
                 });
-                // console.log(req.body);
+                // // console.log(req.body);
                 Project.update({
                     requirement_summary: req.body.requirement,
                     requirement_attatchment: docName + '.' + base64.ext,
@@ -4933,17 +4939,17 @@ var returnRouter = function (io) {
     // Last Modified : 09-03-2018, Rinsha
     // Desc          :
     router.post('/editProject', function (req, res) {
-        // console.log(req.body)
+        // // console.log(req.body)
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
-            // console.log(req.body);
+            // // console.log(req.body);
             if (req.body.project_name == '' || req.body.category_id == '' || req.body.project_type == '' || req.body.priority == '' || req.body.requirement_summary == '' || req.body.description == '') {
                 res.json({ success: false, msg: "All fields are required" });
             }
@@ -4953,10 +4959,10 @@ var returnRouter = function (io) {
                     docName = req.body.project_id + timestamp + Math.floor(100000 + Math.random() * 900000);
                     var base64 = decodeBase64Image(req.body.docSrc);
                     require("fs").writeFile('../taskit/public/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                        // console.log(err);
+                        // // console.log(err);
                     });
                     require("fs").writeFile('../taskit/angular/src/assets/docs/' + docName + '.' + base64.ext, base64.data, 'base64', function (err) {
-                        // console.log(err);
+                        // // console.log(err);
                     });
                     requirement_attatchment = docName + '.' + base64.ext;
                     projectUpdate();
@@ -4967,7 +4973,7 @@ var returnRouter = function (io) {
                         projectUpdate();
                     });
                 }
-                // console.log(req.body);
+                // // console.log(req.body);
                 function projectUpdate() {
                     Project.update({
                         project_name: req.body.project_name,
@@ -4993,7 +4999,7 @@ var returnRouter = function (io) {
                                     }
                                 }).then(resUser => {
                                     user_id = resUser.id;
-                                    saveLog("Project updated!",user_id)
+                                    saveLog("Project updated!", user_id)
                                 })
                                 res.json({ success: true, msg: "Success" });
                             }
@@ -5067,7 +5073,7 @@ var returnRouter = function (io) {
                     }
                 }).then(resUser => {
                     user_id = resUser.id;
-                    saveLog("Project deleted!",user_id)
+                    saveLog("Project deleted!", user_id)
                 })
                 res.json({ success: true, msg: "Success" });
             });
@@ -5085,11 +5091,11 @@ var returnRouter = function (io) {
     // Last Modified : 12-03-2018, Rinsha
     // Desc          : getAllProjectByStatus
     router.get('/getAllProjectByStatus/:status', function (req, res) {
-        // console.log(req.params.status);
+        // // console.log(req.params.status);
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-                cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -5182,7 +5188,7 @@ var returnRouter = function (io) {
                     else {
                         res.json({ success: false, msg: "Failed" });
                     }
-            });
+                });
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -5253,7 +5259,7 @@ var returnRouter = function (io) {
                     else {
                         res.json({ success: false, msg: "Failed" });
                     }
-            });
+                });
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -5653,7 +5659,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("Project plan accepted!",user_id)
+                            saveLog("Project plan accepted!", user_id)
                         })
                     } else {
                         res.json({ success: false, msg: "Failed" });
@@ -5712,7 +5718,7 @@ var returnRouter = function (io) {
     // Desc          : resubmitProject
     router.post('/resubmitProject', function (req, res) {
         is_pm_viewed = true;
-        // console.log(req.body.pm_id);
+        // // console.log(req.body.pm_id);
         if (config.use_env_variable) {
             var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
@@ -5751,7 +5757,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("Project submitted for re-estimation!",user_id)
+                            saveLog("Project submitted for re-estimation!", user_id)
                         })
                         res.json({ success: true, msg: "Success" });
                     } else {
@@ -5952,12 +5958,12 @@ var returnRouter = function (io) {
 
     router.get('/getMembers/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
-        // var cmp_id = 1;
-        // res.json(req.body);
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            // var cmp_id = 1;
+            // res.json(req.body);
             var teamName;
             var members = [];
             Users.findAll({
@@ -6033,10 +6039,10 @@ var returnRouter = function (io) {
 
     router.post('/assignMemebers', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
             // res.json(req.body);
             var teamName;
@@ -6079,7 +6085,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("members and head assigned!",user_id)
+                            saveLog("members and head assigned!", user_id)
                         })
                         res.json({
                             status: 1,
@@ -6116,11 +6122,11 @@ var returnRouter = function (io) {
 
     router.get('/getUserGroups', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
-        // var cmp_id = 1;
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            // var cmp_id = 1;
             Role.findAll({
                 where: {
                     is_visible: true
@@ -6167,7 +6173,7 @@ var returnRouter = function (io) {
     //         async.eachOfSeries(rights, (element,key,callback)=>{
     //             id = element.id;
     //             name = element.name;
-    //             console.log(name);
+    //             // console.log(name);
 
     //             AccessRights.findAndCountAll({
     //               where:{
@@ -6183,7 +6189,7 @@ var returnRouter = function (io) {
     //               }],
     //               raw:true
     //             }).then(resx =>{
-    //               console.log(element);
+    //               // console.log(element);
     //               element.jijo = resx;
     //               rights[key] =element;
     //               callback();
@@ -6212,15 +6218,17 @@ var returnRouter = function (io) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             cmp_id = decoded.cmp_id;
-        // var cmp_id = 1;
+            // var cmp_id = 1;
             var roleId = req.params.id;
             console.log(roleId);
             tmp = [];
             var rights;
-            if(roleId == 3){
-                AccessRightsMain.findAll({ raw: true,where:{
-                    for_user:false
-                } }).then(mainAccessRights => {
+            if (roleId == 3) {
+                AccessRightsMain.findAll({
+                    raw: true, where: {
+                        for_user: false
+                    }
+                }).then(mainAccessRights => {
                     tmp = mainAccessRights;
                     async.eachOfSeries(mainAccessRights, (element, key, callback) => {
                         trueCount = 0;
@@ -6230,11 +6238,11 @@ var returnRouter = function (io) {
                             },
                             raw: true
                         }).then((resx) => {
-        
+
                             tmp[key].sub = resx.rows;
-        
+
                             async.eachOfSeries(resx.rows, (element1, key1, callback1) => {
-        
+
                                 AccessRightsAssoc.findAndCountAll({
                                     where: {
                                         cmp_id: cmp_id,
@@ -6251,30 +6259,33 @@ var returnRouter = function (io) {
                                     }
                                     callback1();
                                 });
-        
+
                             }, () => {
                                 if ((tmp[key].sub.length != 0) && (tmp[key].sub.length == trueCount)) {
                                     tmp[key].checked = true;
-                                    tmp[key].intermediate ;
-                                    
+                                    tmp[key].intermediate;
+
                                 } else {
                                     tmp[key].checked = false;
                                     tmp[key].intermediate = false;
-                                    
+
                                 }
                                 callback();
                             })
-        
+
                             //callback();
                         });
-        
+
                     }, () => {
                         res.json(tmp);
                     })
                 })
-            }else{
-                AccessRightsMain.findAll({ raw: true,where:{
-                    for_user:true} }).then(mainAccessRights => {
+            } else {
+                AccessRightsMain.findAll({
+                    raw: true, where: {
+                        for_user: true
+                    }
+                }).then(mainAccessRights => {
                     tmp = mainAccessRights;
                     async.eachOfSeries(mainAccessRights, (element, key, callback) => {
                         trueCount = 0;
@@ -6284,11 +6295,11 @@ var returnRouter = function (io) {
                             },
                             raw: true
                         }).then((resx) => {
-        
+
                             tmp[key].sub = resx.rows;
-        
+
                             async.eachOfSeries(resx.rows, (element1, key1, callback1) => {
-        
+
                                 AccessRightsAssoc.findAndCountAll({
                                     where: {
                                         cmp_id: cmp_id,
@@ -6305,23 +6316,23 @@ var returnRouter = function (io) {
                                     }
                                     callback1();
                                 });
-        
+
                             }, () => {
                                 if ((tmp[key].sub.length != 0) && (tmp[key].sub.length == trueCount)) {
                                     tmp[key].checked = true;
                                     // tmp[key].intermediate = false;
-                                    
+
                                 } else {
                                     tmp[key].checked = false;
                                     // tmp[key].intermediate = true;
-                                    
+
                                 }
                                 callback();
                             })
-        
+
                             //callback();
                         });
-        
+
                     }, () => {
                         res.json(tmp);
                     })
@@ -6329,7 +6340,7 @@ var returnRouter = function (io) {
             }
         } else {
             return res.status(401).send('Invalid User');
-        }    
+        }
     });
     //  ---------------------------------End-------------------------------------------
 
@@ -6344,19 +6355,19 @@ var returnRouter = function (io) {
 
     router.post('/assignRights/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
-        // console.log(req.body)
-        // var cmp_id = 1;
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            // console.log(req.body)
+            // var cmp_id = 1;
 
             role_id = parseInt(req.params.id);
             console.log(role_id);
             AccessRightsAssoc.destroy({
-                where:{
-                    role_id:role_id,
-                    cmp_id:cmp_id
+                where: {
+                    role_id: role_id,
+                    cmp_id: cmp_id
                 }
             }).then(resDel => {
                 req.body.forEach(element => {
@@ -6377,15 +6388,15 @@ var returnRouter = function (io) {
                                         role_id: role_id
                                     })
                                     assoc.save().then(res => {
-                                        
-                                    }).catch(err =>{
+
+                                    }).catch(err => {
                                         // console.log(err);
                                     })
                                     // console.log(resAssoc.count)
                                 }
-        
+
                             });
-                        } callback();  
+                        } callback();
                     },
                         () => {
                             // console.log(newPlan);
@@ -6398,7 +6409,7 @@ var returnRouter = function (io) {
                                 }
                             }).then(resUser => {
                                 user_id = resUser.id;
-                                saveLog("Access rights assigned!",user_id)
+                                saveLog("Access rights assigned!", user_id)
                             })
                             res.json({
                                 status: 1,
@@ -6516,7 +6527,7 @@ var returnRouter = function (io) {
                         }
                     }).then(resUser => {
                         user_id = resUser.id;
-                        saveLog("Company working time saved!",user_id)
+                        saveLog("Company working time saved!", user_id)
                     })
                     res.json({
                         status: 1,
@@ -6546,10 +6557,10 @@ var returnRouter = function (io) {
     // Desc          : delete break
     router.post('/deleteBreak', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
             // role_id = req.params.id;
             Break.destroy({
@@ -6591,7 +6602,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("Break deleted!",user_id)
+                            saveLog("Break deleted!", user_id)
                         })
                         res.json({
                             status: 1,
@@ -6653,7 +6664,7 @@ var returnRouter = function (io) {
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("Break saved!",user_id)
+                            saveLog("Break saved!", user_id)
                         })
                         res.json({
                             status: 1,
@@ -6705,7 +6716,7 @@ var returnRouter = function (io) {
                 let tmp = {};
                 tmp2 = {};
                 wrktime.forEach((element) => {
-                    
+
                     dayno = 0;
                     // element.tbl_cmp_work_time.forEach((ele) => {
                     if (dayno != element.day_no) {
@@ -6718,10 +6729,10 @@ var returnRouter = function (io) {
                     //     }
                     //     // tmp[ele.day_no][ele.week_no] = new Array();
                     // }
-                    if(tmp2[element.day_no]){
+                    if (tmp2[element.day_no]) {
                         tmp2[element.day_no][element.week_no] = { id: element.tbl_cmp_work_time.id, title: element.tbl_cmp_work_time.title, start: element.tbl_cmp_work_time.start_time, end: element.tbl_cmp_work_time.end_time };
-                    }else{
-                        tmp ={[element.week_no] : { id: element.tbl_cmp_work_time.id, title: element.tbl_cmp_work_time.title, start: element.tbl_cmp_work_time.start_time, end: element.tbl_cmp_work_time.end_time }};
+                    } else {
+                        tmp = { [element.week_no]: { id: element.tbl_cmp_work_time.id, title: element.tbl_cmp_work_time.title, start: element.tbl_cmp_work_time.start_time, end: element.tbl_cmp_work_time.end_time } };
                         tmp2[element.day_no] = tmp;
                     }
                     //  });
@@ -6730,30 +6741,30 @@ var returnRouter = function (io) {
                     where:{cmp_id: cmp_id  }              
                 }).then(resOff => {
                     resOff.forEach(element => {
-                        if(tmp2[element.day_no]){
-                            tmp2[element.day_no][element.week_no] = { id: element.id};
-                        }else{
-                            tmp ={[element.week_no] : { id: element.id  }};
+                        if (tmp2[element.day_no]) {
+                            tmp2[element.day_no][element.week_no] = { id: element.id };
+                        } else {
+                            tmp = { [element.week_no]: { id: element.id } };
                             tmp2[element.day_no] = tmp;
                         }
                     })
                     console.log(tmp2);
                     let x = {};
-                    for(i=1; i<=7; i++){
-                        let tp ={}                
-                        for(j=1; j<=5; j++){
-                        // console.log(i)
-                            if(tmp2[i]){
-                                if(tmp2[i][j]){
+                    for (i = 1; i <= 7; i++) {
+                        let tp = {}
+                        for (j = 1; j <= 5; j++) {
+                            // console.log(i)
+                            if (tmp2[i]) {
+                                if (tmp2[i][j]) {
                                     tp[j] = tmp2[i][j]
-                                }else{
+                                } else {
                                     tp[j] = {}
                                 }
                             }
-                            else{
+                            else {
                                 tp[j] = {}
                             }
-                            
+
                         }
                         // console.log(tp);
                         x[i] = tp
@@ -6939,7 +6950,7 @@ var returnRouter = function (io) {
             data.push(y2)
             data.push(y3)
             res.json(data)
-        // }
+            // }
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -6956,10 +6967,10 @@ var returnRouter = function (io) {
     // Desc          : delete break
     router.post('/getHoliday', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
             // role_id = req.params.id;
             console.log(req.body)
@@ -7007,10 +7018,10 @@ var returnRouter = function (io) {
     // Desc          : update holiday
     router.post('/updateHoliday', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
             // role_id = req.params.id;
             console.log(req.body.date)
@@ -7060,7 +7071,7 @@ var returnRouter = function (io) {
                                         }
                                     }).then(resUser => {
                                         user_id = resUser.id;
-                                        saveLog("Holiday Updated!",user_id)
+                                        saveLog("Holiday Updated!", user_id)
                                     })
                                     res.json({
                                         status: 1,
@@ -7123,7 +7134,7 @@ var returnRouter = function (io) {
                         }
                     }).then(resUser => {
                         user_id = resUser.id;
-                        saveLog("Holiday deleted!",user_id)
+                        saveLog("Holiday deleted!", user_id)
                     })
                     res.json({
                         status: 1,
@@ -7152,10 +7163,10 @@ var returnRouter = function (io) {
     // Desc          : save Holiday
     router.post('/saveHoliday', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
             // role_id = req.params.id;
             // console.log(req.body.date + 5.5);
@@ -7203,7 +7214,7 @@ var returnRouter = function (io) {
                                 }
                             }).then(resUser => {
                                 user_id = resUser.id;
-                                saveLog("Holiday saved!",user_id)
+                                saveLog("Holiday saved!", user_id)
                             })
                             res.json({
                                 status: 1,
@@ -7304,7 +7315,7 @@ var returnRouter = function (io) {
                             }
                         }]
                     }],
-    
+
                 }).then(resProjects => {
                     res.json(resProjects);
                 }).catch(err => {
@@ -7319,7 +7330,7 @@ var returnRouter = function (io) {
                     message: "Error occured! Try again!"
                 })
             })
-            
+
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -7424,7 +7435,7 @@ var returnRouter = function (io) {
                     role: newdata.role_id,
                 }
             });
-            // console.log(projects);
+            // // console.log(projects);
             // res.json(data);
         });
     });
@@ -7469,55 +7480,55 @@ var returnRouter = function (io) {
 
     router.post('/getUserProjectsOnStatus', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
-          var user_id;
-          // res.json(req.body);
-          Users.find({
-              where: {
-                  login_id: id
-              }
-          }).then(resUser => {
-              user_id = resUser.id;
-              var status = req.body.status
-              Users.findAll({
-                  include: [{
-                      model: ProjectMemeberAssoc,
-                      where: {
-                          user_profile_id: user_id
-                      },
-                      include: [{
-                          model: Projects,
-                          where: {
-                              cmp_id: cmp_id,
-                              status: status
-                          }
-                      }]
-                  }],
-      
-              }).then(resProjects => {
-                  if (resProjects.length <= 0) {
-                      res.json({
-                          status: 0,
-                          message: "Project not found!"
-                      })
-                  } else {
-                      res.json(resProjects);
-                  }
-              }).catch(err => {
-                  res.json({
-                      status: 0,
-                      message: "Error occured! Try again!"
-                  })
-              })
-          }).catch(err => {
-              res.json({
-                  status: 0,
-                  message: "Error occured! Try again!"
-              })
-          })
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            var user_id;
+            // res.json(req.body);
+            Users.find({
+                where: {
+                    login_id: id
+                }
+            }).then(resUser => {
+                user_id = resUser.id;
+                var status = req.body.status
+                Users.findAll({
+                    include: [{
+                        model: ProjectMemeberAssoc,
+                        where: {
+                            user_profile_id: user_id
+                        },
+                        include: [{
+                            model: Projects,
+                            where: {
+                                cmp_id: cmp_id,
+                                status: status
+                            }
+                        }]
+                    }],
+
+                }).then(resProjects => {
+                    if (resProjects.length <= 0) {
+                        res.json({
+                            status: 0,
+                            message: "Project not found!"
+                        })
+                    } else {
+                        res.json(resProjects);
+                    }
+                }).catch(err => {
+                    res.json({
+                        status: 0,
+                        message: "Error occured! Try again!"
+                    })
+                })
+            }).catch(err => {
+                res.json({
+                    status: 0,
+                    message: "Error occured! Try again!"
+                })
+            })
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -7538,7 +7549,7 @@ var returnRouter = function (io) {
             //     try {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
-            var user_id ;
+            var user_id;
             // res.json(req.body);
             // res.json(req.body);
             Users.find({
@@ -7584,7 +7595,7 @@ var returnRouter = function (io) {
                     message: "Error occured! Try again!"
                 })
             })
-            
+
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -7602,86 +7613,86 @@ var returnRouter = function (io) {
 
     router.get('/getNotifications', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
-        // var cmp_id = 1;
-        // res.json(req.body);
-        var user_id = 74;
-        var role = 4
-        if (role == 4) {
-            TimeExtentionNotification.findAll({
-                where: {
-                    is_pm_viewed: false,
-                    is_admin_viewed: false,
-                    is_user_viewed: false
-                },
-                include: [{
-                    model: TimeExtentionReq, as: 'xt',
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            // var cmp_id = 1;
+            // res.json(req.body);
+            var user_id = 74;
+            var role = 4
+            if (role == 4) {
+                TimeExtentionNotification.findAll({
                     where: {
-                        req_status: 'Pending'
+                        is_pm_viewed: false,
+                        is_admin_viewed: false,
+                        is_user_viewed: false
                     },
                     include: [{
-                        model: Tasks,
-                        // as: 'Task',
-                        // raw:true,
+                        model: TimeExtentionReq, as: 'xt',
+                        where: {
+                            req_status: 'Pending'
+                        },
                         include: [{
-                            model: Modules,
-                            // as: 'Module',
+                            model: Tasks,
+                            // as: 'Task',
+                            // raw:true,
                             include: [{
-                                model: Projects,
-                                where: {
-                                    cmp_id: cmp_id
-                                }
+                                model: Modules,
+                                // as: 'Module',
+                                include: [{
+                                    model: Projects,
+                                    where: {
+                                        cmp_id: cmp_id
+                                    }
 
-                            }]
-                        }, {
-                            model: Users,
-                            // as: 'Users',
-                            include: [{
-                                model: Login
+                                }]
+                            }, {
+                                model: Users,
+                                // as: 'Users',
+                                include: [{
+                                    model: Login
+                                }]
                             }]
                         }]
                     }]
-                }]
-            }).then(resReq => {
-                // console.log(resReq.tbl_time_extension_request.tbl_project_task.tbl_project_module)
-                // TimeExtentionNotification.findAll({
-                //   where: {
-                //     is_pm_viewed: false,
-                //     is_admin_viewed: true,
-                //     is_user_viewed: false
-                //   },
-                //   include: [{
-                //     model:TimeExtentionReq,
-                //     where: {
-                //       req_status: 'Accepted'
-                //     }
-                //   }]
-                // }).then( resBack =>{
-                let response = {}
-                // response['back'] = resBack
-                response['req'] = resReq;
-                res.send(response);
+                }).then(resReq => {
+                    // // console.log(resReq.tbl_time_extension_request.tbl_project_task.tbl_project_module)
+                    // TimeExtentionNotification.findAll({
+                    //   where: {
+                    //     is_pm_viewed: false,
+                    //     is_admin_viewed: true,
+                    //     is_user_viewed: false
+                    //   },
+                    //   include: [{
+                    //     model:TimeExtentionReq,
+                    //     where: {
+                    //       req_status: 'Accepted'
+                    //     }
+                    //   }]
+                    // }).then( resBack =>{
+                    let response = {}
+                    // response['back'] = resBack
+                    response['req'] = resReq;
+                    res.send(response);
 
-                //   }).catch(err =>{
-                //   res.json({
-                //     status: 0,
-                //     message: "Error occured! Try again!"
-                //   })
-                // })
-                // res.json(resReq)
-            }).catch(err => {
-                res.json({
-                    status: 0,
-                    message: "Error occured! Try again!"
+                    //   }).catch(err =>{
+                    //   res.json({
+                    //     status: 0,
+                    //     message: "Error occured! Try again!"
+                    //   })
+                    // })
+                    // res.json(resReq)
+                }).catch(err => {
+                    res.json({
+                        status: 0,
+                        message: "Error occured! Try again!"
+                    })
                 })
-            })
-        }
-        else if (role == 1) {
+            }
+            else if (role == 1) {
 
-        }
+            }
 
         } else {
             return res.status(401).send('Invalid User');
@@ -7690,17 +7701,17 @@ var returnRouter = function (io) {
     //  ---------------------------------End-------------------------------------------
     router.get('/getNotifications2', function (req, res) {
         if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4), decoded;
-          //     try {
-          decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
-        // var cmp_id = 1;
-        // res.json(req.body);
-        var id = decoded.id;
-        
-        var user_id;
-        var role = decoded.role_id;
-        Users.find({
+            var authorization = req.headers.authorization.substring(4), decoded;
+            //     try {
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            // var cmp_id = 1;
+            // res.json(req.body);
+            var id = decoded.id;
+
+            var user_id;
+            var role = decoded.role_id;
+            Users.find({
                 where: {
                     login_id: id
                 }
@@ -7720,14 +7731,14 @@ var returnRouter = function (io) {
                                 request_status: 'Pending'
                             },
                             include: [{
-        
+
                                 model: Modules,
                                 include: [{
                                     model: Projects,
                                     where: {
                                         cmp_id: cmp_id
                                     }
-        
+
                                 }]
                             }, {
                                 model: Users,
@@ -7751,7 +7762,7 @@ var returnRouter = function (io) {
                                     }
                                 },
                                 include: [{
-        
+
                                     model: Modules,
                                     include: [{
                                         model: Projects,
@@ -7797,7 +7808,7 @@ var returnRouter = function (io) {
                                 request_status: 'Approval'
                             },
                             include: [{
-        
+
                                 model: Modules,
                                 include: [{
                                     model: Projects,
@@ -7830,7 +7841,7 @@ var returnRouter = function (io) {
                     message: "Error occured! Try again!"
                 })
             })
-        
+
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -7853,50 +7864,50 @@ var returnRouter = function (io) {
             var cmp_id = decoded.cmp_id;
             var role_id = decoded.role_id
             id = req.body.id;
-            closeNotifnewTaskReq(role_id,id);
+            closeNotifnewTaskReq(role_id, id);
         } else {
             return res.status(401).send('Invalid User');
         }
     })
-function closeNotifnewTaskReq(role_id,id){
-    if (role_id == 3) {
-        NewTaskNotification.update({
-            is_pm_viewed: true
-        }, {
-                where: {
-                    id: id
-                }
-            }).then(resUpdate => {
-                res.json({
-                    status: 1,
-                    message: "Notification closed!"
+    function closeNotifnewTaskReq(role_id, id) {
+        if (role_id == 3) {
+            NewTaskNotification.update({
+                is_pm_viewed: true
+            }, {
+                    where: {
+                        id: id
+                    }
+                }).then(resUpdate => {
+                    res.json({
+                        status: 1,
+                        message: "Notification closed!"
+                    })
+                }).catch(err => {
+                    res.json({
+                        status: 1,
+                        message: "Notification closing failed!"
+                    })
                 })
-            }).catch(err => {
-                res.json({
-                    status: 1,
-                    message: "Notification closing failed!"
+        } else if (role_id == 1) {
+            NewTaskNotification.update({
+                is_admin_viewed: true
+            }, {
+                    where: {
+                        id: id
+                    }
+                }).then(resUpdate => {
+                    res.json({
+                        status: 1,
+                        message: "Notification closed!"
+                    })
+                }).catch(err => {
+                    res.json({
+                        status: 1,
+                        message: "Notification closing failed!"
+                    })
                 })
-            })
-    } else if (role_id == 1) {
-        NewTaskNotification.update({
-            is_admin_viewed: true
-        }, {
-                where: {
-                    id: id
-                }
-            }).then(resUpdate => {
-                res.json({
-                    status: 1,
-                    message: "Notification closed!"
-                })
-            }).catch(err => {
-                res.json({
-                    status: 1,
-                    message: "Notification closing failed!"
-                })
-            })
+        }
     }
-}
     //  ---------------------------------Start-------------------------------------------
     // Function      : closeNotifnewTaskReq
     // Params        :
@@ -7916,50 +7927,50 @@ function closeNotifnewTaskReq(role_id,id){
             id = req.body.id;
             closeNotifApproval(role_id, id);
 
-        // }
+            // }
         } else {
             return res.status(401).send('Invalid User');
         }
     })
-function closeNotifApproval(role_id,id){
-    if (role_id == 3) {
-        NewTaskNotification.update({
-            is_pm_viewed: true
-        }, {
-                where: {
-                    id: id
-                }
-            }).then(resUpdate => {
-                res.json({
-                    status: 1,
-                    message: "Notification closed!"
+    function closeNotifApproval(role_id, id) {
+        if (role_id == 3) {
+            NewTaskNotification.update({
+                is_pm_viewed: true
+            }, {
+                    where: {
+                        id: id
+                    }
+                }).then(resUpdate => {
+                    res.json({
+                        status: 1,
+                        message: "Notification closed!"
+                    })
+                }).catch(err => {
+                    res.json({
+                        status: 1,
+                        message: "Notification closing failed!"
+                    })
                 })
-            }).catch(err => {
-                res.json({
-                    status: 1,
-                    message: "Notification closing failed!"
+        } else if (role_id == 1) {
+            NewTaskNotification.update({
+                is_admin_viewed: true
+            }, {
+                    where: {
+                        id: id
+                    }
+                }).then(resUpdate => {
+                    res.json({
+                        status: 1,
+                        message: "Notification closed!"
+                    })
+                }).catch(err => {
+                    res.json({
+                        status: 1,
+                        message: "Notification closing failed!"
+                    })
                 })
-            })
-    } else if (role_id == 1) {
-        NewTaskNotification.update({
-            is_admin_viewed: true
-        }, {
-                where: {
-                    id: id
-                }
-            }).then(resUpdate => {
-                res.json({
-                    status: 1,
-                    message: "Notification closed!"
-                })
-            }).catch(err => {
-                res.json({
-                    status: 1,
-                    message: "Notification closing failed!"
-                })
-            })
+        }
     }
-}
     //  ---------------------------------Start-------------------------------------------
     // Function      : closeNotifnewTaskReq
     // Params        :
@@ -7988,21 +7999,21 @@ function closeNotifApproval(role_id,id){
                     // },
                     include: [{
                         model: NewTaskreq,
-                        required:true,
-                        
+                        required: true,
+
                         // where: {
                         //     request_status: 'Pending'
                         // },
                         include: [{
 
                             model: Modules,
-                            required:true,
+                            required: true,
                             // attributes: ["id", "module_name", "project_id"],
                             // as:"pmodule",                            
                             include: [{
                                 model: Projects,
-                                required:true,
-                                
+                                required: true,
+
                                 where: {
                                     cmp_id: cmp_id
                                 }
@@ -8034,22 +8045,22 @@ function closeNotifApproval(role_id,id){
                     // },
                     include: [{
                         model: NewTaskreq,
-                        required:true,
-                        
+                        required: true,
+
                         // where: {
                         //     request_status: 'Approval'
                         // },
                         include: [{
 
                             model: Modules,
-                            required:true,
-                            
+                            required: true,
+
                             // attributes: ["id", "module_name", "project_id"],
                             // as:"pmodule", 
                             include: [{
                                 model: Projects,
-                            required:true,
-                                
+                                required: true,
+
                                 where: {
                                     cmp_id: cmp_id
                                 }
@@ -8089,8 +8100,8 @@ function closeNotifApproval(role_id,id){
     // Desc          : get task and details
 
     router.get('/getNewTaskRequest/:id', function (req, res) {
-        console.log("con:"+Config.secret)
-        console.log("con:"+Config.secret)
+        console.log("con:" + Config.secret)
+        console.log("con:" + Config.secret)
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             //     try {
@@ -8103,8 +8114,8 @@ function closeNotifApproval(role_id,id){
             NewTaskreq.find({
                 where: {
                     id: id,
-                    
-                }, attributes: ['assigned_to_id', 'id', 'planned_hours', 'buffer_hours', 'description', 'planned_start_date', 'planned_end_date', 'attachment', 'reason', 'project_module_id', 'assigned_to_id', 'complexity_id', 'team_id', 'task_name','request_status'],
+
+                }, attributes: ['assigned_to_id', 'id', 'planned_hours', 'buffer_hours', 'description', 'planned_start_date', 'planned_end_date', 'attachment', 'reason', 'project_module_id', 'assigned_to_id', 'complexity_id', 'team_id', 'task_name', 'request_status'],
                 include: [{
                     model: Modules,
                     include: [{
@@ -8143,15 +8154,15 @@ function closeNotifApproval(role_id,id){
                 //   response["data"] = resBack;
                 //   response["members"] = resMembers;
                 //   console.log(response);
-                if(resBack == null || resBack == 'null'){
-                res.json({
-                    status: 0,
-                    message: "Request already accepted!"
-                }) 
+                if (resBack == null || resBack == 'null') {
+                    res.json({
+                        status: 0,
+                        message: "Request already accepted!"
+                    })
                 }
-                else{
-                res.json(resBack);
-                    
+                else {
+                    res.json(resBack);
+
                 }
                 // }).catch(err => {
                 //   res.json({
@@ -8289,6 +8300,7 @@ function closeNotifApproval(role_id,id){
         }
     });
     // ----------------------------------End-----------------------------------
+
     // ---------------------------------Start-------------------------------------------
     // Function      : approveTask
     // Params        : 
@@ -8353,8 +8365,8 @@ function closeNotifApproval(role_id,id){
                     complexity_id: req.body.complexity,
                     project_team_id: req.body.team,
                     task_name: req.body.task_name,
-                    project_team_id:req.body.team_id,
-                    assigned_to_id:req.body.assigned_person,
+                    project_team_id: req.body.team_id,
+                    assigned_to_id: req.body.assigned_person,
                     task_type: req.body.task_type
                 });
                 newtaskReq.save().then(function (newRequest) {
@@ -8367,58 +8379,66 @@ function closeNotifApproval(role_id,id){
                     if (role == 1) {
                         NewTaskNotification.update({
                             is_admin_viewed: true
-                        },{where:{
-                            new_task_id:req.body.req_id
-                        }}).then(function (newRequestNotification) {
-                            NewTaskreq.update({
-                                request_status:"Accepted"
-                            },{where:{
-                                id:req.body.req_id
-                            }}).then( reqUpdate =>{
+                        }, {
+                            where: {
+                                new_task_id: req.body.req_id
+                            }
+                            }).then(function (newRequestNotification) {
+                                NewTaskreq.update({
+                                    request_status: "Accepted"
+                                }, {
+                                    where: {
+                                        id: req.body.req_id
+                                    }
+                                    }).then(reqUpdate => {
 
-                                io.sockets.emit("newtaskrequestAccepted", {
-                                    // expiredSocketId: newRequestNotification.id
-                                });
-                                res.send({ success: true, msg: "Request Approved!" });
-                            }).catch(err=>{
-                                res.send({ success: false, msg: "Failed! Try again!" });
-                                
-                            })
-                            
-                        });
+                                        io.sockets.emit("newtaskrequestAccepted", {
+                                            // expiredSocketId: newRequestNotification.id
+                                        });
+                                        res.send({ success: true, msg: "Request Approved!" });
+                                    }).catch(err => {
+                                        res.send({ success: false, msg: "Failed! Try again!" });
+
+                                    })
+
+                            });
                     } else {
                         NewTaskNotification.update({
                             is_pm_viewed: true
-                        },{where:{
-                            new_task_id:req.body.req_id
-                        }}).then(function (newRequestNotification) {
-                            NewTaskreq.update({
-                                request_status:"Accepted"
-                            },{where:{
-                                id:req.body.req_id
-                            }}).then( reqUpdate =>{
-
-                                io.sockets.emit("newtaskrequestAccepted", {
-                                    // expiredSocketId: newRequestNotification.id
-                                });
-                                // console.log(newPlan);
-                                var id = decoded.id;
-                                // var role = req.body.id
-                                var user_id;
-                                Users.find({
+                        }, {
+                            where: {
+                                new_task_id: req.body.req_id
+                            }
+                            }).then(function (newRequestNotification) {
+                                NewTaskreq.update({
+                                    request_status: "Accepted"
+                                }, {
                                     where: {
-                                        login_id: id
+                                        id: req.body.req_id
                                     }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("New task request approved!",user_id)
-                                })
-                                res.send({ success: true, msg: "Request Approved!" });
-                            }).catch(err=>{
-                                res.send({ success: false, msg: "Failed! Try again!" });
-                                
-                            })
-                        });
+                                    }).then(reqUpdate => {
+
+                                        io.sockets.emit("newtaskrequestAccepted", {
+                                            // expiredSocketId: newRequestNotification.id
+                                        });
+                                        // console.log(newPlan);
+                                        var id = decoded.id;
+                                        // var role = req.body.id
+                                        var user_id;
+                                        Users.find({
+                                            where: {
+                                                login_id: id
+                                            }
+                                        }).then(resUser => {
+                                            user_id = resUser.id;
+                                            saveLog("New task request approved!", user_id)
+                                        })
+                                        res.send({ success: true, msg: "Request Approved!" });
+                                    }).catch(err => {
+                                        res.send({ success: false, msg: "Failed! Try again!" });
+
+                                    })
+                            });
                     }
 
                 });
@@ -8428,7 +8448,7 @@ function closeNotifApproval(role_id,id){
         }
     });
     //  ---------------------------------End-------------------------------------------
-       // ---------------------------------Start-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
     // Function      : rejectTaskRequest
     // Params        : 
     // Returns       : 
@@ -8448,80 +8468,88 @@ function closeNotifApproval(role_id,id){
             if (role == 1) {
                 NewTaskNotification.update({
                     is_admin_viewed: true
-                },{where:{
-                    new_task_id:req.params.id
-                }}).then(function (newRequestNotification) {
-                    NewTaskreq.update({
-                        request_status:"Rejected"
-                    },{where:{
-                        id:req.params.id
-                    }}).then( reqUpdate =>{
+                }, {
+                        where: {
+                            new_task_id: req.params.id
+                        }
+                    }).then(function (newRequestNotification) {
+                        NewTaskreq.update({
+                            request_status: "Rejected"
+                        }, {
+                                where: {
+                                    id: req.params.id
+                                }
+                            }).then(reqUpdate => {
 
-                        io.sockets.emit("newtaskrequestRejected", {
-                            // expiredSocketId: newRequestNotification.id
-                        });
-                        // console.log(newPlan);
-                        var id = decoded.id;
-                        // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("New task request rejected!",user_id)
-                        })
-                        res.send({ success: true, msg: "Request rejected!" });
-                    }).catch(err=>{
-                        res.send({ success: false, msg: "Failed! Try again!" });
-                        
-                    })
-                    
-                });
-            } else if(role == 3) {
+                                io.sockets.emit("newtaskrequestRejected", {
+                                    // expiredSocketId: newRequestNotification.id
+                                });
+                                // console.log(newPlan);
+                                var id = decoded.id;
+                                // var role = req.body.id
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("New task request rejected!", user_id)
+                                })
+                                res.send({ success: true, msg: "Request rejected!" });
+                            }).catch(err => {
+                                res.send({ success: false, msg: "Failed! Try again!" });
+
+                            })
+
+                    });
+            } else if (role == 3) {
                 NewTaskNotification.update({
                     is_pm_viewed: true
-                },{where:{
-                    new_task_id:req.params.req_id
-                }}).then(function (newRequestNotification) {
-                    NewTaskreq.update({
-                        request_status:"Rejected"
-                    },{where:{
-                        id:req.params.req_id
-                    }}).then( reqUpdate =>{
+                }, {
+                        where: {
+                            new_task_id: req.params.req_id
+                        }
+                    }).then(function (newRequestNotification) {
+                        NewTaskreq.update({
+                            request_status: "Rejected"
+                        }, {
+                                where: {
+                                    id: req.params.req_id
+                                }
+                            }).then(reqUpdate => {
 
-                        io.sockets.emit("newtaskrequestRejected", {
-                            // expiredSocketId: newRequestNotification.id
-                        });
-                        // console.log(newPlan);
-                        var id = decoded.id;
-                        // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("New task request rejected!",user_id)
-                        })
-                        res.send({ success: true, msg: "Request rejected!" });
-                    }).catch(err=>{
-                        res.send({ success: false, msg: "Failed! Try again!" });
-                        
-                    })
-                });
-            }else{
+                                io.sockets.emit("newtaskrequestRejected", {
+                                    // expiredSocketId: newRequestNotification.id
+                                });
+                                // console.log(newPlan);
+                                var id = decoded.id;
+                                // var role = req.body.id
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("New task request rejected!", user_id)
+                                })
+                                res.send({ success: true, msg: "Request rejected!" });
+                            }).catch(err => {
+                                res.send({ success: false, msg: "Failed! Try again!" });
+
+                            })
+                    });
+            } else {
                 res.send({ success: false, msg: "Error occured!" });
-                
+
             }
         } else {
             return res.status(401).send('Invalid User');
         }
     });
     //  ---------------------------------End-------------------------------------------
-           // ---------------------------------Start-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
     // Function      : rejectTaskRequest
     // Params        : 
     // Returns       : 
@@ -8537,53 +8565,383 @@ function closeNotifApproval(role_id,id){
             //     try {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
-       
+
             NewTaskNotification.update({
                 is_admin_viewed: false,
                 is_pm_viewed: false,
                 is_user_viewed: false,
-            },{where:{
-                new_task_id:req.params.id
-            }}).then(function (newRequestNotification) {
-                NewTaskreq.update({
-                    request_status:"Approval"
-                },{where:{
-                    id:req.params.id
-                }}).then( reqUpdate =>{
+            }, {
+                    where: {
+                        new_task_id: req.params.id
+                    }
+                }).then(function (newRequestNotification) {
+                    NewTaskreq.update({
+                        request_status: "Approval"
+                    }, {
+                            where: {
+                                id: req.params.id
+                            }
+                        }).then(reqUpdate => {
 
-                    io.sockets.emit("newtaskrequestApproval", {
-                        // expiredSocketId: newRequestNotification.id
-                    });
-                    // console.log(newPlan);
-                    var id = decoded.id;
-                    // var role = req.body.id
-                    var user_id;
-                    Users.find({
-                        where: {
-                            login_id: id
-                        }
-                    }).then(resUser => {
-                        user_id = resUser.id;
-                        saveLog("New task request send for approval!",user_id)
-                    })
-                    res.send({ success: true, msg: "Send for Approval!" });
-                }).catch(err=>{
-                    res.send({ success: false, msg: "Failed! Try again!" });
-                    
-                })
-            });
+                            io.sockets.emit("newtaskrequestApproval", {
+                                // expiredSocketId: newRequestNotification.id
+                            });
+                            // console.log(newPlan);
+                            var id = decoded.id;
+                            // var role = req.body.id
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("New task request send for approval!", user_id)
+                            })
+                            res.send({ success: true, msg: "Send for Approval!" });
+                        }).catch(err => {
+                            res.send({ success: false, msg: "Failed! Try again!" });
+
+                        })
+                });
         } else {
             return res.status(401).send('Invalid User');
         }
     });
     //  ---------------------------------End-------------------------------------------
-       // ---------------------------------Start-------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTasksByUser
+    // Params        : pro_id, user_id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  17-04-2018
+    // Last Modified : 
+    // Desc          : 
+    router.post('/getTasksByUser/:id', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        if (req.body.user_id == "all") {
+            Modules.findAll({
+                where: { project_id: req.params.id },
+                include: [
+                    {
+                        model: Tasks,
+                        include: [
+                            {
+                                model: task_status_assoc,
+
+                                include: [
+                                    {
+                                        model: task_statuses,
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }).then(myTasks => {
+                res.send(myTasks);
+            });
+        }
+        else {
+            Modules.findAll({
+                where: { project_id: req.params.id },
+                include: [
+                    {
+                        model: Tasks,
+                        where: { assigned_to_id: req.body.user_id },
+                        include: [
+                            {
+                                model: task_status_assoc,
+
+                                include: [
+                                    {
+                                        model: task_statuses,
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }).then(myTasks => {
+                res.send(myTasks);
+            });
+        }
+
+    });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTasksByProject
+    // Params        : pro_id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  17-04-2018
+    // Last Modified : 
+    // Desc          : 
+    router.get('/getTasksByProject/:id', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        Modules.findAll({
+            where: { project_id: req.params.id },
+            include: [
+                {
+                    model: Project
+                },
+                {
+                    model: Tasks,
+                    include: [
+                        {
+                            model: task_status_assoc,
+
+                            include: [
+                                {
+                                    model: task_statuses,
+                                }
+                            ],
+                        }
+                    ],
+                },
+            ]
+        }).then(myTasks => {
+            res.send(myTasks);
+        });
+    });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getTasksforResourceGraph
+    // Params        : pro_id, users
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  18-04-2018
+    // Last Modified : 
+    // Desc          :  
+    router.post('/getTasksforResourceGraph/:id', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        // console.log(req.body.user);
+        users = req.body.user;
+        var offensesByYear = [];
+        async.eachOfSeries(users, function (user, key, callback) {
+            // users.forEach(user => {
+            var last_status_id = 0;
+            var total_tasks = 0;
+            var new_tasks = 0;
+            var in_progress_tasks = 0;
+            var completed_tasks = 0;
+            var onHold_tasks = 0;
+            var paused_tasks = 0;
+            var new_tasksHr = 0;
+            var in_progress_tasksHr = 0;
+            var completed_tasksHr = 0;
+            var onHold_tasksHr = 0;
+            var paused_tasksHr = 0;
+            var totalCompletedHr = 0;
+            Modules.findAll({
+                where: { project_id: req.params.id },
+                include: [
+                    {
+                        model: Tasks,
+                        where: { assigned_to_id: user.id },
+                        include: [
+                            {
+                                model: task_status_assoc,
+
+                                include: [
+                                    {
+                                        model: task_statuses,
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }).then(data => {
+                data.forEach(module => {
+                    total_tasks = total_tasks + module.tbl_project_tasks.length;
+                    module.tbl_project_tasks.forEach(task => {
+                        last_status_id = 0;
+                        last_status = {};
+                        task.tbl_task_status_assocs.forEach(statuses => {
+                            if (statuses.id > last_status_id) {
+                                last_status_id = statuses.id;
+                                last_status = statuses;
+                            }
+                        });
+                        if (last_status && last_status.status_id == 1) {
+                            new_tasks = new_tasks + 1;
+                            new_tasksHr = new_tasksHr + task.planned_hour + task.buffer_hour;
+                        }
+                        if (last_status && last_status.status_id == 2) {
+                            paused_tasks = paused_tasks + 1;
+                            paused_tasksHr = paused_tasksHr + task.planned_hour + task.buffer_hour;
+                        }
+                        if (last_status && last_status.status_id == 3) {
+                            in_progress_tasks = in_progress_tasks + 1;
+                            in_progress_tasksHr = in_progress_tasksHr + task.planned_hour + task.buffer_hour;
+                        }
+                        if (last_status && last_status.status_id == 4) {
+                            onHold_tasks = onHold_tasks + 1;
+                            onHold_tasksHr = onHold_tasksHr + task.planned_hour + task.buffer_hour;
+                        }
+                        if (last_status && last_status.status_id == 5) {
+                            completed_tasks = completed_tasks + 1;
+                            completed_tasksHr = completed_tasksHr + task.planned_hour + task.buffer_hour;
+                            totalCompletedHr = totalCompletedHr + task.actual_hour;
+                        }
+                    });
+                });
+                offensesByYear.push(
+                    {
+                        "New- Yet to Start": new_tasksHr,
+                        "In Progress": in_progress_tasksHr,
+                        "Completed": completed_tasksHr,
+                        "On Hold": onHold_tasksHr,
+                        "Paused": paused_tasksHr,
+                        "totalCompletedHr": totalCompletedHr
+                    });
+                callback();
+            });
+        }, () => {
+
+            res.send(offensesByYear)
+        });
+    });
+    // -----------------------------------End------------------------------------------
+
+    // ---------------------------------new Start-------------------------------------------
+    // Function      : getHoursforResourceGraph
+    // Params        :
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  18-04-2018
+    // Last Modified : 
+    // Desc          : 
+    router.post('/getHoursforResourceGraph', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            cmp_id = decoded.cmp_id;
+            // var project_names = [];
+            var offensesByYear = [];
+            // Project.findAll({
+            //     where: {
+            //         cmp_id: cmp_id,
+            //         [Op.or]: [{ status: "Planned", status: "Completed", status: "In Progress" }]
+            //     }
+            // }).then(projects => {
+            projects = req.body.project;
+            async.eachOfSeries(projects, function (project, key, callback) {
+                var last_status_id = 0;
+                var total_tasks = 0;
+                var new_tasks = 0;
+                var in_progress_tasks = 0;
+                var completed_tasks = 0;
+                var onHold_tasks = 0;
+                var paused_tasks = 0;
+                var new_tasksHr = 0;
+                var in_progress_tasksHr = 0;
+                var completed_tasksHr = 0;
+                var onHold_tasksHr = 0;
+                var paused_tasksHr = 0;
+                var totalCompletedHr = 0;
+                Modules.findAll({
+                    where: { project_id: project.id },
+                    include: [
+                        {
+                            model: Tasks,
+                            include: [
+                                {
+                                    model: task_status_assoc,
+                                    include: [
+                                        {
+                                            model: task_statuses,
+                                        }
+                                    ],
+                                }
+                            ],
+                        },
+                    ]
+                }).then(data => {
+                    data.forEach(module => {
+                        total_tasks = total_tasks + module.tbl_project_tasks.length;
+                        module.tbl_project_tasks.forEach(task => {
+                            last_status_id = 0;
+                            last_status = {};
+                            task.tbl_task_status_assocs.forEach(statuses => {
+                                if (statuses.id > last_status_id) {
+                                    last_status_id = statuses.id;
+                                    last_status = statuses;
+                                }
+                            });
+                            if (last_status && last_status.status_id == 1) {
+                                new_tasks = new_tasks + 1;
+                                new_tasksHr = new_tasksHr + task.planned_hour + task.buffer_hour;
+                            }
+                            if (last_status && last_status.status_id == 2) {
+                                paused_tasks = paused_tasks + 1;
+                                paused_tasksHr = paused_tasksHr + task.planned_hour + task.buffer_hour;
+                            }
+                            if (last_status && last_status.status_id == 3) {
+                                in_progress_tasks = in_progress_tasks + 1;
+                                in_progress_tasksHr = in_progress_tasksHr + task.planned_hour + task.buffer_hour;
+                            }
+                            if (last_status && last_status.status_id == 4) {
+                                onHold_tasks = onHold_tasks + 1;
+                                onHold_tasksHr = onHold_tasksHr + task.planned_hour + task.buffer_hour;
+                            }
+                            if (last_status && last_status.status_id == 5) {
+                                completed_tasks = completed_tasks + 1;
+                                completed_tasksHr = completed_tasksHr + task.planned_hour + task.buffer_hour;
+                                totalCompletedHr = totalCompletedHr + task.actual_hour;
+                            }
+                        });
+                    });
+                    offensesByYear.push(
+                        {
+                            "New- Yet to Start": new_tasksHr,
+                            "In Progress": in_progress_tasksHr,
+                            "Completed": completed_tasksHr,
+                            "On Hold": onHold_tasksHr,
+                            "Paused": paused_tasksHr,
+                            "totalCompletedHr": totalCompletedHr
+                        });
+                    callback();
+                });
+            }, () => {
+
+                res.send(offensesByYear);
+            });
+            // });
+        }
+        else {
+            return res.status(401).send('Invalid User');
+        }
+    });
+    // -----------------------------------End------------------------------------------
+    // -----------------------------------Start------------------------------------------
     // Function      : get-break-time
     // Params        :
     // Returns       :
     // Author        : MANU
     // Date          : 12-4-2018
-    // Last Modified : 12-4-2018, 
+    // Last Modified : 12-4-2018,
     // Desc
 
     router.post('/getDayBreaks', function (req, res) {
@@ -8591,7 +8949,7 @@ function closeNotifApproval(role_id,id){
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
-            
+
             cmp_break.findAll({
                 where: { cmp_id: cmp_id },
                 include: [
@@ -8620,7 +8978,7 @@ function closeNotifApproval(role_id,id){
     // Returns       :
     // Author        : MANU
     // Date          : 12-4-2018
-    // Last Modified : 12-4-2018, 
+    // Last Modified : 12-4-2018,
     // Desc
 
     router.post('/getDayDetails', function (req, res) {
@@ -8628,64 +8986,65 @@ function closeNotifApproval(role_id,id){
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
-        //   var cmp_id = 1;
+            //   var cmp_id = 1;
             cmp_off_day_assoc.findAll({
                 where: {
-                    day_no:req.body.day,
-                    week_no:req.body.week,
+                    day_no: req.body.day,
+                    week_no: req.body.week,
                     cmp_id: cmp_id
                 }
             }).then(resOff => {
-                if(resOff.length >0){
-                res.json(resOff) 
-                }else{
+                if (resOff.length > 0) {
+                    res.json(resOff)
+                } else {
                     WorkingTimeAssoc.findAll({
-                        where:{
-                            day_no:req.body.day,
-                            week_no:req.body.week
+                        where: {
+                            day_no: req.body.day,
+                            week_no: req.body.week
                         },
                         include: [{
                             model: WorkingTime,
                             where: {
                                 cmp_id: cmp_id
                             }
-                        }]}).then(resTime => {
-                            if(resTime.length > 0){
-                                temp = [];
-                                temp.push(resTime[0].tbl_cmp_work_time);
-                                res.json(temp )
-                            }
-                            else{
-                                WorkingTime.findAll({
-                                    where: {
-                                        is_default:true,
-                                        cmp_id: cmp_id
-                                    }
-                                    }).then( resDefTime => {
-                                        res.json(resDefTime);
-                                    })
-                            }
-                        }).catch( err =>{
-                            res.json({status:0,message:"Error occured!"})
-                        })
+                        }]
+                    }).then(resTime => {
+                        if (resTime.length > 0) {
+                            temp = [];
+                            temp.push(resTime[0].tbl_cmp_work_time);
+                            res.json(temp)
+                        }
+                        else {
+                            WorkingTime.findAll({
+                                where: {
+                                    is_default: true,
+                                    cmp_id: cmp_id
+                                }
+                            }).then(resDefTime => {
+                                res.json(resDefTime);
+                            })
+                        }
+                    }).catch(err => {
+                        res.json({ status: 0, message: "Error occured!" })
+                    })
                 }
-            })  
-        
-        // cmp_break.findAll({
-        //     where: { cmp_id: 1 },
-        //     include: [
-        //         {
-        //             model: cmp_break_assoc,
-        //             where: {
-        //                 day_no: req.body.day,
-        //                 week_no: req.body.week
-        //             }
-        //         }
-        //     ]
-        // }).then(cmp_break => {
-        //     // console.log(cmp_breaks);
-        //     res.json(cmp_break);
-        // });
+            })
+
+            // cmp_break.findAll({
+            //     where: { cmp_id: 1 },
+            //     include: [
+            //         {
+            //             model: cmp_break_assoc,
+            //             where: {
+            //                 day_no: req.body.day,
+            //                 week_no: req.body.week
+            //             }
+            //         }
+            //     ]
+            // }).then(cmp_break => {
+            //     // console.log(cmp_breaks);
+            //     res.json(cmp_break);
+            // });
         }
         else {
             return res.status(401).send('Invalid User');
@@ -8699,7 +9058,7 @@ function closeNotifApproval(role_id,id){
     // Returns       :
     // Author        : MANU
     // Date          : 12-4-2018
-    // Last Modified : 12-4-2018, 
+    // Last Modified : 12-4-2018,
     // Desc
 
     router.post('/saveDayBreak', function (req, res) {
@@ -8709,12 +9068,12 @@ function closeNotifApproval(role_id,id){
             var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
             //   console.log(req.body.title)
-            if (req.body.title == '' || req.body.day == '' || req.body.week== '') {
+            if (req.body.title == '' || req.body.day == '' || req.body.week == '') {
                 res.json({
                     status: 0,
                     message: "Title empty!"
                 })
-            }else{
+            } else {
                 Break.build({
                     title: req.body.title,
                     cmp_id: cmp_id,
@@ -8723,10 +9082,10 @@ function closeNotifApproval(role_id,id){
                     is_default: false
                 }).save().then(resSave => {
                     BreakAssoc.build({
-                        day_no:req.body.day,
-                        week_no:req.body.week,
+                        day_no: req.body.day,
+                        week_no: req.body.week,
                         break_id: resSave.id
-                    }).save().then(resSaved =>{
+                    }).save().then(resSaved => {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
@@ -8737,7 +9096,7 @@ function closeNotifApproval(role_id,id){
                             }
                         }).then(resUser => {
                             user_id = resUser.id;
-                            saveLog("Day break saved!",user_id)
+                            saveLog("Day break saved!", user_id)
                         })
                         res.json({
                             status: 1,
@@ -8749,14 +9108,14 @@ function closeNotifApproval(role_id,id){
                             message: "An error occured! Try again!"
                         })
                     })
-                    
+
                 }).catch(err => {
                     res.json({
                         status: 0,
                         message: "An error occured! Try again!"
                     })
                 })
-            } 
+            }
         }
         else {
             return res.status(401).send('Invalid User');
@@ -8764,13 +9123,13 @@ function closeNotifApproval(role_id,id){
     });
 
     // ----------------------------------End-----------------------------------
-        // ---------------------------------Start-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
     // Function      : get-break-time
     // Params        :
     // Returns       :
     // Author        : MANU
     // Date          : 12-4-2018
-    // Last Modified : 12-4-2018, 
+    // Last Modified : 12-4-2018,
     // Desc
 
     router.post('/deleteExtraBreak/:id', function (req, res) {
@@ -8778,20 +9137,20 @@ function closeNotifApproval(role_id,id){
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
-        //   var cmp_id = 1;
+            //   var cmp_id = 1;
             // console.log(req.params.id)
             BreakAssoc.destroy({
                 where: {
-                    break_id: parseInt(req.params.id) ,
+                    break_id: parseInt(req.params.id),
                     // cmp_id: cmp_id
                 }
             }).then(resDel => {
                 Break.destroy({
                     where: {
                         id: req.params.id,
-                        cmp_id: cmp_id                        
+                        cmp_id: cmp_id
                     }
-                }).then(resDel2 =>{
+                }).then(resDel2 => {
                     // console.log(newPlan);
                     var id = decoded.id;
                     // var role = req.body.id
@@ -8802,7 +9161,7 @@ function closeNotifApproval(role_id,id){
                         }
                     }).then(resUser => {
                         user_id = resUser.id;
-                        saveLog("Day break deleted!",user_id)
+                        saveLog("Day break deleted!", user_id)
                     })
                     res.json({
                         status: 1,
@@ -8814,7 +9173,7 @@ function closeNotifApproval(role_id,id){
                         message: "An error occured! Try again!"
                     })
                 })
-                
+
             }).catch(err => {
                 res.json({
                     status: 0,
@@ -8828,19 +9187,19 @@ function closeNotifApproval(role_id,id){
     });
 
     // ----------------------------------End-----------------------------------
-      // ---------------------------------Start-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
     // Function      : saveDayBreak
     // Params        :
     // Returns       :
     // Author        : MANU
     // Date          : 12-4-2018
-    // Last Modified : 12-4-2018, 
+    // Last Modified : 12-4-2018,
     // Desc
     router.post('/saveDayWorkTime', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-          var cmp_id = decoded.cmp_id;
+            var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
             console.log(req.body)
             if (req.body.holiday == true) {
@@ -8855,9 +9214,9 @@ function closeNotifApproval(role_id,id){
                             cmp_id: cmp_id
                         }
                     }]
-                }).then( resFind => {
+                }).then(resFind => {
                     // res.json(resFind);
-                    if(resFind.length > 0){
+                    if (resFind.length > 0) {
                         WorkingTimeAssoc.destroy({
                             where: {
                                 id: resFind[0].id
@@ -8871,17 +9230,17 @@ function closeNotifApproval(role_id,id){
                             }).then(resDes => {
                                 cmp_off_day_assoc.findAll({
                                     where: {
-                                        day_no:req.body.day,
-                                        week_no:req.body.week,
+                                        day_no: req.body.day,
+                                        week_no: req.body.week,
                                         cmp_id: cmp_id
                                     }
                                 }).then(resOff => {
-                                    if(resOff.length == 0){
+                                    if (resOff.length == 0) {
                                         cmp_off_day_assoc.build({
                                             day_no: req.body.day,
                                             week_no: req.body.week,
                                             cmp_id: cmp_id
-                                        }).save().then(resx =>{
+                                        }).save().then(resx => {
                                             // console.log(newPlan);
                                             var id = decoded.id;
                                             // var role = req.body.id
@@ -8892,7 +9251,7 @@ function closeNotifApproval(role_id,id){
                                                 }
                                             }).then(resUser => {
                                                 user_id = resUser.id;
-                                                saveLog("Day work time saved!",user_id)
+                                                saveLog("Day work time saved!", user_id)
                                             })
                                             res.json({
                                                 status: 1,
@@ -8905,7 +9264,7 @@ function closeNotifApproval(role_id,id){
                                                 message: "An error occured! Try again!"
                                             })
                                         })
-                                    }else{
+                                    } else {
                                         res.json({
                                             status: 0,
                                             message: "Already assigned as off day!"
@@ -8923,15 +9282,15 @@ function closeNotifApproval(role_id,id){
                             console.log(err)
                             res.json(err)
                         })
-                    }else{
+                    } else {
                         cmp_off_day_assoc.findAll({
                             where: {
                                 day_no: req.body.day,
                                 week_no: req.body.week,
                                 cmp_id: cmp_id
                             }
-                        }).then(resOff =>{
-                            if(resOff.length > 0){
+                        }).then(resOff => {
+                            if (resOff.length > 0) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
@@ -8942,18 +9301,18 @@ function closeNotifApproval(role_id,id){
                                     }
                                 }).then(resUser => {
                                     user_id = resUser.id;
-                                    saveLog("Assigned off day!",user_id)
+                                    saveLog("Assigned off day!", user_id)
                                 })
                                 res.json({
                                     status: 0,
                                     message: "Already assigned as off day!"
                                 })
-                            }else{
+                            } else {
                                 cmp_off_day_assoc.build({
                                     day_no: req.body.day,
                                     week_no: req.body.week,
                                     cmp_id: cmp_id
-                                }).save().then(resx =>{
+                                }).save().then(resx => {
                                     // console.log(newPlan);
                                     var id = decoded.id;
                                     // var role = req.body.id
@@ -8964,7 +9323,7 @@ function closeNotifApproval(role_id,id){
                                         }
                                     }).then(resUser => {
                                         user_id = resUser.id;
-                                        saveLog("Assigned off day!",user_id)
+                                        saveLog("Assigned off day!", user_id)
                                     })
                                     res.json({
                                         status: 1,
@@ -8979,24 +9338,24 @@ function closeNotifApproval(role_id,id){
                                 })
                             }
                         })
-                        
+
                     }
-                    
+
                 }).catch(err => {
                     console.log(err)
                     res.json(err)
                 })
-            }else{
-                if(compareTime(req.body.startTime.hour + ":" + req.body.startTime.minute,req.body.endTime.hour + ":" + req.body.endTime.minute)){
-                    console.log("gfhgvhjh")                
+            } else {
+                if (compareTime(req.body.startTime.hour + ":" + req.body.startTime.minute, req.body.endTime.hour + ":" + req.body.endTime.minute)) {
+                    console.log("gfhgvhjh")
                     cmp_off_day_assoc.findAll({
                         where: {
                             day_no: req.body.day,
                             week_no: req.body.week,
                             cmp_id: cmp_id
                         }
-                    }).then(resOff =>{
-                        if(resOff.length > 0){
+                    }).then(resOff => {
+                        if (resOff.length > 0) {
                             cmp_off_day_assoc.destroy({
                                 where: {
                                     id: resOff[0].id
@@ -9013,54 +9372,54 @@ function closeNotifApproval(role_id,id){
                                             cmp_id: cmp_id
                                         }
                                     }]
-                                }).then( resWrk => {
-                                    if(resWrk.length>0){
+                                }).then(resWrk => {
+                                    if (resWrk.length > 0) {
                                         WorkingTime.update({
                                             start_time: req.body.startTime.hour + ":" + req.body.startTime.minute,
                                             end_time: req.body.endTime.hour + ":" + req.body.endTime.minute,
-                                        },{
-                                            where: {
-                                                id:resWrk[0].cmp_work_time_id
-                                            }
-                                        }).then( resUpdate => {
-                                            if(resUpdate[0]>0){
-                                                // console.log(newPlan);
-                                                var id = decoded.id;
-                                                // var role = req.body.id
-                                                var user_id;
-                                                Users.find({
-                                                    where: {
-                                                        login_id: id
-                                                    }
-                                                }).then(resUser => {
-                                                    user_id = resUser.id;
-                                                    saveLog("Day work time saved!",user_id)
-                                                })
-                                                res.json({
-                                                    status: 1,
-                                                    message: "Successfully saved!"
-                                                })
-                                            }
-                                            else{
-                                                res.json({
-                                                    status: 1,
-                                                    message: "Error occured!"
-                                                })
-                                            }
-                                        })
-                                    }else{
+                                        }, {
+                                                where: {
+                                                    id: resWrk[0].cmp_work_time_id
+                                                }
+                                            }).then(resUpdate => {
+                                                if (resUpdate[0] > 0) {
+                                                    // console.log(newPlan);
+                                                    var id = decoded.id;
+                                                    // var role = req.body.id
+                                                    var user_id;
+                                                    Users.find({
+                                                        where: {
+                                                            login_id: id
+                                                        }
+                                                    }).then(resUser => {
+                                                        user_id = resUser.id;
+                                                        saveLog("Day work time saved!", user_id)
+                                                    })
+                                                    res.json({
+                                                        status: 1,
+                                                        message: "Successfully saved!"
+                                                    })
+                                                }
+                                                else {
+                                                    res.json({
+                                                        status: 1,
+                                                        message: "Error occured!"
+                                                    })
+                                                }
+                                            })
+                                    } else {
                                         WorkingTime.build({
-                                        title: req.body.startTime.hour + ":" + req.body.startTime.minute + '-' + req.body.endTime.hour + ":" + req.body.endTime.minute,
-                                        cmp_id: cmp_id,
-                                        start_time: req.body.startTime.hour + ":" + req.body.startTime.minute,
-                                        end_time: req.body.endTime.hour + ":" + req.body.endTime.minute,
-                                        is_default: false
+                                            title: req.body.startTime.hour + ":" + req.body.startTime.minute + '-' + req.body.endTime.hour + ":" + req.body.endTime.minute,
+                                            cmp_id: cmp_id,
+                                            start_time: req.body.startTime.hour + ":" + req.body.startTime.minute,
+                                            end_time: req.body.endTime.hour + ":" + req.body.endTime.minute,
+                                            is_default: false
                                         }).save().then(resSave => {
                                             WorkingTimeAssoc.build({
-                                                day_no:req.body.day,
-                                                week_no:req.body.week,
+                                                day_no: req.body.day,
+                                                week_no: req.body.week,
                                                 cmp_work_time_id: resSave.id
-                                            }).save().then(resSaved =>{
+                                            }).save().then(resSaved => {
                                                 // console.log(newPlan);
                                                 var id = decoded.id;
                                                 // var role = req.body.id
@@ -9071,7 +9430,7 @@ function closeNotifApproval(role_id,id){
                                                     }
                                                 }).then(resUser => {
                                                     user_id = resUser.id;
-                                                    saveLog("Day working time saved!",user_id)
+                                                    saveLog("Day working time saved!", user_id)
                                                 })
                                                 res.json({
                                                     status: 1,
@@ -9084,9 +9443,9 @@ function closeNotifApproval(role_id,id){
                                                     message: "An error occured! Try again!"
                                                 })
                                             })
-                                            
+
                                         }).catch(err => {
-                                            console.log(err);                
+                                            console.log(err);
                                             res.json({
                                                 status: 0,
                                                 message: "An error occured! Try again!"
@@ -9095,7 +9454,7 @@ function closeNotifApproval(role_id,id){
                                     }
                                 })
                             })
-                        }else{
+                        } else {
                             WorkingTimeAssoc.findAll({
                                 where: {
                                     day_no: req.body.day,
@@ -9107,42 +9466,42 @@ function closeNotifApproval(role_id,id){
                                         cmp_id: cmp_id
                                     }
                                 }]
-                            }).then( resWrk => {
-                                if(resWrk.length>0){
+                            }).then(resWrk => {
+                                if (resWrk.length > 0) {
                                     WorkingTime.update({
                                         start_time: req.body.startTime.hour + ":" + req.body.startTime.minute,
                                         end_time: req.body.endTime.hour + ":" + req.body.endTime.minute,
-                                    },{
-                                        where: {
-                                            id:resWrk[0].cmp_work_time_id
-                                        }
-                                    }).then( resUpdate => {
-                                        if(resUpdate[0]>0){
-                                            res.json({
-                                                status: 1,
-                                                message: "Successfully saved!"
-                                            })
-                                        }
-                                        else{
-                                            res.json({
-                                                status: 1,
-                                                message: "Error occured!"
-                                            })
-                                        }
-                                    })
-                                }else{
+                                    }, {
+                                            where: {
+                                                id: resWrk[0].cmp_work_time_id
+                                            }
+                                        }).then(resUpdate => {
+                                            if (resUpdate[0] > 0) {
+                                                res.json({
+                                                    status: 1,
+                                                    message: "Successfully saved!"
+                                                })
+                                            }
+                                            else {
+                                                res.json({
+                                                    status: 1,
+                                                    message: "Error occured!"
+                                                })
+                                            }
+                                        })
+                                } else {
                                     WorkingTime.build({
-                                    title: req.body.startTime.hour + ":" + req.body.startTime.minute + '-' + req.body.endTime.hour + ":" + req.body.endTime.minute,
-                                    cmp_id: cmp_id,
-                                    start_time: req.body.startTime.hour + ":" + req.body.startTime.minute,
-                                    end_time: req.body.endTime.hour + ":" + req.body.endTime.minute,
-                                    is_default: false
+                                        title: req.body.startTime.hour + ":" + req.body.startTime.minute + '-' + req.body.endTime.hour + ":" + req.body.endTime.minute,
+                                        cmp_id: cmp_id,
+                                        start_time: req.body.startTime.hour + ":" + req.body.startTime.minute,
+                                        end_time: req.body.endTime.hour + ":" + req.body.endTime.minute,
+                                        is_default: false
                                     }).save().then(resSave => {
                                         WorkingTimeAssoc.build({
-                                            day_no:req.body.day,
-                                            week_no:req.body.week,
+                                            day_no: req.body.day,
+                                            week_no: req.body.week,
                                             cmp_work_time_id: resSave.id
-                                        }).save().then(resSaved =>{
+                                        }).save().then(resSaved => {
                                             // console.log(newPlan);
                                             var id = decoded.id;
                                             // var role = req.body.id
@@ -9153,7 +9512,7 @@ function closeNotifApproval(role_id,id){
                                                 }
                                             }).then(resUser => {
                                                 user_id = resUser.id;
-                                                saveLog("Day time saved!",user_id)
+                                                saveLog("Day time saved!", user_id)
                                             })
                                             res.json({
                                                 status: 1,
@@ -9166,9 +9525,9 @@ function closeNotifApproval(role_id,id){
                                                 message: "An error occured! Try again!"
                                             })
                                         })
-                                        
+
                                     }).catch(err => {
-                                        console.log(err);                
+                                        console.log(err);
                                         res.json({
                                             status: 0,
                                             message: "An error occured! Try again!"
@@ -9178,14 +9537,14 @@ function closeNotifApproval(role_id,id){
                             })
                         }
                     })
-                
-                }else{
+
+                } else {
                     res.json({
-                        satus:0,
+                        satus: 0,
                         message: "Start time is greater than end time!"
                     })
-                }     
-            } 
+                }
+            }
         }
         else {
             return res.status(401).send('Invalid User');
@@ -9219,17 +9578,67 @@ function closeNotifApproval(role_id,id){
         }
         })
     // ----------------------------------End-----------------------------------
-    function compareTime(startTime, endTime){
-        console.log(startTime+'\n'+endTime)
-        
-        if(Date.parse('01/01/2011 '+endTime) > Date.parse('01/01/2011 '+startTime)){
+    
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getdataforProjectVsStatusGraph
+    // Params        : projects
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  19-04-2018
+    // Last Modified : 
+    // Desc          : 
+    router.post('/getdataforProjectVsStatusGraph', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        var data = [];
+        projects = req.body.project;
+        async.eachOfSeries(projects, function (project, key, callback) {
+            Modules.findAll({
+                where: { project_id: project.id },
+                include: [
+                    {
+                        model: Project
+                    },
+                    {
+                        model: Tasks,
+                        include: [
+                            {
+                                model: task_status_assoc,
+
+                                include: [
+                                    {
+                                        model: task_statuses,
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                ]
+            }).then(myTasks => {
+                data.push(myTasks);
+                callback();
+            });
+        }, () => {
+
+            res.send(data);
+        });
+    });
+    // -----------------------------------End------------------------------------------
+
+    function compareTime(startTime, endTime) {
+        console.log(startTime + '\n' + endTime)
+
+        if (Date.parse('01/01/2011 ' + endTime) > Date.parse('01/01/2011 ' + startTime)) {
             return true;
-        }else{
-            
+        } else {
+
             return false;
         }
     }
-    function saveLog(action, userId){
+    function saveLog(action, userId) {
         Log.build({
             action: action,
             user_profile_id: userId

@@ -109,7 +109,7 @@ export class CompanyService {
   // Desc          : getAllProjects 
   getAllProject() {
     let headers = this.setHeaderWithAuthorization();
-    return this.http.get(this.serviceUrl + 'getAllProjects', { headers: headers })
+    return this.http.get(this.serviceUrl + 'getAllProject', { headers: headers })
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
@@ -2172,7 +2172,8 @@ deleteHoliday(data){
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
-      // ---------------------------------Start-------------------------------------------
+  
+  // ---------------------------------Start-------------------------------------------
   // Function      : closeNotif6
   // Params        : id
   // Returns       : 
@@ -2199,6 +2200,89 @@ deleteHoliday(data){
   getAccessRightsforRole() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getAccessRightsforRole', { headers: headers })
+    .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getTasksByUser
+  // Params        : pro_id, user_id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          :  17-04-2018
+  // Last Modified : 
+  // Desc          : 
+  
+  getTasksByUser(pro_id, user_id) {
+    let userid = {user_id : user_id};
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'getTasksByUser/' + pro_id, userid, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getTasksByProject
+  // Params        : pro_id
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          :  17-04-2018
+  // Last Modified : 
+  // Desc          : 
+  
+  getTasksByProject(pro_id) {
+    let headers = this.setHeader();
+    return this.http.get(this.serviceUrl + 'getTasksByProject/' + pro_id, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getTasksforResourceGraph
+  // Params        : pro_id, users
+  // Returns       : 
+  // Author        : Rinsha
+  // Date          :  18-04-2018
+  // Last Modified : 
+  // Desc          : 
+  
+  getTasksforResourceGraph(pro_id, users) {
+    let user = {user : users};
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'getTasksforResourceGraph/' + pro_id, user, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+    // Function      : getHoursforResourceGraph
+    // Params        : projects
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  18-04-2018
+    // Last Modified : 
+    // Desc          : 
+  
+    getHoursforResourceGraph(projects) {
+      let project = {project : projects};
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'getHoursforResourceGraph', project, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+    // Function      : getdataforProjectVsStatusGraph
+    // Params        : projects
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  19-04-2018
+    // Last Modified : 
+    // Desc          : 
+  
+    getdataforProjectVsStatusGraph(projects) {
+      let project = {project : projects};
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'getdataforProjectVsStatusGraph', project, { headers: headers })
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------

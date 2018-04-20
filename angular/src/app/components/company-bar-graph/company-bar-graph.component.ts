@@ -13,7 +13,8 @@ export class CompanyBarGraphComponent implements OnInit {
   planning = '';
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {}
+  ngAfterViewInit() {
     
     const offenseNames = [
       "Hours",
@@ -22,9 +23,9 @@ export class CompanyBarGraphComponent implements OnInit {
     const years = ["Planned", "Actual"];
     const offensesByYear = [
       {
-        "Hours": 1000,
+        "Hours": this.planning,
        },
-      { "Hours": 2010,
+      { "Hours": this.actual,
       },
     ];
     
@@ -88,6 +89,7 @@ export class CompanyBarGraphComponent implements OnInit {
       .append("g")
       .attr("transform", "translate(" + (margin.left + 20) + "," + margin.top + ")");
       let mycount = 1;  
+      
     let layer = svg
       .selectAll(".layer")
       .data(layers)
@@ -111,7 +113,14 @@ export class CompanyBarGraphComponent implements OnInit {
         return '#7fc97f';
       });
     
-    
+      var tooltip = d3.select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .style("background", "#96A7B9")
+      .text("a simple tooltip");
+
     let rect = layer
       .selectAll(".bar")
       .data(function(d) {
@@ -126,11 +135,10 @@ export class CompanyBarGraphComponent implements OnInit {
       .attr("y", height)
       .attr("width", x.bandwidth() )
       .attr("height", 0)
-      .on("mouseover", d => {
-        d3.select(this)
-          // .filter(dd => dd.class != d.class)
-          .style("opacity", 0.6)
-      });
+      .on("mouseover", function(d){
+        tooltip.text("Total "+ d.year+ " Hour: "+d.data.Hours +" Hr"); return tooltip.style("visibility", "visible");})
+      .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
     
     rect
       .transition()
@@ -148,9 +156,7 @@ export class CompanyBarGraphComponent implements OnInit {
       .append("g")
       .attr("transform", "translate(0," + height  +")")
         .call(d3.axisBottom(x));
-    
-    
-    
+ 
   }
 
 }
