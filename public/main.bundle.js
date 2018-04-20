@@ -20845,8 +20845,7 @@ var UserService = (function () {
     // Desc          : to updateUserleave 
     UserService.prototype.updateUserleave = function (userleave) {
         // console.log(Empleave);
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'updateuserleave', userleave, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -20860,8 +20859,7 @@ var UserService = (function () {
     // Last Modified : 
     // Desc          :get My all request
     UserService.prototype.getMyallrequest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allmyrequest', { headers: headers });
     };
     // ---------------------------------Start-------------------------------------------
@@ -20873,8 +20871,7 @@ var UserService = (function () {
     // Last Modified : 
     // Desc          :get my time extension request
     UserService.prototype.getMyallTimeextnrequest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'mytimeextrequest', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -20888,8 +20885,7 @@ var UserService = (function () {
     // Last Modified : 
     // Desc          :get my all new task request
     UserService.prototype.getMyallnewtaskrequest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'mynewtaskrequest', { headers: headers })
             .map(function (res) { return res.json(); });
     };
