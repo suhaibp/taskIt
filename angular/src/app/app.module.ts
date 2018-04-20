@@ -144,7 +144,7 @@ import { CompanyTaskRequestsComponent } from './components/company-task-requests
 import { CompanyNewTaskManagementComponent } from './components/company-new-task-management/company-new-task-management.component';
 import { CompanyViewProjectComponent } from './components/company-view-project/company-view-project.component';
 import { UserTaskstatusGraphComponent } from './components/user-taskstatus-graph/user-taskstatus-graph.component';
-
+import {ScrollToModule} from 'ng2-scroll-to';
 const appRoutes: Routes = [
   {path: '', component: HomeComponent },
   {path:'reference', component:ReferenceComponentComponent},
@@ -363,7 +363,7 @@ export class DemoMaterialModule {}
     CompanyLeaveRequestListComponent,
     CompanyUserLeaveRequestComponent,
     UserMyRequestMytaskComponent,
-    CompanyViewProjectComponent
+    CompanyViewProjectComponent,
     UserTaskstatusGraphComponent
   ],
   imports: [
@@ -383,6 +383,7 @@ export class DemoMaterialModule {}
     NgbModule.forRoot(),
     TreeviewModule.forRoot(),
     Daterangepicker,
+    ScrollToModule.forRoot()
 
   ],
   providers: [Config,CompanyService,AdminService,SuperAdminService,SimpleTimer,UserService,TimerService ],

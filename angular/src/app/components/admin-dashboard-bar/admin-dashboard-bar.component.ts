@@ -107,7 +107,7 @@ export class AdminDashboardBarComponent implements OnInit {
               return d[1];
             });
           });
-        let margin = { top: 50, right: 15, bottom: 40, left: 50 },
+        let margin = { top: 50, right: 15, bottom: 80, left: 50 },
           fullChartWidth = 700, 
             fullChartHeight = 400,
             
@@ -203,7 +203,7 @@ export class AdminDashboardBarComponent implements OnInit {
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height  +")")
               .call(d3.axisBottom(x));
-          
+          svg.selectAll('.tick text').attr("transform","translate(10) rotate(42 -17 31)")
           svg.append("g")
           .call(d3.axisLeft(y));
           // text label for the y axis    
