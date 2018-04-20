@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import { AdminService } from './../../services/admin.service'
+import { SuperAdminService } from './../../services/super-admin.service'
 
 @Component({
   selector: 'admin-dashboard',
@@ -9,10 +9,10 @@ import { AdminService } from './../../services/admin.service'
 })
 export class AdminDashboardComponent implements OnInit {
   counts: any;
-  constructor(private adminService : AdminService) { }
+  constructor(private superAdminService : SuperAdminService) { }
 
   ngOnInit() {
-    this.adminService.getCountsforAdminDashboard().subscribe(resCounts =>{
+    this.superAdminService.getPieDataforAdminDashboard().subscribe(resCounts =>{
       // console.log(resCounts)
       this.counts = resCounts;
     });

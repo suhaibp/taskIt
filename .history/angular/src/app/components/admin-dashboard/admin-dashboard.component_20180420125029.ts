@@ -9,10 +9,10 @@ import { AdminService } from './../../services/admin.service'
 })
 export class AdminDashboardComponent implements OnInit {
   counts: any;
-  constructor(private adminService : AdminService) { }
+  constructor(private superAdminService : AdminService) { }
 
   ngOnInit() {
-    this.adminService.getCountsforAdminDashboard().subscribe(resCounts =>{
+    this.superAdminService.getPieDataforAdminDashboard().subscribe(resCounts =>{
       // console.log(resCounts)
       this.counts = resCounts;
     });

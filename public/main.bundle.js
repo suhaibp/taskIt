@@ -190,6 +190,7 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_102__pipes_project_pipe__ = __webpack_require__("../../../../../src/app/pipes/project.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_103__components_company_task_requests_company_task_requests_component__ = __webpack_require__("../../../../../src/app/components/company-task-requests/company-task-requests.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_104__components_company_new_task_management_company_new_task_management_component__ = __webpack_require__("../../../../../src/app/components/company-new-task-management/company-new-task-management.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_105__components_company_view_project_company_view_project_component__ = __webpack_require__("../../../../../src/app/components/company-view-project/company-view-project.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -303,6 +304,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var appRoutes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_51__components_home_home_component__["a" /* HomeComponent */] },
     { path: 'reference', component: __WEBPACK_IMPORTED_MODULE_16__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */] },
@@ -373,6 +375,7 @@ var appRoutes = [
     { path: 'user-projects', component: __WEBPACK_IMPORTED_MODULE_100__components_user_projects_user_projects_component__["a" /* UserProjectsComponent */] },
     { path: 'user-view-project/:id', component: __WEBPACK_IMPORTED_MODULE_101__components_user_view_project_user_view_project_component__["a" /* UserViewProjectComponent */] },
     { path: 'estimate-project/:id1/:id2', component: __WEBPACK_IMPORTED_MODULE_63__components_user_project_estimation_user_project_estimation_component__["a" /* UserProjectEstimationComponent */] },
+    { path: 'view-project/:id', component: __WEBPACK_IMPORTED_MODULE_105__components_company_view_project_company_view_project_component__["a" /* CompanyViewProjectComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
@@ -413,6 +416,7 @@ var DemoMaterialModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_88__angular_material__["H" /* MatToolbarModule */],
                 __WEBPACK_IMPORTED_MODULE_88__angular_material__["I" /* MatTooltipModule */],
             ],
+            declarations: [],
         })
     ], DemoMaterialModule);
     return DemoMaterialModule;
@@ -523,7 +527,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_49__components_user_status_graph_user_status_graph_component__["a" /* UserStatusGraphComponent */],
                 __WEBPACK_IMPORTED_MODULE_36__components_company_leave_request_list_company_leave_request_list_component__["a" /* CompanyLeaveRequestListComponent */],
                 __WEBPACK_IMPORTED_MODULE_37__components_company_user_leave_request_company_user_leave_request_component__["a" /* CompanyUserLeaveRequestComponent */],
-                __WEBPACK_IMPORTED_MODULE_45__components_user_my_request_mytask_user_my_request_mytask_component__["a" /* UserMyRequestMytaskComponent */]
+                __WEBPACK_IMPORTED_MODULE_45__components_user_my_request_mytask_user_my_request_mytask_component__["a" /* UserMyRequestMytaskComponent */],
+                __WEBPACK_IMPORTED_MODULE_105__components_company_view_project_company_view_project_component__["a" /* CompanyViewProjectComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["BrowserModule"],
@@ -1407,7 +1412,7 @@ module.exports = "<body class=\"home\" *ngIf=\"counts\">\r\n    <div class=\"con
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminDashboardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__ = __webpack_require__("../../../../../src/app/services/super-admin.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_admin_service__ = __webpack_require__("../../../../../src/app/services/admin.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1420,12 +1425,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var AdminDashboardComponent = (function () {
-    function AdminDashboardComponent(superAdminService) {
-        this.superAdminService = superAdminService;
+    function AdminDashboardComponent(adminService) {
+        this.adminService = adminService;
     }
     AdminDashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.superAdminService.getPieDataforAdminDashboard().subscribe(function (resCounts) {
+        this.adminService.getCountsforAdminDashboard().subscribe(function (resCounts) {
             // console.log(resCounts)
             _this.counts = resCounts;
         });
@@ -1436,7 +1441,7 @@ var AdminDashboardComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/admin-dashboard/admin-dashboard.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_super_admin_service__["a" /* SuperAdminService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_admin_service__["a" /* AdminService */]])
     ], AdminDashboardComponent);
     return AdminDashboardComponent;
 }());
@@ -9676,7 +9681,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-sidebar/company-sidebar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"logo\">\r\n    <a href=\"\"><img src=\"./assets/images/logo.jpg\" alt=\"\" class=\"\">\r\n   \r\n</a>\r\n</div>\r\n\r\n<nav class=\"navbar navbar-default\">\r\n\r\n<!-- Brand and toggle get grouped for better mobile display -->\r\n<div class=\"navbar-header\">\r\n  <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\r\n    <span class=\"sr-only\">Toggle navigation</span>\r\n    <span class=\"icon-bar\"></span>\r\n    <span class=\"icon-bar\"></span>\r\n    <span class=\"icon-bar\"></span>\r\n  </button>\r\n \r\n</div>\r\n\r\n<!-- Collect the nav links, forms, and other content for toggling -->\r\n<div *ngIf=\"disp\" class=\"collapse navbar-collapse navi\" id=\"bs-example-navbar-collapse-1\">\r\n    <ul class=\"zx nav navbar-nav\">\r\n        <li  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/company-dashboard\"><i class=\"fa fa-desktop\" aria-hidden=\"true\"></i><span class=\"\">Dashboard</span></a></li>\r\n        <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/company-team\"><i class=\"fa fa-users fa-2x text-purple\"></i> Team</a></li>\r\n        <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/company-users\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><span class=\"\">Users</span></a></li>\r\n          <li class=\"dropdown\" ><a  class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i><span class=\"\">Master Settings</span></a>\r\n            \r\n              <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n                <li *ngIf=\"(role == 3 && exist(3)) || role == 1\"><a  routerLink=\"/company-project-category\">Project Category</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(4)) || role == 1\"><a routerLink=\"/company-access-rights\">Access Rights</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(5)) || role == 1\"><a routerLink=\"/company-working-time\">Office Time</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(1)) || role == 1\"><a routerLink=\"/company-manage-holyday\">Public Holiday</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(2)) || role == 1\"><a routerLink=\"/company-employee-leaves\">Employee Leaves</a></li>\r\n                \r\n              </ul>\r\n            \r\n          </li>\r\n\r\n          <li  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a routerLink=\"/project\"><i class=\"fa fa-file-text\" aria-hidden=\"true\"></i><span class=\"\">Projects</span></a></li>\r\n\r\n          <li *ngIf=\"(role == 3 && exist(7)) || role == 1\" class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user-plus\" aria-hidden=\"true\"></i><span class=\"\">Request Management</span></a>\r\n            \r\n              <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n                <li><a  routerLink=\"/company-task-requests\">New Task Requests</a></li>\r\n                <li><a routerLink=\"/company-request-management\">Time Extension Requests</a></li>\r\n                <li><a routerLink=\"/company-leave-request-list\">Leave Requests</a></li>\r\n              </ul>\r\n            \r\n          </li>\r\n       \r\n          <!-- <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a routerLink=\"/company-request-management\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><span class=\"\">Request Management</span></a></li> \r\n           -->\r\n              \r\n            <li class=\"dropdown\"><a  class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-leanpub\" aria-hidden=\"true\"></i><span class=\"\">Reports</span></a>\r\n            \r\n              <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n                <li *ngIf=\"(role == 3 && exist(9)) || role == 1\"><a  routerLink=\"\">Estimation Report</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(10)) || role == 1\"><a routerLink=\"\">Project Report</a></li>\r\n                <li><a routerLink=\"/company-activity-log\">Activity Log</a></li>\r\n               \r\n              </ul>\r\n            \r\n          </li>     \r\n    </ul>\r\n \r\n \r\n</div><!-- /.navbar-collapse -->\r\n\r\n</nav>"
+module.exports = "<div class=\"logo\">\r\n    <a href=\"\"><img src=\"./assets/images/logo.jpg\" alt=\"\" class=\"\">\r\n   \r\n</a>\r\n</div>\r\n\r\n<nav class=\"navbar navbar-default\">\r\n\r\n<!-- Brand and toggle get grouped for better mobile display -->\r\n<div class=\"navbar-header\">\r\n  <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\r\n    <span class=\"sr-only\">Toggle navigation</span>\r\n    <span class=\"icon-bar\"></span>\r\n    <span class=\"icon-bar\"></span>\r\n    <span class=\"icon-bar\"></span>\r\n  </button>\r\n \r\n</div>\r\n\r\n<!-- Collect the nav links, forms, and other content for toggling -->\r\n<div *ngIf=\"disp\" class=\"collapse navbar-collapse navi\" id=\"bs-example-navbar-collapse-1\">\r\n    <ul class=\"zx nav navbar-nav\">\r\n        <li  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/company-dashboard\"><i class=\"fa fa-desktop\" aria-hidden=\"true\"></i><span class=\"\">Dashboard</span></a></li>\r\n        <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/company-team\"><i class=\"fa fa-users fa-2x text-purple\"></i> Team</a></li>\r\n        <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/company-users\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><span class=\"\">Users</span></a></li>\r\n          <li *ngIf=\"exist2(1,2,3,4,5)\" class=\"dropdown\" ><a  class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i><span class=\"\">Master Settings</span></a>\r\n            \r\n              <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n                <li *ngIf=\"(role == 3 && exist(3)) || role == 1\"><a  routerLink=\"/company-project-category\">Project Category</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(4)) || role == 1\"><a routerLink=\"/company-access-rights\">Access Rights</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(5)) || role == 1\"><a routerLink=\"/company-working-time\">Office Time</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(1)) || role == 1\"><a routerLink=\"/company-manage-holyday\">Public Holiday</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(2)) || role == 1\"><a routerLink=\"/company-employee-leaves\">Employee Leaves</a></li>\r\n                \r\n              </ul>\r\n            \r\n          </li>\r\n\r\n          <li  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a routerLink=\"/project\"><i class=\"fa fa-file-text\" aria-hidden=\"true\"></i><span class=\"\">Projects</span></a></li>\r\n\r\n          <li *ngIf=\"(role == 3 && exist(7)) || role == 1\" class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user-plus\" aria-hidden=\"true\"></i><span class=\"\">Request Management</span></a>\r\n            \r\n              <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n                <li><a  routerLink=\"/company-task-requests\">New Task Requests</a></li>\r\n                <li><a routerLink=\"/company-request-management\">Time Extension Requests</a></li>\r\n                <li><a routerLink=\"/company-leave-request-list\">Leave Requests</a></li>\r\n              </ul>\r\n            \r\n          </li>\r\n       \r\n          <!-- <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a routerLink=\"/company-request-management\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><span class=\"\">Request Management</span></a></li> \r\n           -->\r\n              \r\n            <li class=\"dropdown\"><a  class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-leanpub\" aria-hidden=\"true\"></i><span class=\"\">Reports</span></a>\r\n            \r\n              <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n                <li *ngIf=\"(role == 3 && exist(9)) || role == 1\"><a  routerLink=\"\">Estimation Report</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(10)) || role == 1\"><a routerLink=\"\">Project Report</a></li>\r\n                <li><a routerLink=\"/company-activity-log\">Activity Log</a></li>\r\n               \r\n              </ul>\r\n            \r\n          </li>     \r\n    </ul>\r\n \r\n \r\n</div><!-- /.navbar-collapse -->\r\n\r\n</nav>"
 
 /***/ }),
 
@@ -9814,6 +9819,9 @@ var CompanySidebarComponent = (function () {
     CompanySidebarComponent.prototype.exist2 = function (a, b, c, d, e) {
         var _this = this;
         var arr = [a, b, c, d, e];
+        console.log("gsg");
+        console.log(arr);
+        console.log("gsg");
         var trust = false;
         arr.forEach(function (ele) {
             _this.rights.forEach(function (element) {
@@ -9822,6 +9830,7 @@ var CompanySidebarComponent = (function () {
                 }
             });
         });
+        console.log(trust);
         return trust;
     };
     CompanySidebarComponent = __decorate([
@@ -12156,6 +12165,108 @@ var CompanyUsersComponent = (function () {
             __WEBPACK_IMPORTED_MODULE_4__angular_router__["Router"], __WEBPACK_IMPORTED_MODULE_1__angular_material__["z" /* MatSnackBar */]])
     ], CompanyUsersComponent);
     return CompanyUsersComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-view-project/company-view-project.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-view-project/company-view-project.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<body class=\"home\">\n    <div class=\"container-fluid display-table\">\n      <div class=\"row display-table-row\">\n  \n        <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\n          <!-- sidebar-->\n  \n          <user-sidebar></user-sidebar>\n          <!-- end sidebar-->\n        </div>\n  \n        <div class=\"col-md-12 col-xs-12\">\n          <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n          <!-- topbar-->\n          <user-topbar></user-topbar>\n          <!-- end topbar-->\n  \n  \n          <div class=\"user-dashboard\">\n            <!-- <h1>Hello, JS</h1> -->\n            <div class=\"row\">\n                <ul class=\"breadcrumb text-left\">\n                    <li><a routerLink=\"/user-projects\">Projects</a></li>\n                    \n                    \n                    <li>Project Details</li>\n                  </ul>\n              <div class=\"col-md-12 col-sm-12 col-xs-12 gutter \">\n                <div class=\"white\">\n  \n                  <div class=\"col-md-6\" *ngIf=\"showData\">\n                    \n                    <div class=\"col-md-12\">\n                        <label for=\"\" class=\"pro-lbl\">Project Name</label>\n                        <p for=\"\" class=\"inln\">{{project[0].project_name}}</p>\n                    </div>\n                    <div class=\"col-md-12\">\n                        <label for=\"\" class=\"pro-lbl\">Project Code</label>\n                        <p for=\"\" class=\"inln\">{{project[0].project_code}}</p>\n                    </div>\n                    <!-- <div class=\"col-md-12\">\n                        <label for=\"\">Team Leader</label>\n                        <p for=\"\">{{project[0].project_name}}</p>\n                    </div> -->\n                    <div class=\"col-md-12\">\n                        <label for=\"\" class=\"pro-lbl\">Team Members</label>\n                        <p for=\"\" class=\"inln\">{{project[0]?.project_name}}</p>\n                    </div>\n                    <div class=\"col-md-12\">\n                        <label for=\"\" class=\"pro-lbl\">Start Date</label>\n                        <p for=\"\" class=\"inln\">{{project[0]?.planned_start_date| date:'EEE, d MMM,y'}}</p>\n                    </div>\n                    <div class=\"col-md-12\">\n                        <label for=\"\" class=\"pro-lbl\">End Date</label>\n                        <p for=\"\" class=\"inln\">{{project[0]?.planned_end_date| date:'EEE, d MMM,y'}}</p>\n                    </div>\n                    <div class=\"col-md-12\">\n                        <label for=\"\" class=\"pro-lbl\">Status</label>\n                        <p for=\"\" class=\"inln\">{{project[0]?.status}}</p>\n                    </div>\n\n\n\n\n\n                  <div class=\"col-md-12 col-xs-12 pull-right\">\n                    <ng-container  *ngFor=\"let item of project[0].tbl_project_modules; let i=index\">\n                        <div class=\"module\">\n                            <div class=\"col-md-9 col-xs-7\">\n                              <h5>{{item.module_name}}</h5>\n                            </div>\n                            <div class=\"col-md-3 col-xs-5\">\n                              <ul class=\"taskedit\" >\n                                <li>{{item.total_hour}}Hrs</li>\n                                \n                              </ul>\n                            </div>\n                          </div>\n                          <ng-container *ngFor=\"let i of item.tbl_project_tasks\">\n                              <div class=\"col-md-10 pull-right\">\n                                <div class=\"row\">\n                                    <div class=\"task\" >\n                                        <div class=\"col-md-9 col-xs-7\">\n                                          <h5>{{i.task_name}}</h5>\n                                        </div>\n                                        <div class=\"col-md-3 col-xs-5\">\n                                          <ul class=\"taskedit2\">\n                                            <li>{{i.planned_hour+i.buffer_hour}}Hrs</li>\n                                            \n                                          </ul>\n                                        </div>\n                                      </div>\n                                </div>\n                                  \n                                </div>\n                          </ng-container>\n                          \n                          \n                    </ng-container>\n                      \n                    </div>\n                  </div>\n                  \n\n\n\n\n\n\n\n\n\n                  <div class=\"text-center\">\n                    <app-spinner *ngIf=\"spinner\"></app-spinner>\n  \n                  </div>\n                  \n                </div>\n                <!--white-->\n              </div>\n  \n  \n  \n            </div>\n  \n  \n          </div>\n          <!-- footer-->\n          <!-- <admin-footer></admin-footer> -->\n          <!-- end footer-->\n        </div>\n      </div>\n    </div>\n    <!-- Modal -->\n  \n  \n  \n  \n    <!--delete modal------>\n  </body>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/company-view-project/company-view-project.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CompanyViewProjectComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var CompanyViewProjectComponent = (function () {
+    function CompanyViewProjectComponent(companyService, routes, snackBar, _activatedRoute) {
+        this.companyService = companyService;
+        this.routes = routes;
+        this.snackBar = snackBar;
+        this._activatedRoute = _activatedRoute;
+        this.spinner = false;
+        this.showData = false;
+        this.xShow = false;
+    }
+    CompanyViewProjectComponent.prototype.ngOnInit = function () {
+        this.getProjectDetails();
+    };
+    //  ---------------------------------Start-------------------------------------------
+    // Function      : getTeams
+    // Params        : 
+    // Returns       : 
+    // Author        : Manu Prasad
+    // Date          : 15-03-2018
+    // Last Modified : 15-03-2018, Manu Prasad 
+    // Desc          : Get Teams from database
+    CompanyViewProjectComponent.prototype.getProjectDetails = function () {
+        var _this = this;
+        this.spinner = true;
+        this._activatedRoute.params.subscribe(function (params) {
+            _this.projectId = params['id'];
+        });
+        console.log(this.projectId);
+        this.companyService.getProjectDetails(this.projectId).subscribe(function (resProjects) {
+            _this.project = resProjects;
+            if (resProjects.length > 0) {
+                _this.showData = true;
+                _this.spinner = false;
+            }
+            console.log(resProjects);
+        });
+    };
+    CompanyViewProjectComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-company-view-project',
+            template: __webpack_require__("../../../../../src/app/components/company-view-project/company-view-project.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/company-view-project/company-view-project.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_company_service__["a" /* CompanyService */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_router__["Router"],
+            __WEBPACK_IMPORTED_MODULE_1__angular_material__["z" /* MatSnackBar */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_router__["ActivatedRoute"]])
+    ], CompanyViewProjectComponent);
+    return CompanyViewProjectComponent;
 }());
 
 

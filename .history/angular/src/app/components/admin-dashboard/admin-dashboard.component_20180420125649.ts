@@ -12,7 +12,7 @@ export class AdminDashboardComponent implements OnInit {
   constructor(private adminService : AdminService) { }
 
   ngOnInit() {
-    this.adminService.getCountsforAdminDashboard().subscribe(resCounts =>{
+    this.adminService.getPieDataforAdminDashboard().subscribe(resCounts =>{
       // console.log(resCounts)
       this.counts = resCounts;
     });

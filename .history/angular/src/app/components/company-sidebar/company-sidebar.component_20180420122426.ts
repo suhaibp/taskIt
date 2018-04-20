@@ -120,10 +120,6 @@ export class CompanySidebarComponent implements OnInit {
   }
   exist2(a,b,c,d,e){
     let arr = [a,b,c,d,e]
-    console.log("gsg")
-    console.log(arr);
-    console.log("gsg")
-    
     let trust = false;
     arr.forEach(ele=>{
       this.rights.forEach(element => {

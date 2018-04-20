@@ -142,7 +142,6 @@ import { UserViewProjectComponent } from './components/user-view-project/user-vi
 import { ProjectPipe } from './pipes/project.pipe';
 import { CompanyTaskRequestsComponent } from './components/company-task-requests/company-task-requests.component';
 import { CompanyNewTaskManagementComponent } from './components/company-new-task-management/company-new-task-management.component';
-import { CompanyViewProjectComponent } from './components/company-view-project/company-view-project.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent },
@@ -214,7 +213,6 @@ const appRoutes: Routes = [
   {path:'user-projects', component:UserProjectsComponent},
   {path:'user-view-project/:id', component:UserViewProjectComponent},
   {path:'estimate-project/:id1/:id2', component:UserProjectEstimationComponent},
-  {path:'view-project/:id', component:CompanyViewProjectComponent},
   // {path:'admin-sidebar', component:AdminSidebarComponent},
   // {path:'admin-topbar', component:AdminTopbarComponent},
   // {path:'admin-footer', component:AdminFooterComponent},
@@ -360,8 +358,7 @@ export class DemoMaterialModule {}
     UserStatusGraphComponent,
     CompanyLeaveRequestListComponent,
     CompanyUserLeaveRequestComponent,
-    UserMyRequestMytaskComponent,
-    CompanyViewProjectComponent
+    UserMyRequestMytaskComponent
   ],
   imports: [
   BrowserModule,
