@@ -9568,10 +9568,10 @@ var returnRouter = function (io) {
             // var cmp_id = 1;
             var role_id = decoded.role_id;
             AccessRightsAssoc.findAll({
-                // where:{
-                //     role_id: role_id,
-                //     // cmp_id: cmp_id
-                // }
+                where:{
+                    role_id: role_id,
+                    cmp_id: cmp_id
+                }
             }).then(resRights => {
                 res.json(resRights)
             })

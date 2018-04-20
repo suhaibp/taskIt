@@ -5,22 +5,29 @@ declare var $:any;
   selector: 'user-status-graph',
   templateUrl: './user-status-graph.component.html',
   styleUrls: ['./user-status-graph.component.css'],
-  inputs: ['containerId']
+  inputs: ['containerId','New','Progress','Completed','Hold']
 })
 export class UserStatusGraphComponent implements OnInit {
 
   containerId = '';
+  New='';
+  Progress:'';
+  Completed:'';
+  Hold:'';
+
   constructor() { }
 
-  ngOnInit() {
-    //console.log(this.containerId);
+  // ngOnInit() {
+    ngOnInit() {}
+    ngAfterViewInit() {
+    // console.log(this.containerId);
     const pieData = [
-      {name: 'New - Yet to Start', value: 3, color: '#2778a7'},
-      {name: 'In Progress', value: 4, color: '#99b745'},
-      {name: 'Completed', value: 50, color: '#17a88f'},
-      {name: 'On Hold', value: 50, color: '#f2ac37'},
-      {name: 'Cancelled', value: 3, color: '#b74549'},
-      {name: 'Un Planned', value: 1, color: '#4d5d6e'},
+      {name: 'New - Yet to Start', value: this.New, color: '#2778a7'},
+      {name: 'In Progress', value: this.Progress, color: '#99b745'},
+      {name: 'Completed', value: this.Completed, color: '#17a88f'},
+      {name: 'On Hold', value: this.Hold, color: '#f2ac37'},
+      // {name: 'Cancelled', value: 3, color: '#b74549'},
+      // {name: 'Un Planned', value: 1, color: '#4d5d6e'},
     ];
     this.bakeDonut(pieData);
   }

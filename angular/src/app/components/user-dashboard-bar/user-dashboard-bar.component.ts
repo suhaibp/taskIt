@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import { Config } from './../../config/config';
 import * as socketIo from 'socket.io-client';
 declare var d3: any;
-declare var $:any;
+// declare var $:any;
 
 @Component({
   selector: 'user-dashboard-bar',

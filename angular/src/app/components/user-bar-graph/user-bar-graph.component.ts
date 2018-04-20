@@ -14,8 +14,10 @@ export class UserBarGraphComponent implements OnInit {
   planning = '';
   constructor() { }
 
-  ngOnInit() {
-    
+  // ngOnInit() {
+    ngOnInit() {}
+    ngAfterViewInit() {
+  
     const offenseNames = [
       "Hours",
      
@@ -23,9 +25,9 @@ export class UserBarGraphComponent implements OnInit {
     const years = ["Planned", "Actual"];
     const offensesByYear = [
       {
-        "Hours": 1000,
+        "Hours": this.actual,
        },
-      { "Hours": 2010,
+      { "Hours": this.planning,
       },
     ];
     
@@ -112,13 +114,20 @@ export class UserBarGraphComponent implements OnInit {
         return '#7fc97f';
       });
     
-    
+      var tooltip = d3.select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .style("background", "#96A7B9")
+      .text("a simple tooltip");
+
     let rect = layer
       .selectAll(".bar")
       .data(function(d) {
         return d;
       })
-      .enter()
+       .enter()
       .append("rect")
       // .attr("class", d => generateClassStr(d.offenseName) + " bar")
       .attr("x", function(d) {
@@ -127,11 +136,10 @@ export class UserBarGraphComponent implements OnInit {
       .attr("y", height)
       .attr("width", x.bandwidth() )
       .attr("height", 0)
-      .on("mouseover", d => {
-        d3.select(this)
-          // .filter(dd => dd.class != d.class)
-          .style("opacity", 0.6)
-      });
+      .on("mouseover", function(d){
+        tooltip.text("Total "+ d.year+ " Hour: "+d.data.Hours +" Hr"); return tooltip.style("visibility", "visible");})
+      .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
     
     rect
       .transition()
