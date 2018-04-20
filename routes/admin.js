@@ -1102,9 +1102,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified   : 01-03-2018, Rinsha
   // Desc          : Admin login
   router.post('/login', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   decoded = jwt.verify(authorization, Config.secret);
       if (config.use_env_variable) {
         var sequelize = new Sequelize(process.env[config.use_env_variable]);
       } else {
@@ -1157,9 +1157,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
           }
         });
       }
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // -----------------------------------End-----------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1171,9 +1171,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 05-03-2018, Rinsha
   // Desc          : getAllplans 
   router.get('/allplans', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   decoded = jwt.verify(authorization, Config.secret);
       if (config.use_env_variable) {
         var sequelize = new Sequelize(process.env[config.use_env_variable]);
       } else {
@@ -1188,9 +1188,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
         // console.log(plans);
         res.json(plans);
       });
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // -----------------------------------End-----------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1202,9 +1202,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 06-03-2018, Rinsha
   // Desc          : getAllplans without default
   router.get('/allPlansWithoutDefault', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   decoded = jwt.verify(authorization, Config.secret);
       if (config.use_env_variable) {
         var sequelize = new Sequelize(process.env[config.use_env_variable]);
       } else {
@@ -1220,9 +1220,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
       }).then(plans => {
         res.json(plans);
       });
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // -----------------------------------End-----------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1641,6 +1641,27 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   }
   });
   // -----------------------------------End------------------------------------------
+
+  // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 20-04-2018
+    // Last Modified : 20-04-2018, Rinsha
+    // Desc          :   
+    router.get('/getLoggedinUser', (req, res, next) => {
+      if (req.headers && req.headers.authorization) {
+          var authorization = req.headers.authorization.substring(4),
+              decoded;
+          decoded = jwt.verify(authorization, Config.secret);
+          res.json(decoded);
+          // // console.log(decoded);
+      } else {
+          return res.status(401).send('Invalid User');
+      }
+  });
+  // ----------------------------------End-------------------------------------------
   module.exports = router;
   return router;
 }

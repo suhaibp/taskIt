@@ -435,7 +435,7 @@ export class AdminService {
   // Desc          : getAllplans
 
   getAllplans() {
-    let headers = this.setHeaderWithAuthorization();
+    let headers = this.setHeader();
     return this.http.get(this.serviceUrl + 'allplans', { headers: headers })
       .map(res => res.json());
 
@@ -452,7 +452,7 @@ export class AdminService {
   // Desc          : getAllplans without default
 
   getPlansWithoutDefault() {
-    let headers = this.setHeaderWithAuthorization();
+    let headers = this.setHeader();
     return this.http.get(this.serviceUrl + 'allPlansWithoutDefault', { headers: headers })
       .map(res => res.json());
 
@@ -608,5 +608,19 @@ export class AdminService {
   }
   // -----------------------------------End------------------------------------------
 
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Get logged in entity
+  // Params        : 
+  // Returns       : Get logged in entity
+  // Author        : Rinsha
+  // Date          : 20-04-2018
+  // Last Modified : 20-04-2018, Rinsha
+  // Desc          :  
+  getLoggedinEntity() {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'getLoggedinUser', { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
 }
 
