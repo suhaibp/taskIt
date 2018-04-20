@@ -190,6 +190,7 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_102__pipes_project_pipe__ = __webpack_require__("../../../../../src/app/pipes/project.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_103__components_company_task_requests_company_task_requests_component__ = __webpack_require__("../../../../../src/app/components/company-task-requests/company-task-requests.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_104__components_company_new_task_management_company_new_task_management_component__ = __webpack_require__("../../../../../src/app/components/company-new-task-management/company-new-task-management.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_105__components_user_taskstatus_graph_user_taskstatus_graph_component__ = __webpack_require__("../../../../../src/app/components/user-taskstatus-graph/user-taskstatus-graph.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -303,6 +304,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var appRoutes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_51__components_home_home_component__["a" /* HomeComponent */] },
     { path: 'reference', component: __WEBPACK_IMPORTED_MODULE_16__components_reference_component_reference_component_component__["a" /* ReferenceComponentComponent */] },
@@ -373,6 +375,7 @@ var appRoutes = [
     { path: 'user-projects', component: __WEBPACK_IMPORTED_MODULE_100__components_user_projects_user_projects_component__["a" /* UserProjectsComponent */] },
     { path: 'user-view-project/:id', component: __WEBPACK_IMPORTED_MODULE_101__components_user_view_project_user_view_project_component__["a" /* UserViewProjectComponent */] },
     { path: 'estimate-project/:id1/:id2', component: __WEBPACK_IMPORTED_MODULE_63__components_user_project_estimation_user_project_estimation_component__["a" /* UserProjectEstimationComponent */] },
+    { path: 'user-taskstatus-graph', component: __WEBPACK_IMPORTED_MODULE_105__components_user_taskstatus_graph_user_taskstatus_graph_component__["a" /* UserTaskstatusGraphComponent */] },
 ];
 var DemoMaterialModule = (function () {
     function DemoMaterialModule() {
@@ -523,7 +526,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_49__components_user_status_graph_user_status_graph_component__["a" /* UserStatusGraphComponent */],
                 __WEBPACK_IMPORTED_MODULE_36__components_company_leave_request_list_company_leave_request_list_component__["a" /* CompanyLeaveRequestListComponent */],
                 __WEBPACK_IMPORTED_MODULE_37__components_company_user_leave_request_company_user_leave_request_component__["a" /* CompanyUserLeaveRequestComponent */],
-                __WEBPACK_IMPORTED_MODULE_45__components_user_my_request_mytask_user_my_request_mytask_component__["a" /* UserMyRequestMytaskComponent */]
+                __WEBPACK_IMPORTED_MODULE_45__components_user_my_request_mytask_user_my_request_mytask_component__["a" /* UserMyRequestMytaskComponent */],
+                __WEBPACK_IMPORTED_MODULE_105__components_user_taskstatus_graph_user_taskstatus_graph_component__["a" /* UserTaskstatusGraphComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["BrowserModule"],
@@ -13569,17 +13573,18 @@ var UserBarGraphComponent = (function () {
         this.actual = '';
         this.planning = '';
     }
-    UserBarGraphComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    // ngOnInit() {
+    UserBarGraphComponent.prototype.ngOnInit = function () { };
+    UserBarGraphComponent.prototype.ngAfterViewInit = function () {
         var offenseNames = [
             "Hours",
         ];
         var years = ["Planned", "Actual"];
         var offensesByYear = [
             {
-                "Hours": 1000,
+                "Hours": this.actual,
             },
-            { "Hours": 2010,
+            { "Hours": this.planning,
             },
         ];
         var generateClassStr = function (str) {
@@ -13650,6 +13655,13 @@ var UserBarGraphComponent = (function () {
             //  // alert(i);
             return '#7fc97f';
         });
+        var tooltip = d3.select("body")
+            .append("div")
+            .style("position", "absolute")
+            .style("z-index", "10")
+            .style("visibility", "hidden")
+            .style("background", "#96A7B9")
+            .text("a simple tooltip");
         var rect = layer
             .selectAll(".bar")
             .data(function (d) {
@@ -13664,9 +13676,11 @@ var UserBarGraphComponent = (function () {
             .attr("width", x.bandwidth())
             .attr("height", 0)
             .on("mouseover", function (d) {
-            d3.select(_this)
-                .style("opacity", 0.6);
-        });
+            tooltip.text("Total " + d.year + " Hour: " + d.data.Hours + " Hr");
+            return tooltip.style("visibility", "visible");
+        })
+            .on("mousemove", function () { return tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px"); })
+            .on("mouseout", function () { return tooltip.style("visibility", "hidden"); });
         rect
             .transition()
             .delay(function (d, i) {
@@ -13707,7 +13721,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "\r\n\r\n.bar {\r\n    fill: #FE6896;\r\n  }\r\n  \r\n  .bar:hover {\r\n    fill: #FE4980;\r\n  }\r\n  \r\n  .axis-title {\r\n    fill: none;\r\n    stroke: rgb(30, 18, 190);\r\n    stroke-width: 0.5px;\r\n  }\r\n  .no-g-data{\r\n    text-align: center;\r\n    /* min-height: 550px;\r\n    padding: 72px 0 55px 0; */\r\n  }\r\n  .no-g-data h4{\r\n    font-size: 30px;\r\n    font-weight: 800;\r\n    color: #4F657D\r\n  }\r\n  .no-g-data img{\r\n  \r\n    width: 62px;\r\n    margin: 100px 0 0 0;\r\n  }\r\n  .bg-g{background:#17a88f;color:#fff; padding: 10px;margin-bottom:10px;}\r\n  .bg-hash{background:#E9E9E9;padding: 10px;margin-bottom:10px;}\r\n  .bg-hash select{background:none;border:none;width:100%;}\r\n  h1{text-align:center;}\r\n  .sales{margin-bottom: 25px;}\r\n    .legend-text {\r\n      fill: #fff;\r\n    }", ""]);
+exports.push([module.i, "\r\n\r\n.bar {\r\n  fill: #FE6896;\r\n}\r\n\r\n.bar:hover {\r\n  fill: #FE4980;\r\n}\r\n\r\n.axis-title {\r\n  fill: none;\r\n  stroke: rgb(30, 18, 190);\r\n  stroke-width: 0.5px;\r\n}\r\n.no-g-data{\r\n  text-align: center;\r\n  /* min-height: 550px;\r\n  padding: 72px 0 55px 0; */\r\n}\r\n.no-g-data h4{\r\n  font-size: 30px;\r\n  font-weight: 800;\r\n  color: #4F657D\r\n}\r\n.no-g-data img{\r\n\r\n  width: 62px;\r\n  margin: 100px 0 0 0;\r\n}\r\n.bg-g{background:#17a88f;color:#fff; padding: 10px;margin-bottom:10px;}\r\n.bg-hash{background:#E9E9E9;padding: 10px;margin-bottom:10px;}\r\n.bg-hash select{background:none;border:none;width:100%;}\r\nh1{text-align:center;}\r\n.sales{margin-bottom: 25px;}\r\n  .legend-text {\r\n    fill: #fff;\r\n  }", ""]);
 
 // exports
 
@@ -13720,7 +13734,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user-dashboard-bar/user-dashboard-bar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <h2>{{title}}</h2> -->\r\n\r\n        <!-- <span>Project:</span>\r\n   <mat-form-field class=\"filter\"> \r\n        \r\n          <mat-select  (change)=\"refresh()\" [(value)]=\"selected\"> \r\n         \r\n            <mat-option value=\"Select Project\">*Select Project</mat-option>\r\n            <mat-option value=\"Active\">Active</mat-option>\r\n            <mat-option value=\"Block\">Block</mat-option>\r\n            <mat-option value=\"Delete\">Delete </mat-option>\r\n\r\n          </mat-select>\r\n        </mat-form-field> -->\r\n        <h1>Task Vs Status</h1>\r\n         <div class=\"col-md-4 bg-g\">*Select Person</div>\r\n          <div class=\"col-md-4 bg-hash\">\r\n            <select>\r\n                <option value=\"\">sd</option>\r\n                <!-- <option *ngFor=\"let usr of users\" value=\"{{usr.id}}\">{{usr.f_name}} {{usr.l_name}}</option> -->\r\n            </select>\r\n          </div> \r\n\r\n<div   class=\"no-g-data\">\r\n    <!-- <svg  width=\"960\" height=\"500\"></svg> -->\r\n    <div id=\"bchart\"></div> \r\n\r\n</div>\r\n    \r\n<ng-template #empty>\r\n    <div class=\"col-md-12 no-g-data\">\r\n        <img src=\"assets/images/sad.png\" alt=\"sad\">\r\n        <h4>No Data Available!</h4>\r\n    </div>\r\n</ng-template>"
+module.exports = "<!-- <h2>{{title}}</h2> -->\r\n\r\n        <!-- <span>Project:</span>\r\n   <mat-form-field class=\"filter\"> \r\n        \r\n          <mat-select  (change)=\"refresh()\" [(value)]=\"selected\"> \r\n         \r\n            <mat-option value=\"Select Project\">*Select Project</mat-option>\r\n            <mat-option value=\"Active\">Active</mat-option>\r\n            <mat-option value=\"Block\">Block</mat-option>\r\n            <mat-option value=\"Delete\">Delete </mat-option>\r\n\r\n          </mat-select>\r\n        </mat-form-field> -->\r\n        <h1>Task Vs Status</h1>\r\n        <div class=\"col-md-4 bg-g\">*Select Person</div>\r\n         <div class=\"col-md-4 bg-hash\">\r\n           <select>\r\n               <option value=\"\">sd</option>\r\n               <!-- <option *ngFor=\"let usr of users\" value=\"{{usr.id}}\">{{usr.f_name}} {{usr.l_name}}</option> -->\r\n           </select>\r\n         </div> \r\n\r\n<div   class=\"no-g-data\">\r\n   <!-- <svg  width=\"960\" height=\"500\"></svg> -->\r\n   <div id=\"bchart\"></div> \r\n\r\n</div>\r\n   \r\n<ng-template #empty>\r\n   <div class=\"col-md-12 no-g-data\">\r\n       <img src=\"assets/images/sad.png\" alt=\"sad\">\r\n       <h4>No Data Available!</h4>\r\n   </div>\r\n</ng-template>"
 
 /***/ }),
 
@@ -13749,6 +13763,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+// declare var $:any;
 var UserDashboardBarComponent = (function () {
     function UserDashboardBarComponent(adminService, routes, config) {
         this.adminService = adminService;
@@ -14045,7 +14060,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user-dashboard/user-dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <user-sidebar></user-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <user-topbar></user-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                \r\n                \r\n                <div class=\"user-dashboard\">\r\n                    <h1></h1>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-5 col-sm-5 col-xs-12 gutter\">\r\n\r\n                            <div class=\"sales\">\r\n                         \r\n                                    <user-dashboard-bar></user-dashboard-bar> \r\n                        \r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-7  col-xs-12 gutter\">\r\n\r\n                            <div class=\"sales\">\r\n                         \r\n                                <user-task-vs-status></user-task-vs-status>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                    <!-- <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                \r\n                            <user-task-vs-status></user-task-vs-status>\r\n                            </div>\r\n                    </div> -->\r\n\r\n                    <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                <h1>Percentage of Projects</h1>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-8 col-md-push-1\">\r\n                                        <div class=\"col-md-3 bg-g\">*Select Project</div>\r\n                                        <div class=\"col-md-3 bg-hash\">\r\n                                        <select>\r\n                                            <option>Taskit</option>\r\n                                            <option>Survey</option>\r\n                                        </select>\r\n                                        </div> \r\n                                        <div class=\"col-md-3\">\r\n                                            <span class=\"total\">Total 7 Milestone</span>\r\n                                        </div>\r\n                                    </div> \r\n                                </div>\r\n                                <ul class=\"graph-ul\">\r\n                                    <li >\r\n                                        <div class=\"divModule\" >Module-1</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-1-progress\"></div>\r\n                                            <user-progress-graph [containerId]=\"'module-1-progress'\" [progper]=\"92\"></user-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">10</div>\r\n                                            </div>\r\n                                            <div id=\"module-1-status\"></div>\r\n                                            <user-status-graph [containerId]=\"'module-1-status'\"></user-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    <li >\r\n                                        <div class=\"divModule\">Module-2</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-2-progress\"></div>\r\n                                            <user-progress-graph [containerId]=\"'module-2-progress'\" [progper]=\"60\"></user-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">7</div>\r\n                                            </div>\r\n                                            <div id=\"module-2-status\"></div>\r\n                                            <user-status-graph [containerId]=\"'module-2-status'\"></user-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    <li >\r\n                                        <div class=\"divModule\" >Module-3</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-3-progress\"></div>\r\n                                            <user-progress-graph [containerId]=\"'module-3-progress'\" [progper]=\"55\"></user-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">9</div>\r\n                                            </div>\r\n                                            <div id=\"module-3-status\"></div>\r\n                                            <user-status-graph [containerId]=\"'module-3-status'\"></user-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    <li >\r\n                                        <div class=\"divModule\" >Module-4</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-4-progress\"></div>\r\n                                            <user-progress-graph [containerId]=\"'module-4-progress'\" [progper]=\"55\"></user-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">9</div>\r\n                                            </div>\r\n                                            <div id=\"module-4-status\"></div>\r\n                                            <user-status-graph [containerId]=\"'module-4-status'\"></user-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                   \r\n                                   \r\n                                   \r\n                                </ul>\r\n                            </div>\r\n                           \r\n                        </div>   \r\n\r\n\r\n                    <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                    <h1>Project Vs Status</h1>\r\n\r\n                                    <ul class=\"graph-ul-hour\">\r\n                                            <li>\r\n                                                <div class=\"firstRow firstColumn\">PROJECTS</div>\r\n                                                <div class=\"secondRow firstColumn\">Progress</div>\r\n                                                <div class=\"ThirdRow firstColumn\">Planned <br>vs<br> Actual Hours</div>\r\n                                            </li>\r\n                                            <li >\r\n                                                <div class=\"prjtitle1\">Taskit</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                <div class=\"datelabel\">Start <span class=\"pull-right\">24-03-2018</span></div>\r\n                                                <div class=\"datelabel\">End <span class=\"pull-right\">29-03-2018</span></div>\r\n                                                </div>\r\n                                                <div class=\"clearfix\"></div>\r\n                                                <!-- <div style=\"clear: both;\"></div> -->\r\n                                                <hr>\r\n                                                <div id=\"projct-1-progress\"></div>\r\n                                                <user-progress-graph [containerId]=\"'projct-1-progress'\" [progper]=\"55\"></user-progress-graph>\r\n                                                <label>0/36 In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-1-bar\"></div>\r\n                                                <user-bar-graph [containerId]=\"'projct-1-bar'\" [actual]=\"5\" [planning]=\"8\"></user-bar-graph>\r\n                                            </li>\r\n                                            <li class=\"hash\">\r\n                                                <div class=\"prjtitle2 bg-g\">Taskit</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                        <div class=\"datelabel\">Start <span class=\"pull-right\">24-03-2018</span></div>\r\n                                                        <div class=\"datelabel\">End <span class=\"pull-right\">29-03-2018</span></div>\r\n                                                 </div>\r\n                                                 <div class=\"clearfix\"></div>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-progress\"></div>\r\n                                                <user-progress-graph [containerId]=\"'projct-2-progress'\" [progper]=\"45\"></user-progress-graph>\r\n                                                <label>2/23 In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-bar\"></div>\r\n                                                <user-bar-graph [containerId]=\"'projct-2-bar'\" [actual]=\"10\" [planning]=\"4\"></user-bar-graph>\r\n                                            </li>\r\n                                    </ul>       \r\n                            </div>\r\n            </div>   \r\n            \r\n            \r\n \r\n                        \r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n                <!-- <user-footer></user-footer> -->\r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
+module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <user-sidebar></user-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <user-topbar></user-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                \r\n                \r\n                <div class=\"user-dashboard\">\r\n                    <h1></h1>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-5 col-sm-5 col-xs-12 gutter\">\r\n                              \r\n                            <div class=\"sales\">\r\n                               \r\n                                    <!-- <div id=\"projct-3-bar\"></div>\r\n                                   {{newyetstart}}\r\n                                    <user-taskstatus-graph [containerId]=\"'projct-3-bar'\" [hold]=\"countaskhold2.length\" [inprogress]=\"countaskinprogress2.length\" [done]=\"countaskdone2.length\" [newy]=\"selectedValue1\" ></user-taskstatus-graph> -->\r\n                                    <user-taskstatus-graph></user-taskstatus-graph> \r\n                        \r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-7  col-xs-12 gutter\">\r\n\r\n                            <div class=\"sales\">\r\n                         \r\n                                <user-task-vs-status></user-task-vs-status>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                 \r\n\r\n                    <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                <h1> Project Progress</h1>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-8 col-md-push-1\">\r\n                                        <div class=\"col-md-3 bg-g\">*Select Project</div>\r\n                                        <div class=\"col-md-3 bg-hash\">\r\n                                            <select  (change)=\"taskstatus()\" [(ngModel)]=\"selectedValue\">\r\n                                                <option *ngFor=\"let prj of projects\" value=\"{{prj.id}}\">{{prj.project_name}}</option>\r\n                                              </select>\r\n                                        </div> \r\n                                        <div class=\"col-md-3\">\r\n                                            <span class=\"total\">Total {{modulecount}} Milestone</span>\r\n                                        </div>\r\n                                    </div> \r\n                                </div>\r\n                                <div >\r\n                                <ul class=\"graph-ul\"  >\r\n                                    <li *ngFor=\"let proj of projectmodule; let i = index \" >\r\n                                        <div class=\"divModule\" >{{proj.module_name}}</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>{{proj.totalplaned_hr}}</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br>{{proj.totalactual_hr}} </div>\r\n                                            <!-- <div id=\"module-progress-{{i}}\"></div> -->\r\n                                            <div id=\"module-progress-{{i}}\"></div>\r\n                                            <user-progress-graph [containerId]=\"'module-progress-'+ i\" [progper]=\"totalprogress1\"></user-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">{{proj.totalmoduletask }}</div>\r\n                                            </div>\r\n                                            <div id=\"module-status-{{i}}\"></div>\r\n                                            <user-status-graph [containerId]=\"'module-status-'+ i\" [New]=\"proj.countasknew\" [Progress]=\"proj.countaskinprogress\" [Completed]=\"proj.countaskdone\"  [Hold]=\"proj.countaskhold\"></user-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    <!-- <li >\r\n                                        <div class=\"divModule\">Module-2</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-2-progress\"></div>\r\n                                            <user-progress-graph [containerId]=\"'module-2-progress'\" [progper]=\"60\"></user-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">7</div>\r\n                                            </div>\r\n                                            <div id=\"module-2-status\"></div>\r\n                                            <user-status-graph [containerId]=\"'module-2-status'\"></user-status-graph>\r\n                                        </div>\r\n                                    </li> -->\r\n                                    <!-- <li >\r\n                                        <div class=\"divModule\" >Module-3</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-3-progress\"></div>\r\n                                            <user-progress-graph [containerId]=\"'module-3-progress'\" [progper]=\"55\"></user-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">9</div>\r\n                                            </div>\r\n                                            <div id=\"module-3-status\"></div>\r\n                                            <user-status-graph [containerId]=\"'module-3-status'\"></user-status-graph>\r\n                                        </div>\r\n                                    </li> -->\r\n                                    <!-- <li >\r\n                                        <div class=\"divModule\" >Module-4</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>100</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br> 20 </div>\r\n                                            <div id=\"module-4-progress\"></div>\r\n                                            <user-progress-graph [containerId]=\"'module-4-progress'\" [progper]=\"55\"></user-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">9</div>\r\n                                            </div>\r\n                                            <div id=\"module-4-status\"></div>\r\n                                            <user-status-graph [containerId]=\"'module-4-status'\"></user-status-graph>\r\n                                        </div>\r\n                                    </li> -->\r\n                                   \r\n                                   \r\n                                   \r\n                                </ul>\r\n                            </div>\r\n                            </div>\r\n                           \r\n                        </div>   \r\n\r\n\r\n                    <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                    <h1>Planned hours vs actual hours</h1>\r\n                                    <div >\r\n                                    <ul class=\"graph-ul-hour\">\r\n                                            <li>\r\n                                                <div class=\"firstRow firstColumn\">PROJECTS</div>\r\n                                                <div class=\"secondRow firstColumn\">Progress</div>\r\n                                                <div class=\"ThirdRow firstColumn\">Planned <br>vs<br> Actual Hours</div>\r\n                                            </li>\r\n                                            <li  *ngFor=\"let project of allproject; let i = index\">\r\n                                                <div class=\"prjtitle1\">{{project.project_name}}</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                <div class=\"datelabel\">Start <span class=\"pull-right\"> {{project.planned_start_date |  date: 'dd-MM-yyyy' }}</span></div>\r\n                                                <div class=\"datelabel\">End <span class=\"pull-right\"> {{project.planned_end_date |  date: 'dd-MM-yyyy' }}</span></div>\r\n                                                </div>\r\n                                                <div class=\"clearfix\"></div>\r\n                                              \r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-progress\"></div>\r\n                                                <user-progress-graph [containerId]=\"'projct-'+ i+'-progress'\" [progper]=\"project.per\"></user-progress-graph>\r\n                                                <label>{{project.in_progress_tasks}}/{{project.tasktotal}} In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-bar\"></div>\r\n                                                <user-bar-graph [containerId]=\"'projct-'+ i+'-bar'\" [actual]=\"project.actualhr\" [planning]=\"project.totalplannedhr\"></user-bar-graph>\r\n                                            </li>\r\n                                            <!-- <li class=\"hash\">\r\n                                                <div class=\"prjtitle2 bg-g\">Taskit</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                        <div class=\"datelabel\">Start <span class=\"pull-right\">24-03-2018</span></div>\r\n                                                        <div class=\"datelabel\">End <span class=\"pull-right\">29-03-2018</span></div>\r\n                                                 </div>\r\n                                                 <div class=\"clearfix\"></div>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-progress\"></div>\r\n                                                <user-progress-graph [containerId]=\"'projct-2-progress'\" [progper]=\"45\"></user-progress-graph>\r\n                                                <label>2/23 In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-2-bar\"></div>\r\n                                                <user-bar-graph [containerId]=\"'projct-2-bar'\" [actual]=\"10\" [planning]=\"4\"></user-bar-graph>\r\n                                            </li> -->\r\n                                    </ul>   \r\n                                </div>    \r\n                            </div>\r\n            </div>   \r\n            \r\n            \r\n \r\n                        \r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n                <!-- <user-footer></user-footer> -->\r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
 
 /***/ }),
 
@@ -14055,6 +14070,7 @@ module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid disp
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserDashboardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -14065,10 +14081,192 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var UserDashboardComponent = (function () {
-    function UserDashboardComponent() {
+    function UserDashboardComponent(userService) {
+        this.userService = userService;
+        this.countaskdone = [];
+        this.countaskinprogress = [];
+        this.countasknew = [];
+        this.countaskhold = [];
+        this.moduletaskcount = [];
+        this.modulecount = 0;
+        this.tt = 6;
+        this.actualhr = [];
+        this.plannedhr = [];
+        this.taskpercentage = [];
+        this.task1percentage = [];
+        this.taskcount = [];
+        this.countaskdone2 = [];
+        this.countaskhold2 = [];
+        this.countaskinprogress2 = [];
+        this.countasknew2 = [];
+        this.countask = [];
+        this.disp = false;
     }
     UserDashboardComponent.prototype.ngOnInit = function () {
+        // this.newyetstart=8;
+        this.getAllProjects();
+        this.projectsvsstatus();
+    };
+    UserDashboardComponent.prototype.getAllProjects = function () {
+        var _this = this;
+        this.userService.getAllProject().subscribe(function (data) {
+            // this.selectedValue=data[0].id
+            //  console.log(data[0].id);
+            // console.log(data[0].id)
+            _this.projects = data;
+            if (data.length > 0) {
+                _this.selectedValue = data[0].id;
+            }
+            // else{
+            //   console.log('no projects');
+            // }
+            _this.taskstatus();
+        });
+    };
+    //#########Percentage of Projects###############
+    UserDashboardComponent.prototype.taskstatus = function () {
+        var _this = this;
+        this.userService.getallprojectspercentage(this.selectedValue).subscribe(function (res) {
+            console.log(res);
+            _this.projectsingle = res;
+            _this.projectmodule = [];
+            _this.projectmodule = _this.projectsingle.tbl_project_modules;
+            // console.log(this.projectmodule);
+            _this.modulecount = 0;
+            _this.modulecount = _this.projectmodule.length;
+            _this.projectmodule.forEach(function (elm_mod, key1) {
+                // console.log(elm_mod.tbl_project_tasks.length);
+                // this.modulecount.push(elm_mod.id);
+                _this.module_totalplaned_hr = 0;
+                _this.module_totalactual_hr = 0;
+                var new_tasks = 0;
+                var paused_tasks = 0;
+                var in_progress_tasks = 0;
+                var onHold_tasks = 0;
+                var completed_tasks = 0;
+                // this.countmodule.push(elm_mod.id);
+                elm_mod.tbl_project_tasks.forEach(function (elm_task) {
+                    //   console.log(elm_task);
+                    //   this.moduletaskcount.push(elm_task.id);
+                    if (elm_task.planned_hour != null) {
+                        _this.module_totalplaned_hr = _this.module_totalplaned_hr + elm_task.planned_hour + elm_task.buffer_hour;
+                    }
+                    if (elm_task.actual_hour != null) {
+                        _this.module_totalactual_hr = _this.module_totalactual_hr + elm_task.actual_hour;
+                    }
+                    //   // console.log(this.moduletaskcount.length);
+                    var last_status_id = 0;
+                    _this.lastStatus1 = {};
+                    elm_task.st.forEach(function (statuses) {
+                        if (statuses.id > last_status_id) {
+                            last_status_id = statuses.id;
+                            _this.lastStatus1 = statuses;
+                        }
+                    });
+                    //   this.lastStatus1 = elm_task.st[elm_task.st.length - 1];
+                    if (_this.lastStatus1 !== undefined) {
+                        if (_this.lastStatus1 && _this.lastStatus1.status_id == 1) {
+                            new_tasks = new_tasks + 1;
+                        }
+                        if (_this.lastStatus1 && _this.lastStatus1.status_id == 2) {
+                            paused_tasks = paused_tasks + 1;
+                        }
+                        if (_this.lastStatus1 && _this.lastStatus1.status_id == 3) {
+                            in_progress_tasks = in_progress_tasks + 1;
+                        }
+                        if (_this.lastStatus1 && _this.lastStatus1.status_id == 4) {
+                            onHold_tasks = onHold_tasks + 1;
+                        }
+                        if (_this.lastStatus1 && _this.lastStatus1.status_id == 5) {
+                            completed_tasks = completed_tasks + 1;
+                        }
+                    }
+                });
+                _this.projectmodule[key1].totalplaned_hr = _this.module_totalplaned_hr;
+                _this.projectmodule[key1].totalactual_hr = _this.module_totalactual_hr;
+                // this.projectmodule[key1].countasknew = this.moduletaskcount.length - (this.countaskdone.length + this.countaskhold.length + this.countaskinprogress.length);
+                _this.projectmodule[key1].countasknew = new_tasks;
+                // this.projectmodule[key1].countaskdone = this.countaskdone.length;
+                _this.projectmodule[key1].countaskdone = completed_tasks;
+                // this.projectmodule[key1].countaskhold = this.countaskhold.length;
+                _this.projectmodule[key1].countaskhold = onHold_tasks;
+                _this.projectmodule[key1].countaskinprogress = in_progress_tasks;
+                // this.projectmodule[key1].countaskinprogress = this.countaskinprogress.length;
+                _this.projectmodule[key1].totalmoduletask = elm_mod.tbl_project_tasks.length;
+                // console.log(this.countasknew.length);
+                _this.projectmodule[key1].totalprogress1 = completed_tasks / (_this.projectmodule[key1].totalmoduletask) * 100;
+            });
+            // this.totalprogress1 = ((this.task1percentage.reduce((a, b) => a + b, 0)) / (this.moduletaskcount.length));
+        });
+        //  console.log(this.modulecount.length)
+        // this.disp = true;
+    };
+    //#########project vs status###############
+    UserDashboardComponent.prototype.projectsvsstatus = function () {
+        var _this = this;
+        // -----------suda strt-----------
+        this.userService.getallprojectsvsstatus().subscribe(function (res) {
+            console.log(res);
+            _this.allproject = res;
+            _this.allproject.forEach(function (elm_proj) {
+                var tasktotal = 0;
+                var planned_hour = 0;
+                var actual_hour = 0;
+                var completed_tasks = 0;
+                var in_progress_tasks = 0;
+                elm_proj.tbl_project_modules.forEach(function (elm_mod, key) {
+                    tasktotal = tasktotal + elm_mod.tbl_project_tasks.length;
+                    elm_mod.tbl_project_tasks.forEach(function (elm_task) {
+                        if (elm_task.planned_hour != null) {
+                            planned_hour = planned_hour + elm_task.planned_hour + elm_task.buffer_hour;
+                        }
+                        if (elm_task.actual_hour != null) {
+                            actual_hour = actual_hour + elm_task.actual_hour;
+                        }
+                        var last_status_id = 0;
+                        var last_status = {};
+                        elm_task.st.forEach(function (statuses) {
+                            if (statuses.id > last_status_id) {
+                                last_status_id = statuses.id;
+                                _this.lastStatus1 = statuses;
+                            }
+                        });
+                        //   this.lastStatus1 = elm_task.st[elm_task.st.length - 1];
+                        if (_this.lastStatus1 !== undefined) {
+                            if (_this.lastStatus1 && _this.lastStatus1.status_id == 3) {
+                                in_progress_tasks = in_progress_tasks + 1;
+                            }
+                            if (_this.lastStatus1 && _this.lastStatus1.status_id == 5) {
+                                completed_tasks = completed_tasks + 1;
+                            }
+                        }
+                        // this.taskcount.push(elm_task.id);
+                        // this.lastStatus = elm_task.st[elm_task.st.length - 1];
+                        // if (this.lastStatus !== undefined) {
+                        //   //  console.log(this.lastStatus.pp.percentage);
+                        //   // this.taskpercentage.push(parseInt(this.lastStatus.pp.percentage));
+                        // }
+                        // // this.actualhr.push(elm_task.actual_hour);
+                        // // this.plannedhr.push(elm_task.planned_hour);
+                    });
+                    // this.tasktotal = this.taskcount.length;
+                    _this.allproject[key].tasktotal = tasktotal;
+                    _this.allproject[key].totalplannedhr = planned_hour;
+                    _this.allproject[key].actualhr = actual_hour;
+                    // this.totalprogress = ((this.taskpercentage.reduce((a, b) => a + b, 0)) / (this.taskcount.length));
+                    _this.allproject[key].completed_tasks = completed_tasks;
+                    _this.allproject[key].in_progress_tasks = in_progress_tasks;
+                    _this.allproject[key].per = completed_tasks / _this.allproject[key].tasktotal * 100;
+                    // this.totalactualhr = this.actualhr.reduce((a, b) => a + b, 0)
+                    // this.totalplannedhr = this.plannedhr.reduce((a, b) => a + b, 0)
+                    // console.log(this.totalactualhr)
+                    // console.log(this.totalplannedhr)
+                });
+            });
+        });
+        // -----------suda end-----------
     };
     UserDashboardComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -14076,7 +14274,7 @@ var UserDashboardComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/user-dashboard/user-dashboard.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/user-dashboard/user-dashboard.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */]])
     ], UserDashboardComponent);
     return UserDashboardComponent;
 }());
@@ -14843,7 +15041,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user-progress-graph/user-progress-graph.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"svg-container\">\r\n  </div>"
+module.exports = "<div class=\"svg-container\">\r\n</div>"
 
 /***/ }),
 
@@ -14866,7 +15064,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var UserProgressGraphComponent = (function () {
     function UserProgressGraphComponent() {
     }
-    UserProgressGraphComponent.prototype.ngOnInit = function () {
+    UserProgressGraphComponent.prototype.ngOnInit = function () { };
+    UserProgressGraphComponent.prototype.ngAfterViewInit = function () {
         // console.log(this.containerId);
         var colors = {
             'pink': '#E1499A',
@@ -15966,16 +16165,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var UserStatusGraphComponent = (function () {
     function UserStatusGraphComponent() {
         this.containerId = '';
+        this.New = '';
     }
-    UserStatusGraphComponent.prototype.ngOnInit = function () {
-        //console.log(this.containerId);
+    // ngOnInit() {
+    UserStatusGraphComponent.prototype.ngOnInit = function () { };
+    UserStatusGraphComponent.prototype.ngAfterViewInit = function () {
+        // console.log(this.containerId);
         var pieData = [
-            { name: 'New - Yet to Start', value: 3, color: '#2778a7' },
-            { name: 'In Progress', value: 4, color: '#99b745' },
-            { name: 'Completed', value: 50, color: '#17a88f' },
-            { name: 'On Hold', value: 50, color: '#f2ac37' },
-            { name: 'Cancelled', value: 3, color: '#b74549' },
-            { name: 'Un Planned', value: 1, color: '#4d5d6e' },
+            { name: 'New - Yet to Start', value: this.New, color: '#2778a7' },
+            { name: 'In Progress', value: this.Progress, color: '#99b745' },
+            { name: 'Completed', value: this.Completed, color: '#17a88f' },
+            { name: 'On Hold', value: this.Hold, color: '#f2ac37' },
         ];
         this.bakeDonut(pieData);
     };
@@ -16094,7 +16294,7 @@ var UserStatusGraphComponent = (function () {
             selector: 'user-status-graph',
             template: __webpack_require__("../../../../../src/app/components/user-status-graph/user-status-graph.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/user-status-graph/user-status-graph.component.css")],
-            inputs: ['containerId']
+            inputs: ['containerId', 'New', 'Progress', 'Completed', 'Hold']
         }),
         __metadata("design:paramtypes", [])
     ], UserStatusGraphComponent);
@@ -16782,7 +16982,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "html, body {\r\n    height: 100%;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n  }\r\n  \r\n  body {\r\n    background: linear-gradient(to bottom, #606c88 0%, #3f4c6b 100%);\r\n    font-family: 'Source Sans Pro', sans-serif;\r\n  }\r\n  .bg-g{background:#17a88f;color:#fff; padding: 10px;margin-bottom:10px;}\r\n  .bg-hash{background:#E9E9E9;padding: 10px;margin-bottom:10px;}\r\n  .bg-hash select{background:none;border:none;width:100%;}\r\n  .total{font-weight:700;padding-top: 20px; line-height: 36px;}\r\n  .widget{margin-top:9%;}\r\n  .tasklabel{       background: #efefef;\r\n    padding: 25px 30px;\r\n    text-align: center;\r\n    text-transform: uppercase;\r\n    margin: 10px 0;\r\n    border: 1px solid #ccc;\r\n    font-weight: bold;\r\n    font-size : 12px;\r\n  }\r\n  .pie {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    -webkit-filter: drop-shadow(0 2px 0px #333);\r\n            filter: drop-shadow(0 2px 0px #333);\r\n  }\r\n  \r\n  .data-path:hover {\r\n    cursor: pointer;\r\n  }\r\n  \r\n  .data-text {\r\n    transition: transform .2s ease-in-out;\r\n    fill: #fff;\r\n  }\r\n  .data-text__value {\r\n    font-size: 7rem;\r\n    transform: translateY(-0.5rem);\r\n    opacity: 0;\r\n  }\r\n  .data-text__name {\r\n    font-size: 2rem;\r\n    transform: translateY(0.5rem);\r\n    opacity: 0;\r\n  }\r\n  .data-text--show {\r\n    transform: translateY(0);\r\n    animation: fadeGraphTextIn 0.5s forwards;\r\n  }\r\n  .data-text:hover {\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n  }\r\nh1{text-align:center;}\r\n.sales{margin-bottom: 25px;}\r\n  .legend-text {\r\n    fill: #fff;\r\n  }\r\n  \r\n  @keyframes fadeGraphTextIn {\r\n    from {\r\n      opacity: 0;\r\n    }\r\n    to {\r\n      opacity: 1;\r\n    }\r\n  }\r\n  .sales{    margin-bottom: 20px;}", ""]);
+exports.push([module.i, "html, body {\r\n  height: 100%;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n}\r\n\r\nbody {\r\n  background: linear-gradient(to bottom, #606c88 0%, #3f4c6b 100%);\r\n  font-family: 'Source Sans Pro', sans-serif;\r\n}\r\n.bg-g{background:#17a88f;color:#fff; padding: 10px;margin-bottom:10px;}\r\n.bg-hash{background:#E9E9E9;padding: 10px;margin-bottom:10px;}\r\n.bg-hash select{background:none;border:none;width:100%;}\r\n.total{font-weight:700;padding-top: 20px; line-height: 36px;}\r\n.widget{margin-top:9%;}\r\n.tasklabel{       background: #efefef;\r\n  padding: 25px 30px;\r\n  text-align: center;\r\n  text-transform: uppercase;\r\n  margin: 10px 0;\r\n  border: 1px solid #ccc;\r\n  font-weight: bold;\r\n  font-size : 12px;\r\n}\r\n.pie {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  -webkit-filter: drop-shadow(0 2px 0px #333);\r\n          filter: drop-shadow(0 2px 0px #333);\r\n}\r\n\r\n.data-path:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n.data-text {\r\n  transition: transform .2s ease-in-out;\r\n  fill: #fff;\r\n}\r\n.data-text__value {\r\n  font-size: 7rem;\r\n  transform: translateY(-0.5rem);\r\n  opacity: 0;\r\n}\r\n.data-text__name {\r\n  font-size: 2rem;\r\n  transform: translateY(0.5rem);\r\n  opacity: 0;\r\n}\r\n.data-text--show {\r\n  transform: translateY(0);\r\n  animation: fadeGraphTextIn 0.5s forwards;\r\n}\r\n.data-text:hover {\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\r\n}\r\nh1{text-align:center;}\r\n.sales{margin-bottom: 25px;}\r\n.legend-text {\r\n  fill: #fff;\r\n}\r\n\r\n@keyframes fadeGraphTextIn {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n.sales{    margin-bottom: 20px;}", ""]);
 
 // exports
 
@@ -16795,7 +16995,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user-task-vs-status/user-task-vs-status.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <h1>Task Vs Status</h1>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n          <div class=\"col-md-8 col-md-offset-2\">\r\n          <div class=\"col-md-6 bg-g\">*Select Project</div>\r\n          <div class=\"col-md-6 bg-hash\">\r\n            <select>\r\n              <option *ngFor=\"let prj of projects\" value=\"{{prj.id}}\">{{prj.project_name}}</option>\r\n            </select>\r\n          </div> \r\n          <br>\r\n          <br>\r\n          <!-- <div class=\"col-md-6 bg-g\">*Select Person</div>\r\n          <div class=\"col-md-6 bg-hash\">\r\n            <select>\r\n                <option *ngFor=\"let usr of users\" value=\"{{usr.id}}\">{{usr.f_name}} {{usr.l_name}}</option>\r\n            </select>\r\n          </div>  -->\r\n          <div class=\"clearfix\"></div>\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n              START DATE\r\n              <br>\r\n              12/10/2017\r\n            </div>\r\n            </div>\r\n    \r\n            <div class=\"col-md-6\">\r\n                <div class=\"tasklabel\">\r\n                 END DATE\r\n                <br>\r\n                12/10/2017\r\n               </div>\r\n              </div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n              NO OF TASKS\r\n              <br>\r\n              10\r\n            </div>\r\n            </div>\r\n    \r\n            <div class=\"col-md-6\">\r\n                <div class=\"tasklabel\">\r\n               TASK COMPLETED\r\n                <br>\r\n                10\r\n               </div>\r\n              </div>\r\n          </div>\r\n          <!-- <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n              DUE THIS MONTH\r\n              <br>\r\n              10\r\n            </div>\r\n            </div>\r\n    \r\n            <div class=\"col-md-6\">\r\n                <div class=\"tasklabel\">\r\n                DUE THIS YEAR\r\n                <br>\r\n                10\r\n               </div>\r\n              </div>\r\n          </div> -->\r\n        </div>\r\n        </div>\r\n    \r\n        <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n            <div class=\"widget\">\r\n               \r\n                <div id=\"taskstatus\" class=\"chart-container\">\r\n            \r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>"
+module.exports = "<div>\r\n  <h1>No.of  tasks vs status</h1>\r\n  <div class=\"row\">\r\n      <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n        <div class=\"col-md-8 col-md-offset-2\">\r\n        <div class=\"col-md-6 bg-g\">*Select Project</div>\r\n        <div class=\"col-md-6 bg-hash\">\r\n          <select  (change)=\"taskstatus()\" [(ngModel)]=\"selectedValue\">\r\n            <option *ngFor=\"let prj of projects\" value=\"{{prj.id}}\">{{prj.project_name}}</option>\r\n          </select>\r\n          <!-- <mat-form-field>\r\n            <mat-select placeholder=\"Favorite food\" (change)=\"getAllProjects()\" [(ngModel)]=\"selectedValue\" name=\"food\">\r\n              <mat-option*ngFor=\"let prj of projects\" [value]=\"{{prj.id}}\">\r\n                {{prj.project_name}}\r\n              </mat-option>\r\n            </mat-select>\r\n          </mat-form-field> -->\r\n        </div> \r\n        <br>\r\n        <br>\r\n        <!-- <div class=\"col-md-6 bg-g\">*Select Person</div>\r\n        <div class=\"col-md-6 bg-hash\">\r\n          <select>\r\n              <option *ngFor=\"let usr of users\" value=\"{{usr.id}}\">{{usr.f_name}} {{usr.l_name}}</option>\r\n          </select>\r\n        </div>  -->\r\n        <div class=\"clearfix\"></div>\r\n        <div class=\"row\"> \r\n          <div class=\"col-md-6\">\r\n            <div class=\"tasklabel\">\r\n            START DATE\r\n            <br>\r\n            {{projectsingle?.planned_start_date |  date: 'dd/MM/yyyy' }}\r\n          </div>\r\n          </div>\r\n  \r\n          <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n               END DATE\r\n              <br>\r\n              {{projectsingle?.planned_end_date |  date: 'dd/MM/yyyy' }}\r\n             </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6\">\r\n            <div class=\"tasklabel\">\r\n            NO OF TASKS\r\n            <br>\r\n            {{countask?.length}}\r\n          </div>\r\n          </div>\r\n  \r\n          <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n             TASK COMPLETED\r\n              <br>\r\n              {{countaskdone?.length}}\r\n             </div>\r\n            </div>\r\n        </div>\r\n        <!-- <div class=\"row\">\r\n          <div class=\"col-md-6\">\r\n            <div class=\"tasklabel\">\r\n            DUE THIS MONTH\r\n            <br>\r\n            10\r\n          </div>\r\n          </div>\r\n  \r\n          <div class=\"col-md-6\">\r\n              <div class=\"tasklabel\">\r\n              DUE THIS YEAR\r\n              <br>\r\n              10\r\n             </div>\r\n            </div>\r\n        </div> -->\r\n      </div>\r\n      </div>\r\n  \r\n      <div class=\"col-md-6 col-sm-6 col-xs-12\">\r\n          <div class=\"widget\">\r\n             \r\n              <div id=\"taskstatus\" class=\"chart-container\">\r\n          \r\n              </div>\r\n          </div>\r\n      </div>\r\n  </div>"
 
 /***/ }),
 
@@ -16822,31 +17022,78 @@ var UserTaskVsStatusComponent = (function () {
         this.userService = userService;
         this.projects = [];
         this.users = [];
+        this.countask = [];
+        this.countaskdone = [];
+        this.countaskhold = [];
+        this.countaskinprogress = [];
+        this.countasknew = [];
     }
     UserTaskVsStatusComponent.prototype.ngOnInit = function () {
         this.getAllProjects();
-        var pieData = [
-            { name: 'New - Yet to Start', value: 3, color: '#2778a7' },
-            { name: 'In Progress', value: 4, color: '#99b745' },
-            { name: 'Completed', value: 50, color: '#17a88f' },
-            { name: 'On Hold', value: 50, color: '#f2ac37' },
-            { name: 'Cancelled', value: 3, color: '#b74549' },
-            { name: 'Un Planned', value: 1, color: '#4d5d6e' },
-        ];
-        this.bakeDonut(pieData);
     };
     UserTaskVsStatusComponent.prototype.getAllProjects = function () {
         var _this = this;
         this.userService.getAllProject().subscribe(function (data) {
-            console.log(data);
+            // this.selectedValue=data[0].id
+            //  console.log(data[0].id);
             _this.projects = data;
-            // if(this.projects.length == 0){
-            //   this.users = [];
-            // }else{
-            //   this.getUsers(this.projects[0].id);
+            if (data.length > 0) {
+                _this.selectedValue = data[0].id;
+            }
+            // else{
+            //   console.log('no projects');
             // }
+            _this.taskstatus();
+            // });
         });
     };
+    UserTaskVsStatusComponent.prototype.taskstatus = function () {
+        var _this = this;
+        // this.projects.forEach(element => {
+        // console.log(this.selectedValue);
+        // this.selectedValue=element.id
+        // console.log(this.selectedValue);
+        this.userService.getProjectdetails(this.selectedValue).subscribe(function (res) {
+            _this.projectsingle = res.singleproject;
+            _this.projecttask = res.myTasks;
+            _this.projecttask.forEach(function (elm_mod) {
+                // console.log(elm_mod)
+                elm_mod.tbl_project_tasks.forEach(function (elm_task) {
+                    _this.countask.push(elm_task.id);
+                    _this.lastStatus = elm_task.st[elm_task.st.length - 1];
+                    // console.log(this.lastStatus.tbl_task_status.status)
+                    // console.log(this.lastStatus.tbl_task_status.id)
+                    // });
+                    if (_this.lastStatus !== undefined) {
+                        if (_this.lastStatus.tbl_task_status.status == 'done') {
+                            _this.countaskdone.push(elm_task.id);
+                        }
+                        if (_this.lastStatus.tbl_task_status.status == 'hold') {
+                            _this.countaskhold.push(elm_task.id);
+                        }
+                        if (_this.lastStatus.tbl_task_status.status == 'inprogress') {
+                            _this.countaskinprogress.push(elm_task.id);
+                        }
+                        if (_this.lastStatus.tbl_task_status.status == 'new') {
+                            _this.countasknew.push(elm_task.id);
+                        }
+                    }
+                    // console.log(elm_task)
+                    //  console.log(this.countaskhold.length)
+                });
+            });
+            _this.newyetstart = (_this.countask.length) - (_this.countaskdone.length + _this.countaskinprogress.length + _this.countaskhold.length);
+            var pieData = [
+                { name: 'New - Yet to Start', value: _this.newyetstart, color: '#2778a7' },
+                { name: 'In Progress', value: _this.countaskinprogress.length, color: '#99b745' },
+                { name: 'Completed', value: _this.countaskdone.length, color: '#17a88f' },
+                { name: 'On Hold', value: _this.countaskhold.length, color: '#f2ac37' },
+            ];
+            d3.select('#taskstatus').selectAll("svg").remove();
+            _this.bakeDonut(pieData);
+        });
+    };
+    // console.log(this.countask)
     // getUsers(projId){
     //   this.companyService.getUsers(projId).subscribe(data=>{
     //     this.users = data;
@@ -16967,6 +17214,271 @@ var UserTaskVsStatusComponent = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */]])
     ], UserTaskVsStatusComponent);
     return UserTaskVsStatusComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-taskstatus-graph/user-taskstatus-graph.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".graph-ul li{\r\n    float :left;\r\n    padding: 10px 2px;\r\n    border: 1px solid #ddd;\r\n    margin-top: 10px;\r\n    width: 300px;\r\n    display: table;\r\n    overflow:hidden;\r\n    padding-top: 0px;\r\n   \r\n}\r\n.graph-ul li .divModule{\r\n    background:#ccc;\r\n    padding: 20px 5px;\r\n    margin-bottom: 10px;\r\n}\r\n.graph-ul{\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    overflow-x: scroll;\r\n    max-width:1170px;\r\n    float: none;\r\n    margin: 0 auto;\r\n}\r\n.bg-g{background:#17a88f;color:#fff; padding: 10px;}\r\n.bg-hash{background:#E9E9E9;padding: 10px;}\r\n.bg-hash select{background:none;border:none;width:100%;}\r\n.total{font-weight:700;padding-top: 20px; line-height: 36px;}\r\n.sales{margin-bottom: 25px;border:none;    box-shadow: 4px 7px 31px #e8e8e8;}\r\n.label-bg{background:#ccc;padding:20px;position:relative;margin-bottom: 15px;}\r\n.label-bg .number{width:50px;height:50px;border-radius:50%;background:#fff;left:0;right:0;position:absolute;z-index:10;margin:0 auto;text-align:center;    top: -4px;\r\n    box-shadow: 10px 4px 18px #b1b1b1;\r\n    border: 1px solid #b5b3b3;    font-size: 20px;\r\n    font-weight: bold;\r\n    color: #05b8cc;\r\n    padding-top: 15px;}\r\n\r\n    .graph-ul-hour li .divModule{\r\n        background:#ccc;\r\n        padding: 20px 5px;\r\n        margin-bottom: 10px;\r\n    }\r\n    .graph-ul-hour{\r\n        display: -ms-flexbox;\r\n        display: flex;\r\n        overflow-x: scroll;\r\n        max-width:1170px;\r\n        float: none;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .firstColumn{\r\n        background: #e4e4e4;\r\n        padding:0 40px;\r\n    }\r\n\r\n    .firstRow{\r\n        \r\n        font-weight:bold;\r\n        font-weight: bold;\r\n        min-height: 135px;\r\n        border-bottom: 1px solid #ccc;\r\n        text-transform:uppercase;\r\n        padding-top: 35%;\r\n    }\r\n    .secondRow{\r\n       \r\n        font-weight:bold;\r\n        min-height: 330px;\r\n        border-bottom: 1px solid #ccc;\r\n        text-transform:uppercase;\r\n        padding-top: 64%;\r\n    }\r\n    .ThirdRow{\r\n        \r\n        font-weight:bold;\r\n        min-height: 224px;\r\n        text-align:uppercase;\r\n        padding-top: 43%;\r\n    }\r\n    .prjtitle1{\r\n        background: #237cbe;\r\n        padding: 10px;\r\n        color:#fff;\r\n    }\r\n    .prjtitle2{\r\n       \r\n        padding: 10px;\r\n    }\r\n    .hash{    background: #f3f3f3;}\r\n    .datelabel{font-weight:bold;padding-bottom: 10px;}\r\n    .user-dashboard h1{text-align:center;}\r\n    .mr-top{margin-top: 20px;}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-taskstatus-graph/user-taskstatus-graph.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h1>No.of task vs status</h1>\n<div class=\"row\">\n    <div class=\"col-md-6 col-md-push-1\">\n        <div class=\"col-md-6 bg-g\">*Select Project</div>\n        <div class=\"col-md-6 bg-hash\">\n            <select  (change)=\"taskstatus1()\" [(ngModel)]=\"selectedValue1\">\n                <option *ngFor=\"let prj of projects\" value=\"{{prj.id}}\">{{prj.project_name}}</option>\n              </select>\n        </div> \n        \n    </div> \n</div>\n<div id=\"containerId\"></div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/user-taskstatus-graph/user-taskstatus-graph.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserTaskstatusGraphComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var UserTaskstatusGraphComponent = (function () {
+    function UserTaskstatusGraphComponent(userService) {
+        this.userService = userService;
+        this.countask = [];
+        this.countaskdone2 = [];
+        this.countaskhold2 = [];
+        this.countaskinprogress2 = [];
+        this.countasknew2 = [];
+        // countask=[];
+        // containerId = '';
+        this.hold = '';
+        this.inprogress = '';
+        this.done = '';
+        this.newy = '';
+    }
+    UserTaskstatusGraphComponent.prototype.ngOnInit = function () {
+        this.getAllProjects();
+    };
+    UserTaskstatusGraphComponent.prototype.getAllProjects = function () {
+        var _this = this;
+        this.userService.getAllProject().subscribe(function (data) {
+            _this.projects = data;
+            if (data.length > 0) {
+                _this.selectedValue1 = data[0].id;
+            }
+            // else{
+            //   console.log('no projects');
+            // }
+            _this.taskstatus1();
+            // });
+        });
+    };
+    //#########No.of task vs status###############
+    UserTaskstatusGraphComponent.prototype.taskstatus1 = function () {
+        var _this = this;
+        // this.newyetstart=8;
+        this.userService.getProjectdetails(this.selectedValue1).subscribe(function (res) {
+            // console.log(res)
+            // this.projectsingle=res.singleproject;
+            _this.projecttask = res.myTasks;
+            _this.projecttask.forEach(function (elm_mod) {
+                elm_mod.tbl_project_tasks.forEach(function (elm_task) {
+                    _this.countask.push(elm_task.id);
+                    _this.lastStatus2 = elm_task.st[elm_task.st.length - 1];
+                    if (_this.lastStatus2 !== undefined) {
+                        if (_this.lastStatus2.tbl_task_status.status == 'done') {
+                            _this.countaskdone2.push(elm_task.id);
+                        }
+                        if (_this.lastStatus2.tbl_task_status.status == 'hold') {
+                            _this.countaskhold2.push(elm_task.id);
+                        }
+                        if (_this.lastStatus2.tbl_task_status.status == 'inprogress') {
+                            _this.countaskinprogress2.push(elm_task.id);
+                        }
+                        if (_this.lastStatus2.tbl_task_status.status == 'new') {
+                            _this.countasknew2.push(elm_task.id);
+                        }
+                    }
+                });
+            });
+            _this.newyetstart = (_this.countask.length) - (_this.countaskdone2.length + _this.countaskinprogress2.length + _this.countaskhold2.length);
+            // console.log(this.newyetstart+"uu") 
+            _this.bargraph();
+        });
+    };
+    UserTaskstatusGraphComponent.prototype.bargraph = function () {
+        var _this = this;
+        d3.select('#containerId').selectAll("svg").remove();
+        var offenseNames = [
+            "count",
+        ];
+        console.log(this.newy);
+        var years = ["On Hold", "Completed", "In Progress", "New-Yet to Star"];
+        var offensesByYear = [
+            {
+                "count": this.countaskhold2.length,
+            },
+            { "count": this.countaskdone2.length,
+            },
+            {
+                "count": this.countaskinprogress2.length,
+            },
+            { "count": this.newyetstart,
+            },
+        ];
+        var generateClassStr = function (str) {
+            return str.replace(/\s+/g, '-').toLowerCase();
+        };
+        var n = offenseNames.length, // number of layers
+        m = offensesByYear.length, // number of samples per layer
+        stack = d3.stack().keys(offenseNames);
+        var layers = stack(offensesByYear); // calculate the stack layout
+        layers.forEach(function (d, i) {
+            // add keys to every datapoint
+            d.forEach(function (dd, j) {
+                dd.year = years[j];
+                dd.offenseName = offenseNames[i];
+                dd.class = generateClassStr(dd.offenseName);
+                dd.value = dd.data[dd.offenseName];
+            });
+        });
+        var yStackMax = d3.max(layers, function (layer) {
+            return d3.max(layer, function (d) {
+                return d[1];
+            });
+        });
+        var margin = { top: 70, right: 15, bottom: 40, left: 50 }, fullChartWidth = 400, fullChartHeight = 300, width = fullChartWidth - margin.left - margin.right, height = fullChartHeight - margin.top - margin.bottom;
+        d3.select("#containerId")
+            .style("width", fullChartWidth)
+            .style("height", fullChartHeight);
+        var x = d3
+            .scaleBand()
+            .domain(years)
+            .rangeRound([0, width])
+            .padding(0.08);
+        var y = d3
+            .scaleLinear()
+            .domain([0, yStackMax])
+            .range([height, 0]);
+        var z = d3
+            .scaleBand()
+            .domain(offenseNames)
+            .rangeRound([0, x.bandwidth()]);
+        var color = ["#beaed4", "#7fc97f", "#fdc086"];
+        var svg = d3
+            .select("#containerId")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right + 20)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + (margin.left + 20) + "," + margin.top + ")");
+        var mycount = 1;
+        var layer = svg
+            .selectAll(".layer")
+            .data(layers)
+            .enter()
+            .append("g")
+            .attr("class", "layer")
+            .style("fill", function (d, i) {
+            // mycount++;
+            //  alert(mycount);
+            // alert(i);
+            // if(mycount == 0){
+            //   mycount++;
+            //   return '#7fc97f';
+            // }else{
+            //   mycount++;
+            //   return  '#279428';
+            // }
+            //   alert(d);
+            //  // alert(i);
+            return '#7fc97f';
+        });
+        var rect = layer
+            .selectAll(".bar")
+            .data(function (d) {
+            return d;
+        })
+            .enter()
+            .append("rect")
+            .attr("x", function (d) {
+            return x(d.year);
+        })
+            .attr("y", height)
+            .attr("width", x.bandwidth())
+            .attr("height", 0)
+            .on("mouseover", function (d) {
+            d3.select(_this);
+            // .filter(dd => dd.class != d.class)
+            //  .style("opacity", 0.6)
+        });
+        rect
+            .transition()
+            .delay(function (d, i) {
+            return i * 10;
+        })
+            .attr("y", function (d) {
+            return y(d[1]);
+        })
+            .attr("height", function (d) {
+            return y(d[0]) - y(d[1]);
+        });
+        svg
+            .append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        // add the Y gridlines
+        // svg.append("g")     
+        // .attr("class", "grid")
+        // .call(d3.axisLeft(y)
+        //   .ticks(10)
+        //   .tickSize(-width)
+        //   .tickFormat("")
+        // )
+        // Add the y Axis
+        svg.append("g")
+            .call(d3.axisLeft(y));
+        // text label for the y axis    
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left - 30)
+            .attr("x", 0 - (height / 2))
+            .attr("dy", "3em")
+            .style("text-anchor", "middle")
+            .text("No of Tasks");
+    };
+    UserTaskstatusGraphComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'user-taskstatus-graph',
+            template: __webpack_require__("../../../../../src/app/components/user-taskstatus-graph/user-taskstatus-graph.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/user-taskstatus-graph/user-taskstatus-graph.component.css")],
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */]])
+    ], UserTaskstatusGraphComponent);
+    return UserTaskstatusGraphComponent;
 }());
 
 
@@ -20813,8 +21325,7 @@ var UserService = (function () {
     // Desc          : to updateUserleave 
     UserService.prototype.updateUserleave = function (userleave) {
         // console.log(Empleave);
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'updateuserleave', userleave, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -20828,8 +21339,7 @@ var UserService = (function () {
     // Last Modified : 
     // Desc          :get My all request
     UserService.prototype.getMyallrequest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'allmyrequest', { headers: headers });
     };
     // ---------------------------------Start-------------------------------------------
@@ -20841,8 +21351,7 @@ var UserService = (function () {
     // Last Modified : 
     // Desc          :get my time extension request
     UserService.prototype.getMyallTimeextnrequest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'mytimeextrequest', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -20856,8 +21365,7 @@ var UserService = (function () {
     // Last Modified : 
     // Desc          :get my all new task request
     UserService.prototype.getMyallnewtaskrequest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'mynewtaskrequest', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -20876,6 +21384,51 @@ var UserService = (function () {
             .map(function (res) { return res.json(); });
     };
     // ---------------------------------------End--------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getProjectdetails
+    // Params        :  id
+    // Returns       : 
+    // Author        : sudha
+    // Date          : 10-04-2018
+    // Last Modified : 
+    // Desc          : project details(dashboard)
+    //projectdetails
+    UserService.prototype.getProjectdetails = function (id) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + "projectdetails/" + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getallprojectspercentage
+    // Params        :  id
+    // Returns       : 
+    // Author        : sudha
+    // Date          : 10-04-2018
+    // Last Modified : 
+    // Desc          : projectspercentage details(dashboard)
+    //projectdetails
+    UserService.prototype.getallprojectspercentage = function (id) {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + "projectspercentage/" + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getallprojectsvsstatus
+    // Params        :  id
+    // Returns       : 
+    // Author        : sudha
+    // Date          : 10-04-2018
+    // Last Modified : 
+    // Desc          : projects vs status details(dashboard)
+    //projectdetails
+    UserService.prototype.getallprojectsvsstatus = function () {
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.get(this.serviceUrl + "allprojectsvsstatus/", { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
     // ---------------------------------Start------------------------------------------------
     // Function      : getAllMyTimeextensionrequest
     // Params        : 

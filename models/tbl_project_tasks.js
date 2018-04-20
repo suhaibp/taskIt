@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     //   foreignKey: 'task_id',
     // });
     tbl_project_tasks.hasMany(models.tbl_task_status_assoc, {
-      foreignKey: 'task_id',
+      foreignKey: 'task_id',as:'st'
     });
     tbl_project_tasks.hasMany(models.tbl_time_extension_request, {
       foreignKey: 'task_id',

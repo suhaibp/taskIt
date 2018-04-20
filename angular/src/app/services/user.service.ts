@@ -594,8 +594,7 @@ export class UserService {
 
   updateUserleave(userleave: any) {
     // console.log(Empleave);
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeaderWithAuthorization();
        return this.http.post(this.serviceUrl + 'updateuserleave', userleave, { headers: headers})
          .map(res => res.json())
      }
@@ -611,8 +610,7 @@ export class UserService {
   // Desc          :get My all request
 
   getMyallrequest() {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allmyrequest', { headers: headers })
   }
 	     // ---------------------------------Start-------------------------------------------
@@ -625,8 +623,7 @@ export class UserService {
   // Desc          :get my time extension request
 
   getMyallTimeextnrequest() {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'mytimeextrequest', { headers: headers })
       .map(res => res.json());
 
@@ -642,8 +639,7 @@ export class UserService {
   // Desc          :get my all new task request
 
   getMyallnewtaskrequest() {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'mynewtaskrequest', { headers: headers })
       .map(res => res.json());
 
@@ -658,11 +654,60 @@ export class UserService {
   // Last Modified :
   // Desc          : 
   getAllProject() {
-    let headers = this.setHeaderWithAuthorization()
+    let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "allProjects", { headers:headers })
     .map(res => res.json());
   }
   // ---------------------------------------End--------------------------------------------
+   // ---------------------------------Start-------------------------------------------
+  // Function      : getProjectdetails
+  // Params        :  id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 10-04-2018
+  // Last Modified : 
+  // Desc          : project details(dashboard)
+  //projectdetails
+  getProjectdetails(id: any) {
+    let headers = this.setHeaderWithAuthorization();
+     return this.http.get(this.serviceUrl + "projectdetails/" + id, { headers: headers})
+       .map(res => res.json())
+   }
+ 
+  // -----------------------------------End------------------------------------------
+     // ---------------------------------Start-------------------------------------------
+  // Function      : getallprojectspercentage
+  // Params        :  id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 10-04-2018
+  // Last Modified : 
+  // Desc          : projectspercentage details(dashboard)
+  //projectdetails
+  getallprojectspercentage(id: any) {
+    let headers = this.setHeaderWithAuthorization();
+     return this.http.get(this.serviceUrl + "projectspercentage/" + id, { headers: headers})
+       .map(res => res.json())
+   }
+ 
+  // -----------------------------------End------------------------------------------
+  
+       // ---------------------------------Start-------------------------------------------
+  // Function      : getallprojectsvsstatus
+  // Params        :  id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 10-04-2018
+  // Last Modified : 
+  // Desc          : projects vs status details(dashboard)
+  //projectdetails
+  getallprojectsvsstatus() {
+    let headers = this.setHeaderWithAuthorization();
+     return this.http.get(this.serviceUrl + "allprojectsvsstatus/" , { headers: headers})
+       .map(res => res.json())
+   }
+ 
+  // -----------------------------------End------------------------------------------
       // ---------------------------------Start------------------------------------------------
   // Function      : getAllMyTimeextensionrequest
   // Params        : 
