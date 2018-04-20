@@ -224,7 +224,7 @@ export class UserTopbarComponent implements OnInit {
     // Date          : 19-04-2018
     // Last Modified : 19-04-2018, Manu Prasad
     // Desc          : 
-    this.userService.getAccessRightsforRole().subscribe(res => {
+    this.companyService.getAccessRightsforRole().subscribe(res => {
       console.log(res);
       this.rights = res;
       this.disp = true;
@@ -232,17 +232,6 @@ export class UserTopbarComponent implements OnInit {
       // console.log("res");
     });
     // ---------------------------------End-------------------------------------------
-  }
-  exist(id){
-    console.log(id)
-    let x = false;
-    this.rights.forEach(element => {
-      if(element.access_rights_id == id){
-        // console.log("hh")
-        x =  true;
-      }
-    });
-    return x;
   }
 }
 
