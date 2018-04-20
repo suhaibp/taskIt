@@ -49,13 +49,13 @@
                                                                 <mat-icon><i class="material-icons">mode_edit</i></mat-icon>
                                                                 <span>Edit</span>
                                                                 </button> -->
-                      <button mat-menu-item (click)="getEditId(row.id)" data-toggle="modal" data-target="#myModal2">
+                      <button mat-menu-item (click)="getEditId(row.id)" data-toggle="modal" data-target="#myModal2" data-backdrop="static" data-keyboard="false">
                                                             <mat-icon><i class="material-icons">mode_edit</i></mat-icon>
                                                             <span>Edit</span>
                                                             </button>
 
 
-                      <button mat-menu-item (click)="getId(row.id)" data-toggle="modal" data-target="#deleteModal"> 
+                      <button mat-menu-item (click)="getId(row.id)" data-toggle="modal" data-target="#deleteModal" data-backdrop="static" data-keyboard="false"> 
                                                             <mat-icon><i class="material-icons">delete</i></mat-icon>
                                                             <span>Delete</span>
                                                         </button>

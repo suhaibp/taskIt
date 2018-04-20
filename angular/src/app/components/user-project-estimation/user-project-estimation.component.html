@@ -214,7 +214,7 @@
                   <div class="col-md-4 col-xs-5" *ngIf="!show[i]">
                     <ul class="taskedit">
                       <li>{{module.time}} Hr</li>
-                      <li class="pull-right"><a href="#" data-toggle="modal" data-target="#deleteModuleModal" (click)="getId(i)"> <i class="fa fa-close" aria-hidden="true"></i></a></li>
+                      <li class="pull-right"><a href="#" data-toggle="modal" data-target="#deleteModuleModal" (click)="getId(i)" data-backdrop="static" data-keyboard="false"> <i class="fa fa-close" aria-hidden="true"></i></a></li>
                       <li class="pull-right"><a><i (click)="editModules(i)" class="fa fa-pencil" aria-hidden="true"></i></a></li>
                     </ul>
                   </div>
@@ -230,8 +230,8 @@
                     <div class="col-md-4 col-xs-5">
                       <ul class="taskedit">
                         <li>{{task.planned_hour + task.buffer_time}} Hr</li>
-                        <li class="pull-right"><a href="#" data-toggle="modal" data-target="#deleteTaskModal" (click)="getId1(i,j)"> <i class="fa fa-close" aria-hidden="true"></i></a></li>
-                        <li class="pull-right"><a href="#" data-toggle="modal" data-target="#editTaskModal" (click)="getId1(i,j)"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                        <li class="pull-right"><a href="#" data-toggle="modal" data-target="#deleteTaskModal" (click)="getId1(i,j)" data-backdrop="static" data-keyboard="false"> <i class="fa fa-close" aria-hidden="true"></i></a></li>
+                        <li class="pull-right"><a href="#" data-toggle="modal" data-target="#editTaskModal" (click)="getId1(i,j)"><i class="fa fa-pencil" aria-hidden="true" data-backdrop="static" data-keyboard="false"></i></a></li>
                       </ul>
                     </div>
                     <div class="clearfix"></div>
@@ -242,7 +242,7 @@
 
               <div class="clearfix"></div>
               <div class="col-md-12">
-                <button type="button" *ngIf="!disabled" (click)="getId(i)" data-toggle="modal" data-target="#addTaskModal" class="btn round-button pull-right right-btn">Add Task</button>
+                <button type="button" *ngIf="!disabled" (click)="getId(i)" data-toggle="modal" data-target="#addTaskModal" class="btn round-button pull-right right-btn" data-backdrop="static" data-keyboard="false">Add Task</button>
               </div>
             </div>
             <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->

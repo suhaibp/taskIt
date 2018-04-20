@@ -66,13 +66,13 @@
               <br>
               <div class="row all-buttons">
                 <div class="">
-                  <button type="submit" (click)="getCost(project_cost)" data-toggle="modal" data-target="#rejectModal" class="btn round-button ">Reject</button>
+                  <button type="submit" (click)="getCost(project_cost)" data-toggle="modal" data-target="#rejectModal" class="btn round-button" data-backdrop="static" data-keyboard="false">Reject</button>
                 </div>
                 <div class="">
-                  <button type="submit" (click)="acceptProject(project_cost)" class="btn round-button ">Accept</button>
+                  <button type="submit" (click)="acceptProject(project_cost)" class="btn round-button">Accept</button>
                 </div>
                 <div class="">
-                  <button type="submit" (click)="getCost(project_cost)" data-toggle="modal" data-target="#resubmitModal" class="btn round-button ">{{resubmitBtn}}</button>
+                  <button type="submit" (click)="getCost(project_cost)" data-toggle="modal" data-target="#resubmitModal" class="btn round-button " data-backdrop="static" data-keyboard="false">{{resubmitBtn}}</button>
                 </div>
               </div>
 

@@ -515,7 +515,7 @@ export class UserService {
 
   getDatefilterforlog(data: any) {
     // console.log(data)
-    let headers = this.setHeaderWithAuthorization()
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'datefilterforlog', data, { headers: headers })
       .map(res => res.json());
   }
@@ -596,7 +596,7 @@ export class UserService {
     // console.log(Empleave);
     let headers = this.setHeaderWithAuthorization();
        return this.http.post(this.serviceUrl + 'updateuserleave', userleave, { headers: headers})
-         .map(res => res.json())
+         .map(res => res.json());
      }
    
      // < ----------------------------------End------------------------------------------- 
@@ -612,6 +612,7 @@ export class UserService {
   getMyallrequest() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allmyrequest', { headers: headers })
+    .map(res => res.json());
   }
 	     // ---------------------------------Start-------------------------------------------
   // Function      : getMyallTimeextnrequest
