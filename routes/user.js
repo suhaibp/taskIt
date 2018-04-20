@@ -92,6 +92,9 @@ var cmp_work_time = models.tbl_cmp_work_time;
 var User = models.tbl_user_profile;
 var Time_extension = models.tbl_time_extension_request;
 var New_task = models.tbl_new_task_request;
+var Task_status_assocs = models.tbl_task_status_assoc;
+var Task_status = models.tbl_task_status;
+var Progress_percentages = models.tbl_progress_percentage;
 'use strict';
 
 var returnRouter = function (io) {
@@ -1787,57 +1790,222 @@ var returnRouter = function (io) {
         }
     });
     // ----------------------------------End-------------------------------------------
-    // ---------------------------------Start-------------------------------------------
-    // Function      :userallprojects
-    // Params        :
-    // Returns       :
-    // Author        : sudha
-    // Date          : 21-03-2018
-    // Last Modified :
-    // Desc          : user all projects
-    router.get('/allProjects', function (req, res) {
-        // var login_id = 123;
+             // ---------------------------------Start-------------------------------------------
+          // Function      :userallprojects
+          // Params        :
+          // Returns       :
+          // Author        : sudha
+          // Date          : 21-03-2018
+          // Last Modified :
+          // Desc          : user all projects
+          router.get('/allProjects', function(req, res) {
+            if (req.headers && req.headers.authorization) {
+                var authorization = req.headers.authorization.substring(4), decoded;
+                //     try {
+                decoded = jwt.verify(authorization, Config.secret);
+                var cmp_id = decoded.cmp_id;
+                var login_id = decoded.id;
+            // var login_id=123;
+            if (config.use_env_variable) {
+              var sequelize = new Sequelize(process.env[config.use_env_variable]);
+            } else {
+              var sequelize = new Sequelize(config.database, config.username, config.password, config);
+            }
+               User.findOne({
+                attributes: ['id','cmp_id'],
+                  where: {login_id: login_id},
+                }).then(user => {
+                 var user_id =user.id;
+                 var cmp_id =user.cmp_id;
+                 Project.findAll({
+                   attributes:['id','project_name','planned_start_date','planned_end_date'],
+                    required:true,
+                 
+                   where: {cmp_id:cmp_id},
+      
+                   include:{
+                      attributes:[],
+                      model: Project_Module,
+                      required:true,
+                      include:{
+                          attributes:[],
+                          model: Project_tasks,
+                          required:true,
+                          where: {assigned_to_id :user_id},
+                      }
+                   }
+                  }).then(project => {
+                
+                   res.json(project);
+                  });
+                });
+            } else {
+                return res.status(401).send('Invalid User');
+            }
+                    });
+      // ----------------------------------End-------------------------------------------
+         // ---------------------------------Start-------------------------------------------
+          // Function      :projectspercentage
+          // Params        :
+          // Returns       :
+          // Author        : sudha
+          // Date          : 10-04-2018
+          // Last Modified :
+          // Desc          : user all projects percentage
+          router.get('/projectspercentage/:id', function (req, res) {
+            if (req.headers && req.headers.authorization) {
+                var authorization = req.headers.authorization.substring(4), decoded;
+                //     try {
+                decoded = jwt.verify(authorization, Config.secret);
+                var cmp_id = decoded.cmp_id;
+                var login_id = decoded.id;
+            // var login_id=123;
+            if (config.use_env_variable) {
+              var sequelize = new Sequelize(process.env[config.use_env_variable]);
+            } else {
+              var sequelize = new Sequelize(config.database, config.username, config.password, config);
+            }
+               User.findOne({
+                attributes: ['id','cmp_id'],
+                  where: {login_id: login_id},
+                }).then(user => {
+                 var user_id =user.id;
+                 var cmp_id =user.cmp_id;
+                 Project.findOne({
+                //    attributes:['id','project_name','planned_start_date','planned_end_date'],
+                    required:true,
+                 
+                   where: {id:req.params.id},
+      
+                   include:{
+                    //   attributes:[],
+                      model: Project_Module,
+                      required:true,
+                      include:{
+                        //   attributes:[],
+                          model: Project_tasks,
+                          required:true,
+                          where: {assigned_to_id :user_id},
+                          include: [
+                            // {
+                            //     model: Complexity_percentage,
+                            // },
+                          
+                            {
+                                model: Task_status_assocs,as:'st',
+
+                                include: [
+                                    {
+                                        model: Task_status,
+                                    },
+                                    {
+                                        model: Progress_percentages,as:'pp',
+                                      //  required:true,
+                                    }
+                                ],
+                            }
+                        ],
+                      }
+                   }
+                  }).then(project => {
+                
+                   res.json(project);
+                  });
+                });
+            } else {
+                return res.status(401).send('Invalid User');
+            }
+                    });
+      // ----------------------------------End-------------------------------------------
+            // ---------------------------------Start-------------------------------------------
+          // Function      :projectdetails
+          // Params        :
+          // Returns       :
+          // Author        : sudha
+          // Date          : 10-04-2018
+          // Last Modified :
+          // Desc          : user all projects
+  
+    router.get('/projectdetails/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             //     try {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
             var login_id = decoded.id;
-            if (config.use_env_variable) {
-                var sequelize = new Sequelize(process.env[config.use_env_variable]);
-            } else {
-                var sequelize = new Sequelize(config.database, config.username, config.password, config);
-            }
-            User.findOne({
-                attributes: ['id', 'cmp_id'],
-                where: { login_id: login_id },
-            }).then(user => {
-                var user_id = user.id;
-                var cmp_id = user.cmp_id;
-                Project.findAll({
-                    attributes: ['id', 'project_name'],
-                    required: true,
-                    where: { cmp_id: cmp_id },
-                    include: {
-                        attributes: [],
-                        model: Project_Module,
-                        required: true,
-                        include: {
-                            attributes: [],
-                            model: Project_tasks,
-                            required: true,
-                            where: { assigned_to_id: user_id },
-                        }
-                    }
-                }).then(project => {
-                    res.json(project);
-                });
-            });
+        // var login_id=123;
+        if (config.use_env_variable) {
+          var sequelize = new Sequelize(process.env[config.use_env_variable]);
         } else {
-            return res.status(401).send('Invalid User');
+          var sequelize = new Sequelize(config.database, config.username, config.password, config);
         }
-    });
-    // ----------------------------------End-------------------------------------------
+           User.findOne({
+            attributes: ['id','cmp_id'],
+              where: {login_id: login_id},
+            }).then(user => {
+             var user_id =user.id;
+             var cmp_id =user.cmp_id;
+             Project.findOne({
+               attributes:['id','project_name','planned_start_date','planned_end_date'],
+                required:true,
+             
+                where: { id:req.params.id },
+     
+              }).then(project => {
+             
+                    Project_Module.findAll({
+                        // attributes: [[sequelize.fn('COUNT', sequelize.col('Project_tasks.id')), 'no_module_name']],
+                        // attributes:[],
+                        // attributes: { 
+                        //     include: [[Sequelize.fn("COUNT", Sequelize.col("Project_tasks.id")), "sensorCount"]] 
+                        // },
+                        // attributes: [ [sequelize.fn('count', sequelize.col('id')), 'cnt']],
+                        // group: ['task_id'],
+                        
+                        include: [
+                            {
+                              
+                                model: Project,
+                                attributes:[],
+                                required:true,
+                                where: { id:req.params.id },
+                            },
+                            {
+                                model: Project_tasks,
+                                required:true,
+                                where: { assigned_to_id: user_id },
+                                
+                           
+                                include: [
+    
+                                    {
+                                        model: Task_status_assocs,as:'st',
+                                        // required:true,
+        
+                                        include: [
+                                            {
+                                                model: Task_status,
+                                                // required:true,
+                                            }
+                                        ],
+                                    }
+                                ],
+                            },
+                        ]
+                    }).then(myTasks => {
+                     res.json({ 'singleproject': project ,'myTasks':myTasks});
+    
+                    });
+    
+               });
+               // res.json({ 'project': project });res.json({ 'project': project ,'counttask':counttask});
+              });
+            } else {
+                return res.status(401).send('Invalid User');
+            }
+            });
+              //  });
+     // ----------------------------------End-------------------------------------------
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        : 
@@ -2900,6 +3068,81 @@ var returnRouter = function (io) {
         }
     });
     // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+          // Function      :allprojectsvsstatus
+          // Params        :
+          // Returns       :
+          // Author        : sudha
+          // Date          : 10-04-2018
+          // Last Modified :
+          // Desc          : user all projects vs status
+          router.get('/allprojectsvsstatus', function(req, res) {
+            if (req.headers && req.headers.authorization) {
+                var authorization = req.headers.authorization.substring(4), decoded;
+                //     try {
+                decoded = jwt.verify(authorization, Config.secret);
+                var cmp_id = decoded.cmp_id;
+                var login_id = decoded.id;
+            // var login_id=123;
+            if (config.use_env_variable) {
+              var sequelize = new Sequelize(process.env[config.use_env_variable]);
+            } else {
+              var sequelize = new Sequelize(config.database, config.username, config.password, config);
+            }
+               User.findOne({
+                attributes: ['id','cmp_id'],
+                  where: {login_id: login_id},
+                }).then(user => {
+                 var user_id =user.id;
+                 var cmp_id =user.cmp_id;
+                 Project.findAll({
+                //    attributes:['id','project_name','planned_start_date','planned_end_date'],
+                    required:true,
+                 
+                   where: {cmp_id:cmp_id},
+      
+                   include:{
+                    //   attributes:[],
+                      model: Project_Module,
+                      required:true,
+                      include:{
+                        //   attributes:[],
+                          model: Project_tasks,
+                          required:true,
+                          where: {assigned_to_id :user_id},
+                          include: [
+                            // {
+                            //     model: Complexity_percentage,  
+                            // },
+                          
+                            {
+                                model: Task_status_assocs,as:'st',
+                              //  required:true,
+
+                                include: [
+                                    {
+                                        model: Task_status,
+                                       // required:true,
+                                    },
+                                    {
+                                        model: Progress_percentages,as:'pp',
+                                      //  required:true,
+                                    }
+                                ],
+                            }
+                        ],
+                      }
+                   }
+                  }).then(project => {
+                
+                   res.json(project);
+                  });
+                });
+             } else {
+                    return res.status(401).send('Invalid User');
+                }
+                    });
+      // ----------------------------------End-------------------------------------------
     //  ---------------------------------Start-------------------------------------------
     // Function      : getAccessRightsforRole
     // Params        :
