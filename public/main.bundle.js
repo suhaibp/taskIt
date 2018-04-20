@@ -17868,7 +17868,7 @@ var AdminService = (function () {
     // Last Modified : 05-03-2018, Rinsha
     // Desc          : getAllplans
     AdminService.prototype.getAllplans = function () {
-        var headers = this.setHeaderWithAuthorization();
+        var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'allplans', { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -17882,7 +17882,7 @@ var AdminService = (function () {
     // Last Modified : 06-03-2018, Rinsha
     // Desc          : getAllplans without default
     AdminService.prototype.getPlansWithoutDefault = function () {
-        var headers = this.setHeaderWithAuthorization();
+        var headers = this.setHeader();
         return this.http.get(this.serviceUrl + 'allPlansWithoutDefault', { headers: headers })
             .map(function (res) { return res.json(); });
     };
