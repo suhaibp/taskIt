@@ -200,11 +200,28 @@ export class AdminPlanComponent implements OnInit {
   }
 
   updatePlan(plan) {
-    // console.log(plan);
+    if(plan.notasks == "limited"){
+      var x = plan.no_tasks;
+      plan.no_tasks = +x;
+    }
+    if(plan.nomodules == "limited"){
+      var y = plan.nomodules;
+      plan.no_modules = +y;
+    }
+    if(plan.nomembers == "limited"){
+      var z = plan.no_members;
+      plan.no_members = +z;
+    }
+    if(plan.noprojects == "limited"){
+      var p = plan.no_projects;
+      plan.no_projects = +p;
+    }
+    // console.log(typeof(plan.no_projects))
     if ((plan.notasks == "limited" && typeof (plan.no_tasks) !== 'number') || (plan.nomodules == "limited" && typeof (plan.no_modules) !== 'number') || (plan.nomembers == "limited" && typeof (plan.no_members) !== 'number') || (plan.noprojects == "limited" && typeof (plan.no_projects) !== 'number')) {
       let snackBarRef = this.snackBar.open("All fields are required", '', {
         duration: 3000
       });
+      // console.log("gygdhgh")
     }
     else {
       // ---------------------------------Start-------------------------------------------

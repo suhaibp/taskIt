@@ -25,27 +25,25 @@ var returnRouter = function (io) {
   } else {
     var sequelize = new Sequelize(config.database, config.username, config.password, config);
   }
-      // ---------------------------------Start-------------------------------------------
-      // Function      : Allcompanies
-      // Params        : 
-      // Returns       : 
-      // Author        : sudha
-      // Date          : 05-03-2018
-      // Last Modified : 
-      // Desc          : all companies
-  router.get('/allcompanies', function(req, res) {
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Allcompanies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-03-2018
+  // Last Modified : 
+  // Desc          : all companies
+  router.get('/allcompanies', function (req, res) {
     if (req.headers && req.headers.authorization) {
       var authorization = req.headers.authorization.substring(4), decoded;
       //     try {
-      decoded = jwt.verify(authorization, Config.secret);
+      //decoded = jwt.verify(authorization, Config.secret);
       Company.findAll({
         order: [['id', 'DESC']],
         include: [{
-          
           model: Login,
           required: true
           //where: {id: Sequelize.col('login.role_id')}
-        
         }]
       }).then(company => {
         //console.log(projects);
@@ -53,893 +51,805 @@ var returnRouter = function (io) {
       });
     } else {
       return res.status(401).send('Invalid User');
-  }
+    }
   });
   // ----------------------------------End-------------------------------------------
-      // ---------------------------------Start-------------------------------------------
-    // Function      : Allactivecompanies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 05-03-2018
-    // Last Modified : 
-    // Desc          : all activecompanies
-router.get('/allactivecompanies', function(req, res) {
-  if (req.headers && req.headers.authorization) {
-    var authorization = req.headers.authorization.substring(4), decoded;
-    //     try {
-    decoded = jwt.verify(authorization, Config.secret);
-    if (config.use_env_variable) {
-      var sequelize = new Sequelize(process.env[config.use_env_variable]);
-    } else {
-      var sequelize = new Sequelize(config.database, config.username, config.password, config);
-    }
-    Company.findAll({
-      order: [['id', 'DESC']],
-      include: [{
-        
-        model: Login,
-        required: true,
-        where: {[Op.and]:[{block_status:false,delete_status:false}]}
-      }]
-    }).then(company => {
-      return res.json(company);
-        
-    });
-  } else {
-    return res.status(401).send('Invalid User');
-  }
-});
-  // ----------------------------------End-------------------------------------------
-        // ---------------------------------Start-------------------------------------------
-    // Function      : Alldeletedcompanies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 05-03-2018
-    // Last Modified : 
-    // Desc          : all deletedcompanies
-router.get('/alldeletedcompanies', function(req, res) {
-  if (req.headers && req.headers.authorization) {
-    var authorization = req.headers.authorization.substring(4), decoded;
-    //     try {
-    decoded = jwt.verify(authorization, Config.secret);
-    if (config.use_env_variable) {
-      var sequelize = new Sequelize(process.env[config.use_env_variable]);
-    } else {
-      var sequelize = new Sequelize(config.database, config.username, config.password, config);
-    }
-    Company.findAll({
-      order: [['id', 'DESC']],
-      include: [{
-        
-        model: Login,
-      required: true,
-        where: {delete_status:true}
-      
-      }]
-    }).then(company => {
-      return res.json(company);
-        
-    });
-  } else {
-    return res.status(401).send('Invalid User');
-  }
-});
-  // ----------------------------------End-------------------------------------------
-        // ---------------------------------Start-------------------------------------------
-    // Function      : Allblockedcompanies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 05-03-2018
-    // Last Modified : 
-    // Desc          : all blockedcompanies
-router.get('/allblockedcompanies', function(req, res) {
-  if (req.headers && req.headers.authorization) {
-    var authorization = req.headers.authorization.substring(4), decoded;
-    //     try {
-    decoded = jwt.verify(authorization, Config.secret);
-    if (config.use_env_variable) {
-      var sequelize = new Sequelize(process.env[config.use_env_variable]);
-    } else {
-      var sequelize = new Sequelize(config.database, config.username, config.password, config);
-    }
-    Company.findAll({
-      order: [['id', 'DESC']],
-      include: [{
-        
-        model: Login,
-        required: true,
-        where: {[Op.and]:[{delete_status:false,block_status:true}]}
-      
-      }]
-    }).then(company => {
-      return res.json(company);
-        
-    });
-    } else {
-      return res.status(401).send('Invalid User');
-  }
-});
-  // ----------------------------------End-------------------------------------------
-      // ---------------------------------Start-------------------------------------------
-    // Function      : Allsubcompanies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 05-03-2018
-    // Last Modified : 
-    // Desc          : all subcompanies
-    router.get('/allsubcompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        //     try {
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {cmp_status:'Subscribed'}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-    }
-});
-    
-      // ----------------------------------End-------------------------------------------
-            // ---------------------------------Start-------------------------------------------
-    // Function      : All active subcompanies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : all  active subcompanies
-    router.get('/allsubactivecompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        //     try {
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Subscribed',delete_status:false,block_status:false}]}
-    
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-      }
-    });
-    
-      // ----------------------------------End-------------------------------------------
   // ---------------------------------Start-------------------------------------------
-    // Function      : All subscribed companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : allsubblockcompanies
-    router.get('/allsubblockcompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Subscribed',delete_status:false,block_status:true}]}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-        } else {
-          return res.status(401).send('Invalid User');
+  // Function      : Allactivecompanies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-03-2018
+  // Last Modified : 
+  // Desc          : all activecompanies
+  router.get('/allactivecompanies', function (req, res) {
+    if (req.headers && req.headers.authorization) {
+      var authorization = req.headers.authorization.substring(4), decoded;
+      //     try {
+      //decoded = jwt.verify(authorization, Config.secret);
+      if (config.use_env_variable) {
+        var sequelize = new Sequelize(process.env[config.use_env_variable]);
+      } else {
+        var sequelize = new Sequelize(config.database, config.username, config.password, config);
       }
-  });
-    
- // ----------------------------------End-------------------------------------------      
-  // ---------------------------------Start-------------------------------------------
-    // Function      : All subscribed  delete companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : allsubdeletecompanies
-    router.get('/allsubdeletecompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Subscribed',delete_status:true}]}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-    }
-  });
-    
-   // ----------------------------------End-------------------------------------------   
-   // ---------------------------------Start-------------------------------------------
-    // Function      : All trail companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 05-03-2018
-    // Last Modified : 
-    // Desc          : all trailcompanies
-    router.get('/alltrialcompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-             
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {cmp_status:'Trail'}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-    }
-  });
-    
-      // ----------------------------------End-------------------------------------------
-     // ---------------------------------Start-------------------------------------------
-    // Function      : All trail active companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : alltrialactivecompanies
-    router.get('/alltrialactivecompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Trail',delete_status:false,block_status:false}]}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-      }
-    });
-    
-      // ----------------------------------End-------------------------------------------    
-     // ---------------------------------Start-------------------------------------------
-    // Function      : All trail block companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : alltrialblockcompanies
-    router.get('/alltrialblockcompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Trail',delete_status:false,block_status:true}]}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-      }
-    });
-    
-      // ----------------------------------End-------------------------------------------      
-      
-       // ---------------------------------Start-------------------------------------------
-    // Function      : All trail delete companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : alltrialdeletecompanies
-    router.get('/alltrialdeletecompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Trail',delete_status:true}]}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-      }
-    });
-    
-      // ----------------------------------End-------------------------------------------     
- // ---------------------------------Start-------------------------------------------
-    // Function      : Allexpired companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 05-03-2018
-    // Last Modified : 
-    // Desc          : all expired companies
-    router.get('/allexpiredcompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {cmp_status:'Expired'}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-        } else {
-          return res.status(401).send('Invalid User');
-        }
-      });
-    
-      // ----------------------------------End-------------------------------------------
-           // ---------------------------------Start-------------------------------------------
-    // Function      : All expired active companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : allexpiredactivecompanies
-    router.get('/allexpiredactivecompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
- 
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Expired',delete_status:false,block_status:false}]}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-      }
-    });
-    
-      // ----------------------------------End-------------------------------------------    
-     // ---------------------------------Start-------------------------------------------
-    // Function      : All expired block companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : allexpiredblockcompanies
-    router.get('/allexpiredblockcompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Expired',delete_status:false,block_status:true}]}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-      }
-    });
-    
-      // ----------------------------------End-------------------------------------------      
-      
-       // ---------------------------------Start-------------------------------------------
-    // Function      : All expired delete companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : allexpireddeletecompanies
-    router.get('/allexpireddeletecompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Expired',delete_status:true}]}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-      }          
-    });
-    
-      // ----------------------------------End-------------------------------------------   
-            // ---------------------------------Start-------------------------------------------
-    // Function      : All not verified companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 05-03-2018
-    // Last Modified : 
-    // Desc          : all not verified companies
-    router.get('/allnotverficompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {cmp_status:'Not Verified'}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-      }
-    });
-    
-  // ----------------------------------End-------------------------------------------
-             // ---------------------------------Start-------------------------------------------
-    // Function      : All Not Verified active companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : allnotverfiactivecompanies
-    router.get('/allnotverfiactivecompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-      
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Not Verified',delete_status:false,block_status:false}]}
-          }]
-        }).then(company => {
-          return res.json(company);
-            
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-      }
-    });
-    
-      // ----------------------------------End-------------------------------------------    
-     // ---------------------------------Start-------------------------------------------
-    // Function      : All Not Verified block companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : allnotverfiblockcompanies
-    router.get('/allnotverfiblockcompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
-          order: [['id', 'DESC']],
-          include: [{
-            
-            model: Login,
-            required: true,
-            where: {[Op.and]:[{cmp_status:'Not Verified',delete_status:false,block_status:true}]}
-          
-          }]
-        }).then(company => {
-          return res.json(company);
-          
-        });
-      } else {
-        return res.status(401).send('Invalid User');
-      }
-      });
-    
-      // ----------------------------------End-------------------------------------------      
-      
-       // ---------------------------------Start-------------------------------------------
-    // Function      : All Not Verified  delete companies
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : allnotverfideletecompanies
-    router.get('/allnotverfideletecompanies', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-        Company.findAll({
+      Company.findAll({
         order: [['id', 'DESC']],
         include: [{
-          
           model: Login,
           required: true,
-          where: {[Op.and]:[{cmp_status:'Not Verified',delete_status:true}]}
-        
+          where: { [Op.and]: [{ block_status: false, delete_status: false }] }
         }]
-        }).then(company => {
+      }).then(company => {
         return res.json(company);
-          
-        });
+      });
+    } else {
+      return res.status(401).send('Invalid User');
+    }
+  });
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Alldeletedcompanies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-03-2018
+  // Last Modified : 
+  // Desc          : all deletedcompanies
+  router.get('/alldeletedcompanies', function (req, res) {
+    if (req.headers && req.headers.authorization) {
+      var authorization = req.headers.authorization.substring(4), decoded;
+      //     try {
+      //decoded = jwt.verify(authorization, Config.secret);
+      if (config.use_env_variable) {
+        var sequelize = new Sequelize(process.env[config.use_env_variable]);
       } else {
-        return res.status(401).send('Invalid User');
+        var sequelize = new Sequelize(config.database, config.username, config.password, config);
       }
-    });
-    
-      // ----------------------------------End-------------------------------------------   
- // ---------------------------------Start-------------------------------------------
-    // Function      : block company
-    // Params        : id
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : block company
-router.put('/blockcompany/:id', function(req, res) {
-  if (req.headers && req.headers.authorization) {
-    var authorization = req.headers.authorization.substring(4), decoded;
-    decoded = jwt.verify(authorization, Config.secret);
+      Company.findAll({
+        order: [['id', 'DESC']],
+        include: [{
+          model: Login,
+          required: true,
+          where: { delete_status: true }
+        }]
+      }).then(company => {
+        return res.json(company);
+      });
+    } else {
+      return res.status(401).send('Invalid User');
+    }
+  });
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Allblockedcompanies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-03-2018
+  // Last Modified : 
+  // Desc          : all blockedcompanies
+  router.get('/allblockedcompanies', function (req, res) {
+    if (req.headers && req.headers.authorization) {
+      var authorization = req.headers.authorization.substring(4), decoded;
+      //     try {
+      //decoded = jwt.verify(authorization, Config.secret);
+      if (config.use_env_variable) {
+        var sequelize = new Sequelize(process.env[config.use_env_variable]);
+      } else {
+        var sequelize = new Sequelize(config.database, config.username, config.password, config);
+      }
+      Company.findAll({
+        order: [['id', 'DESC']],
+        include: [{
+          model: Login,
+          required: true,
+          where: { [Op.and]: [{ delete_status: false, block_status: true }] }
+        }]
+      }).then(company => {
+        return res.json(company);
+      });
+    } else {
+      return res.status(401).send('Invalid User');
+    }
+  });
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Allsubcompanies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-03-2018
+  // Last Modified : 
+  // Desc          : all subcompanies
+  router.get('/allsubcompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //     try {
+    // //decoded = jwt.verify(authorization, Config.secret);
     if (config.use_env_variable) {
       var sequelize = new Sequelize(process.env[config.use_env_variable]);
     } else {
       var sequelize = new Sequelize(config.database, config.username, config.password, config);
     }
- 
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { cmp_status: 'Subscribed' }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    //   } else {
+    //     return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All active subcompanies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : all  active subcompanies
+  router.get('/allsubactivecompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //     try {
+    // //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Subscribed', delete_status: false, block_status: false }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All subscribed companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : allsubblockcompanies
+  router.get('/allsubblockcompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Subscribed', delete_status: false, block_status: true }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    //   } else {
+    //     return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------      
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All subscribed  delete companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : allsubdeletecompanies
+  router.get('/allsubdeletecompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Subscribed', delete_status: true }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    //   } else {
+    //     return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------   
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All trail companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-03-2018
+  // Last Modified : 
+  // Desc          : all trailcompanies
+  router.get('/alltrialcompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { cmp_status: 'Trail' }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    //   } else {
+    //     return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All trail active companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : alltrialactivecompanies
+  router.get('/alltrialactivecompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Trail', delete_status: false, block_status: false }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------    
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All trail block companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : alltrialblockcompanies
+  router.get('/alltrialblockcompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Trail', delete_status: false, block_status: true }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------      
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All trail delete companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : alltrialdeletecompanies
+  router.get('/alltrialdeletecompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Trail', delete_status: true }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------     
+  // ---------------------------------Start-------------------------------------------
+  // Function      : Allexpired companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-03-2018
+  // Last Modified : 
+  // Desc          : all expired companies
+  router.get('/allexpiredcompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { cmp_status: 'Expired' }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All expired active companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : allexpiredactivecompanies
+  router.get('/allexpiredactivecompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Expired', delete_status: false, block_status: false }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------    
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All expired block companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : allexpiredblockcompanies
+  router.get('/allexpiredblockcompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Expired', delete_status: false, block_status: true }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------      
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All expired delete companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : allexpireddeletecompanies
+  router.get('/allexpireddeletecompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Expired', delete_status: true }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }          
+  });
+  // ----------------------------------End-------------------------------------------   
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All not verified companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 05-03-2018
+  // Last Modified : 
+  // Desc          : all not verified companies
+  router.get('/allnotverficompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { cmp_status: 'Not Verified' }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All Not Verified active companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : allnotverfiactivecompanies
+  router.get('/allnotverfiactivecompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Not Verified', delete_status: false, block_status: false }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------    
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All Not Verified block companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : allnotverfiblockcompanies
+  router.get('/allnotverfiblockcompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Not Verified', delete_status: false, block_status: true }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------      
+  // ---------------------------------Start-------------------------------------------
+  // Function      : All Not Verified  delete companies
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : allnotverfideletecompanies
+  router.get('/allnotverfideletecompanies', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      include: [{
+        model: Login,
+        required: true,
+        where: { [Op.and]: [{ cmp_status: 'Not Verified', delete_status: true }] }
+      }]
+    }).then(company => {
+      return res.json(company);
+    });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------   
+  // ---------------------------------Start-------------------------------------------
+  // Function      : block company
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : block company
+  router.put('/blockcompany/:id', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
     Login.update({
       block_status: true
     }, {
-          where: {
-              id: req.params.id
-          }
+        where: {
+          id: req.params.id
+        }
       }).then(company => {
-    if (!company) {
-      return res.json({ success: false, msg: 'Faild to block company' });
-    } else {
-      io.sockets.emit("blockcompany", {
-          //user_id : req.params.id
+        if (!company) {
+          return res.json({ success: false, msg: 'Faild to block company' });
+        } else {
+          io.sockets.emit("blockcompany", {
+            //user_id : req.params.id
+          });
+          return res.json({ success: true, msg: 'Blocked Successfully' });
+        }
       });
-    
-      return res.json({ success: true, msg: 'Blocked Successfully' });
-    }
-  });
-  } else {
-    return res.status(401).send('Invalid User');
-  }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // ----------------------------------End-------------------------------------------
   // ---------------------------------Start-------------------------------------------
-    // Function      : unblock company
-    // Params        : id
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : unblock company
-router.put('/unblockcompany/:id', function(req, res) {
-  if (req.headers && req.headers.authorization) {
-    var authorization = req.headers.authorization.substring(4), decoded;
-    decoded = jwt.verify(authorization, Config.secret);
+  // Function      : unblock company
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : unblock company
+  router.put('/unblockcompany/:id', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
     if (config.use_env_variable) {
       var sequelize = new Sequelize(process.env[config.use_env_variable]);
     } else {
       var sequelize = new Sequelize(config.database, config.username, config.password, config);
     }
     Login.update({
-          block_status: false
+      block_status: false
     }, {
         where: {
-            id: req.params.id
+          id: req.params.id
         }
-    }).then(company => {
-    if (!company) {
-      return res.json({ success: false, msg: 'Faild to unblock company' });
-    } else {
+      }).then(company => {
+        if (!company) {
+          return res.json({ success: false, msg: 'Faild to unblock company' });
+        } else {
           io.sockets.emit("blockcompany", {
-              //user_id : req.params.id
-        });
+            //user_id : req.params.id
+          });
           return res.json({ success: true, msg: 'UnBlocked Successfully' });
-      }
-    });
-    } else {
-    return res.status(401).send('Invalid User');
-  }
-});
+        }
+      });
+    //   } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
   // ----------------------------------End-------------------------------------------
-    // ---------------------------------Start-------------------------------------------
-    // Function      : delete company
-    // Params        : id
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : delete company
-router.put('/deletecompany/:id', function(req, res) {
-  if (req.headers && req.headers.authorization) {
-    var authorization = req.headers.authorization.substring(4), decoded;
-    decoded = jwt.verify(authorization, Config.secret);
+  // ---------------------------------Start-------------------------------------------
+  // Function      : delete company
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : delete company
+  router.put('/deletecompany/:id', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
     if (config.use_env_variable) {
       var sequelize = new Sequelize(process.env[config.use_env_variable]);
     } else {
       var sequelize = new Sequelize(config.database, config.username, config.password, config);
     }
- 
     Login.update({
-    delete_status: true
+      delete_status: true
     }, {
         where: {
-            id: req.params.id
+          id: req.params.id
         }
-    }).then(company => {
-    if (!company) {
-      return res.json({ success: false, msg: 'Faild to delete company' });
-    } else {
+      }).then(company => {
+        if (!company) {
+          return res.json({ success: false, msg: 'Faild to delete company' });
+        } else {
           io.sockets.emit("deletecompany", {
-              //user_id : req.params.id
+            //user_id : req.params.id
           });
-        return res.json({ success: true, msg: 'Deleted successfully' });
-    }
-  });
-} else {
-  return res.status(401).send('Invalid User');
-}
+          return res.json({ success: true, msg: 'Deleted successfully' });
+        }
+      });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // ----------------------------------End-----------------------------------------------
-     // ---------------------------------Start-------------------------------------------
-    // Function      : adminnotification
-    // Params        : 
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : adminnotification
-    router.get('/adminnotification', function(req, res) {
-      if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.substring(4), decoded;
-        decoded = jwt.verify(authorization, Config.secret);
-        if (config.use_env_variable) {
-          var sequelize = new Sequelize(process.env[config.use_env_variable]);
-        } else {
-          var sequelize = new Sequelize(config.database, config.username, config.password, config);
-        }
-    
-          Company.findAll({
-          
-              order: [['id', 'DESC']],
-              where: {is_admin_viewed: false},
-              include: [{
-                
-                  model: Login,
-            
-                  required: true,
-                  where: {is_verified:true},
-                }]
-            
-          }).then(company => {
-            return res.json(company);
-          })
-        } else {
-          return res.status(401).send('Invalid User');
-        }
-        });
-    
- // ----------------------------------End-------------------------------------------  
-// ---------------------------------Start-------------------------------------------
-    // Function      : viewstatusadmin
-    // Params        : id
-    // Returns       : 
-    // Author        : sudha
-    // Date          : 06-03-2018
-    // Last Modified : 
-    // Desc          : viewstatusadmin
-router.put('/viewstatusadmin/:id', function(req, res) {
-  if (req.headers && req.headers.authorization) {
-    var authorization = req.headers.authorization.substring(4), decoded;
-    decoded = jwt.verify(authorization, Config.secret);
-    if (config.use_env_variable) {
-      var sequelize = new Sequelize(process.env[config.use_env_variable]);
-    } else {
-      var sequelize = new Sequelize(config.database, config.username, config.password, config);
-    }
-    
-    Company.update({
-      is_admin_viewed: true
+  // ---------------------------------Start-------------------------------------------
+  // Function      : adminnotification
+  // Params        : 
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : adminnotification
+  router.get('/adminnotification', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+      if (config.use_env_variable) {
+        var sequelize = new Sequelize(process.env[config.use_env_variable]);
+      } else {
+        var sequelize = new Sequelize(config.database, config.username, config.password, config);
+      }
+      Company.findAll({
+        order: [['id', 'DESC']],
+        where: { is_admin_viewed: false },
+        include: [{
+          model: Login,
+          required: true,
+          where: { is_verified: true },
+        }]
+      }).then(company => {
+        return res.json(company);
+      })
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
+  });
+  // ----------------------------------End-------------------------------------------  
+  // ---------------------------------Start-------------------------------------------
+  // Function      : viewstatusadmin
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 06-03-2018
+  // Last Modified : 
+  // Desc          : viewstatusadmin
+  router.put('/viewstatusadmin/:id', function (req, res) {
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+      if (config.use_env_variable) {
+        var sequelize = new Sequelize(process.env[config.use_env_variable]);
+      } else {
+        var sequelize = new Sequelize(config.database, config.username, config.password, config);
+      }
+      Company.update({
+        is_admin_viewed: true
       }, {
-              where: {
-                  id: req.params.id
-              }
-          }).then(company => {
-        if (!company) {
-          return res.json({ success: false, msg: 'Faild to viewstatus company' });
-        } else {
-          io.sockets.emit("viewstatusadmin", {
+          where: {
+            id: req.params.id
+          }
+        }).then(company => {
+          if (!company) {
+            return res.json({ success: false, msg: 'Faild to viewstatus company' });
+          } else {
+            io.sockets.emit("viewstatusadmin", {
               //user_id : req.params.id
-          });
-          return res.json({ success: true, msg: 'viewstatus Successfully' });
-        }
-     });
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+            });
+            return res.json({ success: true, msg: 'viewstatus Successfully' });
+          }
+        });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // ----------------------------------End-------------------------------------------
   //  ---------------------------------Start-------------------------------------------
@@ -956,15 +866,15 @@ router.put('/viewstatusadmin/:id', function(req, res) {
     var sequelize = new Sequelize(config.database, config.username, config.password, config);
   }
   router.post('/get_counts_for_dashboard', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
       var userCount;
       var cmpCount;
       var projectCount;
       sequelize.query("select count(*) from tbl_logins where block_status != :status and delete_status != :status", { replacements: { status: true } }).spread((myTableRows1) => {
         // res.json(myTableRows)
-        userCount = myTableRows1[0].count;
+        userCount = myTableRows1[0].count - 1;
         sequelize.query("select count(*) from tbl_companies").spread(myTableRows2 => {
           // res.json(myTableRows)
           cmpCount = myTableRows2[0].count;
@@ -977,21 +887,21 @@ router.put('/viewstatusadmin/:id', function(req, res) {
               projects: projectCount
             })
           })
-        })    
-    })
-    /*___________________COUNT IN MODEL EXAMPLE______________________*/
-    // Login.findAndCountAll({
-    //   where: {
-    //     block_status: {
-    //       [Op.ne]:true
-    //     }
-    //   }
-    // }).then(projects => {
-    //   res.json(projects);
-    // })
-  } else {
-    return res.status(401).send('Invalid User');
-  }
+        })
+      })
+      /*___________________COUNT IN MODEL EXAMPLE______________________*/
+      // Login.findAndCountAll({
+      //   where: {
+      //     block_status: {
+      //       [Op.ne]:true
+      //     }
+      //   }
+      // }).then(projects => {
+      //   res.json(projects);
+      // })
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   //  ---------------------------------Start-------------------------------------------
   // Function      : super_admin_pie_graph
@@ -1002,9 +912,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 06-03-2018, 
   // Desc          : get piegraph data
   router.get('/super_admin_pie_graph', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
       count = [];
       Login.findAndCountAll({
         where: {
@@ -1038,9 +948,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
           })
         })
       })
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   //  ---------------------------------End-------------------------------------------
   //  ---------------------------------Start-------------------------------------------
@@ -1052,10 +962,10 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 06-03-2018, 
   // Desc          : get piegraph data
   router.get('/super_admin_bar_graph', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
-      console.log('y')
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+      // console.log('y')
       count = [];
       // Projects.findAll({
       //   include: [{
@@ -1073,20 +983,20 @@ router.put('/viewstatusadmin/:id', function(req, res) {
         //console.log(projects);
         res.json(companies);
       });
-    //   if (config.use_env_variable) {
-    //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
-    //   } else {
-    //     var sequelize = new Sequelize(config.database, config.username, config.password, config);
-    //   }
-    //   sequelize.query("select * from GetAllSt();").spread(
-    //     function (actualres, settingName2) {
-    //       console.log(actualres);
-    //       console.log(settingName2);
-    //       res.json(actualres);
-    // });
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+      //   if (config.use_env_variable) {
+      //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
+      //   } else {
+      //     var sequelize = new Sequelize(config.database, config.username, config.password, config);
+      //   }
+      //   sequelize.query("select * from GetAllSt();").spread(
+      //     function (actualres, settingName2) {
+      //       console.log(actualres);
+      //       console.log(settingName2);
+      //       res.json(actualres);
+      // });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   //  ---------------------------------End-------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1100,59 +1010,59 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   router.post('/login', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
-    //   decoded = jwt.verify(authorization, Config.secret);
-      if (config.use_env_variable) {
-        var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      } else {
-        var sequelize = new Sequelize(config.database, config.username, config.password, config);
-      }
-      const email = req.body.email;
-      const password = req.body.password;
-      if (email == '' || password == '') {
-        res.json({ success: false, msg: "All fields are required" });
-      }
-      else {
-        // sequelize.query("select * from tbl_logins where role_id=2 and  email= :email;", { replacements: { email: email } }).spread(
-        //   function (res1, settingName2) {
-        //     // console.log(res1);
-        //     if (res1 == '') {
-        //       res.json({ success: false, msg: "Incorrect Username or Password" });
-        //     }
-        //     else if (res1[0].password != password) {
-        //       res.json({ success: false, msg: "Incorrect Username or Password" });
-        //     }
-        //     else if (res1[0].password == password) {
-        //       res.json({
-        //         success: true,
-        //         msg: 'login succesfully',
-        //       });
-        //     }
-        //   });
-        Login.findOne({
-          where: {
-            email: req.body.email,
-            role_id: 2,
-            password: req.body.password
-          }
-        }).then(login => {
-          if (login === null) {
-            res.json({ success: false, msg: "Incorrect Username or Password" });
-          }
-          else {
-            const token = jwt.sign(login.toJSON(), Config.secret, {
-              expiresIn: 60400 // sec 1 week
-            });
-            res.json({
-              success: true,
-              msg: 'login succesfully',
-              token: 'JWT ' + token,
-              admin: {
-                role_id: login.role_id
-              }
-            });
-          }
-        });
-      }
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    const email = req.body.email;
+    const password = req.body.password;
+    if (email == '' || password == '') {
+      res.json({ success: false, msg: "All fields are required" });
+    }
+    else {
+      // sequelize.query("select * from tbl_logins where role_id=2 and  email= :email;", { replacements: { email: email } }).spread(
+      //   function (res1, settingName2) {
+      //     // console.log(res1);
+      //     if (res1 == '') {
+      //       res.json({ success: false, msg: "Incorrect Username or Password" });
+      //     }
+      //     else if (res1[0].password != password) {
+      //       res.json({ success: false, msg: "Incorrect Username or Password" });
+      //     }
+      //     else if (res1[0].password == password) {
+      //       res.json({
+      //         success: true,
+      //         msg: 'login succesfully',
+      //       });
+      //     }
+      //   });
+      Login.findOne({
+        where: {
+          email: req.body.email,
+          role_id: 2,
+          password: req.body.password
+        }
+      }).then(login => {
+        if (login === null) {
+          res.json({ success: false, msg: "Incorrect Username or Password" });
+        }
+        else {
+          const token = jwt.sign(login.toJSON(), Config.secret, {
+            expiresIn: 60400 // sec 1 week
+          });
+          res.json({
+            success: true,
+            msg: 'login succesfully',
+            token: 'JWT ' + token,
+            admin: {
+              role_id: login.role_id
+            }
+          });
+        }
+      });
+    }
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -1169,21 +1079,21 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   router.get('/allplans', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
-    //   decoded = jwt.verify(authorization, Config.secret);
-      if (config.use_env_variable) {
-        var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      } else {
-        var sequelize = new Sequelize(config.database, config.username, config.password, config);
-      }
-      // sequelize.query("select * from tbl_plans").spread(
-      //   function (result, settingName2) {
-      //     // console.log(result);
-      //     res.json(result);
-      //   });
-      Plans.findAll({ order: [['createdAt', 'DESC']] }).then(plans => {
-        // console.log(plans);
-        res.json(plans);
-      });
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    // sequelize.query("select * from tbl_plans").spread(
+    //   function (result, settingName2) {
+    //     // console.log(result);
+    //     res.json(result);
+    //   });
+    Plans.findAll({ order: [['createdAt', 'DESC']] }).then(plans => {
+      // console.log(plans);
+      res.json(plans);
+    });
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -1200,22 +1110,22 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   router.get('/allPlansWithoutDefault', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
-    //   decoded = jwt.verify(authorization, Config.secret);
-      if (config.use_env_variable) {
-        var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      } else {
-        var sequelize = new Sequelize(config.database, config.username, config.password, config);
-      }
-      Plans.findAll({
-        where: {
-          is_defualt: {
-            [Op.ne]: true
-          }
-        },
-        order: [['createdAt', 'DESC']]
-      }).then(plans => {
-        res.json(plans);
-      });
+    //   //decoded = jwt.verify(authorization, Config.secret);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Plans.findAll({
+      where: {
+        is_defualt: {
+          [Op.ne]: true
+        }
+      },
+      order: [['createdAt', 'DESC']]
+    }).then(plans => {
+      res.json(plans);
+    });
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -1230,9 +1140,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 07-03-2018, Rinsha
   // Desc          : add plan 
   router.post('/addPlan', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
       // console.log(req.body);
       planName = myTrim(req.body.plan_name);
       if (config.use_env_variable) {
@@ -1259,6 +1169,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
             }
             else if (planName.length > 10 || planName.length < 3) {
               res.json({ success: false, msg: "Plan Name between 3-10 characters" });
+            }
+            else if (req.body.plan_price < 1) {
+              res.json({ success: false, msg: "Plan price should be valid" });
             }
             else {
               if (req.body.no_projects == 'Unlimited') {
@@ -1299,9 +1212,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
           });
         }
       });
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // -----------------------------------End-----------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1325,9 +1238,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 07-03-2018, Rinsha
   // Desc          : to change a plan to best
   router.post('/bestPlan/:id', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
       // console.log(req.params.id + ":id," + req.body.status +":status")
       if (config.use_env_variable) {
         var sequelize = new Sequelize(process.env[config.use_env_variable]);
@@ -1360,9 +1273,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
               }
             });
         });
-      } else {
-        return res.status(401).send('Invalid User');
-      }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // -----------------------------------End-----------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1374,9 +1287,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 07-03-2018, Rinsha
   // Desc          : to delete a plan which is'nt used by any company
   router.get('/deletePlan/:id', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
       if (config.use_env_variable) {
         var sequelize = new Sequelize(process.env[config.use_env_variable]);
       } else {
@@ -1409,9 +1322,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
           });
         }
       });
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // -----------------------------------End-----------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1423,9 +1336,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 07-03-2018, Rinsha
   // Desc          : getplan
   router.get('/planById/:id', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
       if (config.use_env_variable) {
         var sequelize = new Sequelize(process.env[config.use_env_variable]);
       } else {
@@ -1434,9 +1347,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
       Plans.findById(req.params.id).then(plans => {
         res.json(plans);
       });
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // -----------------------------------End------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1448,15 +1361,17 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 07-03-2018, Rinsha
   // Desc          : update a plan
   router.post('/updatePlan', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
       // console.log(req.body);
       if (config.use_env_variable) {
         var sequelize = new Sequelize(process.env[config.use_env_variable]);
       } else {
         var sequelize = new Sequelize(config.database, config.username, config.password, config);
       }
+      // console.log("hhh")
+      // console.log(req.body.plan_name)
       planName = myTrim(req.body.plan_name);
       Plans.findAll({
         where: {
@@ -1472,13 +1387,16 @@ router.put('/viewstatusadmin/:id', function(req, res) {
         else if (req.body.plan_name == '') {
           res.json({ success: false, msg: "All fields are required" });
         }
-        else if (req.body.is_defualt == true) {
+        else if (req.body.is_defualt == false) {
           if (req.body.plan_price == '' || req.body.plan_price == null) {
             res.json({ success: false, msg: "All fields are required" });
           }
         }
         else if (planName.length > 10 || planName.length < 3) {
           res.json({ success: false, msg: "Plan Name between 3-10 characters" });
+        }
+        else if (req.body.is_defualt == false && req.body.plan_price < 1) {
+          res.json({ success: false, msg: "Plan price should be valid" });
         }
         else {
           if (req.body.noprojects == 'Unlimited') {
@@ -1524,9 +1442,9 @@ router.put('/viewstatusadmin/:id', function(req, res) {
             });
         }
       });
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // -----------------------------------End------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1550,14 +1468,13 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 06-04-2018, Rinsha
   // Desc          : get all estimated project
   router.get('/getEstimatedProject', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
       // EstimationTeam.findAll({
       //   include: [
       //     {
       //       model: EstimationTeamMember,
-    
       //     }
       // ]
       // }).then(estimation => {
@@ -1566,11 +1483,11 @@ router.put('/viewstatusadmin/:id', function(req, res) {
       Estimations.findAll({
         where: {
           is_accepted: true,
-          is_resubmitted : false
+          is_resubmitted: false
         },
         include: [
           {
-          model: Projects,
+            model: Projects,
           },
           {
             model: EstimationTeam,
@@ -1588,13 +1505,13 @@ router.put('/viewstatusadmin/:id', function(req, res) {
               }
             ]
           }
-      ]
+        ]
       }).then(estimation => {
         res.json(estimation);
       });
-    } else {
-      return res.status(401).send('Invalid User');
-    }
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // -----------------------------------End------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1606,55 +1523,54 @@ router.put('/viewstatusadmin/:id', function(req, res) {
   // Last Modified : 09-04-2018, Rinsha
   // Desc          : get all estimated project
   router.get('/getAllEstimatedProject', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
-    // EstimationTeam.findAll({
-    //   include: [
-    //     {
-    //       model: EstimationTeamMember,
-  
-    //     }
-    // ]
-    // }).then(estimation => {
-    //   res.json(estimation);
-    // });
-    Estimations.findAll({
-      where: {
-        is_accepted: true,
-        is_resubmitted : false
-      },
-      include: [
-        {
-        model: Projects,
+    // if (req.headers && req.headers.authorization) {
+    //   var authorization = req.headers.authorization.substring(4), decoded;
+    //   //decoded = jwt.verify(authorization, Config.secret);
+      // EstimationTeam.findAll({
+      //   include: [
+      //     {
+      //       model: EstimationTeamMember,
+      //     }
+      // ]
+      // }).then(estimation => {
+      //   res.json(estimation);
+      // });
+      Estimations.findAll({
+        where: {
+          is_accepted: true,
+          is_resubmitted: false
         },
-      ]
-    }).then(estimation => {
-      res.json(estimation);
-    });
-  } else {
-    return res.status(401).send('Invalid User');
-  }
+        include: [
+          {
+            model: Projects,
+          },
+        ]
+      }).then(estimation => {
+        res.json(estimation);
+      });
+    // } else {
+    //   return res.status(401).send('Invalid User');
+    // }
   });
   // -----------------------------------End------------------------------------------
   // ---------------------------------Start-------------------------------------------
-    // Function      : Get logged in entity
-    // Params        : 
-    // Returns       : Get logged in entity
-    // Author        : Rinsha
-    // Date          : 20-04-2018
-    // Last Modified : 20-04-2018, Rinsha
-    // Desc          :   
-    router.get('/getLoggedinUser', (req, res, next) => {
-      if (req.headers && req.headers.authorization) {
-          var authorization = req.headers.authorization.substring(4),
-              decoded;
-          decoded = jwt.verify(authorization, Config.secret);
-          res.json(decoded);
-          // // console.log(decoded);
-      } else {
-          return res.status(401).send('Invalid User');
-      }
+  // Function      : Get logged in entity
+  // Params        : 
+  // Returns       : Get logged in entity
+  // Author        : Rinsha
+  // Date          : 20-04-2018
+  // Last Modified : 20-04-2018, Rinsha
+  // Desc          :   
+  router.get('/getLoggedinUser', (req, res, next) => {
+    if (req.headers && req.headers.authorization) {
+      var authorization = req.headers.authorization.substring(4),
+        decoded;
+      decoded = jwt.verify(authorization, Config.secret);
+      res.json(decoded);
+      // // console.log(decoded);
+    } else {
+      return res.status(401).send('Invalid User');
+    }
   });
   // ----------------------------------End-------------------------------------------
   module.exports = router;
