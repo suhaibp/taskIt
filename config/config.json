@@ -10,16 +10,16 @@
   },
   "test": {
     "username": "postgres",
-    "password": null,
+    "password": "jooshifa",
     "database": "taskit",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "host": "192.168.1.115",
+    "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
-    "password": null,
+    "password": "jooshifa",
     "database": "taskit",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "host": "192.168.1.115",
+    "dialect": "postgres"
   }
 }

@@ -12,7 +12,6 @@ import { MatSnackBar } from '@angular/material';
 export class CompanyProjectComponent implements OnInit {
   displayedColumns = ['slno', 'project_name', 'startdate', 'enddate', 'action'];
   dataSource: MatTableDataSource<any>;
-  
   notExist = false;
   entity: any;
   Pid: any;
@@ -35,7 +34,33 @@ export class CompanyProjectComponent implements OnInit {
     this.companyService.getLoggedinEntity().subscribe(data => {
       this.entity = data;
       this.loggedin_id = this.entity.id;
-      // console.log(data);
+      if(data == null || data == ''){
+        this.routes.navigate(['/home']); 
+      }
+      if(data.role_id == 2){
+        //super admin
+        if(data.delete_status == true || data.block_status == true){
+          this.routes.navigate(['/home']); 
+        }
+      }
+      if(data.role_id == 1){
+        //company admin
+        if(data.delete_status == true || data.block_status == true || data.cmp_status == "Not Verified"){
+          this.routes.navigate(['/company-login']); 
+        }
+        if(data.cmp_status == "Expired"){
+          this.routes.navigate(['/expired']);
+        }
+        if(data.is_profile_completed == false){
+          this.routes.navigate(['/compay-aditninfo', data.cmp_id]);
+        }
+      }
+      if(data.role_id == 3 || data.role_id == 4){
+        //company admin
+        if(data.delete_status == true || data.block_status == true){
+          this.routes.navigate(['/company-login']); 
+        }
+      }
     });
     // -----------------------------------End------------------------------------------
     this.getProject();
@@ -45,7 +70,6 @@ export class CompanyProjectComponent implements OnInit {
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
   }
-  
   getProject() {
     // console.log(this.selected);
     this.notExist = false;

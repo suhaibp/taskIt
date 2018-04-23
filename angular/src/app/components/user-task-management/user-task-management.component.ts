@@ -215,9 +215,9 @@ export class UserTaskManagementComponent implements OnInit {
       this.percentages = percentage
     });
   }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
   getmytasks() {
     this.myTasks = [];
     this.showDetails1 = [];

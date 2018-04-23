@@ -54,7 +54,7 @@
                             <ng-container matColumnDef="profile">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header>Requester</mat-header-cell>
                                 <mat-cell *matCellDef="let row">
-                                  <div class="user" *ngIf="profilCheck(row.tbl_new_task_request.tbl_user_profile.tbl_login.profile_image); else image"><i class="fa fa-user"></i></div>
+                                  <div class="user" *ngIf="profilCheck(row?.tbl_new_task_request?.tbl_user_profile?.tbl_login?.profile_image); else image"><i class="fa fa-user"></i></div>
                                   <ng-template #image>
                                       <div class="user" ><img src="./assets/images/sign.jpg"></div>
                                   </ng-template>
@@ -64,13 +64,23 @@
                             <!-- Theme Name -->
                             <ng-container matColumnDef="name">
                               <mat-header-cell *matHeaderCellDef mat-sort-header> PROJECT NAME  </mat-header-cell>
-                              <mat-cell *matCellDef="let row"> {{row.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}} </mat-cell>
+                              <mat-cell *matCellDef="let row"> {{row?.tbl_new_task_request?.tbl_project_module?.tbl_project?.project_nam}} </mat-cell>
                             </ng-container>
                           
       
                             <ng-container matColumnDef="strength">
                               <mat-header-cell *matHeaderCellDef mat-sort-header> MODULE NAME </mat-header-cell>
-                              <mat-cell *matCellDef="let row"> {{row.tbl_new_task_request.tbl_project_module.module_name}} </mat-cell>
+                              <mat-cell *matCellDef="let row"> {{row?.tbl_new_task_request?.tbl_project_module?.module_name}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="task name">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> TASK NAME </mat-header-cell>
+                              <mat-cell *matCellDef="let row"> {{row?.tbl_new_task_request?.task_name}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="reqstatus">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </mat-header-cell>
+                              <mat-cell *matCellDef="let row"> {{row?.tbl_new_task_request?.request_status}} </mat-cell>
                             </ng-container>
                             <!-- Progress Column -->
                             <!-- <ng-container matColumnDef="mybid">
@@ -101,7 +111,7 @@
                                     <mat-icon>mode_edit</mat-icon>
                                     <span>Edit</span>
                                   </button> -->
-                                  <button mat-menu-item   [routerLink]="['/company-task-manage', row.tbl_new_task_request.id]"> 
+                                  <button mat-menu-item   [routerLink]="['/company-task-manage', row?.tbl_new_task_request.id]"> 
                                       <mat-icon class="mat-menu-icn"><i class="material-icons mat-assign-icn">visibility</i></mat-icon>
                                       <span>View</span>
                                     </button>

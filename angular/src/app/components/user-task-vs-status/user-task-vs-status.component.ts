@@ -8,38 +8,97 @@ declare var $:any;
   styleUrls: ['./user-task-vs-status.component.css']
 })
 export class UserTaskVsStatusComponent implements OnInit {
-
+  selectedValue:any;
+  projectsingle:any;
+  projecttask:any;
+  lastStatus:any;
   projects = [];
   users = [];
+  countask=[];
+  countaskdone=[];
+  countaskhold=[];
+  countaskinprogress=[];
+  countasknew=[];
+  newyetstart:any;
     constructor(private userService : UserService) { }
   
     ngOnInit() {
       
       this.getAllProjects();
-      
-  
-      const pieData = [
-        {name: 'New - Yet to Start', value: 3, color: '#2778a7'},
-        {name: 'In Progress', value: 4, color: '#99b745'},
-        {name: 'Completed', value: 50, color: '#17a88f'},
-        {name: 'On Hold', value: 50, color: '#f2ac37'},
-        {name: 'Cancelled', value: 3, color: '#b74549'},
-        {name: 'Un Planned', value: 1, color: '#4d5d6e'},
-      ];
-      this.bakeDonut(pieData);
+    
     }
     
     getAllProjects(){
       this.userService.getAllProject().subscribe(data=>{
-        console.log(data);
-        this.projects = data;
-        // if(this.projects.length == 0){
-        //   this.users = [];
-        // }else{
-        //   this.getUsers(this.projects[0].id);
+        // this.selectedValue=data[0].id
+      //  console.log(data[0].id);
+ 
+       this.projects = data;
+        if(data.length > 0){
+          this.selectedValue=data[0].id
+        }
+        // else{
+        //   console.log('no projects');
         // }
+        
+        this.taskstatus();
+        // });
       });
     }
+    taskstatus(){
+      // this.projects.forEach(element => {
+        // console.log(this.selectedValue);
+        // this.selectedValue=element.id
+        // console.log(this.selectedValue);
+        this.userService.getProjectdetails(this.selectedValue).subscribe(res=>{
+          
+          this.projectsingle=res.singleproject;
+          this.projecttask=res.myTasks;
+          this.projecttask.forEach(elm_mod => {
+            // console.log(elm_mod)
+            elm_mod.tbl_project_tasks.forEach(elm_task => {
+              this.countask.push(elm_task.id);
+                this.lastStatus = elm_task.tbl_task_status_assocs[elm_task.tbl_task_status_assocs.length - 1];
+                // console.log(this.lastStatus.tbl_task_status.status)
+                // console.log(this.lastStatus.tbl_task_status.id)
+              // });
+              if (this.lastStatus !== undefined) {
+              if(this.lastStatus.tbl_task_status.status == 'done'){
+                this.countaskdone.push(elm_task.id);
+              }
+              if(this.lastStatus.tbl_task_status.status == 'hold'){
+                this.countaskhold.push(elm_task.id);
+              }
+              if(this.lastStatus.tbl_task_status.status == 'inprogress'){
+                this.countaskinprogress.push(elm_task.id);
+              }
+              if(this.lastStatus.tbl_task_status.status == 'new'){
+                this.countasknew.push(elm_task.id);
+              }
+            }
+
+    // console.log(elm_task)
+    //  console.log(this.countaskhold.length)
+          });
+        });
+        this.newyetstart=(this.countask.length)-(this.countaskdone.length+this.countaskinprogress.length+this.countaskhold.length)
+        const pieData = [
+          {name: 'New - Yet to Start', value: this.newyetstart, color: '#2778a7'},
+          {name: 'In Progress', value:this.countaskinprogress.length, color: '#99b745'},
+          {name: 'Completed', value:this.countaskdone.length, color: '#17a88f'},
+          {name: 'On Hold', value: this.countaskhold.length, color: '#f2ac37'},
+          // {name: 'Cancelled', value: this.countasknew.length, color: '#b74549'},
+          // {name: 'Un Planned', value:this.countasknew.length, color: '#4d5d6e'},
+        ];
+        d3.select('#taskstatus').selectAll("svg").remove();
+        this.bakeDonut(pieData);
+      
+     });
+  
+    
+    }
+   
+    // console.log(this.countask)
     // getUsers(projId){
     //   this.companyService.getUsers(projId).subscribe(data=>{
     //     this.users = data;

@@ -1308,7 +1308,7 @@ var returnRouter = function (io) {
         }
     });
     // ----------------------------------End-----------------------------------------------  
-   // ---------------------------------Start-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
     // Function      : addEmpleave
     // Params        : data
     // Returns       : 
@@ -1380,7 +1380,6 @@ var returnRouter = function (io) {
                         var date = d.getDate(daterng);
                         var day = d.getDay(daterng);//start 1
                         var weekno = Math.ceil((date + (7- day)) / 7);//start 0
-
                         cmp_off_day.findOne({
                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno),cmp_id: cmp_id}] },
                             // where: { date: daterng, cmp_id: cmp_id },
@@ -1403,7 +1402,6 @@ var returnRouter = function (io) {
                                        model: cmp_work_time,
                                        required: true,
                                        where: {cmp_id: cmp_id},
-
                             }]
                         }).then(work_time => {
                             if (work_time) {
@@ -1445,7 +1443,6 @@ var returnRouter = function (io) {
                                     var a1 = s1.split(':'); // split it at the colons
                                     // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                     var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
-
                                     total_seconds = total_seconds + seconds1;
                                     callback();
                                     // }
@@ -1457,7 +1454,6 @@ var returnRouter = function (io) {
                 });
             }
         });
-
             }, function (err) {
                 console.log("tot" + total_seconds);
                 // });
@@ -1484,7 +1480,6 @@ var returnRouter = function (io) {
                                 attributes: ['title', 'date'],
                                 required: true,
                                 where: { cmp_id: cmp_id },
-
                         }).then(holiday => {
                             // console.log(holiday.title);
                             holiday.forEach((element) => {
@@ -1498,9 +1493,6 @@ var returnRouter = function (io) {
                                 }
                             }); callback();
                         });
-
-
-
                         }, function (callback) {
                             var d = new Date(req.body.startdate);
                             var date = d.getDate(req.body.startdate);
@@ -1740,9 +1732,7 @@ var returnRouter = function (io) {
             var total_seconds = 0;
             async.eachOfSeries(datesBetween(startDate, endDate), (daterng, key, callback) => {
                 // console.log(daterng);
-
                 Public_holiday.findOne({
-
                     where: { date: daterng, cmp_id: cmp_id },
                 }).then(holiday => {
                     if (holiday) {
@@ -1753,7 +1743,6 @@ var returnRouter = function (io) {
                         var date = d.getDate(daterng);
                         var day = d.getDay(daterng);//start 1
                         var weekno = Math.ceil((date + (7- day)) / 7);//start 0
-
                         cmp_off_day.findOne({
                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno),cmp_id: cmp_id}] },
                             // where: { date: daterng, cmp_id: cmp_id },
@@ -1772,7 +1761,6 @@ var returnRouter = function (io) {
                         //console.log(day);
                         // console.log(weekno);
                         //  console.log( parseInt(weekOfMonth));          
-
                         cmp_work_time_assocs.findOne({                 
                             required: true,
                             // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1781,7 +1769,6 @@ var returnRouter = function (io) {
                                        model: cmp_work_time,
                                        required: true,
                                        where: {cmp_id: cmp_id},
-
                             }]
                         }).then(work_time => {
                             if (work_time) {
@@ -1822,7 +1809,6 @@ var returnRouter = function (io) {
                                     var a1 = s1.split(':'); // split it at the colons
                                     // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                     var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
-
                                     total_seconds = total_seconds + seconds1;
                                     callback();
                                 });
@@ -1833,7 +1819,6 @@ var returnRouter = function (io) {
             }
             
          });
-
             }, function (err) {
                 console.log("tot" + total_seconds);
                 // });
@@ -1966,7 +1951,6 @@ var returnRouter = function (io) {
                                         var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
                                         var leavehr = total_seconds - (seconds3 + seconds4);
                                         var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
-
                                         console.log(leavehrs);
                                         Employeeleave.update({
                                             start_date: req.body.start_date,
@@ -2280,7 +2264,6 @@ var returnRouter = function (io) {
                         order: [
                             [Project_modules, 'id', 'ASC'],
                         ]
-
                     }).then(myTasks => {
                         data = { 'leave': emppendingleave, 'mytask': myTasks }
                         return res.json(data);
@@ -2461,7 +2444,7 @@ var returnRouter = function (io) {
         }
     });
     // ----------------------------------End-------------------------------------------  
-   // ---------------------------------Start-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
     // Function      : timerequest
     // Params        : id
     // Returns       : 
@@ -2485,114 +2468,63 @@ var returnRouter = function (io) {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
             Time_extension_request.findOne({
-                
-                      required: true,
-                      where: { id: reqid },
-              
-                  }).then(reqdetails => { 
-                
-                               Project.findOne({
-                  
-                      required: true,
-                      where: { [Op.and]: [{ id: projid ,cmp_id:1 }] },
-               
-                  }).then(project => { 
-              
-                               Project_modules.findAll({
-                              
-                                  required: true,
-                                  where: { project_id: projid },
-                                  include:{
-                                          model: Project_task,
-                                          order: [['id', 'planned_start_date_time']],
-                                          required: true,
-                                              include:{
-                                                  model: User,
-                                                  required: true, 
-                                              }
-                                  }
-                      
-                              }).then(taskassign => { 
-                                  var names = [];
-                                  taskassign.forEach((elm, i) => {
-                                      elm.tbl_project_tasks.forEach((elm1, i) => {
-                                        if(elm1.id==reqdetails.task_id){
-                                            requestedUser = elm1.tbl_user_profile;
-                                        }
-                                          names.push(elm1.tbl_user_profile.f_name);
-                                          // console.log(elm1.tbl_user_profile.f_name)
-                                      });
-                                  });
-                                //  console.log(names);
-                                  uniqueArray = names.filter(function(elem, pos) {
-                                      return names.indexOf(elem) == pos;
-                                  })
-                               
-                                      Project_modules.findAll({
-                                          order: [['id', 'ASC']],
-                                          where: {project_id: projid},
-                                          include: [
-                                              {
-                                                  model:  Project_task,
-                                                  required: true,
-                                                  include:[
-                                                      {
-                                                          model: User,
-                                                          required: true,
-                                    
-                                                      }]
-                                              },
-                                          
-                                          ],  order: [
-                                             [ Project_task, 'id', 'ASC' ],
-                                             
-                                           ]
-                                       
-                                      }).then(myTasks => {
-                                         //  console.log(myTasks)
-                                         let module1 = {};
-                                         sumHr = 0;
-                                         myTasks.forEach((mdl, i) => {
-                                             ttlHr = 0;
-                                             mdl.tbl_project_tasks.forEach((tsk, j) => {
-                                                 if(!module1[mdl.id]){
-                                                     // module1[mdl.id][tsk.id] = tsk;
-                                                     let md = {};
-                                                     md.module = mdl;
-                                                     module1[mdl.id] = md;
-                                                 }
-                                                 // else{
-                                                 //     let md = {};
-                                                 //     md.module = mdl;
-                                                 //     module1[mdl.id] = md;
-                                                    
-                                                 // }
-                                                 
-                                                 module1[mdl.id][tsk.id] = tsk;
-                                                 ttlHr += tsk.planned_hour+tsk.buffer_hour;
-                                             });
-                                             module1[mdl.id].ttl = ttlHr;
-                                             sumHr += ttlHr;
-             
-                                         });
-             
-             
-                                 
-                                   data = {'reqdetails':reqdetails,'project' : project,'teammembers' : uniqueArray,'myTasks':myTasks,'newData' : module1,sumHr:sumHr,requestedUser:requestedUser}
-                                             return res.json(data);
-                                              
-                                          });
-             
-                                 });
-                                  
-                              });
-                                  
-                              });    
+                required: true,
+                where: { id: reqid },
+            }).then(reqdetails => {
+                Project.findOne({
+                    required: true,
+                    where: { [Op.and]: [{ id: projid, cmp_id: cmp_id }] },
+                }).then(project => {
+                    Project_modules.findAll({
+                        required: true,
+                        where: { project_id: projid },
+                        include: {
+                            model: Project_task,
+                            order: [['id', 'planned_start_date_time']],
+                            required: true,
+                            include: {
+                                model: User,
+                                required: true,
+                            }
+                        }
+                    }).then(taskassign => {
+                        var names = [];
+                        taskassign.forEach((elm, i) => {
+                            elm.tbl_project_tasks.forEach((elm1, i) => {
+                                names.push(elm1.tbl_user_profile.f_name);
+                                // console.log(elm1.tbl_user_profile.f_name)
+                            });
+                        });
+                        console.log(names);
+                        uniqueArray = names.filter(function (elem, pos) {
+                            return names.indexOf(elem) == pos;
+                        })
+                        Project_modules.findAll({
+                            order: [['id', 'ASC']],
+                            where: { project_id: projid },
+                            include: [
+                                {
+                                    model: Project_task,
+                                    required: true,
+                                    include: [
+                                        {
+                                            model: User,
+                                            required: true,
+                                        }]
+                                },
+                            ],
+                        }).then(myTasks => {
+                            data = { 'reqdetails': reqdetails, 'project': project, 'teammembers': uniqueArray, 'myTasks': myTasks }
+                            return res.json(data);
+                        });
+                    });
+                });
+            });
         } else {
             return res.status(401).send('Invalid User');
         }
     });
-    // ----------------------------------End-----------------------------------------------
+    // ----------------------------------End-----------------------------------------------  
     // ---------------------------------Start-------------------------------------------
     // Function      : rejecttimeextreq
     // Params        : id
@@ -6069,7 +6001,6 @@ var returnRouter = function (io) {
     // Date          : 06-3-2018
     // Last Modified : 06-3-2018, Jooshifa
     // Desc          : company and user direct login with username and password with google captcha
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getAccessRights
     // Params        :
@@ -6111,7 +6042,6 @@ var returnRouter = function (io) {
     //         },()=>{
     //              res.json(rights);
     //         })
-
     //     })
     // })
     //  ---------------------------------End-------------------------------------------
@@ -9463,7 +9393,7 @@ var returnRouter = function (io) {
             return false;
         })
     }
-  // ---------------------------------Start-------------------------------------------
+      // ---------------------------------Start-------------------------------------------
     // Function      : userleavedata
     // Params        : 
     // Returns       : 
@@ -9697,8 +9627,6 @@ var returnRouter = function (io) {
             startTime = working_time.start_time;
             console.log("not taske passing time")
         }
-       
-        
         endTime = working_time.end_time
         console.log(startTime + "   start time from calculate wotkinh hours " +planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name);
         console.log(endTime + "   end from calculate wotkinh hours  " +planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name)
@@ -9984,9 +9912,8 @@ var returnRouter = function (io) {
         return hh+ ':'+mm+ ":" +ss;
         // return moment.duration(sec, "seconds").format("hh:mm:ss");
     }
-    // ----------------------------End-------------------------------------------  
+    // ----------------------------End------------------------------------------- 
     module.exports = router;
     return router;
 }
 module.exports = returnRouter;
-

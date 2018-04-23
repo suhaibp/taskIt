@@ -27,7 +27,8 @@
 						<div  *ngFor="let item of questions;let i=index;" class="nxt-cntainer">
 							<ng-container *ngIf="counter == i">
 									<label class="inp-hd" >{{item.question}}</label>
-									<input type="text" *ngIf="item.type == 'text' else password" [(ngModel)]="item.ans" name="item.ans" [attr.autofocus]="counter == i">
+									<input type="text" [attr.maxlength]="item.length" *ngIf="item.type == 'text' else password" [(ngModel)]="item.ans" name="item.ans" [attr.autofocus]="counter == i">
+									
 									<ng-template #password>
 										<input type="password" *ngIf="item.type == 'password' else multiple" [(ngModel)]="item.ans" name="item.ans" autofocus>
 										<ng-template #multiple>

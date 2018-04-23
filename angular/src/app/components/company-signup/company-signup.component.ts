@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from './../../services/company.service'
+declare var $:any;
 @Component({
   selector: 'app-company-signup',
   templateUrl: './company-signup.component.html',
@@ -10,47 +11,56 @@ export class CompanySignupComponent implements OnInit {
 	questions = [{
 		question:"What's your Email?",
 		type:"text",
-		ans:""
+		ans:"",
+		length:100
 	},
 	{
 		question:"What's your Company Name?",
 		type:"text",
-		ans:""
+		ans:"",
+		length:100	
 	},
 	{
 		question:"Your Company Code?",
 		type:"text",
-		ans:""
+		ans:"",
+		length:3		
 	},
 	{
 		question:"Industry?",
 		type:"multiple",
-		ans:""
+		ans:"",
+		length:100		
 	},
 	{
 		question:"Your Contact Number ?",
 		type:"text",
-		ans:""
+		ans:"",
+		length:100		
 	},
 	{
 		question:"Company Size?",
 		type:"multiple",
-		ans:""
+		ans:"",
+		length:100		
 	},
 	{
 		question:"Why are you looking for task managment software?",
 		type:"text",
-		ans:""
+		ans:"",
+		length:100		
 	},
 	{
 		question:"Your Password",
 		type:"password",
-		ans:""
+		ans:"",
+		length:100		
 	},
 	{
 		question:"Confirm Password",
 		type:"password",
-		ans:""
+		ans:"",
+		length:100		
 	},
 	
 ];
@@ -81,7 +91,7 @@ reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 			this.registr = true;
 			
 				this.showLoader = true;
-				this.questions.push({question:'verification',type:'text',ans:this.verification_code})
+				this.questions.push({question:'verification',type:'text',ans:this.verification_code,length:1})
 				this.companyService.registerCompany(this.questions).subscribe(resData =>{
 					this.showLoader = false;
 					
@@ -140,6 +150,8 @@ ValidateEmail(mail)
 	}
 
 	validate(i){
+		console.log("nkfdh")
+		$('input').focus();
 		if(this.questions[this.counter].ans == ''){
 			this.errMessage = "Please fill the fields";
 		}
@@ -178,5 +190,6 @@ ValidateEmail(mail)
 			}
 			
 		}
+		
 	}
 }

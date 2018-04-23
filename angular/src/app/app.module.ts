@@ -146,6 +146,9 @@ import { AdminProjectReportComponent } from './components/admin-project-report/a
 import { CompanyActivityLogReportComponent } from './components/company-activity-log-report/company-activity-log-report.component';
 
 
+import { CompanyViewProjectComponent } from './components/company-view-project/company-view-project.component';
+import { UserTaskstatusGraphComponent } from './components/user-taskstatus-graph/user-taskstatus-graph.component';
+import {ScrollToModule} from 'ng2-scroll-to';
 const appRoutes: Routes = [
   {path: '', component: HomeComponent },
   {path:'reference', component:ReferenceComponentComponent},
@@ -184,7 +187,6 @@ const appRoutes: Routes = [
   {path:'company-leave-request-list', component:CompanyLeaveRequestListComponent},
   {path:'company-user-leave-request/:id', component:CompanyUserLeaveRequestComponent},
   {path:'user-my-request-mytask', component:UserMyRequestMytaskComponent},
-
   {path:'admin-plan', component:AdminPlanComponent},
   {path:'home', component:HomeComponent},
   {path:'planlist', component:CompanyPlanlistComponent},
@@ -197,16 +199,13 @@ const appRoutes: Routes = [
   {path:'company-access-rights', component:CompanyManageAccessRightsComponent},
   {path:'company-working-time', component:CompanyWorkingTimeComponent},
   {path:'company-manage-holyday', component:CompanyManageHolidaysComponent},
-  {path:'company-task-requests/:id', component:CompanyTaskRequestsComponent},
+  {path:'company-task-requests', component:CompanyTaskRequestsComponent},
   {path:'company-task-manage/:id', component:CompanyNewTaskManagementComponent},
- 
   {path:'company-login', component:CompanyLoginComponent},
   {path:'compay-aditninfo/:id', component:CompayAditninfoComponent},
   {path:'company-team', component:CompanyManageTeamComponent},
   {path:'email-verification/:id', component:EmailVerificationComponent},
   {path:'edit-project/:id', component:CompanyEditProjectComponent},
- 
-
   {path:'approve-estimation/:id', component:CompanyApproveEstimationComponent},
   {path:'approve-project/:id', component:CompanyApproveProjectComponent},
   {path:'edit-profile', component:UserEditProfileComponent},
@@ -215,15 +214,15 @@ const appRoutes: Routes = [
   {path:'project-planning/:id', component:CompanyProjectPlanningComponent},
   {path:'expired', component:CompanyExpiredComponent},
   {path:'user-task-management', component:UserTaskManagementComponent},
- 
   {path:'project-estimation-report', component:AdminEstimationReportComponent},
   {path:'spinner', component:SpinnerComponent},//To check component
-
   {path:'user-projects', component:UserProjectsComponent},
   {path:'user-view-project/:id', component:UserViewProjectComponent},
+  {path:'estimate-project/:id1/:id2', component:UserProjectEstimationComponent},
+  {path:'view-project/:id', component:CompanyViewProjectComponent},
+  {path:'user-taskstatus-graph', component:UserTaskstatusGraphComponent},
   {path:'project-report', component:AdminProjectReportComponent},
   {path:'activity-log-report', component:CompanyActivityLogReportComponent},
-
   // {path:'admin-sidebar', component:AdminSidebarComponent},
   // {path:'admin-topbar', component:AdminTopbarComponent},
   // {path:'admin-footer', component:AdminFooterComponent},
@@ -265,8 +264,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
-
-  
+  declarations: [],
 })
 export class DemoMaterialModule {}
 @NgModule({
@@ -372,7 +370,9 @@ export class DemoMaterialModule {}
     CompanyUserLeaveRequestComponent,
     UserMyRequestMytaskComponent,
     AdminProjectReportComponent,
-    CompanyActivityLogReportComponent
+    CompanyActivityLogReportComponent,
+    CompanyViewProjectComponent,
+    UserTaskstatusGraphComponent
   ],
   imports: [
   BrowserModule,
@@ -388,7 +388,10 @@ export class DemoMaterialModule {}
     NgbModule.forRoot(),
     TreeviewModule.forRoot(),TreeModule, SharedModule,
     ReCaptchaModule,
+    NgbModule.forRoot(),
+    TreeviewModule.forRoot(),
     Daterangepicker,
+    ScrollToModule.forRoot()
 
   ],
   providers: [Config,CompanyService,AdminService,SuperAdminService,SimpleTimer,UserService,TimerService ],

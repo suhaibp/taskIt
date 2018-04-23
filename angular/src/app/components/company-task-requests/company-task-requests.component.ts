@@ -9,7 +9,7 @@ declare var $:any;
   styleUrls: ['./company-task-requests.component.css']
 })
 export class CompanyTaskRequestsComponent implements OnInit {
-  displayedColumns = ['id', 'profile', 'name', 'strength', 'status'];
+  displayedColumns = ['id', 'profile', 'name', 'task name', 'strength', 'reqstatus','status'];
   dataSource: MatTableDataSource<any>;
   showSpinner :boolean = false;
   existStatus: boolean = false;
@@ -47,7 +47,7 @@ export class CompanyTaskRequestsComponent implements OnInit {
     this.showSpinner =true
     this.companyService.getNewTaskRequests().subscribe(requests =>{
       this.showSpinner =false
-        // console.log(requests);
+        console.log(requests);
       if(requests.length <= 0 ){
         // console.log("theme is empty");
         this.existStatus = true;
@@ -79,7 +79,7 @@ export class CompanyTaskRequestsComponent implements OnInit {
     // Date          : 03-04-2018
     // Last Modified : 03-04-2018,
     // Desc          : check image is empty or not
-    console.log('xx-'+image)
+    // console.log('xx-'+image)
    if(image == ''){
      return false
    }else{

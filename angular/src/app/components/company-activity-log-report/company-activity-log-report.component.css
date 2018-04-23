@@ -66,3 +66,7 @@ body {
        @page { margin: 0; }
 }
 
+.back-color{
+  color: #757575;
+  background-color:#f6f7fa !important;
+}

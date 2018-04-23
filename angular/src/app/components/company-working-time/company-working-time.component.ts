@@ -26,6 +26,18 @@ export class CompanyWorkingTimeComponent implements OnInit {
   breakTitle:any;
   spinner = false;
   timings:any;
+  holiday = false;
+  dayBreak:any
+  showAddBreak = false;
+  selectedDay:any;
+  selectedWeek:any;
+  specificTime:any;
+  xtime = {hour: 0, minute: 0}
+  ytime = {hour: 0, minute: 0};
+  atime = {hour: 0, minute: 0}
+  btime = {hour: 0, minute: 0};
+  readOnly= false;
+  xtrabreakTitle:any = '';
   constructor(private companyService: CompanyService,
     private routes: Router,
     public snackBar: MatSnackBar) { }
@@ -37,7 +49,6 @@ export class CompanyWorkingTimeComponent implements OnInit {
    
   }
 
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : getTimings
   // Params        : 
@@ -47,9 +58,9 @@ export class CompanyWorkingTimeComponent implements OnInit {
   // Last Modified : 19-03-2018, Manu Prasad 
   // Desc          : Get Timings from database
 
-
   getTimings(){
     this.companyService.getWorkTimes().subscribe(timings =>{
+      console.log(timings);
       this.default = timings.default;
       this.breaks = timings.break
       let time = this.default.start_time.split(':');
@@ -57,16 +68,13 @@ export class CompanyWorkingTimeComponent implements OnInit {
       this.startTime = {hour: parseInt(time[0]), minute: parseInt(time[1])}
       this.endTime = {hour: parseInt(etime[0]), minute: parseInt(etime[1])}
       this.show = true;
-      console.log(this.endTime);  
-      console.log(this.startTime);  
+      // console.log(this.endTime);  
+      // console.log(this.startTime);  
     });
   
   }
   //  ---------------------------------end-----------------------------------------------
-  
-
-
-   //  ---------------------------------Start-------------------------------------------
+  //  ---------------------------------Start-------------------------------------------
   // Function      : getTimings
   // Params        : 
   // Returns       : 
@@ -74,7 +82,6 @@ export class CompanyWorkingTimeComponent implements OnInit {
   // Date          : 19-03-2018
   // Last Modified : 19-03-2018, Manu Prasad 
   // Desc          : Get Timings from database
-
 
   getWeekTimings(){
     this.companyService.getWeekTimes().subscribe(timings =>{
@@ -112,15 +119,11 @@ export class CompanyWorkingTimeComponent implements OnInit {
   // Last Modified : 19-03-2018, Manu Prasad 
   // Desc          : set values to modal
 
-
   setWorkTime(){
     // $('#assignModal .modal-title').text("");
            $('#assignModal').modal('show'); 
   }
   //  ---------------------------------end-----------------------------------------------
-
-
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : setWorkTime
   // Params        : 
@@ -130,7 +133,6 @@ export class CompanyWorkingTimeComponent implements OnInit {
   // Last Modified : 19-03-2018, Manu Prasad 
   // Desc          : set values to modal
 
-
   saveWorkTime(){
     this.companyService.saveWorkTimes(this.default.id, this.startTime, this.endTime).subscribe(res =>{
         if(res.status == 1){
@@ -139,9 +141,7 @@ export class CompanyWorkingTimeComponent implements OnInit {
           });
           this.getTimings();
         $('#assignModal').modal('hide');
-          
         }
-        
         else{
           let snackBarRef = this.snackBar.open(res.message, '', {
             duration: 2000
@@ -151,8 +151,6 @@ export class CompanyWorkingTimeComponent implements OnInit {
   }
   //  ---------------------------------end-----------------------------------------------
 
-
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : setRights
   // Params        : 
@@ -161,16 +159,13 @@ export class CompanyWorkingTimeComponent implements OnInit {
   // Date          : 15-03-2018
   // Last Modified : 15-03-2018, Manu Prasad 
   // Desc          : set access rights in modal 
-
-
   deleteBreak(breakId){
     this.BreakId = breakId;
     $('#deleteModal').modal('show'); 
     
       }
     //  ---------------------------------end-----------------------------------------------
-
-    confirm(){
+  confirm(){
       this.companyService.deleteBreak(this.BreakId).subscribe(res =>{
         let snackBarRef = this.snackBar.open(res.message, '', {
           duration: 2000
@@ -187,8 +182,6 @@ export class CompanyWorkingTimeComponent implements OnInit {
            $('#breakModal').modal('show'); 
     
   }
-
-
   saveBreak(){
     // console.log("hh")
     if(this.breakTitle == '' || this.breakTitle == undefined){
@@ -227,4 +220,120 @@ export class CompanyWorkingTimeComponent implements OnInit {
     });
     }
   }
+
+  checkType(obj){
+    
+    // console.log( obj.length);
+    if(obj.length  > 0){
+      return false
+    }
+    else{
+      return true
+    }
+  }
+
+  openModal(day,week){
+    // console.log('day:'+day)
+    // console.log('week:'+week)
+    this.selectedWeek = week;
+    this.selectedDay = day;
+    this.getDayBreaks(day,week)
+    this.getDayDetails(day, week);
+
+  }
+  getDayBreaks(day, week){
+    this.companyService.getDayBreaks(day, week).subscribe(res =>{
+      console.log(res);
+      this.dayBreak= res;
+      // $('#weekModal').modal('show');
+      
+  });
+  }
+  getDayDetails(day, week){
+    this.companyService.getDayDetails(day, week).subscribe(res2 =>{
+      console.log(res2)
+      if(!res2[0].start_time){
+        this.holiday = true;
+      }
+      else{
+        this.specificTime= res2[0];
+        let time = res2[0].start_time.split(':');
+        let etime = res2[0].end_time.split(':');
+        this.xtime = {hour: parseInt(time[0]), minute: parseInt(time[1])}
+        this.ytime = {hour: parseInt(etime[0]), minute: parseInt(etime[1])}
+        this.xtime['hours'] = 
+        console.log(this.specificTime);
+      }
+      
+      $('#weekModal').modal({backdrop: 'static', keyboard: false})  
+      $('#weekModal').modal('show');
+      
+  });
+  }
+  addExtraBreak(){
+    this.xtrabreakTitle = ''
+    this.showAddBreak = true;
+  }
+  saveExtraBreak(){
+      this.companyService.saveDayBreak(this.selectedDay, this.selectedWeek, this.atime, this.btime, this.xtrabreakTitle).subscribe(res2 =>{
+      if(res2.status == 1){
+        let snackBarRef = this.snackBar.open(res2.message, '', {
+          duration: 2000
+        });
+      this.showAddBreak = false;
+      this.getDayBreaks(this.selectedDay,this.selectedWeek);      
+      }else{
+        let snackBarRef = this.snackBar.open(res2.message, '', {
+          duration: 2000
+        });
+      }
+      
+  });
+  }
+  saveDayWorkTime(){
+    this.companyService.saveDayWorkTime(this.holiday, this.xtime, this.ytime,this.selectedDay, this.selectedWeek).subscribe(res2 =>{
+      // console.log(res2)
+      if(res2.status == 1){
+        let snackBarRef = this.snackBar.open(res2.message, '', {
+          duration: 2000
+        });
+      this.showAddBreak = false;
+      this.getTimings();
+      this.getWeekTimings();     
+      $('#weekModal').modal('hide');    
+      }else{
+        let snackBarRef = this.snackBar.open(res2.message, '', {
+          duration: 2000
+        });
+      }
+  });
+  }
+
+  closeDayPopup(){
+    this.showAddBreak = false;
+    this.holiday = false;
+    
+    $('#weekModal').modal('hide');    
+  }
+  closeExtraBreak(){
+    this.showAddBreak = false;
+    
+  }
+  deleteExtraBreak(breakId){
+    this.companyService.deleteExtraBreak(breakId).subscribe(res2 =>{
+      if(res2.status == 1){
+        let snackBarRef = this.snackBar.open(res2.message, '', {
+          duration: 2000
+        });
+      this.showAddBreak = false;
+      this.getDayBreaks(this.selectedDay,this.selectedWeek);      
+      }else{
+        let snackBarRef = this.snackBar.open(res2.message, '', {
+          duration: 2000
+        });
+      }
+      
+  });
+  }
+
 }

@@ -14,6 +14,7 @@ export class UserViewProjectComponent implements OnInit {
   project:any;
   projectId:any;
   showData = false;
+  xShow = false;
   constructor(
     private userService: UserService,
     private routes: Router,
@@ -53,4 +54,5 @@ export class UserViewProjectComponent implements OnInit {
   
     }
   //  ---------------------------------end-----------------------------------------------
+ 
 }

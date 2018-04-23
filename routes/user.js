@@ -1082,82 +1082,81 @@ var returnRouter = function (io) {
                                 var d = new Date(daterng);
                                 var date = d.getDate(daterng);
                                 var day = d.getDay(daterng);//start 1
-                                var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
+                                var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+    
                                 cmp_off_day.findOne({
-                                    where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                                    where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno),cmp_id: cmp_id}] },
                                     // where: { date: daterng, cmp_id: cmp_id },
                                 }).then(offday => {
                                     if (offday) {
                                         // console.log(daterng+"holiday")
                                         callback();
                                     } else {
-                                        // console.log(daterng+"not holiday")
-                                        var d = new Date(daterng);
-                                        var date = d.getDate(daterng);
-                                        var day = d.getDay(daterng);//start 1
-                                        var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
-                                        cmp_work_time_assocs.findOne({
+                                // console.log(daterng+"not holiday")
+                                var d = new Date(daterng);
+                                var date = d.getDate(daterng);
+                                var day = d.getDay(daterng);//start 1
+                                var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+     
+                                cmp_work_time_assocs.findOne({                 
+                                    required: true,
+                                    // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                                     where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
+                                     include: [{
+                                               model: cmp_work_time,
+                                               required: true,
+                                               where: {cmp_id: cmp_id},
+                                    }]
+                                }).then(work_time => {
+                                    if (work_time) {
+                                        // parse time using 24-hour clock and use UTC to prevent DST issues
+                                        var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
+                                        var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
+                                        // account for crossing over to midnight the next day
+                                        if (end.isBefore(start)) end.add(1, 'day');
+                                        // calculate the duration
+                                        var d = moment.duration(end.diff(start));
+                                        // subtract the lunch break
+                                        // d.subtract(30, 'minutes');
+                                        // format a string result
+                                        var s = moment.utc(+d).format('HH:mm:ss');
+                                        // console.log("s" + s);
+                                        var a = s.split(':'); // split it at the colons
+                                        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                        var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+                                        total_seconds = total_seconds + seconds;
+                                        callback();
+                                    } else {
+                                        cmp_work_time.findOne({
                                             required: true,
-                                            // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
-                                            where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
-                                            include: [{
-                                                model: cmp_work_time,
-                                                required: true,
-                                                where: { cmp_id: cmp_id },
-
-                                            }]
-                                        }).then(work_time => {
-                                            if (work_time) {
-                                                // parse time using 24-hour clock and use UTC to prevent DST issues
-                                                var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
-                                                var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
-                                                // account for crossing over to midnight the next day
-                                                if (end.isBefore(start)) end.add(1, 'day');
-                                                // calculate the duration
-                                                var d = moment.duration(end.diff(start));
-                                                // subtract the lunch break
-                                                // d.subtract(30, 'minutes');
-                                                // format a string result
-                                                var s = moment.utc(+d).format('HH:mm:ss');
-                                                // console.log("s" + s);
-                                                var a = s.split(':'); // split it at the colons
-                                                // minutes are worth 60 seconds. Hours are worth 60 minutes.
-                                                var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
-                                                total_seconds = total_seconds + seconds;
-                                                callback();
-                                            } else {
-                                                cmp_work_time.findOne({
-                                                    required: true,
-                                                    where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
-                                                }).then(work_time1 => {
-                                                    if (work_time1) {
-                                                        // parse time using 24-hour clock and use UTC to prevent DST issues
-                                                        var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
-                                                        var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-                                                        // account for crossing over to midnight the next day
-                                                        if (end.isBefore(start)) end.add(1, 'day');
-                                                        // calculate the duration
-                                                        var d1 = moment.duration(end.diff(start));
-                                                        // subtract the lunch break
-                                                        // d.subtract(30, 'minutes');
-                                                        // format a string result
-                                                        var s1 = moment.utc(+d1).format('HH:mm:ss');
-                                                        // console.log("e" + s1);
-                                                        var a1 = s1.split(':'); // split it at the colons
-                                                        // minutes are worth 60 seconds. Hours are worth 60 minutes.
-                                                        var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
-                                                        total_seconds = total_seconds + seconds1;
-                                                        callback();
-                                                    }
-                                                    callback();
-                                                });
-                                            }
+                                            where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
+                                        }).then(work_time1 => {
+                                            if(work_time1){
+                                            // parse time using 24-hour clock and use UTC to prevent DST issues
+                                            var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                            var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                            // account for crossing over to midnight the next day
+                                            if (end.isBefore(start)) end.add(1, 'day');
+                                            // calculate the duration
+                                            var d1 = moment.duration(end.diff(start));
+                                            // subtract the lunch break
+                                            // d.subtract(30, 'minutes');
+                                            // format a string result
+                                            var s1 = moment.utc(+d1).format('HH:mm:ss');
+                                            // console.log("e" + s1);
+                                            var a1 = s1.split(':'); // split it at the colons
+                                            // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                            var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
+                                            total_seconds = total_seconds + seconds1;
+                                            callback();
+                                        }
+                                        callback();
                                         });
                                     }
                                 });
-                            }
+                              }
+                           });
+                         }
                         });
                     }, function (err) {
                         // console.log("tot" + total_seconds);
@@ -1198,25 +1197,22 @@ var returnRouter = function (io) {
                                             }
                                         }); callback();
                                     });
-
                                 }, function (callback) {
                                     var d = new Date(req.body.startdate);
                                     var date = d.getDate(req.body.startdate);
                                     var day = d.getDay(req.body.startdate);//start 1
-                                    var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
-                                    cmp_work_time_assocs.findOne({
+                                    var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+                                    cmp_work_time_assocs.findOne({                 
                                         required: true,
                                         // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
-                                        where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
-                                        include: [{
-                                            model: cmp_work_time,
-                                            required: true,
-                                            where: { cmp_id: cmp_id },
+                                         where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
+                                         include: [{
+                                                   model: cmp_work_time,
+                                                   required: true,
+                                                   where: {cmp_id: cmp_id},
                                         }]
                                     }).then(work_time => {
                                         if (work_time) {
-
                                             // parse time using 24-hour clock and use UTC to prevent DST issues
                                             var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                             var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
@@ -1243,31 +1239,31 @@ var returnRouter = function (io) {
                                                 required: true,
                                                 where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                             }).then(work_time1 => {
-                                                if (work_time1) {
-                                                    //  console.log("w"+work_time1);
-                                                    //  console.log(work_time1.end_time)
-                                                    // parse time using 24-hour clock and use UTC to prevent DST issues
-                                                    var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
-                                                    var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-                                                    // account for crossing over to midnight the next day
-                                                    if (end.isBefore(start)) end.add(1, 'day');
-                                                    // calculate the duration
-                                                    var d1 = moment.duration(end.diff(start));
-                                                    // subtract the lunch break
-                                                    // d.subtract(30, 'minutes');
-                                                    // format a string result
-                                                    var s1 = moment.utc(+d1).format('H');
-                                                    console.log("e" + s1);
-                                                    console.log(req.body.endavlhr.hour);
-                                                    //  res.json(work_time);
-                                                    if (!isErr && (parseFloat(s1) < parseFloat(req.body.endavlhr.hour))) {
-                                                        errMsg = "* Failed,working hour exceed available hour !";
-                                                        isErr = true;
-                                                    }
-                                                    callback();
-                                                    //else{  }
+                                                if(work_time1){
+                                                //  console.log("w"+work_time1);
+                                                //  console.log(work_time1.end_time)
+                                                // parse time using 24-hour clock and use UTC to prevent DST issues
+                                                var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                                var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                                // account for crossing over to midnight the next day
+                                                if (end.isBefore(start)) end.add(1, 'day');
+                                                // calculate the duration
+                                                var d1 = moment.duration(end.diff(start));
+                                                // subtract the lunch break
+                                                // d.subtract(30, 'minutes');
+                                                // format a string result
+                                                var s1 = moment.utc(+d1).format('H');
+                                                console.log("e" + s1);
+                                                console.log(req.body.endavlhr.hour);
+                                                //  res.json(work_time);
+                                                if (!isErr && (parseFloat(s1) < parseFloat(req.body.endavlhr.hour))) {
+                                                    errMsg = "* Failed,working hour exceed available hour !";
+                                                    isErr = true;
                                                 }
                                                 callback();
+                                                //else{  }
+                                            }
+                                            callback();
                                             });
                                         }
                                     });
@@ -1283,7 +1279,7 @@ var returnRouter = function (io) {
                                                 [Op.and]: [{ cmp_id: cmp_id, user_profile_id: user_id, delete_status: false }],
                                                 [Op.or]: [{ start_date: req.body.startdate, end_date: req.body.enddate }]
                                             }
-
+                                           
                                         }).then(leave => {
                                             // console.log(user);
                                             //return res.json(user);
@@ -1317,11 +1313,11 @@ var returnRouter = function (io) {
                                                 // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                                 var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
                                                 var leaveh = total_seconds - (seconds3 + seconds4);
-                                                var leavehr = Math.abs(leaveh);//only positive value
+                                                var leavehr =Math.abs(leaveh);//only positive value
                                                 var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
-                                                //    var p= Math.abs(78)
+                                            //    var p= Math.abs(78)
                                                 // console.log(leavehrs);
-
+                                                
                                                 const addleave = Employeeleave.build({
                                                     start_date: req.body.startdate,
                                                     end_date: req.body.enddate,
@@ -1473,85 +1469,82 @@ var returnRouter = function (io) {
                             var d = new Date(daterng);
                             var date = d.getDate(daterng);
                             var day = d.getDay(daterng);//start 1
-                            var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
+                            var weekno = Math.ceil((date + (7- day)) / 7);//start 0
                             cmp_off_day.findOne({
-                                where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                                where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno),cmp_id: cmp_id}] },
                                 // where: { date: daterng, cmp_id: cmp_id },
                             }).then(offday => {
                                 if (offday) {
                                     // console.log(daterng+"holiday")
                                     callback();
                                 } else {
-
-                                    // console.log(daterng+"not holiday")
-                                    var d = new Date(daterng);
-                                    var date = d.getDate(daterng);
-                                    var day = d.getDay(daterng);//start 1
-                                    var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
-                                    cmp_work_time_assocs.findOne({
+                            // console.log(daterng+"not holiday")
+                            var d = new Date(daterng);
+                            var date = d.getDate(daterng);
+                            var day = d.getDay(daterng);//start 1
+                            var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+                            cmp_work_time_assocs.findOne({                 
+                                required: true,
+                                // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                                 where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
+                                 include: [{
+                                           model: cmp_work_time,
+                                           required: true,
+                                           where: {cmp_id: cmp_id},
+                                }]
+                            }).then(work_time => {
+                                if (work_time) {
+                                    // parse time using 24-hour clock and use UTC to prevent DST issues
+                                    var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
+                                    var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
+                                    // account for crossing over to midnight the next day
+                                    if (end.isBefore(start)) end.add(1, 'day');
+                                    // calculate the duration
+                                    var d = moment.duration(end.diff(start));
+                                    // subtract the lunch break
+                                    // d.subtract(30, 'minutes');
+                                    // format a string result
+                                    var s = moment.utc(+d).format('HH:mm:ss');
+                                    // console.log("s" + s);
+                                    var a = s.split(':'); // split it at the colons
+                                    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                    var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+                                    total_seconds = total_seconds + seconds;
+                                    callback();
+                                } else {
+                                    cmp_work_time.findOne({
                                         required: true,
-                                        // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
-                                        where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
-                                        include: [{
-                                            model: cmp_work_time,
-                                            required: true,
-                                            where: { cmp_id: cmp_id },
-                                        }]
-                                    }).then(work_time => {
-                                        if (work_time) {
-                                            // parse time using 24-hour clock and use UTC to prevent DST issues
-                                            var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
-                                            var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
-                                            // account for crossing over to midnight the next day
-                                            if (end.isBefore(start)) end.add(1, 'day');
-                                            // calculate the duration
-                                            var d = moment.duration(end.diff(start));
-                                            // subtract the lunch break
-                                            // d.subtract(30, 'minutes');
-                                            // format a string result
-                                            var s = moment.utc(+d).format('HH:mm:ss');
-                                            // console.log("s" + s);
-                                            var a = s.split(':'); // split it at the colons
-                                            // minutes are worth 60 seconds. Hours are worth 60 minutes.
-                                            var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
-                                            total_seconds = total_seconds + seconds;
-                                            callback();
-                                        } else {
-                                            cmp_work_time.findOne({
-                                                required: true,
-                                                where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
-                                            }).then(work_time1 => {
-                                                if (work_time1) {
-                                                    // parse time using 24-hour clock and use UTC to prevent DST issues
-                                                    var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
-                                                    var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-                                                    // account for crossing over to midnight the next day
-                                                    if (end.isBefore(start)) end.add(1, 'day');
-                                                    // calculate the duration
-                                                    var d1 = moment.duration(end.diff(start));
-                                                    // subtract the lunch break
-                                                    // d.subtract(30, 'minutes');
-                                                    // format a string result
-                                                    var s1 = moment.utc(+d1).format('HH:mm:ss');
-                                                    // console.log("e" + s1);
-                                                    var a1 = s1.split(':'); // split it at the colons
-                                                    // minutes are worth 60 seconds. Hours are worth 60 minutes.
-                                                    var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
-                                                    total_seconds = total_seconds + seconds1;
-                                                    callback();
-                                                }
-                                                callback();
-                                            });
-                                        }
+                                        where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
+                                    }).then(work_time1 => {
+                                        if(work_time1){
+                                        // parse time using 24-hour clock and use UTC to prevent DST issues
+                                        var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                        var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                        // account for crossing over to midnight the next day
+                                        if (end.isBefore(start)) end.add(1, 'day');
+                                        // calculate the duration
+                                        var d1 = moment.duration(end.diff(start));
+                                        // subtract the lunch break
+                                        // d.subtract(30, 'minutes');
+                                        // format a string result
+                                        var s1 = moment.utc(+d1).format('HH:mm:ss');
+                                        // console.log("e" + s1);
+                                        var a1 = s1.split(':'); // split it at the colons
+                                        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                        var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
+                                        total_seconds = total_seconds + seconds1;
+                                        callback();
+                                    }
+                                    callback();
                                     });
                                 }
                             });
                         }
-
                     });
-
+                        }
+           
+                    });
+           
                 }, function (err) {
                     console.log("tot" + total_seconds);
                     // });
@@ -1576,26 +1569,22 @@ var returnRouter = function (io) {
                                         }
                                     }); callback();
                                 });
-
-
                             }, function (callback) {
                                 var d = new Date(req.body.start_date);
                                 var date = d.getDate(req.body.start_date);
                                 var day = d.getDay(req.body.start_date);//start 1
-                                var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
-                                cmp_work_time_assocs.findOne({
+                                var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+                                cmp_work_time_assocs.findOne({                 
                                     required: true,
                                     // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
-                                    where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
-                                    include: [{
-                                        model: cmp_work_time,
-                                        required: true,
-                                        where: { cmp_id: cmp_id },
+                                     where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
+                                     include: [{
+                                               model: cmp_work_time,
+                                               required: true,
+                                               where: {cmp_id: cmp_id},
                                     }]
                                 }).then(work_time => {
                                     if (work_time) {
-
                                         // parse time using 24-hour clock and use UTC to prevent DST issues
                                         var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                         var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
@@ -1621,31 +1610,29 @@ var returnRouter = function (io) {
                                             required: true,
                                             where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                         }).then(work_time1 => {
-                                            if (work_time1) {
-
-                                                // parse time using 24-hour clock and use UTC to prevent DST issues
-                                                var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
-                                                var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-                                                // account for crossing over to midnight the next day
-                                                if (end.isBefore(start)) end.add(1, 'day');
-                                                // calculate the duration
-                                                var d1 = moment.duration(end.diff(start));
-                                                // subtract the lunch break
-                                                // d.subtract(30, 'minutes');
-                                                // format a string result
-                                                var s1 = moment.utc(+d1).format('H');
-                                                console.log("e" + s1);
-                                                console.log(req.body.endavlhr.hour);
-                                                //  res.json(work_time);
-                                                if (!isErr && (parseFloat(s1) < parseInt(req.body.endavlhr.hour))) {
-                                                    errMsg = "* Failed,working hour exceed available hour !";
-                                                    isErr = true;
-                                                }
-                                                callback();
-                                                //else{ 
-
+                                            if(work_time1){
+                                            // parse time using 24-hour clock and use UTC to prevent DST issues
+                                            var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                            var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                            // account for crossing over to midnight the next day
+                                            if (end.isBefore(start)) end.add(1, 'day');
+                                            // calculate the duration
+                                            var d1 = moment.duration(end.diff(start));
+                                            // subtract the lunch break
+                                            // d.subtract(30, 'minutes');
+                                            // format a string result
+                                            var s1 = moment.utc(+d1).format('H');
+                                            console.log("e" + s1);
+                                            console.log(req.body.endavlhr.hour);
+                                            //  res.json(work_time);
+                                            if (!isErr && (parseFloat(s1) < parseInt(req.body.endavlhr.hour))) {
+                                                errMsg = "* Failed,working hour exceed available hour !";
+                                                isErr = true;
                                             }
                                             callback();
+                                            //else{ 
+                                             }
+                                             callback();
                                         });
                                     }
                                 });
@@ -1692,7 +1679,7 @@ var returnRouter = function (io) {
                                             // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                             var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
                                             var leaveh = total_seconds - (seconds3 + seconds4);
-                                            var leavehr = Math.abs(leaveh);
+                                            var leavehr =Math.abs(leaveh);
                                             var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
                                             //    console.log("1"+seconds3);
                                             //    console.log("1"+seconds3);
@@ -1996,7 +1983,6 @@ var returnRouter = function (io) {
                                 model: Project_tasks,
                                 required: true,
                                 where: { assigned_to_id: user_id },
-
                                 include: [
                                     {
                                         model: Task_status_assocs,

@@ -2,7 +2,7 @@
   <div class="container-fluid display-table">
     <div class="row display-table-row">
       <div class="col-md-1 col-xs-2 display-table-cell v-align box" id="navigation">
-        <admin-sidebar></admin-sidebar>
+        <company-sidebar></company-sidebar>
       </div>
       <div class="col-md-12 col-xs-12">
         <!-- topbar-->
@@ -15,7 +15,13 @@
 
           <div class="row">
             <!-----------------------------------------------------------------table-------------------------------------->
-
+            <h2>Projects</h2>
+            <ul class="breadcrumb">
+              <!-- <li><a routerLink="/">Request Management</a></li> -->
+              <!-- <li><a routerLink="/company-request-management">Time Extension Request List</a></li> -->
+              
+              <li>Projects</li>
+            </ul>
             <div class="col-md-12">
               <div class="row">
                 <!-- <div class="col-md-12 preloader2" *ngIf="showSpinner">
@@ -46,8 +52,8 @@
 
                           <mat-select (change)="getProject()" [(value)]="selected">
                             <mat-option value="all">All</mat-option>
-                            <mat-option value="In Progress">In Progress</mat-option>
                             <mat-option value="Drafted">Drafted</mat-option>
+                            <mat-option value="In Progress">In Progress</mat-option>
                             <mat-option value="Planned">Planned</mat-option>
                             <mat-option value="Completed">Completed</mat-option>
                             <mat-option value="Cancelled">Cancelled</mat-option>
@@ -71,14 +77,12 @@
                     <ng-container matColumnDef="startdate">
                       <mat-header-cell *matHeaderCellDef > ACTUAL/PLANNED START DATE</mat-header-cell>
                       <!-- <mat-cell *matCellDef="let row"> {{row.actual_start_date == null ? row.planned_start_date  : row.actual_start_date}}</mat-cell> -->
-                      <mat-cell *matCellDef="let row"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : row.planned_start_date ==
-                        null : row.actual_start_date}}</mat-cell>
+                      <mat-cell *matCellDef="let row"> {{row.actual_start_date == null ? row.planned_start_date == null ? '-' : (row.planned_start_date| date:'EEE, d MMM,y') : (row.actual_start_date| date:'EEE, d MMM,y')}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="enddate">
                       <mat-header-cell *matHeaderCellDef> ACTUAL/PLANNED END DATE</mat-header-cell>
                       <!-- <mat-cell *matCellDef="let row"> {{row.actual_end_date === '' ? row.planned_end_date : row.actual_end_date}}</mat-cell> -->
-                      <mat-cell *matCellDef="let row"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : row.planned_end_date == null :
-                        row.actual_end_date}}
+                      <mat-cell *matCellDef="let row"> {{row.actual_end_date == null ? row.planned_end_date == null ? '-' : (row.planned_end_date| date:'EEE, d MMM,y') :(row.actual_end_date| date:'EEE, d MMM,y')}}
                       </mat-cell>
                     </ng-container>
 
@@ -111,7 +115,7 @@
                             <span>Edit</span>
                           </button>
                           <button mat-menu-item *ngIf="row.requirement_summary == null && row.is_approved == false && row.assignee_id == loggedin_id"
-                            (click)="getId(row.id)" data-toggle="modal" data-target="#deleteModal"> 
+                            (click)="getId(row.id)" data-toggle="modal" data-target="#deleteModal" data-backdrop="static" data-keyboard="false"> 
                             <mat-icon><i class="material-icons">delete</i></mat-icon>
                             <span>Delete</span>
                           </button>

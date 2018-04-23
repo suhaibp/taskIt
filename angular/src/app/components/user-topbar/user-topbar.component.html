@@ -29,8 +29,8 @@
 
                             <li class="head">
                                 <div class="navbar-content">
-                                    <h4 data-toggle="collapse" data-target="#hiden">New Task Request Approval Notification</h4>
-                                    <div id="hiden" class="collapse">
+                                    <h4 >New Task Request Approval Notification</h4>
+                                    <div >
                                     <div *ngFor="let item1 of newTaskNotif" class="ng-star-inserted">
                                         <a (click)="closeNotif1(item1.id)" [routerLink]="['/user-task-management']">
                                             <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif(item1.id)">x</button>
@@ -65,11 +65,11 @@
                             </div>
                         </ul>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" *ngIf="disp">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>
                           <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>
+                            <li >
                                 <div class="navbar-content">
                                     <span>{{profile?.f_name}} {{profile?.l_name}}</span>
                                     <p class="text-muted small">
@@ -77,12 +77,12 @@
                                     </p>
                                     <div class="divider">
                                     </div>
-                                    <a [routerLink]="['/edit-profile']" class="view btn-sm active">View Profile</a>
+                                    <a *ngIf="exist(8)" [routerLink]="['/edit-profile']" class="view btn-sm active">View Profile</a>
                                 </div>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="#"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
+                    <li><a (click)="logout()" href="#"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
                 </ul>
             </div>
         </div>

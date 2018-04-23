@@ -5,20 +5,27 @@
       <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
         <!-- sidebar-->
 
-        <admin-sidebar></admin-sidebar>
+        <company-sidebar></company-sidebar>
         <!-- end sidebar-->
       </div>
 
       <div class="col-md-12 col-xs-12">
         <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
         <!-- topbar-->
-        <admin-topbar></admin-topbar>
+        <company-topbar></company-topbar>
         <!-- end topbar-->
 
 
         <div class="user-dashboard">
           <!-- <h1>Hello, JS</h1> -->
           <div class="row">
+              <h2>Master Settings</h2>
+              <ul class="breadcrumb">
+                <li><a routerLink="/">Master Settings</a></li>
+                <!-- <li><a routerLink="/company-request-management">Time Extension Request List</a></li> -->
+                
+                <li>Office Time</li>
+              </ul>
               <div class="col-md-5 col-sm-12 col-xs-12 gutter ">
                 <div class="white">
                   <div class="col-md-10 col-md-offset-1">
@@ -30,7 +37,7 @@
                           <label class="thin-lbl" for="">Office Start Time</label>
                         </div>
                         <div class="col-md-6">
-                          <label *ngIf="show" for="">{{default.start_time}}</label>
+                          <label *ngIf="show" for="">{{default?.start_time}}</label>
                         </div>
                       </div>
                       <div class="col-md-12 padd-15">
@@ -38,7 +45,7 @@
                           <label class="thin-lbl" for="">Office End Time</label>
                         </div>
                         <div class="col-md-6">
-                          <label *ngIf="show" for="">{{default.end_time}}</label>	
+                          <label *ngIf="show" for="">{{default?.end_time}}</label>	
                         </div>
                       </div>
                     </div>
@@ -48,11 +55,11 @@
                       
                       <div class="col-md-12 padd-15" *ngFor="let item of breaks; let i = index; trackBy:trackByIndex">
                         <div class="col-md-6">
-                          <label class="thin-lbl" for="">{{item.title}}</label>
+                          <label class="thin-lbl" for="">{{item?.title}}</label>
                         </div>
                         <div class="col-md-5">
-                          <label *ngIf="show" for="">{{item.start_time}}</label> - 
-                          <label *ngIf="show" for="">{{item.end_time}}</label>
+                          <label *ngIf="show" for="">{{item?.start_time}}</label> - 
+                          <label *ngIf="show" for="">{{item?.end_time}}</label>
                         </div>
                         <div class="col-md-1">
                             <button class="bg-grey-btn bg-trans" (click)="deleteBreak(item.id)"><i class="la la-trash"></i></button>
@@ -68,7 +75,7 @@
                  
                   <app-spinner *ngIf="spinner"></app-spinner>
                   
-                  <button class="rnd-btn" (click)="addBreak()">+</button>
+                  <button class="rnd-btn plus-btn" (click)="addBreak()">+</button>
                 </div><!--white-->
                </div>
                
@@ -94,80 +101,25 @@
 
                           <ng-container *ngFor="let item of createRange(5)">
                               <tr>
-                                <td>{{item}} Week</td>
+                                <td class="week-nm">{{item}} Week</td>
                                 <td *ngFor="let i of createRange(7); let x=index">
-                                   <!-- <button *ngIf=" checkType(timings[item][i])" >Changed</button>
-                                  <button *ngIf="!checkType(timings[item][i]) else sik" >Default</button>
-                                  <button  >Changed</button> -->
-                                  <!-- <h4 *ngIf="timings[item][i] && timings[item]">x</h4>
-                                  <h4 *ngIf="(!timings[item][i] || !timings[item]) || checkType(item)">y</h4>
-                                  <div *ngIf="!timings">gg</div> -->
-                                  <!-- {{checkType(i,item)}} -->
-                                  <!--<ng-template #sik>
-                                  <button  >Changed</button>
+                                   <button class="week-btn clr-green" *ngIf="timings[i][item].id else chngd" (click)="openModal(i,item)">Changed</button>
+                                   <ng-template #chngd>
+                                   <button class="week-btn" (click)="openModal(i,item)" >Default</button>
                                     
-                                  </ng-template> -->
+                                   </ng-template>
+                                
                                   
                                 </td>
                               </tr>
                           </ng-container>
-                          
-                       <!-- <tr>
-                         <td>1<sup>st</sup>Week</td>
-                         <td><button>Default</button></td>
-                         <td><button>Default</button></td>
-                         <td><button>Default</button></td>
-                         <td><button>Default</button></td>
-                         <td><button>Default</button></td>
-                         <td><button>Default</button></td>
-                         <td><button>Default</button></td>
-                        </tr>
-                       <tr>
-                          <td>2<sup>nd</sup>Week</td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                       </tr>
-                       <tr>
-                          <td>3<sup>rd</sup>Week</td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                       </tr>
-                       <tr>
-                          <td>4<sup>th</sup>Week</td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                       </tr>
-                       <tr>
-                          <td>5<sup>th</sup>Week</td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                          <td><button>Default</button></td>
-                       </tr> -->
+                  
                        
                      </tbody>
                    </table>
                  </div>
                </div>
-
+               
         </div>
 
 
@@ -343,4 +295,135 @@
     </div>
 
   <!--delete modal------>
+
+
+  <!--Break Modal -->
+
+  <div id="weekModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+  
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="closeDayPopup()">&times;</button>
+            <h4 class="modal-title">Edit Working Hours</h4>
+          </div>
+          <!-- <div class="modal-header"> -->
+          <!-- <h4 class="modal-title">Are you sure to delete?</h4> -->
+          <!-- </div> -->
+          <div class="modal-body delete-popup">
+            <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12 text-left">
+                            <mat-checkbox [(ngModel)]="holiday" >Off day?</mat-checkbox> 
+                      <!-- {{holiday}} -->
+                          </div>
+                      <div class="col-md-4">
+                        <label class="modal-lft-lbl">Office Start Time:</label>
+                      </div>
+                      <div class="col-md-7">
+                          
+                        <ngb-timepicker [(ngModel)]="xtime" [readonlyInputs]="holiday" [spinners]="!holiday"></ngb-timepicker>
+                          
+      
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-4">
+                        <label class="modal-lft-lbl">Office End Time:</label>
+                      </div>
+                      <div class="col-md-7">
+                         
+                        <ngb-timepicker [(ngModel)]="ytime" [readonlyInputs]="holiday" [spinners]="!holiday"></ngb-timepicker>
+                          
+      
+                      </div>
+                    </div>
+      
+                    <div class="form-group padd-7">
+                        <div class="col-md-11 padd-7 text-left"><label for=""><b>Breaks</b></label></div>
+                        
+                        <div class="col-md-12 padd-7" *ngFor="let item of breaks; let i = index; trackBy:trackByIndex">
+                          <div class="col-md-6">
+                            <label class="thin-lbl" for="">{{item.title}}</label>
+                          </div>
+                          <div class="col-md-5">
+                            <label *ngIf="show" for="">{{item.start_time}}</label> - 
+                            <label *ngIf="show" for="">{{item.end_time}}</label>
+                          </div>
+                          <!-- <div class="col-md-1">
+                              <button class="bg-grey-btn bg-trans" (click)="deleteBreak(item.id)"><i class="la la-trash"></i></button>
+                          </div> -->
+                          
+                        </div>
+                        
+                        <div class="col-md-12 padd-7" *ngFor="let item of dayBreak; let i = index; trackBy:trackByIndex">
+                            <div class="col-md-6">
+                              <label class="thin-lbl" for="">{{item.title}}</label>
+                            </div>
+                            <div class="col-md-5">
+                              <label *ngIf="show" for="">{{item.start_time}}</label> - 
+                              <label *ngIf="show" for="">{{item.end_time}}</label>
+                            </div>
+                            <div class="col-md-1">
+                                <button class="bg-grey-btn bg-trans" (click)="deleteExtraBreak(item.id)" [disabled]="holiday"><i class="la la-trash"></i></button>
+                            </div>
+                            
+                          </div>
+                          <div class="col-md-12" *ngIf="showAddBreak">
+                              <!-- <div class="row"> -->
+                               
+                                      <div class="col-md-4">
+                                          <div class="row">
+                                              <mat-form-field>
+                                                  <input matInput placeholder="Title" [(ngModel)]="xtrabreakTitle" [disabled]="holiday" class="mrgn-tp">
+                                                </mat-form-field>
+                                          </div>
+                                       
+                                      </div>
+                   
+                                  <div class="col-md-3">
+                                      
+                                    <ngb-timepicker [(ngModel)]="atime" [readonlyInputs]="holiday" [spinners]="!holiday"></ngb-timepicker>
+                                      
+                  
+                                  </div>
+                                
+                                  <div class="col-md-3">
+                                     
+                                    <ngb-timepicker [(ngModel)]="btime" [readonlyInputs]="holiday" [spinners]="!holiday"></ngb-timepicker>
+                                      
+                  
+                                  </div>
+                                  <div class="col-md-2">
+                                    <button class="btn add-brk" (click)="saveExtraBreak()"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                    <button class="btn add-brk red" (click)="closeExtraBreak()">x</button>
+                                    
+                                  </div>
+                  
+                              <!-- </div> -->
+                  
+                            </div>
+                          <button class=" plus-btn mrgn-ed" (click)="addExtraBreak()" [disabled]="holiday" [ngClass]="{ 'dsbld' : holiday}">+</button>
+
+                          
+                      </div>
+                  </div>
+      
+                </div>
+
+  
+  
+          </div>
+  
+          <div class="modal-footer">
+            <app-spinner *ngIf="spinner"></app-spinner>
+            <button *ngIf="!spinner" type="button" (click)="saveDayWorkTime()" class="btn round-button">Save</button>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  
 </body>

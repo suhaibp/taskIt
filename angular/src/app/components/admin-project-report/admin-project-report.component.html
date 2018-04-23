@@ -2,15 +2,17 @@
   <div class="container-fluid display-table">
     <div class="row display-table-row">
       <div class="col-md-1 col-xs-2 display-table-cell v-align box" id="navigation">
-        <admin-sidebar></admin-sidebar>
+        <company-sidebar></company-sidebar>
       </div>
-      <admin-topbar></admin-topbar>
+      <company-topbar></company-topbar>
       <br>
       <div class="col-md-12 col-xs-9">
         <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
-        <button id="create" (click)="exportPdf()">Export Pdf</button>
-        <input type="button" (click)="tableToExcel('testTable', 'taskit')" value="Export to Excel">
-        <button id="create" (click)="PrintDiv()">Print</button> 
+        <div class="pull-right" >
+        <button id="create" class="btn round-button" (click)="exportPdf()">Export Pdf</button>
+        <input type="button"  class="btn round-button" (click)="tableToExcel('testTable', 'taskit')" value="Export to Excel">
+        <button id="create"  class="btn round-button" (click)="PrintDiv()">Print</button> 
+        </div>
         <div class="row">
             
           <div class="col-md-12">

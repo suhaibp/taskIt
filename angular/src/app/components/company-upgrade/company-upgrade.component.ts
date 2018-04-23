@@ -70,7 +70,7 @@ export class CompanyUpgradeComponent implements OnInit {
         let snackBarRef = this.snackBar.open(res.msg, '', {
           duration: 3000
         });
-        // this.routes.navigate(['/dashboard']);
+        this.routes.navigate(['/planlist']);
       }
       else {
         let snackBarRef = this.snackBar.open(res.msg, '', {

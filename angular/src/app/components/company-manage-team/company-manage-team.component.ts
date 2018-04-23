@@ -179,7 +179,7 @@ export class CompanyManageTeamComponent implements OnInit {
 
   memberSelect(member){
     console.log(member)
-    if(member != ''){
+    // if(member != ''){
       // this.heads = member;
       this.selectedTeamMembers = []
     member.forEach(element => {
@@ -191,7 +191,8 @@ export class CompanyManageTeamComponent implements OnInit {
         }
       });
     });
-    }
+    console.log(this.selectedTeamMembers)
+    // }
     // console.log(member);
     
     // console.log(this.teamMembers[this.teamMembers.length-1]);

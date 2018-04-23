@@ -122,7 +122,7 @@ constructor(
         }
 
         loadToDataTable(data){
-
+          console.log(data);
           this.notExist =false;
           if(data.length == 0){
             this.notExist = true;

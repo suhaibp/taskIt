@@ -3,6 +3,7 @@ import * as socketIo from 'socket.io-client';
 import { Config } from './../../config/config';
 import { UserService } from './../../services/user.service';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'user-topbar',
@@ -21,12 +22,56 @@ export class UserTopbarComponent implements OnInit {
   newTaskNotifCount: number = 0;
   timeExtNotif: any;
   timeExtNotifCount: number = 0;
-
-  constructor(private config: Config, private userService: UserService, public snackBar: MatSnackBar) {
+  role ;
+  rights:any
+  disp = false;
+  constructor(private config: Config, private userService: UserService, public snackBar: MatSnackBar,private routes: Router,) {
     this.socket = socketIo(config.siteUrl);
   }
 
   ngOnInit() {
+    this.getAccessRightsforRole();
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 20-04-2018
+    // Last Modified : 20-04-2018, Rinsha
+    // Desc          :  
+    this.userService.getLoggedinEntity().subscribe(data => {
+      if(data == null || data == ''){
+        this.routes.navigate(['/home']); 
+      }
+      if(data.role_id == 2){
+        //super admin
+        if(data.delete_status == true || data.block_status == true){
+          this.routes.navigate(['/home']); 
+        }
+        this.routes.navigate(['/admin-dashboard']);
+      }
+      if(data.role_id == 3 || data.role_id == 1){
+        //company admin or pm
+        if(data.delete_status == true || data.block_status == true || data.cmp_status == "Not Verified"){
+          this.routes.navigate(['/company-login']); 
+        }
+        if(data.cmp_status == "Expired"){
+          this.routes.navigate(['/expired']);
+        }
+        if(data.is_profile_completed == false){
+          this.routes.navigate(['/compay-aditninfo', data.cmp_id]);
+        }
+        this.routes.navigate(['/company-dashboard']);
+      }
+      if(data.role_id == 4){
+        //user
+        if(data.delete_status == true || data.block_status == true){
+          this.routes.navigate(['/company-login']); 
+        }
+        // this.routes.navigate(['/user-dashboard']);
+      }
+    });
+    // -----------------------------------End------------------------------------------
     this.count = 0;
     this.TeamHeadNotification();
     this.socket.on('doEstimation', (data) => {
@@ -94,6 +139,7 @@ export class UserTopbarComponent implements OnInit {
     // Desc          : 
     this.newTaskNotifCount = 0;
     this.userService.getNewTaskRequestNotification().subscribe(info => {
+      // console.log(info)
       this.newTaskNotif = info;
       this.newTaskNotifCount = this.newTaskNotif.length;
       this.refresh();
@@ -162,6 +208,41 @@ export class UserTopbarComponent implements OnInit {
   refresh(){
     this.count = 0;
     this.count = this.timeExtNotifCount + this.newTaskNotifCount + this.teamHeadNotifCOunt;
+  }
+
+  logout() {
+    this.userService.logout();
+    this.routes.navigate(['/home']);
+    return false;
+  }
+  getAccessRightsforRole() {
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getAccessRightsforRole
+    // Params        : 
+    // Returns       : Access rights based on role
+    // Author        : Manu Prasad
+    // Date          : 19-04-2018
+    // Last Modified : 19-04-2018, Manu Prasad
+    // Desc          : 
+    this.userService.getAccessRightsforRole().subscribe(res => {
+      // console.log(res);
+      this.rights = res;
+      this.disp = true;
+      // console.log(res);      
+      // console.log("res");
+    });
+    // ---------------------------------End-------------------------------------------
+  }
+  exist(id){
+    // console.log(id)
+    let x = false;
+    this.rights.forEach(element => {
+      if(element.access_rights_id == id){
+        // console.log("hh")
+        x =  true;
+      }
+    });
+    return x;
   }
 }
 

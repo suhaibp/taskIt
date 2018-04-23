@@ -38,15 +38,56 @@ export class CompanyTopbarComponent implements OnInit {
   newTaskreqBackCount = 0;
   timeExtensionCount = 0;
   private socket: any;
-  dispStatus = false;
+  dispStatus = true;
   constructor(
     private companyService: CompanyService,
     private routes: Router,
     public snackBar: MatSnackBar,
-    private config: Config, ) {
+    private config: Config ) {
     this.socket = socketIo(config.socketURL);
   }
   ngOnInit() {
+    // ---------------------------------Start-------------------------------------------
+    // Function      : Get logged in entity
+    // Params        : 
+    // Returns       : Get logged in entity
+    // Author        : Rinsha
+    // Date          : 08-03-2018
+    // Last Modified : 08-03-2018, Rinsha
+    // Desc          :  
+    this.companyService.getLoggedinEntity().subscribe(data => {
+      if(data == null || data == ''){
+        this.routes.navigate(['/home']); 
+      }
+      if(data.role_id == 2){
+        //super admin
+        if(data.delete_status == true || data.block_status == true){
+          this.routes.navigate(['/home']); 
+        }
+        this.routes.navigate(['/admin-dashboard']);
+      }
+      if(data.role_id == 3 || data.role_id == 1){
+        //company admin or pm
+        if(data.delete_status == true || data.block_status == true || data.cmp_status == "Not Verified"){
+          this.routes.navigate(['/company-login']); 
+        }
+        if(data.cmp_status == "Expired"){
+          this.routes.navigate(['/expired']);
+        }
+        if(data.is_profile_completed == false){
+          this.routes.navigate(['/compay-aditninfo', data.cmp_id]);
+        }
+        // this.routes.navigate(['/company-dashboard']);
+      }
+      if(data.role_id == 4){
+        //user
+        if(data.delete_status == true || data.block_status == true){
+          this.routes.navigate(['/company-login']); 
+        }
+        this.routes.navigate(['/user-dashboard']);
+      }
+    });
+    // -----------------------------------End------------------------------------------
     this.getLoggedDetails();
     this.getNotifications();
     this.socket.on('newtaskrequest', (data) => {
@@ -73,6 +114,16 @@ export class CompanyTopbarComponent implements OnInit {
     this.socket.on('reEstimateProject', (data) => {
       this.resubmitEstimationNotification();
     });
+    this.socket.on('newtaskrequestAccepted', (data) => {
+      this.getNotifications();
+    });
+    this.socket.on('newtaskrequestRejected', (data) => {
+      this.getNotifications();
+    });
+    this.socket.on('newtaskrequestApproval', (data) => {
+      this.getNotifications();
+    });
+
     this.getAllemppendingleavesnotifi();
     this.socket.on('Leaveaddeduser', (data) => {
       this.getAllemppendingleavesnotifi();
@@ -252,7 +303,6 @@ export class CompanyTopbarComponent implements OnInit {
   // Last Modified : 08-03-2018, Rinsha
   // Desc          :  
   getLoggedDetails() {
-
     this.companyService.getLoggedinEntity().subscribe(data => {
       this.entity = data;
       if (this.entity.role_id == 3) {
@@ -277,20 +327,26 @@ export class CompanyTopbarComponent implements OnInit {
       // this.accessRights = accessRights;
       // console.log(resNotifications)
       this.notifications = resNotifications;
-      if (resNotifications.back.length > 0) {
+      if (resNotifications.back && resNotifications.back.length > 0) {
+        // if (resNotifications.back.length > 0) {
         this.newTaskreqBackCount = resNotifications.back.length
         this.newTaskApp = resNotifications.back
         this.dispStatus = true;
       } else {
         this.newTaskApp = [];
+        this.dispStatus = true;
+
       }
-      if (resNotifications.req.length > 0) {
+      if (resNotifications.req && resNotifications.req.length > 0) {
+        // if (resNotifications.req.length > 0) {
         this.newTaskreqCount = resNotifications.req.length
         this.newTaskreq = resNotifications.req
         this.dispStatus = true;
 
       } else {
         this.newTaskreq = [];
+        this.dispStatus = true;
+
       }
       this.showNotifications = true;
       this.refresh();
@@ -308,7 +364,7 @@ export class CompanyTopbarComponent implements OnInit {
     // Last Modified : 
     // Desc          : check user leave request
     this.companyService.getAllemppendingleavesnotifi().subscribe(res => {
-      console.log(res)
+      // console.log(res)
       this.userpendingdata = res;
       this.userpendingdataCount = 0;
       this.userpendingdataCount = this.userpendingdata.length;
@@ -319,7 +375,7 @@ export class CompanyTopbarComponent implements OnInit {
   }
 
   closeNotif5(notif_id) {
-    console.log(notif_id);
+    // console.log(notif_id);
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of estimation approval
     // Params        : notification id
@@ -348,18 +404,20 @@ export class CompanyTopbarComponent implements OnInit {
     // Last Modified : 
     // Desc          : admin approval for time extension
     this.companyService.getAllSendtoadminnotif().subscribe(res => {
-      console.log(res);
-      this.adminnotifdata = res;
-      this.adminnotifdataCount = 0;
-      this.adminnotifdataCount = this.adminnotifdata.length;
-      // console.log( this.adminnotifdata);
-      this.refresh();
+      // console.log(res);
+      if (res != "no data") {
+        this.adminnotifdata = res;
+        this.adminnotifdataCount = 0;
+        this.adminnotifdataCount = this.adminnotifdata.length;
+        // console.log( this.adminnotifdata);
+        this.refresh();
+      }
     });
     // ---------------------------------End-------------------------------------------
   }
 
   closeNotif6(notif_id) {
-    console.log(notif_id);
+    // console.log(notif_id);
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of estimation approval
     // Params        : notification id

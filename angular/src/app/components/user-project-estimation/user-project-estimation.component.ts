@@ -74,6 +74,8 @@ export class UserProjectEstimationComponent implements OnInit {
   copiedModules = [];
   labelToExpand: any;
   btnDisabled :boolean = false;
+  reasonforReject : any;
+  rejectReasonShow : Boolean = false;
 
   @ViewChild('closeBtn1') closeBtn1: ElementRef;
   @ViewChild('closeBtn2') closeBtn2: ElementRef;
@@ -112,7 +114,7 @@ export class UserProjectEstimationComponent implements OnInit {
           let snackBarRef = this.snackBar.open(notif.msg, '', {
             duration: 2000
           });
-          // this.routes.navigate(['/project']);
+          this.routes.navigate(['/user-dashboard']);
         }
       });
       // ---------------------------------End-------------------------------------------
@@ -126,22 +128,33 @@ export class UserProjectEstimationComponent implements OnInit {
       // Last Modified : 15-03-2018, Rinsha
       // Desc          : get Current Estimation from notification id
       this.userService.getCurrentEstimation(this.notif_id).subscribe(est => {
+        this.rejectReasonShow = false;
+        this.reasonforReject = "";
         // console.log(est);
         if (est.data !== null) {
           // then it is resubmitted estimation
+          if(est.data.reason != ''){
+            this.rejectReasonShow = true;
+            this.reasonforReject = est.data.reason;
+          }
+          else{
+            this.rejectReasonShow = false;
+            this.reasonforReject = "";
+          }
+          this.modules = [];
+          this.module = {
+            name: '',
+            time: 0,
+            tasks: [],
+          };
+          this.task = {
+            name: '',
+            planned_hour: 0,
+            buffer_time: 0,
+            description: '',
+          };
+          this.estimated_hour = 0;
           est.data.tbl_estimation_modules.forEach(estimatedModule => {
-            this.modules = [];
-            this.module = {
-              name: '',
-              time: 0,
-              tasks: [],
-            };
-            this.task = {
-              name: '',
-              planned_hour: 0,
-              buffer_time: 0,
-              description: '',
-            };
             this.module.name = estimatedModule.module_name;
             this.module.tasks = [];
             estimatedModule.tbl_estimation_tasks.forEach(estimatedTask => {
@@ -339,7 +352,7 @@ export class UserProjectEstimationComponent implements OnInit {
           duration: 4000
         });
         if (data.success == true) {
-          this.routes.navigate(['/test-user']);
+          this.routes.navigate(['/user-dashboard']);
         }
       });
       // -----------------------------------End------------------------------------------

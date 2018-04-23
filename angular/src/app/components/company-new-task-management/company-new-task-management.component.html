@@ -146,15 +146,9 @@
                                         </ul>
                                         <div class="pull-right">
                                           <button class="bt"  (click)="setEdit(taskRequest.id)" data-toggle="modal" data-target="#editModal">Edit</button>
-<<<<<<< HEAD
-                                          <button class="bt"  (click)="approve()">Approve</button>
-                                          <button class="bt">Reject</button>
-                                          <button class="bt" *ngIf="role == 3">Send to admin</button>
-=======
                                           <button class="bt"  (click)="approvePop()">Approve</button>
                                           <button class="bt" (click)="rejectPop()">Reject</button>
                                           <button class="bt" (click)="sendApprovalPop()" *ngIf="role == 3">Send to admin</button>
->>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
                                         </div>  
                                       </div>
                                     <div class="clearfix"></div>

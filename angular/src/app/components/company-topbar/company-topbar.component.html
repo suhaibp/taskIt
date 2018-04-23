@@ -44,7 +44,7 @@
                           </li>
                       </ul>
                   </li>
-                  <li (click)="logout()"> <i class="fa fa-power-off" aria-hidden="true"></i></li>
+                  <li><a href="#"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
               </ul>
           </div>
       </div>
@@ -59,7 +59,7 @@
                         <li *ngIf="upgradeBtnShow" class=""><a [routerLink]="['/planlist']" class="add-project">Upgrade</a></li>
                         <li class=""><a [routerLink]="['/add-project']" class="add-project">Add Project</a></li>
     
-                        <li class="dropdown drp2">
+                        <li class="dropdown drp2" *ngIf="dispStatus">
                             <a class="icon-info dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell" aria-hidden="true"></i>
                                 <span class="label label-primary">{{count}}</span>
@@ -142,34 +142,6 @@
                                     </div>
                                 </li>
                                 <div class="divider"> </div>
-                                <li class="head">
-                                        <div class="navbar-content">
-                                            <h4>Leave Request</h4>
-                                            <div *ngFor="let item5 of userpendingdata">
-                                                <a (click)="closeNotif5(item5.id)" [routerLink]="['/company-user-leave-request', item5.id]">
-                                                    <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif5(item5.id)">x</button>
-                                                    </div>
-                                                    <h5 class="media-heading">{{item5.tbl_user_profile.f_name}}</h5>
-                                                    <p><a class="content">Click here to view leave details.</a></p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <div class="divider"> </div>
-                                    <li class="head">
-                                            <div class="navbar-content">
-                                                <h4>Time Extension Approval</h4>
-                                                <div *ngFor="let item6 of adminnotifdata">
-                                                    <a (click)="closeNotif6(item6.id)" [routerLink]="['/company-time-extension-request', item6.request_id,item6.xt.tbl_project_task.tbl_project_module.project_id]">
-                                                        <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotif6(item6.id)">x</button>
-                                                        </div>
-                                                        <h5 class="media-heading">{{item6.xt.tbl_project_task.tbl_user_profile.f_name}}</h5>
-                                                        <p><a class="content">Click here to view leave details.</a></p>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <div class="divider"> </div>
     <!------------------------------------------>
                                 <li class="head">
                                         <div class="navbar-content">
@@ -179,8 +151,8 @@
                                                     <a (click)="closeNotifReq(items.id)" [routerLink]="['/company-task-manage', items.id]">
                                                         <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotifReq(items.id)">x</button>
                                                         </div>
-                                                        <h5>Project: {{items.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>
-                                                        <h5>Requester: {{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>
+                                                        <h5>Project: {{items.tbl_new_task_request?.tbl_project_module?.tbl_project?.project_nam}}</h5>
+                                                        <h5>Requester: {{items.tbl_new_task_request?.tbl_user_profile?.f_name}} {{items.tbl_new_task_request?.tbl_user_profile?.l_name}}</h5>
                                                         <p><a class="content">Click here to view.</a></p>
                                                     </a>
                                                 </div>
@@ -197,9 +169,9 @@
                                                     <a (click)="closeNotifAproval(items.id)" [routerLink]="['/company-task-manage', items.id]">
                                                         <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' (click)="closeNotifAproval(items.id)">x</button>
                                                         </div>
-                                                        <h5>Project: {{items.tbl_new_task_request.tbl_project_module.tbl_project.project_nam}}</h5>
-                                                        <h5>Requester: {{items.tbl_new_task_request.tbl_user_profile.f_name}} {{items.tbl_new_task_request.tbl_user_profile.l_name}}</h5>
-                                                        <h5>Status: {{items.tbl_new_task_request.request_status}}</h5>
+                                                        <h5>Project: {{items.tbl_new_task_request?.tbl_project_module?.tbl_project?.project_nam}}</h5>
+                                                        <h5>Requester: {{items.tbl_new_task_request?.tbl_user_profile?.f_name}} {{items.tbl_new_task_request?.tbl_user_profile?.l_name}}</h5>
+                                                        <h5>Status: {{items.tbl_new_task_request?.request_status}}</h5>
                                                         <p><a class="content">Click here to view.</a></p>
                                                     </a>
                                                 </div>
@@ -214,7 +186,7 @@
                             </ul>
     
                         </li>
-                        <li class="dropdown">
+                        <!-- <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i>
                                 <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -230,8 +202,8 @@
                                     </div>
                                 </li>
                             </ul>
-                        </li>
-                        <li><a href="#"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
+                        </li> -->
+                        <li><a href="#" (click)="logout()"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
             </div>

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'cmp_id',
     });
     // tbl_cmp_off_day_assoc.belongsTo(models.tbl_cmp_work_time, {
-    //    foreignKey: 'cmp_work_time_id',
+    //   foreignKey: 'cmp_work_time_id',
     // });
 
   };

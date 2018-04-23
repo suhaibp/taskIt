@@ -658,6 +658,9 @@ var returnRouter = function (io) {
         ext = matches[1].split("/");
         response.ext = ext[1];
         response.data = new Buffer(matches[2], 'base64');
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
         return response;
     }
     // ----------------------------------End-------------------------------------------
@@ -669,6 +672,9 @@ var returnRouter = function (io) {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get list of teams and stregth
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
   router.get('/getUserProjects', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -703,6 +709,9 @@ var returnRouter = function (io) {
     // }
   })
   //  ---------------------------------End-------------------------------------------
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     //  ---------------------------------Start-------------------------------------------
   // Function      : getMembers
   // Params        : 
@@ -711,6 +720,9 @@ var returnRouter = function (io) {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get list of teams and stregth
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
   router.get('/getUserProjectsDetails/:id', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -791,10 +803,6 @@ var returnRouter = function (io) {
       if (req.headers && req.headers.authorization) {
           var authorization = req.headers.authorization.substring(4),
               decoded;
-          decoded = jwt.verify(authorization, Config.secret);
-          res.json(decoded);
-      } else {
-          res.json('');
       }
   });
   // ----------------------------------End-------------------------------------------
@@ -806,6 +814,9 @@ var returnRouter = function (io) {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get list of teams and stregth
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
   router.post('/getUserProjectsOnStatus', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -849,6 +860,9 @@ var returnRouter = function (io) {
     // }
   })
   //  ---------------------------------End-------------------------------------------
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     //  ---------------------------------Start-------------------------------------------
   // Function      : getMembers
   // Params        : 
@@ -857,6 +871,9 @@ var returnRouter = function (io) {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get list of teams and stregth
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
   router.post('/getSelectedProjects', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -909,6 +926,9 @@ var returnRouter = function (io) {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get list of teams and stregth
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
   router.post('/getNotifications', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -1011,6 +1031,9 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     // ---------------------------------Start-------------------------------------------
     // Function      : getTimeExtensionRequestNotification
     // Params        : 
@@ -1073,6 +1096,9 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of time extension request approval
     // Params        : notification id
@@ -1110,6 +1136,9 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of new task request approval
     // Params        : notification id
@@ -2033,7 +2062,11 @@ var returnRouter = function (io) {
                     });
       // ----------------------------------End-------------------------------------------
       
+<<<<<<< HEAD
     module.exports = router;
+=======
+    module.exports = router;
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     return router;
 }
 module.exports = returnRouter;

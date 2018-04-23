@@ -276,11 +276,12 @@ logn{
   position: relative
 }
 .btn-nxt{
-  position: absolute;
+  /* position: absolute; */
   top: 68px;
-  right: 0;
+  right: -45px;
   background: transparent;
   border: none;
+  position: absolute;
 }
 
 .nxt-cntainer{
@@ -322,3 +323,10 @@ select{
   color: #20ad6b;
   
 }
+.simform .progress::before{
+  width: 100%;
+}
+section{
+  padding: 5em 7em 10em !important;
+}
+.bgz{padding-top:12em;}

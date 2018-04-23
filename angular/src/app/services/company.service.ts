@@ -2319,7 +2319,7 @@ deleteHoliday(data){
  
    }
     // -----------------------------------End------------------------------------------
-         // ---------------------------------Start-------------------------------------------
+   // ---------------------------------Start-------------------------------------------
   // Function      : ApprovedTimeextension
   // Params        : id
   // Returns       : 
@@ -2338,4 +2338,11 @@ deleteHoliday(data){
        }
 
   // -----------------------------------End------------------------------------------
+  getProjectReport(data){
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'getProjectReport', data, { headers: headers })
+    .map(res => res.json());
+ 
+   }
+  
 }

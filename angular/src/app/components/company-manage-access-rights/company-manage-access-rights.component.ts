@@ -80,7 +80,6 @@ export class CompanyManageAccessRightsComponent implements OnInit {
     }
   //  ---------------------------------end-----------------------------------------------
 
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : getTeams
   // Params        : 
@@ -89,7 +88,6 @@ export class CompanyManageAccessRightsComponent implements OnInit {
   // Date          : 15-03-2018
   // Last Modified : 15-03-2018, Manu Prasad 
   // Desc          : Get Teams from database
-
 
   getAccessRights(usergroupid){
     this.companyService.getAccessRights(usergroupid).subscribe(accessRights =>{
@@ -101,7 +99,6 @@ export class CompanyManageAccessRightsComponent implements OnInit {
     }
   //  ---------------------------------end-----------------------------------------------
 
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : setRights
   // Params        : 
@@ -110,7 +107,6 @@ export class CompanyManageAccessRightsComponent implements OnInit {
   // Date          : 15-03-2018
   // Last Modified : 15-03-2018, Manu Prasad 
   // Desc          : set access rights in modal 
-
 
   setRights(usergroupid, usergroupName){
     this.getAccessRights(usergroupid);
@@ -123,11 +119,13 @@ export class CompanyManageAccessRightsComponent implements OnInit {
   //  ---------------------------------end-----------------------------------------------
 
   change(event){
-    // console.log(this.accessRights)
+    console.log(this.accessRights)
     let allChecked = true;
     // async.forEachOf(this.accessRights, (element, key, callback)=>{
       this.accessRights.forEach(element => {
+      
         if(element.id == event){
+          element.intermediate = true
           element.sub.forEach(ele => {
             // console.log(typeof ele.checked);
             if(ele.checked == false || typeof ele.checked == 'undefined'){
@@ -138,6 +136,7 @@ export class CompanyManageAccessRightsComponent implements OnInit {
           });
           if(allChecked == true){
             element.checked = true
+            element.intermediate = false;            
           }
           else{
             element.checked = false
@@ -145,10 +144,8 @@ export class CompanyManageAccessRightsComponent implements OnInit {
           }
         }
       });
-     
    
-    
-  }
+    }
 
   changeMaster(event){
     // console.log(event)
@@ -172,8 +169,6 @@ export class CompanyManageAccessRightsComponent implements OnInit {
     // conso
   }
 
-
-
   assignRights(){
     this.spinner = true;
     this.companyService.assignRights(this.accessRights, this.userGroupId).subscribe(res =>{
@@ -192,8 +187,4 @@ export class CompanyManageAccessRightsComponent implements OnInit {
     })
   }
 
-
-  
-
- 
 }

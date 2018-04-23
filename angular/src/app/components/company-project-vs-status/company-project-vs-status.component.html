@@ -5,18 +5,38 @@
           <div class="col-md-8 col-md-offset-2">
           <div class="col-md-6 bg-g">*Select Project</div>
           <div class="col-md-6 bg-hash">
-            <select>
-              <option>Taskit</option>
-              <option>Survey</option>
-            </select>
+              <mat-select  name="projet_id" [(ngModel)]="project_id" (ngModelChange)="changeProject($event)" required>
+                  <mat-option *ngFor="let prj of projects" [value]="prj.id">
+                    {{prj.project_name}}
+                  </mat-option>
+                </mat-select>
           </div> 
           <div class="clearfix"></div>
           <div class="row">
             <div class="col-md-6">
               <div class="tasklabel">
-              TASKS ASSIGNED
+              START DATE 
               <br>
-              2
+              {{start_date | date:'EEE, d MMM,y'}}
+            </div>
+            </div>
+    
+            <div class="col-md-6">
+                <div class="tasklabel">
+                END DATE
+                <br>
+                {{end_date | date:'EEE, d MMM,y'}}
+               </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="tasklabel">
+              TOTAL TASKS 
+              <br>
+              {{total_tasks}}
+              <br>
+              ({{planned_hour}} Hour)
             </div>
             </div>
     
@@ -24,41 +44,9 @@
                 <div class="tasklabel">
                 TASKS COMPLETED
                 <br>
-                10
-               </div>
-              </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="tasklabel">
-              DUE THIS WEEK
-              <br>
-              10
-            </div>
-            </div>
-    
-            <div class="col-md-6">
-                <div class="tasklabel">
-               DUE NEXT WEEK
+                {{completed_tasks}}
                 <br>
-                10
-               </div>
-              </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="tasklabel">
-              DUE THIS MONTH
-              <br>
-              10
-            </div>
-            </div>
-    
-            <div class="col-md-6">
-                <div class="tasklabel">
-                DUE THIS YEAR
-                <br>
-                10
+                ({{actual_hour}} Hour)
                </div>
               </div>
           </div>
