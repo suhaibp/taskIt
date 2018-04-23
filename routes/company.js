@@ -90,6 +90,8 @@ var Time_extension_request = models.tbl_time_extension_request;
 var Time_extension_request_notifications = models.tbl_time_extension_req_notification;
 var task_status_assoc = models.tbl_task_status_assoc;
 var task_statuses = models.tbl_task_status;
+var Project_teams = models.tbl_project_team;
+var project_member_assocs = models.tbl_project_member_assoc;
 'use strict';
 var returnRouter = function (io) {
     // ---------------------------------Start-------------------------------------------
@@ -386,7 +388,7 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
             // cmp_id = decoded.cmp_id;
             Designation.findAll({
-                where: { delete_status: false }
+                // where: { delete_status: false }
             }).then(designation => {
                 //console.log(projects);
                 return res.json(designation);
@@ -670,16 +672,19 @@ var returnRouter = function (io) {
                                             emailTemplate.sendUsercredentialMail(req.body.email, req.body.f_name, password);
                                             // console.log(newUser);
                                             var id = decoded.id;
+                                            if(decoded.role_id == 3){
                                             // var role = req.body.id
-                                            var user_id;
-                                            Users.find({
-                                                where: {
-                                                    login_id: id
-                                                }
-                                            }).then(resUser => {
-                                                user_id = resUser.id;
-                                                saveLog("New User created!", user_id)
-                                            })
+                                                var user_id;
+                                                Users.find({
+                                                    where: {
+                                                        login_id: id
+                                                    }
+                                                }).then(resUser => {
+                                                    user_id = resUser.id;
+                                                    saveLog("New User created!", user_id)
+                                                })
+                                            }
+
                                             res.json({ success: true, msg: "NewUser Created Successfully" });
                                         })
                                     })
@@ -858,15 +863,17 @@ var returnRouter = function (io) {
                     });
                 var id = decoded.id;
                 // var role = req.body.id
-                var user_id;
-                Users.find({
-                    where: {
-                        login_id: id
-                    }
-                }).then(resUser => {
-                    user_id = resUser.id;
-                    saveLog("User profile updated!", user_id)
-                })
+                if(decoded.role_id == 3){
+                    var user_id;
+                    Users.find({
+                        where: {
+                            login_id: id
+                        }
+                    }).then(resUser => {
+                        user_id = resUser.id;
+                        saveLog("User profile updated!", user_id)
+                    })
+                }
                 res.json({ success: true, msg: "User Updated Successfully" });
             } else {
                 res.json({ success: false, msg: errMsg });
@@ -959,15 +966,17 @@ var returnRouter = function (io) {
                             } else {
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Category deleted!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Category deleted!", user_id)
+                                    })
+                                }
                                 return res.json({ success: true, msg: 'Delete Category Successfully' });
                             }
                         });
@@ -1025,17 +1034,19 @@ var returnRouter = function (io) {
                             // console.log(newPlan);
                             var id = decoded.id;
                             // var role = req.body.id
-                            console.log(id);
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                console.log(resUser)
-                                user_id = resUser.id;
-                                saveLog("Category " + req.body.name + " added!", user_id)
-                            })
+                            if(decoded.role_id == 3){
+                                console.log(id);
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    console.log(resUser)
+                                    user_id = resUser.id;
+                                    saveLog("Category " + req.body.name + " added!", user_id)
+                                })
+                            }
                             res.json({ success: true, msg: "Project Category Created Successfully" });
                         })
                     }
@@ -1125,15 +1136,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Category " + req.body.category_name + " updated!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Category " + req.body.category_name + " updated!", user_id)
+                                    })
+                                }
                                 res.json({ success: true, msg: "Project Category updated Successfully" });
                             })
                     }
@@ -1211,14 +1224,14 @@ var returnRouter = function (io) {
             }
             User.findAll({
                 attributes: ['id', 'f_name'],
-                "raw": true,
+                // "raw": true,
                 order: [['id', 'DESC']],
                 where: { cmp_id: cmp_id },
                 include: [{
                     model: Login,
                     attributes: [],
                     required: true,
-                    where: { [Op.and]: [{ block_status: false, delete_status: false, is_verified: true }] }
+                    where: { [Op.and]: [{ block_status: false, delete_status: false}] }
                 }]
             }).then(allemp => {
                 return res.json(allemp);
@@ -1263,15 +1276,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Category " + req.body.category_name + " updated!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Category " + req.body.category_name + " updated!", user_id)
+                            })
+                        }
                         return res.json({ success: true, msg: 'Delete Employee leave Successfully' });
                     }
                 });
@@ -1648,15 +1663,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Leave added successfully!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Leave added successfully!", user_id)
+                                    })
+                                }
                                 res.json({ success: true, msg: "Leave added Successfully" });
                             } else {
                                 res.json({ success: false, msg: errMsg });
@@ -1984,15 +2001,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Leave updated!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Leave updated!", user_id)
+                                    })
+                                }
                                 res.json({ success: true, msg: "Leave updated Successfully" });
                             } else {
                                 res.json({ success: false, msg: errMsg });
@@ -2139,15 +2158,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("User status changed!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("User status changed!", user_id)
+                            })
+                        }
                         res.json({ success: true, msg: "user status change Successfully" });
                     } else {
                         res.json({ success: false, msg: " user status change Failed" });
@@ -2312,15 +2333,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Leave Rejected!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Leave Rejected!", user_id)
+                            })
+                        }
                         res.json({ success: true, msg: "Leave Reject Successfully" });
                     })
             }
@@ -2361,15 +2384,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Leave Accepted!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Leave Accepted!", user_id)
+                            })
+                        }
                         res.json({ success: true, msg: "Leave Accept Successfully" });
                     } else {
                         res.json({ success: false, msg: "Failed" });
@@ -2581,15 +2606,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Rejected Time extention request", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Rejected Time extention request", user_id)
+                            })
+                        }
                         return res.json({ success: true, msg: 'Rejected Successfully' });
                     }
                 });
@@ -2632,15 +2659,17 @@ var returnRouter = function (io) {
                             // console.log(newPlan);
                             var id = decoded.id;
                             // var role = req.body.id
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                user_id = resUser.id;
-                                saveLog("Time extention request sent to admin!", user_id)
-                            })
+                            if(decoded.role_id == 3){
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("Time extention request sent to admin!", user_id)
+                                })
+                            }
                             return res.json({ success: true, msg: 'send to admin Successfully' });
                         }
                     });
@@ -2855,15 +2884,17 @@ var returnRouter = function (io) {
                                             // console.log(newPlan);
                                             var id = decoded.id;
                                             // var role = req.body.id
-                                            var user_id;
-                                            Users.find({
-                                                where: {
-                                                    login_id: id
-                                                }
-                                            }).then(resUser => {
-                                                user_id = resUser.id;
-                                                saveLog("Subscription upgraded!", user_id)
-                                            })
+                                            if(decoded.role_id == 3){
+                                                var user_id;
+                                                Users.find({
+                                                    where: {
+                                                        login_id: id
+                                                    }
+                                                }).then(resUser => {
+                                                    user_id = resUser.id;
+                                                    saveLog("Subscription upgraded!", user_id)
+                                                })
+                                             }
                                             res.json({ success: true, msg: "Success" });
                                         }
                                         else {
@@ -3073,15 +3104,17 @@ var returnRouter = function (io) {
                                     // console.log(newPlan);
                                     var id = decoded.id;
                                     // var role = req.body.id
-                                    var user_id;
-                                    Users.find({
-                                        where: {
-                                            login_id: id
-                                        }
-                                    }).then(resUser => {
-                                        user_id = resUser.id;
-                                        saveLog("Project " + project_name + " created!", user_id)
-                                    })
+                                    if(decoded.role_id == 3){
+                                        var user_id;
+                                        Users.find({
+                                            where: {
+                                                login_id: id
+                                            }
+                                        }).then(resUser => {
+                                            user_id = resUser.id;
+                                            saveLog("Project " + project_name + " created!", user_id)
+                                        })
+                                }
                                     res.json({ success: true, msg: "Project Created Successfully, Your Project code is " + project.project_code, id: newProject.id });
                                 })
                             }
@@ -3237,7 +3270,7 @@ var returnRouter = function (io) {
                             // // console.log("Account deleted");
                         }
                         else if (login.role_id == 1 || login.role_id == 3) {
-                            if (login.role_id == 1 && login.cmp_status == "Not Verified" || login.is_verified == false) {
+                            if (login.role_id == 1 && (login.cmp_status == "Not Verified" || login.is_verified == false)) {
                                 return res.json({ success: false, msg: 'Company not verified' });
                             }
                             // if (login.is_profile_completed == false) {
@@ -4233,6 +4266,7 @@ var returnRouter = function (io) {
                         // console.log(resTeamAssoc);
                         // console.log(newPlan);
                         var id = decoded.id;
+                        if(decoded.role_id == 3){
                         // var role = req.body.id
                         var user_id;
                         Users.find({
@@ -4243,6 +4277,7 @@ var returnRouter = function (io) {
                             user_id = resUser.id;
                             saveLog("Team members assigned!", user_id)
                         })
+                    }
                         res.json({
                             status: 1,
                             Message: "Successfully assigned!"
@@ -4509,26 +4544,26 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc    
-    router.get('/get-off-days-assoc', function (req, res) {
-        if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4), decoded;
-            decoded = jwt.verify(authorization, Config.secret);
-            cmp_work_times.findAll({
-                // where: { cmp_id: decoded.cmp_id }
-                include: [
-                    {
-                        model: cmp_off_day_assoc,
-                    }
-                ]
-            }).then(offdays => {
-                // console.log(offdays);
-                res.json(offdays);
-            });
-        }
-        else {
-            return res.status(401).send('Invalid User');
-        }
-    });
+    // router.get('/get-off-days-assoc', function (req, res) {
+    //     if (req.headers && req.headers.authorization) {
+    //         var authorization = req.headers.authorization.substring(4), decoded;
+    //         decoded = jwt.verify(authorization, Config.secret);
+    //         cmp_work_times.findAll({
+    //             // where: { cmp_id: decoded.cmp_id }
+    //             include: [
+    //                 {
+    //                     model: cmp_off_day_assoc,
+    //                 }
+    //             ]
+    //         }).then(offdays => {
+    //             // console.log(offdays);
+    //             res.json(offdays);
+    //         });
+    //     }
+    //     else {
+    //         return res.status(401).send('Invalid User');
+    //     }
+    // });
     // ----------------------------------End-----------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : get-break-time
@@ -4883,15 +4918,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Project updated!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Project updated!", user_id)
+                                    })
+                                }
                                 res.json({ success: true, msg: "Success" });
                             }
                             else {
@@ -4957,15 +4994,17 @@ var returnRouter = function (io) {
                 // console.log(newPlan);
                 var id = decoded.id;
                 // var role = req.body.id
-                var user_id;
-                Users.find({
-                    where: {
-                        login_id: id
-                    }
-                }).then(resUser => {
-                    user_id = resUser.id;
-                    saveLog("Project deleted!", user_id)
-                })
+                if(decoded.role_id == 3){
+                    var user_id;
+                    Users.find({
+                        where: {
+                            login_id: id
+                        }
+                    }).then(resUser => {
+                        user_id = resUser.id;
+                        saveLog("Project deleted!", user_id)
+                    })
+                }
                 res.json({ success: true, msg: "Success" });
             });
         } else {
@@ -5542,16 +5581,18 @@ var returnRouter = function (io) {
                         });
                         // console.log(newPlan);
                         var id = decoded.id;
-                        // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Project plan accepted!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            // var role = req.body.id
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Project plan accepted!", user_id)
+                            })
+                        }
                     } else {
                         res.json({ success: false, msg: "Failed" });
                     }
@@ -5641,15 +5682,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Project submitted for re-estimation!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Project submitted for re-estimation!", user_id)
+                            })
+                        }
                         res.json({ success: true, msg: "Success" });
                     } else {
                         res.json({ success: false, msg: "Failed" });
@@ -5961,15 +6004,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("members and head assigned!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("members and head assigned!", user_id)
+                            })
+                        }
                         res.json({
                             status: 1,
                             Message: "Successfully assigned!"
@@ -6248,16 +6293,18 @@ var returnRouter = function (io) {
                         () => {
                             // console.log(newPlan);
                             var id = decoded.id;
-                            // var role = req.body.id
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                user_id = resUser.id;
-                                saveLog("Access rights assigned!", user_id)
-                            })
+                            if(decoded.role_id == 3){
+                                // var role = req.body.id
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("Access rights assigned!", user_id)
+                                })
+                            }
                             res.json({
                                 status: 1,
                                 message: "Successfully assigned!"
@@ -6338,7 +6385,8 @@ var returnRouter = function (io) {
             console.log(req.body)
             var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
-            if (req.body.start.hour == '' || !(/^\d+$/.test(req.body.start.hour)) || req.body.start.minute == '' || !(/^\d+$/.test(req.body.start.minute)) || req.body.end.hour == '' || !(/^\d+$/.test(req.body.end.hour)) || req.body.end.minute == '' || !(/^\d+$/.test(req.body.end.minute))) {
+            if (req.body.start.hour == ''  || req.body.start.minute == '' ||  req.body.end.hour == '' || req.body.end.minute == '' ) {
+            // if (req.body.start.hour == '' || !(/^\d+$/.test(req.body.start.hour)) || req.body.start.minute == '' || !(/^\d+$/.test(req.body.start.minute)) || req.body.end.hour == '' || !(/^\d+$/.test(req.body.end.hour)) || req.body.end.minute == '' || !(/^\d+$/.test(req.body.end.minute))) {
                 res.json({
                     status: 0,
                     message: "Error time format!"
@@ -6360,15 +6408,17 @@ var returnRouter = function (io) {
                     // console.log(newPlan);
                     var id = decoded.id;
                     // var role = req.body.id
-                    var user_id;
-                    Users.find({
-                        where: {
-                            login_id: id
-                        }
-                    }).then(resUser => {
-                        user_id = resUser.id;
-                        saveLog("Company working time saved!", user_id)
-                    })
+                    if(decoded.role_id == 3){
+                        var user_id;
+                        Users.find({
+                            where: {
+                                login_id: id
+                            }
+                        }).then(resUser => {
+                            user_id = resUser.id;
+                            saveLog("Company working time saved!", user_id)
+                        })
+                    }
                     res.json({
                         status: 1,
                         message: "Successfully saved!"
@@ -6433,15 +6483,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Break deleted!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Break deleted!", user_id)
+                            })
+                        }
                         res.json({
                             status: 1,
                             message: "Deleted Successfully!"
@@ -6494,15 +6546,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Break saved!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Break saved!", user_id)
+                            })
+                        }
                         res.json({
                             status: 1,
                             message: "Successfully saved!"
@@ -6693,26 +6747,26 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc
-    router.get('/get-off-days-assoc', function (req, res) {
-        if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4), decoded;
-            decoded = jwt.verify(authorization, Config.secret);
-            cmp_work_times.findAll({
-                where: { cmp_id: decoded.cmp_id },
-                include: [
-                    {
-                        model: cmp_off_day_assoc,
-                    }
-                ]
-            }).then(offdays => {
-                // console.log(offdays);
-                res.json(offdays);
-            });
-        }
-        else {
-            return res.status(401).send('Invalid User');
-        }
-    });
+    // router.get('/get-off-days-assoc', function (req, res) {
+    //     if (req.headers && req.headers.authorization) {
+    //         var authorization = req.headers.authorization.substring(4), decoded;
+    //         decoded = jwt.verify(authorization, Config.secret);
+    //         cmp_work_times.findAll({
+    //             where: { cmp_id: decoded.cmp_id },
+    //             include: [
+    //                 {
+    //                     model: cmp_off_day_assoc,
+    //                 }
+    //             ]
+    //         }).then(offdays => {
+    //             // console.log(offdays);
+    //             res.json(offdays);
+    //         });
+    //     }
+    //     else {
+    //         return res.status(401).send('Invalid User');
+    //     }
+    // });
     // ----------------------------------End-----------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : get-break-time
@@ -6878,15 +6932,17 @@ var returnRouter = function (io) {
                                     // console.log(newPlan);
                                     var id = decoded.id;
                                     // var role = req.body.id
-                                    var user_id;
-                                    Users.find({
-                                        where: {
-                                            login_id: id
-                                        }
-                                    }).then(resUser => {
-                                        user_id = resUser.id;
-                                        saveLog("Holiday Updated!", user_id)
-                                    })
+                                    if(decoded.role_id == 3){
+                                        var user_id;
+                                        Users.find({
+                                            where: {
+                                                login_id: id
+                                            }
+                                        }).then(resUser => {
+                                            user_id = resUser.id;
+                                            saveLog("Holiday Updated!", user_id)
+                                        })
+                                    }
                                     res.json({
                                         status: 1,
                                         message: "Successfully Updated!"
@@ -6939,15 +6995,17 @@ var returnRouter = function (io) {
                     // console.log(newPlan);
                     var id = decoded.id;
                     // var role = req.body.id
-                    var user_id;
-                    Users.find({
-                        where: {
-                            login_id: id
-                        }
-                    }).then(resUser => {
-                        user_id = resUser.id;
-                        saveLog("Holiday deleted!", user_id)
-                    })
+                    if(decoded.role_id == 3){
+                        var user_id;
+                        Users.find({
+                            where: {
+                                login_id: id
+                            }
+                        }).then(resUser => {
+                            user_id = resUser.id;
+                            saveLog("Holiday deleted!", user_id)
+                        })
+                    }
                     res.json({
                         status: 1,
                         message: "Successfully deleted!"
@@ -7017,15 +7075,17 @@ var returnRouter = function (io) {
                             // console.log(newPlan);
                             var id = decoded.id;
                             // var role = req.body.id
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                user_id = resUser.id;
-                                saveLog("Holiday saved!", user_id)
-                            })
+                            if(decoded.role_id == 3){
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("Holiday saved!", user_id)
+                                })
+                            }
                             res.json({
                                 status: 1,
                                 message: "Successfully saved!"
@@ -8203,15 +8263,17 @@ var returnRouter = function (io) {
                                         // console.log(newPlan);
                                         var id = decoded.id;
                                         // var role = req.body.id
-                                        var user_id;
-                                        Users.find({
-                                            where: {
-                                                login_id: id
-                                            }
-                                        }).then(resUser => {
-                                            user_id = resUser.id;
-                                            saveLog("New task request approved!", user_id)
-                                        })
+                                        if(decoded.role_id == 3){
+                                            var user_id;
+                                            Users.find({
+                                                where: {
+                                                    login_id: id
+                                                }
+                                            }).then(resUser => {
+                                                user_id = resUser.id;
+                                                saveLog("New task request approved!", user_id)
+                                            })
+                                        }
                                         res.send({ success: true, msg: "Request Approved!" });
                                     }).catch(err => {
                                         res.send({ success: false, msg: "Failed! Try again!" });
@@ -8262,15 +8324,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("New task request rejected!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("New task request rejected!", user_id)
+                                    })
+                                }
                                 res.send({ success: true, msg: "Request rejected!" });
                             }).catch(err => {
                                 res.send({ success: false, msg: "Failed! Try again!" });
@@ -8297,15 +8361,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("New task request rejected!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("New task request rejected!", user_id)
+                                    })
+                                }
                                 res.send({ success: true, msg: "Request rejected!" });
                             }).catch(err => {
                                 res.send({ success: false, msg: "Failed! Try again!" });
@@ -8356,15 +8422,17 @@ var returnRouter = function (io) {
                             // console.log(newPlan);
                             var id = decoded.id;
                             // var role = req.body.id
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                user_id = resUser.id;
-                                saveLog("New task request send for approval!", user_id)
-                            })
+                            if(decoded.role_id == 3){
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("New task request send for approval!", user_id)
+                                })
+                            }
                             res.send({ success: true, msg: "Send for Approval!" });
                         }).catch(err => {
                             res.send({ success: false, msg: "Failed! Try again!" });
@@ -8837,15 +8905,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Day break saved!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Day break saved!", user_id)
+                            })
+                        }
                         res.json({
                             status: 1,
                             message: "Successfully saved!"
@@ -8899,15 +8969,17 @@ var returnRouter = function (io) {
                     // console.log(newPlan);
                     var id = decoded.id;
                     // var role = req.body.id
-                    var user_id;
-                    Users.find({
-                        where: {
-                            login_id: id
-                        }
-                    }).then(resUser => {
-                        user_id = resUser.id;
-                        saveLog("Day break deleted!", user_id)
-                    })
+                    if(decoded.role_id == 3){
+                        var user_id;
+                        Users.find({
+                            where: {
+                                login_id: id
+                            }
+                        }).then(resUser => {
+                            user_id = resUser.id;
+                            saveLog("Day break deleted!", user_id)
+                        })
+                    }
                     res.json({
                         status: 1,
                         message: "Break deleted Successfully!"
@@ -8987,15 +9059,17 @@ var returnRouter = function (io) {
                                             // console.log(newPlan);
                                             var id = decoded.id;
                                             // var role = req.body.id
-                                            var user_id;
-                                            Users.find({
-                                                where: {
-                                                    login_id: id
-                                                }
-                                            }).then(resUser => {
-                                                user_id = resUser.id;
-                                                saveLog("Day work time saved!", user_id)
-                                            })
+                                            if(decoded.role_id == 3){
+                                                var user_id;
+                                                Users.find({
+                                                    where: {
+                                                        login_id: id
+                                                    }
+                                                }).then(resUser => {
+                                                    user_id = resUser.id;
+                                                    saveLog("Day work time saved!", user_id)
+                                                })
+                                            }
                                             res.json({
                                                 status: 1,
                                                 message: "Successfully saved!"
@@ -9037,15 +9111,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Assigned off day!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Assigned off day!", user_id)
+                                    })
+                                }
                                 res.json({
                                     status: 0,
                                     message: "Already assigned as off day!"
@@ -9059,15 +9135,17 @@ var returnRouter = function (io) {
                                     // console.log(newPlan);
                                     var id = decoded.id;
                                     // var role = req.body.id
-                                    var user_id;
-                                    Users.find({
-                                        where: {
-                                            login_id: id
-                                        }
-                                    }).then(resUser => {
-                                        user_id = resUser.id;
-                                        saveLog("Assigned off day!", user_id)
-                                    })
+                                    if(decoded.role_id == 3){
+                                        var user_id;
+                                        Users.find({
+                                            where: {
+                                                login_id: id
+                                            }
+                                        }).then(resUser => {
+                                            user_id = resUser.id;
+                                            saveLog("Assigned off day!", user_id)
+                                        })
+                                    }
                                     res.json({
                                         status: 1,
                                         message: "Successfully saved!"
@@ -9127,15 +9205,17 @@ var returnRouter = function (io) {
                                                     // console.log(newPlan);
                                                     var id = decoded.id;
                                                     // var role = req.body.id
-                                                    var user_id;
-                                                    Users.find({
-                                                        where: {
-                                                            login_id: id
-                                                        }
-                                                    }).then(resUser => {
-                                                        user_id = resUser.id;
-                                                        saveLog("Day work time saved!", user_id)
-                                                    })
+                                                    if(decoded.role_id == 3){
+                                                        var user_id;
+                                                        Users.find({
+                                                            where: {
+                                                                login_id: id
+                                                            }
+                                                        }).then(resUser => {
+                                                            user_id = resUser.id;
+                                                            saveLog("Day work time saved!", user_id)
+                                                        })
+                                                    }
                                                     res.json({
                                                         status: 1,
                                                         message: "Successfully saved!"
@@ -9164,15 +9244,17 @@ var returnRouter = function (io) {
                                                 // console.log(newPlan);
                                                 var id = decoded.id;
                                                 // var role = req.body.id
-                                                var user_id;
-                                                Users.find({
-                                                    where: {
-                                                        login_id: id
-                                                    }
-                                                }).then(resUser => {
-                                                    user_id = resUser.id;
-                                                    saveLog("Day working time saved!", user_id)
-                                                })
+                                                if(decoded.role_id == 3){
+                                                    var user_id;
+                                                    Users.find({
+                                                        where: {
+                                                            login_id: id
+                                                        }
+                                                    }).then(resUser => {
+                                                        user_id = resUser.id;
+                                                        saveLog("Day working time saved!", user_id)
+                                                    })
+                                                }
                                                 res.json({
                                                     status: 1,
                                                     message: "Successfully saved!"
@@ -9245,15 +9327,17 @@ var returnRouter = function (io) {
                                             // console.log(newPlan);
                                             var id = decoded.id;
                                             // var role = req.body.id
-                                            var user_id;
-                                            Users.find({
-                                                where: {
-                                                    login_id: id
-                                                }
-                                            }).then(resUser => {
-                                                user_id = resUser.id;
-                                                saveLog("Day time saved!", user_id)
-                                            })
+                                            if(decoded.role_id == 3){
+                                                var user_id;
+                                                Users.find({
+                                                    where: {
+                                                        login_id: id
+                                                    }
+                                                }).then(resUser => {
+                                                    user_id = resUser.id;
+                                                    saveLog("Day time saved!", user_id)
+                                                })
+                                            }
                                             res.json({
                                                 status: 1,
                                                 message: "Successfully saved!"
@@ -9649,7 +9733,7 @@ var returnRouter = function (io) {
     function calculateWorkingHours(working_time, start_date_time, take_passing_start_time, plannedHr, start_available_hrs, end_available_hrs) {
         console.log(' ----pln ----');
         console.log(plannedHr);
-        if (take_passing_start_time) {
+        if ((start_date_time <=working_time.start_time) && take_passing_start_time) {
             hr = start_date_time.getHours();
             mnt = start_date_time.getMinutes();
             sec = start_date_time.getSeconds();
@@ -9829,6 +9913,7 @@ var returnRouter = function (io) {
                     } else {
                         console.log('task complete on the same day');
                         brkTtlhr = 0;
+                        anyBreakTtl = false;
                         if (cmp_breakdefault && cmp_breakdefault.length > 0) {
                             console.log('there is break');
                             gotanyBreak = false;
@@ -9852,13 +9937,22 @@ var returnRouter = function (io) {
                                         getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
                                     } else {
                                         brkTtlhr += timeToSec(elm.end_time) - timeToSec(elm.start_time);
+                                        anyBreakTtl = true;
                                     }
                                 }
                             });
                             if (!gotanyBreak) {
-                                endTimePlannedSec = startTimeSec + PlannedHrSec;
-                                console.log(' task End  ' + planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name + "  " + secToTimeFormat(endTimePlannedSec));
-                                getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
+                                if(anyBreakTtl){
+                                    diff = endTimeSec - (startTimeSec + brkTtlhr);
+                                    endTimePlannedSec = endTimeSec - (diff - PlannedHrSec);
+                                    console.log(' task End  ' + planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name + "  " + secToTimeFormat(endTimePlannedSec));
+                                    gotanyBreak = true;
+                                    getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
+                                }else{
+                                    endTimePlannedSec = startTimeSec + PlannedHrSec;
+                                    console.log(' task End  ' + planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name + "  " + secToTimeFormat(endTimePlannedSec));
+                                    getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
+                                }
                             }
                         } else {
                             endTimePlannedSec = startTimeSec + PlannedHrSec;
@@ -9953,6 +10047,7 @@ var returnRouter = function (io) {
     // Last Modified :
     // Desc          : 
     router.post('/save-company-planning-datas', (req, res) => {
+        // console.log(req.body)
         // cmp_id = decoded.cmp_id;
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -9978,7 +10073,7 @@ var returnRouter = function (io) {
                                     var moduleDiffrnce = plan.no_modules - modulesNumer.length
                                     if (moduleDiffrnce > 0) {
                                         isSuccess = false;
-                                        res.send({ success: false, msg: "You can add only add " + moduleDiffrnce + " modules more" });
+                                        res.send({ success: false, msg: "Failed! You can only add only add " + moduleDiffrnce + " modules more in this plan" });
                                     } else {
                                         isSuccess = false;
                                         res.send({ success: false, msg: "Plan limit exceed maximum number of modules are added" });
@@ -10012,12 +10107,15 @@ var returnRouter = function (io) {
                                 }
                                 if (isSuccess) {
                                     async.eachOfSeries(req.body, (modules, key, callback) => {
+
                                         const projectModules = Modules.build({
                                             module_name: modules.module_name,
                                             project_id: modules.tbl_estimation.project_id
                                         })
                                         projectModules.save().then(saveProjectModules => {
+
                                             async.eachOfSeries(modules.tbl_estimation_tasks, (tasks, key1, callback1) => {
+                                                console.log(tasks);
                                                 const ProjectTeams = Project_teams.build({
                                                     team_id: tasks.assigned_person.team_id,
                                                     project_id: modules.tbl_estimation.project_id
@@ -10036,7 +10134,7 @@ var returnRouter = function (io) {
                                                             description: tasks.description,
                                                             priority: tasks.priority,
                                                             task_type: tasks.task_type,
-                                                            planned_start_date_time: tasks.start_date_time,
+                                                            planned_start_date_time: tasks.start_date_time_new,
                                                             planned_end_date_time: tasks.end_date_time,
                                                             attachment: tasks.docSrc,
                                                             project_module_id: saveProjectModules.id,
@@ -10045,11 +10143,11 @@ var returnRouter = function (io) {
                                                             project_team_id: saveprojectMemberAssocs.project_team_id
                                                         });
                                                         projectTasks.save().then(saveProjectTasks => {
-                                                            const task_status_assoc = tbl_task_status_assoc.build({
+                                                            const taskStatusAssoc = task_status_assoc.build({
                                                                 task_id: saveProjectTasks.id,
                                                                 status_id: 1
                                                             });
-                                                            task_status_assoc.save().then(saveTaskStatusAssoc => {
+                                                            taskStatusAssoc.save().then(saveTaskStatusAssoc => {
                                                                 isSuccess = true;
                                                                 msg = 'saved Successfully';
                                                                 callback1();

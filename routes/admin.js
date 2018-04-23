@@ -21,6 +21,7 @@ var EstimationTeam = models.tbl_project_estimation_team;
 var EstimationTeamMember = models.tbl_project_estimation_team_members;
 var ProjectModule = models.tbl_project_modules;
 var Log = models.tbl_log;
+var ProjectTask = models.tbl_project_tasks;
 
 var returnRouter = function (io) {
   if (config.use_env_variable) {
@@ -875,9 +876,9 @@ var returnRouter = function (io) {
       var userCount;
       var cmpCount;
       var projectCount;
-      sequelize.query("select count(*) from tbl_logins where block_status != :status and delete_status != :status", { replacements: { status: true } }).spread((myTableRows1) => {
+      sequelize.query("select count(*) from tbl_logins where block_status != :status and delete_status != :status and role_id != 1 and role_id != 2", { replacements: { status: true } }).spread((myTableRows1) => {
         // res.json(myTableRows)
-        userCount = myTableRows1[0].count - 1;
+        userCount = myTableRows1[0].count ;
         sequelize.query("select count(*) from tbl_companies").spread(myTableRows2 => {
           // res.json(myTableRows)
           cmpCount = myTableRows2[0].count;
@@ -927,10 +928,10 @@ var returnRouter = function (io) {
         count.push({ name: 'Not verified', value: dbres.count, color: '#E35594' });
         Login.findAndCountAll({
           where: {
-            is_verified: {
-              [Op.ne]: true
-            },
-            cmp_status: 'Trial'
+            // is_verified: {
+            //   [Op.ne]: true
+            // },
+            cmp_status: 'Trail'
           }
         }).then(dbres2 => {
           count.push({ name: 'Trial', value: dbres2.count, color: '#E55537' });
@@ -1631,7 +1632,7 @@ var returnRouter = function (io) {
         {
           model: Users,
           where :  {cmp_id : cmp_id},
-          required : ture
+          required : true
         }
       ]
     }).then((proj) => {

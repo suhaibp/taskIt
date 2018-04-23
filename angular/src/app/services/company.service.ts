@@ -445,7 +445,7 @@ export class CompanyService {
   // Desc          : getTeamHeadsToEstimate
   getTeamHeadsToEstimate(p_id) {
     let headers = this.setHeaderWithAuthorization();
-    return this.http.post(this.serviceUrl + 'getTeamHeadsToEstimate/' + p_id, { headers: headers })
+    return this.http.post(this.serviceUrl + 'getTeamHeadsToEstimate/' + p_id, {},{ headers: headers })
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
@@ -1362,7 +1362,7 @@ deleteHoliday(data){
   // Desc          : Get breaks in the day
   getDayDetails(day,week){
     // console.log("h")
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     let data = {
       day: day,
       week: week
@@ -1381,7 +1381,7 @@ deleteHoliday(data){
   // Desc          : Get breaks in the day
   saveDayBreak(day,week,xtime,ytime,title){
     // console.log("h")
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     let data = {
       day: day,
       week: week,

@@ -95,6 +95,7 @@ var New_task = models.tbl_new_task_request;
 var Task_status_assocs = models.tbl_task_status_assoc;
 var Task_status = models.tbl_task_status;
 var Progress_percentages = models.tbl_progress_percentage;
+var Task_time_assoc = models.tbl_task_time_assoc;
 'use strict';
 var returnRouter = function (io) {
     // ---------------------------------Start-------------------------------------------
@@ -116,12 +117,13 @@ var returnRouter = function (io) {
             loginid = decoded.id
             array = [];
             array2 = [];
-            // loginid = 132;
+            //loginid = 123;
             User_profile.findOne({
                 where: {
                     login_id: loginid
                 }
             }).then(userProfile => {
+                console.log(userProfile);
                 Project_modules.findAll({
                     include: [
                         {
@@ -134,6 +136,9 @@ var returnRouter = function (io) {
                             include: [
                                 {
                                     model: Complexity_percentage,
+                                },
+                                {
+                                    model: Task_time_assoc,
                                 },
                                 {
                                     model: task_status_assoc,
@@ -177,7 +182,7 @@ var returnRouter = function (io) {
             loginid = decoded.id
             array = [];
             array2 = [];
-            loginid = 132;
+            // loginid = 132;
             User_profile.findOne({
                 where: {
                     login_id: loginid

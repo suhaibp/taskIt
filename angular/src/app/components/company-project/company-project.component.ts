@@ -137,7 +137,7 @@ export class CompanyProjectComponent implements OnInit {
   }
 
   approveProject(id) {
-    this.routes.navigate(['/approve-project', id]);
+    this.routes.navigate(['/project-planning', id]);
   }
 
   deleteProject(id) {

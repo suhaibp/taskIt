@@ -514,13 +514,15 @@ export class UserTaskManagementComponent implements OnInit {
                 //continue the timer when it in inprogress and no end date(case: refresh)
                 this.starttime(task);
               }
-              if (this.lastStatus !== undefined) {
+              // if (this.lastStatus !== undefined) {
                 task.status = this.lastStatus;
-                this.showDetails.push(module);
-              }
+              //   this.showDetails.push(module);
+              // }
             }
           });
+          this.showDetails.push(module);
         });
+        console.log(this.showDetails);
       }
       else {
         data.forEach(module => {
@@ -620,11 +622,12 @@ export class UserTaskManagementComponent implements OnInit {
               if (this.lastStatus !== undefined) {
                 if (this.lastStatus.status_id == this.selected) {
                   task.status = this.lastStatus;
-                  this.showDetails.push(module);
+                  // this.showDetails.push(module);
                 }
               }
             }
           });
+          this.showDetails.push(module);
         });
       }
       // console.log(this.showDetails);

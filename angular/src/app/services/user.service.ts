@@ -153,7 +153,7 @@ export class UserService {
   // Desc          : 
   startAtask(task) {
     let headers = this.setHeaderWithAuthorization();
-    return this.http.post(this.serviceUrl + 'start-a-task/' + task, { headers: headers })
+    return this.http.post(this.serviceUrl + 'start-a-task/' + task,{}, { headers: headers })
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
