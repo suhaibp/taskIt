@@ -2162,7 +2162,7 @@ deleteHoliday(data){
   // Desc          : getUserleavedataplanning
   //closeNotif6
   getUserleavedataplanning(data) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'company-planning-enddate/', data, { headers: headers })
     .map(res => res.json());
  
@@ -2203,7 +2203,7 @@ deleteHoliday(data){
   // Last Modified : 21-03-2018, Jooshifa
   // Desc          : 
   savecompanyPlanning(data) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'save-company-planning-datas/', data, { headers: headers })
       .map(res => res.json());
   }

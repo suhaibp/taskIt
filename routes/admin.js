@@ -19,6 +19,9 @@ var CompanySize = models.tbl_company_size;
 var Estimations = models.tbl_estimation;
 var EstimationTeam = models.tbl_project_estimation_team;
 var EstimationTeamMember = models.tbl_project_estimation_team_members;
+var ProjectModule = models.tbl_project_modules;
+var Log = models.tbl_log;
+
 var returnRouter = function (io) {
   if (config.use_env_variable) {
     var sequelize = new Sequelize(process.env[config.use_env_variable]);

@@ -22013,7 +22013,7 @@ var CompanyService = (function () {
     // Desc          : getUserleavedataplanning
     //closeNotif6
     CompanyService.prototype.getUserleavedataplanning = function (data) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'company-planning-enddate/', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -22049,7 +22049,7 @@ var CompanyService = (function () {
     // Last Modified : 21-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.savecompanyPlanning = function (data) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'save-company-planning-datas/', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
