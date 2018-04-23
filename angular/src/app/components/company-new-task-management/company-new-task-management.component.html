@@ -133,7 +133,7 @@
                                   </div>
                                 </div><!---task end-->
                           </ng-container>
-                          <ng-container *ngIf="taskRequest.tbl_project_module.id == i.id && taskRequest.request_status!='Accepted'">
+                          <ng-container *ngIf="taskRequest.tbl_project_module.id == i.id">
                               <div class="col-md-11 col-xs-12 pull-right">
                                   <div class="task highlight">
                                     <div class="col-md-3 col-xs-7">
@@ -144,7 +144,7 @@
                                             <li>{{taskRequest?.tbl_user_profile.f_name}} {{taskRequest?.tbl_user_profile.l_name}}</li>
                                             <li>{{taskRequest?.planned_hours+taskRequest.buffer_hours}}Hrs</li>
                                         </ul>
-                                        <div class="pull-right" *ngIf="(role != 3 && taskRequest.request_status == 'Approval') || (role != 1 && taskRequest.request_status == 'Pending')">
+                                        <div class="pull-right">
                                           <button class="bt"  (click)="setEdit(taskRequest.id)" data-toggle="modal" data-target="#editModal">Edit</button>
                                           <button class="bt"  (click)="approvePop()">Approve</button>
                                           <button class="bt" (click)="rejectPop()">Reject</button>

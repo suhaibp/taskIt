@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Rx';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Config } from '../config/config';
 import 'rxjs/add/operator/map';
-
 @Injectable()
 export class CompanyService {
   serviceUrl: string;
@@ -19,7 +18,6 @@ export class CompanyService {
     headers.append('Content-Type', 'application/json');
     return (headers);
   }
-
   setHeaderWithAuthorization() {
     let headers = new Headers();
     this.loadToken();
@@ -27,11 +25,9 @@ export class CompanyService {
     headers.append('Content-Type', 'application/json');
     return (headers);
   }
-
   loadToken() {
     this.authToken = localStorage.getItem('id_token');
   }
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : getIndustries
   // Params        : 
@@ -40,15 +36,12 @@ export class CompanyService {
   // Date          : 06-03-2018
   // Last Modified : 06-03-2018, 
   // Desc          : get Ind=ustries list from DB
-
   getIndustries() {
     let h = this.setHeader();
     return this.http.get(this.serviceUrl + "/get_industries", { headers: h })
       .map(res => res.json());
-
   }
   //  ---------------------------------End-------------------------------------------
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : getCompanySize
   // Params        : 
@@ -57,15 +50,12 @@ export class CompanyService {
   // Date          : 06-03-2018
   // Last Modified : 06-03-2018, 
   // Desc          : get Company size list from DB
-
   getCompanySize() {
     let h = this.setHeader();
     return this.http.get(this.serviceUrl + "/get_cmp_size", { headers: h })
       .map(res => res.json());
-
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get plan by id
   // Params        : id
@@ -74,15 +64,12 @@ export class CompanyService {
   // Date          : 06-03-2018
   // Last Modified : 06-03-2018, Rinsha
   // Desc          : getplan
-
   getPlan(id) {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'planById/' + id, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : upgrade
   // Params        : data from form
@@ -91,14 +78,12 @@ export class CompanyService {
   // Date          : 06-03-2018
   // Last Modified : 06-03-2018, Rinsha
   // Desc          : upgrade
-
   upgrade(id, data) {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'upgrade/' + id, data, { headers: headers })
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get all projects
   // Params        : 
@@ -113,7 +98,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : Get All pm in a company
   // Params        : 
@@ -128,7 +112,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : Get All project category in a company
   // Params        : 
@@ -143,7 +126,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : add project
   // Params        : data from form
@@ -158,7 +140,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : Login
   // Params        : username and password
@@ -168,14 +149,11 @@ export class CompanyService {
   // Last Modified : 05-03-2018, jooshifa
   // Desc          : 
   authenticateCompany(company) {
-
     let h = this.setHeader();
     return this.http.post(this.serviceUrl + "authenticate", company, { headers: h })
       .map(res => res.json());
-
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : Store User Data
   // Params        : Token, id and role
@@ -184,7 +162,6 @@ export class CompanyService {
   // Date          : 05-03-2018
   // Last Modified : 05-03-2018, jooshifa
   // Desc          : To locally store  data
-
   storeUserData(token, company) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('company', JSON.stringify(company));
@@ -192,9 +169,7 @@ export class CompanyService {
     this.company = company;
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
-
   // Function      : Get logged user details
   // Params        : 
   // Returns       : get details of logged in entity
@@ -208,7 +183,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : Company verification
   // Params        : verification id
@@ -223,7 +197,6 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // // ---------------------------------Start-------------------------------------------
   // // Function      : Get logged in entity
   // // Params        : 
@@ -238,7 +211,6 @@ export class CompanyService {
   //     .map(res => res.json());
   // }
   // // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get project by id
   // Params        : id
@@ -253,7 +225,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get developer team
   // Params        : 
@@ -266,10 +237,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getDeveloperTeam', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get designer team
   // Params        : 
@@ -282,10 +251,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getDesignerTeam', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get qc team
   // Params        : 
@@ -298,10 +265,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getQCTeam', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : assign project
   // Params        : form data
@@ -314,10 +279,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'AssignTeamHead', project, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : edit project
   // Params        : data from form
@@ -330,10 +293,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'editProject', project, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get category by id
   // Params        : id
@@ -346,10 +307,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getCategoryById/' + id, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : delete project
   // Params        : id 
@@ -358,14 +317,12 @@ export class CompanyService {
   // Date          : 12-03-2018
   // Last Modified : 12-03-2018, Rinsha
   // Desc          : to delete a project
-
   deleteProject(id) {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'deleteProject/' + id, { headers: headers })
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get all projects by status
   // Params        : 
@@ -378,10 +335,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getAllProjectByStatus/' + status, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get assignHeadNotification
   // Params        : 
@@ -394,10 +349,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'assignHeadNotification', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : close notification
   // Params        : project id
@@ -410,10 +363,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'closeNotif/' + id, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get approveEstimationNotification
   // Params        : 
@@ -426,10 +377,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'approveEstimationNotification', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : close notification of estimation approval
   // Params        : notification id
@@ -444,7 +393,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getProjectstimations
   // Params        : project id
@@ -457,10 +405,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getProjectstimations/' + pro_id, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : resubmitEstimation
   // Params        : estimation id
@@ -473,10 +419,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'resubmitEstimation/' + est_id, resubmitData, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : acceptEstimation
   // Params        : estimation id
@@ -489,10 +433,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'acceptEstimation/' + est_id, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get team heads of the project who does nt involved in estimations
   // Params        : project id
@@ -505,10 +447,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'getTeamHeadsToEstimate/' + p_id, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : forwardEstimationRequest
   // Params        : project id
@@ -522,10 +462,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'forwardEstimationRequest/' + p_id, JSON.stringify(Head_id), { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getTotalEstimations
   // Params        : project id
@@ -538,10 +476,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getTotalEstimations/' + pro_id, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : send request to admin for approval
   // Params        : project id, assignee id
@@ -555,10 +491,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'sendForApproval/' + pro_id, PM_id, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get apprroveProjectNotification
   // Params        : 
@@ -571,10 +505,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'approveProjectNotification', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : close notification of project approval
   // Params        : project id
@@ -589,7 +521,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : accept project
   // Params        : cost, estimated hr, project id
@@ -604,7 +535,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : reject project
   // Params        : cost, estimated hr, project id
@@ -619,7 +549,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : resubmit project
   // Params        : cost, estimated hr, project id, pm id
@@ -634,7 +563,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get planProjectNotification
   // Params        : 
@@ -647,10 +575,8 @@ export class CompanyService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'planProjectNotification', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : close notification of project plan
   // Params        : project id
@@ -665,7 +591,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get resubmitEstimationNotification
   // Params        : 
@@ -680,7 +605,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getAcceptedEstimations
   // Params        : project id
@@ -695,7 +619,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : forwardStatus
   // Params        : project id
@@ -718,15 +641,12 @@ export class CompanyService {
   // Date          : 06-03-2018
   // Last Modified : 06-03-2018, 
   // Desc          : get piegraph data
-
   registerCompany(details) {
     let h = this.setHeader();
     return this.http.post(this.serviceUrl + "/register_company", details, { headers: h })
       .map(res => res.json());
-
   }
   //  ---------------------------------End-------------------------------------------
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : registerCompanyFromadtninfo
   // Params        : 
@@ -735,16 +655,12 @@ export class CompanyService {
   // Date          : 12-03-2018
   // Last Modified : 12-03-2018, 
   // Desc          : 
-
   registerCompanyFromadtninfo(details) {
-
     let h = this.setHeader();
     return this.http.post(this.serviceUrl + "/register_company2", details, { headers: h })
       .map(res => res.json());
-
   }
   //  ---------------------------------End-------------------------------------------
-
   //  ---------------------------------Start-------------------------------------------
   // Function      : forgotPassword
   // Params        : 
@@ -753,7 +669,6 @@ export class CompanyService {
   // Date          : 12-03-2018
   // Last Modified : 12-03-2018, 
   // Desc          : 
-
   forgotPassword(newPassword) {
     // console.log("here..."  +  newPassword.email)
     let h = this.setHeader();
@@ -761,7 +676,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   //  ---------------------------------End-------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : Get company details by id
   // Params        : id
@@ -791,7 +705,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : getProjectById 
   // Params        :  id
@@ -814,15 +727,12 @@ export class CompanyService {
   // Date          : 14-03-2018
   // Last Modified : 14-03-2018, Jooshifa
   // Desc          : to get developer users
-
   getDeveloperUsers() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-developer-users', { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getDesignerrUsers
   // Params        : 
@@ -831,15 +741,12 @@ export class CompanyService {
   // Date          : 14-03-2018
   // Last Modified : 14-03-2018, Jooshifa
   // Desc          : 
-
   getDesignerrUsers() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-designer-users', { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getQcUsers
   // Params        : 
@@ -848,15 +755,12 @@ export class CompanyService {
   // Date          : 14-03-2018
   // Last Modified : 14-03-2018, Jooshifa
   // Desc          : 
-
   getQcUsers() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-qc-users', { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getTasksModules
   // Params        : 
@@ -865,15 +769,12 @@ export class CompanyService {
   // Date          : 14-03-2018
   // Last Modified : 14-03-2018, Jooshifa
   // Desc          : 
-
   getTasksModules(id) {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-modules-tasks/' + id, { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getAllUsers
   // Params        : 
@@ -887,9 +788,7 @@ export class CompanyService {
     return this.http.get(this.serviceUrl + 'get-all-users', { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getComplexity
   // Params        : 
@@ -903,9 +802,7 @@ export class CompanyService {
     return this.http.get(this.serviceUrl + 'get-complexity-percentage', { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getDatetime
   // Params        : 
@@ -920,7 +817,6 @@ export class CompanyService {
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : getTeams
   // Params        : 
@@ -935,7 +831,6 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : getTeamMembers
   // Params        : 
@@ -950,7 +845,6 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : get All Users by project id
   // Params        : project id , '' for all users
@@ -965,7 +859,6 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // Function      : getTeamMembers
   // Params        : 
   // Returns       : 
@@ -983,7 +876,6 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : getUserGroups
   // Params        : 
@@ -998,7 +890,6 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : getAccessRights
   // Params        : 
@@ -1013,7 +904,6 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------------End--------------------------------------------
   // Function      : assignRights
   // Params        : 
@@ -1023,13 +913,11 @@ export class CompanyService {
   // Last Modified : 16-03-2018, 
   // Desc          : assign tights to usergroup
   assignRights(rights, id) {
-
     let h = this.setHeaderWithAuthorization();;
     return this.http.post(this.serviceUrl + "assignRights/"+id,rights, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
     // Function      : assignRights
   // Params        : 
   // Returns       : 
@@ -1038,13 +926,11 @@ export class CompanyService {
   // Last Modified : 16-03-2018, 
   // Desc          : assign tights to usergroup
   getWorkTimes(){
-
     let h = this.setHeaderWithAuthorization();;
     return this.http.get(this.serviceUrl + "getWorkingTimes", { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
       // Function      : assignRights
   // Params        : 
   // Returns       : 
@@ -1053,15 +939,12 @@ export class CompanyService {
   // Last Modified : 16-03-2018, 
   // Desc          : assign tights to usergroup
   getWeekTimes(){
-
     let h = this.setHeaderWithAuthorization();;
     return this.http.get(this.serviceUrl + "getWeekHours", { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------------End--------------------------------------------
-
     // Function      : saveWorkTimes
   // Params        : 
   // Returns       : 
@@ -1070,7 +953,6 @@ export class CompanyService {
   // Last Modified : 20-03-2018, 
   // Desc          : save company work time to DB
   saveWorkTimes(id, start, end){
-
     let data = {
       id:id,
       start:start,
@@ -1081,9 +963,7 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
    // ---------------------------------------End--------------------------------------------
-
     // Function      : saveWorkTimes
   // Params        : 
   // Returns       : 
@@ -1092,7 +972,6 @@ export class CompanyService {
   // Last Modified : 20-03-2018, 
   // Desc          : save company work time to DB
   deleteBreak(id){
-
     let data = {
       id:id
     }
@@ -1101,9 +980,7 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
    // ---------------------------------------End--------------------------------------------
-
     // Function      : saveWorkTimes
   // Params        : 
   // Returns       : 
@@ -1112,13 +989,11 @@ export class CompanyService {
   // Last Modified : 20-03-2018, 
   // Desc          : save company work time to DB
   saveBreak(time){
-
     let h = this.setHeaderWithAuthorization();;
     return this.http.post(this.serviceUrl + "saveBreak",time, { headers: h })
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
        // Function      : getHoliday
   // Params        : 
   // Returns       : 
@@ -1135,7 +1010,6 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
        // Function      : getHoliday
   // Params        : 
   // Returns       : 
@@ -1149,7 +1023,6 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
 // Function      : updateHoliday
 // Params        : 
 // Returns       : 
@@ -1164,7 +1037,6 @@ updateHoliday(data){
     .map((response: Response) => response.json());
 }
 // ---------------------------------------End--------------------------------------------
-
 // Function      : updateHoliday
 // Params        : 
 // Returns       : 
@@ -1181,7 +1053,6 @@ deleteHoliday(data){
     .map((response: Response) => response.json());
 }
 // ---------------------------------------End--------------------------------------------
-
  // ---------------------------------Start------------------------------------------------
   // Function      : getAccessRights
   // Params        : 
@@ -1200,7 +1071,6 @@ deleteHoliday(data){
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
   // Function      : Get logged in entity
   // Params        : 
@@ -1225,13 +1095,11 @@ deleteHoliday(data){
   // Last Modified : 21-03-2018, Jooshifa
   // Desc          : 
   getAvailablity(id) {
-
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-availablity/' + id, { headers: headers })
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getPublicHolidays
   // Params        : 
@@ -1244,10 +1112,8 @@ deleteHoliday(data){
     let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "/get-public-holidays", { headers: h })
       .map(res => res.json());
-
   }
   // ----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getWorkingTime
   // Params        : 
@@ -1260,10 +1126,8 @@ deleteHoliday(data){
     let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "/get-working-time", { headers: h })
       .map(res => res.json());
-
   }
   // ----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getOffDays
   // Params        : 
@@ -1278,7 +1142,6 @@ deleteHoliday(data){
       .map(res => res.json());
   }
   // ----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : breakTime
   // Params        : 
@@ -1287,7 +1150,6 @@ deleteHoliday(data){
   // Date          : 21-03-2018
   // Last Modified : 21-03-2018, Jooshifa
   // Desc          : 
-
   getbreakTime() {
     let h = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + "/get-break-time", { headers: h })
@@ -1308,7 +1170,6 @@ deleteHoliday(data){
     localStorage.clear();
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : getUserProjectsOnStatus
   // Params        : 
@@ -1324,7 +1185,6 @@ deleteHoliday(data){
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : closeNotifnewTaskReq
   // Params        : 
@@ -1343,7 +1203,6 @@ deleteHoliday(data){
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : closeNotifAproval
   // Params        : 
@@ -1362,7 +1221,6 @@ deleteHoliday(data){
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : closeNotifAproval
   // Params        : 
@@ -1379,7 +1237,6 @@ deleteHoliday(data){
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
     // ---------------------------------Start------------------------------------------------
   // Function      : closeNotifAproval
   // Params        : 
@@ -1396,7 +1253,6 @@ deleteHoliday(data){
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : closeNotifAproval
   // Params        : 
@@ -1413,7 +1269,6 @@ deleteHoliday(data){
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : closeNotifAproval
   // Params        : 
@@ -1430,7 +1285,6 @@ deleteHoliday(data){
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : closeNotifAproval
   // Params        : 
@@ -1577,7 +1431,6 @@ deleteHoliday(data){
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : geTAllEstimatedProject
   // Params        : 
@@ -2219,7 +2072,6 @@ deleteHoliday(data){
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getTasksByProject
   // Params        : pro_id
@@ -2235,7 +2087,6 @@ deleteHoliday(data){
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getTasksforResourceGraph
   // Params        : pro_id, users
@@ -2252,7 +2103,6 @@ deleteHoliday(data){
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
     // Function      : getHoursforResourceGraph
     // Params        : projects
@@ -2269,7 +2119,6 @@ deleteHoliday(data){
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
     // Function      : getdataforProjectVsStatusGraph
     // Params        : projects
@@ -2328,7 +2177,6 @@ deleteHoliday(data){
   // Last Modified : 
   // Desc          : ApprovedTimeextension
   //Sendtoadmin
-
     ApprovedTimeextension(task,userid) {
      var data={task:task,userid:userid}
         let headers = this.setHeader();
@@ -2338,4 +2186,26 @@ deleteHoliday(data){
        }
 
   // -----------------------------------End------------------------------------------
+  getProjectReport(data){
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'getProjectReport', data, { headers: headers })
+    .map(res => res.json());
+ 
+   }
+  
+  // -----------------------------------End------------------------------------------
+      // ---------------------------------Start-------------------------------------------
+  // Function      : savecompanyPlanning
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 21-03-2018
+  // Last Modified : 21-03-2018, Jooshifa
+  // Desc          : 
+  savecompanyPlanning(data) {
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'save-company-planning-datas/', data, { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End------------------------------------------
 }

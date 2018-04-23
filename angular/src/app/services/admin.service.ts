@@ -600,9 +600,9 @@ export class AdminService {
   // Last Modified : 06-04-2018, Rinsha
   // Desc          : get all estimated project
 
-  getEstimatedProject() {
+  getEstimatedProject(data) {
     let headers = this.setHeaderWithAuthorization();
-    return this.http.get(this.serviceUrl + 'getEstimatedProject', { headers: headers })
+    return this.http.post(this.serviceUrl + 'getAllEstimatedProject', data,{ headers: headers })
       .map(res => res.json());
 
   }
@@ -620,6 +620,38 @@ export class AdminService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getLoggedinUser', { headers: headers })
       .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+   // ---------------------------------Start-------------------------------------------
+  // Function      : get all estimated project
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 06-04-2018
+  // Last Modified : 06-04-2018, Rinsha
+  // Desc          : get all estimated project
+
+  getProjectReport(data) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'getProjectReport', data,{ headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+   // ---------------------------------Start-------------------------------------------
+  // Function      : get all estimated project
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 06-04-2018
+  // Last Modified : 06-04-2018, Rinsha
+  // Desc          : get all estimated project
+
+  getActivityLog(data) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'getActivityLog', data,{ headers: headers })
+      .map(res => res.json());
+
   }
   // -----------------------------------End------------------------------------------
 }

@@ -12,7 +12,6 @@ import { MatSnackBar } from '@angular/material';
 export class CompanyProjectComponent implements OnInit {
   displayedColumns = ['slno', 'project_name', 'startdate', 'enddate', 'action'];
   dataSource: MatTableDataSource<any>;
-
   notExist = false;
   entity: any;
   Pid: any;
@@ -71,7 +70,6 @@ export class CompanyProjectComponent implements OnInit {
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
   }
-
   getProject() {
     // console.log(this.selected);
     this.notExist = false;

@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, ElementRef} from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { AdminService } from './../../services/admin.service';
 import { CompanyService } from './../../services/company.service';
@@ -7,30 +7,34 @@ import { MatSnackBar } from '@angular/material';
 declare let jsPDF;
 
 @Component({
-  selector: 'app-admin-estimation-report',
-  templateUrl: './admin-estimation-report.component.html',
-  styleUrls: ['./admin-estimation-report.component.css']
+  selector: 'admin-project-report',
+  templateUrl: './admin-project-report.component.html',
+  styleUrls: ['./admin-project-report.component.css']
 })
-export class AdminEstimationReportComponent implements OnInit {
+export class AdminProjectReportComponent implements OnInit {
 
-  displayedColumns = ['slno', 'project_name', 'project_code', 'date', 'ttl_hr','team_head','team_memb'];
+  displayedColumns = ['slno', 'project_name', 'project_code', 'sdate','edate','category','status', 'ttl_hr','team_head','team_memb'];
   dataSource: MatTableDataSource<any>;
-  projectsFlt = [];
   projects = [];
   category = [];
+  pm = [];
+  projectsFlt = [];
+  entity : any;
+  showPMlist = false;
   filters = {
     sDate : new Date,
     eDate :  new Date,
     filterText : '',
     selProj : 'All',
-    selCat : 'All'
+    selCat : 'All',
+    pm: 'All',
+    status: 'All'
   }
   public options: any = {
     locale: { format: 'DD-MM-YYYY' },
     alwaysShowCalendars: false,
     
 };
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   selected: any;
@@ -40,11 +44,24 @@ export class AdminEstimationReportComponent implements OnInit {
      private routes: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
+
+    this.companyService.getLoggedinEntity().subscribe(data => {
+      console.log(data);
+      this.entity = data;
+      if(this.entity.role_id != 3){
+        this.showPMlist = true;
+      }
+    });
+    this.companyService.getAllPm().subscribe(res => {
+      this.pm = res;
+    });
+    
     this.getEstimation();
     this.companyService.getAllprojectcategory().subscribe(data => {
       this.category = data;
       console.log(data);
     });
+    
     this.companyService.getAllProject().subscribe(data => {
       console.log(data);
       this.projects = data;
@@ -60,8 +77,9 @@ export class AdminEstimationReportComponent implements OnInit {
     // Date          : 07-04-2018
     // Last Modified : 07-04-2018, Yasir Poongadan
     // Desc          : get Estimated Project 
-    this.adminService.getEstimatedProject(this.filters).subscribe(data => {
+    this.adminService.getProjectReport(this.filters).subscribe(data => {
       // data.project_name = data.tbl_project.project_name;
+      console.log(data);
       this.projectsFlt = data;
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
@@ -116,21 +134,37 @@ export class AdminEstimationReportComponent implements OnInit {
 exportPdf(){
 
     var doc = new jsPDF();
-    var col = ["Project Name", "Code",'date','Total Hours','Team Head','Team Members'];
+    var col = ["Project Name", "Code",'Planned Start Date','Planned End Date','Total Hours','Category','Status','Team Head','Team Members'];
     var rows = [];
     var members = '';
     this.projectsFlt.forEach((data, key) => {
       members = '';
-      data.tbl_project_estimation_team_members.forEach((d,k) => {
-        members += d.tbl_user_profile.f_name + ' ' +  d.tbl_user_profile.l_name + ', ';
+      data.members.forEach((d,k) => {
+        members += d.f_name + ' ' +  d.l_name + ', ';
       })
-
+     let pm = '';
+      if(data.prj.Pm_id.role_id=='3' && data.prj.Pm_id.tbl_user_profiles.length > 0){
+        pm = data.prj.Pm_id.tbl_user_profiles[0].f_name + ' ' +data.prj.Pm_id.tbl_user_profiles[0].l_name;
+      }
+      if(data.prj.Pm_id.role_id=='1'){
+        pm = data.prj.Pm_id.tbl_companies[0].cmp_name;
+      }  
       var temp = [
-        data.tbl_project.project_name,
-        data.tbl_project.project_code,
-        data.createdAt, 
-        data.estimation_hour,
-        data.tbl_project_estimation_team.tbl_user_profile.f_name + ' ' + data.tbl_project_estimation_team.tbl_user_profile.l_name ,
+        // data.prj.project_name,
+        // data.prj.project_code,
+        // data.prj.createdAt, 
+        // data.estimation_hour,
+        // data.tbl_project_estimation_team.tbl_user_profile.f_name + ' ' + data.tbl_project_estimation_team.tbl_user_profile.l_name ,
+        // members
+
+        data.prj.project_name,
+        data.prj.project_code,
+        data.prj.planned_start_date, 
+        data.prj.planned_end_date,
+        data.ttlHr,
+        data.prj.tbl_project_category.category_name,
+        data.prj.status,
+        pm,
         members
       ];
       rows.push(temp);
@@ -155,5 +189,5 @@ exportPdf(){
             var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
             window.location.href = uri + base64(format(template, ctx))
   }
-    
+
 }

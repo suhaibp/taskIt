@@ -1459,100 +1459,7 @@ var returnRouter = function (io) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   // -----------------------------------End------------------------------------------
-  // ---------------------------------Start-------------------------------------------
-  // Function      : get all estimated project
-  // Params        : 
-  // Returns       : 
-  // Author        : Yasir Poongadan
-  // Date          : 06-04-2018
-  // Last Modified : 06-04-2018, Rinsha
-  // Desc          : get all estimated project
-  router.get('/getEstimatedProject', function (req, res) {
-    // if (req.headers && req.headers.authorization) {
-    //   var authorization = req.headers.authorization.substring(4), decoded;
-    //   //decoded = jwt.verify(authorization, Config.secret);
-      // EstimationTeam.findAll({
-      //   include: [
-      //     {
-      //       model: EstimationTeamMember,
-      //     }
-      // ]
-      // }).then(estimation => {
-      //   res.json(estimation);
-      // });
-      Estimations.findAll({
-        where: {
-          is_accepted: true,
-          is_resubmitted: false
-        },
-        include: [
-          {
-            model: Projects,
-          },
-          {
-            model: EstimationTeam,
-            include: [
-              {
-                model: Users
-              }
-            ]
-          },
-          {
-            model: EstimationTeamMember,
-            include: [
-              {
-                model: Users
-              }
-            ]
-          }
-        ]
-      }).then(estimation => {
-        res.json(estimation);
-      });
-    // } else {
-    //   return res.status(401).send('Invalid User');
-    // }
-  });
-  // -----------------------------------End------------------------------------------
-  // ---------------------------------Start-------------------------------------------
-  // Function      : getAllEstimatedProject
-  // Params        : 
-  // Returns       : 
-  // Author        : Yasir Poongadan
-  // Date          : 09-04-2018
-  // Last Modified : 09-04-2018, Rinsha
-  // Desc          : get all estimated project
-  router.get('/getAllEstimatedProject', function (req, res) {
-    // if (req.headers && req.headers.authorization) {
-    //   var authorization = req.headers.authorization.substring(4), decoded;
-    //   //decoded = jwt.verify(authorization, Config.secret);
-      // EstimationTeam.findAll({
-      //   include: [
-      //     {
-      //       model: EstimationTeamMember,
-      //     }
-      // ]
-      // }).then(estimation => {
-      //   res.json(estimation);
-      // });
-      Estimations.findAll({
-        where: {
-          is_accepted: true,
-          is_resubmitted: false
-        },
-        include: [
-          {
-            model: Projects,
-          },
-        ]
-      }).then(estimation => {
-        res.json(estimation);
-      });
-    // } else {
-    //   return res.status(401).send('Invalid User');
-    // }
-  });
-  // -----------------------------------End------------------------------------------
+  
   // ---------------------------------Start-------------------------------------------
   // Function      : Get logged in entity
   // Params        : 
@@ -1573,6 +1480,191 @@ var returnRouter = function (io) {
     }
   });
   // ----------------------------------End-------------------------------------------
+   // ---------------------------------Start-------------------------------------------
+  // Function      : get all estimated project
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 06-04-2018
+// ---------------------------------Start-------------------------------------------
+  // Function      : getProjectReport
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 12-04-2018
+  // Last Modified : 12-04-2018, Yasir Poongadan
+  // Desc          : getProjectReport
+  router.post('/getProjectReport', function (req, res) {
+    if (req.headers && req.headers.authorization) {
+      var authorization = req.headers.authorization.substring(4),
+        decoded;
+      decoded = jwt.verify(authorization, Config.secret);
+      cmp_id = decoded.cmp_id;
+   //   res.json(decoded);
+      // // console.log(decoded);
+   
+    var start = new Date(req.body.sDate);
+    start.setHours(00, 00, 00, 000);
+    var end = new Date(req.body.eDate);
+    end.setHours(23, 59, 59, 999);
+    let whereCond = {
+      [Op.and]: [{cmp_id:cmp_id} 
+        , {[Op.or]: [
+            {planned_start_date: { $between: [start, end]}},
+            // {actual_start_date: { $between: [start, end]}},
+          ]
+      }],
+    }
+    // let prjWhereCond = {}
+    if(req.body.selProj != 'All'){
+        whereCond.id = req.body.selProj;
+    }
+    if(req.body.selCat != 'All'){
+      whereCond.category_id = req.body.selCat;
+    }
+    if(req.body.status != 'All'){
+      whereCond.status = req.body.status;
+    }
+    if(req.body.pm != 'All'){
+      whereCond.pm_id = req.body.pm;
+    }
+    Projects.findAll({  
+        where: whereCond,
+      include: [
+            {
+              model: ProjectModule,
+              include: [
+                {
+                  model: ProjectTask,
+                  include: [
+                    {
+                      model: Users,
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              model: Login, as :'Pm_id',
+              include: [
+                {
+                  model: User
+                },
+                {
+                  model: Company
+                }
+              ]
+              
+            },
+            {
+              model: ProjectCategory
+            }
+          ]
+      
+    }).then((proj) => {
+      resp = [];
+ 
+      proj.forEach(function(prjct,index) {
+        members = [];
+        mbrs = [];
+        ttlHr = 0;
+        prjct.tbl_project_modules.forEach((modules)=> {
+          modules.tbl_project_tasks.forEach((task)=> {
+            taskhr = task.planned_hour + task.buffer_hour;
+            ttlHr += taskhr;
+            if(task.assigned_to_id != null){
+              if (mbrs.indexOf(task.assigned_to_id) == -1) {
+                mbrs.push(task.assigned_to_id);
+                members.push(task.tbl_user_profile);
+              }
+            }
+          });
+        });
+         // proj[index].ttlHr = ttlHr;
+        resp.push({prj :prjct, ttlHr :ttlHr,members:members});
+      });
+      res.json(resp);
+    });
+    } else {
+      return res.status(401).send('Invalid User');
+    }
+  });
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getActivityLog
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 17-04-2018
+  // Last Modified : 17-04-2018, Yasir Poongadan
+  // Desc          : get Activity Log
+  router.post('/getActivityLog', function (req, res) {
+    // console.log(req.body);
+    if (req.headers && req.headers.authorization) {
+      var authorization = req.headers.authorization.substring(4),
+        decoded;
+      decoded = jwt.verify(authorization, Config.secret);
+      cmp_id = decoded.cmp_id;
+
+    var start = new Date(req.body.sDate);
+    start.setHours(00, 00, 00, 000);
+    var end = new Date(req.body.eDate);
+    end.setHours(23, 59, 59, 999);
+    // let whereCond = {
+    //   [Op.and]: [{} 
+    //     , {[Op.or]: [
+    //         {planned_start_date: { $between: [start, end]}},
+    //         // {actual_start_date: { $between: [start, end]}},
+    //       ]
+    //   }],
+    // }
+    whereCond = {}; 
+    if(req.body.selUsers != 'All'){
+      whereCond.user_profile_id = req.body.selUsers;
+    }
+    Log.findAll({ 
+      where :  whereCond,
+      include: [
+        {
+          model: Users,
+          where :  {cmp_id : cmp_id},
+          required : ture
+        }
+      ]
+    }).then((proj) => {
+      res.json(proj);
+    });
+    } else {
+      return res.status(401).send('Invalid User');
+    }
+  });
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAllProject
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 17-04-2018
+  // Last Modified : 17-04-2018, Yasir Poongadan
+  // Desc          : getAllProject
+  router.post('/getAllProject', function (req, res) {
+    if (req.headers && req.headers.authorization) {
+      var authorization = req.headers.authorization.substring(4),
+        decoded;
+      decoded = jwt.verify(authorization, Config.secret);
+      cmp_id = decoded.cmp_id;
+
+    Projects.findAll({  where :  {cmp_id : cmp_id}, 
+    }).then((proj) => {
+      res.json(proj);
+    });
+
+    } else {
+      return res.status(401).send('Invalid User');
+    }
+    
+  });
+  // -----------------------------------End------------------------------------------
   module.exports = router;
   return router;
 }

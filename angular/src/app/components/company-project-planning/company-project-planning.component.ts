@@ -5,31 +5,33 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from '../../services/company.service';
 import { FormControl } from '@angular/forms';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-
+import * as moment from 'moment';
 @Component({
   selector: 'project-planning',
   templateUrl: './company-project-planning.component.html',
   styleUrls: ['./company-project-planning.component.css']
 })
 export class CompanyProjectPlanningComponent implements OnInit {
+  todayDate = new Date();
+  projectSelectedTeam = [];
   myNewwArray: any;
   newdate: any;
   startdatetime: any;
   datepicker: Boolean = false;
   showstartdate: Boolean = false;
   endtime1: any;
-  displayedColumns = ['slno', 'user', 'start_date', 'end_date', 'hours', 'no_task', 'action'];
+  displayedColumns = ['slno', 'user', 'start_date', 'start_time', 'end_date'];
   selected = '0';
   selected1 = '0';
   selected2 = '0';
   taskNo = 0
   datetime: any;
+  disabled = []
   assigned_person: any;
   sum = 0;
   sum1 = 0;
   sub: any;
   team: any;
-
   arr1 = [];
   arr2 = [];
   startdate: any;
@@ -75,19 +77,18 @@ export class CompanyProjectPlanningComponent implements OnInit {
   Designers: any;
   QCs: any;
   moduledata: any;
+  plannedStartTime: any
   userAvailablity = [];
   endDatetime = {
     start_Date: ''
   }
   // -----assign task----
   assigntask = {
-
     // start_time: '',
     planned_hour: 0,
     buffer_hour: 0,
     total_hour: 0,
     // end_date :''
-
   }
   assignstart_date: any;
   assignend_date: any;
@@ -97,7 +98,6 @@ export class CompanyProjectPlanningComponent implements OnInit {
     time: 0,
     tbl_estimation_tasks: [],
   };
-
   Projects = {
     name: '',
     code: '',
@@ -107,7 +107,6 @@ export class CompanyProjectPlanningComponent implements OnInit {
     qc: [],
     start_time: ''
   }
-
   newTasks = {
     task_name: '',
     assigned_person: '',
@@ -124,13 +123,37 @@ export class CompanyProjectPlanningComponent implements OnInit {
     assigned1: '',
     docFile: [],
     docSrc: '',
+    color: '',
+    bordercolor: '',
     file: '',
-
     newChecklist: [{ name: '' }],
-
   }
+  assignedperdatevariable = {
+    id: '',
+    date: ''
+  }
+  assignedPersonDateArray = []
+  assignedPersonDateArray1 = []
+  startDateForCalc: any;
+  taskdate: any;
+  holidaydata = [];
+  leavedata = [];
+  worktime = [];
+  offday = [];
+  worktimedefault: any;
+  offtaskdate: any;
+  usertaskdate: any;
+  worktaskdate: any;
+  workstart_time: any;
+  workend_time: any;
+  is_not_planned_start_time = [];
+  userid: any;
+  working_hours: any;
+  working_seconds: any;
+  breaktime: any;
+  totalbreaksec: any;
+  assignedpersonddatelement: any;
   meridian() {
-
     if (this.meridain == 'AM') {
       this.meridain = 'PM'
     }
@@ -140,7 +163,6 @@ export class CompanyProjectPlanningComponent implements OnInit {
   }
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString());
-
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -163,13 +185,18 @@ export class CompanyProjectPlanningComponent implements OnInit {
     this.myArray = [];
     this.myArray1 = [];
     this.myArray3 = [];
+    this.holidaydata = [];
+    this.assignedPersonDateArray = [];
+    this.assignedPersonDateArray1 = [];
+    this.offday = [];
     this.assignPerson = [];
+    this.worktime = [];
+    this.leavedata = [];
+    this.is_not_planned_start_time = [];
     this.sub = this.route.params.subscribe(params => {
       this.p_id = params.id;
       this.companyService.getProjectById(this.p_id).subscribe(resData => {
         this.Projects = resData;
-
-        // console.log(this.Projects);
         // this.spinner = true
         // if (resData.success == true) {
         //   this.spinner = false
@@ -186,11 +213,9 @@ export class CompanyProjectPlanningComponent implements OnInit {
         //   this.routes.navigate(['/404']);
         // }
       });
-      // console.log(this.p_id);
     });
     this.companyService.getDeveloperUsers().subscribe(developerDatas => {
       this.Developers = developerDatas;
-
     });
     this.companyService.getDesignerrUsers().subscribe(designerDatas => {
       this.Designers = designerDatas;
@@ -200,8 +225,6 @@ export class CompanyProjectPlanningComponent implements OnInit {
     });
     this.companyService.getTasksModules(this.p_id).subscribe(data => {
       this.moduledata = data
-      // console.log(this.moduledata);
-      // console.log(this.modules)
       this.moduledata.forEach(element => {
         this.modules.push(element);
         this.task_time = 0;
@@ -210,42 +233,109 @@ export class CompanyProjectPlanningComponent implements OnInit {
           this.task_time = this.task_time + elementimation_tasks.planned_hour + elementimation_tasks.buffer_hour;
         })
         element.time = this.task_time;
-        // console.log(element.module_time);
       })
       this.arr1.forEach(element2 => {
         this.sum = this.sum + element2;
       });
       this.companyService.getAllUsers().subscribe(team => {
         this.team = team
-
         // this.assignPerson = asignedPerson;
       });
       this.companyService.getComplexity().subscribe(complexity => {
         this.complexitys = complexity;
       });
-
     });
-
     // this.companyService.getPublicHolidays().subscribe(PublicHolidays => {
-
     // });
-
     this.companyService.getWorkingTime().subscribe(getWorkingTime => {
       this.getWorkingTime = getWorkingTime;
-      // console.log(getWorkingTime);
     });
     this.companyService.getOffDays().subscribe(getOffDays => {
-
-    // });
-    // this.companyService.getbreakTime().subscribe(breakTime => {
-
+      // });
+      // this.companyService.getbreakTime().subscribe(breakTime => {
     });
   }
-
+  chooseTeamMember() {
+    let userOldArr = [];
+    userOldArr = this.projectSelectedTeam;
+    let OldSelectedUserId = [];
+    userOldArr.forEach((element) => {
+      OldSelectedUserId.push(element.id);
+    });
+    // console.log(OldSelectedUserId);
+    this.projectSelectedTeam = [];
+    let selectedUserId = [];
+    if (this.Projects.developer && this.Projects.developer.length > 0) {
+      this.Projects.developer.forEach(element => {
+        element.team_id = 1;
+        if (selectedUserId.indexOf(element.id) == -1) {
+          if (OldSelectedUserId.indexOf(element.id) == -1) {
+            element.start_date = this.Projects.start_date
+            element.start_time = this.Projects.start_time;
+            this.projectSelectedTeam.push(element);
+          } else {
+            userOldArr.forEach((elm) => {
+              if (elm.id == element.id) {
+                element.start_date = elm.start_date
+                element.start_time = elm.start_time;
+              }
+            });
+            selectedUserId.push(element.id);
+            this.projectSelectedTeam.push(element);
+          }
+        }
+      });
+    }
+    if (this.Projects.designer && this.Projects.designer.length > 0) {
+      this.Projects.designer.forEach(element => {
+        element.team_id = 2;
+        if (selectedUserId.indexOf(element.id) == -1) {
+          if (OldSelectedUserId.indexOf(element.id) == -1) {
+            element.start_date = this.Projects.start_date
+            element.start_time = this.Projects.start_time;
+            this.projectSelectedTeam.push(element);
+          } else {
+            userOldArr.forEach((elm) => {
+              if (elm.id == element.id) {
+                element.start_date = elm.start_date
+                element.start_time = elm.start_time;
+              }
+            });
+            selectedUserId.push(element.id);
+            this.projectSelectedTeam.push(element);
+          }
+        }
+      });
+    }
+    if (this.Projects.qc && this.Projects.qc.length > 0) {
+      this.Projects.qc.forEach(element => {
+        element.team_id = 3;
+        if (selectedUserId.indexOf(element.id) == -1) {
+          if (OldSelectedUserId.indexOf(element.id) == -1) {
+            element.start_date = this.Projects.start_date
+            element.start_time = this.Projects.start_time;
+            this.projectSelectedTeam.push(element);
+          } else {
+            userOldArr.forEach((elm) => {
+              if (elm.id == element.id) {
+                element.start_date = elm.start_date
+                element.start_time = elm.start_time;
+              }
+            });
+            selectedUserId.push(element.id);
+            this.projectSelectedTeam.push(element);
+          }
+        }
+      });
+    }
+    console.log(this.projectSelectedTeam);
+    this.dataSource = new MatTableDataSource(this.projectSelectedTeam);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
   addMore() {
     this.newTasks.newChecklist.push({ name: '' });
   }
-
   closeChecklist(index) {
     if (this.newTasks.newChecklist.length > 1) {
       this.newTasks.newChecklist.splice(index, 1);
@@ -268,7 +358,6 @@ export class CompanyProjectPlanningComponent implements OnInit {
     }
   }
   modalClear() {
-
     this.newTasks = {
       task_name: '',
       assigned_person: '',
@@ -285,8 +374,9 @@ export class CompanyProjectPlanningComponent implements OnInit {
       assigned: '',
       docFile: [],
       docSrc: '',
+      color: '',
+      bordercolor: '',
       file: '',
-  
       newChecklist: [{ name: '' }]
     };
   }
@@ -301,7 +391,6 @@ export class CompanyProjectPlanningComponent implements OnInit {
       let snackBarRef = this.snackBar.open("Module added successfully", '', {
         duration: 2000
       });
-
       this.module = {
         module_name: '',
         time: 0,
@@ -316,10 +405,8 @@ export class CompanyProjectPlanningComponent implements OnInit {
       tbl_estimation_tasks: [],
     };
   }
-
   getId(index) {
     this.index = index;
-    // console.log(index + "  index");
     this.newTasks = {
       task_name: '',
       assigned_person: '',
@@ -336,11 +423,11 @@ export class CompanyProjectPlanningComponent implements OnInit {
       priority: '',
       docFile: [],
       docSrc: '',
+      color: '',
+      bordercolor: '',
       file: '',
-    
       newChecklist: [{ name: '' }]
     };
-
   }
   getassigned() {
     this.assigned_person = this.newTasks.assigned_person;
@@ -351,8 +438,6 @@ export class CompanyProjectPlanningComponent implements OnInit {
     this.assign_fname = this.assigned_person.f_name;
     this.assign_lname = this.assigned_person.l_name;
   }
-
-
   addTask(index) {
     this.companyService.getDatetime(this.newTasks).subscribe(datetime => {
       this.datetime = datetime;
@@ -362,8 +447,10 @@ export class CompanyProjectPlanningComponent implements OnInit {
         });
       }
       else {
-        this.newTasks.assigned = this.assigned_person;
-        this.newTasks.assigned1 = this.assigned_person;
+        if (this.newTasks.assigned_person) {
+          this.newTasks.color = '#e6ffe6';
+          this.newTasks.bordercolor = '3px solid #6fa93b';
+        }
         this.modules[index].tbl_estimation_tasks.push(this.newTasks);
         this.modules[index].time = this.modules[index].time + this.newTasks.planned_hour + this.newTasks.buffer_hour;
         this.sum = this.sum + this.newTasks.planned_hour + this.newTasks.buffer_hour;
@@ -385,16 +472,16 @@ export class CompanyProjectPlanningComponent implements OnInit {
           assigned1: '',
           task_type: '',
           priority: '',
+          color: '',
+          bordercolor: '',
           docFile: [],
           docSrc: '',
           file: '',
-        
           newChecklist: [{ name: '' }]
         };
       }
     })
   }
-
   deleteModule(i) {
     this.sum = this.sum - this.modules[i].time;
     this.modules.splice(i, 1);
@@ -404,58 +491,62 @@ export class CompanyProjectPlanningComponent implements OnInit {
     this.modules.push(module);
     this.modules.forEach(element => {
     });
-
   }
   getId1(i, j, ) {
     this.i = i;
     this.j = j;
-
   }
   getId2(i, j, task) {
     this.i = i;
     this.j = j;
     this.newTasks = task;
-    this.newTasks.assigned_person = '';
+    this.modules[i].tbl_estimation_tasks[j] = this.newTasks;
+    this.sum = this.sum - this.modules[i].tbl_estimation_tasks[j].planned_hour - this.modules[i].tbl_estimation_tasks[j].buffer_hour;
+    this.modules[i].time = this.modules[i].time - this.modules[i].tbl_estimation_tasks[j].planned_hour - this.modules[i].tbl_estimation_tasks[j].buffer_hour;
+    // this.newTasks.assigned_person = '';
     this.newTasks.start_date = '';
     this.newTasks.start_time = '';
     this.meridain = ''
   }
-
   deleteTask(i, j) {
     this.modules[i].time = this.modules[i].time - this.modules[i].tbl_estimation_tasks[j].planned_hour - this.modules[i].tbl_estimation_tasks[j].buffer_hour;
     this.sum = this.sum - this.modules[i].tbl_estimation_tasks[j].planned_hour - this.modules[i].tbl_estimation_tasks[j].buffer_hour;
     this.modules[i].tbl_estimation_tasks.splice(this.j, 1);
   }
-  editTask(i, j) {
-
-    this.modules[i].tbl_estimation_tasks.splice(this.j, 1);
-    this.newTasks.assigned = this.assigned_person.f_name;
-    this.newTasks.assigned1 = this.assigned_person.l_name;
-
-    this.modules[i].tbl_estimation_tasks.push(this.newTasks);
+  editTask(i, j, users) {
+    if (this.newTasks.assigned_person) {
+      this.modules[i].tbl_estimation_tasks[j].color = '#e6ffe6';
+      this.modules[i].tbl_estimation_tasks[j].bordercolor = '3px solid #6fa93b';
+    }
+    // this.assignedPersonDateArray.forEach(element => {
+    //   if (users.assigned_person.id == element.id) {
+    //     element.task_id = users.id;
+    //     element.is_not_planned_start_time = false;
+    //     element.planned_hour = users.planned_hour;
+    //     element.buffer_hour = users.buffer_hour
+    //     this.assignedPersonDateArray1.push(element)
+    //     this.disabled[users.id] = true;
+    //   }
+    // });
+    // this.modules[i].tbl_estimation_tasks.splice(this.j, 1);
     this.modules[i].time = this.modules[i].time + this.newTasks.planned_hour + this.newTasks.buffer_hour;
     this.sum = this.sum + this.newTasks.planned_hour + this.newTasks.buffer_hour;
-
+    // this.modules[i].tbl_estimation_tasks.push(this.newTasks);
     this.closeBtn1.nativeElement.click();
     let snackBarRef = this.snackBar.open(' Task updated succesfully', '', {
       duration: 2000
     });
-
-
   }
   startDateSelect() {
     this.assignstart_date = this.Projects.start_date;
     this.assignstart_time = this.Projects.start_time;
-
     this.modules.forEach(modules => {
       modules.tbl_estimation_tasks.forEach(tasks => {
         tasks.start_date = this.Projects.start_date;
         tasks.start_time = this.Projects.start_time;
       });
-
     });
   }
-
   inArray(needle, haystack) {
     var count = haystack.length;
     for (var i = 0; i < count; i++) {
@@ -468,12 +559,9 @@ export class CompanyProjectPlanningComponent implements OnInit {
     this.startdate = '';
     this.starttime = '';
     this.endtime = '';
-
     this.startdate = this.assignstart_date;
     this.starttime = this.assignstart_time;
     this.endtime = this.assignstart_time
-
-
     this.teamMembers = [];
     if (this.inArray(this.assign_id, this.teamMembers) == false) {
       this.modules.forEach(modules => {
@@ -482,18 +570,12 @@ export class CompanyProjectPlanningComponent implements OnInit {
           tasks.start_time = this.assignstart_time;
         });
       });
-
       this.assignstart_date.setHours(this.assignstart_time.hour, this.assignstart_time.minute, this.assignstart_time.second);
-
       this.teamMembers.push({ assign_person_id: this.assign_id, start_date: this.assignstart_date, start_time: this.assignstart_time, assigned_person_fname: this.assign_fname, assigned_person_lname: this.assign_lname, hour: this.newTasks.planned_hour + this.newTasks.buffer_hour, no_task: this.taskNo = this.taskNo + 1, team_id: this.team_id });
-
       this.startdatetime = this.assignstart_date
       this.assignend_date = this.startdate;
-
       this.teamMembers.forEach((item, index) => {
-        // console.log(item);
         users.push({
-
           userfname: item.assigned_person_fname,
           userlname: item.assigned_person_lname,
           id: item.assign_person_id,
@@ -501,13 +583,11 @@ export class CompanyProjectPlanningComponent implements OnInit {
           end_date: '',
           hour: 0,
           no_task: 0
-
         });
       });
       this.dataSource = new MatTableDataSource(users);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
     }
   }
   getTableData() {
@@ -516,9 +596,8 @@ export class CompanyProjectPlanningComponent implements OnInit {
       if (this.teamMembers == [] || this.teamMembers == null) {
       }
       else {
-
         this.teamMembers.forEach(item => {
-          // console.log(item.team_id);
+          ;
           if (item.team_id == 1) {
             users.push({
               userfname: item.assigned_person_fname,
@@ -548,8 +627,6 @@ export class CompanyProjectPlanningComponent implements OnInit {
       this.loadToDataTable(this.QCs);
     }
   }
-  
-
   loadToDataTable(data) {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
@@ -558,8 +635,6 @@ export class CompanyProjectPlanningComponent implements OnInit {
   showDatepicker() {
     this.datepicker = true;
     this.showstartdate = false;
-    // console.log(this.datepicker);
-    // console.log(this.showstartdate);
   }
   showDate() {
     this.showstartdate = true;
@@ -567,121 +642,257 @@ export class CompanyProjectPlanningComponent implements OnInit {
   }
   finish() {
   }
-  getuserAvalibality1(user) {
-    console.log(user);
-    let id = '';
-    console.log(this.findDeselectedItem(user, this.myArray));
-    if (this.findDeselectedItem(user, this.myArray) !== null) {
-      id = this.findDeselectedItem(user, this.myArray).id;
-      this.myArray.forEach((item, index) => {
-        if (id == item.id) {
-          this.myArray.splice(index, 1);
+  assignedAuser(users) {
+    //not need now
+  }
+  calculateEnddate() {
+    this.projectSelectedTeam
+    this.modules
+    let data = { modules: this.modules, teamMembers: this.projectSelectedTeam };
+    console.log(data)
+    this.companyService.getUserleavedataplanning(data).subscribe(data => {
+      // console.log(data)
+      this.modules = data.data;
+      // this.holidaydata = data.holidaydata;
+      // this.leavedata = data.leavedata;
+      // this.worktime = data.worktime;
+      // this.worktimedefault = data.worktimedefault;
+      // this.offday = data.offday;
+    });
+  }
+  holiday(plandate, id, starttime, planStarttime) {
+    this.plannedStartTime = '';
+    this.userid = '';
+    this.plannedStartTime = planStarttime;
+    this.userid = id
+    this.is_not_planned_start_time[this.userid] = starttime;
+    this.taskdate = plandate;
+    this.holidaydata.forEach(elm_holiday => {
+      if ((elm_holiday.date) == moment(this.taskdate).format('YYYY-MM-DD')) {
+        //next date
+        var plandate = new Date(this.taskdate.getTime() + 1000 * 60 * 60 * 24);
+        this.is_not_planned_start_time[this.userid] == true;
+        this.holiday(this.taskdate, this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+      } else {
+        this.companyoffday(this.taskdate, this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+      }
+    });
+  }
+  companyoffday(plandate, id, starttime, planStarttime) {
+    this.userid = id
+    this.is_not_planned_start_time[this.userid] = starttime;
+    this.plannedStartTime = planStarttime;
+    this.offtaskdate = plandate
+    this.offday.forEach(elm_off => {
+      var d = new Date(this.offtaskdate);
+      var date = d.getDate();
+      var day = d.getDay();//start 1
+      var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
+      var weekno = weekOfMonth + 1;
+      if (elm_off.day_no == day && elm_off.week_no == weekno) {
+        //date+1
+        this.is_not_planned_start_time[this.userid] == true;
+        var tomarrow = new Date(this.offtaskdate.getTime() + 1000 * 60 * 60 * 24);
+        this.holiday(tomarrow, this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+      }
+      this.userleave(this.offtaskdate, this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+    })
+  }
+  userleave(plandate, id, starttime, planStarttime) {
+    this.userid = id;
+    this.is_not_planned_start_time[this.userid] = starttime;
+    this.plannedStartTime = planStarttime;
+    this.usertaskdate = plandate;
+    if (this.leavedata == [] || this.leavedata.length == 0) {
+      // this.calculationA(this.usertaskdate, this.userid, this.is_not_planned_start_time[this.userid]);
+    }
+    else {
+      this.leavedata.forEach(elm_leav => {
+        //BETWEEN 2 DATES
+        var getDates = function (startDate, endDate) {
+          var dates = [],
+            currentDate = startDate,
+            addDays = function (days) {
+              var date = new Date(this.valueOf());
+              date.setDate(date.getDate() + days);
+              return date;
+            };
+          while (currentDate <= endDate) {
+            dates.push(currentDate);
+            currentDate = addDays.call(currentDate, 1);
+          }
+          return dates;
+        };
+        // Usage
+        var dates = getDates(new Date(moment(elm_leav.start_date).format('YYYY,MM,DD')), new Date(moment(elm_leav.end_date).format('YYYY,MM,DD')));
+        dates.forEach(date => {
+          if (moment(this.usertaskdate).format('YYYY-MM-DD') == moment(date).format('YYYY-MM-DD')) {
+            if (moment(this.usertaskdate).format('YYYY-MM-DD') == moment(elm_leav.start_date).format('YYYY,MM,DD')) {
+              if (elm_leav.start_available_hrs == null) {
+                if (moment(this.usertaskdate).format('YYYY-MM-DD') == moment(elm_leav.end_date).format('YYYY,MM,DD')) {
+                  if (elm_leav.end_available_hrs == null) {
+                    //date+1
+                    // var  plandate=new Date(plandate.getTime()+1000*60*60*24);
+                    this.holiday(new Date(this.usertaskdate.getTime() + 1000 * 60 * 60 * 24), this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+                    this.is_not_planned_start_time[this.userid] == true;
+                    // alert("hi1")
+                  } else {
+                    //A3
+                    this.calculationA(this.usertaskdate, this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+                    // alert("hi2")
+                  }
+                } else {
+                  //date+1
+                  // var  plandate=new Date(plandate.getTime()+1000*60*60*24);
+                  this.holiday(new Date(this.usertaskdate.getTime() + 1000 * 60 * 60 * 24), this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+                  this.is_not_planned_start_time[this.userid] == true;
+                }
+              } else {
+                // alert("hi3")
+                //A2
+              }
+            } else {
+              // alert("hi4")
+              if (moment(this.usertaskdate).format('YYYY-MM-DD') == moment(elm_leav.end_date).format('YYYY,MM,DD')) {
+                if (elm_leav.end_available_hrs == null) {
+                  //date+1
+                  // var  plandate=new Date(plandate.getTime()+1000*60*60*24);
+                  this.holiday(new Date(this.usertaskdate.getTime() + 1000 * 60 * 60 * 24), this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+                  this.is_not_planned_start_time[this.userid] == true;
+                } else {
+                  //alert("hi5")
+                  //A3
+                  this.calculationA(this.usertaskdate, this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+                }
+              } else {
+                // alert("hi6")
+                //date+1
+                // var  plandate=new Date(plandate.getTime()+1000*60*60*24);
+                this.holiday(new Date(this.usertaskdate.getTime() + 1000 * 60 * 60 * 24), this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+                this.is_not_planned_start_time[this.userid] == true;
+              }
+            }
+          } else {
+            // alert("hi7"+taskdate)
+            //A1
+            this.calculationA(this.usertaskdate, this.userid, this.is_not_planned_start_time[this.userid], this.plannedStartTime);
+          }
+        });
+      })
+    }
+  }
+  calculationA(plandate, id, starttime, planStarttime) {
+    this.workstart_time = '';
+    this.workstart_time = '';
+    this.userid = id;
+    this.is_not_planned_start_time[this.userid] = starttime;
+    this.plannedStartTime = planStarttime;
+    this.worktaskdate = plandate
+    this.worktime.forEach(elm_worktime => {
+      var d = new Date(this.worktaskdate);
+      var date = d.getDate();
+      var day = d.getDay();//start 1
+      var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
+      var weekno = weekOfMonth + 1;
+      if (elm_worktime.day_no == day && elm_worktime.week_no == weekno) {
+        if (this.is_not_planned_start_time[this.userid] == true) {
+          this.workstart_time = elm_worktime.tbl_cmp_work_time.start_time;
+          this.workend_time = elm_worktime.tbl_cmp_work_time.end_time
+        } else {
+          this.workstart_time = this.plannedStartTime;
+          this.workend_time = elm_worktime.tbl_cmp_work_time.end_time;
         }
-      });
-    }
-    if (this.assignstart_date && this.assignstart_time) {
-      this.assignstart_date.setHours(this.assignstart_time.hour, this.assignstart_time.minute, this.assignstart_time.second);
-    }
-    if (this.Projects.start_date !== null || this.Projects.start_time !== null) {
-      user.forEach((element, key) => {
-        if (this.inArray(element, this.myArray) == false) {
-          element.start_date = this.assignstart_date;
-          this.myArray.push(element);
+      }
+      else {
+        if (this.is_not_planned_start_time[this.userid] == true) {
+          this.workstart_time = this.worktimedefault.start_time;
+          this.workend_time = this.worktimedefault.end_time;
+        } else {
+          this.workstart_time = this.plannedStartTime;
+          this.workend_time = this.worktimedefault.end_time;
+        }
+        //worktime not in asssoc
+      }
+      //working hour calculation
+      var start = moment.utc('"' + this.workstart_time + '"', "HH:mm:ss");
+      var end = moment.utc('"' + this.workend_time + '"', "HH:mm:ss");
+      // account for crossing over to midnight the next day
+      if (end.isBefore(start)) end.add(1, 'day');
+      // calculate the duration
+      let d1 = moment.duration(end.diff(start));
+      let s = moment.utc(+d1).format('HH:mm');
+      this.working_hours = s;
+      var a = s.split(':'); // split it at the colons
+      // minutes are worth 60 seconds. Hours are worth 60 minutes.
+      this.working_seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+      this.working_hours = s;
+      var a = s.split(':'); // split it at the colons
+      // minutes are worth 60 seconds. Hours are worth 60 minutes.
+      this.working_seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+      // console.log("d"+day);
+      this.breaktime.forEach(elm_breaktime => {
+        if (elm_breaktime.day_no == day && elm_breaktime.week_no == weekno) {
+          // parse time using 24-hour clock and use UTC to prevent DST issues
+          var start = moment.utc('"' + elm_worktime.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
+          var end = moment.utc('"' + elm_worktime.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
+          // account for crossing over to midnight the next day
+          if (end.isBefore(start)) end.add(1, 'day');
+          // calculate the duration
+          let b = moment.duration(end.diff(start));
+          let bt = moment.utc(+b).format('HH:mm');
+          var a1 = bt.split(':'); // split it at the colons
+          // minutes are worth 60 seconds. Hours are worth 60 minutes.
+          var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
+          // parse time using 24-hour clock and use UTC to prevent DST issues
+          var start = moment.utc('"' + this.worktimedefault.start_time + '"', "HH:mm:ss");
+          var end = moment.utc('"' + this.worktimedefault.end_time + '"', "HH:mm:ss");
+          // account for crossing over to midnight the next day
+          if (end.isBefore(start)) end.add(1, 'day');
+          // calculate the duration
+          let bd = moment.duration(end.diff(start));
+          let btd = moment.utc(+b).format('HH:mm');
+          var a2 = btd.split(':'); // split it at the colons
+          // minutes are worth 60 seconds. Hours are worth 60 minutes.
+          var seconds2 = (+a2[0]) * 60 * 60 + (+a2[1]) * 60 + (+a2[2]);
+          this.totalbreaksec = seconds1 + seconds2;
+          // this.totalbreakhr =bt+btd; 
         }
         else {
-          // user.splice(key, 1);
+          // parse time using 24-hour clock and use UTC to prevent DST issues
+          var start = moment.utc('"' + this.worktimedefault.start_time + '"', "HH:mm:ss");
+          var end = moment.utc('"' + this.worktimedefault.end_time + '"', "HH:mm:ss");
+          // account for crossing over to midnight the next day
+          if (end.isBefore(start)) end.add(1, 'day');
         }
       });
-      // console.log(this.myArray)
-      this.dataSource = new MatTableDataSource(this.myArray);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }
+      this.userleave(this.worktaskdate, id, this.userid, this.plannedStartTime);
+    });
   }
-  getuserAvalibality2(user) {
-    let id = '';
-    console.log(this.findDeselectedItem(user, this.myArray));
-    if (this.findDeselectedItem(user, this.myArray) !== null) {
-      id = this.findDeselectedItem(user, this.myArray).id;
-      this.myArray.forEach((item, index) => {
-        if (id == item.id) {
-          this.myArray.splice(index, 1);
-        }
-      });
-    }
-    if (this.assignstart_date && this.assignstart_time) {
-      this.assignstart_date.setHours(this.assignstart_time.hour, this.assignstart_time.minute, this.assignstart_time.second);
-    }
-    if (this.Projects.start_date !== null || this.Projects.start_time !== null) {
-      user.forEach((element, key) => {
-        if (this.inArray(element, this.myArray) == false) {
-          element.start_date = this.assignstart_date;
-          this.myArray.push(element);
-        }
-        else {
-          // user.splice(key, 1);
-        }
-      });
-      // console.log(this.myArray)
-      this.dataSource = new MatTableDataSource(this.myArray);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }
-  }
-  getuserAvalibality3(user3) {
-    let id = '';
-    if (this.findDeselectedItem(user3, this.myArray3) !== null) {
-      id = this.findDeselectedItem(user3, this.myArray3).id;
-      this.myArray3.forEach((item, index) => {
-        if (id == item.id) {
-          this.myArray3.splice(index, 1);
-        }
-      });
-    }
-    if (this.assignstart_date && this.assignstart_time) {
-      this.assignstart_date.setHours(this.assignstart_time.hour, this.assignstart_time.minute, this.assignstart_time.second);
-    }
-    if (this.Projects.start_date !== null || this.Projects.start_time !== null) {
-      user3.forEach((element, key) => {
-        if (this.inArray(element, this.myArray3) == false) {
-          element.start_date = this.assignstart_date;
-          this.myArray3.push(element);
-        }
-        else {
-
-        }
-      });
-      // this.myArray1.forEach(element => {
-      //   if (this.inArray(element, this.myArray) == false) {
-      //     this.myArray.push(element);
-      //   }
-
-      // });
-      // console.log(this.myArray);
-
-      this.dataSource = new MatTableDataSource(this.myArray3);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }
-  }
-  giveDate(index, id, start_Date) {
-    console.log(index, id, start_Date)
-  }
-
   findDeselectedItem(CurrentArray, PreviousArray) {
     var CurrentArrSize = CurrentArray.length;
     var PreviousArrSize = PreviousArray.length;
     // loop through previous array
     for (var j = 0; j < PreviousArrSize; j++) {
-
       // look for same thing in new array
       if (CurrentArray.indexOf(PreviousArray[j]) == -1)
         return PreviousArray[j];
     }
     return null;
-
   }
-
-
-
+  savePlanningData() {
+    console.log(this.modules);
+    this.companyService.savecompanyPlanning(this.modules).subscribe(data => {
+      if (data.success) {
+        this.routes.navigate(['/project']);
+        let snackBarRef = this.snackBar.open(data.msg, '', {
+          duration: 2000
+        });
+      
+      }else{
+        let snackBarRef = this.snackBar.open(data.msg, '', {
+          duration: 2000
+        });
+      }
+    });
+  }
 }

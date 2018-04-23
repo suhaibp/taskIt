@@ -8,7 +8,6 @@ describe('TimerService', () => {
       providers: [TimerService]
     });
   });
-
   it('should be created', inject([TimerService], (service: TimerService) => {
     expect(service).toBeTruthy();
   }));

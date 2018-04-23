@@ -142,6 +142,10 @@ import { UserViewProjectComponent } from './components/user-view-project/user-vi
 import { ProjectPipe } from './pipes/project.pipe';
 import { CompanyTaskRequestsComponent } from './components/company-task-requests/company-task-requests.component';
 import { CompanyNewTaskManagementComponent } from './components/company-new-task-management/company-new-task-management.component';
+import { AdminProjectReportComponent } from './components/admin-project-report/admin-project-report.component';
+import { CompanyActivityLogReportComponent } from './components/company-activity-log-report/company-activity-log-report.component';
+
+
 import { CompanyViewProjectComponent } from './components/company-view-project/company-view-project.component';
 import { UserTaskstatusGraphComponent } from './components/user-taskstatus-graph/user-taskstatus-graph.component';
 import {ScrollToModule} from 'ng2-scroll-to';
@@ -217,6 +221,8 @@ const appRoutes: Routes = [
   {path:'estimate-project/:id1/:id2', component:UserProjectEstimationComponent},
   {path:'view-project/:id', component:CompanyViewProjectComponent},
   {path:'user-taskstatus-graph', component:UserTaskstatusGraphComponent},
+  {path:'project-report', component:AdminProjectReportComponent},
+  {path:'activity-log-report', component:CompanyActivityLogReportComponent},
   // {path:'admin-sidebar', component:AdminSidebarComponent},
   // {path:'admin-topbar', component:AdminTopbarComponent},
   // {path:'admin-footer', component:AdminFooterComponent},
@@ -363,6 +369,8 @@ export class DemoMaterialModule {}
     CompanyLeaveRequestListComponent,
     CompanyUserLeaveRequestComponent,
     UserMyRequestMytaskComponent,
+    AdminProjectReportComponent,
+    CompanyActivityLogReportComponent,
     CompanyViewProjectComponent,
     UserTaskstatusGraphComponent
   ],

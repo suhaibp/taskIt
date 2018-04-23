@@ -19,38 +19,11 @@
     overflow: auto;
     max-height: 500px;
   }
-  .modal{top:0;}
+
   .example-container > * {
     width: 100%;
   }
-  .add-project{
-    float: right;
-    margin-right: 50px;
-    margin-top: 50px;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    padding: 0;
-    font-size: 28px;
-    line-height: 42px;
-    box-shadow: 4px 7px 31px #ffbb8e;
-  }
-  .modal-header {
-    padding: 10px 30px;
-    border-bottom: 1px solid #e5e5e5;
-    background: #fe6a07;
-}
-.modal-content{
-  box-shadow:none;
-  border-radius: 9px;
-  overflow: hidden;
 
-}
-.modal-title{color:#fff;}
-.modal-body{    padding:20px 30px;}
-.modal-body input{border:none;}
-.modal-body input{padding: 0;}
 .mat-form-field-infix {
   display: block;
   position: relative;
@@ -86,6 +59,11 @@ body {
 .center-bt {
     margin: 20px auto 10px auto;
     float: none;
+}
+
+@page { margin: 0; }
+@media print {
+       @page { margin: 0; }
 }
 
 .back-color{

@@ -6,7 +6,6 @@ import { Config } from './../config/config';
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
-
 @Injectable()
 export class UserService {
   serviceUrl: string;
@@ -16,7 +15,6 @@ export class UserService {
   user: any;
   constructor(private http: Http, private config: Config) {
     this.serviceUrl = config.siteUrl + '/user/';
-
   }
   setHeader() {
     let headers = new Headers();
@@ -30,11 +28,9 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     return (headers);
   }
-
   loadToken() {
     this.authToken = localStorage.getItem('id_token');
   }
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getTasksModules
   // Params        : 
@@ -43,15 +39,12 @@ export class UserService {
   // Date          : 29-03-2018
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
-
   getMyTasks() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-my-tasks', { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getComplexity
   // Params        : 
@@ -60,15 +53,12 @@ export class UserService {
   // Date          : 16-03-2018
   // Last Modified : 16-03-2018, Jooshifa
   // Desc          
-
   getPercentage() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-progress-percentage', { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getMyTasksPaused
   // Params        : 
@@ -77,15 +67,12 @@ export class UserService {
   // Date          : 29-03-2018
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
-
   getAllTasksInModule() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-all-task-in-module', { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getMyTasksPaused
   // Params        : 
@@ -94,14 +81,12 @@ export class UserService {
   // Date          : 29-03-2018
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
-
   getTaskTime() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-task-time', { headers: headers })
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getMyTasksPaused
   // Params        : 
@@ -110,13 +95,11 @@ export class UserService {
   // Date          : 29-03-2018
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
-
   doneAtask(task) {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'done-a-task/' + task, { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
   // ---------------------------------Start-------------------------------------------
   // Function      : getMyTasksPaused
@@ -126,13 +109,11 @@ export class UserService {
   // Date          : 29-03-2018
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
-
   pauseTask(task) {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'pause-a-task', (task), { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
   // ---------------------------------Start-------------------------------------------
   // Function      : completeATask
@@ -142,13 +123,11 @@ export class UserService {
   // Date          : 29-03-2018
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
-
   completeATask(task) {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'complete-a-task', (task), { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
   // ---------------------------------Start-------------------------------------------
   // Function      : completeATask
@@ -158,15 +137,12 @@ export class UserService {
   // Date          : 29-03-2018
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
-
   holdATask(task) {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'hold-a-task', (task), { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getMyTasksPaused
   // Params        : 
@@ -175,15 +151,12 @@ export class UserService {
   // Date          : 29-03-2018
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
-
   startAtask(task) {
     let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'start-a-task/' + task, { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : Logout
   // Params        : 
@@ -206,13 +179,11 @@ export class UserService {
   // Date          : 29-03-2018
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
-
   getUserProfile() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'get-user-Profile', { headers: headers })
       .map(res => res.json());
   }
-
   // ----------------------------------End-------------------------------------------
   // ---------------------------------Start-------------------------------------------
   // Function      : newTaskRequest
@@ -257,7 +228,6 @@ export class UserService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
      // ---------------------------------Start------------------------------------------------
   // Function      : getUserProjects
   // Params        : 
@@ -273,7 +243,6 @@ export class UserService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : getUserProjectsOnStatus
   // Params        : 
@@ -289,7 +258,6 @@ export class UserService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start------------------------------------------------
   // Function      : getUserProjectsOnStatus
   // Params        : 
@@ -305,7 +273,6 @@ export class UserService {
       .map((response: Response) => response.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get pm by id
   // Params        : login id
@@ -318,10 +285,8 @@ export class UserService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getPmByLoginid/' + login_id, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getTeamMembers
   // Params        : login id, project id
@@ -334,10 +299,8 @@ export class UserService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getTeamMembers/' + project_id, { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : add estimation
   // Params        : data from form
@@ -352,7 +315,6 @@ export class UserService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get TeamHeadNotification
   // Params        : 
@@ -365,10 +327,8 @@ export class UserService {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'getTeamHeadNotification', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : get notif by id
   // Params        : id
@@ -383,7 +343,6 @@ export class UserService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getCurrentEstimation
   // Params        : notification id
@@ -398,7 +357,6 @@ export class UserService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getProfile
   // Params        : 
@@ -413,7 +371,6 @@ export class UserService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : updateUser
   // Params        : user data
@@ -428,7 +385,6 @@ export class UserService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getNewTaskRequestNotification
   // Params        : 
@@ -443,7 +399,6 @@ export class UserService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : getTimeExtensionRequestNotification
   // Params        : 
@@ -458,7 +413,6 @@ export class UserService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : close notification of time extension request approval
   // Params        : notification id
@@ -473,7 +427,6 @@ export class UserService {
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : close notification of new task request approval
   // Params        : notification id
@@ -496,12 +449,10 @@ export class UserService {
   // Date          : 16-03-2018
   // Last Modified : 
   // Desc          :user all activity log list
-
   getSingleUserActivitylog() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'singleuserlog', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
        //  ---------------------------------Start-------------------------------------------
@@ -512,7 +463,6 @@ export class UserService {
   // Date          :16-03-2018
   // Last Modified : 
   // Desc          : datefilterforlog
-
   getDatefilterforlog(data: any) {
     // console.log(data)
     let headers = this.setHeaderWithAuthorization();
@@ -528,7 +478,6 @@ export class UserService {
   // Date          : 19-03-2018
   // Last Modified : 
   // Desc          :get Single User all leaves
-
   getSingleUserallleaves() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'singleuserallleave', { headers: headers })
@@ -542,7 +491,6 @@ export class UserService {
   // Date          : 28-03-2018
   // Last Modified : 
   // Desc          : deleteuser leave
-
   //deleteuser leave
   deleteuserleave(id) {
     let headers = this.setHeaderWithAuthorization();
@@ -558,7 +506,6 @@ export class UserService {
   // Date          : 28-03-2018
   // Last Modified : 
   // Desc          : add USER leave
-
   addUserleave(data: any) {
     // console.log(data)
     let headers = this.setHeaderWithAuthorization()
@@ -575,7 +522,6 @@ export class UserService {
   // Last Modified : 
   // Desc          : single user leave
   //unblock User
-
   getSingleuserleave(id: any) {
     let headers = this.setHeaderWithAuthorization()
      return this.http.get(this.serviceUrl + "singleuserleave/" + id, { headers: headers})
@@ -591,7 +537,6 @@ export class UserService {
   // Date          : 28-03-2018
   // Last Modified :
   // Desc          : to updateUserleave 
-
   updateUserleave(userleave: any) {
     // console.log(Empleave);
     let headers = this.setHeaderWithAuthorization();
@@ -608,7 +553,6 @@ export class UserService {
   // Date          : 19-03-2018
   // Last Modified : 
   // Desc          :get My all request
-
   getMyallrequest() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'allmyrequest', { headers: headers })
@@ -622,12 +566,10 @@ export class UserService {
   // Date          : 19-03-2018
   // Last Modified : 
   // Desc          :get my time extension request
-
   getMyallTimeextnrequest() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'mytimeextrequest', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
        // ---------------------------------Start-------------------------------------------
@@ -638,12 +580,10 @@ export class UserService {
   // Date          : 19-03-2018
   // Last Modified : 
   // Desc          :get my all new task request
-
   getMyallnewtaskrequest() {
     let headers = this.setHeaderWithAuthorization();
     return this.http.get(this.serviceUrl + 'mynewtaskrequest', { headers: headers })
       .map(res => res.json());
-
   }
   // -----------------------------------End------------------------------------------
     // ---------------------------------Start------------------------------------------------
@@ -737,7 +677,6 @@ export class UserService {
     .map(res => res.json());
   }
   // ---------------------------------------End--------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
   // Function      : Get logged in entity
   // Params        : 
@@ -767,4 +706,88 @@ export class UserService {
     .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+  // Function      : completeATask
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 29-03-2018
+  // Last Modified : 29-03-2018, Jooshifa
+  // Desc          : 
+  addTimeAssoc(time) {
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'add-time-assoc', (time), { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+  // Function      : changeStausColor
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 29-03-2018
+  // Last Modified : 29-03-2018, Jooshifa
+  // Desc          : 
+  changeStausColor(task) {
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'changeStausColor/' + task, { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+   // ---------------------------------Start-------------------------------------------
+  // Function      : completeATask
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 29-03-2018
+  // Last Modified : 29-03-2018, Jooshifa
+  // Desc          : 
+  holdTask(task) {
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'hold-a-task', (task), { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+  // Function      : getMyTasksPaused
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 29-03-2018
+  // Last Modified : 29-03-2018, Jooshifa
+  // Desc          : 
+  donetask(task) {
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'done-a-task' ,(task) , { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+  // Function      : completeATask
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 29-03-2018
+  // Last Modified : 29-03-2018, Jooshifa
+  // Desc          : 
+  completeTask(task) {
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'complete-a-task', (task), { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : completeATask
+  // Params        : 
+  // Returns       : 
+  // Author        : Jooshifa
+  // Date          : 29-03-2018
+  // Last Modified : 29-03-2018, Jooshifa
+  // Desc          : 
+  resumeTasks(task) {
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'resume-a-task', (task), { headers: headers })
+      .map(res => res.json());
+  }
+  // ----------------------------------End-------------------------------------------
 }

@@ -17,9 +17,9 @@ const cors = require('cors');
 const config = require("./config/config");
 
 app.use(cors());
-app.use(bodyParser.json({limit: '50mb'}));
-app.use('/admin', admin);
-app.use('/user', user);
+//app.use(bodyParser.json());
+app.use(bodyParser.json({limit:'50mb'}));
+
 
 //app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true, cookie: { secure: true } }));
 app.use(passport.initialize());

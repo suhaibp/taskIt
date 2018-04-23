@@ -100,7 +100,6 @@ export class CompanyProjectVsHourComponent implements OnInit {
       .domain(years)
       .rangeRound([0, width])
       .padding(0.08);
-
     let y = d3
       .scaleLinear()
       .domain([0, yStackMax])
@@ -118,7 +117,6 @@ export class CompanyProjectVsHourComponent implements OnInit {
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + (margin.left + 20) + "," + margin.top + ")");
-
     let layer = svg
       .selectAll(".layer")
       .data(layers)

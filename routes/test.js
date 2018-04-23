@@ -86,9 +86,7 @@ var Project_Module = models.tbl_project_modules;
 //------------------------------
 var ip = require("ip");
 'use strict';
-
 const emailTemplate = require('../template/verification_email');
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Company verification
     // Params        : verification id
@@ -97,15 +95,12 @@ const emailTemplate = require('../template/verification_email');
     // Date          : 07-03-2018
     // Last Modified : 07-03-2018, Jooshifa
     // Desc          : 
-
 Projects.belongsTo(Company, { foreignKey: 'cmp_id' }); // Adds fk_company to User
 // Company.belongsTo(Login, {foreignKey: 'login_id'}); // Adds fk_company to User
 // Company.belongsTo(Plan, {foreignKey: 'plan_id'}); // Adds fk_company to User
 // Company.belongsTo(CompanySize, {foreignKey: 'cmp_size_id'}); // Adds fk_company to User
 // Company.belongsTo(Industries, {foreignKey: 'industry_id'}); // Adds fk_company to User
-
 // var login = require('../models/login');
-
 // const student = models.student.build({
 //   name: "Asif",
 //   rollnumber: 123
@@ -115,9 +110,7 @@ if (config.use_env_variable) {
 } else {
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-
 var returnRouter = function (io) {
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get pm by id
     // Params        : login id
@@ -665,7 +658,9 @@ var returnRouter = function (io) {
         ext = matches[1].split("/");
         response.ext = ext[1];
         response.data = new Buffer(matches[2], 'base64');
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
         return response;
     }
     // ----------------------------------End-------------------------------------------
@@ -677,7 +672,9 @@ var returnRouter = function (io) {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get list of teams and stregth
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
   router.get('/getUserProjects', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -712,7 +709,9 @@ var returnRouter = function (io) {
     // }
   })
   //  ---------------------------------End-------------------------------------------
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     //  ---------------------------------Start-------------------------------------------
   // Function      : getMembers
   // Params        : 
@@ -721,7 +720,9 @@ var returnRouter = function (io) {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get list of teams and stregth
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
   router.get('/getUserProjectsDetails/:id', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -771,7 +772,6 @@ var returnRouter = function (io) {
     // }
   })
   //  ---------------------------------End-------------------------------------------
-
    // ---------------------------------Start-------------------------------------------
     // Function      : Get company details by id
     // Params        : id
@@ -780,7 +780,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/getCompanyDetails/:id', function (req, res) {
       Login.findOne({
           include: [{
@@ -791,9 +790,7 @@ var returnRouter = function (io) {
           res.json(data);
       });
   });
-
   // ----------------------------------End-------------------------------------------
-
   // ---------------------------------Start-------------------------------------------
     // Function      : Get logged user details
     // Params        : 
@@ -802,21 +799,13 @@ var returnRouter = function (io) {
     // Date          : 07-03-2018
     // Last Modified : 07-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/getLoggedinCompany', (req, res, next) => {
       if (req.headers && req.headers.authorization) {
           var authorization = req.headers.authorization.substring(4),
               decoded;
-
-          decoded = jwt.verify(authorization, Config.secret);
-          res.json(decoded);
-      } else {
-          res.json('');
       }
   });
-
   // ----------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
   // Function      : getMembers
   // Params        : 
@@ -825,7 +814,9 @@ var returnRouter = function (io) {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get list of teams and stregth
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
   router.post('/getUserProjectsOnStatus', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -869,7 +860,9 @@ var returnRouter = function (io) {
     // }
   })
   //  ---------------------------------End-------------------------------------------
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     //  ---------------------------------Start-------------------------------------------
   // Function      : getMembers
   // Params        : 
@@ -878,7 +871,9 @@ var returnRouter = function (io) {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get list of teams and stregth
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
   router.post('/getSelectedProjects', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -931,7 +926,9 @@ var returnRouter = function (io) {
   // Date          : 13-03-2018
   // Last Modified : 13-03-2018, 
   // Desc          : get list of teams and stregth
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
   router.post('/getNotifications', function (req, res) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -1034,7 +1031,9 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     // ---------------------------------Start-------------------------------------------
     // Function      : getTimeExtensionRequestNotification
     // Params        : 
@@ -1097,7 +1096,9 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of time extension request approval
     // Params        : notification id
@@ -1135,7 +1136,9 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
+<<<<<<< HEAD
+=======
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of new task request approval
     // Params        : notification id
@@ -2059,9 +2062,11 @@ var returnRouter = function (io) {
                     });
       // ----------------------------------End-------------------------------------------
       
-
+<<<<<<< HEAD
     module.exports = router;
-
+=======
+    module.exports = router;
+>>>>>>> 190d3f8efb317ec5f42bd40d9f2640d8fb329145
     return router;
 }
 module.exports = returnRouter;

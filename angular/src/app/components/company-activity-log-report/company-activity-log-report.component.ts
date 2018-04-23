@@ -7,23 +7,21 @@ import { MatSnackBar } from '@angular/material';
 declare let jsPDF;
 
 @Component({
-  selector: 'app-admin-estimation-report',
-  templateUrl: './admin-estimation-report.component.html',
-  styleUrls: ['./admin-estimation-report.component.css']
+  selector: 'app-company-activity-log-report',
+  templateUrl: './company-activity-log-report.component.html',
+  styleUrls: ['./company-activity-log-report.component.css']
 })
-export class AdminEstimationReportComponent implements OnInit {
+export class CompanyActivityLogReportComponent implements OnInit {
 
-  displayedColumns = ['slno', 'project_name', 'project_code', 'date', 'ttl_hr','team_head','team_memb'];
+  displayedColumns = ['slno', 'date', 'time', 'user', 'action'];
   dataSource: MatTableDataSource<any>;
-  projectsFlt = [];
-  projects = [];
-  category = [];
+  logs = [];
+  users = [];
   filters = {
     sDate : new Date,
     eDate :  new Date,
     filterText : '',
-    selProj : 'All',
-    selCat : 'All'
+    selUsers : 'All',
   }
   public options: any = {
     locale: { format: 'DD-MM-YYYY' },
@@ -34,24 +32,21 @@ export class AdminEstimationReportComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   selected: any;
+
   constructor(
     private adminService: AdminService,
     private companyService: CompanyService,
      private routes: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.getEstimation();
-    this.companyService.getAllprojectcategory().subscribe(data => {
-      this.category = data;
+    this.getActivityLog();
+    this.companyService.getAllusers().subscribe(data => {
+      this.users = data;
       console.log(data);
-    });
-    this.companyService.getAllProject().subscribe(data => {
-      console.log(data);
-      this.projects = data;
     });
   }
 
-  getEstimation() {
+  getActivityLog() {
     // ---------------------------------Start-------------------------------------------
     // Function      : getEstimatedProject
     // Params        : 
@@ -60,9 +55,11 @@ export class AdminEstimationReportComponent implements OnInit {
     // Date          : 07-04-2018
     // Last Modified : 07-04-2018, Yasir Poongadan
     // Desc          : get Estimated Project 
-    this.adminService.getEstimatedProject(this.filters).subscribe(data => {
+    this.adminService.getActivityLog(this.filters).subscribe(data => {
       // data.project_name = data.tbl_project.project_name;
-      this.projectsFlt = data;
+      // this.projects = data;
+      console.log(data);
+      this.logs = data;
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -82,7 +79,7 @@ export class AdminEstimationReportComponent implements OnInit {
   public selectedStartDate(value: any, datepicker?: any) {
     this.filters.sDate =  value.start;
     this.filters.eDate =  value.end;
-    this.getEstimation();
+    this.getActivityLog();
   }
 
  PrintDiv() {
@@ -116,22 +113,15 @@ export class AdminEstimationReportComponent implements OnInit {
 exportPdf(){
 
     var doc = new jsPDF();
-    var col = ["Project Name", "Code",'date','Total Hours','Team Head','Team Members'];
+    var col = ['Slno', 'Date Time', 'User', 'Action'];
     var rows = [];
     var members = '';
-    this.projectsFlt.forEach((data, key) => {
-      members = '';
-      data.tbl_project_estimation_team_members.forEach((d,k) => {
-        members += d.tbl_user_profile.f_name + ' ' +  d.tbl_user_profile.l_name + ', ';
-      })
-
+    this.logs.forEach((data, key) => {
       var temp = [
-        data.tbl_project.project_name,
-        data.tbl_project.project_code,
-        data.createdAt, 
-        data.estimation_hour,
-        data.tbl_project_estimation_team.tbl_user_profile.f_name + ' ' + data.tbl_project_estimation_team.tbl_user_profile.l_name ,
-        members
+        key+1,
+        data.createdAt,
+        data.tbl_user_profile.f_name + ' ' + data.tbl_user_profile.l_name,
+        data.action
       ];
       rows.push(temp);
     });
@@ -155,5 +145,4 @@ exportPdf(){
             var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
             window.location.href = uri + base64(format(template, ctx))
   }
-    
 }

@@ -38,7 +38,7 @@ export class CompanyTopbarComponent implements OnInit {
   newTaskreqBackCount = 0;
   timeExtensionCount = 0;
   private socket: any;
-  dispStatus = false;
+  dispStatus = true;
   constructor(
     private companyService: CompanyService,
     private routes: Router,
