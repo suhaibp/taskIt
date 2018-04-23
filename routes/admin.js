@@ -1665,6 +1665,46 @@ var returnRouter = function (io) {
     
   });
   // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
+  // Function      : getAllEstimatedProject
+  // Params        : 
+  // Returns       : 
+  // Author        : Yasir Poongadan
+  // Date          : 09-04-2018
+  // Last Modified : 09-04-2018, Rinsha
+  // Desc          : get all estimated project
+  router.get('/getAllEstimatedProject', function (req, res) {
+    if (req.headers && req.headers.authorization) {
+      var authorization = req.headers.authorization.substring(4), decoded;
+      decoded = jwt.verify(authorization, Config.secret);
+    // EstimationTeam.findAll({
+    //   include: [
+    //     {
+    //       model: EstimationTeamMember,
+  
+    //     }
+    // ]
+    // }).then(estimation => {
+    //   res.json(estimation);
+    // });
+    Estimations.findAll({
+      where: {
+        is_accepted: true,
+        is_resubmitted : false
+      },
+      include: [
+        {
+        model: Projects,
+        },
+      ]
+    }).then(estimation => {
+      res.json(estimation);
+    });
+  } else {
+    return res.status(401).send('Invalid User');
+  }
+  });
+  // -----------------------------------End------------------------------------------
   module.exports = router;
   return router;
 }
