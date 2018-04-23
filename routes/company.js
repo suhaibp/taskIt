@@ -3618,9 +3618,9 @@ var returnRouter = function (io) {
     // Last Modified : 13-03-2018, Jooshifa
     // Desc          : 
     router.get('/getCompanyDetails/:id', function (req, res) {
-        if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4), decoded;
-            decoded = jwt.verify(authorization, Config.secret);
+        // if (req.headers && req.headers.authorization) {
+        //     var authorization = req.headers.authorization.substring(4), decoded;
+        //     decoded = jwt.verify(authorization, Config.secret);
             // cmp_id = decoded.cmp_id;
             Login.findOne({
                 include: [{
@@ -3630,9 +3630,9 @@ var returnRouter = function (io) {
                 // console.log(data.is_profile_completed);
                 res.json(data);
             });
-        } else {
-            return res.status(401).send('Invalid User');
-        }
+        // } else {
+        //     return res.status(401).send('Invalid User');
+        // }
     });
     // ----------------------------------End-------------------------------------------
     // ---------------------------------Start-------------------------------------------
@@ -7243,16 +7243,16 @@ var returnRouter = function (io) {
             include: [{
                 model: Company, where: { id: req.params.id }
             }]
-        }).then(newdata => {
-            const token = jwt.sign(login, Config.secret, {
+        }).then(login => {
+            const token = jwt.sign(login.toJSON(), Config.secret, {
                 expiresIn: 60400 // sec 1 week
             });
             return res.json({
                 success: true,
                 token: 'JWT ' + token,
                 login: {
-                    id: req.params.id,
-                    role: newdata.role_id,
+                    id: login.id,
+                    role: login.role_id,
                 }
             });
             // // console.log(projects);
@@ -7932,7 +7932,7 @@ var returnRouter = function (io) {
             // var cmp_id = 1;
             var role_id = decoded.role_id;
             id = req.params.id;
-            //  console.log("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+id);
+            //  console.log("\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+id);
             NewTaskreq.find({
                 where: {
                     id: id,

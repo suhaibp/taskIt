@@ -14,7 +14,7 @@ export class CompanySidebarComponent implements OnInit {
   private socket: any;
   role ;
   rights:any
-  disp = false;
+  disp = true;
   constructor(
     private companyService: CompanyService,
     private routes: Router,
@@ -24,7 +24,7 @@ export class CompanySidebarComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.checkRole()    
+    this.checkRole(); 
     // ---------------------------------Start-------------------------------------------
     // Function      : Get logged in entity
     // Params        : 

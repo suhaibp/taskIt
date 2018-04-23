@@ -771,7 +771,7 @@ export class CompanyService {
   // Last Modified : 13-03-2018, Jooshifa
   // Desc          : 
   getCompanyDetailsById(id) {
-    let h = this.setHeaderWithAuthorization();
+    let h = this.setHeader();
     return this.http.get(this.serviceUrl + "getCompanyDetails/" + id, { headers: h })
       .map(res => res.json());
   }

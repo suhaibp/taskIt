@@ -9768,7 +9768,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-sidebar/company-sidebar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"logo\">\r\n    <a href=\"\"><img src=\"./assets/images/logo.jpg\" alt=\"\" class=\"\">\r\n   \r\n</a>\r\n</div>\r\n\r\n<nav class=\"navbar navbar-default\">\r\n\r\n<!-- Brand and toggle get grouped for better mobile display -->\r\n<div class=\"navbar-header\">\r\n  <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\r\n    <span class=\"sr-only\">Toggle navigation</span>\r\n    <span class=\"icon-bar\"></span>\r\n    <span class=\"icon-bar\"></span>\r\n    <span class=\"icon-bar\"></span>\r\n  </button>\r\n \r\n</div>\r\n\r\n<!-- Collect the nav links, forms, and other content for toggling -->\r\n<div *ngIf=\"disp\" class=\"collapse navbar-collapse navi\" id=\"bs-example-navbar-collapse-1\">\r\n    <ul class=\"zx nav navbar-nav\">\r\n        <li  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/company-dashboard\"><i class=\"fa fa-desktop\" aria-hidden=\"true\"></i><span class=\"\">Dashboard</span></a></li>\r\n        <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/company-team\"><i class=\"fa fa-users fa-2x text-purple\"></i> Team</a></li>\r\n        <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n          <a routerLink=\"/company-users\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><span class=\"\">Users</span></a></li>\r\n          <li *ngIf=\"exist2(1,2,3,4,5)\" class=\"dropdown\" ><a  class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i><span class=\"\">Master Settings</span></a>\r\n            <!-- *ngIf=\"exist2(1,2,3,4,5)\" -->\r\n              <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n                <!-- {{role}} -->\r\n                <li *ngIf=\"(role == 3 && exist(3)) || role == 1\"><a  routerLink=\"/company-project-category\">Project Category</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(4)) || role == 1\"><a routerLink=\"/company-access-rights\">Access Rights</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(5)) || role == 1\"><a routerLink=\"/company-working-time\">Office Time</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(1)) || role == 1\"><a routerLink=\"/company-manage-holyday\">Public Holiday</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(2)) || role == 1\"><a routerLink=\"/company-employee-leaves\">Employee Leaves</a></li>\r\n                \r\n              </ul>\r\n            \r\n          </li>\r\n\r\n          <li  [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n            <a routerLink=\"/project\"><i class=\"fa fa-file-text\" aria-hidden=\"true\"></i><span class=\"\">Projects</span></a></li>\r\n\r\n          <li *ngIf=\"(role == 3 && exist(7)) || role == 1\" class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user-plus\" aria-hidden=\"true\"></i><span class=\"\">Request Management</span></a>\r\n            \r\n              <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n                <li><a  routerLink=\"/company-task-requests\">New Task Requests</a></li>\r\n                <li><a routerLink=\"/company-request-management\">Time Extension Requests</a></li>\r\n                <li><a routerLink=\"/company-leave-request-list\">Leave Requests</a></li>\r\n              </ul>\r\n            \r\n          </li>\r\n       \r\n          <!-- <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a routerLink=\"/company-request-management\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><span class=\"\">Request Management</span></a></li> \r\n           -->\r\n              \r\n            <li class=\"dropdown\"><a  class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-leanpub\" aria-hidden=\"true\"></i><span class=\"\">Reports</span></a>\r\n            \r\n              <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n                <li *ngIf=\"(role == 3 && exist(9)) || role == 1\"><a  routerLink=\"\">Estimation Report</a></li>\r\n                <li *ngIf=\"(role == 3 && exist(10)) || role == 1\"><a routerLink=\"\">Project Report</a></li>\r\n                <li><a routerLink=\"/company-activity-log\">Activity Log</a></li>\r\n               \r\n              </ul>\r\n            \r\n          </li>     \r\n    </ul>\r\n \r\n \r\n</div><!-- /.navbar-collapse -->\r\n\r\n</nav>"
+module.exports = "<div class=\"logo\">\r\n  <a href=\"\"><img src=\"./assets/images/logo.jpg\" alt=\"\" class=\"\">\r\n   \r\n</a>\r\n</div>\r\n\r\n<nav class=\"navbar navbar-default\">\r\n\r\n  <!-- Brand and toggle get grouped for better mobile display -->\r\n  <div class=\"navbar-header\">\r\n    <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\"\r\n      aria-expanded=\"false\">\r\n    <span class=\"sr-only\">Toggle navigation</span>\r\n    <span class=\"icon-bar\"></span>\r\n    <span class=\"icon-bar\"></span>\r\n    <span class=\"icon-bar\"></span>\r\n  </button>\r\n\r\n  </div>\r\n\r\n  <!-- Collect the nav links, forms, and other content for toggling -->\r\n  <div *ngIf=\"disp\" class=\"collapse navbar-collapse navi\" id=\"bs-example-navbar-collapse-1\">\r\n    <ul class=\"zx nav navbar-nav\">\r\n      <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n        <a routerLink=\"/company-dashboard\"><i class=\"fa fa-desktop\" aria-hidden=\"true\"></i><span class=\"\">Dashboard</span></a></li>\r\n      <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n        <a routerLink=\"/company-team\"><i class=\"fa fa-users fa-2x text-purple\"></i> Team</a></li>\r\n      <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n        <a routerLink=\"/company-users\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><span class=\"\">Users</span></a></li>\r\n      <li *ngIf=\"exist2(1,2,3,4,5)\" class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i><span class=\"\">Master Settings</span></a>\r\n        <!-- *ngIf=\"exist2(1,2,3,4,5)\" -->\r\n        <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n          <!-- {{role}} -->\r\n          <li *ngIf=\"(role == 3 && exist(3)) || role == 1\"><a routerLink=\"/company-project-category\">Project Category</a></li>\r\n          <li *ngIf=\"(role == 3 && exist(4)) || role == 1\"><a routerLink=\"/company-access-rights\">Access Rights</a></li>\r\n          <li *ngIf=\"(role == 3 && exist(5)) || role == 1\"><a routerLink=\"/company-working-time\">Office Time</a></li>\r\n          <li *ngIf=\"(role == 3 && exist(1)) || role == 1\"><a routerLink=\"/company-manage-holyday\">Public Holiday</a></li>\r\n          <li *ngIf=\"(role == 3 && exist(2)) || role == 1\"><a routerLink=\"/company-employee-leaves\">Employee Leaves</a></li>\r\n\r\n        </ul>\r\n\r\n      </li>\r\n\r\n      <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n        <a routerLink=\"/project\"><i class=\"fa fa-file-text\" aria-hidden=\"true\"></i><span class=\"\">Projects</span></a></li>\r\n\r\n      <li *ngIf=\"(role == 3 && exist(7)) || role == 1\" class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-user-plus\" aria-hidden=\"true\"></i><span class=\"\">Request Management</span></a>\r\n\r\n        <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n          <li><a routerLink=\"/company-task-requests\">New Task Requests</a></li>\r\n          <li><a routerLink=\"/company-request-management\">Time Extension Requests</a></li>\r\n          <li><a routerLink=\"/company-leave-request-list\">Leave Requests</a></li>\r\n        </ul>\r\n\r\n      </li>\r\n\r\n      <!-- <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\">\r\n              <a routerLink=\"/company-request-management\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><span class=\"\">Request Management</span></a></li> \r\n           -->\r\n\r\n      <li class=\"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"fa fa-leanpub\" aria-hidden=\"true\"></i><span class=\"\">Reports</span></a>\r\n\r\n        <ul class=\"dropdown-menu\" role=\"menu\" data-animations=\"fadeInDown fadeInRight fadeInUp fadeInLeft\">\r\n          <li *ngIf=\"(role == 3 && exist(9)) || role == 1\"><a routerLink=\"\">Estimation Report</a></li>\r\n          <li *ngIf=\"(role == 3 && exist(10)) || role == 1\"><a routerLink=\"\">Project Report</a></li>\r\n          <li><a routerLink=\"/company-activity-log\">Activity Log</a></li>\r\n\r\n        </ul>\r\n\r\n      </li>\r\n    </ul>\r\n\r\n\r\n  </div>\r\n  <!-- /.navbar-collapse -->\r\n\r\n</nav>"
 
 /***/ }),
 
@@ -9805,7 +9805,7 @@ var CompanySidebarComponent = (function () {
         this.routes = routes;
         this.snackBar = snackBar;
         this.config = config;
-        this.disp = false;
+        this.disp = true;
         this.socket = __WEBPACK_IMPORTED_MODULE_4_socket_io_client__(config.socketURL);
     }
     CompanySidebarComponent.prototype.ngOnInit = function () {
@@ -12908,37 +12908,54 @@ var CompayAditninfoComponent = (function () {
             _this.companyService.getCompanyDetailsById(_this.p_id).subscribe(function (data) {
                 // console.log("data" + data.is_profile_completed);
                 if (data.is_profile_completed == true) {
-                    _this.routes.navigate(['/company-dashboard']);
+                    _this.companyService.generateToken(params.id).subscribe(function (data4) {
+                        if (data4.success == true) {
+                            _this.companyService.storeUserData(data4.token, data4.login);
+                            if (data.cmp_status == "Expired") {
+                                _this.routes.navigate(['/expired']);
+                            }
+                            else {
+                                _this.routes.navigate(['/company-dashboard']);
+                            }
+                        }
+                    });
                     // console.log("completed");
+                }
+                else {
+                    _this.companyService.generateToken(params.id).subscribe(function (data3) {
+                        if (data3.success) {
+                            _this.companyService.storeUserData(data3.token, data3.login);
+                        }
+                    });
                 }
             });
         });
-        this.companyService.getLoggedUSerDetails().subscribe(function (info) {
-            // console.log("sdsss" + info);
-            // if(info == null || info == ''){
-            //   this.routes.navigate(['/clogin']); 
-            // }
-            // if(info.role == "admin"){
-            //   this.routes.navigate(['/admin-dashboard']);
-            // }
-            // if(info.role == "user"){
-            //   if(info.delete_status == true || info.block_status == true){
-            // 	this.routes.navigate(['/404']); 
-            //   }
-            //   this.routes.navigate(['/survey', info.surveyId]); 
-            // }
-            // if(info.role == "company"){
-            //   if(info.delete_status == true || info.block_status == true || info.cmp_status == "Not Verified"){
-            // 	this.routes.navigate(['/clogin']); 
-            //   }
-            //   if(info.cmp_status == "Expired"){
-            // 	this.routes.navigate(['/expired']);
-            //   }
-            //   if(info.is_profile_completed == false){
-            // 	this.routes.navigate(['/additnInfo', info.id]);
-            //   }
-            // }
-        });
+        // this.companyService.getLoggedUSerDetails().subscribe(info => {
+        // console.log("sdsss" + info);
+        // if(info == null || info == ''){
+        //   this.routes.navigate(['/clogin']); 
+        // }
+        // if(info.role == "admin"){
+        //   this.routes.navigate(['/admin-dashboard']);
+        // }
+        // if(info.role == "user"){
+        //   if(info.delete_status == true || info.block_status == true){
+        // 	this.routes.navigate(['/404']); 
+        //   }
+        //   this.routes.navigate(['/survey', info.surveyId]); 
+        // }
+        // if(info.role == "company"){
+        //   if(info.delete_status == true || info.block_status == true || info.cmp_status == "Not Verified"){
+        // 	this.routes.navigate(['/clogin']); 
+        //   }
+        //   if(info.cmp_status == "Expired"){
+        // 	this.routes.navigate(['/expired']);
+        //   }
+        //   if(info.is_profile_completed == false){
+        // 	this.routes.navigate(['/additnInfo', info.id]);
+        //   }
+        // }
+        // });
         // console.log(this.questions);
         this.getIndustries();
         this.getCompanySize();
@@ -19507,7 +19524,7 @@ var CompanyService = (function () {
     // Last Modified : 13-03-2018, Jooshifa
     // Desc          : 
     CompanyService.prototype.getCompanyDetailsById = function (id) {
-        var h = this.setHeaderWithAuthorization();
+        var h = this.setHeader();
         return this.http.get(this.serviceUrl + "getCompanyDetails/" + id, { headers: h })
             .map(function (res) { return res.json(); });
     };

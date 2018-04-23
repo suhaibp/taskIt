@@ -62,12 +62,14 @@ module.exports = function (passport) {
                         email: profile.emails[0].value
                     }
                 }).then(login => {
-                    if (login | login == null || login == '' || login == []) {
+                    if (!login || login == null || login == '' || login == []) {
                         const newLogin = Login.build({
                             google_id: profile.id,
                             google_token: token,
                             email: profile.emails[0].value,
-                            cmp_status: "Trail"
+                            cmp_status: "Trail", 
+                            is_verified : true,
+                            role_id : 1
                         })
                         newLogin.save().then(function (newlogin) {
                             Login.findOne({
@@ -86,7 +88,7 @@ module.exports = function (passport) {
                             });
                         });
                     }
-                    else if (login | login != null || login != '' || login != []) {
+                    else if (login || login != null || login != '' || login != []) {
                         if (login.block_status == false && login.delete_status == false) {
                             Login.update({
                                 google_id: profile.id,
@@ -140,12 +142,14 @@ module.exports = function (passport) {
                         email: profile.emails[0].value
                     }
                 }).then(login => {
-                    if (login | login == null || login == '' || login == []) {
+                    if (!login || login == null || login == '' || login == []) {
                         const newLogin = Login.build({
                             fb_id: profile.id,
                             fb_token: token,
                             email: profile.emails[0].value,
-                            cmp_status: "Trail"
+                            cmp_status: "Trail",
+                            is_verified : true,
+                            role_id : 1
                         })
                         newLogin.save().then(function (newlogin) {
                             // console.log(newPlan);
@@ -166,7 +170,7 @@ module.exports = function (passport) {
                             });
                         });
                     }
-                    else if (login | login != null || login != '' || login != []) {
+                    else if (login || login != null || login != '' || login != []) {
                         if (login.block_status == false && login.delete_status == false) {
                             Login.update({
                                 fb_id: profile.id,
