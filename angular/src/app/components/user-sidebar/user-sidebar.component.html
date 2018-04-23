@@ -1,0 +1,49 @@
+<div class="logo">
+    <a href=""><img src="./assets/images/logo.jpg" alt="" class="">
+   
+</a>
+</div>
+
+<nav class="navbar navbar-default">
+
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+ 
+</div>
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse navi" id="bs-example-navbar-collapse-1">
+    <ul class="zx nav navbar-nav">
+        <li  [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a routerLink="/user-dashboard"><i class="fa fa-desktop" aria-hidden="true"></i><span class="">Dashboard</span></a></li>
+       
+         <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+              <a routerLink="/user-leave-request"><i class="fa fa-bed"></i> Leave Request</a></li>
+
+          <li class="dropdown"><a routerLink="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="">My Request</span></a>
+            
+              <ul class="dropdown-menu" role="menu" data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft">
+              
+                <li><a routerLink="/user-my-request">Time Extension Requests</a></li>
+                <li><a routerLink="/user-my-request-mytask">New Task Requests</a></li>
+              </ul>
+            
+          </li>      
+     
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+             <a routerLink="/user-activity-log"><i class="fa fa-list-alt"></i> Activity Log</a></li>     
+       
+    </ul>
+ 
+ 
+</div><!-- /.navbar-collapse -->
+
+</nav>
+
+ 

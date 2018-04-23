@@ -1,0 +1,139 @@
+<body class="home">
+    <div class="container-fluid display-table">
+      <div class="row display-table-row">
+  
+        <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
+          <!-- sidebar-->
+  
+          <app-user-sidebar></app-user-sidebar>
+          <!-- end sidebar-->
+        </div>
+  
+        <div class="col-md-12 col-xs-12">
+          <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+          <!-- topbar-->
+          <app-user-topbar></app-user-topbar>
+          <!-- end topbar-->
+  
+  
+          <div class="user-dashboard">
+            <!-- <h1>Hello, JS</h1> -->
+            <div class="row">
+                <ul class="breadcrumb text-left">
+                    <li><a href="#">Project</a></li>
+                    
+                    
+                    <li>Project Details</li>
+                  </ul>
+              <div class="col-md-12 col-sm-12 col-xs-12 gutter ">
+                <div class="white">
+  
+                  <div class="col-md-6" *ngIf="showData">
+                    <div class="col-md-12">
+                        <label for="">Project Name</label>
+                        <p for="" class="inln">{{project[0].project_name}}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">Project Code</label>
+                        <p for="" class="inln">{{project[0].project_code}}</p>
+                    </div>
+                    <!-- <div class="col-md-12">
+                        <label for="">Team Leader</label>
+                        <p for="">{{project[0].project_name}}</p>
+                    </div> -->
+                    <div class="col-md-12">
+                        <label for="">Team Members</label>
+                        <p for="" class="inln">{{project[0].project_name}}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">Start Date</label>
+                        <p for="" class="inln">{{project[0].planned_start_date}}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">End Date</label>
+                        <p for="" class="inln">{{project[0].planned_end_date }}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">Status</label>
+                        <p for="" class="inln">{{project[0].status}}</p>
+                    </div>
+
+
+
+
+
+                  <div class="col-md-12 col-xs-12 pull-right">
+                    <ng-container  *ngFor="let item of project[0].tbl_project_modules">
+                        <div class="module">
+                            <div class="col-md-9 col-xs-7">
+                              <h5>{{item.module_name}}</h5>
+                            </div>
+                            <div class="col-md-3 col-xs-5">
+                              <ul class="taskedit">
+                                <li>22 Hr</li>
+                                
+                              </ul>
+                            </div>
+                          </div>
+                          <ng-container *ngFor="let i of item.tbl_project_tasks">
+                              <div class="col-md-10 pull-right">
+                                <div class="row">
+                                    <div class="task" >
+                                        <div class="col-md-9 col-xs-7">
+                                          <h5>{{i.task_name}}</h5>
+                                        </div>
+                                        <div class="col-md-3 col-xs-5">
+                                          <ul class="taskedit2">
+                                            <li>22 Hr</li>
+                                            
+                                          </ul>
+                                        </div>
+                                      </div>
+                                </div>
+                                  
+                                </div>
+                          </ng-container>
+                          
+                          
+                    </ng-container>
+                      
+                    </div>
+                  </div>
+                  
+
+
+
+
+
+
+
+
+
+                  <div class="text-center">
+                    <app-spinner *ngIf="spinner"></app-spinner>
+  
+                  </div>
+                  
+                </div>
+                <!--white-->
+              </div>
+  
+  
+  
+            </div>
+  
+  
+          </div>
+          <!-- footer-->
+          <!-- <admin-footer></admin-footer> -->
+          <!-- end footer-->
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+  
+  
+  
+  
+    <!--delete modal------>
+  </body>

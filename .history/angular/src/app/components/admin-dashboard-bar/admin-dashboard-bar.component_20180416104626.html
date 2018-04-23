@@ -1,0 +1,16 @@
+
+<!-- <h1>{{title}}</h1> -->
+<!-- <h2>{{subtitle}}</h2> -->
+<div  class="col-md-12 no-g-data" *ngIf="empty else empty">
+    <!-- <svg  width="960" height="500"></svg> -->
+    <h4>Company vs Projects</h4>
+    <div id="containerId"></div>
+
+</div>
+
+<ng-template #empty>
+    <div class="col-md-12 no-g-data">
+        <!-- <img src="assets/images/sad.png" alt="sad"> -->
+        <h4>No Data Available!</h4>
+    </div>
+</ng-template>

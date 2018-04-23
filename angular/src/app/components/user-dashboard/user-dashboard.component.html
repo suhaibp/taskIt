@@ -1,0 +1,191 @@
+<body class="home">
+    <div class="container-fluid display-table">
+        <div class="row display-table-row">
+      
+            <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
+                 <!-- sidebar-->
+               
+                 <user-sidebar></user-sidebar> 
+                 <!-- end sidebar-->
+            </div>
+            
+            <div class="col-md-12 col-xs-12">
+                <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+                <!-- topbar-->
+                <user-topbar></user-topbar> 
+                
+                    <!-- end topbar-->
+                
+                
+                <div class="user-dashboard">
+                    <h1></h1>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5 col-xs-12 gutter">
+
+                            <div class="sales">
+                         
+                                    <user-dashboard-bar></user-dashboard-bar> 
+                        
+                            </div>
+                        </div>
+                        <div class="col-md-7  col-xs-12 gutter">
+
+                            <div class="sales">
+                         
+                                <user-task-vs-status></user-task-vs-status>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12 ">
+                            <div class="sales">
+                                
+                            <user-task-vs-status></user-task-vs-status>
+                            </div>
+                    </div> -->
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 ">
+                            <div class="sales">
+                                <h1>Percentage of Projects</h1>
+                                <div class="row">
+                                    <div class="col-md-8 col-md-push-1">
+                                        <div class="col-md-3 bg-g">*Select Project</div>
+                                        <div class="col-md-3 bg-hash">
+                                        <select>
+                                            <option>Taskit</option>
+                                            <option>Survey</option>
+                                        </select>
+                                        </div> 
+                                        <div class="col-md-3">
+                                            <span class="total">Total 7 Milestone</span>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <ul class="graph-ul">
+                                    <li >
+                                        <div class="divModule" >Module-1</div>
+                                        <div class="row">
+                                            <div class="col-md-6">Planned Hour <br>100</div>
+                                            <div class="col-md-6">Actual Hour<br> 20 </div>
+                                            <div id="module-1-progress"></div>
+                                            <user-progress-graph [containerId]="'module-1-progress'" [progper]="92"></user-progress-graph>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-12 label-bg">
+                                                <div class="number">10</div>
+                                            </div>
+                                            <div id="module-1-status"></div>
+                                            <user-status-graph [containerId]="'module-1-status'"></user-status-graph>
+                                        </div>
+                                    </li>
+                                    <li >
+                                        <div class="divModule">Module-2</div>
+                                        <div class="row">
+                                            <div class="col-md-6">Planned Hour <br>100</div>
+                                            <div class="col-md-6">Actual Hour<br> 20 </div>
+                                            <div id="module-2-progress"></div>
+                                            <user-progress-graph [containerId]="'module-2-progress'" [progper]="60"></user-progress-graph>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-12 label-bg">
+                                                <div class="number">7</div>
+                                            </div>
+                                            <div id="module-2-status"></div>
+                                            <user-status-graph [containerId]="'module-2-status'"></user-status-graph>
+                                        </div>
+                                    </li>
+                                    <li >
+                                        <div class="divModule" >Module-3</div>
+                                        <div class="row">
+                                            <div class="col-md-6">Planned Hour <br>100</div>
+                                            <div class="col-md-6">Actual Hour<br> 20 </div>
+                                            <div id="module-3-progress"></div>
+                                            <user-progress-graph [containerId]="'module-3-progress'" [progper]="55"></user-progress-graph>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-12 label-bg">
+                                                <div class="number">9</div>
+                                            </div>
+                                            <div id="module-3-status"></div>
+                                            <user-status-graph [containerId]="'module-3-status'"></user-status-graph>
+                                        </div>
+                                    </li>
+                                    <li >
+                                        <div class="divModule" >Module-4</div>
+                                        <div class="row">
+                                            <div class="col-md-6">Planned Hour <br>100</div>
+                                            <div class="col-md-6">Actual Hour<br> 20 </div>
+                                            <div id="module-4-progress"></div>
+                                            <user-progress-graph [containerId]="'module-4-progress'" [progper]="55"></user-progress-graph>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-12 label-bg">
+                                                <div class="number">9</div>
+                                            </div>
+                                            <div id="module-4-status"></div>
+                                            <user-status-graph [containerId]="'module-4-status'"></user-status-graph>
+                                        </div>
+                                    </li>
+                                   
+                                   
+                                   
+                                </ul>
+                            </div>
+                           
+                        </div>   
+
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 ">
+                            <div class="sales">
+                                    <h1>Project Vs Status</h1>
+
+                                    <ul class="graph-ul-hour">
+                                            <li>
+                                                <div class="firstRow firstColumn">PROJECTS</div>
+                                                <div class="secondRow firstColumn">Progress</div>
+                                                <div class="ThirdRow firstColumn">Planned <br>vs<br> Actual Hours</div>
+                                            </li>
+                                            <li >
+                                                <div class="prjtitle1">Taskit</div>
+                                                <div class="col-md-8 mr-top">
+                                                <div class="datelabel">Start <span class="pull-right">24-03-2018</span></div>
+                                                <div class="datelabel">End <span class="pull-right">29-03-2018</span></div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <!-- <div style="clear: both;"></div> -->
+                                                <hr>
+                                                <div id="projct-1-progress"></div>
+                                                <user-progress-graph [containerId]="'projct-1-progress'" [progper]="55"></user-progress-graph>
+                                                <label>0/36 In Progress</label>
+                                                <hr>
+                                                <div id="projct-1-bar"></div>
+                                                <user-bar-graph [containerId]="'projct-1-bar'" [actual]="5" [planning]="8"></user-bar-graph>
+                                            </li>
+                                            <li class="hash">
+                                                <div class="prjtitle2 bg-g">Taskit</div>
+                                                <div class="col-md-8 mr-top">
+                                                        <div class="datelabel">Start <span class="pull-right">24-03-2018</span></div>
+                                                        <div class="datelabel">End <span class="pull-right">29-03-2018</span></div>
+                                                 </div>
+                                                 <div class="clearfix"></div>
+                                                <hr>
+                                                <div id="projct-2-progress"></div>
+                                                <user-progress-graph [containerId]="'projct-2-progress'" [progper]="45"></user-progress-graph>
+                                                <label>2/23 In Progress</label>
+                                                <hr>
+                                                <div id="projct-2-bar"></div>
+                                                <user-bar-graph [containerId]="'projct-2-bar'" [actual]="10" [planning]="4"></user-bar-graph>
+                                            </li>
+                                    </ul>       
+                            </div>
+            </div>   
+            
+            
+ 
+                        
+                </div>
+                
+            </div>
+                <!-- footer-->
+                <!-- <user-footer></user-footer> -->
+       <!-- end footer-->
+        </div>
+         </div>
+        <!-- Modal -->
+     </body>
