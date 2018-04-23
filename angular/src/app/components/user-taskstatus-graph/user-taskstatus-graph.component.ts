@@ -138,7 +138,7 @@ bargraph(){
         return d[1];
       });
     });
-  let margin = { top: 70, right: 15, bottom: 40, left: 50 },
+  let margin = { top: 70, right: 15, bottom: 80, left: 50 },
     fullChartWidth = 400, 
       fullChartHeight = 300,
       
@@ -173,6 +173,7 @@ bargraph(){
     .append("g")
     .attr("transform", "translate(" + (margin.left + 20) + "," + margin.top + ")");
     let mycount = 1;  
+    svg.selectAll('.tick text').attr("transform","translate(10) rotate(42 -17 31)");
   let layer = svg
     .selectAll(".layer")
     .data(layers)
@@ -233,7 +234,12 @@ bargraph(){
     .append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height  +")")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", ".15em")
+      .attr("transform", "rotate(-65)");
         // add the Y gridlines
 // svg.append("g")     
 // .attr("class", "grid")

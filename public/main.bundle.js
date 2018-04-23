@@ -2460,11 +2460,28 @@ var AdminPlanComponent = (function () {
     };
     AdminPlanComponent.prototype.updatePlan = function (plan) {
         var _this = this;
-        // console.log(plan);
+        if (plan.notasks == "limited") {
+            var x = plan.no_tasks;
+            plan.no_tasks = +x;
+        }
+        if (plan.nomodules == "limited") {
+            var y = plan.nomodules;
+            plan.no_modules = +y;
+        }
+        if (plan.nomembers == "limited") {
+            var z = plan.no_members;
+            plan.no_members = +z;
+        }
+        if (plan.noprojects == "limited") {
+            var p = plan.no_projects;
+            plan.no_projects = +p;
+        }
+        // console.log(typeof(plan.no_projects))
         if ((plan.notasks == "limited" && typeof (plan.no_tasks) !== 'number') || (plan.nomodules == "limited" && typeof (plan.no_modules) !== 'number') || (plan.nomembers == "limited" && typeof (plan.no_members) !== 'number') || (plan.noprojects == "limited" && typeof (plan.no_projects) !== 'number')) {
             var snackBarRef = this.snackBar.open("All fields are required", '', {
                 duration: 3000
             });
+            // console.log("gygdhgh")
         }
         else {
             // ---------------------------------Start-------------------------------------------
@@ -8176,7 +8193,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-project-planning/company-project-planning.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n\r\n      <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n        <!-- sidebar-->\r\n\r\n        <company-sidebar></company-sidebar>\r\n        <!-- end sidebar-->\r\n      </div>\r\n\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n        <!-- topbar-->\r\n        <company-topbar></company-topbar>\r\n\r\n        <!-- end topbar-->\r\n\r\n\r\n        <div class=\"user-dashboard\">\r\n          <!-- <h1>Hello, JS</h1> -->\r\n          <div class=\"row\">\r\n\r\n            <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->\r\n            <div id=\"addTaskModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\r\n                    <h4 class=\"modal-title\">Add Task </h4>\r\n                  </div>\r\n                  <div class=\"modal-body\">\r\n                    <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addTask(index);\">\r\n\r\n                      <div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <br>\r\n                          <div class=\"example-container\">\r\n                            <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\r\n                            <div class=\"col-md-7 col-xs-6\">\r\n                              <mat-form-field class=\"inputfileds\">\r\n                                <mat-select placeholder=\"Members\" name='assigned_person' #group=\"ngModel\" [(ngModel)]=\"newTasks.assigned_person\" (ngModelChange)=\"getassigned();\">\r\n                                  <mat-option [value]=\"users\" *ngFor=\"let users of assignPerson;\">{{users.f_name}} {{users.l_name}} </mat-option>\r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n\r\n                            <div class=\"clearfix\"></div>\r\n                            <div class=\"example-container\">\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                              <div class=\"col-md-7 col-xs-6\">\r\n                                <mat-form-field class=\"inputfileds\">\r\n\r\n                                  <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\r\n                                    <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\r\n                                  </mat-select>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                              <br>\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                              <div class=\"col-md-2 col-xs-6\">\r\n                                <mat-form-field class=\"wdth\">\r\n                                  <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                                </mat-form-field>\r\n                              </div>\r\n\r\n                              <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                              <div class=\"col-md-2 col-xs-6\">\r\n\r\n                                <mat-form-field class=\"wdth\">\r\n                                  <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                              <br>\r\n                              <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div>\r\n                              <div class=\"col-md-3 col-xs-6\">\r\n                                <mat-form-field>\r\n                                  <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"picker1\" placeholder=\"Choose a date\" [formControl]=\"date\"\r\n                                    name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\r\n                                  <mat-datepicker #picker1></mat-datepicker>\r\n                                </mat-form-field>\r\n                              </div> -->\r\n                              <!-- <br>\r\n                              <div class=\"clearfix\"></div>\r\n                              <ngb-timepicker [meridian]=\"meridian\" name=\"start_time\" [(ngModel)]=\"newTasks.start_time\"></ngb-timepicker>\r\n                              <hr>\r\n                              <div class=\"clearfix\"></div> -->\r\n                              <!-- <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">End Datetime :</label></div>\r\n                              <div class=\"col-md-3 col-xs-6\">\r\n\r\n                              </div> -->\r\n\r\n                              <!-- <div class=\"clearfix\"></div>\r\n                              <br>\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\r\n                              <div class=\"col-md-3 col-xs-6\">\r\n                                <mat-form-field>\r\n                                  <input matInput [matDatepickerFilter]=\"myFilter1\" [matDatepicker]=\"picker2\" placeholder=\"Choose a date\" [formControl]=\"serializedDate\"\r\n                                    name=\"end_date\" [(ngModel)]=\"newTasks.end_date\">\r\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker2\"></mat-datepicker-toggle>\r\n                                  <mat-datepicker #picker2></mat-datepicker>\r\n                                </mat-form-field>\r\n                              </div> -->\r\n                              <!-- <div class=\"clearfix\"></div>\r\n\r\n                              <ngb-timepicker name=\"timepicker1\" [meridian]=\"meridian\" name=\"end_time\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\r\n                              <hr>\r\n                              <div class=\"clearfix\"></div>\r\n                              <br> -->\r\n\r\n                              <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field class=\"inputfileds\">\r\n\r\n                                    <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\r\n                                      <!-- <mat-option>None</mat-option> -->\r\n                                      <mat-option value=\"0\">Billable</mat-option>\r\n                                      <mat-option value=\"1\">Non Billable</mat-option>\r\n                                    </mat-select>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                                <div class=\"clearfix\"></div>\r\n                                <div class=\"example-container\">\r\n                                  <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\r\n                                  <div class=\"col-md-7 col-xs-6\">\r\n                                    <mat-form-field class=\"inputfileds\">\r\n\r\n                                      <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\r\n                                        <!-- <mat-option>None</mat-option> -->\r\n                                        <mat-option value=\"0\">High</mat-option>\r\n                                        <mat-option value=\"1\">Medium</mat-option>\r\n                                        <mat-option value=\"2\">Low</mat-option>\r\n\r\n\r\n                                      </mat-select>\r\n                                    </mat-form-field>\r\n                                  </div>\r\n                                  <div class=\"clearfix\"></div>\r\n\r\n                                  <div class=\"example-container\">\r\n                                    <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                                    <div class=\"col-md-5 col-xs-5\">\r\n                                      <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n\r\n                                        <mat-form-field class=\"example-form-field\">\r\n                                          <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                          <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                          <mat-icon>close</mat-icon>\r\n                                        </button>\r\n                                        </mat-form-field>\r\n                                        <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                                      </div>\r\n\r\n\r\n                                    </div>\r\n                                    <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div>\r\n                                    <div class=\"clearfix\"></div>\r\n                                    <div class=\"example-container\">\r\n                                      <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\r\n                                      <div class=\"col-md-7 col-xs-6\">\r\n\r\n                                        <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\r\n                                      </div>\r\n                                      <div class=\"clearfix\"></div>\r\n                                      <div class=\"center\">\r\n                                        <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Save</button>\r\n                                      </div>\r\n                                    </div>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </form>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n\r\n            <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->\r\n\r\n            <!-- --------------------------------------------- delete module modal ----------------------------------------------------------------- -->\r\n            <div id=\"deleteModuleModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n\r\n                <!-- Modal content-->\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                    <h4 class=\"modal-title\">Delete </h4>\r\n                  </div>\r\n                  <!-- <div class=\"modal-header\"> -->\r\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                  <!-- </div> -->\r\n                  <div class=\"modal-body delete-popup\">\r\n                    <i class=\"fa fa-exclamation\"></i>\r\n\r\n\r\n                    <h4 class=\"textalign\">Are you sure?</h4>\r\n\r\n                  </div>\r\n\r\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\r\n                    <button type=\"button\" (click)=\"deleteModule(index)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n            </div>\r\n\r\n            <!-- --------------------------------------------- delete task modal ----------------------------------------------------------------- -->\r\n            <div id=\"deleteTaskModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n\r\n                <!-- Modal content-->\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                    <h4 class=\"modal-title\">Delete </h4>\r\n                  </div>\r\n                  <!-- <div class=\"modal-header\"> -->\r\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                  <!-- </div> -->\r\n                  <div class=\"modal-body delete-popup\">\r\n                    <i class=\"fa fa-exclamation\"></i>\r\n\r\n\r\n                    <h4 class=\"textalign\">Are you sure?</h4>\r\n\r\n                  </div>\r\n\r\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\r\n                    <button type=\"button\" (click)=\"deleteTask(i,j)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n            </div>\r\n\r\n            <!-- ----------------------------------------------------------------------delete task modal--------------------------------------------------------------------- -->\r\n\r\n            <!-- ----------------------------------------------------------------------edit task modal--------------------------------------------------------------------- -->\r\n            <div id=\"editTaskModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\r\n                    <h4 class=\"modal-title\">Edit Task </h4>\r\n                  </div>\r\n                  <div class=\"modal-body\">\r\n                    <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"editTask(i,j);\">\r\n\r\n                      <div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <br>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"example-container\">\r\n                            <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\r\n                            <div class=\"col-md-7 col-xs-6\">\r\n                              <mat-form-field class=\"inputfileds\">\r\n                                <mat-select placeholder=\"Members\" name='assigned_person' #group=\"ngModel\" [(ngModel)]=\"newTasks.assigned_person\" (ngModelChange)=\"getassigned();\">\r\n                                  <mat-option [value]=\"users\" *ngFor=\"let users of assignPerson ;\">{{users.f_name}} {{users.l_name}} </mat-option>\r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n\r\n                            <div class=\"clearfix\"></div>\r\n                            <div class=\"example-container\">\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                              <div class=\"col-md-7 col-xs-6\">\r\n                                <mat-form-field class=\"inputfileds\">\r\n\r\n                                  <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\r\n                                    <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\r\n                                  </mat-select>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                              <br>\r\n                              <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                              <div class=\"col-md-2 col-xs-6\">\r\n                                <mat-form-field class=\"wdth\">\r\n                                  <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                                </mat-form-field>\r\n                              </div>\r\n\r\n                              <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                              <div class=\"col-md-2 col-xs-6\">\r\n\r\n                                <mat-form-field class=\"wdth\">\r\n                                  <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                                </mat-form-field>\r\n                              </div> -->\r\n                              <div class=\"clearfix\"></div>\r\n                              <br>\r\n                              <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div>\r\n                              <div class=\"col-md-8 col-xs-6 date-time\">\r\n                                <div class=\"col-md-3\"> Date : </div>\r\n\r\n                                <div class=\"col-md-9\"> {{startdate| date:'EEE, d MMM,y'}} </div>\r\n                                <div class=\"clearfix\"></div>\r\n                                <!-- {{newTasks.start_time.hour, newTasks.start_time.minute, newTasks.start_time.second}} -->\r\n\r\n                              <!-- <div class=\"col-md-3\">Time : </div>\r\n                                <div class=\"col-md-9\">\r\n                                  <div *ngIf=\"Projects.start_time\">\r\n                                    {{newTasks.start_time.hour}} : {{newTasks.start_time.minute}} <span *ngIf=\"Projects.start_time.hour\">{{meridain }}</span>\r\n                                  </div>\r\n                                </div> -->\r\n                              <!-- <mat-form-field>\r\n                                  <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"pickerf\" placeholder=\"Choose a date\" [formControl]=\"date\"\r\n                                    name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\r\n                                  <mat-datepicker #picker1></mat-datepicker>\r\n                                </mat-form-field> -->\r\n                              <!-- </div> -->\r\n                              <br>\r\n                              <div class=\"clearfix\"></div>\r\n                              <!-- <ngb-timepicker [meridian]=\"meridian\" name=\"start_time1\" [(ngModel)]=\"newTasks.start_time\" disable></ngb-timepicker> -->\r\n                              <hr>\r\n                              <div class=\"clearfix\"></div>\r\n                              <!-- <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">End Datetime :</label></div>\r\n                                <div class=\"col-md-3 col-xs-6\">\r\n  \r\n                                </div> -->\r\n\r\n                              <div class=\"clearfix\"></div>\r\n                              <br>\r\n                              <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\r\n                              <div class=\"col-md-3 col-xs-6\">\r\n                                <mat-form-field>\r\n                                  <input matInput [matDatepickerFilter]=\"myFilter1\" [matDatepicker]=\"pickerm\" placeholder=\"Choose a date\" [formControl]=\"serializedDate\"\r\n                                    name=\"end_date\" [(ngModel)]=\"newTasks.end_date\">\r\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker2\"></mat-datepicker-toggle>\r\n                                  <mat-datepicker #picker2></mat-datepicker>\r\n                                </mat-form-field>\r\n                              </div> -->\r\n                              <!-- <div class=\"clearfix\"></div>\r\n\r\n                              <ngb-timepicker name=\"timepicker1\" [meridian]=\"meridian\" name=\"end_time1\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\r\n                              <hr>\r\n                              <div class=\"clearfix\"></div>\r\n                              <br> -->\r\n\r\n                              <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field class=\"inputfileds\">\r\n\r\n                                    <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\r\n                                      <!-- <mat-option>None</mat-option> -->\r\n\r\n                                      <mat-option value=\"0\">Billable</mat-option>\r\n                                      <mat-option value=\"1\">Non Billable</mat-option>\r\n\r\n\r\n                                    </mat-select>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                                <div class=\"clearfix\"></div>\r\n                                <div class=\"example-container\">\r\n                                  <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\r\n                                  <div class=\"col-md-7 col-xs-6\">\r\n                                    <mat-form-field class=\"inputfileds\">\r\n\r\n                                      <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\r\n                                        <!-- <mat-option>None</mat-option> -->\r\n                                        <mat-option value=\"0\">High</mat-option>\r\n                                        <mat-option value=\"1\">Medium</mat-option>\r\n                                        <mat-option value=\"2\">Low</mat-option>\r\n\r\n\r\n                                      </mat-select>\r\n                                    </mat-form-field>\r\n                                  </div>\r\n                                  <div class=\"clearfix\"></div>\r\n\r\n                                  <div class=\"example-container\">\r\n                                    <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                                    <div class=\"col-md-5 col-xs-5\">\r\n                                      <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n\r\n                                        <!-- <mat-form-field class=\"example-form-field\">\r\n                                          <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                          <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                            <mat-icon>close</mat-icon>\r\n                                          </button>\r\n                                        </mat-form-field> -->\r\n                                        <mat-form-field class=\"example-form-field\">\r\n                                          <input matInput type=\"text\" placeholder=\"Name\" name=\"name\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                          <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                              <mat-icon>close</mat-icon>\r\n                                            </button>\r\n                                        </mat-form-field>\r\n                                        <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                                      </div>\r\n                                    </div>\r\n\r\n                                  </div>\r\n                                  <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div>\r\n                                  <div class=\"clearfix\"></div>\r\n                                  <div class=\"example-container\">\r\n                                    <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\r\n                                    <div class=\"col-md-7 col-xs-6\">\r\n\r\n                                      <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\r\n                                    </div>\r\n                                    <div class=\"clearfix\"></div>\r\n                                    <div class=\"center\">\r\n                                      <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Save</button>\r\n                                    </div>\r\n\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </form>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n\r\n            <!-- ----------------------------------------------------------------------edit task modal--------------------------------------------------------------------- -->\r\n            <div class=\"col-md-6 col-sm-12 col-xs-12 gutter \">\r\n              <div class=\"white project-planning\">\r\n                <div class=\"form-group\">\r\n                  <div class=\"col-md-6\"><label for=\"\">Project Name</label></div>\r\n                  <div class=\"col-md-6\">\r\n                    <div class=\"row\"><label for=\"\" class=\"label2\">{{Projects.project_name}}</label></div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                  <div class=\"col-md-6\"><label for=\"\">Project Code</label></div>\r\n                  <div class=\"col-md-6\">\r\n                    <div class=\"row\"><label for=\"\" class=\"label2\">{{Projects.project_code}}</label></div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                  <div class=\"col-md-6\">\r\n                    <label for=\"\">Project Start Date</label></div>\r\n                  <mat-form-field>\r\n                    <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" [(ngModel)]=\"Projects.start_date\" (ngModelChange)=\"startDateSelect()\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #picker></mat-datepicker>\r\n                  </mat-form-field>\r\n                  <div class=\"col-md-6 pull-right\">\r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-6\">\r\n                        <div class=\"row\">\r\n                          <ngb-timepicker class=\"no-brdr\" name=\"start_time\" [(ngModel)]=\"Projects.start_time\" (ngModelChange)=\"startDateSelect();\"></ngb-timepicker>\r\n                        </div>\r\n                      </div>\r\n                      <div class=\"col-md-6\">\r\n                        <div class=\"row\"><button class=\"am\" (click)=\"meridian();\">{{meridain}}</button></div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <!-- <button class=\"btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}\" (click)=\"toggleMeridian()\">    Meridian - {{meridian ? \"ON\" : \"OFF\"}}\r\n                    </button> -->\r\n                  <div class=\"clearfix\"></div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                  <div class=\"col-md-6 padd-bt\"><label for=\"\">Team Members</label></div>\r\n\r\n                </div>\r\n                <div class=\"clearfix\"></div>\r\n                <div class=\"col-md-9 psh-left\">\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-7\"><label for=\"\">Developers</label></div>\r\n                    <mat-form-field class=\"inputfileds\">\r\n                      <mat-select placeholder=\"Developers\" name='selected' multiple [(ngModel)]=\"Projects.developer\" (ngModelChange)=\"getuserAvalibality1($event);\">\r\n                        <mat-option [value]=\"Developer\" *ngFor=\"let Developer of Developers;\">{{Developer.f_name}} {{Developer.l_name}} </mat-option>\r\n                      </mat-select>\r\n                    </mat-form-field>\r\n                  </div>\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-7\"><label for=\"\">Designers</label></div>\r\n                    <mat-form-field class=\"inputfileds\">\r\n\r\n                      <mat-select placeholder=\"Designers\" name='selected' multiple [(ngModel)]=\"Projects.designer\" (ngModelChange)=\"getuserAvalibality1($event);\">\r\n                        <mat-option [value]=\"Designer\" *ngFor=\"let Designer of Designers;\">{{Designer.f_name}} {{Designer.l_name}}</mat-option>\r\n                      </mat-select>\r\n                    </mat-form-field>\r\n                  </div>\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-7\"><label for=\"\">QC</label></div>\r\n                    <mat-form-field class=\"inputfileds\">\r\n\r\n                      <mat-select placeholder=\"QC\" name='selected' multiple [(ngModel)]=\"Projects.qc\" (ngModelChange)=\"getuserAvalibality3($event);\">\r\n                        <mat-option [value]=\"QC\" *ngFor=\"let QC of QCs;\">{{QC.f_name}} {{QC.l_name}}</mat-option>\r\n                      </mat-select>\r\n                    </mat-form-field>\r\n                  </div>\r\n                </div>\r\n                <div class=\"clearfix\"></div>\r\n                <form role=\"form\" (ngSubmit)=\"addModule()\" novalidate>\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-4 col-xs-7 mrg-2\">\r\n\r\n                      <button type=\"button\" class=\"btn round-button dropdown-toggle mrg-tp\" data-toggle=\"dropdown\" (click)=\"addModuleClear()\">Add Module</button>\r\n                      <br>\r\n                      <button type=\"button\" class=\"btn round-button dropdown-toggle mrg-tp\" (click)=\"finish()\"> Calculate End date</button>\r\n\r\n                      <ul class=\"dropdown-menu addmodule\" role=\"menu\">\r\n\r\n                        <div class=\"col-md-8\">\r\n                          <input class=\"style\" type=\"text\" placeholder=\"Module Name\" name=\"name\" [(ngModel)]=\"module.module_name\">\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                          <button type=\"submit\" class=\"btn round-button pull-right\">Save</button>\r\n                        </div>\r\n                      </ul>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n                <br>\r\n                <div class=\"clearfix\"></div>\r\n                <div class=\"form-group mrg-2\">\r\n                  <div class=\"col-md-4 col-xs-4\">\r\n                    <label>Total Estimated Hours</label>\r\n                  </div>\r\n                  <div class=\"col-md-4 col-xs-4\">\r\n                    <div>\r\n                      <!-- estimation_hour -->\r\n\r\n                      <h5>{{sum}}</h5>\r\n                    </div>\r\n                    <!-- <input class=\"style\" type=\"text\" placeholder=\"44:00 Hr\"> -->\r\n\r\n                  </div>\r\n                  <div class=\"col-md-4 col-xs-4 notice\">\r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-6 col-xs-6\"><span class=\"round\"></span>\r\n                        <p>Assigned</p>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-xs-6\"><span class=\"round round2\"></span>\r\n                        <p>Unasigned</p>\r\n                      </div>\r\n                    </div>\r\n\r\n                  </div>\r\n                </div>\r\n\r\n                <div>\r\n\r\n                  <!-- <div  [dragula]='\"myBag\"' draggable=\"true\" [class]=\"'groupClass'\"> -->\r\n                  <div [dragula]='\"third-bag\"' [dragulaModel]='modules'>\r\n                    <div *ngFor=\"let module of modules; let i = index\">\r\n                      <div class=\"col-md-12 col-xs-12 pull-right\">\r\n                        <div class=\"task\">\r\n                          <div class=\"col-md-8 col-xs-7\">\r\n                            <div>\r\n                              <!-- <p>dfd</p> -->\r\n                              <h5>{{module.module_name}}</h5>\r\n                            </div>\r\n\r\n                          </div>\r\n\r\n                          <div class=\"col-md-4 col-xs-5\">\r\n                            <ul class=\"taskedit\">\r\n                              {{module.time}}\r\n                              <!-- <li>22 Hr</li> -->\r\n                              <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#deleteModuleModal\" (click)=\"getId(i)\"> <i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\r\n\r\n                              <!-- <div class=\"col-md-4 col-xs-7 mrg-2\"> -->\r\n                              <li class=\"pull-right\">\r\n                                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"editModules(i,module)\" novalidate>\r\n                                  <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" (click)=\"getId(i)\" class=\"dropdown\"> <i  class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a>\r\n                                  <ul class=\"dropdown-menu addmodule editz\" role=\"menu\">\r\n                                    <div class=\"col-md-8\">\r\n                                      <input class=\"style\" type=\"text\" placeholder=\"Module Name\" name=\"module_name\" [(ngModel)]=\"module.module_name\">\r\n                                    </div>\r\n                                    <div class=\"col-md-4\">\r\n                                      <button type=\"submit\" class=\"btn round-button pull-right\">Save</button>\r\n                                    </div>\r\n                                  </ul>\r\n                                </form>\r\n                              </li>\r\n                              <!-- </div> -->\r\n                              <li class=\"pull-right\"></li>\r\n\r\n                            </ul>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                      <!-- <div [dragula]=\"'myBag'\"> -->\r\n                      <div [dragula]='\"third-bag\"' [dragulaModel]='module.tbl_estimation_tasks'>\r\n                        <div draggable=\"true\" [class]=\"'itemClass'\" *ngFor=\"let task of modules[i].tbl_estimation_tasks; let j = index\">\r\n                          <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                            <div class=\"task assigned\" style=\"background:#fbf6f1;\">\r\n                              <div class=\"col-md-9 col-xs-7 martop\">\r\n                                <h5>{{task.task_name}}</h5>\r\n                                <!-- <div *ngFor=\" let assigned of task.assigned_person\"> -->\r\n                                <h5>{{task.assigned}} {{task.assigned1}}</h5>\r\n                                <!-- </div> -->\r\n                                <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>\r\n                                <h5>{{task.start_date | date:'EEE, d MMM,y'}}</h5>\r\n                                <h5>{{task.end_date | date:'EEE, d MMM,y'}}</h5>\r\n\r\n                              </div>\r\n                              <div class=\"col-md-3 col-xs-5\">\r\n                                <ul class=\"taskedit\">\r\n                                  <li></li>\r\n                                  <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#deleteTaskModal\" (click)=\"getId1(i,j)\"> <i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\r\n\r\n                                  <li class=\"pull-right\">\r\n                                    <a href=\"#\" data-target=\"#editTaskModal\" data-toggle=\"modal\" (click)=\"getId2(i,j,task)\"> <i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a>\r\n                                  </li>\r\n                                </ul>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                      <div class=\"col-md-12\">\r\n                        <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button>\r\n                      </div>\r\n                      <div class=\"clearfix\"></div>\r\n                    </div>\r\n\r\n                  </div>\r\n\r\n                  <div class=\"clearfix\"></div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <!-- col-md-6-->\r\n            <div class=\"col-md-6\">\r\n              <div class=\"white\">\r\n                <div class=\"col-md-12\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"example-header\">\r\n                        <mat-form-field>\r\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"pull-right\">\r\n                        <mat-form-field class=\"filter\">\r\n\r\n                          <mat-select (change)=\"getTableData()\" [(value)]=\"selected\">\r\n                            <!-- <mat-option>None</mat-option> -->\r\n                            <mat-option value=\"0\">All</mat-option>\r\n                            <mat-option value=\"2\">Designer</mat-option>\r\n                            <mat-option value=\"1\">Developer</mat-option>\r\n                            <mat-option value=\"3\">QC</mat-option>\r\n\r\n                          </mat-select>\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"example-container mat-elevation-z8 \">\r\n\r\n                  <mat-table [dataSource]=\"dataSource\" matSort>\r\n                    <!-- Name Column -->\r\n                    <ng-container matColumnDef=\"slno\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header>Sl_No </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row;let i = index\"> {{i+1}} </mat-cell>\r\n                    </ng-container>\r\n                    <!-- Name Column -->\r\n                    <ng-container matColumnDef=\"user\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> USER </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.f_name}} {{row.l_name}}</mat-cell>\r\n                    </ng-container>\r\n                    <!-- Name Column -->\r\n                    <!-- <ng-container matColumnDef=\"start_date\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> START DATE </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.start_date | date:'EEE, d MMM,y'}} </mat-cell>\r\n\r\n                    </ng-container> -->\r\n                    <ng-container matColumnDef=\"start_date\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header>START DATE</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row;let i = index\">\r\n                        <input matInput [matDatepicker]=\"picker\" name='start_date1' [(ngModel)]=\"row.start_date\" (ngModelChange)=\"giveDate(i,row.id,row.start_date)\">\r\n                        <!-- <input matInput [matDatepicker]=\"picker\" name='start_date1' [(ngModel)]=\"row.start_date\"  > -->\r\n\r\n                        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                        <mat-datepicker #picker></mat-datepicker>\r\n                      </mat-cell>\r\n                    </ng-container>\r\n                    <!-- Progress Column -->\r\n                    <ng-container matColumnDef=\"end_date\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> END DATE</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.end_date | date:'EEE, d MMM,y'}} </mat-cell>\r\n                    </ng-container>\r\n                    <!-- Progress Column -->\r\n                    <ng-container matColumnDef=\"hours\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> TOTAL HOURS </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.hour}}</mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"no_task\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> NO. TASKS</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.no_task}}</mat-cell>\r\n                    </ng-container>\r\n\r\n                    <ng-container matColumnDef=\"action\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\">\r\n                        <button mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n                           <mat-icon>more_vert</mat-icon>\r\n                         </button>\r\n                        <mat-menu #menu=\"matMenu\">\r\n                          <button *ngIf=\"row.delete_status==false\" (click)=\"getId(row._id)\" data-toggle=\"modal\" data-target=\"#deleteModal\" mat-menu-item>\r\n                               <i class=\"material-icons\">delete</i>\r\n                             <span>Delete</span>\r\n                           </button>\r\n                          <button *ngIf=\"row.delete_status==true\" mat-menu-item disabled>\r\n                             <i class=\"material-icons\">delete_forever</i>\r\n                           <span>Deleted</span>\r\n                         </button>\r\n                          <button *ngIf=\"row.block_status==false && row.delete_status==false\" (click)=\"blockCompany(row._id)\" mat-menu-item>\r\n                               <i class=\"material-icons\">block</i>\r\n                             <span>Block</span>\r\n                           </button>\r\n                          <!-- <button *ngIf=\"row.block_status==true && row.delete_status==false\" mat-menu-item>\r\n                               <i class=\"material-icons\">block</i>\r\n                             <span><a  (click)=\"unblockCompany(row._id)\">Unblock</a></span>\r\n                           </button> -->\r\n                        </mat-menu>\r\n\r\n                      </mat-cell>\r\n                    </ng-container>\r\n\r\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\r\n                    </mat-row>\r\n                  </mat-table>\r\n                  <div class=\"col-md-15 \">\r\n                    <!-- <div *ngIf=\"showSpinner\" class=\"deletespinner\">\r\n                         <mat-spinner></mat-spinner>\r\n                        </div> -->\r\n                  </div>\r\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\r\n                    <div class=\"col-md-4 col-md-offset-4\">\r\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\r\n                    </div>\r\n                  </div>\r\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                </div>\r\n              </div>\r\n            </div>\r\n\r\n          </div>\r\n\r\n        </div>\r\n\r\n\r\n      </div>\r\n      <!-- footer-->\r\n      <!-- <admin-footer></admin-footer> -->\r\n      <!-- end footer-->\r\n    </div>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n        <!-- sidebar-->\r\n        <company-sidebar></company-sidebar>\r\n        <!-- end sidebar-->\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n        <!-- topbar-->\r\n        <company-topbar></company-topbar>\r\n        <!-- end topbar-->\r\n        <div class=\"user-dashboard\">\r\n          <!-- <h1>Hello, JS</h1> -->\r\n          <div class=\"row\">\r\n            <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->\r\n            <div id=\"addTaskModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\r\n                    <h4 class=\"modal-title\">Add Task </h4>\r\n                  </div>\r\n                  <div class=\"modal-body\">\r\n                    <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addTask(index);\">\r\n                      <div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <br>\r\n                          <div class=\"example-container\">\r\n                            <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\r\n                            <div class=\"col-md-7 col-xs-6\">\r\n                              <mat-form-field class=\"inputfileds\">\r\n                                <mat-select placeholder=\"Members\" name='assigned_person' #group=\"ngModel\" [(ngModel)]=\"newTasks.assigned_person\" (ngModelChange)=\"getassigned();\">\r\n                                  <mat-option [value]=\"users\" *ngFor=\"let users of projectSelectedTeam;\">{{users.f_name}} {{users.l_name}} </mat-option>\r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n                            <div class=\"clearfix\"></div>\r\n                            <div class=\"example-container\">\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                              <div class=\"col-md-7 col-xs-6\">\r\n                                <mat-form-field class=\"inputfileds\">\r\n                                  <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\r\n                                    <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\r\n                                  </mat-select>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                              <br>\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                              <div class=\"col-md-2 col-xs-6\">\r\n                                <mat-form-field class=\"wdth\">\r\n                                  <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                              <div class=\"col-md-2 col-xs-6\">\r\n                                <mat-form-field class=\"wdth\">\r\n                                  <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                              <br>\r\n                              <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div>\r\n                              <div class=\"col-md-3 col-xs-6\">\r\n                                <mat-form-field>\r\n                                  <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"picker1\" placeholder=\"Choose a date\" [formControl]=\"date\"\r\n                                    name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\r\n                                  <mat-datepicker #picker1></mat-datepicker>\r\n                                </mat-form-field>\r\n                              </div> -->\r\n                              <!-- <br>\r\n                              <div class=\"clearfix\"></div>\r\n                              <ngb-timepicker [meridian]=\"meridian\" name=\"start_time\" [(ngModel)]=\"newTasks.start_time\"></ngb-timepicker>\r\n                              <hr>\r\n                              <div class=\"clearfix\"></div> -->\r\n                              <!-- <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">End Datetime :</label></div>\r\n                              <div class=\"col-md-3 col-xs-6\">\r\n                              </div> -->\r\n                              <!-- <div class=\"clearfix\"></div>\r\n                              <br>\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\r\n                              <div class=\"col-md-3 col-xs-6\">\r\n                                <mat-form-field>\r\n                                  <input matInput [matDatepickerFilter]=\"myFilter1\" [matDatepicker]=\"picker2\" placeholder=\"Choose a date\" [formControl]=\"serializedDate\"\r\n                                    name=\"end_date\" [(ngModel)]=\"newTasks.end_date\">\r\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker2\"></mat-datepicker-toggle>\r\n                                  <mat-datepicker #picker2></mat-datepicker>\r\n                                </mat-form-field>\r\n                              </div> -->\r\n                              <!-- <div class=\"clearfix\"></div>\r\n                              <ngb-timepicker name=\"timepicker1\" [meridian]=\"meridian\" name=\"end_time\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\r\n                              <hr>\r\n                              <div class=\"clearfix\"></div>\r\n                              <br> -->\r\n                              <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field class=\"inputfileds\">\r\n                                    <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\r\n                                      <!-- <mat-option>None</mat-option> -->\r\n                                      <mat-option value=\"0\">Billable</mat-option>\r\n                                      <mat-option value=\"1\">Non Billable</mat-option>\r\n                                    </mat-select>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                                <div class=\"clearfix\"></div>\r\n                                <div class=\"example-container\">\r\n                                  <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority :</label></div>\r\n                                  <div class=\"col-md-7 col-xs-6\">\r\n                                    <mat-form-field class=\"inputfileds\">\r\n                                      <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\r\n                                        <!-- <mat-option>None</mat-option> -->\r\n                                        <mat-option value=\"0\">High</mat-option>\r\n                                        <mat-option value=\"1\">Medium</mat-option>\r\n                                        <mat-option value=\"2\">Low</mat-option>\r\n                                      </mat-select>\r\n                                    </mat-form-field>\r\n                                  </div>\r\n                                  <div class=\"clearfix\"></div>\r\n                                  <div class=\"example-container\">\r\n                                    <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                                    <div class=\"col-md-5 col-xs-5\">\r\n                                      <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n                                        <mat-form-field class=\"example-form-field\">\r\n                                          <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                          <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                          <mat-icon>close</mat-icon>\r\n                                        </button>\r\n                                        </mat-form-field>\r\n                                        <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                                      </div>\r\n                                    </div>\r\n                                    <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div>\r\n                                    <div class=\"clearfix\"></div>\r\n                                    <div class=\"example-container\">\r\n                                      <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\r\n                                      <div class=\"col-md-7 col-xs-6\">\r\n                                        <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\r\n                                      </div>\r\n                                      <div class=\"clearfix\"></div>\r\n                                      <div class=\"center\">\r\n                                        <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Save</button>\r\n                                      </div>\r\n                                    </div>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </form>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->\r\n            <!-- --------------------------------------------- delete module modal ----------------------------------------------------------------- -->\r\n            <div id=\"deleteModuleModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n                <!-- Modal content-->\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                    <h4 class=\"modal-title\">Delete </h4>\r\n                  </div>\r\n                  <!-- <div class=\"modal-header\"> -->\r\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                  <!-- </div> -->\r\n                  <div class=\"modal-body delete-popup\">\r\n                    <i class=\"fa fa-exclamation\"></i>\r\n                    <h4 class=\"textalign\">Are you sure?</h4>\r\n                  </div>\r\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\r\n                    <button type=\"button\" (click)=\"deleteModule(index)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <!-- --------------------------------------------- delete task modal ----------------------------------------------------------------- -->\r\n            <div id=\"deleteTaskModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n                <!-- Modal content-->\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                    <h4 class=\"modal-title\">Delete </h4>\r\n                  </div>\r\n                  <!-- <div class=\"modal-header\"> -->\r\n                  <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n                  <!-- </div> -->\r\n                  <div class=\"modal-body delete-popup\">\r\n                    <i class=\"fa fa-exclamation\"></i>\r\n                    <h4 class=\"textalign\">Are you sure?</h4>\r\n                  </div>\r\n                  <div class=\"modal-footer\" style=\"text-align:center;\">\r\n                    <button type=\"button\" (click)=\"deleteTask(i,j)\" class=\"btn round-button center-bt\" data-dismiss=\"modal\">Delete</button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <!-- ----------------------------------------------------------------------delete task modal--------------------------------------------------------------------- -->\r\n            <!-- ----------------------------------------------------------------------edit task modal--------------------------------------------------------------------- -->\r\n            <div id=\"editTaskModal\" class=\"modal fade\" role=\"dialog\">\r\n              <div class=\"modal-dialog\">\r\n                <div class=\"modal-content\">\r\n                  <div class=\"modal-header\">\r\n                    <button type=\"button\" hidden data-dismiss=\"modal\" #closeBtn1>&times;</button>\r\n                    <h4 class=\"modal-title\">Edit Task </h4>\r\n                  </div>\r\n                  <div class=\"modal-body\">\r\n                    <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"editTask(i,j,newTasks);\">\r\n                      <div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"example-container\">\r\n                            <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\r\n                            <div class=\"col-md-7 col-xs-6\">\r\n                              <mat-form-field class=\"inputfileds\">\r\n                                <mat-select placeholder=\"Members\" name='assigned_person' #group=\"ngModel\" [(ngModel)]=\"newTasks.assigned_person\" (ngModelChange)=\"assignedAuser(newTasks);\"\r\n                                  [disabled]=\"disabled[newTasks.id]\">\r\n                                  <mat-option [value]=\"users\" *ngFor=\"let users of projectSelectedTeam\">{{users.f_name}} {{users.l_name}}</mat-option>\r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n                            <div class=\"clearfix\"></div>\r\n                            <div class=\"example-container\">\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                              <div class=\"col-md-7 col-xs-6\">\r\n                                <mat-form-field class=\"inputfileds\">\r\n                                  <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\r\n                                    <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\r\n                                  </mat-select>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                              <br>\r\n                              <br>\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                              <div class=\"col-md-2 col-xs-6\">\r\n                                <mat-form-field class=\"wdth\">\r\n                                  <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                              <div class=\"col-md-2 col-xs-6\">\r\n                                <mat-form-field class=\"wdth\">\r\n                                  <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                              <div class=\"col-md-2 col-xs-6\">\r\n                                <mat-form-field class=\"wdth\">\r\n                                  <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                              <div class=\"col-md-2 col-xs-6\">\r\n                                <mat-form-field class=\"wdth\">\r\n                                  <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                                </mat-form-field>\r\n                              </div> -->\r\n                              <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div>\r\n                              <div class=\"col-md-8 col-xs-6 date-time\">\r\n                                <div class=\"col-md-3\"> Date : </div>\r\n                                <div class=\"col-md-9\"> {{startdate| date:'EEE, d MMM,y'}} </div>\r\n                                <div class=\"clearfix\"></div>\r\n                                <!-- {{newTasks.start_time.hour, newTasks.start_time.minute, newTasks.start_time.second}} -->\r\n                              <!-- <div class=\"col-md-3\">Time : </div>\r\n                                <div class=\"col-md-9\">\r\n                                  <div *ngIf=\"Projects.start_time\">\r\n                                    {{newTasks.start_time.hour}} : {{newTasks.start_time.minute}} <span *ngIf=\"Projects.start_time.hour\">{{meridain }}</span>\r\n                                  </div>\r\n                                </div> -->\r\n                              <!-- <mat-form-field>\r\n                                  <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"pickerf\" placeholder=\"Choose a date\" [formControl]=\"date\"\r\n                                    name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\r\n                                  <mat-datepicker #picker1></mat-datepicker>\r\n                                </mat-form-field> -->\r\n                              <!-- </div> -->\r\n                              <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\r\n                              <div class=\"col-md-3 col-xs-6\">\r\n                                <mat-form-field>\r\n                                  <input matInput [matDatepickerFilter]=\"myFilter1\" [matDatepicker]=\"pickerm\" placeholder=\"Choose a date\" [formControl]=\"serializedDate\"\r\n                                    name=\"end_date\" [(ngModel)]=\"newTasks.end_date\">\r\n                                  <mat-datepicker-toggle matSuffix [for]=\"picker2\"></mat-datepicker-toggle>\r\n                                  <mat-datepicker #picker2></mat-datepicker>\r\n                                </mat-form-field>\r\n                              </div> -->\r\n                              <!-- <div class=\"clearfix\"></div>\r\n                              <ngb-timepicker name=\"timepicker1\" [meridian]=\"meridian\" name=\"end_time1\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\r\n                              <hr>\r\n                              <div class=\"clearfix\"></div>\r\n                              <br> -->\r\n                              <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field class=\"inputfileds\">\r\n                                    <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\r\n                                      <!-- <mat-option>None</mat-option> -->\r\n                                      <mat-option value=\"0\">Billable</mat-option>\r\n                                      <mat-option value=\"1\">Non Billable</mat-option>\r\n                                    </mat-select>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                                <div class=\"clearfix\"></div>\r\n                                <div class=\"example-container\">\r\n                                  <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\r\n                                  <div class=\"col-md-7 col-xs-6\">\r\n                                    <mat-form-field class=\"inputfileds\">\r\n                                      <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\r\n                                        <!-- <mat-option>None</mat-option> -->\r\n                                        <mat-option value=\"0\">High</mat-option>\r\n                                        <mat-option value=\"1\">Medium</mat-option>\r\n                                        <mat-option value=\"2\">Low</mat-option>\r\n                                      </mat-select>\r\n                                    </mat-form-field>\r\n                                  </div>\r\n                                  <div class=\"clearfix\"></div>\r\n                                  <div class=\"example-container\">\r\n                                    <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                                    <div class=\"col-md-5 col-xs-5\">\r\n                                      <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n                                        <!-- <mat-form-field class=\"example-form-field\">\r\n                                          <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                          <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                            <mat-icon>close</mat-icon>\r\n                                          </button>\r\n                                        </mat-form-field> -->\r\n                                        <mat-form-field class=\"example-form-field\">\r\n                                          <input matInput type=\"text\" placeholder=\"Name\" name=\"name\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                          <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                              <mat-icon>close</mat-icon>\r\n                                            </button>\r\n                                        </mat-form-field>\r\n                                        <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                                      </div>\r\n                                    </div>\r\n                                  </div>\r\n                                  <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div>\r\n                                  <div class=\"clearfix\"></div>\r\n                                  <div class=\"example-container\">\r\n                                    <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\r\n                                    <div class=\"col-md-7 col-xs-6\">\r\n                                      <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\r\n                                    </div>\r\n                                    <div class=\"clearfix\"></div>\r\n                                    <div class=\"center\">\r\n                                      <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Save</button>\r\n                                    </div>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </form>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <!-- ----------------------------------------------------------------------edit task modal--------------------------------------------------------------------- -->\r\n            <div class=\"col-md-6 col-sm-12 col-xs-12 gutter \">\r\n              <div class=\"white project-planning\">\r\n                <div class=\"form-group\">\r\n                  <div class=\"col-md-6\"><label for=\"\">Project Name</label></div>\r\n                  <div class=\"col-md-6\">\r\n                    <div class=\"row\"><label for=\"\" class=\"label2\">{{Projects.project_name}}</label></div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                  <div class=\"col-md-6\"><label for=\"\">Project Code</label></div>\r\n                  <div class=\"col-md-6\">\r\n                    <div class=\"row\"><label for=\"\" class=\"label2\">{{Projects.project_code}}</label></div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                  <div class=\"col-md-6\">\r\n                    <label for=\"\">Project Start Date</label></div>\r\n                <mat-form-field>\r\n                    <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" [formControl]=\"date\" [(ngModel)]=\"Projects.start_date\" (ngModelChange)=\"startDateSelect()\" [min]=\"todayDate\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #picker></mat-datepicker>\r\n                  </mat-form-field>\r\n                  <div class=\"col-md-6 pull-right\">\r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-6\">\r\n                        <div class=\"row\">\r\n                          <ngb-timepicker class=\"no-brdr\" name=\"start_time\" [(ngModel)]=\"Projects.start_time\" (ngModelChange)=\"startDateSelect();\"></ngb-timepicker>\r\n                        </div>\r\n                      </div>\r\n                      <!-- <div class=\"col-md-6\">\r\n                        <div class=\"row\"><button class=\"am\" (click)=\"meridian();\">{{meridain}}</button></div>\r\n                      </div> -->\r\n                    </div>\r\n                  </div>\r\n                  <!-- <button class=\"btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}\" (click)=\"toggleMeridian()\">    Meridian - {{meridian ? \"ON\" : \"OFF\"}}\r\n                    </button> -->\r\n                  <div class=\"clearfix\"></div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                  <div class=\"col-md-6 padd-bt\"><label for=\"\">Team Members</label></div>\r\n                </div>\r\n                <div class=\"clearfix\"></div>\r\n                <div class=\"col-md-9 psh-left\">\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-7\"><label for=\"\">Developers</label></div>\r\n                    <mat-form-field class=\"inputfileds\">\r\n                      <mat-select placeholder=\"Developers\" name='selected' multiple [(ngModel)]=\"Projects.developer\" (ngModelChange)=\"chooseTeamMember();\">\r\n                        <mat-option [value]=\"Developer\" *ngFor=\"let Developer of Developers;\">{{Developer.f_name}} {{Developer.l_name}} </mat-option>\r\n                      </mat-select>\r\n                    </mat-form-field>\r\n                  </div>\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-7\"><label for=\"\">Designers</label></div>\r\n                    <mat-form-field class=\"inputfileds\">\r\n                      <mat-select placeholder=\"Designers\" name='selected' multiple [(ngModel)]=\"Projects.designer\" (ngModelChange)=\"chooseTeamMember();\">\r\n                        <mat-option [value]=\"Designer\" *ngFor=\"let Designer of Designers;\">{{Designer.f_name}} {{Designer.l_name}}</mat-option>\r\n                      </mat-select>\r\n                    </mat-form-field>\r\n                  </div>\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-7\"><label for=\"\">QC</label></div>\r\n                    <mat-form-field class=\"inputfileds\">\r\n                      <mat-select placeholder=\"QC\" name='selected' multiple [(ngModel)]=\"Projects.qc\" (ngModelChange)=\"chooseTeamMember();\">\r\n                        <mat-option [value]=\"QC\" *ngFor=\"let QC of QCs;\">{{QC.f_name}} {{QC.l_name}}</mat-option>\r\n                      </mat-select>\r\n                    </mat-form-field>\r\n                  </div>\r\n                </div>\r\n                <div class=\"clearfix\"></div>\r\n                <form role=\"form\" (ngSubmit)=\"addModule()\" novalidate>\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-4 col-xs-7 mrg-2\">\r\n                      <button type=\"button\" class=\"btn round-button dropdown-toggle mrg-tp\" (click)=\"calculateEnddate()\"> Calculate End date</button>\r\n                      <button type=\"button\" class=\"btn round-button dropdown-toggle mrg-tp\" (click)=\"savePlanningData()\"> Save </button>\r\n                      <button type=\"button\" class=\"btn round-button dropdown-toggle mrg-tp\" data-toggle=\"dropdown\" (click)=\"addModuleClear()\">Add Module</button>\r\n                      <br>\r\n                      <ul class=\"dropdown-menu addmodule\" role=\"menu\">\r\n                        <div class=\"col-md-8\">\r\n                          <input class=\"style\" type=\"text\" placeholder=\"Module Name\" name=\"name\" [(ngModel)]=\"module.module_name\">\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                          <button type=\"submit\" class=\"btn round-button pull-right\">Save</button>\r\n                        </div>\r\n                      </ul>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n                <br>\r\n                <div class=\"clearfix\"></div>\r\n                <div class=\"form-group mrg-2\">\r\n                  <div class=\"col-md-4 col-xs-4\">\r\n                    <label>Total Estimated Hours</label>\r\n                  </div>\r\n                  <div class=\"col-md-4 col-xs-4\">\r\n                    <div>\r\n                      <!-- estimation_hour -->\r\n                      <h5>{{sum}}</h5>\r\n                    </div>\r\n                    <!-- <input class=\"style\" type=\"text\" placeholder=\"44:00 Hr\"> -->\r\n                  </div>\r\n                  <div class=\"col-md-4 col-xs-4 notice\">\r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-6 col-xs-6\"><span class=\"round\"></span>\r\n                        <p>Assigned</p>\r\n                      </div>\r\n                      <div class=\"col-md-6 col-xs-6\"><span class=\"round round2\"></span>\r\n                        <p>Unasigned</p>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div>\r\n                  <!-- <div  [dragula]='\"myBag\"' draggable=\"true\" [class]=\"'groupClass'\"> -->\r\n                  <!-- <div [dragula]='\"third-bag\"' [dragulaModel]='modules'> -->\r\n                  <div>\r\n                    <div *ngFor=\"let module of modules; let i = index\">\r\n                      <div class=\"col-md-12 col-xs-12 pull-right\">\r\n                        <div class=\"task\">\r\n                          <div class=\"col-md-8 col-xs-7\">\r\n                            <div>\r\n                              <!-- <p>dfd</p> -->\r\n                              <h5>{{module.module_name}}</h5>\r\n                            </div>\r\n                          </div>\r\n                          <div class=\"col-md-4 col-xs-5\">\r\n                            <ul class=\"taskedit\">\r\n                              {{module.time}}\r\n                              <!-- <li>22 Hr</li> -->\r\n                              <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#deleteModuleModal\" (click)=\"getId(i)\"> <i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\r\n                              <!-- <div class=\"col-md-4 col-xs-7 mrg-2\"> -->\r\n                              <li class=\"pull-right\">\r\n                                <form role=\"form\" #f=\"ngForm\" novalidate>\r\n                                  <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" (click)=\"getId(i)\" class=\"dropdown\"> <i  class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a>\r\n                                  <ul class=\"dropdown-menu addmodule editz\" role=\"menu\">\r\n                                    <div class=\"col-md-8\">\r\n                                      <input class=\"style\" type=\"text\" placeholder=\"Module Name\" name=\"module_name\" [(ngModel)]=\"module.module_name\">\r\n                                    </div>\r\n                                    <div class=\"col-md-4\">\r\n                                      <button type=\"submit\" class=\"btn round-button pull-right\">Close</button>\r\n                                    </div>\r\n                                  </ul>\r\n                                </form>\r\n                              </li>\r\n                              <!-- </div> -->\r\n                              <li class=\"pull-right\"></li>\r\n                            </ul>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                      <!-- <div [dragula]=\"'myBag'\"> -->\r\n                      <!-- <div [dragula]='\"third-bag\"' [dragulaModel]='module.tbl_estimation_tasks'> -->\r\n                      <div>\r\n                        <div draggable=\"true\" [class]=\"'itemClass'\" *ngFor=\"let task of modules[i].tbl_estimation_tasks; let j = index\">\r\n                          <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                            <div class=\"task assigned\" [ngStyle]=\"{'background-color': task?.color, 'border-left': task?.bordercolor}\">\r\n                              <div class=\"col-md-9 col-xs-7 martop\">\r\n                                <h5>{{task.task_name}}</h5>\r\n                                <!-- <div *ngFor=\" let assigned of task.assigned_person\"> -->\r\n                                <!-- <h5>{{task.assigned}} {{task.assigned1}}</h5> -->\r\n                                <!-- </div> -->\r\n                                <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>\r\n                                <h5>{{task?.start_date_time_new | date:'medium'}}</h5>\r\n                                <h5>{{task?.end_date_time | date:'medium'}}</h5>\r\n                              </div>\r\n                              <div class=\"col-md-3 col-xs-5\">\r\n                                <ul class=\"taskedit\">\r\n                                  <li></li>\r\n                                  <li class=\"pull-right\"><a href=\"#\" data-toggle=\"modal\" data-target=\"#deleteTaskModal\" (click)=\"getId1(i,j)\"> <i class=\"fa fa-close\" aria-hidden=\"true\"></i></a></li>\r\n                                  <li class=\"pull-right\">\r\n                                    <a href=\"#\" data-target=\"#editTaskModal\" data-toggle=\"modal\" (click)=\"getId2(i,j,task)\" data-backdrop=\"static\" data-keyboard=\"false\"> <i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a>\r\n                                  </li>\r\n                                </ul>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                      <div class=\"col-md-12\">\r\n                        <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\"\r\n                          data-backdrop=\"static\" data-keyboard=\"false\">Add Task</button>\r\n                      </div>\r\n                      <div class=\"clearfix\"></div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"clearfix\"></div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <!-- col-md-6-->\r\n            <div class=\"col-md-6\">\r\n              <div class=\"white\">\r\n                <div class=\"col-md-12\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"example-header\">\r\n                        <mat-form-field>\r\n                          <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                        </mat-form-field>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"col-md-6\">\r\n                      <div class=\"pull-right\">\r\n                        <!-- <mat-form-field class=\"filter\">\r\n                          <mat-select (change)=\"getTableData()\" [(value)]=\"selected\">\r\n                           <mat-option value=\"0\">All</mat-option>\r\n                            <mat-option value=\"2\">Designer</mat-option>\r\n                            <mat-option value=\"1\">Developer</mat-option>\r\n                            <mat-option value=\"3\">QC</mat-option>\r\n                          </mat-select>\r\n                        </mat-form-field> -->\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"example-container mat-elevation-z8 \">\r\n                  <mat-table [dataSource]=\"dataSource\" matSort>\r\n                    <!-- Name Column -->\r\n                    <ng-container matColumnDef=\"slno\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header>Sl_No </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row;let i = index\"> {{i+1}} </mat-cell>\r\n                    </ng-container>\r\n                    <!-- Name Column -->\r\n                    <ng-container matColumnDef=\"user\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> USER </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.f_name}} {{row.l_name}}</mat-cell>\r\n                    </ng-container>\r\n                    <!-- Name Column -->\r\n                    <!-- <ng-container matColumnDef=\"start_date\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> START DATE </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.start_date | date:'EEE, d MMM,y'}} </mat-cell>\r\n                    </ng-container> -->\r\n                    <ng-container matColumnDef=\"start_date\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header>START DATE</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row;let i = index\">\r\n                        <input matInput [matDatepicker]=\"picker\" name='start_date1' [(ngModel)]=\"row.start_date\">\r\n                        <!-- <input matInput [matDatepicker]=\"picker\" name='start_date1' [(ngModel)]=\"row.start_date\"  > -->\r\n                        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                        <mat-datepicker #picker></mat-datepicker>\r\n                      </mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"start_time\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> START TIME </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\">\r\n                        <ngb-timepicker class=\"no-brdr new-x\" name=\"start_time\" [(ngModel)]=\"row.start_time\"></ngb-timepicker>\r\n                      </mat-cell>\r\n                    </ng-container>\r\n                    <!-- Progress Column -->\r\n                    <ng-container matColumnDef=\"end_date\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> END DATE</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.end_date | date:'EEE, d MMM,y'}} </mat-cell>\r\n                    </ng-container>\r\n                    <!-- Progress Column -->\r\n                    <!-- <ng-container matColumnDef=\"hours\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> TOTAL HOURS </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.hour}}</mat-cell>\r\n                    </ng-container> -->\r\n                    <!-- <ng-container matColumnDef=\"no_task\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> NO. TASKS</mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\"> {{row.no_task}}</mat-cell>\r\n                    </ng-container> -->\r\n                    <!-- <ng-container matColumnDef=\"action\">\r\n                      <mat-header-cell *matHeaderCellDef mat-sort-header> ACTION </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let row\">\r\n                        <button mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n                           <mat-icon>more_vert</mat-icon>\r\n                         </button>\r\n                        <mat-menu #menu=\"matMenu\">\r\n                          <button *ngIf=\"row.delete_status==false\" (click)=\"getId(row._id)\" data-toggle=\"modal\" data-target=\"#deleteModal\" mat-menu-item>\r\n                               <i class=\"material-icons\">delete</i>\r\n                             <span>Delete</span>\r\n                           </button>\r\n                          <button *ngIf=\"row.delete_status==true\" mat-menu-item disabled>\r\n                             <i class=\"material-icons\">delete_forever</i>\r\n                           <span>Deleted</span>\r\n                         </button>\r\n                          <button *ngIf=\"row.block_status==false && row.delete_status==false\" (click)=\"blockCompany(row._id)\" mat-menu-item>\r\n                               <i class=\"material-icons\">block</i>\r\n                             <span>Block</span>\r\n                           </button> -->\r\n                    <!-- <button *ngIf=\"row.block_status==true && row.delete_status==false\" mat-menu-item>\r\n                               <i class=\"material-icons\">block</i>\r\n                             <span><a  (click)=\"unblockCompany(row._id)\">Unblock</a></span>\r\n                           </button> -->\r\n                    <!-- </mat-menu>\r\n                      </mat-cell>\r\n                    </ng-container> -->\r\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\r\n                    </mat-row>\r\n                  </mat-table>\r\n                  <div class=\"col-md-15 \">\r\n                    <!-- <div *ngIf=\"showSpinner\" class=\"deletespinner\">\r\n                         <mat-spinner></mat-spinner>\r\n                        </div> -->\r\n                  </div>\r\n                  <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\r\n                    <div class=\"col-md-4 col-md-offset-4\">\r\n                      <mat-toolbar class=\"back-color\">No item found!</mat-toolbar>\r\n                    </div>\r\n                  </div>\r\n                  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <!-- footer-->\r\n      <!-- <admin-footer></admin-footer> -->\r\n      <!-- end footer-->\r\n    </div>"
 
 /***/ }),
 
@@ -8192,6 +8209,8 @@ module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid displa
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_dragula_ng2_dragula__ = __webpack_require__("../../../../ng2-dragula/ng2-dragula.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_dragula_ng2_dragula___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_ng2_dragula_ng2_dragula__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_moment__ = __webpack_require__("../../../../moment/moment.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_moment__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8207,6 +8226,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var CompanyProjectPlanningComponent = (function () {
     function CompanyProjectPlanningComponent(route, companyService, snackBar, routes, dragulaService) {
         this.route = route;
@@ -8214,13 +8234,16 @@ var CompanyProjectPlanningComponent = (function () {
         this.snackBar = snackBar;
         this.routes = routes;
         this.dragulaService = dragulaService;
+        this.todayDate = new Date();
+        this.projectSelectedTeam = [];
         this.datepicker = false;
         this.showstartdate = false;
-        this.displayedColumns = ['slno', 'user', 'start_date', 'end_date', 'hours', 'no_task', 'action'];
+        this.displayedColumns = ['slno', 'user', 'start_date', 'start_time', 'end_date'];
         this.selected = '0';
         this.selected1 = '0';
         this.selected2 = '0';
         this.taskNo = 0;
+        this.disabled = [];
         this.sum = 0;
         this.sum1 = 0;
         this.arr1 = [];
@@ -8279,9 +8302,22 @@ var CompanyProjectPlanningComponent = (function () {
             assigned1: '',
             docFile: [],
             docSrc: '',
+            color: '',
+            bordercolor: '',
             file: '',
             newChecklist: [{ name: '' }],
         };
+        this.assignedperdatevariable = {
+            id: '',
+            date: ''
+        };
+        this.assignedPersonDateArray = [];
+        this.assignedPersonDateArray1 = [];
+        this.holidaydata = [];
+        this.leavedata = [];
+        this.worktime = [];
+        this.offday = [];
+        this.is_not_planned_start_time = [];
         this.date = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["FormControl"](new Date());
         this.serializedDate = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["FormControl"]((new Date()).toISOString());
         //   dragulaService.setOptions('third-bag', {
@@ -8311,12 +8347,18 @@ var CompanyProjectPlanningComponent = (function () {
         this.myArray = [];
         this.myArray1 = [];
         this.myArray3 = [];
+        this.holidaydata = [];
+        this.assignedPersonDateArray = [];
+        this.assignedPersonDateArray1 = [];
+        this.offday = [];
         this.assignPerson = [];
+        this.worktime = [];
+        this.leavedata = [];
+        this.is_not_planned_start_time = [];
         this.sub = this.route.params.subscribe(function (params) {
             _this.p_id = params.id;
             _this.companyService.getProjectById(_this.p_id).subscribe(function (resData) {
                 _this.Projects = resData;
-                // console.log(this.Projects);
                 // this.spinner = true
                 // if (resData.success == true) {
                 //   this.spinner = false
@@ -8333,7 +8375,6 @@ var CompanyProjectPlanningComponent = (function () {
                 //   this.routes.navigate(['/404']);
                 // }
             });
-            // console.log(this.p_id);
         });
         this.companyService.getDeveloperUsers().subscribe(function (developerDatas) {
             _this.Developers = developerDatas;
@@ -8346,8 +8387,6 @@ var CompanyProjectPlanningComponent = (function () {
         });
         this.companyService.getTasksModules(this.p_id).subscribe(function (data) {
             _this.moduledata = data;
-            // console.log(this.moduledata);
-            // console.log(this.modules)
             _this.moduledata.forEach(function (element) {
                 _this.modules.push(element);
                 _this.task_time = 0;
@@ -8356,7 +8395,6 @@ var CompanyProjectPlanningComponent = (function () {
                     _this.task_time = _this.task_time + elementimation_tasks.planned_hour + elementimation_tasks.buffer_hour;
                 });
                 element.time = _this.task_time;
-                // console.log(element.module_time);
             });
             _this.arr1.forEach(function (element2) {
                 _this.sum = _this.sum + element2;
@@ -8373,12 +8411,93 @@ var CompanyProjectPlanningComponent = (function () {
         // });
         this.companyService.getWorkingTime().subscribe(function (getWorkingTime) {
             _this.getWorkingTime = getWorkingTime;
-            // console.log(getWorkingTime);
         });
         this.companyService.getOffDays().subscribe(function (getOffDays) {
             // });
             // this.companyService.getbreakTime().subscribe(breakTime => {
         });
+    };
+    CompanyProjectPlanningComponent.prototype.chooseTeamMember = function () {
+        var _this = this;
+        var userOldArr = [];
+        userOldArr = this.projectSelectedTeam;
+        var OldSelectedUserId = [];
+        userOldArr.forEach(function (element) {
+            OldSelectedUserId.push(element.id);
+        });
+        // console.log(OldSelectedUserId);
+        this.projectSelectedTeam = [];
+        var selectedUserId = [];
+        if (this.Projects.developer && this.Projects.developer.length > 0) {
+            this.Projects.developer.forEach(function (element) {
+                element.team_id = 1;
+                if (selectedUserId.indexOf(element.id) == -1) {
+                    if (OldSelectedUserId.indexOf(element.id) == -1) {
+                        element.start_date = _this.Projects.start_date;
+                        element.start_time = _this.Projects.start_time;
+                        _this.projectSelectedTeam.push(element);
+                    }
+                    else {
+                        userOldArr.forEach(function (elm) {
+                            if (elm.id == element.id) {
+                                element.start_date = elm.start_date;
+                                element.start_time = elm.start_time;
+                            }
+                        });
+                        selectedUserId.push(element.id);
+                        _this.projectSelectedTeam.push(element);
+                    }
+                }
+            });
+        }
+        if (this.Projects.designer && this.Projects.designer.length > 0) {
+            this.Projects.designer.forEach(function (element) {
+                element.team_id = 2;
+                if (selectedUserId.indexOf(element.id) == -1) {
+                    if (OldSelectedUserId.indexOf(element.id) == -1) {
+                        element.start_date = _this.Projects.start_date;
+                        element.start_time = _this.Projects.start_time;
+                        _this.projectSelectedTeam.push(element);
+                    }
+                    else {
+                        userOldArr.forEach(function (elm) {
+                            if (elm.id == element.id) {
+                                element.start_date = elm.start_date;
+                                element.start_time = elm.start_time;
+                            }
+                        });
+                        selectedUserId.push(element.id);
+                        _this.projectSelectedTeam.push(element);
+                    }
+                }
+            });
+        }
+        if (this.Projects.qc && this.Projects.qc.length > 0) {
+            this.Projects.qc.forEach(function (element) {
+                element.team_id = 3;
+                if (selectedUserId.indexOf(element.id) == -1) {
+                    if (OldSelectedUserId.indexOf(element.id) == -1) {
+                        element.start_date = _this.Projects.start_date;
+                        element.start_time = _this.Projects.start_time;
+                        _this.projectSelectedTeam.push(element);
+                    }
+                    else {
+                        userOldArr.forEach(function (elm) {
+                            if (elm.id == element.id) {
+                                element.start_date = elm.start_date;
+                                element.start_time = elm.start_time;
+                            }
+                        });
+                        selectedUserId.push(element.id);
+                        _this.projectSelectedTeam.push(element);
+                    }
+                }
+            });
+        }
+        console.log(this.projectSelectedTeam);
+        this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["E" /* MatTableDataSource */](this.projectSelectedTeam);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     };
     CompanyProjectPlanningComponent.prototype.addMore = function () {
         this.newTasks.newChecklist.push({ name: '' });
@@ -8423,6 +8542,8 @@ var CompanyProjectPlanningComponent = (function () {
             assigned: '',
             docFile: [],
             docSrc: '',
+            color: '',
+            bordercolor: '',
             file: '',
             newChecklist: [{ name: '' }]
         };
@@ -8454,7 +8575,6 @@ var CompanyProjectPlanningComponent = (function () {
     };
     CompanyProjectPlanningComponent.prototype.getId = function (index) {
         this.index = index;
-        // console.log(index + "  index");
         this.newTasks = {
             task_name: '',
             assigned_person: '',
@@ -8471,6 +8591,8 @@ var CompanyProjectPlanningComponent = (function () {
             priority: '',
             docFile: [],
             docSrc: '',
+            color: '',
+            bordercolor: '',
             file: '',
             newChecklist: [{ name: '' }]
         };
@@ -8495,8 +8617,10 @@ var CompanyProjectPlanningComponent = (function () {
                 });
             }
             else {
-                _this.newTasks.assigned = _this.assigned_person;
-                _this.newTasks.assigned1 = _this.assigned_person;
+                if (_this.newTasks.assigned_person) {
+                    _this.newTasks.color = '#e6ffe6';
+                    _this.newTasks.bordercolor = '3px solid #6fa93b';
+                }
                 _this.modules[index].tbl_estimation_tasks.push(_this.newTasks);
                 _this.modules[index].time = _this.modules[index].time + _this.newTasks.planned_hour + _this.newTasks.buffer_hour;
                 _this.sum = _this.sum + _this.newTasks.planned_hour + _this.newTasks.buffer_hour;
@@ -8518,6 +8642,8 @@ var CompanyProjectPlanningComponent = (function () {
                     assigned1: '',
                     task_type: '',
                     priority: '',
+                    color: '',
+                    bordercolor: '',
                     docFile: [],
                     docSrc: '',
                     file: '',
@@ -8544,7 +8670,10 @@ var CompanyProjectPlanningComponent = (function () {
         this.i = i;
         this.j = j;
         this.newTasks = task;
-        this.newTasks.assigned_person = '';
+        this.modules[i].tbl_estimation_tasks[j] = this.newTasks;
+        this.sum = this.sum - this.modules[i].tbl_estimation_tasks[j].planned_hour - this.modules[i].tbl_estimation_tasks[j].buffer_hour;
+        this.modules[i].time = this.modules[i].time - this.modules[i].tbl_estimation_tasks[j].planned_hour - this.modules[i].tbl_estimation_tasks[j].buffer_hour;
+        // this.newTasks.assigned_person = '';
         this.newTasks.start_date = '';
         this.newTasks.start_time = '';
         this.meridain = '';
@@ -8554,13 +8683,25 @@ var CompanyProjectPlanningComponent = (function () {
         this.sum = this.sum - this.modules[i].tbl_estimation_tasks[j].planned_hour - this.modules[i].tbl_estimation_tasks[j].buffer_hour;
         this.modules[i].tbl_estimation_tasks.splice(this.j, 1);
     };
-    CompanyProjectPlanningComponent.prototype.editTask = function (i, j) {
-        this.modules[i].tbl_estimation_tasks.splice(this.j, 1);
-        this.newTasks.assigned = this.assigned_person.f_name;
-        this.newTasks.assigned1 = this.assigned_person.l_name;
-        this.modules[i].tbl_estimation_tasks.push(this.newTasks);
+    CompanyProjectPlanningComponent.prototype.editTask = function (i, j, users) {
+        if (this.newTasks.assigned_person) {
+            this.modules[i].tbl_estimation_tasks[j].color = '#e6ffe6';
+            this.modules[i].tbl_estimation_tasks[j].bordercolor = '3px solid #6fa93b';
+        }
+        // this.assignedPersonDateArray.forEach(element => {
+        //   if (users.assigned_person.id == element.id) {
+        //     element.task_id = users.id;
+        //     element.is_not_planned_start_time = false;
+        //     element.planned_hour = users.planned_hour;
+        //     element.buffer_hour = users.buffer_hour
+        //     this.assignedPersonDateArray1.push(element)
+        //     this.disabled[users.id] = true;
+        //   }
+        // });
+        // this.modules[i].tbl_estimation_tasks.splice(this.j, 1);
         this.modules[i].time = this.modules[i].time + this.newTasks.planned_hour + this.newTasks.buffer_hour;
         this.sum = this.sum + this.newTasks.planned_hour + this.newTasks.buffer_hour;
+        // this.modules[i].tbl_estimation_tasks.push(this.newTasks);
         this.closeBtn1.nativeElement.click();
         var snackBarRef = this.snackBar.open(' Task updated succesfully', '', {
             duration: 2000
@@ -8608,7 +8749,6 @@ var CompanyProjectPlanningComponent = (function () {
             this.startdatetime = this.assignstart_date;
             this.assignend_date = this.startdate;
             this.teamMembers.forEach(function (item, index) {
-                // console.log(item);
                 users.push({
                     userfname: item.assigned_person_fname,
                     userlname: item.assigned_person_lname,
@@ -8632,7 +8772,7 @@ var CompanyProjectPlanningComponent = (function () {
             }
             else {
                 this.teamMembers.forEach(function (item) {
-                    // console.log(item.team_id);
+                    ;
                     if (item.team_id == 1) {
                         users.push({
                             userfname: item.assigned_person_fname,
@@ -8671,8 +8811,6 @@ var CompanyProjectPlanningComponent = (function () {
     CompanyProjectPlanningComponent.prototype.showDatepicker = function () {
         this.datepicker = true;
         this.showstartdate = false;
-        // console.log(this.datepicker);
-        // console.log(this.showstartdate);
     };
     CompanyProjectPlanningComponent.prototype.showDate = function () {
         this.showstartdate = true;
@@ -8680,105 +8818,248 @@ var CompanyProjectPlanningComponent = (function () {
     };
     CompanyProjectPlanningComponent.prototype.finish = function () {
     };
-    CompanyProjectPlanningComponent.prototype.getuserAvalibality1 = function (user) {
+    CompanyProjectPlanningComponent.prototype.assignedAuser = function (users) {
+        //not need now
+    };
+    CompanyProjectPlanningComponent.prototype.calculateEnddate = function () {
         var _this = this;
-        console.log(user);
-        var id = '';
-        console.log(this.findDeselectedItem(user, this.myArray));
-        if (this.findDeselectedItem(user, this.myArray) !== null) {
-            id = this.findDeselectedItem(user, this.myArray).id;
-            this.myArray.forEach(function (item, index) {
-                if (id == item.id) {
-                    _this.myArray.splice(index, 1);
-                }
-            });
+        this.projectSelectedTeam;
+        this.modules;
+        var data = { modules: this.modules, teamMembers: this.projectSelectedTeam };
+        console.log(data);
+        this.companyService.getUserleavedataplanning(data).subscribe(function (data) {
+            // console.log(data)
+            _this.modules = data.data;
+            // this.holidaydata = data.holidaydata;
+            // this.leavedata = data.leavedata;
+            // this.worktime = data.worktime;
+            // this.worktimedefault = data.worktimedefault;
+            // this.offday = data.offday;
+        });
+    };
+    CompanyProjectPlanningComponent.prototype.holiday = function (plandate, id, starttime, planStarttime) {
+        var _this = this;
+        this.plannedStartTime = '';
+        this.userid = '';
+        this.plannedStartTime = planStarttime;
+        this.userid = id;
+        this.is_not_planned_start_time[this.userid] = starttime;
+        this.taskdate = plandate;
+        this.holidaydata.forEach(function (elm_holiday) {
+            if ((elm_holiday.date) == __WEBPACK_IMPORTED_MODULE_6_moment__(_this.taskdate).format('YYYY-MM-DD')) {
+                //next date
+                var plandate = new Date(_this.taskdate.getTime() + 1000 * 60 * 60 * 24);
+                _this.is_not_planned_start_time[_this.userid] == true;
+                _this.holiday(_this.taskdate, _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+            }
+            else {
+                _this.companyoffday(_this.taskdate, _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+            }
+        });
+    };
+    CompanyProjectPlanningComponent.prototype.companyoffday = function (plandate, id, starttime, planStarttime) {
+        var _this = this;
+        this.userid = id;
+        this.is_not_planned_start_time[this.userid] = starttime;
+        this.plannedStartTime = planStarttime;
+        this.offtaskdate = plandate;
+        this.offday.forEach(function (elm_off) {
+            var d = new Date(_this.offtaskdate);
+            var date = d.getDate();
+            var day = d.getDay(); //start 1
+            var weekOfMonth = Math.ceil((date - 1 - day) / 7); //start 0
+            var weekno = weekOfMonth + 1;
+            if (elm_off.day_no == day && elm_off.week_no == weekno) {
+                //date+1
+                _this.is_not_planned_start_time[_this.userid] == true;
+                var tomarrow = new Date(_this.offtaskdate.getTime() + 1000 * 60 * 60 * 24);
+                _this.holiday(tomarrow, _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+            }
+            _this.userleave(_this.offtaskdate, _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+        });
+    };
+    CompanyProjectPlanningComponent.prototype.userleave = function (plandate, id, starttime, planStarttime) {
+        var _this = this;
+        this.userid = id;
+        this.is_not_planned_start_time[this.userid] = starttime;
+        this.plannedStartTime = planStarttime;
+        this.usertaskdate = plandate;
+        if (this.leavedata == [] || this.leavedata.length == 0) {
+            // this.calculationA(this.usertaskdate, this.userid, this.is_not_planned_start_time[this.userid]);
         }
-        if (this.assignstart_date && this.assignstart_time) {
-            this.assignstart_date.setHours(this.assignstart_time.hour, this.assignstart_time.minute, this.assignstart_time.second);
-        }
-        if (this.Projects.start_date !== null || this.Projects.start_time !== null) {
-            user.forEach(function (element, key) {
-                if (_this.inArray(element, _this.myArray) == false) {
-                    element.start_date = _this.assignstart_date;
-                    _this.myArray.push(element);
-                }
-                else {
-                    // user.splice(key, 1);
-                }
+        else {
+            this.leavedata.forEach(function (elm_leav) {
+                //BETWEEN 2 DATES
+                var getDates = function (startDate, endDate) {
+                    var dates = [], currentDate = startDate, addDays = function (days) {
+                        var date = new Date(this.valueOf());
+                        date.setDate(date.getDate() + days);
+                        return date;
+                    };
+                    while (currentDate <= endDate) {
+                        dates.push(currentDate);
+                        currentDate = addDays.call(currentDate, 1);
+                    }
+                    return dates;
+                };
+                // Usage
+                var dates = getDates(new Date(__WEBPACK_IMPORTED_MODULE_6_moment__(elm_leav.start_date).format('YYYY,MM,DD')), new Date(__WEBPACK_IMPORTED_MODULE_6_moment__(elm_leav.end_date).format('YYYY,MM,DD')));
+                dates.forEach(function (date) {
+                    if (__WEBPACK_IMPORTED_MODULE_6_moment__(_this.usertaskdate).format('YYYY-MM-DD') == __WEBPACK_IMPORTED_MODULE_6_moment__(date).format('YYYY-MM-DD')) {
+                        if (__WEBPACK_IMPORTED_MODULE_6_moment__(_this.usertaskdate).format('YYYY-MM-DD') == __WEBPACK_IMPORTED_MODULE_6_moment__(elm_leav.start_date).format('YYYY,MM,DD')) {
+                            if (elm_leav.start_available_hrs == null) {
+                                if (__WEBPACK_IMPORTED_MODULE_6_moment__(_this.usertaskdate).format('YYYY-MM-DD') == __WEBPACK_IMPORTED_MODULE_6_moment__(elm_leav.end_date).format('YYYY,MM,DD')) {
+                                    if (elm_leav.end_available_hrs == null) {
+                                        //date+1
+                                        // var  plandate=new Date(plandate.getTime()+1000*60*60*24);
+                                        _this.holiday(new Date(_this.usertaskdate.getTime() + 1000 * 60 * 60 * 24), _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+                                        _this.is_not_planned_start_time[_this.userid] == true;
+                                        // alert("hi1")
+                                    }
+                                    else {
+                                        //A3
+                                        _this.calculationA(_this.usertaskdate, _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+                                        // alert("hi2")
+                                    }
+                                }
+                                else {
+                                    //date+1
+                                    // var  plandate=new Date(plandate.getTime()+1000*60*60*24);
+                                    _this.holiday(new Date(_this.usertaskdate.getTime() + 1000 * 60 * 60 * 24), _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+                                    _this.is_not_planned_start_time[_this.userid] == true;
+                                }
+                            }
+                            else {
+                                // alert("hi3")
+                                //A2
+                            }
+                        }
+                        else {
+                            // alert("hi4")
+                            if (__WEBPACK_IMPORTED_MODULE_6_moment__(_this.usertaskdate).format('YYYY-MM-DD') == __WEBPACK_IMPORTED_MODULE_6_moment__(elm_leav.end_date).format('YYYY,MM,DD')) {
+                                if (elm_leav.end_available_hrs == null) {
+                                    //date+1
+                                    // var  plandate=new Date(plandate.getTime()+1000*60*60*24);
+                                    _this.holiday(new Date(_this.usertaskdate.getTime() + 1000 * 60 * 60 * 24), _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+                                    _this.is_not_planned_start_time[_this.userid] == true;
+                                }
+                                else {
+                                    //alert("hi5")
+                                    //A3
+                                    _this.calculationA(_this.usertaskdate, _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+                                }
+                            }
+                            else {
+                                // alert("hi6")
+                                //date+1
+                                // var  plandate=new Date(plandate.getTime()+1000*60*60*24);
+                                _this.holiday(new Date(_this.usertaskdate.getTime() + 1000 * 60 * 60 * 24), _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+                                _this.is_not_planned_start_time[_this.userid] == true;
+                            }
+                        }
+                    }
+                    else {
+                        // alert("hi7"+taskdate)
+                        //A1
+                        _this.calculationA(_this.usertaskdate, _this.userid, _this.is_not_planned_start_time[_this.userid], _this.plannedStartTime);
+                    }
+                });
             });
-            // console.log(this.myArray)
-            this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["E" /* MatTableDataSource */](this.myArray);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
         }
     };
-    CompanyProjectPlanningComponent.prototype.getuserAvalibality2 = function (user) {
+    CompanyProjectPlanningComponent.prototype.calculationA = function (plandate, id, starttime, planStarttime) {
         var _this = this;
-        var id = '';
-        console.log(this.findDeselectedItem(user, this.myArray));
-        if (this.findDeselectedItem(user, this.myArray) !== null) {
-            id = this.findDeselectedItem(user, this.myArray).id;
-            this.myArray.forEach(function (item, index) {
-                if (id == item.id) {
-                    _this.myArray.splice(index, 1);
-                }
-            });
-        }
-        if (this.assignstart_date && this.assignstart_time) {
-            this.assignstart_date.setHours(this.assignstart_time.hour, this.assignstart_time.minute, this.assignstart_time.second);
-        }
-        if (this.Projects.start_date !== null || this.Projects.start_time !== null) {
-            user.forEach(function (element, key) {
-                if (_this.inArray(element, _this.myArray) == false) {
-                    element.start_date = _this.assignstart_date;
-                    _this.myArray.push(element);
+        this.workstart_time = '';
+        this.workstart_time = '';
+        this.userid = id;
+        this.is_not_planned_start_time[this.userid] = starttime;
+        this.plannedStartTime = planStarttime;
+        this.worktaskdate = plandate;
+        this.worktime.forEach(function (elm_worktime) {
+            var d = new Date(_this.worktaskdate);
+            var date = d.getDate();
+            var day = d.getDay(); //start 1
+            var weekOfMonth = Math.ceil((date - 1 - day) / 7); //start 0
+            var weekno = weekOfMonth + 1;
+            if (elm_worktime.day_no == day && elm_worktime.week_no == weekno) {
+                if (_this.is_not_planned_start_time[_this.userid] == true) {
+                    _this.workstart_time = elm_worktime.tbl_cmp_work_time.start_time;
+                    _this.workend_time = elm_worktime.tbl_cmp_work_time.end_time;
                 }
                 else {
-                    // user.splice(key, 1);
+                    _this.workstart_time = _this.plannedStartTime;
+                    _this.workend_time = elm_worktime.tbl_cmp_work_time.end_time;
                 }
-            });
-            // console.log(this.myArray)
-            this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["E" /* MatTableDataSource */](this.myArray);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-        }
-    };
-    CompanyProjectPlanningComponent.prototype.getuserAvalibality3 = function (user3) {
-        var _this = this;
-        var id = '';
-        if (this.findDeselectedItem(user3, this.myArray3) !== null) {
-            id = this.findDeselectedItem(user3, this.myArray3).id;
-            this.myArray3.forEach(function (item, index) {
-                if (id == item.id) {
-                    _this.myArray3.splice(index, 1);
-                }
-            });
-        }
-        if (this.assignstart_date && this.assignstart_time) {
-            this.assignstart_date.setHours(this.assignstart_time.hour, this.assignstart_time.minute, this.assignstart_time.second);
-        }
-        if (this.Projects.start_date !== null || this.Projects.start_time !== null) {
-            user3.forEach(function (element, key) {
-                if (_this.inArray(element, _this.myArray3) == false) {
-                    element.start_date = _this.assignstart_date;
-                    _this.myArray3.push(element);
+            }
+            else {
+                if (_this.is_not_planned_start_time[_this.userid] == true) {
+                    _this.workstart_time = _this.worktimedefault.start_time;
+                    _this.workend_time = _this.worktimedefault.end_time;
                 }
                 else {
+                    _this.workstart_time = _this.plannedStartTime;
+                    _this.workend_time = _this.worktimedefault.end_time;
+                }
+                //worktime not in asssoc
+            }
+            //working hour calculation
+            var start = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"]('"' + _this.workstart_time + '"', "HH:mm:ss");
+            var end = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"]('"' + _this.workend_time + '"', "HH:mm:ss");
+            // account for crossing over to midnight the next day
+            if (end.isBefore(start))
+                end.add(1, 'day');
+            // calculate the duration
+            var d1 = __WEBPACK_IMPORTED_MODULE_6_moment__["duration"](end.diff(start));
+            var s = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"](+d1).format('HH:mm');
+            _this.working_hours = s;
+            var a = s.split(':'); // split it at the colons
+            // minutes are worth 60 seconds. Hours are worth 60 minutes.
+            _this.working_seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+            _this.working_hours = s;
+            var a = s.split(':'); // split it at the colons
+            // minutes are worth 60 seconds. Hours are worth 60 minutes.
+            _this.working_seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+            // console.log("d"+day);
+            _this.breaktime.forEach(function (elm_breaktime) {
+                if (elm_breaktime.day_no == day && elm_breaktime.week_no == weekno) {
+                    // parse time using 24-hour clock and use UTC to prevent DST issues
+                    var start = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"]('"' + elm_worktime.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
+                    var end = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"]('"' + elm_worktime.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
+                    // account for crossing over to midnight the next day
+                    if (end.isBefore(start))
+                        end.add(1, 'day');
+                    // calculate the duration
+                    var b = __WEBPACK_IMPORTED_MODULE_6_moment__["duration"](end.diff(start));
+                    var bt = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"](+b).format('HH:mm');
+                    var a1 = bt.split(':'); // split it at the colons
+                    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                    var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
+                    // parse time using 24-hour clock and use UTC to prevent DST issues
+                    var start = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"]('"' + _this.worktimedefault.start_time + '"', "HH:mm:ss");
+                    var end = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"]('"' + _this.worktimedefault.end_time + '"', "HH:mm:ss");
+                    // account for crossing over to midnight the next day
+                    if (end.isBefore(start))
+                        end.add(1, 'day');
+                    // calculate the duration
+                    var bd = __WEBPACK_IMPORTED_MODULE_6_moment__["duration"](end.diff(start));
+                    var btd = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"](+b).format('HH:mm');
+                    var a2 = btd.split(':'); // split it at the colons
+                    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                    var seconds2 = (+a2[0]) * 60 * 60 + (+a2[1]) * 60 + (+a2[2]);
+                    _this.totalbreaksec = seconds1 + seconds2;
+                    // this.totalbreakhr =bt+btd; 
+                }
+                else {
+                    // parse time using 24-hour clock and use UTC to prevent DST issues
+                    var start = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"]('"' + _this.worktimedefault.start_time + '"', "HH:mm:ss");
+                    var end = __WEBPACK_IMPORTED_MODULE_6_moment__["utc"]('"' + _this.worktimedefault.end_time + '"', "HH:mm:ss");
+                    // account for crossing over to midnight the next day
+                    if (end.isBefore(start))
+                        end.add(1, 'day');
                 }
             });
-            // this.myArray1.forEach(element => {
-            //   if (this.inArray(element, this.myArray) == false) {
-            //     this.myArray.push(element);
-            //   }
-            // });
-            // console.log(this.myArray);
-            this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["E" /* MatTableDataSource */](this.myArray3);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-        }
-    };
-    CompanyProjectPlanningComponent.prototype.giveDate = function (index, id, start_Date) {
-        console.log(index, id, start_Date);
+            _this.userleave(_this.worktaskdate, id, _this.userid, _this.plannedStartTime);
+        });
     };
     CompanyProjectPlanningComponent.prototype.findDeselectedItem = function (CurrentArray, PreviousArray) {
         var CurrentArrSize = CurrentArray.length;
@@ -8790,6 +9071,23 @@ var CompanyProjectPlanningComponent = (function () {
                 return PreviousArray[j];
         }
         return null;
+    };
+    CompanyProjectPlanningComponent.prototype.savePlanningData = function () {
+        var _this = this;
+        console.log(this.modules);
+        this.companyService.savecompanyPlanning(this.modules).subscribe(function (data) {
+            if (data.success) {
+                _this.routes.navigate(['/project']);
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 2000
+                });
+            }
+            else {
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 2000
+                });
+            }
+        });
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('closeBtn'),
@@ -11290,7 +11588,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/company-time-extension-request/company-time-extension-request.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <company-sidebar></company-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <company-topbar></company-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                \r\n                \r\n                <div class=\"user-dashboard\">\r\n                    <h2>Request Management</h2>\r\n                    <ul class=\"breadcrumb\">\r\n                      <li><a routerLink=\"/\">Request Management</a></li>\r\n                      <li><a routerLink=\"/company-request-management\">Time Extension Request List</a></li>\r\n                      \r\n                      <li>Time Extension Request View</li>\r\n                    </ul>\r\n                   \r\n                    <div class=\"row\">\r\n                        \r\n              <div class=\"col-md-5 col-sm-12 col-xs-12 gutter \">\r\n               <div class=\"white\">\r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Name</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{project?.project_name}}</label></div>\r\n                 </div>\r\n                 \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Code</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{project?.project_code}}</label></div>\r\n                 </div>\r\n                 \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Start Date</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{project?.planned_start_date | date:'EEE, d MMM,y'}}</label></div>\r\n                 </div>\r\n                \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Team Members</label></div>\r\n                 \r\n                  \r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\" *ngFor=\"let name of teammembers; \">{{name}}, </label></div>\r\n          \r\n                </div>\r\n       \r\n                 <div class=\"form-group\">\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Remark</label></div>\r\n                   <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{reqdetails?.remarks}}</label></div>\r\n                 </div>\r\n  \r\n                 \r\n               </div>\r\n              </div>\r\n                <div class=\"col-md-7 col-sm-12 col-xs-12 gutter\">\r\n  \r\n                             <div class=\"white\">\r\n                 <div class=\"col-md-12 mrg-2\">\r\n                   <div class=\"col-md-4\">\r\n                     <label>\r\n                       Total Hours\r\n                     </label>\r\n                   </div>\r\n                   <div class=\"col-md-4 col-xs-5\">\r\n                     <!-- <input class=\"effect-1 style\" type=\"text\" placeholder=\"44:00 Hr\"> -->\r\n                     <span class=\"focus-border\">{{sum}} Hr</span>\r\n                   </div>\r\n  \r\n                 </div>\r\n                 <div *ngFor=\"let task of myTasks; let i = index \">\r\n                    <div class=\"col-md-12 col-xs-12 pull-right\">\r\n                   <div class=\"task\">\r\n                     <div class=\"col-md-8 col-xs-7\">\r\n                       <h5>{{task.module_name}}</h5>\r\n                     </div>\r\n                     <div class=\"col-md-4 col-xs-5\">\r\n                       <ul class=\"taskedit\">\r\n                         <li>{{task.ttlModHour}}Hr</li>\r\n                        \r\n                       </ul>\r\n                     </div>\r\n                   </div>\r\n                 </div>\r\n                 <!---task end-->\r\n                 <div *ngFor=\"let task1 of myTasks[i].tbl_project_tasks; let y = index\">\r\n                 <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                    <div *ngIf=\"task1?.id != reqdetails?.task_id\">\r\n                   <div class=\"task hash\">\r\n                     <div class=\"col-md-3 col-xs-7\">\r\n                       <h5>{{task1.task_name}}</h5>\r\n                     </div>\r\n                     <div class=\"col-md-9 col-xs-5\">\r\n                       <ul class=\"pull-right\">\r\n                         <li>{{task1?.tbl_user_profile.f_name}}</li>\r\n                         <li>{{task1?.planned_hour + task1?.buffer_hour}} hrs</li>\r\n                         <li>{{task1?.planned_start_date_time | date:'medium'}}</li>\r\n                         <li>{{task1?.planned_end_date_time | date:'medium'}}</li>\r\n                        \r\n                         \r\n                       </ul>\r\n                     </div>\r\n                     \r\n                     <div class=\"clearfix\"></div>\r\n                     \r\n                   </div>\r\n  \r\n                  </div>\r\n                  <div *ngIf=\"task1?.id == reqdetails?.task_id && (reqdetails?.req_status=='Pending' || (reqdetails?.req_status=='Approval' && role_id==1))  \">\r\n                  <div class=\"task highlight\">\r\n                      <div class=\"col-md-3 col-xs-7\">\r\n                        <h5>{{task1.task_name}}</h5>\r\n                      </div>\r\n                      <div class=\"col-md-9 col-xs-5\">\r\n                          <ul>\r\n                              <li>{{task1?.tbl_user_profile.f_name}}{{task1?.tbl_user_profile.id}}</li>\r\n                              <li>{{task1?.planned_hour + task1?.buffer_hour }} hrs</li>\r\n                              <li>{{task1?.planned_start_date_time | date:'medium'}}</li>\r\n                              <li>{{task1?.planned_end_date_time | date:'medium'}}</li>\r\n                          </ul>\r\n                          <div class=\"pull-right\">\r\n                            <button class=\"bt\"  (click)=\"getEditId(reqdetails?.id,reqdetails?.additional_hours,reqdetails?.task_id,task1?.tbl_user_profile.id,task1?.tbl_user_profile.cmp_id)\" data-toggle=\"modal\" data-target=\"#editModal\">Edit</button>\r\n                            <button class=\"bt\"  (click)=\"getId(reqdetails?.id)\" data-toggle=\"modal\" data-target=\"#approvedModal\">Approve</button>\r\n                            <button class=\"bt\"  (click)=\"getId(reqdetails?.id)\" data-toggle=\"modal\" data-target=\"#rejectModal\">Reject</button>\r\n                            <button *ngIf=\"role_id == 3\" class=\"bt\" (click)=\"getId(reqdetails?.id)\" data-toggle=\"modal\" data-target=\"#sendtoadminModal\">Send to admin</button>\r\n                            \r\n                          </div>  \r\n                        </div>\r\n                      <div class=\"clearfix\"></div>\r\n                      \r\n                    </div>\r\n  \r\n                   </div>\r\n                 </div>\r\n                </div>\r\n              </div>\r\n                 <!---task end-->\r\n          \r\n                 <div class=\"clearfix\"></div> \r\n                \r\n                                 \r\n                             </div>\r\n                         </div>\r\n  \r\n  \r\n  <!-- --------------------------------------------- edit modal ----------------------------------------------------------------- -->\r\n    \r\n  \r\n  <div id=\"editModal\" class=\"modal fade\">\r\n    <div class=\"modal-dialog\">\r\n  \r\n      <!-- Modal content-->\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\r\n          <h4 class=\"modal-title\">Edit Requested Time</h4>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n            <form  role=\"form\"  #f=\"ngForm\" (ngSubmit)=\"updateReqtime(reqtime);\" novalidate>\r\n            \r\n                    <div class=\"col-md-11\">\r\n                   \r\n                              \r\n                        <div class=\"form-group\" >\r\n                            \r\n                   \r\n                              <div class=\"col-md-5 paddtop\">\r\n                                  <label>Old Time</label>\r\n                               </div> \r\n                               <div class=\"col-md-6\">\r\n                             \r\n                                    <label>{{oldtasktime}} hrs</label>\r\n                          \r\n                               </div>\r\n                               <div class=\"clearfix\"></div>\r\n      \r\n                                <div class=\"col-md-5 paddtop\">\r\n                                    <label>Requested Time</label>\r\n                                 </div>\r\n                                 <div class=\"col-md-6\">\r\n                                    <mat-form-field>\r\n                                        <input matInput  name =\"additional_hr\" [(ngModel)]=\"reqtime.additional_hr\"  required>\r\n                                        \r\n                                     </mat-form-field>\r\n                                 </div>\r\n                                 <div class=\"clearfix\"></div>\r\n                           \r\n                                 \r\n                                \r\n                          </div>\r\n                          \r\n                      <br>\r\n            \r\n                      <div class=\"row\">\r\n                        <div class=\"col-md-4\">\r\n                          <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button\">Submit</button>\r\n        \r\n                        </div>\r\n                        <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\r\n                          <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\r\n                            x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\"\r\n                            xml:space=\"preserve\">\r\n                            <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n                              <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\r\n                              />\r\n                            </path>\r\n                          </svg>\r\n                        </div> -->\r\n        \r\n                      </div>\r\n        \r\n                   \r\n                    </div>\r\n                   \r\n                  \r\n               \r\n        </form>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n        </div>\r\n      </div>\r\n  \r\n    </div>\r\n  </div>\r\n  <!-----------------------------------------------------------------edit modal-------------------------------------->\r\n  <!-------------------approve modal---------------------------------->\r\n  <div id=\"approvedModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n  \r\n      <!-- Modal content-->\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\"  #closeBtn>&times;</button>\r\n          <h4 class=\"modal-title\">Approve </h4>\r\n        </div>\r\n        <!-- <div class=\"modal-header\"> -->\r\n        <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n        <!-- </div> -->\r\n        <div class=\"modal-body delete-popup\">\r\n          <!-- <i class=\"fa fa-exclamation\"></i> -->\r\n  \r\n  \r\n          <h4 class=\"textalign\">Do you whish to continue?</h4>\r\n  \r\n        </div>\r\n  \r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" (click)=\"approved()\" class=\"btn round-button\" data-dismiss=\"modal\">Yes</button>\r\n        </div>\r\n      </div>\r\n  \r\n    </div>\r\n  </div>\r\n  <!-------------------approve end modal---------------------------------->\r\n  <!-------------------reject modal---------------------------------->\r\n  <div id=\"rejectModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n  \r\n      <!-- Modal content-->\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\"  #closeBtn>&times;</button>\r\n          <h4 class=\"modal-title\">Reject Modal </h4>\r\n        </div>\r\n        <!-- <div class=\"modal-header\"> -->\r\n        <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n        <!-- </div> -->\r\n        <div class=\"modal-body delete-popup\">\r\n          <!-- <i class=\"fa fa-exclamation\"></i> -->\r\n  \r\n  \r\n          <h4 class=\"textalign\">Do you whish to continue?</h4>\r\n  \r\n        </div>\r\n  \r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" (click)=\"rejecttimeextreq(id)\" class=\"btn round-button\" data-dismiss=\"modal\">Yes</button>\r\n        </div>\r\n      </div>\r\n  \r\n    </div>\r\n  </div>\r\n  <!-------------------reject modal---------------------------------->\r\n    <!-------------------sendtoadminModal---------------------------------->\r\n  <div id=\"sendtoadminModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n  \r\n      <!-- Modal content-->\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn2>&times;</button>\r\n          <h4 class=\"modal-title\">Send to Admin </h4>\r\n        </div>\r\n        <!-- <div class=\"modal-header\"> -->\r\n        <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n        <!-- </div> -->\r\n        <div class=\"modal-body delete-popup\">\r\n          <!-- <i class=\"fa fa-exclamation\"></i> -->\r\n  \r\n  \r\n          <h4 class=\"textalign\">Do you whish to continue?</h4>\r\n  \r\n        </div>\r\n  \r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" (click)=\"sendtoadmin(id)\" class=\"btn round-button\" data-dismiss=\"modal\">Yes</button>\r\n        </div>\r\n      </div>\r\n  \r\n    </div>\r\n  </div>\r\n  <!-------------------sendtoadminModal---------------------------------->\r\n      <!-------------------sendtoadminModal---------------------------------->\r\n  <div id=\"approveModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n  \r\n      <!-- Modal content-->\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn3>&times;</button>\r\n          <h4 class=\"modal-title\">Approved </h4>\r\n        </div>\r\n        <!-- <div class=\"modal-header\"> -->\r\n        <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n        <!-- </div> -->\r\n        <div class=\"modal-body delete-popup\">\r\n          <!-- <i class=\"fa fa-exclamation\"></i> -->\r\n  \r\n  \r\n          <h4 class=\"textalign\">Do you whish to continue?</h4>\r\n  \r\n        </div>\r\n  \r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" (click)=\"approved(id)\" class=\"btn round-button\" data-dismiss=\"modal\">Yes</button>\r\n        </div>\r\n      </div>\r\n  \r\n    </div>\r\n  </div>\r\n  <!-------------------sendtoadminModal---------------------------------->\r\n    </div>\r\n  \r\n      </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n                <company-footer></company-footer>\r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n      <div class=\"row display-table-row\">\r\n    \r\n          <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n               <!-- sidebar-->\r\n             \r\n               <company-sidebar></company-sidebar> \r\n               <!-- end sidebar-->\r\n          </div>\r\n          \r\n          <div class=\"col-md-12 col-xs-12\">\r\n              <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n              <!-- topbar-->\r\n              <company-topbar></company-topbar> \r\n              \r\n                  <!-- end topbar-->\r\n              \r\n              \r\n              <div class=\"user-dashboard\">\r\n                  <h2>Request Management</h2>\r\n                  <ul class=\"breadcrumb\">\r\n                    <li><a routerLink=\"/\">Request Management</a></li>\r\n                    <li><a routerLink=\"/company-request-management\">Time Extension Request List</a></li>\r\n                    \r\n                    <li>Time Extension Request View</li>\r\n                  </ul>\r\n                 \r\n                  <div class=\"row\">\r\n                      \r\n            <div class=\"col-md-5 col-sm-12 col-xs-12 gutter \">\r\n             <div class=\"white\">\r\n               <div class=\"form-group\">\r\n                 <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Name</label></div>\r\n                 <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{project?.project_name}}</label></div>\r\n               </div>\r\n               \r\n               <div class=\"form-group\">\r\n                 <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Code</label></div>\r\n                 <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{project?.project_code}}</label></div>\r\n               </div>\r\n               \r\n               <div class=\"form-group\">\r\n                 <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Project Start Date</label></div>\r\n                 <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{project?.planned_start_date | date:'EEE, d MMM,y'}}</label></div>\r\n               </div>\r\n              \r\n               <div class=\"form-group\">\r\n                 <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Team Members</label></div>\r\n               \r\n                \r\n                 <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\" *ngFor=\"let name of teammembers; \">{{name}}, </label></div>\r\n        \r\n              </div>\r\n     \r\n               <div class=\"form-group\">\r\n                 <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\">Remark</label></div>\r\n                 <div class=\"col-md-6 col-sm-6 col-xs-6\"><label for=\"\" class=\"label2\">{{reqdetails?.remarks}}</label></div>\r\n               </div>\r\n\r\n               \r\n             </div>\r\n            </div>\r\n              <div class=\"col-md-7 col-sm-12 col-xs-12 gutter\">\r\n\r\n                           <div class=\"white\">\r\n               <div class=\"col-md-12 mrg-2\">\r\n                 <div class=\"col-md-4\">\r\n                   <label>\r\n                     Total Hours\r\n                   </label>\r\n                 </div>\r\n                 <div class=\"col-md-4 col-xs-5\">\r\n                   <!-- <input class=\"effect-1 style\" type=\"text\" placeholder=\"44:00 Hr\"> -->\r\n                   <span class=\"focus-border\">{{sum}} Hr</span>\r\n                 </div>\r\n\r\n               </div>\r\n               <div *ngFor=\"let task of myTasks; let i = index \">\r\n                  <div class=\"col-md-12 col-xs-12 pull-right\">\r\n                 <div class=\"task\">\r\n                   <div class=\"col-md-8 col-xs-7\">\r\n                     <h5>{{task.module_name}}</h5>\r\n                   </div>\r\n                   <div class=\"col-md-4 col-xs-5\">\r\n                     <ul class=\"taskedit\">\r\n                       <li>{{task.ttlModHour}}Hr</li>\r\n                      \r\n                     </ul>\r\n                   </div>\r\n                 </div>\r\n               </div>\r\n               <!---task end-->\r\n               <div *ngFor=\"let task1 of myTasks[i].tbl_project_tasks; let y = index\">\r\n               <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                  <div *ngIf=\"task1?.id != reqdetails?.task_id\">\r\n                 <div class=\"task hash\">\r\n                   <div class=\"col-md-3 col-xs-7\">\r\n                     <h5>{{task1.task_name}}</h5>\r\n                   </div>\r\n                   <div class=\"col-md-9 col-xs-5\">\r\n                     <ul class=\"pull-right\">\r\n                       <li>{{task1?.tbl_user_profile.f_name}}</li>\r\n                       <li>{{task1?.planned_hour + task1?.buffer_hour}} hrs</li>\r\n                       <li>{{task1?.planned_start_date_time | date:'medium'}}</li>\r\n                       <li>{{task1?.planned_end_date_time | date:'medium'}}</li>\r\n                      \r\n                       \r\n                     </ul>\r\n                   </div>\r\n                   \r\n                   <div class=\"clearfix\"></div>\r\n                   \r\n                 </div>\r\n\r\n                </div>\r\n                <div *ngIf=\"task1?.id == reqdetails?.task_id && (reqdetails?.req_status=='Pending' || (reqdetails?.req_status=='Approval' && role_id==1))  \">\r\n                <div class=\"task highlight\">\r\n                    <div class=\"col-md-3 col-xs-7\">\r\n                      <h5>{{task1.task_name}}</h5>\r\n                    </div>\r\n                    <div class=\"col-md-9 col-xs-5\">\r\n                        <ul>\r\n                            <li>{{task1?.tbl_user_profile.f_name}}{{task1?.tbl_user_profile.id}}</li>\r\n                            <li>{{task1?.planned_hour + task1?.buffer_hour }} hrs</li>\r\n                            <li>{{task1?.planned_start_date_time | date:'medium'}}</li>\r\n                            <li>{{task1?.planned_end_date_time | date:'medium'}}</li>\r\n                        </ul>\r\n                        <div class=\"pull-right\">\r\n                          <button class=\"bt\"  (click)=\"getEditId(reqdetails?.id,reqdetails?.additional_hours,reqdetails?.task_id,task1?.tbl_user_profile.id,task1?.tbl_user_profile.cmp_id)\" data-toggle=\"modal\" data-target=\"#editModal\">Edit</button>\r\n                          <button class=\"bt\"  (click)=\"getId(reqdetails?.id)\" data-toggle=\"modal\" data-target=\"#approvedModal\">Approve</button>\r\n                          <button class=\"bt\"  (click)=\"getId(reqdetails?.id)\" data-toggle=\"modal\" data-target=\"#rejectModal\">Reject</button>\r\n                          <button *ngIf=\"role_id == 3\" class=\"bt\" (click)=\"getId(reqdetails?.id)\" data-toggle=\"modal\" data-target=\"#sendtoadminModal\">Send to admin</button>\r\n                          \r\n                        </div>  \r\n                      </div>\r\n                    <div class=\"clearfix\"></div>\r\n                    \r\n                  </div>\r\n\r\n                 </div>\r\n               </div>\r\n              </div>\r\n            </div>\r\n               <!---task end-->\r\n        \r\n               <div class=\"clearfix\"></div> \r\n              \r\n                               \r\n                           </div>\r\n                       </div>\r\n\r\n\r\n<!-- --------------------------------------------- edit modal ----------------------------------------------------------------- -->\r\n  \r\n\r\n<div id=\"editModal\" class=\"modal fade\">\r\n  <div class=\"modal-dialog\">\r\n\r\n    <!-- Modal content-->\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\r\n        <h4 class=\"modal-title\">Edit Requested Time</h4>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n          <form  role=\"form\"  #f=\"ngForm\" (ngSubmit)=\"updateReqtime(reqtime);\" novalidate>\r\n          \r\n                  <div class=\"col-md-11\">\r\n                 \r\n                            \r\n                      <div class=\"form-group\" >\r\n                          \r\n                 \r\n                            <div class=\"col-md-5 paddtop\">\r\n                                <label>Old Time</label>\r\n                             </div> \r\n                             <div class=\"col-md-6\">\r\n                           \r\n                                  <label>{{oldtasktime}} hrs</label>\r\n                        \r\n                             </div>\r\n                             <div class=\"clearfix\"></div>\r\n    \r\n                              <div class=\"col-md-5 paddtop\">\r\n                                  <label>Requested Time</label>\r\n                               </div>\r\n                               <div class=\"col-md-6\">\r\n                                  <mat-form-field>\r\n                                      <input matInput  name =\"additional_hr\" [(ngModel)]=\"reqtime.additional_hr\"  required>\r\n                                      \r\n                                   </mat-form-field>\r\n                               </div>\r\n                               <div class=\"clearfix\"></div>\r\n                         \r\n                               \r\n                              \r\n                        </div>\r\n                        \r\n                    <br>\r\n          \r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-4\">\r\n                        <button type=\"submit\" [disabled]=\"btnDisbled\" class=\"btn round-button\">Submit</button>\r\n      \r\n                      </div>\r\n                      <!-- <div class=\"col-md-8\" *ngIf=\"showSpinner\">\r\n                        <svg class=\"svgclass\" version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\r\n                          x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\"\r\n                          xml:space=\"preserve\">\r\n                          <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n                            <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 25 25\" to=\"360 25 25\" dur=\"0.6s\" repeatCount=\"indefinite\"\r\n                            />\r\n                          </path>\r\n                        </svg>\r\n                      </div> -->\r\n      \r\n                    </div>\r\n      \r\n                 \r\n                  </div>\r\n                 \r\n                \r\n             \r\n      </form>\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n<!-----------------------------------------------------------------edit modal-------------------------------------->\r\n<!-------------------approve modal---------------------------------->\r\n<div id=\"approvedModal\" class=\"modal fade\" role=\"dialog\">\r\n  <div class=\"modal-dialog\">\r\n\r\n    <!-- Modal content-->\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"  #closeBtn>&times;</button>\r\n        <h4 class=\"modal-title\">Approve </h4>\r\n      </div>\r\n      <!-- <div class=\"modal-header\"> -->\r\n      <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n      <!-- </div> -->\r\n      <div class=\"modal-body delete-popup\">\r\n        <!-- <i class=\"fa fa-exclamation\"></i> -->\r\n\r\n\r\n        <h4 class=\"textalign\">Do you whish to continue?</h4>\r\n\r\n      </div>\r\n\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" (click)=\"approved()\" class=\"btn round-button\" data-dismiss=\"modal\">Yes</button>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n<!-------------------approve end modal---------------------------------->\r\n<!-------------------reject modal---------------------------------->\r\n<div id=\"rejectModal\" class=\"modal fade\" role=\"dialog\">\r\n  <div class=\"modal-dialog\">\r\n\r\n    <!-- Modal content-->\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"  #closeBtn>&times;</button>\r\n        <h4 class=\"modal-title\">Reject Modal </h4>\r\n      </div>\r\n      <!-- <div class=\"modal-header\"> -->\r\n      <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n      <!-- </div> -->\r\n      <div class=\"modal-body delete-popup\">\r\n        <!-- <i class=\"fa fa-exclamation\"></i> -->\r\n\r\n\r\n        <h4 class=\"textalign\">Do you whish to continue?</h4>\r\n\r\n      </div>\r\n\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" (click)=\"rejecttimeextreq(id)\" class=\"btn round-button\" data-dismiss=\"modal\">Yes</button>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n<!-------------------reject modal---------------------------------->\r\n  <!-------------------sendtoadminModal---------------------------------->\r\n<div id=\"sendtoadminModal\" class=\"modal fade\" role=\"dialog\">\r\n  <div class=\"modal-dialog\">\r\n\r\n    <!-- Modal content-->\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn2>&times;</button>\r\n        <h4 class=\"modal-title\">Send to Admin </h4>\r\n      </div>\r\n      <!-- <div class=\"modal-header\"> -->\r\n      <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n      <!-- </div> -->\r\n      <div class=\"modal-body delete-popup\">\r\n        <!-- <i class=\"fa fa-exclamation\"></i> -->\r\n\r\n\r\n        <h4 class=\"textalign\">Do you whish to continue?</h4>\r\n\r\n      </div>\r\n\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" (click)=\"sendtoadmin(id)\" class=\"btn round-button\" data-dismiss=\"modal\">Yes</button>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n<!-------------------sendtoadminModal---------------------------------->\r\n    <!-------------------sendtoadminModal---------------------------------->\r\n<div id=\"approveModal\" class=\"modal fade\" role=\"dialog\">\r\n  <div class=\"modal-dialog\">\r\n\r\n    <!-- Modal content-->\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn3>&times;</button>\r\n        <h4 class=\"modal-title\">Approved </h4>\r\n      </div>\r\n      <!-- <div class=\"modal-header\"> -->\r\n      <!-- <h4 class=\"modal-title\">Are you sure to delete?</h4> -->\r\n      <!-- </div> -->\r\n      <div class=\"modal-body delete-popup\">\r\n        <!-- <i class=\"fa fa-exclamation\"></i> -->\r\n\r\n\r\n        <h4 class=\"textalign\">Do you whish to continue?</h4>\r\n\r\n      </div>\r\n\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" (click)=\"approved(id)\" class=\"btn round-button\" data-dismiss=\"modal\">Yes</button>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n<!-------------------sendtoadminModal---------------------------------->\r\n  </div>\r\n\r\n    </div>\r\n              \r\n          </div>\r\n              <!-- footer-->\r\n              <company-footer></company-footer>\r\n     <!-- end footer-->\r\n      </div>\r\n       </div>\r\n      <!-- Modal -->\r\n   </body>"
 
 /***/ }),
 
@@ -11324,6 +11622,8 @@ var CompanyTimeExtensionRequestComponent = (function () {
         this.snackBar = snackBar;
         this.role_id = 3;
         this.arr1 = [];
+        this.tmp = [];
+        this.reqModuleindex = 0;
         this.reqtime = { additional_hr: '', req_id: '', task_id: '', userid: '', cmp_id: '' };
         this.showSpinner = false;
     }
@@ -11347,22 +11647,74 @@ var CompanyTimeExtensionRequestComponent = (function () {
             _this.reqdetails = res.reqdetails;
             _this.teammembers = res.teammembers;
             _this.myTasks = res.myTasks;
+            _this.requestedUser = res.requestedUser;
             _this.additional_hours = _this.reqdetails.additional_hours;
+            var checkTask = false;
+            var assignedUser = '';
+            var modifiedTaskStartDateTime = '';
+            // let resultIndex = 0;
+            _this.tmp = [];
             _this.myTasks.forEach(function (element, key) {
+                var modifTasks = [];
                 _this.module_time = 0;
                 _this.totalhr = 0;
-                element.tbl_project_tasks.forEach(function (elm_tasks) {
+                element.tbl_project_tasks.forEach(function (elm_tasks, key1) {
                     if (elm_tasks.id == _this.reqdetails.task_id) {
                         _this.oldtasktime = (elm_tasks.planned_hour + elm_tasks.buffer_hour);
-                        _this.module_time = _this.module_time + _this.reqdetails.additional_hours;
+                        _this.module_time = _this.module_time + elm_tasks.planned_hour + elm_tasks.buffer_hour + _this.reqdetails.additional_hours;
+                        assignedUser = elm_tasks.assigned_to_id;
+                        checkTask = true;
+                        modifiedTaskStartDateTime = elm_tasks.planned_start_date_time;
                     }
                     else {
                         _this.module_time = _this.module_time + elm_tasks.planned_hour + elm_tasks.buffer_hour;
                     }
+                    if (checkTask) {
+                        if (assignedUser == elm_tasks.assigned_to_id) {
+                            if (elm_tasks.id == _this.reqdetails.task_id) {
+                                elm_tasks.planned_hour_old = elm_tasks.planned_hour;
+                                elm_tasks.planned_hour += _this.reqdetails.additional_hours;
+                                _this.reqModuleindex = key;
+                            }
+                            elm_tasks.assigned_person = { id: elm_tasks.assigned_to_id };
+                            modifTasks.push(elm_tasks);
+                            _this.tmp.push({ 'modIdnx': key, 'keyIdnx': key1 });
+                            // resultIndex++;
+                        }
+                    }
                 });
+                _this.myTasks[key].tbl_estimation_tasks = modifTasks;
                 _this.myTasks[key].ttlModHour = _this.module_time;
                 _this.arr1.push(_this.module_time);
                 _this.sum = _this.arr1.reduce(function (a, b) { return a + b; }, 0);
+            });
+            console.log(_this.tmp);
+            _this.requestedUser.start_date = modifiedTaskStartDateTime;
+            var modifiedTaskStartTime = new Date(modifiedTaskStartDateTime);
+            var hr = modifiedTaskStartTime.getHours();
+            var mnt = modifiedTaskStartTime.getMinutes();
+            var sec = modifiedTaskStartTime.getSeconds();
+            _this.requestedUser.start_time = {
+                hour: hr,
+                minute: mnt,
+                second: sec
+            };
+            _this.calculateUpdatedTaskTime();
+        });
+    };
+    CompanyTimeExtensionRequestComponent.prototype.calculateUpdatedTaskTime = function () {
+        var _this = this;
+        var data = { modules: this.myTasks, teamMembers: [this.requestedUser] };
+        this.companyService.getUserleavedataplanning(data).subscribe(function (data) {
+            console.log(data);
+            var Indexx = 0;
+            data.data.forEach(function (element) {
+                element.tbl_estimation_tasks.forEach(function (elm_tasks, key1) {
+                    var mdinx = _this.tmp[Indexx].modIdnx;
+                    var tskinx = _this.tmp[Indexx].keyIdnx;
+                    _this.myTasks[mdinx].tbl_project_tasks[tskinx].planned_start_date_time = elm_tasks.start_date_time_new;
+                    _this.myTasks[mdinx].tbl_project_tasks[tskinx].planned_end_date_time = elm_tasks.end_date_time;
+                });
             });
         });
     };
@@ -11375,7 +11727,7 @@ var CompanyTimeExtensionRequestComponent = (function () {
     //rejecttimeextreq
     CompanyTimeExtensionRequestComponent.prototype.rejecttimeextreq = function (id) {
         var _this = this;
-        console.log(id);
+        // console.log(id);
         this.showSpinner = true;
         this.companyService.Rejecttimeextreq(id).subscribe(function (data) {
             if (data.success) {
@@ -11396,7 +11748,7 @@ var CompanyTimeExtensionRequestComponent = (function () {
     //sendtoadminModal
     CompanyTimeExtensionRequestComponent.prototype.sendtoadmin = function (id) {
         var _this = this;
-        console.log(id);
+        // console.log(id);
         this.showSpinner = true;
         this.companyService.Sendtoadmin(id).subscribe(function (data) {
             if (data.success) {
@@ -11414,26 +11766,6 @@ var CompanyTimeExtensionRequestComponent = (function () {
             }
         });
     };
-    //approved    
-    CompanyTimeExtensionRequestComponent.prototype.approved = function (id) {
-        console.log(id);
-        // this.showSpinner =true
-        //   this.companyService.ApprovedTimeextension(id).subscribe(data=>{
-        //     if(data.success){
-        //       this.showSpinner =false
-        //       let snackBarRef =  this.snackBar.open(data.msg, '', {
-        //         duration: 2000
-        //       });
-        //       this.routes.navigate(['/company-request-management']); 
-        //          }
-        //          else{
-        //           this.showSpinner =false
-        //           let snackBarRef =  this.snackBar.open(data.msg, '', {
-        //             duration: 2000
-        //           });
-        //         }
-        //   });
-    };
     CompanyTimeExtensionRequestComponent.prototype.getEditId = function (id1, id2, id3, id4, id5) {
         this.reqtime.req_id = id1;
         this.reqtime.additional_hr = id2;
@@ -11443,26 +11775,33 @@ var CompanyTimeExtensionRequestComponent = (function () {
     };
     CompanyTimeExtensionRequestComponent.prototype.updateReqtime = function (reqtime) {
         console.log(reqtime);
+        this.myTasks[this.reqModuleindex].tbl_estimation_tasks[0].planned_hour =
+            parseInt(this.myTasks[this.reqModuleindex].tbl_estimation_tasks[0].planned_hour_old) + parseInt(this.reqtime.additional_hr);
+        this.calculateUpdatedTaskTime();
         this.showSpinner = true;
-        this.companyService.getUserleavedata(reqtime.userid).subscribe(function (data) {
-            console.log(data);
-            // this.companyService.getCmppublicholidaydata(reqtime.cmp_id).subscribe(data1=>{
-            //   console.log(data1)
-            // });
-            //     if(!data.success){
-            //       this.showSpinner =false;
-            //       let snackBarRef =  this.snackBar.open(data.msg, '', {
-            //         duration: 2000
-            //     });
-            //   }
-            //   else if(data.success){
-            //     this.showSpinner =false;
-            //     let snackBarRef =  this.snackBar.open(data.msg, '', {
-            //       duration: 2000
-            //   });
-            //   this.closeBtn1.nativeElement.click();
-            //   this.getUserid();
-            //  }
+    };
+    //approved    
+    CompanyTimeExtensionRequestComponent.prototype.approved = function () {
+        var _this = this;
+        console.log(this.reqtime.userid);
+        // this.showSpinner =true
+        //  var data ={}
+        // let data = { : this.myTasks, teamMembers :[this.requestedUser]};
+        this.companyService.ApprovedTimeextension(this.myTasks, this.reqtime.userid).subscribe(function (data) {
+            //  console.log("data");
+            if (data.success) {
+                _this.showSpinner = false;
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 2000
+                });
+                _this.routes.navigate(['/company-request-management']);
+            }
+            else {
+                _this.showSpinner = false;
+                var snackBarRef = _this.snackBar.open(data.msg, '', {
+                    duration: 2000
+                });
+            }
         });
     };
     __decorate([
@@ -13766,7 +14105,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<!-- <!DOCTYPE html>\r\n<html>\r\n<head>\r\n<title>Taskit</title>\r\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\r\n\r\n<link href=\"css/homepage.css\" rel=\"stylesheet\">\r\n\r\n<link rel=\"stylesheet\" href=\"css/animate.css\">\r\n<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\r\n<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\"> -->\r\n\r\n<!-- </head> -->\r\n<body class=\"home\">\r\n\t\t<nav class=\"navbar navbar-trans navbar-fixed-top\" role=\"navigation\">\r\n\t\t\t  <div class=\"container\">\r\n\t\t\t\t<div class=\"navbar-header\">\r\n\t\t\t\t  <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#navbar-collapsible\">\r\n\t\t\t\t\t<span class=\"sr-only\">Toggle navigation</span>\r\n\t\t\t\t\t<span class=\"icon-bar\"></span>\r\n\t\t\t\t\t<span class=\"icon-bar\"></span>\r\n\t\t\t\t\t<span class=\"icon-bar\"></span>\r\n\t\t\t\t  </button>\r\n\t\t\t\t  <a class=\"navbar-brand\" href=\"#\"><img src=\"./assets/images/logo.png\"/></a>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"navbar-collapse collapse pull-right\" id=\"navbar-collapsible\">\r\n\t\t\t\t  <ul class=\"nav navbar-nav navbar-left\">\r\n\t\t\t\t\t<li><a scrollTo href=\"#section1\">Home</a></li>\r\n\t\t\t\t\t<li><a scrollTo href=\"#section2\">About Us</a></li>\r\n\t\t\t\t\t<li><a scrollTo scrollTargetSelector=\"#section3\" scrollYTarget=\"900\">Facilities</a></li>\r\n\t\t\t\t\t<li><a scrollTo href=\"#section4\" scrollYTarget=\"1300\">Plans & Price</a></li>\r\n\t\t\t\t\t<li class=\"login-bt\">\r\n\t\t\t\t\t\t\t<a routerLink=\"/company-login\" >\r\n\t\t\t\t\t\t<input type=\"submit\" name=\"login-submit\" id=\"login-submit\" tabindex=\"4\" class=\"form-control btn btn-login\" value=\"Log In\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t </li>\t\t\r\n\t\t\t\t\t<li class=\"login-bt\"><a routerLink=\"/company-signup\" >\r\n\t\t\t\t\t\t<input type=\"submit\" name=\"login-submit\" id=\"login-submit\" tabindex=\"4\" class=\"form-control btn btn-login\" value=\"Signup\">\r\n\t\t\t\t\t</a></li>\r\n\t\t\t\t  </ul>\r\n\t\t\t\t</div>\r\n\t\t\t  </div>\r\n\t\t\t</nav>\r\n\t\t\t\r\n\r\n\t\t\t<section class=\"banner\" id=\"section1\">\r\n\t\t\t\t  \r\n\t\t\t\t \r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<div class=\"col-md-3 left-c wow fadeInRight\" data-wow-delay=\"0.4s\">\r\n\t\t\t\t\t\t\t<p><img src=\"./assets/images/logo2.png\"/></p>\r\n\t\t\t\t\t\t\t<h3>helps over 10 million people feel more in control of their lives</h3>\r\n\t\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"col-md-3 left-r pull-right wow fadeInLeft\" data-wow-delay=\"0.5s\">\r\n\t\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t    </div><!--/container-->\r\n\t\t\t\t<div class=\"device wow fadeInLeft\" data-wow-delay=\"0.2s\"></div>\r\n\t\t\t</section>\r\n\r\n\t\t\t<section class=\"about\" id=\"section2\">\r\n\t\t\t  <div class=\"container\">\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col-md-6 wow fadeInRight\">\r\n\t\t\t\t\t\t<img src=\"./assets/images/about.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t\r\n\t\t\t\t\t<div class=\"col-md-6 paddtop wow fadeInLeft\">\r\n\t\t\t\t\t\t<h2>WHAT WE DO</h2>\r\n\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean</p>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t  </div>\r\n\t\t\t</section>\r\n\t\t\t\r\n\t\t\t\r\n\r\n\t\t\t<section class=\"features\" id=\"section3\">\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-4\">\r\n\t\t\t\t\t\t  <div class=\"shade wow fadeInRight\">\r\n\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"./assets/images/img1.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<h3>Facilities</h3>\r\n\t\t\t\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </p>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\t\r\n\t\t\t\t\t\t  </div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-4 wow fadeInDown\">\r\n\t\t\t\t\t\t  <div class=\"shade\">\r\n\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"./assets/images/img2.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<h3>Facilities</h3>\r\n\t\t\t\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean</p>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\t\r\n\t\t\t\t\t\t  </div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-4 wow fadeInLeft\">\r\n\t\t\t\t\t\t  <div class=\"shade\">\r\n\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"./assets/images/img3.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<h3>Facilities</h3>\r\n\t\t\t\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean</p>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\t\r\n\t\t\t\t\t\t  </div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>  \r\n\t\t\t    </div>\r\n\t\t\t</section>\r\n\t\t\t\r\n\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\r\n\r\n\t\t\t<section class=\"planz\" id=\"section3\">\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t<h2>PLANS & PRICE</h2>\r\n\t\t\t\t\t<div class=\"carry\">\r\n\t\t\t\t\t    <div class=\"plan wow fadeInRight\" data-wow-delay=\"0.2s\" *ngFor=\"let plan of plans\" [ngClass]=\"{'hilight': plan.is_best_value}\">\r\n\t\t\t\t\t\t  <h3 class=\"plan-title\">{{plan?.plan_name}}</h3>\r\n\t\t\t\t\t\t  <p class=\"plan-price\">&#8377;{{plan?.plan_price | number : '1.2-2'}} <span class=\"plan-unit\">per month</span></p>\r\n\t\t\t\t\t\t  <ul class=\"plan-features\">\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>{{plan?.no_projects}} </h4><span class=\"plan-feature-name\">Projects</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>{{plan?.no_members}} </h4><span class=\"plan-feature-name\">Members</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>{{plan?.no_modules}} </h4><span class=\"plan-feature-name\">Modules</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>{{plan?.no_tasks}} </h4><span class=\"plan-feature-name\">Tasks</span></li>\r\n\t\t\t\t\t\t  </ul>\r\n\t\t\t\t\t\t  \r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<!-- <div class=\"plan hilight\">\r\n\t\t\t\t\t\t  <h3 class=\"plan-title\">Premium</h3>\r\n\t\t\t\t\t\t  <p class=\"plan-price\">&#8377;500 <span class=\"plan-unit\">per month</span></p>\r\n\t\t\t\t\t\t  <ul class=\"plan-features\">\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Projects</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Members</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Modules</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>100 </h4><span class=\"plan-feature-name\">Tasks</span></li>\r\n\t\t\t\t\t\t  </ul>\r\n\t\t\t\t\t\t  \r\n\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t\t \r\n\t\t\t\t\t\t<!-- <div class=\"plan mr-lft wow fadeInLeft\" data-wow-delay=\"0.4s\">\r\n\t\t\t\t\t\t  <h3 class=\"plan-title\">Ultra</h3>\r\n\t\t\t\t\t\t  <p class=\"plan-price\">&#8377;1000 <span class=\"plan-unit\">per month</span></p>\r\n\t\t\t\t\t\t  <ul class=\"plan-features\">\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Projects</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Members</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Modules</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>120 </h4><span class=\"plan-feature-name\">Tasks</span></li>\r\n\t\t\t\t\t\t  </ul>\r\n\t\t\t\t\t\t  \r\n\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t  </div>\r\n\t\t\t    </div>\r\n\t\t\t</section>\r\n<br>\r\n<br>\r\n\t\t<footer>\r\n\t\t\t<div class=\"container\">\r\n\t\t\t\tTaskit © 2018, All Rights Reserved \r\n\t\t\t</div>\r\n\t\t</footer>\r\n    <!-- Modal -->\r\n \r\n\t <!-- <script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\r\n\t<script src=\"js/bootstrap.min.js\"></script>\r\n\t <script src=\"js/wow.js\"></script>\r\n\t <script>\r\n\t\twow = new WOW({\r\n    boxClass: 'wow', // default\r\n    animateClass: 'animated', // default\r\n    offset: 0, // default\r\n    mobile: true, // default\r\n    live: true // default\r\n\t\t})\r\n\t\twow.init();\r\n\t</script>\r\n\t<script>\r\n\t\t$('body').scrollspy({\r\n\t\t  target: '#navbar-collapsible',\r\n\t\t  offset: 50\r\n\t\t});\r\n\r\n\t\t/* smooth scrolling sections */\r\n\t\t$('a[href*=#]:not([href=#])').click(function() {\r\n\t\t\tif (location.pathname.replace(/^\\//,'') == this.pathname.replace(/^\\//,'') && location.hostname == this.hostname) {\r\n\t\t\t  var target = $(this.hash);\r\n\t\t\t  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');\r\n\t\t\t  if (target.length) {\r\n\t\t\t\t$('html,body').animate({\r\n\t\t\t\t  scrollTop: target.offset().top - 50\r\n\t\t\t\t}, 1000);\r\n\t\t\t\treturn false;\r\n\t\t\t  }\r\n\t\t\t}\r\n         });\r\n\r\n\t</script> -->\r\n\r\n</body>\r\n\r\n\r\n<!-- </html> -->"
+module.exports = "\r\n\r\n<!-- <!DOCTYPE html>\r\n<html>\r\n<head>\r\n<title>Taskit</title>\r\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n<link rel=\"stylesheet\" href=\"css/bootstrap.css\">\r\n\r\n<link href=\"css/homepage.css\" rel=\"stylesheet\">\r\n\r\n<link rel=\"stylesheet\" href=\"css/animate.css\">\r\n<link rel=\"stylesheet\" href=\"css/font-awesome.min.css\">\r\n<link rel=\"stylesheet\" href=\"css/line-awesome-font-awesome.min.css\"> -->\r\n\r\n<!-- </head> -->\r\n<body class=\"home\">\r\n\t\t<nav class=\"navbar navbar-trans navbar-fixed-top\" role=\"navigation\">\r\n\t\t\t  <div class=\"container\">\r\n\t\t\t\t<div class=\"navbar-header\">\r\n\t\t\t\t  <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#navbar-collapsible\">\r\n\t\t\t\t\t<span class=\"sr-only\">Toggle navigation</span>\r\n\t\t\t\t\t<span class=\"icon-bar\"></span>\r\n\t\t\t\t\t<span class=\"icon-bar\"></span>\r\n\t\t\t\t\t<span class=\"icon-bar\"></span>\r\n\t\t\t\t  </button>\r\n\t\t\t\t  <a class=\"navbar-brand\" href=\"#\"><img src=\"./assets/images/logo.png\"/></a>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"navbar-collapse collapse pull-right\" id=\"navbar-collapsible\">\r\n\t\t\t\t  <ul class=\"nav navbar-nav navbar-left\">\r\n\t\t\t\t\t<li><a scrollTo href=\"#section1\">Home</a></li>\r\n\t\t\t\t\t<li><a scrollTo href=\"#section2\">About Us</a></li>\r\n\t\t\t\t\t<li><a scrollTo scrollTargetSelector=\"#section3\" scrollYTarget=\"900\">Facilities</a></li>\r\n\t\t\t\t\t<li><a scrollTo href=\"#section4\" scrollYTarget=\"1300\">Plans & Price</a></li>\r\n\t\t\t\t\t<li class=\"login-bt\">\r\n\t\t\t\t\t\t\t<a routerLink=\"/company-login\" >\r\n\t\t\t\t\t\t<input type=\"submit\" name=\"login-submit\" id=\"login-submit\" tabindex=\"4\" class=\"form-control btn btn-login\" value=\"Log In\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t </li>\t\t\r\n\t\t\t\t\t<li class=\"login-bt\"><a routerLink=\"/company-signup\" >\r\n\t\t\t\t\t\t<input type=\"submit\" name=\"login-submit\" id=\"login-submit\" tabindex=\"4\" class=\"form-control btn btn-login\" value=\"Signup\">\r\n\t\t\t\t\t</a></li>\r\n\t\t\t\t  </ul>\r\n\t\t\t\t</div>\r\n\t\t\t  </div>\r\n\t\t\t</nav>\r\n\t\t\t\r\n\r\n\t\t\t<section class=\"banner\" id=\"section1\">\r\n\t\t\t\t  \r\n\t\t\t\t \r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<div class=\"col-md-3 left-c wow fadeInRight\" data-wow-delay=\"0.4s\">\r\n\t\t\t\t\t\t\t<p><img src=\"./assets/images/logo2.png\"/></p>\r\n\t\t\t\t\t\t\t<h3>helps over 10 million people feel more in control of their lives</h3>\r\n\t\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"col-md-3 left-r pull-right wow fadeInLeft\" data-wow-delay=\"0.5s\">\r\n\t\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t    </div><!--/container-->\r\n\t\t\t\t<div class=\"device wow fadeInLeft\" data-wow-delay=\"0.2s\"></div>\r\n\t\t\t</section>\r\n\r\n\t\t\t<section class=\"about\" id=\"section2\">\r\n\t\t\t  <div class=\"container\">\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col-md-6 wow fadeInRight\">\r\n\t\t\t\t\t\t<img src=\"./assets/images/about.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t\r\n\t\t\t\t\t<div class=\"col-md-6 paddtop wow fadeInLeft\">\r\n\t\t\t\t\t\t<h2>WHAT WE DO</h2>\r\n\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean</p>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t  </div>\r\n\t\t\t</section>\r\n\t\t\t<section class=\"features\" id=\"section3\">\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-4\">\r\n\t\t\t\t\t\t  <div class=\"shade wow fadeInRight\">\r\n\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"./assets/images/img1.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<h3>Facilities</h3>\r\n\t\t\t\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean </p>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\t\r\n\t\t\t\t\t\t  </div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-4 wow fadeInDown\">\r\n\t\t\t\t\t\t  <div class=\"shade\">\r\n\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"./assets/images/img2.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<h3>Facilities</h3>\r\n\t\t\t\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean</p>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\t\r\n\t\t\t\t\t\t  </div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<div class=\"col-md-4 col-sm-4 wow fadeInLeft\">\r\n\t\t\t\t\t\t  <div class=\"shade\">\r\n\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"./assets/images/img3.jpg\" class=\"img-responsive\"/>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t\t\t<h3>Facilities</h3>\r\n\t\t\t\t\t\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean</p>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\t\r\n\t\t\t\t\t\t  </div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>  \r\n\t\t\t    </div>\r\n\t\t\t</section>\r\n\t\t\t\r\n\t\t\t<div class=\"clearfix\"></div>\r\n\t\t\t\r\n\r\n\t\t\t<section class=\"planz\" id=\"section4\">\r\n\t\t\t\t<div class=\"container\">\r\n\t\t\t\t<h2>PLANS & PRICE</h2>\r\n\t\t\t\t\t<div class=\"carry\">\r\n\t\t\t\t\t    <div class=\"plan wow fadeInRight\" data-wow-delay=\"0.2s\" *ngFor=\"let plan of plans\" [ngClass]=\"{'hilight': plan.is_best_value}\">\r\n\t\t\t\t\t\t  <h3 class=\"plan-title\">{{plan?.plan_name}}</h3>\r\n\t\t\t\t\t\t  <p class=\"plan-price\">&#8377;{{plan?.plan_price | number : '1.2-2'}} <span class=\"plan-unit\">per month</span></p>\r\n\t\t\t\t\t\t  <ul class=\"plan-features\">\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>{{plan?.no_projects}} </h4><span class=\"plan-feature-name\">Projects</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>{{plan?.no_members}} </h4><span class=\"plan-feature-name\">Members</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>{{plan?.no_modules}} </h4><span class=\"plan-feature-name\">Modules</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>{{plan?.no_tasks}} </h4><span class=\"plan-feature-name\">Tasks</span></li>\r\n\t\t\t\t\t\t  </ul>\r\n\t\t\t\t\t\t  \r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<!-- <div class=\"plan hilight\">\r\n\t\t\t\t\t\t  <h3 class=\"plan-title\">Premium</h3>\r\n\t\t\t\t\t\t  <p class=\"plan-price\">&#8377;500 <span class=\"plan-unit\">per month</span></p>\r\n\t\t\t\t\t\t  <ul class=\"plan-features\">\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Projects</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Members</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>50 </h4><span class=\"plan-feature-name\">Modules</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>100 </h4><span class=\"plan-feature-name\">Tasks</span></li>\r\n\t\t\t\t\t\t  </ul>\r\n\t\t\t\t\t\t  \r\n\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t\t \r\n\t\t\t\t\t\t<!-- <div class=\"plan mr-lft wow fadeInLeft\" data-wow-delay=\"0.4s\">\r\n\t\t\t\t\t\t  <h3 class=\"plan-title\">Ultra</h3>\r\n\t\t\t\t\t\t  <p class=\"plan-price\">&#8377;1000 <span class=\"plan-unit\">per month</span></p>\r\n\t\t\t\t\t\t  <ul class=\"plan-features\">\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Projects</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Members</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>70 </h4><span class=\"plan-feature-name\">Modules</span></li>\r\n\t\t\t\t\t\t\t<li class=\"plan-feature\"><h4>120 </h4><span class=\"plan-feature-name\">Tasks</span></li>\r\n\t\t\t\t\t\t  </ul>\r\n\t\t\t\t\t\t  \r\n\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t  </div>\r\n\t\t\t    </div>\r\n\t\t\t</section>\r\n<br>\r\n<br>\r\n\t\t<footer>\r\n\t\t\t<div class=\"container\">\r\n\t\t\t\tTaskit © 2018, All Rights Reserved \r\n\t\t\t</div>\r\n\t\t</footer>\r\n    <!-- Modal -->\r\n \r\n\t <!-- <script src=\"http://code.jquery.com/jquery-1.11.1.js\"></script>\r\n\t<script src=\"js/bootstrap.min.js\"></script>\r\n\t <script src=\"js/wow.js\"></script>\r\n\t <script>\r\n\t\twow = new WOW({\r\n    boxClass: 'wow', // default\r\n    animateClass: 'animated', // default\r\n    offset: 0, // default\r\n    mobile: true, // default\r\n    live: true // default\r\n\t\t})\r\n\t\twow.init();\r\n\t</script>\r\n\t<script>\r\n\t\t$('body').scrollspy({\r\n\t\t  target: '#navbar-collapsible',\r\n\t\t  offset: 50\r\n\t\t});\r\n\r\n\t\t/* smooth scrolling sections */\r\n\t\t$('a[href*=#]:not([href=#])').click(function() {\r\n\t\t\tif (location.pathname.replace(/^\\//,'') == this.pathname.replace(/^\\//,'') && location.hostname == this.hostname) {\r\n\t\t\t  var target = $(this.hash);\r\n\t\t\t  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');\r\n\t\t\t  if (target.length) {\r\n\t\t\t\t$('html,body').animate({\r\n\t\t\t\t  scrollTop: target.offset().top - 50\r\n\t\t\t\t}, 1000);\r\n\t\t\t\treturn false;\r\n\t\t\t  }\r\n\t\t\t}\r\n         });\r\n\r\n\t</script> -->\r\n\r\n</body>\r\n\r\n\r\n<!-- </html> -->"
 
 /***/ }),
 
@@ -14721,7 +15060,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".graph-ul li{\r\n    float :left;\r\n    padding: 10px 2px;\r\n    border: 1px solid #ddd;\r\n    margin-top: 10px;\r\n    width: 300px;\r\n    display: table;\r\n    overflow:hidden;\r\n    padding-top: 0px;\r\n   \r\n}\r\n.graph-ul li .divModule{\r\n    background:#ccc;\r\n    padding: 20px 5px;\r\n    margin-bottom: 10px;\r\n}\r\n.graph-ul{\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    overflow-x: scroll;\r\n    max-width:1170px;\r\n    float: none;\r\n    margin: 0 auto;\r\n}\r\n.bg-g{background:#17a88f;color:#fff; padding: 10px;}\r\n.bg-hash{background:#E9E9E9;padding: 10px;}\r\n.bg-hash select{background:none;border:none;width:100%;}\r\n.total{font-weight:700;padding-top: 20px; line-height: 36px;}\r\n.sales{margin-bottom: 25px;border:none;    box-shadow: 4px 7px 31px #e8e8e8;}\r\n.label-bg{background:#ccc;padding:20px;position:relative;margin-bottom: 15px;}\r\n.label-bg .number{width:50px;height:50px;border-radius:50%;background:#fff;left:0;right:0;position:absolute;z-index:10;margin:0 auto;text-align:center;    top: -4px;\r\n    box-shadow: 10px 4px 18px #b1b1b1;\r\n    border: 1px solid #b5b3b3;    font-size: 20px;\r\n    font-weight: bold;\r\n    color: #05b8cc;\r\n    padding-top: 15px;}\r\n\r\n    .graph-ul-hour li .divModule{\r\n        background:#ccc;\r\n        padding: 20px 5px;\r\n        margin-bottom: 10px;\r\n    }\r\n    .graph-ul-hour{\r\n        display: -ms-flexbox;\r\n        display: flex;\r\n        overflow-x: scroll;\r\n        max-width:1170px;\r\n        float: none;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .firstColumn{\r\n        background: #e4e4e4;\r\n        padding:0 40px;\r\n    }\r\n\r\n    .firstRow{\r\n        \r\n        font-weight:bold;\r\n        font-weight: bold;\r\n        min-height: 135px;\r\n        border-bottom: 1px solid #ccc;\r\n        text-transform:uppercase;\r\n        padding-top: 35%;\r\n    }\r\n    .secondRow{\r\n       \r\n        font-weight:bold;\r\n        min-height: 330px;\r\n        border-bottom: 1px solid #ccc;\r\n        text-transform:uppercase;\r\n        padding-top: 64%;\r\n    }\r\n    .ThirdRow{\r\n        \r\n        font-weight:bold;\r\n        min-height: 224px;\r\n        text-align:uppercase;\r\n        padding-top: 43%;\r\n    }\r\n    .prjtitle1{\r\n        background: #237cbe;\r\n        padding: 10px;\r\n        color:#fff;\r\n    }\r\n    .prjtitle2{\r\n       \r\n        padding: 10px;\r\n    }\r\n    .hash{    background: #f3f3f3;}\r\n    .datelabel{font-weight:bold;padding-bottom: 10px;}\r\n    .user-dashboard h1{text-align:center;}\r\n    .mr-top{margin-top: 20px;}", ""]);
+exports.push([module.i, ".graph-ul li{\r\n    float :left;\r\n    padding: 10px 2px;\r\n    border: 1px solid #ddd;\r\n    margin-top: 10px;\r\n    width: 300px;\r\n    display: table;\r\n    overflow:hidden;\r\n    padding-top: 0px;\r\n    text-align: center;\r\n}\r\n.graph-ul li .divModule{\r\n    background:#ccc;\r\n    padding: 20px 5px;\r\n    margin-bottom: 10px;\r\n}\r\n.graph-ul{\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    overflow-x: scroll;\r\n    max-width:1170px;\r\n    float: none;\r\n    margin: 0 auto;\r\n}\r\n.bg-g{background:#17a88f;color:#fff; padding: 10px;}\r\n.bg-hash{background:#E9E9E9;padding: 10px;}\r\n.bg-hash select{background:none;border:none;width:100%;}\r\n.total{font-weight:700;padding-top: 20px; line-height: 36px;}\r\n.sales{margin-bottom: 25px;border:none;    box-shadow: 4px 7px 31px #e8e8e8;}\r\n.label-bg{background:#ccc;padding:20px;position:relative;margin-bottom: 15px;}\r\n.label-bg .number{width:50px;height:50px;border-radius:50%;background:#fff;left:0;right:0;position:absolute;z-index:10;margin:0 auto;text-align:center;    top: -4px;\r\n    box-shadow: 10px 4px 18px #b1b1b1;\r\n    border: 1px solid #b5b3b3;    font-size: 20px;\r\n    font-weight: bold;\r\n    color: #05b8cc;\r\n    padding-top: 15px;}\r\n\r\n    .graph-ul-hour li .divModule{\r\n        background:#ccc;\r\n        padding: 20px 5px;\r\n        margin-bottom: 10px;\r\n    }\r\n    .graph-ul-hour{\r\n        display: -ms-flexbox;\r\n        display: flex;\r\n        overflow-x: scroll;\r\n        max-width:1170px;\r\n        float: none;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .firstColumn{\r\n        background: #e4e4e4;\r\n        padding:0 40px;\r\n    }\r\n\r\n    .firstRow{\r\n        \r\n        font-weight:bold;\r\n        font-weight: bold;\r\n        min-height: 135px;\r\n        border-bottom: 1px solid #ccc;\r\n        text-transform:uppercase;\r\n        padding-top: 35%;\r\n    }\r\n    .secondRow{\r\n       \r\n        font-weight:bold;\r\n        min-height: 330px;\r\n        border-bottom: 1px solid #ccc;\r\n        text-transform:uppercase;\r\n        padding-top: 64%;\r\n    }\r\n    .ThirdRow{\r\n        \r\n        font-weight:bold;\r\n        min-height: 224px;\r\n        text-align:uppercase;\r\n        padding-top: 43%;\r\n    }\r\n    .prjtitle1{\r\n        background: #237cbe;\r\n        padding: 10px;\r\n        color:#fff;\r\n    }\r\n    .prjtitle2{\r\n       \r\n        padding: 10px;\r\n    }\r\n    .hash{    background: #f3f3f3;}\r\n    .datelabel{font-weight:bold;padding-bottom: 10px;}\r\n    .user-dashboard h1{text-align:center;}\r\n    .mr-top{margin-top: 20px;}\r\n    .text-center2{\r\n        text-align: center !important\r\n    }", ""]);
 
 // exports
 
@@ -14734,7 +15073,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user-dashboard/user-dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <user-sidebar></user-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <user-topbar></user-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                \r\n                \r\n                <div class=\"user-dashboard\">\r\n                    <h1></h1>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-5 col-sm-5 col-xs-12 gutter\">\r\n                              \r\n                            <div class=\"sales\">\r\n                               \r\n                                    <!-- <div id=\"projct-3-bar\"></div>\r\n                                   {{newyetstart}}\r\n                                    <user-taskstatus-graph [containerId]=\"'projct-3-bar'\" [hold]=\"countaskhold2.length\" [inprogress]=\"countaskinprogress2.length\" [done]=\"countaskdone2.length\" [newy]=\"selectedValue1\" ></user-taskstatus-graph> -->\r\n                                    <user-taskstatus-graph></user-taskstatus-graph> \r\n                        \r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-7  col-xs-12 gutter\">\r\n\r\n                            <div class=\"sales\">\r\n                         \r\n                                <user-task-vs-status></user-task-vs-status>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                 \r\n\r\n                    <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                <h1> Project Progress</h1>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-8 col-md-push-1\">\r\n                                        <div class=\"col-md-3 bg-g\">*Select Project</div>\r\n                                        <div class=\"col-md-3 bg-hash\">\r\n                                            <select  (change)=\"taskstatus()\" [(ngModel)]=\"selectedValue\">\r\n                                                <option *ngFor=\"let prj of projects\" value=\"{{prj.id}}\">{{prj.project_name}}</option>\r\n                                              </select>\r\n                                        </div> \r\n                                        <div class=\"col-md-3\">\r\n                                            <span class=\"total\">Total {{modulecount}} Milestone</span>\r\n                                        </div>\r\n                                    </div> \r\n                                </div>\r\n                                <div >\r\n                                <ul class=\"graph-ul\"  >\r\n                                    <li *ngFor=\"let proj of projectmodule; let i = index \" >\r\n                                        <div class=\"divModule\" >{{proj.module_name}}</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>{{proj.totalplaned_hr}}</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br>{{proj.totalactual_hr}} </div>\r\n                                            <div id=\"module-progress-{{i}}\"></div>\r\n                                            <user-progress-graph [containerId]=\"'module-progress-'+ i\" [progper]=\"totalprogress1\"></user-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">{{proj.totalmoduletask }}</div>\r\n                                            </div>\r\n                                            <div id=\"module-status-{{i}}\"></div>\r\n                                            <user-status-graph [containerId]=\"'module-status-'+ i\" [New]=\"proj.countasknew\" [Progress]=\"proj.countaskinprogress\" [Completed]=\"proj.countaskdone\"  [Hold]=\"proj.countaskhold\"></user-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    \r\n                                </ul>\r\n                            </div>\r\n                            </div>\r\n                           \r\n                        </div>   \r\n\r\n\r\n                    <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                    <h1>Planned hours vs actual hours</h1>\r\n                                    <div >\r\n                                    <ul class=\"graph-ul-hour\">\r\n                                            <li>\r\n                                                <div class=\"firstRow firstColumn\">PROJECTS</div>\r\n                                                <div class=\"secondRow firstColumn\">Progress</div>\r\n                                                <div class=\"ThirdRow firstColumn\">Planned <br>vs<br> Actual Hours</div>\r\n                                            </li>\r\n                                            <li  *ngFor=\"let project of allproject; let i = index\">\r\n                                                <div class=\"prjtitle1\">{{project.project_name}}</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                <div class=\"datelabel\">Start <span class=\"pull-right\"> {{project.planned_start_date |  date: 'dd-MM-yyyy' }}</span></div>\r\n                                                <div class=\"datelabel\">End <span class=\"pull-right\"> {{project.planned_end_date |  date: 'dd-MM-yyyy' }}</span></div>\r\n                                                </div>\r\n                                                <div class=\"clearfix\"></div>\r\n                                              \r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-progress\"></div>\r\n                                                <user-progress-graph [containerId]=\"'projct-'+ i+'-progress'\" [progper]=\"project.per\"></user-progress-graph>\r\n                                                <label>{{project.in_progress_tasks}}/{{project.tasktotal}} In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-bar\"></div>\r\n                                                <user-bar-graph [containerId]=\"'projct-'+ i+'-bar'\" [actual]=\"project.actualhr\" [planning]=\"project.totalplannedhr\"></user-bar-graph>\r\n                                            </li>\r\n                                          \r\n                                    </ul>   \r\n                                </div>    \r\n                            </div>\r\n            </div>   \r\n            \r\n            \r\n \r\n                        \r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n                <!-- <user-footer></user-footer> -->\r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
+module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <user-sidebar></user-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <user-topbar></user-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                \r\n                \r\n                <div class=\"user-dashboard\">\r\n                    <h1></h1>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-5 col-sm-5 col-xs-12 gutter\">\r\n                              \r\n                            <div class=\"sales\">\r\n                               \r\n                                    <!-- <div id=\"projct-3-bar\"></div>\r\n                                   {{newyetstart}}\r\n                                    <user-taskstatus-graph [containerId]=\"'projct-3-bar'\" [hold]=\"countaskhold2.length\" [inprogress]=\"countaskinprogress2.length\" [done]=\"countaskdone2.length\" [newy]=\"selectedValue1\" ></user-taskstatus-graph> -->\r\n                                    <user-taskstatus-graph></user-taskstatus-graph> \r\n                        \r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-7  col-xs-12 gutter\">\r\n\r\n                            <div class=\"sales\">\r\n                         \r\n                                <user-task-vs-status></user-task-vs-status>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                 \r\n\r\n                    <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                <h1> Project Progress</h1>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-8 col-md-push-1\">\r\n                                        <div class=\"col-md-3 bg-g\">*Select Project</div>\r\n                                        <div class=\"col-md-3 bg-hash\">\r\n                                            <select  (change)=\"taskstatus()\" [(ngModel)]=\"selectedValue\">\r\n                                                <option *ngFor=\"let prj of projects\" value=\"{{prj.id}}\">{{prj.project_name}}</option>\r\n                                              </select>\r\n                                        </div> \r\n                                        <div class=\"col-md-3\">\r\n                                            <span class=\"total\">Total {{modulecount}} Milestone</span>\r\n                                        </div>\r\n                                    </div> \r\n                                </div>\r\n                                <div >\r\n                                <ul class=\"graph-ul\"  >\r\n                                    <li *ngFor=\"let proj of projectmodule; let i = index \" >\r\n                                        <div class=\"divModule\" >{{proj.module_name}}</div>\r\n                                        <div class=\"row\">\r\n                                            <div class=\"col-md-6\">Planned Hour <br>{{proj.totalplaned_hr}}</div>\r\n                                            <div class=\"col-md-6\">Actual Hour<br>{{proj.totalactual_hr}} </div>\r\n                                            <div id=\"module-progress-{{i}}\"></div>\r\n                                            <user-progress-graph [containerId]=\"'module-progress-'+ i\" [progper]=\"totalprogress1\"></user-progress-graph>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-12 label-bg\">\r\n                                                <div class=\"number\">{{proj.totalmoduletask }}</div>\r\n                                            </div>\r\n                                            <div id=\"module-status-{{i}}\"></div>\r\n                                            <user-status-graph [containerId]=\"'module-status-'+ i\" [New]=\"proj.countasknew\" [Progress]=\"proj.countaskinprogress\" [Completed]=\"proj.countaskdone\"  [Hold]=\"proj.countaskhold\"></user-status-graph>\r\n                                        </div>\r\n                                    </li>\r\n                                    \r\n                                </ul>\r\n                            </div>\r\n                            </div>\r\n                           \r\n                        </div>   \r\n\r\n\r\n                    <div class=\"col-md-12 col-sm-12 col-xs-12 \">\r\n                            <div class=\"sales\">\r\n                                    <h1>Planned hours vs actual hours</h1>\r\n                                    <div >\r\n                                    <ul class=\"graph-ul-hour\">\r\n                                            <li class=\"text-center2\">\r\n                                                <div class=\"firstRow firstColumn\">PROJECTS</div>\r\n                                                <div class=\"secondRow firstColumn\">Progress</div>\r\n                                                <div class=\"ThirdRow firstColumn\">Planned <br>vs<br> Actual Hours</div>\r\n                                            </li>\r\n                                            <li class=\"text-center2\" *ngFor=\"let project of allproject; let i = index\">\r\n                                                <div class=\"prjtitle1\">{{project.project_name}}</div>\r\n                                                <div class=\"col-md-8 mr-top\">\r\n                                                <div class=\"datelabel\">Start <span class=\"pull-right\"> {{project.planned_start_date |  date: 'dd-MM-yyyy' }}</span></div>\r\n                                                <div class=\"datelabel\">End <span class=\"pull-right\"> {{project.planned_end_date |  date: 'dd-MM-yyyy' }}</span></div>\r\n                                                </div>\r\n                                                <div class=\"clearfix\"></div>\r\n                                              \r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-progress\"></div>\r\n                                                <user-progress-graph [containerId]=\"'projct-'+ i+'-progress'\" [progper]=\"project.per\"></user-progress-graph>\r\n                                                <label>{{project.in_progress_tasks}}/{{project.tasktotal}} In Progress</label>\r\n                                                <hr>\r\n                                                <div id=\"projct-{{i}}-bar\"></div>\r\n                                                <user-bar-graph [containerId]=\"'projct-'+ i+'-bar'\" [actual]=\"project.actualhr\" [planning]=\"project.totalplannedhr\"></user-bar-graph>\r\n                                            </li>\r\n                                          \r\n                                    </ul>   \r\n                                </div>    \r\n                            </div>\r\n            </div>   \r\n            \r\n            \r\n \r\n                        \r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n                <!-- <user-footer></user-footer> -->\r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
 
 /***/ }),
 
@@ -17000,7 +17339,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user-task-management/user-task-management.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n\r\n      <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n        <!-- sidebar-->\r\n\r\n        <user-sidebar></user-sidebar>\r\n        <!-- end sidebar-->\r\n      </div>\r\n\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n        <!-- topbar-->\r\n        <user-topbar></user-topbar>\r\n        <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->\r\n        <div id=\"additionalTask\" class=\"modal fade\" role=\"dialog\">\r\n          <div class=\"modal-dialog\">\r\n            <div class=\"modal-content\">\r\n              <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\r\n                <h4 class=\"modal-title\">Additional task request </h4>\r\n              </div>\r\n              <div class=\"modal-body\">\r\n                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addTask(index);\">\r\n\r\n                  <div>\r\n                    <div class=\"example-container\">\r\n                      <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\r\n                      <div class=\"col-md-7 col-xs-6\">\r\n                        <mat-form-field>\r\n                          <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\r\n                        </mat-form-field>\r\n                      </div>\r\n                      <br>\r\n                      <div class=\"example-container\">\r\n                        <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\r\n                        <div class=\"col-md-7 col-xs-6\" *ngFor=\"let userdata of  userData;\">\r\n                          {{userdata.f_name}} {{userdata.l_name}}\r\n                        </div>\r\n\r\n                        <div class=\"clearfix\"></div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <mat-form-field class=\"inputfileds\">\r\n\r\n                              <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\r\n                                <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\r\n                              </mat-select>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div>\r\n                          <!-- <div class=\"col-md-3 col-xs-6\">\r\n                        <mat-form-field>\r\n                          <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"picker\" placeholder=\"Choose a date\" [formControl]=\"date\"\r\n                            name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                          <mat-datepicker #picker1></mat-datepicker>\r\n                        </mat-form-field>\r\n                      </div>  -->\r\n\r\n                          <div class=\"col-md-3 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                              <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                              <mat-datepicker #picker></mat-datepicker>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n\r\n                          <div class=\"clearfix\"></div>\r\n                          <ngb-timepicker [meridian]=\"meridian\" name=\"start_time\" [(ngModel)]=\"newTasks.start_time\"></ngb-timepicker>\r\n                          <hr>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\r\n                          <div class=\"col-md-3 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput [matDatepicker]=\"picker1\" placeholder=\"Choose a date\" name='end_date' [(ngModel)]=\"newTasks.end_date\">\r\n                              <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\r\n                              <mat-datepicker #picker1></mat-datepicker>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n\r\n                          <div class=\"clearfix\"></div>\r\n                          <ngb-timepicker [meridian]=\"meridian\" name=\"end_time\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\r\n                          <hr>\r\n                          <div class=\"clearfix\"></div>\r\n\r\n\r\n                          <div class=\"example-container\">\r\n                            <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\r\n                            <div class=\"col-md-7 col-xs-6\">\r\n                              <mat-form-field class=\"inputfileds\">\r\n                                <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\r\n                                  <!-- <mat-option>None</mat-option> -->\r\n                                  <mat-option value=\"0\">Billable</mat-option>\r\n                                  <mat-option value=\"1\">Non Billable</mat-option>\r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n                            <div class=\"clearfix\"></div>\r\n                            <div class=\"example-container\">\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\r\n                              <div class=\"col-md-7 col-xs-6\">\r\n                                <mat-form-field class=\"inputfileds\">\r\n                                  <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\r\n                                    <!-- <mat-option>None</mat-option> -->\r\n                                    <mat-option value=\"0\">High</mat-option>\r\n                                    <mat-option value=\"1\">Medium</mat-option>\r\n                                    <mat-option value=\"2\">Low</mat-option>\r\n                                  </mat-select>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div *ngIf=\"showTeam\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Select Team *:</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field class=\"inputfileds\">\r\n                                    <mat-select [(value)]=\"selected3\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.team\">\r\n                                      <!-- <mat-option>None</mat-option> -->\r\n                                      <mat-option value=\"1\">Developer</mat-option>\r\n                                      <mat-option value=\"2\">Designer</mat-option>\r\n                                      <mat-option value=\"3\">QC</mat-option>\r\n                                    </mat-select>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                              <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Description :</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field>\r\n                                    <textarea matInput placeholder=\"Textarea\" name='description' [(ngModel)]=\"newTasks.description\"></textarea>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                                <br>\r\n                                <!-- <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                                <div class=\"col-md-5 col-xs-5\">\r\n                                  <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n\r\n                                    <mat-form-field class=\"example-form-field\">\r\n                                      <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                      <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                  <mat-icon>close</mat-icon>\r\n                                </button>\r\n                                    </mat-form-field>\r\n                                    <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                                  </div>\r\n                                </div> -->\r\n\r\n                                <!-- <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div> -->\r\n                                <div class=\"clearfix\"></div>\r\n                                <div class=\"example-container\">\r\n                                  <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\r\n                                  <div class=\"col-md-7 col-xs-6\">\r\n\r\n                                    <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\r\n                                  </div>\r\n                                  <div class=\"clearfix\"></div>\r\n                                  <div class=\"center\">\r\n                                    <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Send Request</button>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->\r\n\r\n        <!-- --------------------------------------------- add time extension ----------------------------------------------------------------- -->\r\n        <div id=\"extentionTask\" class=\"modal fade\" role=\"dialog\">\r\n          <div class=\"modal-dialog\">\r\n            <div class=\"modal-content\">\r\n              <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\r\n                <h4 class=\"modal-title\">Time Extension request </h4>\r\n              </div>\r\n              <div class=\"modal-body\">\r\n                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"TimeExtention(newTasks);\">\r\n\r\n                  <div>\r\n                    <div class=\"example-container\">\r\n                      <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name  :</label></div>\r\n                      <div class=\"col-md-7 col-xs-6\">\r\n\r\n                        <div class=\"col-md-7 col-xs-6\">\r\n                          {{newTasks.task_name}}\r\n                        </div>\r\n                      </div>\r\n                      <br>\r\n                      <div class=\"example-container\">\r\n                        <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person  :</label></div>\r\n                        <div class=\"col-md-7 col-xs-6\" *ngFor=\"let userdata of  userData;\">\r\n                          {{userdata.f_name}} {{userdata.l_name}}\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                        <div class=\"example-container\">\r\n\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <div *ngIf=\"newTasks.complexity_id!=null\">\r\n                              {{newTasks.tbl_complexity_percentage.percentage}}\r\n                            </div>\r\n                          </div>\r\n\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            {{newTasks.planned_hour}}\r\n                            <!-- <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                            </mat-form-field> -->\r\n                          </div>\r\n\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n\r\n                            {{newTasks.buffer_hour}}\r\n                          </div>\r\n                          <!-- <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                            </mat-form-field> -->\r\n\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\"> Time required :*</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput min=\"0\" name='timerequired' [(ngModel)]=\"newTasks.timerequired\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"center\">\r\n                            <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Send Request</button>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <!-- --------------------------------------------- end time extension ----------------------------------------------------------------- -->\r\n        <!-- end topbar-->\r\n        <div class=\"user-dashboard\">\r\n          <!-- <h1>Hello, JS</h1> -->\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 col-sm-12 col-xs-12 gutter \">\r\n              <div class=\"white project-planning\">\r\n                <div class=\"pull-right\">\r\n                  <mat-form-field class=\"filter\">\r\n                    <mat-select (change)=\"statusBasedData()\" [(value)]=\"selected\">\r\n\r\n                      <mat-option value=\"all\">All</mat-option>\r\n                      <mat-option value=\"1\">New </mat-option>\r\n                      <mat-option value=\"2\">Paused</mat-option>\r\n                      <mat-option value=\"3\">In Progress</mat-option>\r\n                      <mat-option value=\"4\">Hold</mat-option>\r\n                      <mat-option value=\"5\">Done</mat-option>\r\n\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                </div>\r\n\r\n                <div *ngFor=\"let myTask of showDetails; let i = index\">\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-4\"><label for=\"\">Project Name</label><span>:</span></div>\r\n\r\n                    <div class=\"col-md-4\">\r\n                      <div class=\"row\"><label for=\"\" class=\"label2\">{{myTask.tbl_project.project_name}}</label></div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"clearfix\"></div>\r\n                  <div class=\"clearfix\"></div>\r\n                  <br>\r\n                  <div>\r\n                    <!-- <div  [dragula]='\"myBag\"' draggable=\"true\" [class]=\"'groupClass'\"> -->\r\n                    <div>\r\n                      <!-- <div *ngFor=\"let module of modules; let i = index\"> -->\r\n                      <div>\r\n                        <div class=\"col-md-12 col-xs-12 pull-right\">\r\n                          <div class=\"task\">\r\n                            <div class=\"col-md-10 col-xs-7\">\r\n                              <!-- <p>dfd</p> -->\r\n                              <h5>{{myTask.module_name}}</h5>\r\n                            </div>\r\n                            <div class=\"col-md-2 col-xs-5\">\r\n                              <ul class=\"taskedit\">\r\n                                <!-- {{module.time}} -->\r\n                                <!-- <li>22 Hr</li> -->\r\n                                <li class=\"pull-right\">\r\n                                  <!-- <div class=\"col-md-12\">\r\n            <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button>\r\n                                    </div> -->\r\n                                  <button (click)=\"getId(i,myTask.id)\" data-toggle=\"modal\" data-target=\"#additionalTask\" class=\"add-project\">+</button>\r\n                                </li>\r\n                                <!-- </div> -->\r\n                                <li class=\"pull-right\"></li>\r\n                              </ul>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                        <!-- <div [dragula]=\"'myBag'\"> -->\r\n                        <!-- <div *ngFor=\"let task of myTasks[i].tbl_project_tasks; let j = index\" > -->\r\n                        <div *ngFor=\"let task of myTask.tbl_project_tasks; let j = index\">\r\n                          <!-- <div *ngFor=\"let task1 of myTasks[i].tbl_project_tasks[j].tbl_task_status_assocs; let y = index\"> -->\r\n                          <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                            <!-- <div class=\"task assigned\" ng-style=\"background-color :task.status?.tbl_task_status?.color\" > -->\r\n                            <div class=\"task assigned\" *ngIf=\"task.startdatenow == 'showtasks'\" [ngStyle]=\"{'background-color': task.status?.tbl_task_status.color}\">\r\n                              <div>\r\n                                <div class=\"col-md-8 col-xs-7 martop\">\r\n                                  <!-- <h5> {{task.status?.tbl_task_status.color }}</h5>-->\r\n                                  <h5>{{task.task_name}}</h5>\r\n                                  <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>\r\n                                </div>\r\n                                <div class=\"col-md-4\">\r\n                                  <div class=\"row\">\r\n                                    <div class=\"col-md-4 col-xs-5\">\r\n                                      <ul class=\"taskedit-request\"><button title=\"Pause\" (click)=\"getId1(task,i,j)\" type=\"button\" class=\"btn round-button request-bt\"\r\n                                          data-toggle=\"modal\" data-target=\"#extentionTask\">Request</button></ul>\r\n                                    </div>\r\n                                    <div class=\"col-md-8 col-xs-5\">\r\n                                      <!-- ---------------------------------------------------------------------------------------------------- -- -->\r\n                                      <ul class=\"taskedit\">\r\n                                        <div class=\"wrapper\">\r\n                                          \r\n                                          <p><span id=\"seconds\">{{task.actual_hour}}</span></p>\r\n                                    \r\n                                        </div>\r\n                                        <li *ngIf=\"pause[task.id] || task.status?.status_id == 3\"><button title=\"Pause\" class=\"iconButton\" data-toggle=\"dropdown\" (click)=\"clearReason()\"><i class=\"fa fa-pause\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"dropdown-menu puase-popup\" role=\"menu\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Reason *</label></div>\r\n                                              <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                                              <!-- <input class=\"style\" type=\"text\" placeholder=\"Module Name\" name=\"name\" [(ngModel)]=\"module.module_name\"> -->\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <br>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"pauseTask(task)\" class=\"btn round-button\">Pause</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n\r\n                                        <li *ngIf=\"completed[task.id] || task.status?.status_id == 3\"><button title=\"Completed\" class=\"iconButton\" data-toggle=\"collapse\" data-target=\"#demo\"\r\n                                            (click)=\"clearprogress()\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\" id=\"demo\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"complete(task)\" class=\"btn round-button closepanel\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n\r\n                                        <li *ngIf=\"hold[task.id] || task.status?.status_id == 3\"><button title=\"Hold\" class=\"iconButton\" data-toggle=\"collapse\" data-target=\"#demo1\"\r\n                                            (click)=\"clearhold()\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\" id=\"demo1\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                              <div class=\"clearfix\"></div>\r\n                                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Reason *</label></div>\r\n\r\n                                              <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <br>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"holdTask(task)\" class=\"btn round-button closepane\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n\r\n                                        <!-- <li *ngIf=\"hold[task.id]\"><button title=\"Hold\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <div class=\"col-md-8\">\r\n                                                <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                               \r\n                                              </div>\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"hold(task)\" class=\"btn round-button closepane\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li> -->\r\n                                        <!-- <li *ngIf=\"hold[task.id]\"><button title=\"Hold\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button></li> -->\r\n                                        <!-- <li *ngIf=\"completed[task.id]\"><button title=\"Completed\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"completed(task)\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></button></li> -->\r\n                                        <div *ngIf=\"play[task.id] \">\r\n                                          <li><button title=\"Start\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"startTask(myTask.id,task,j)\"><i class=\"fa fa-play\" aria-hidden=\"true\"></i></button></li>\r\n                                        </div>\r\n                                        <li *ngIf=\"done[task.id] || task.status?.status_id == 3\"><button title=\"Finish\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"Done(task)\"><i class=\"fa fa-check-circle-o\" aria-hidden=\"true\"></i></button></li>\r\n                                        <li *ngIf=\"Resume[task.id] || task.status?.status_id == 2 || task.status?.status_id == 4\"><button title=\"Resume\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"resume(task)\"><i class=\"fa fa-play\" aria-hidden=\"true\"></i></button></li>\r\n                                      </ul>\r\n                                    </div>\r\n                                  </div>\r\n                                </div>\r\n                                <div class=\"clearfix\"></div>\r\n                              </div>\r\n                            </div>\r\n                            <!-- </div> -->\r\n                          </div>\r\n                          <!-- </div> -->\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-md-12\" *ngIf=\"viewAll1\">\r\n                  <button type=\"button\" class=\"btn round-button dropdown-toggle mrg-tp pull-right\" data-toggle=\"dropdown\" (click)=\"viewAll()\">View All</button>\r\n                  <!-- <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button> -->\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n        <!-- sidebar-->\r\n        <user-sidebar></user-sidebar>\r\n        <!-- end sidebar-->\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n        <!-- topbar-->\r\n        <user-topbar></user-topbar>\r\n        <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->\r\n        <div id=\"additionalTask\" class=\"modal fade\" role=\"dialog\">\r\n          <div class=\"modal-dialog\">\r\n            <div class=\"modal-content\">\r\n              <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\r\n                <h4 class=\"modal-title\">Additional task request </h4>\r\n              </div>\r\n              <div class=\"modal-body\">\r\n                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addTask(index);\">\r\n                  <div>\r\n                    <div class=\"example-container\">\r\n                      <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\r\n                      <div class=\"col-md-7 col-xs-6\">\r\n                        <mat-form-field>\r\n                          <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\r\n                        </mat-form-field>\r\n                      </div>\r\n                      <br>\r\n                      <div class=\"example-container\">\r\n                        <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\r\n                        <div class=\"col-md-7 col-xs-6\" *ngFor=\"let userdata of  userData;\">\r\n                          {{userdata.f_name}} {{userdata.l_name}}\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <mat-form-field class=\"inputfileds\">\r\n                              <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\r\n                                <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\r\n                              </mat-select>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div> -->\r\n                          <!-- <div class=\"col-md-3 col-xs-6\">\r\n                        <mat-form-field>\r\n                          <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"picker\" placeholder=\"Choose a date\" [formControl]=\"date\"\r\n                            name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                          <mat-datepicker #picker1></mat-datepicker>\r\n                        </mat-form-field>\r\n                      </div>  -->\r\n                          <!-- <div class=\"col-md-3 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                              <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                              <mat-datepicker #picker></mat-datepicker>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <ngb-timepicker [meridian]=\"meridian\" name=\"start_time\" [(ngModel)]=\"newTasks.start_time\"></ngb-timepicker>\r\n                          <hr>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\r\n                          <div class=\"col-md-3 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput [matDatepicker]=\"picker1\" placeholder=\"Choose a date\" name='end_date' [(ngModel)]=\"newTasks.end_date\">\r\n                              <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\r\n                              <mat-datepicker #picker1></mat-datepicker>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <ngb-timepicker [meridian]=\"meridian\" name=\"end_time\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\r\n                          <hr> -->\r\n                          <div class=\"clearfix\"></div>\r\n\r\n                          <div class=\"example-container\">\r\n                            <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\r\n                            <div class=\"col-md-7 col-xs-6\">\r\n                              <mat-form-field class=\"inputfileds\">\r\n                                <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\r\n                                  <!-- <mat-option>None</mat-option> -->\r\n                                  <mat-option value=\"0\">Billable</mat-option>\r\n                                  <mat-option value=\"1\">Non Billable</mat-option>\r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n                            <div class=\"clearfix\"></div>\r\n                            <div class=\"example-container\">\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\r\n                              <div class=\"col-md-7 col-xs-6\">\r\n                                <mat-form-field class=\"inputfileds\">\r\n                                  <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\r\n                                    <!-- <mat-option>None</mat-option> -->\r\n                                    <mat-option value=\"0\">High</mat-option>\r\n                                    <mat-option value=\"1\">Medium</mat-option>\r\n                                    <mat-option value=\"2\">Low</mat-option>\r\n                                  </mat-select>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div *ngIf=\"showTeam\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Select Team *:</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field class=\"inputfileds\">\r\n                                    <mat-select [(value)]=\"selected3\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.team\">\r\n                                      <!-- <mat-option>None</mat-option> -->\r\n                                      <mat-option value=\"1\">Developer</mat-option>\r\n                                      <mat-option value=\"2\">Designer</mat-option>\r\n                                      <mat-option value=\"3\">QC</mat-option>\r\n                                    </mat-select>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                              <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Description :</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field>\r\n                                    <textarea matInput placeholder=\"Textarea\" name='description' [(ngModel)]=\"newTasks.description\"></textarea>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                                <br>\r\n                                <!-- <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                                <div class=\"col-md-5 col-xs-5\">\r\n                                  <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n                                    <mat-form-field class=\"example-form-field\">\r\n                                      <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                      <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                  <mat-icon>close</mat-icon>\r\n                                </button>\r\n                                    </mat-form-field>\r\n                                    <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                                  </div>\r\n                                </div> -->\r\n                                <!-- <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div> -->\r\n                                <div class=\"clearfix\"></div>\r\n                                <div class=\"example-container\">\r\n                                  <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\r\n                                  <div class=\"col-md-7 col-xs-6\">\r\n                                    <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\r\n                                  </div>\r\n                                  <div class=\"clearfix\"></div>\r\n                                  <div class=\"center\">\r\n                                    <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Send Request</button>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->\r\n        <!-- --------------------------------------------- add time extension ----------------------------------------------------------------- -->\r\n        <div id=\"extentionTask\" class=\"modal fade\" role=\"dialog\">\r\n          <div class=\"modal-dialog\">\r\n            <div class=\"modal-content\">\r\n              <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\r\n                <h4 class=\"modal-title\">Time Extension request </h4>\r\n              </div>\r\n              <div class=\"modal-body\">\r\n                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"TimeExtention(newTasks);\">\r\n                  <div>\r\n                    <div class=\"example-container\">\r\n                      <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name  :</label></div>\r\n                      <div class=\"col-md-7 col-xs-6\">\r\n                        <div class=\"col-md-7 col-xs-6\">\r\n                          {{newTasks.task_name}}\r\n                        </div>\r\n                      </div>\r\n                      <br>\r\n                      <div class=\"example-container\">\r\n                        <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person  :</label></div>\r\n                        <div class=\"col-md-7 col-xs-6\" *ngFor=\"let userdata of  userData;\">\r\n                          {{userdata.f_name}} {{userdata.l_name}}\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <div *ngIf=\"newTasks.complexity_id!=null\">\r\n                              {{newTasks.tbl_complexity_percentage.percentage}}\r\n                            </div>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            {{newTasks.planned_hour}}\r\n                            <!-- <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                            </mat-form-field> -->\r\n                          </div>\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            {{newTasks.buffer_hour}}\r\n                          </div>\r\n                          <!-- <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                            </mat-form-field> -->\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\"> Time required :*</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput min=\"0\" name='timerequired' [(ngModel)]=\"newTasks.timerequired\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"center\">\r\n                            <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Send Request</button>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <!-- --------------------------------------------- end time extension ----------------------------------------------------------------- -->\r\n        <!-- end topbar-->\r\n        <div class=\"user-dashboard\">\r\n          <!-- <h1>Hello, JS</h1> -->\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 col-sm-12 col-xs-12 gutter \">\r\n              <div class=\"white project-planning\">\r\n                <div class=\"pull-right\">\r\n                  <!-- <p><span id=\"hr\">00</span>:<span id=\"min\">00</span>:<span id=\"sec\">00</span></p>\r\n                    <div class=\"icons\" id=\"xxx\">\r\n                        <span class=\"stop-watch\">\r\n                          <span class=\"sw-parts\">\r\n                            <span class=\"sw-parts2\" id=\"icn-clock-line\"></span>\r\n                          </span>\r\n                        </span>\r\n                        <span class=\"label\" id=\"label-start-stop\">START</span>\r\n                      </div>\r\n                      <div class=\"btn btn-reset\" id=\"btn-reset\">\r\n                          <span class=\"bl-parts\"></span>\r\n                          <span class=\"bl-parts\"></span>\r\n                          <span class=\"btn-label\">RESET</span>\r\n                        </div> -->\r\n                  <mat-form-field class=\"filter\">\r\n                    <mat-select (change)=\"statusBasedData()\" [(value)]=\"selected\">\r\n                      <mat-option value=\"all\">All</mat-option>\r\n                      <mat-option value=\"1\">New </mat-option>\r\n                      <mat-option value=\"2\">Paused</mat-option>\r\n                      <mat-option value=\"3\">In Progress</mat-option>\r\n                      <mat-option value=\"4\">Hold</mat-option>\r\n                      <mat-option value=\"5\">Done</mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                </div>\r\n                <div *ngFor=\"let myTask of showDetails; let i = index\">\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-4\"><label for=\"\">Project Name</label><span>:</span></div>\r\n                    <div class=\"col-md-4\">\r\n                      <div class=\"row\"><label for=\"\" class=\"label2\">{{myTask.tbl_project.project_name}}</label></div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"clearfix\"></div>\r\n                  <div class=\"clearfix\"></div>\r\n                  <br>\r\n                  <div>\r\n                    <!-- <div  [dragula]='\"myBag\"' draggable=\"true\" [class]=\"'groupClass'\"> -->\r\n                    <div>\r\n                      <!-- <div *ngFor=\"let module of modules; let i = index\"> -->\r\n                      <div>\r\n                        <div class=\"col-md-12 col-xs-12 pull-right\">\r\n                          <div class=\"task\">\r\n                            <div class=\"col-md-10 col-xs-7\">\r\n                              <!-- <p>dfd</p> -->\r\n                              <h5>{{myTask.module_name}}</h5>\r\n                            </div>\r\n                            <div class=\"col-md-2 col-xs-5\">\r\n                              <ul class=\"taskedit\">\r\n                                <!-- {{module.time}} -->\r\n                                <!-- <li>22 Hr</li> -->\r\n                                <li class=\"pull-right\">\r\n                                  <!-- <div class=\"col-md-12\">\r\n            <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button>\r\n                                    </div> -->\r\n                                  <button (click)=\"getId(i,myTask.id)\" data-toggle=\"modal\" data-target=\"#additionalTask\" class=\"add-project\">+</button>\r\n                                </li>\r\n                                <!-- </div> -->\r\n                                <li class=\"pull-right\"></li>\r\n                              </ul>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                        <!-- <div [dragula]=\"'myBag'\"> -->\r\n                        <!-- <div *ngFor=\"let task of myTasks[i].tbl_project_tasks; let j = index\" > -->\r\n                        <div *ngFor=\"let task of myTask.tbl_project_tasks; let j = index\">\r\n                          <!-- <div *ngFor=\"let task1 of myTasks[i].tbl_project_tasks[j].tbl_task_status_assocs; let y = index\"> -->\r\n                          <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                            <!-- <div class=\"task assigned\" ng-style=\"background-color :task.status?.tbl_task_status?.color\" > -->\r\n                            <div class=\"task assigned\" *ngIf=\"task.startdatenow == 'showtasks'\" [ngStyle]=\"{'background-color': task.status?.tbl_task_status.color}\">\r\n                              \r\n                              <div>\r\n                                <div class=\"col-md-8 col-xs-7 martop\">\r\n                                  <!-- <h5> {{task.status?.tbl_task_status.color }}</h5>-->\r\n                                  <h5>{{task.task_name}}</h5>\r\n                                  <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>\r\n                                </div>\r\n                                <div class=\"col-md-4\">\r\n                                  <div class=\"row\">\r\n                                    <div class=\"col-md-4 col-xs-5\">\r\n                                      <ul class=\"taskedit-request\"><button title=\"Pause\" (click)=\"getId1(task,i,j)\" type=\"button\" class=\"btn round-button request-bt\"\r\n                                          data-toggle=\"modal\" data-target=\"#extentionTask\">Request</button></ul>\r\n                                    </div>\r\n                                    <div class=\"col-md-8 col-xs-5\">\r\n                                      <!-- ---------------------------------------------------------------------------------------------------- -- -->\r\n                                      <ul class=\"taskedit\">\r\n                                        <!-- <p><span id=\"hr\">{{task.appendHour}}</span>:<span id=\"min\">{{task.appendMinute}}</span>:\r\n                                          <span\r\n                                            id=\"sec\">{{task.appendSecond}}</span>\r\n                                        </p> -->\r\n                                        <!-- ----------------------------------------------------------------- -->\r\n                                        <div class=\"div1\">\r\n                                          <div class=\"div\">\r\n                                            <!-- <h1>StopWatch</h1> -->\r\n                                          </div>\r\n                                          <!-- <div id=\"ans\" class=\"d\">0:0:0</div> -->\r\n                                           <p><span id=\"hr\">{{task.appendHour}}</span>:<span id=\"min\">{{task.appendMinute}}</span>:\r\n                                          <span\r\n                                            id=\"sec\">{{task.appendSecond}}</span>\r\n                                        </p>\r\n                                          <!-- <div id=\"ans\" class=\"d\">{{ans}}</div> -->\r\n                                          <div class=\"d2\">\r\n                                           \r\n                                              <!-- <button class=\"button\" id=\"but\" (click)=\"start(task, myTask)\"> START</button> -->\r\n                                              <!-- <button class=\"button\" id=\"butt\" (click)=\"pause1(task)\">PAUSE sample</button> -->\r\n                                              <!-- <button class=\"button\" data-toggle=\"dropdown\" (click)=\"pauseTask(task)\">PAUSE</button> -->\r\n                                              <!-- <button class=\"button\" id=\"butt\" (click)=\"resume1(task)\">RESUME</button> -->\r\n                                          </div>\r\n                                        </div>\r\n                                        <!-- ---------------------------- -->\r\n                                        <li *ngIf=\"pause[task.id] || task.status?.status_id == 3\"><button title=\"Pause\" class=\"iconButton\" data-toggle=\"dropdown\" (click)=\"clearReason()\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-pause\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"dropdown-menu puase-popup\" role=\"menu\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Reason *</label></div>\r\n                                              <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <br>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"pauseTask(task)\" class=\"btn round-button\">Pause</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n                                        <li *ngIf=\"completed[task.id] || task.status?.status_id == 3\"><button title=\"Completed\" class=\"iconButton\" data-toggle=\"collapse\" data-target=\"#demo\"\r\n                                            (click)=\"clearprogress()\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\" id=\"demo\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"complete(task)\" class=\"btn round-button closepanel\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n                                        <li *ngIf=\"hold[task.id] || task.status?.status_id == 3\"><button title=\"Hold\" class=\"iconButton\" data-toggle=\"collapse\" data-target=\"#demo1\"\r\n                                            (click)=\"clearhold()\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\" id=\"demo1\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                              <div class=\"clearfix\"></div>\r\n                                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Reason *</label></div>\r\n                                              <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <br>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"holdTask(task)\" class=\"btn round-button closepane\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n                                        <!-- <li *ngIf=\"hold[task.id]\"><button title=\"Hold\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <div class=\"col-md-8\">\r\n                                                <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                               \r\n                                              </div>\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"hold(task)\" class=\"btn round-button closepane\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li> -->\r\n                                        <!-- <li *ngIf=\"hold[task.id]\"><button title=\"Hold\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button></li> -->\r\n                                        <!-- <li *ngIf=\"completed[task.id]\"><button title=\"Completed\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"completed(task)\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></button></li> -->\r\n                                        <div *ngIf=\"task.status?.status_id == 1\">\r\n                                          <li><button title=\"Start\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"start(task, myTask)\"><i class=\"fa fa-play\" aria-hidden=\"true\"></i></button></li>\r\n                                        </div>\r\n                                        <li *ngIf=\"done[task.id] || task.status?.status_id == 3\"><button title=\"Finish\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"Done(task)\"><i class=\"fa fa-check-circle-o\" aria-hidden=\"true\"></i></button></li>\r\n                                        <li *ngIf=\"Resume[task.id] || task.status?.status_id == 2 || task.status?.status_id == 4\"><button title=\"Resume\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"resumeTasks(task)\"><i class=\"fa fa-play\" aria-hidden=\"true\"></i></button></li>\r\n                                      </ul>\r\n                                    </div>\r\n                                  </div>\r\n                                </div>\r\n                                <div class=\"clearfix\"></div>\r\n                              </div>\r\n                            </div>\r\n                            <!-- </div> -->\r\n                          </div>\r\n                          <!-- </div> -->\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-md-12\" *ngIf=\"viewAll1\">\r\n                  <button type=\"button\" class=\"btn round-button dropdown-toggle mrg-tp pull-right\" data-toggle=\"dropdown\" (click)=\"viewAll()\">View All</button>\r\n                  <!-- <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button> -->\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</body>"
 
 /***/ }),
 
@@ -17016,7 +17355,6 @@ module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid displa
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_company_service__ = __webpack_require__("../../../../../src/app/services/company.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_simple_timer__ = __webpack_require__("../../../../ng2-simple-timer/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_simple_timer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_ng2_simple_timer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Rx__ = __webpack_require__("../../../../rxjs/_esm5/Rx.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -17032,7 +17370,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var UserTaskManagementComponent = (function () {
     function UserTaskManagementComponent(route, userService, companyService, snackBar, st) {
         this.route = route;
@@ -17040,11 +17377,6 @@ var UserTaskManagementComponent = (function () {
         this.companyService = companyService;
         this.snackBar = snackBar;
         this.st = st;
-        this.foods = [
-            { value: 'steak-0', viewValue: 'Steak' },
-            { value: 'pizza-1', viewValue: 'Pizza' },
-            { value: 'tacos-2', viewValue: 'Tacos' }
-        ];
         this.done = [];
         this.hold = [];
         this.Resume = [];
@@ -17111,8 +17443,35 @@ var UserTaskManagementComponent = (function () {
             reason: '',
             newChecklist: [{ name: '' }],
             status: '',
-            tbl_complexity_percentage: { percentage: '' }
+            timestatus: '',
+            tbl_complexity_percentage: { percentage: '' },
+            hour: 0,
+            minutes: 0,
+            seconds: 0,
+            totalhour: ''
         };
+        this.appendHour = 0;
+        this.appendMinute = 0;
+        this.appendSecond = 0;
+        // ----------------stopwatch-----------
+        // b: any;
+        this.b = [];
+        this.hour = 0;
+        this.miniutes = 0;
+        this.second = 0;
+        // a: any;
+        this.a = [];
+        // countt: any;
+        this.countt = [];
+        this.intervel = 0;
+        // ----------------stopwatch-----------
+        this.time = {
+            hour: 0,
+            minutes: 0,
+            seconds: 0,
+            id: 0
+        };
+        this.showthisTask = [];
     }
     UserTaskManagementComponent.prototype.getId = function (index, id) {
         this.module_id = id;
@@ -17144,42 +17503,75 @@ var UserTaskManagementComponent = (function () {
             timerequired: '',
             reason: '',
             status: '',
+            timestatus: '',
             newChecklist: [{ name: '' }],
-            tbl_complexity_percentage: { percentage: '' }
+            tbl_complexity_percentage: { percentage: '' },
+            hour: 0,
+            minutes: 0,
+            seconds: 0,
+            totalhour: ''
         };
     };
     UserTaskManagementComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.ticks = 0;
-        var timer = __WEBPACK_IMPORTED_MODULE_6_rxjs_Rx__["Observable"].timer(2000, 1000);
-        timer.subscribe(function (t) { return _this.ticks = t; });
-        this.userService.getMyTasks().subscribe(function (data9) {
-            data9.forEach(function (module) {
-                module.tbl_project_tasks.forEach(function (task) {
-                    _this.task_id = task.id;
-                    _this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-                    if (_this.lastStatus !== undefined) {
-                        if (_this.lastStatus.status_id == 3 || _this.lastStatus.status_id == 2) {
-                            _this.userService.getAllTasksInModule().subscribe(function (alltasks) {
-                                _this.alltask = alltasks;
-                                _this.alltask.forEach(function (element, index) {
-                                    if (element.id == _this.task_id) {
-                                        console.log(element.id);
-                                        _this.disableTask[_this.task_id] = true;
-                                    }
-                                    else {
-                                        // console.log(element.id);
-                                        _this.disableTask[element.id] = false;
-                                    }
-                                });
-                            });
-                        }
-                    }
-                });
-            });
-        });
-        this.selected = "all";
-        this.getmytasks();
+        this.hour = 0;
+        this.miniutes = 0;
+        this.second = 0;
+        this.appendHour = 0;
+        this.appendMinute = 0;
+        this.appendSecond = 0;
+        var task_time_id = 0;
+        this.lastStatus = '';
+        // this.userService.getMyTasks().subscribe(forDisable => {
+        //   forDisable.forEach(module => {
+        //     module.tbl_project_tasks.forEach(task => {
+        //       task.tbl_task_time_assocs.forEach(element => {
+        //         if (element.id > task_time_id) {
+        //           this.lastStatus = element;
+        //           task_time_id = element.id;
+        //         }
+        //         console.log(this.lastStatus.status_id)
+        //         if (this.lastStatus.status_id == 3 || this.lastStatus.status_id == 2) {
+        //           console.log(task.id)
+        //           console.log("status id");
+        //           this.disableTask[task.id] = true;
+        //         }
+        //         else {
+        //           console.log(task.id);
+        //           console.log("else");
+        //           this.disableTask[task.id] = false;
+        //         }
+        //       });
+        //     });
+        //   });
+        // });
+        // this.userService.getMyTasks().subscribe(forDisable => {
+        //   forDisable.forEach(module => {
+        //     module.tbl_project_tasks.forEach(task => {
+        //       this.task_id = task.id;
+        //       task.tbl_task_time_assocs.forEach(element => {
+        //         if (element.id > task_time_id) {
+        //           this.lastStatus = element;
+        //           task_time_id = element.id;
+        //         }
+        //       });
+        //       if (this.lastStatus !== undefined) {
+        //         if (this.lastStatus.status_id == 3 || this.lastStatus.status_id == 2) {
+        //           this.userService.getAllTasksInModule().subscribe(alltasks => {
+        //             this.alltask = alltasks;
+        //             this.alltask.forEach((element, index) => {
+        //               if (element.id == this.task_id) {
+        //                 this.disableTask[this.task_id] = false;
+        //               } else {
+        //                 this.disableTask[element.id] = true;
+        //               }
+        //             });
+        //           });
+        //         }
+        //       }
+        //     });
+        //   });
+        // });
         this.userService.getAllTasksInModule().subscribe(function (alltasks) {
             _this.alltask = alltasks;
         });
@@ -17189,6 +17581,7 @@ var UserTaskManagementComponent = (function () {
         this.miliSec = 0;
         this.min = 0;
         this.userService.getUserProfile().subscribe(function (data1) {
+            // console.log(data1);
             _this.userData = data1;
             _this.userData.forEach(function (element) {
                 _this.assigned_id = element.id;
@@ -17206,101 +17599,13 @@ var UserTaskManagementComponent = (function () {
         this.userService.getPercentage().subscribe(function (percentage) {
             _this.percentages = percentage;
         });
+        this.selected = "all";
+        this.selectbox = false;
+        this.getmytasks();
     };
-    // ngOnDestroy() {
-    //   this.subscription.unsubscribe();
-    // }
-    UserTaskManagementComponent.prototype.getmytasks = function () {
-        var _this = this;
-        this.myTasks = [];
-        this.showDetails1 = [];
-        this.showDetails = [];
-        this.lastStatus = "";
-        this.taskToShow = "";
-        this.userService.getMyTasks().subscribe(function (data) {
-            _this.myTasks = data;
-            if (_this.selected == "all") {
-                data.forEach(function (module) {
-                    module.tbl_project_tasks.forEach(function (task) {
-                        _this.task_id = task.id;
-                        task.planned_start_date_time = new Date(task.planned_start_date_time);
-                        if (_this.selectbox == false) {
-                            _this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-                            if (_this.lastStatus !== undefined) {
-                                if (task.planned_start_date_time <= Date.now() && _this.lastStatus.status_id !== 5) {
-                                    task.startdatenow = 'showtasks';
-                                }
-                            }
-                            else {
-                                if (task.planned_start_date_time <= Date.now()) {
-                                    task.startdatenow = 'showtasks';
-                                }
-                            }
-                        }
-                        else {
-                            task.startdatenow = 'showtasks';
-                        }
-                        if (task.tbl_task_status_assocs == [] || task.tbl_task_status_assocs == null || task.tbl_task_status_assocs == '') {
-                            _this.showDetails1.push(module);
-                            _this.showDetails.push(module);
-                            _this.play[task.id] = true;
-                        }
-                        else {
-                            _this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-                            if (_this.lastStatus !== undefined) {
-                                // this.statusID = this.lastStatus.status_id;
-                                task.status = _this.lastStatus;
-                                _this.showDetails.push(module);
-                            }
-                        }
-                    });
-                });
-            }
-            else {
-                data.forEach(function (module) {
-                    module.tbl_project_tasks.forEach(function (task) {
-                        _this.task_id = task.id;
-                        task.planned_start_date_time = new Date(task.planned_start_date_time);
-                        if (_this.selectbox == false) {
-                            _this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-                            if (_this.lastStatus !== undefined) {
-                                if (task.planned_start_date_time <= Date.now() && _this.lastStatus.status_id !== 5) {
-                                    task.startdatenow = 'showtasks';
-                                }
-                            }
-                            else {
-                                if (task.planned_start_date_time <= Date.now()) {
-                                    task.startdatenow = 'showtasks';
-                                }
-                            }
-                        }
-                        else {
-                            task.startdatenow = 'showtasks';
-                        }
-                        if (task.tbl_task_status_assocs == [] || task.tbl_task_status_assocs == null || task.tbl_task_status_assocs == '') {
-                            _this.play[task.id] = true;
-                            _this.showDetails1.push(module);
-                            if (_this.selected == 1) {
-                                _this.showDetails = _this.showDetails1;
-                            }
-                        }
-                        else {
-                            _this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-                            if (_this.lastStatus !== undefined) {
-                                if (_this.lastStatus.status_id == _this.selected) {
-                                    task.status = _this.lastStatus;
-                                    _this.showDetails.push(module);
-                                }
-                            }
-                        }
-                    });
-                });
-            }
-            // console.log(this.showDetails);
-        });
-    };
-    UserTaskManagementComponent.prototype.clearprogress = function () {
-        this.newTasks.percentage = '';
+    UserTaskManagementComponent.prototype.viewAll = function () {
+        this.selectbox = true;
+        this.getmytasks();
     };
     UserTaskManagementComponent.prototype.addTask = function (index) {
         var _this = this;
@@ -17414,32 +17719,282 @@ var UserTaskManagementComponent = (function () {
         }
         document.getElementById("timer").innerHTML = this.min + ":" + this.sec + ":" + this.miliSec;
     };
-    UserTaskManagementComponent.prototype.start = function () {
-        // console.log("hello");
-        this.disabled = true;
-        this.timer = setInterval(this.callTimer, 10);
-    };
-    UserTaskManagementComponent.prototype.stop = function () {
-        this.disabled = false;
-        clearInterval(this.timer);
-    };
-    UserTaskManagementComponent.prototype.viewAll = function () {
+    UserTaskManagementComponent.prototype.statusBasedData = function () {
         this.selectbox = true;
         this.getmytasks();
-    };
-    UserTaskManagementComponent.prototype.statusBasedData = function () {
         if (this.selected == 'all') {
             this.viewAll1 = true;
         }
         else {
             this.viewAll1 = false;
         }
-        this.selectbox = true;
-        this.getmytasks();
     };
-    UserTaskManagementComponent.prototype.startTask = function (moduleId, task, j) {
+    UserTaskManagementComponent.prototype.getmytasks = function () {
         var _this = this;
-        this.moduleid = moduleId;
+        this.myTasks = [];
+        var task_time_id = '';
+        this.showDetails1 = [];
+        this.showDetails = [];
+        this.lastStatus = "";
+        this.taskToShow = "";
+        // this. endDatetym ='';
+        this.userService.getMyTasks().subscribe(function (data) {
+            _this.myTasks = data;
+            if (_this.selected == "all") {
+                data.forEach(function (module) {
+                    module.tbl_project_tasks.forEach(function (task) {
+                        _this.task_id = task.id;
+                        task.planned_start_date_time = new Date(task.planned_start_date_time);
+                        if (_this.selectbox == false) {
+                            _this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
+                            if (_this.lastStatus !== undefined) {
+                                if (task.planned_start_date_time <= Date.now() && _this.lastStatus.status_id !== 5) {
+                                    task.startdatenow = 'showtasks';
+                                }
+                            }
+                            else {
+                                if (task.planned_start_date_time <= Date.now()) {
+                                    task.startdatenow = 'showtasks';
+                                }
+                            }
+                        }
+                        else {
+                            task.startdatenow = 'showtasks';
+                        }
+                        _this.appendHour = 0;
+                        _this.appendMinute = 0;
+                        _this.appendSecond = 0;
+                        _this.hours = 0;
+                        _this.minutes = 0;
+                        _this.seconds = 0;
+                        _this.taskTym = '';
+                        _this.endDatetym = '';
+                        if (task.tbl_task_time_assocs && task.tbl_task_time_assocs.length == 0) {
+                            task.appendHour = 0;
+                            task.appendMinute = 0;
+                            task.appendSecond = 0;
+                        }
+                        else {
+                            // this.taskTym = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1];
+                            _this.task_id = task.id;
+                            // console.log(this.showthisTask[task.id] + ":" + task.id)
+                            _this.appendHour = 0;
+                            _this.appendMinute = 0;
+                            _this.appendSecond = 0;
+                            task_time_id = 0;
+                            var totalHour_1 = 0;
+                            var totalMinutes_1 = 0;
+                            var totalSecond_1 = 0;
+                            var totalHrinMS_1 = 0;
+                            var totalMinutesinMS_1 = 0;
+                            var totalSecondinMS_1 = 0;
+                            _this.lastStatusEndDate = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1].end_date_time;
+                            if (_this.lastStatusEndDate == null && (_this.lastStatus.status_id == 1 || _this.lastStatus.status_id == 2 || _this.lastStatus.status_id == 4 || _this.lastStatus.status_id == 5)) {
+                                // no end date, refresh case
+                                task.tbl_task_time_assocs.forEach(function (element) {
+                                    totalHour_1 = totalHour_1 + element.hour;
+                                    totalMinutes_1 = totalMinutes_1 + element.minute;
+                                    totalSecond_1 = totalSecond_1 + element.second;
+                                    if (element.id > task_time_id) {
+                                        _this.taskTym = element;
+                                        task_time_id = element.id;
+                                    }
+                                });
+                                totalSecondinMS_1 = totalSecond_1 * 1000;
+                                totalMinutesinMS_1 = totalMinutes_1 * 1000 * 60;
+                                totalHrinMS_1 = totalHour_1 * 1000 * 60 * 60;
+                                // });
+                                _this.endDatetym = new Date(_this.taskTym.date_time);
+                                _this.diff = 0;
+                                _this.diff = Math.abs(Date.now() - _this.endDatetym);
+                            }
+                            else {
+                                // have end date
+                                task.tbl_task_time_assocs.forEach(function (element) {
+                                    totalHour_1 = totalHour_1 + element.hour;
+                                    totalMinutes_1 = totalMinutes_1 + element.minute;
+                                    totalSecond_1 = totalSecond_1 + element.second;
+                                    totalSecondinMS_1 = totalSecond_1 * 1000;
+                                    totalMinutesinMS_1 = totalMinutes_1 * 1000 * 60;
+                                    totalHrinMS_1 = totalHour_1 * 1000 * 60 * 60;
+                                    if (element.id > task_time_id) {
+                                        _this.taskTym = element;
+                                        task_time_id = element.id;
+                                    }
+                                    _this.diff = 0;
+                                });
+                            }
+                            ;
+                            var A = 0;
+                            A = _this.diff + totalHrinMS_1 + totalMinutesinMS_1 + totalSecondinMS_1;
+                            task.appendSecond = Math.floor((A / 1000) % 60);
+                            task.appendMinute = Math.floor((A / (1000 * 60)) % 60);
+                            task.appendHour = Math.floor((A / (1000 * 60 * 60)) % 24);
+                        }
+                        if (task.tbl_task_status_assocs == [] || task.tbl_task_status_assocs == null || task.tbl_task_status_assocs == '') {
+                            console.log("here");
+                            _this.showDetails1.push(module);
+                            // this.showDetails.push(module);
+                            // this.play[task.id] = true;
+                        }
+                        else {
+                            console.log("----------");
+                            _this.lastStatus = '';
+                            // this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
+                            _this.lastStatusid = '';
+                            task.tbl_task_status_assocs.forEach(function (element) {
+                                if (element.id > _this.lastStatusid) {
+                                    _this.lastStatus = element;
+                                    _this.lastStatusid = element.id;
+                                }
+                            });
+                            // console.log(this.lastStatus)
+                            if (_this.lastStatusEndDate == null && _this.lastStatus.status_id == 3) {
+                                //continue the timer when it in inprogress and no end date(case: refresh)
+                                _this.starttime(task);
+                            }
+                            if (_this.lastStatus !== undefined) {
+                                task.status = _this.lastStatus;
+                                _this.showDetails.push(module);
+                            }
+                        }
+                    });
+                });
+            }
+            else {
+                data.forEach(function (module) {
+                    module.tbl_project_tasks.forEach(function (task) {
+                        task.startdatenow = 'showtasks';
+                        _this.appendHour = 0;
+                        _this.appendMinute = 0;
+                        _this.appendSecond = 0;
+                        _this.hours = 0;
+                        _this.minutes = 0;
+                        _this.seconds = 0;
+                        _this.taskTym = '';
+                        _this.endDatetym = '';
+                        if (task.tbl_task_time_assocs && task.tbl_task_time_assocs.length == 0) {
+                            task.appendHour = 0;
+                            task.appendMinute = 0;
+                            task.appendSecond = 0;
+                        }
+                        else {
+                            // this.taskTym = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1];
+                            _this.task_id = task.id;
+                            task.planned_start_date_time = new Date(task.planned_start_date_time);
+                            // console.log(this.showthisTask[task.id] + ":" + task.id)
+                            _this.appendHour = 0;
+                            _this.appendMinute = 0;
+                            _this.appendSecond = 0;
+                            task_time_id = 0;
+                            var totalHour_2 = 0;
+                            var totalMinutes_2 = 0;
+                            var totalSecond_2 = 0;
+                            var totalHrinMS_2 = 0;
+                            var totalMinutesinMS_2 = 0;
+                            var totalSecondinMS_2 = 0;
+                            _this.lastStatusEndDate = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1].end_date_time;
+                            if (_this.lastStatusEndDate == null && (_this.lastStatus.status_id == 1 || _this.lastStatus.status_id == 2 || _this.lastStatus.status_id == 4 || _this.lastStatus.status_id == 5)) {
+                                // no end date, refresh case
+                                task.tbl_task_time_assocs.forEach(function (element) {
+                                    totalHour_2 = totalHour_2 + element.hour;
+                                    totalMinutes_2 = totalMinutes_2 + element.minute;
+                                    totalSecond_2 = totalSecond_2 + element.second;
+                                    if (element.id > task_time_id) {
+                                        _this.taskTym = element;
+                                        task_time_id = element.id;
+                                    }
+                                });
+                                totalSecondinMS_2 = totalSecond_2 * 1000;
+                                totalMinutesinMS_2 = totalMinutes_2 * 1000 * 60;
+                                totalHrinMS_2 = totalHour_2 * 1000 * 60 * 60;
+                                // });
+                                _this.endDatetym = new Date(_this.taskTym.date_time);
+                                _this.diff = 0;
+                                _this.diff = Math.abs(Date.now() - _this.endDatetym);
+                            }
+                            else {
+                                // have end date
+                                task.tbl_task_time_assocs.forEach(function (element) {
+                                    totalHour_2 = totalHour_2 + element.hour;
+                                    totalMinutes_2 = totalMinutes_2 + element.minute;
+                                    totalSecond_2 = totalSecond_2 + element.second;
+                                    totalSecondinMS_2 = totalSecond_2 * 1000;
+                                    totalMinutesinMS_2 = totalMinutes_2 * 1000 * 60;
+                                    totalHrinMS_2 = totalHour_2 * 1000 * 60 * 60;
+                                    if (element.id > task_time_id) {
+                                        _this.taskTym = element;
+                                        task_time_id = element.id;
+                                    }
+                                    _this.diff = 0;
+                                });
+                            }
+                            ;
+                            var A = 0;
+                            A = _this.diff + totalHrinMS_2 + totalMinutesinMS_2 + totalSecondinMS_2;
+                            task.appendSecond = Math.floor((A / 1000) % 60);
+                            task.appendMinute = Math.floor((A / (1000 * 60)) % 60);
+                            task.appendHour = Math.floor((A / (1000 * 60 * 60)) % 24);
+                        }
+                        if (task.tbl_task_status_assocs == [] || task.tbl_task_status_assocs == null || task.tbl_task_status_assocs == '') {
+                            // this.showDetails1.push(module);
+                            // this.showDetails.push(module);
+                            // this.play[task.id] = true;
+                            // if (this.selected == 1) {
+                            //   this.showDetails = this.showDetails1;
+                            // }
+                        }
+                        else {
+                            _this.lastStatus = '';
+                            // this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
+                            _this.lastStatusid = '';
+                            task.tbl_task_status_assocs.forEach(function (element) {
+                                if (element.id > _this.lastStatusid) {
+                                    _this.lastStatus = element;
+                                    _this.lastStatusid = element.id;
+                                }
+                            });
+                            if (_this.lastStatusEndDate == null && _this.lastStatus.status_id == 3) {
+                                //continue the timer when it in inprogress and no end date(case: refresh)
+                                _this.starttime(task);
+                            }
+                            if (_this.lastStatus !== undefined) {
+                                if (_this.lastStatus.status_id == _this.selected) {
+                                    task.status = _this.lastStatus;
+                                    _this.showDetails.push(module);
+                                }
+                            }
+                        }
+                    });
+                });
+            }
+            // console.log(this.showDetails);
+        });
+    };
+    UserTaskManagementComponent.prototype.clearReason = function () {
+        this.newTasks.reason = '';
+    };
+    UserTaskManagementComponent.prototype.clearhold = function () {
+        this.newTasks.reason = '';
+        this.newTasks.percentage = '';
+    };
+    UserTaskManagementComponent.prototype.clearprogress = function () {
+        this.newTasks.percentage = '';
+    };
+    // -------------------------stopwatch----------------
+    UserTaskManagementComponent.prototype.start = function (task, myTask) {
+        var _this = this;
+        this.a = [];
+        this.b = [];
+        this.countt = [];
+        // this.hour = 0
+        // this.miniutes = 0
+        // this.second = 0
+        // console.log(task)
+        this.a[task.id] = 0;
+        this.b[task.id] = 0;
+        this.countt[task.id] = 0;
+        this.intervel = 0;
         this.task_id = task.id;
         this.userService.getAllTasksInModule().subscribe(function (alltasks) {
             _this.alltask = alltasks;
@@ -17455,7 +18010,6 @@ var UserTaskManagementComponent = (function () {
             });
         });
         this.userService.startAtask(task.id).subscribe(function (status) {
-            _this.getmytasks();
         });
         this.play[this.task_id] = false;
         this.Resume[this.task_id] = false;
@@ -17463,69 +18017,60 @@ var UserTaskManagementComponent = (function () {
         this.pause[this.task_id] = true;
         this.hold[this.task_id] = true;
         this.done[this.task_id] = true;
-    };
-    UserTaskManagementComponent.prototype.Done = function (task) {
-        var _this = this;
-        this.userService.getAllTasksInModule().subscribe(function (alltasks) {
-            _this.alltask = alltasks;
-            console.log(_this.alltask);
-            _this.alltask.forEach(function (element, index) {
-                _this.disableTask[element.id] = false;
+        this.time.hour = task.appendHour;
+        this.time.minutes = task.appendMinute;
+        this.time.seconds = task.appendSecond;
+        this.time.id = task.id;
+        this.userService.addTimeAssoc(this.time).subscribe(function (assTimeAssocs) {
+            _this.userService.changeStausColor(task.id).subscribe(function (data) {
+                task.status = data[0];
             });
         });
-        this.newTasks.id = task.id;
-        this.Resume[this.task_id] = false;
-        this.play[this.task_id] = false;
-        this.completed[this.task_id] = false;
-        this.pause[this.task_id] = false;
-        this.hold[this.task_id] = false;
-        this.done[this.task_id] = false;
-        this.userService.doneAtask(task.id).subscribe(function (status) {
-            // this.userService.getMyTasks().subscribe(data => {
-            // this.myTasks = data;
-            _this.getmytasks();
-            // });
-        });
+        this.starttime(task);
     };
-    UserTaskManagementComponent.prototype.resume = function (task) {
+    UserTaskManagementComponent.prototype.starttime = function (task) {
         var _this = this;
-        this.task_id = task.id;
-        this.userService.getAllTasksInModule().subscribe(function (alltasks) {
-            _this.alltask = alltasks;
-            _this.alltask.forEach(function (element, index) {
-                if (element.id == _this.task_id) {
-                    _this.disableTask[_this.task_id] = false;
-                }
-                else {
-                    _this.disableTask[element.id] = true;
-                }
-            });
-        });
-        this.userService.startAtask(task.id).subscribe(function (status) {
-            // this.userService.getMyTasks().subscribe(data => {
-            // this.myTasks = data;
-            _this.getmytasks();
-            // });
-        });
-        this.play[this.task_id] = false;
-        this.Resume[this.task_id] = false;
-        // console.log(this.play[this.task_id])
-        this.pause[this.task_id] = true;
-        this.hold[this.task_id] = true;
-        this.done[this.task_id] = true;
-        this.completed[this.task_id] = true;
+        this.a[task.id] = 0;
+        this.b[task.id] = 0;
+        this.countt[task.id] = 0;
+        if (this.countt[task.id] == 0 && this.a[task.id] == 0 || this.b[task.id] == 1) {
+            this.secondcheck(task);
+            this.miniutecheck(task);
+            this.intervel = 1000;
+            this.showAns(task);
+            this.s_id = setInterval(function () {
+                _this.showAns(task);
+            }, 1000);
+        }
     };
-    UserTaskManagementComponent.prototype.clearReason = function () {
-        this.newTasks.reason = '';
+    UserTaskManagementComponent.prototype.showAns = function (task) {
+        if (this.countt[task.id] == 0 && this.a[task.id] == 0 || this.b[task.id] == 1) {
+            // this.second = this.second + 1;
+            this.secondcheck(task);
+            this.miniutecheck(task);
+            task.appendSecond = task.appendSecond + 1;
+            // console.log(task)
+        }
     };
-    UserTaskManagementComponent.prototype.clearhold = function () {
-        this.newTasks.reason = '';
-        this.newTasks.percentage = '';
+    UserTaskManagementComponent.prototype.secondcheck = function (task) {
+        if (task.appendSecond == 59) {
+            task.appendMinute = task.appendMinute + 1;
+            task.appendSecond = 0;
+        }
+    };
+    UserTaskManagementComponent.prototype.miniutecheck = function (task) {
+        if (task.appendMinute == 59) {
+            task.appendHour = task.appendHour + 1;
+            task.appendMinute = 0;
+        }
+    };
+    UserTaskManagementComponent.prototype.pause1 = function (task) {
+        this.a[task.id] = this.a[task.id] + 1;
+        this.b[task.id] = 0;
     };
     UserTaskManagementComponent.prototype.pauseTask = function (task) {
         var _this = this;
         this.task_id = task.id;
-        this.newTasks.id = task.id;
         this.userService.getAllTasksInModule().subscribe(function (alltasks) {
             _this.alltask = alltasks;
             _this.alltask.forEach(function (element, index) {
@@ -17545,54 +18090,26 @@ var UserTaskManagementComponent = (function () {
         this.hold[this.task_id] = false;
         this.done[this.task_id] = false;
         this.completed[this.task_id] = false;
-        this.userService.pauseTask(this.newTasks).subscribe(function (status) {
-            // this.userService.getMyTasks().subscribe(data => {
-            // this.myTasks = data;
-            _this.getmytasks();
-            // });
-        });
-    };
-    UserTaskManagementComponent.prototype.complete = function (task) {
-        var _this = this;
-        this.task_id = task.id;
+        this.a[task.id] = this.a[task.id] + 1;
+        this.b[task.id] = 0;
         this.newTasks.id = task.id;
-        if (this.newTasks.percentage == '' || this.newTasks.percentage == null) {
-            var snackBarRef = this.snackBar.open(' Please select percentage of task', '', {
-                duration: 2000
+        this.newTasks.hour = task.appendHour;
+        this.newTasks.minutes = task.appendMinute;
+        this.newTasks.seconds = task.appendSecond;
+        this.userService.pauseTask(this.newTasks).subscribe(function (status) {
+            _this.userService.changeStausColor(task.id).subscribe(function (data) {
+                task.status = data[data.length - 1];
             });
-        }
-        else {
-            this.userService.getAllTasksInModule().subscribe(function (alltasks) {
-                _this.alltask = alltasks;
-                // console.log(this.alltask);
-                _this.alltask.forEach(function (element, index) {
-                    // console.log(this.task_id)
-                    if (element.id == _this.task_id) {
-                        // this.show[j] = true;
-                        _this.disableTask[_this.task_id] = false;
-                    }
-                    else {
-                        _this.disableTask[element.id] = true;
-                    }
-                });
-            });
-            this.Resume[this.task_id] = false;
-            this.play[this.task_id] = false;
-            this.pause[this.task_id] = false;
-            this.hold[this.task_id] = true;
-            this.done[this.task_id] = false;
-            this.completed[this.task_id] = false;
-            this.userService.completeATask(this.newTasks).subscribe(function (status) {
-                // this.userService.getMyTasks().subscribe(data => {
-                // this.myTasks = data;
-                _this.getmytasks();
-                // });
-            });
-        }
+        });
     };
     UserTaskManagementComponent.prototype.holdTask = function (task) {
         var _this = this;
+        this.a[task.id] = this.a[task.id] + 1;
+        this.b[task.id] = 0;
         this.newTasks.id = task.id;
+        this.newTasks.hour = task.appendHour;
+        this.newTasks.minutes = task.appendMinute;
+        this.newTasks.seconds = task.appendSecond;
         if (this.newTasks.percentage == '' || this.newTasks.percentage == null || this.newTasks.reason == '' || this.newTasks.reason == null) {
             var snackBarRef = this.snackBar.open(' Please fill all the fields', '', {
                 duration: 2000
@@ -17613,13 +18130,88 @@ var UserTaskManagementComponent = (function () {
             this.hold[this.task_id] = false;
             this.done[this.task_id] = false;
             this.completed[this.task_id] = false;
-            this.userService.holdATask(this.newTasks).subscribe(function (status) {
-                // this.userService.getMyTasks().subscribe(data => {
-                //   this.myTasks = data;
-                _this.getmytasks();
-                // });
+            this.userService.holdTask(this.newTasks).subscribe(function (status) {
+                _this.userService.changeStausColor(task.id).subscribe(function (data) {
+                    task.status = data[data.length - 1];
+                });
             });
         }
+    };
+    UserTaskManagementComponent.prototype.timeConversion = function (millisec) {
+        var seconds = (millisec / 1000).toFixed(1);
+        var minutes = (millisec / (1000 * 60)).toFixed(1);
+        var hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+        if (seconds < 60) {
+            return seconds;
+        }
+        else if (minutes < 60) {
+            return minutes;
+        }
+        else if (hours < 24) {
+            return hours;
+        }
+    };
+    UserTaskManagementComponent.prototype.Done = function (task) {
+        var _this = this;
+        this.userService.getAllTasksInModule().subscribe(function (alltasks) {
+            _this.alltask = alltasks;
+            _this.alltask.forEach(function (element, index) {
+                _this.disableTask[element.id] = false;
+            });
+        });
+        this.newTasks.id = task.id;
+        this.Resume[this.task_id] = false;
+        this.play[this.task_id] = false;
+        this.completed[this.task_id] = false;
+        this.pause[this.task_id] = false;
+        this.hold[this.task_id] = false;
+        this.done[this.task_id] = false;
+        this.a[task.id] = this.a[task.id] + 1;
+        this.b[task.id] = 0;
+        this.newTasks.id = task.id;
+        this.newTasks.hour = task.appendHour;
+        this.newTasks.minutes = task.appendMinute;
+        this.newTasks.seconds = task.appendSecond;
+        this.userService.donetask(this.newTasks).subscribe(function (status) {
+            _this.userService.changeStausColor(task.id).subscribe(function (data) {
+                task.status = data[data.length - 1];
+            });
+        });
+    };
+    UserTaskManagementComponent.prototype.complete = function (task) {
+        var _this = this;
+        this.a[task.id] = this.a[task.id] + 1;
+        this.b[task.id] = 0;
+        this.newTasks.id = task.id;
+        this.newTasks.hour = task.appendHour;
+        this.newTasks.minutes = task.appendMinute;
+        this.newTasks.seconds = task.appendSecond;
+        if (this.newTasks.percentage == '' || this.newTasks.percentage == null) {
+            var snackBarRef = this.snackBar.open(' Please select percentage of task', '', {
+                duration: 2000
+            });
+        }
+        else {
+            this.userService.completeTask(this.newTasks).subscribe(function (status) {
+                _this.userService.changeStausColor(task.id).subscribe(function (data) {
+                    task.status = data[data.length - 1];
+                });
+            });
+        }
+    };
+    UserTaskManagementComponent.prototype.resumeTasks = function (task) {
+        var _this = this;
+        this.b[task.id] = this.b[task.id] + 1;
+        this.showAns(task);
+        this.newTasks.id = task.id;
+        this.newTasks.hour = task.appendHour;
+        this.newTasks.minutes = task.appendMinute;
+        this.newTasks.seconds = task.appendSecond;
+        this.userService.resumeTasks(this.newTasks).subscribe(function (status) {
+            _this.userService.changeStausColor(task.id).subscribe(function (data) {
+                task.status = data[data.length - 1];
+            });
+        });
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('closeBtn'),
@@ -18043,7 +18635,7 @@ var UserTaskstatusGraphComponent = (function () {
                 return d[1];
             });
         });
-        var margin = { top: 70, right: 15, bottom: 40, left: 50 }, fullChartWidth = 400, fullChartHeight = 300, width = fullChartWidth - margin.left - margin.right, height = fullChartHeight - margin.top - margin.bottom;
+        var margin = { top: 70, right: 15, bottom: 80, left: 50 }, fullChartWidth = 400, fullChartHeight = 300, width = fullChartWidth - margin.left - margin.right, height = fullChartHeight - margin.top - margin.bottom;
         d3.select("#containerId")
             .style("width", fullChartWidth)
             .style("height", fullChartHeight);
@@ -18069,6 +18661,7 @@ var UserTaskstatusGraphComponent = (function () {
             .append("g")
             .attr("transform", "translate(" + (margin.left + 20) + "," + margin.top + ")");
         var mycount = 1;
+        svg.selectAll('.tick text').attr("transform", "translate(10) rotate(42 -17 31)");
         var layer = svg
             .selectAll(".layer")
             .data(layers)
@@ -18123,7 +18716,12 @@ var UserTaskstatusGraphComponent = (function () {
             .append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)");
         // add the Y gridlines
         // svg.append("g")     
         // .attr("class", "grid")
@@ -21424,6 +22022,20 @@ var CompanyService = (function () {
         return this.http.post(this.serviceUrl + 'getProjectReport', data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : savecompanyPlanning
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 21-03-2018
+    // Last Modified : 21-03-2018, Jooshifa
+    // Desc          : 
+    CompanyService.prototype.savecompanyPlanning = function (data) {
+        var headers = this.setHeader();
+        return this.http.post(this.serviceUrl + 'save-company-planning-datas/', data, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     CompanyService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_2__config_config__["a" /* Config */]])
@@ -22270,6 +22882,90 @@ var UserService = (function () {
     UserService.prototype.getAccessRightsforRole = function () {
         var headers = this.setHeaderWithAuthorization();
         return this.http.get(this.serviceUrl + 'getAccessRightsforRole', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // -----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : completeATask
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc          : 
+    UserService.prototype.addTimeAssoc = function (time) {
+        var headers = this.setHeader();
+        return this.http.post(this.serviceUrl + 'add-time-assoc', (time), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : changeStausColor
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc          : 
+    UserService.prototype.changeStausColor = function (task) {
+        var headers = this.setHeader();
+        return this.http.post(this.serviceUrl + 'changeStausColor/' + task, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : completeATask
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc          : 
+    UserService.prototype.holdTask = function (task) {
+        var headers = this.setHeader();
+        return this.http.post(this.serviceUrl + 'hold-a-task', (task), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getMyTasksPaused
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc          : 
+    UserService.prototype.donetask = function (task) {
+        var headers = this.setHeader();
+        return this.http.post(this.serviceUrl + 'done-a-task', (task), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : completeATask
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc          : 
+    UserService.prototype.completeTask = function (task) {
+        var headers = this.setHeader();
+        return this.http.post(this.serviceUrl + 'complete-a-task', (task), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : completeATask
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc          : 
+    UserService.prototype.resumeTasks = function (task) {
+        var headers = this.setHeader();
+        return this.http.post(this.serviceUrl + 'resume-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     UserService = __decorate([

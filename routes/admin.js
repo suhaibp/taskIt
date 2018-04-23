@@ -19,7 +19,6 @@ var CompanySize = models.tbl_company_size;
 var Estimations = models.tbl_estimation;
 var EstimationTeam = models.tbl_project_estimation_team;
 var EstimationTeamMember = models.tbl_project_estimation_team_members;
-var Log = models.tbl_log;
 var returnRouter = function (io) {
   if (config.use_env_variable) {
     var sequelize = new Sequelize(process.env[config.use_env_variable]);
@@ -1171,6 +1170,9 @@ var returnRouter = function (io) {
             else if (planName.length > 10 || planName.length < 3) {
               res.json({ success: false, msg: "Plan Name between 3-10 characters" });
             }
+            else if (req.body.plan_price < 1) {
+              res.json({ success: false, msg: "Plan price should be valid" });
+            }
             else {
               if (req.body.no_projects == 'Unlimited') {
                 no_projects = req.body.no_projects;
@@ -1368,6 +1370,8 @@ var returnRouter = function (io) {
       } else {
         var sequelize = new Sequelize(config.database, config.username, config.password, config);
       }
+      // console.log("hhh")
+      // console.log(req.body.plan_name)
       planName = myTrim(req.body.plan_name);
       Plans.findAll({
         where: {
@@ -1383,13 +1387,16 @@ var returnRouter = function (io) {
         else if (req.body.plan_name == '') {
           res.json({ success: false, msg: "All fields are required" });
         }
-        else if (req.body.is_defualt == true) {
+        else if (req.body.is_defualt == false) {
           if (req.body.plan_price == '' || req.body.plan_price == null) {
             res.json({ success: false, msg: "All fields are required" });
           }
         }
         else if (planName.length > 10 || planName.length < 3) {
           res.json({ success: false, msg: "Plan Name between 3-10 characters" });
+        }
+        else if (req.body.is_defualt == false && req.body.plan_price < 1) {
+          res.json({ success: false, msg: "Plan price should be valid" });
         }
         else {
           if (req.body.noprojects == 'Unlimited') {
@@ -1452,6 +1459,7 @@ var returnRouter = function (io) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   // -----------------------------------End------------------------------------------
+  
   // ---------------------------------Start-------------------------------------------
   // Function      : Get logged in entity
   // Params        : 
@@ -1472,7 +1480,7 @@ var returnRouter = function (io) {
     }
   });
   // ----------------------------------End-------------------------------------------
-  // ---------------------------------Start-------------------------------------------
+   // ---------------------------------Start-------------------------------------------
   // Function      : get all estimated project
   // Params        : 
   // Returns       : 
@@ -1655,49 +1663,6 @@ var returnRouter = function (io) {
       return res.status(401).send('Invalid User');
     }
     
-  });
-  // -----------------------------------End------------------------------------------
-// ---------------------------------Start-------------------------------------------
-  // Function      : getAllEstimatedProject
-  // Params        : 
-  // Returns       : 
-  // Author        : Yasir Poongadan
-  // Date          : 09-04-2018
-  // Last Modified : 09-04-2018, Rinsha
-  // Desc          : get all estimated project
-  router.get('/getAllEstimatedProject', function (req, res) {
-    if (req.headers && req.headers.authorization) {
-      var authorization = req.headers.authorization.substring(4), decoded;
-      decoded = jwt.verify(authorization, Config.secret);
-      cmp_id = decoded.cmp_id;
-    // EstimationTeam.findAll({
-    //   include: [
-    //     {
-    //       model: EstimationTeamMember,
-  
-    //     }
-    // ]
-    // }).then(estimation => {
-    //   res.json(estimation);
-    // });
-    Estimations.findAll({
-      where: {
-        is_accepted: true,
-        is_resubmitted : false
-      },
-      include: [
-        {
-        model: Projects,
-        where :  {cmp_id : cmp_id},
-        required : ture
-        },
-      ]
-    }).then(estimation => {
-      res.json(estimation);
-    });
-  } else {
-    return res.status(401).send('Invalid User');
-  }
   });
   // -----------------------------------End------------------------------------------
   module.exports = router;
