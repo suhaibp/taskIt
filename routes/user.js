@@ -96,9 +96,7 @@ var Task_status_assocs = models.tbl_task_status_assoc;
 var Task_status = models.tbl_task_status;
 var Progress_percentages = models.tbl_progress_percentage;
 'use strict';
-
 var returnRouter = function (io) {
-
     // ---------------------------------Start-------------------------------------------
     // Function      : /get-my-tasks
     // Params        : task, projects,modules
@@ -272,7 +270,6 @@ var returnRouter = function (io) {
                     res.send({ success: true, msg: 'start suucessfully' });
                 });
             })
-
         }
         else {
             return res.status(401).send('Invalid User');
@@ -310,7 +307,6 @@ var returnRouter = function (io) {
                     res.send({ success: true, msg: 'done successfully' });
                 });
             })
-
         }
         else {
             return res.status(401).send('Invalid User');
@@ -348,7 +344,6 @@ var returnRouter = function (io) {
                     res.send({ success: true, msg: 'puased successfully' });
                 });
             })
-
         }
         else {
             return res.status(401).send('Invalid User');
@@ -605,7 +600,6 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
             var id = decoded.id;
-
             // var cmp_id = 1;
             // res.json(req.body);
             var user_id;
@@ -651,7 +645,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018, 
     // Desc          : get list of teams and stregth
-
     router.get('/getUserProjectsDetails/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -672,7 +665,6 @@ var returnRouter = function (io) {
                         id: req.params.id,
                         cmp_id: cmp_id
                     },
-
                     include: [{
                         model: ProjectMemeberAssoc,
                         include: [{
@@ -682,13 +674,10 @@ var returnRouter = function (io) {
                         }]
                     }, {
                         model: Modules,
-
                         include: [{
                             model: Tasks,
-
                         }]
                     }],
-
                 }).then(resProjects => {
                     if (resProjects.length <= 0) {
                         res.json({
@@ -708,12 +697,9 @@ var returnRouter = function (io) {
                                     temp3.push(elem)
                                 });
                                 temp2.push({ id: ele.id, module_name: ele.module_name, project_id: ele.project_id, tbl_project_tasks: temp3, total_hour: time })
-
                                 // temp.push(ele)
-
                             });
                             temp.push({ id: element.id, planned_end_date: element.planned_end_date, planned_start_date: element.planned_start_date, project_name: element.project_name, tbl_project_member_assocs: element.tbl_project_member_assocs, project_code: element.project_code, status: element.status, tbl_project_modules: temp2 })
-
                         });
                         res.json(temp);
                         // res.json(resProjects);
@@ -1426,7 +1412,6 @@ var returnRouter = function (io) {
             var cmp_id = decoded.cmp_id;
             var login_id = decoded.id;
             var role = req.body.id
-
             // var login_id = 39;
             var isErr = false;
             errMsg = '';
@@ -1871,9 +1856,7 @@ var returnRouter = function (io) {
                 Project.findAll({
                     attributes: ['id', 'project_name', 'planned_start_date', 'planned_end_date'],
                     required: true,
-
                     where: { cmp_id: cmp_id },
-
                     include: {
                         attributes: [],
                         model: Project_Module,
@@ -1886,7 +1869,6 @@ var returnRouter = function (io) {
                         }
                     }
                 }).then(project => {
-
                     res.json(project);
                 });
             });
@@ -1925,9 +1907,7 @@ var returnRouter = function (io) {
                 Project.findOne({
                     //    attributes:['id','project_name','planned_start_date','planned_end_date'],
                     required: true,
-
                     where: { id: req.params.id },
-
                     include: {
                         //   attributes:[],
                         model: Project_Module,
@@ -1941,10 +1921,8 @@ var returnRouter = function (io) {
                                 // {
                                 //     model: Complexity_percentage,
                                 // },
-
                                 {
                                     model: Task_status_assocs,
-
                                     // include: [
                                     //     {
                                     //         model: Task_status,
@@ -1959,7 +1937,6 @@ var returnRouter = function (io) {
                         }
                     }
                 }).then(project => {
-
                     res.json(project);
                 });
             });
@@ -1976,7 +1953,6 @@ var returnRouter = function (io) {
     // Date          : 10-04-2018
     // Last Modified :
     // Desc          : user all projects
-
     router.get('/projectdetails/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -1999,11 +1975,8 @@ var returnRouter = function (io) {
                 Project.findOne({
                     attributes: ['id', 'project_name', 'planned_start_date', 'planned_end_date'],
                     required: true,
-
                     where: { id: req.params.id },
-
                 }).then(project => {
-
                     Project_Module.findAll({
                         // attributes: [[sequelize.fn('COUNT', sequelize.col('Project_tasks.id')), 'no_module_name']],
                         // attributes:[],
@@ -2012,10 +1985,8 @@ var returnRouter = function (io) {
                         // },
                         // attributes: [ [sequelize.fn('count', sequelize.col('id')), 'cnt']],
                         // group: ['task_id'],
-
                         include: [
                             {
-
                                 model: Project,
                                 attributes: [],
                                 required: true,
@@ -2026,13 +1997,10 @@ var returnRouter = function (io) {
                                 required: true,
                                 where: { assigned_to_id: user_id },
 
-
                                 include: [
-
                                     {
                                         model: Task_status_assocs,
                                         // required:true,
-
                                         include: [
                                             {
                                                 model: Task_status,
@@ -2045,9 +2013,7 @@ var returnRouter = function (io) {
                         ]
                     }).then(myTasks => {
                         res.json({ 'singleproject': project, 'myTasks': myTasks });
-
                     });
-
                 });
                 // res.json({ 'project': project });res.json({ 'project': project ,'counttask':counttask});
             });
@@ -2098,7 +2064,6 @@ var returnRouter = function (io) {
                             }
                         }]
                     }],
-
                 }).then(resProjects => {
                     if (resProjects.length <= 0) {
                         res.json({
@@ -2120,7 +2085,6 @@ var returnRouter = function (io) {
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get pm by id
     // Params        : login id
@@ -2165,7 +2129,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getTeamMembers
     // Params        : login id, project id
@@ -2220,16 +2183,13 @@ var returnRouter = function (io) {
                         res.json(team_members);
                     });
                 });
-
             });
         }
         else {
             return res.status(401).send('Invalid User');
         }
     });
-
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : add estimation
     // Params        : data from form
@@ -2284,7 +2244,6 @@ var returnRouter = function (io) {
                         //         }
                         //     });
                         // }
-
                         if (isError = false && req.body.modules.length == 0) {
                             isError = true;
                             res.json({ success: true, msg: "Atleast one module is required!" });
@@ -2350,7 +2309,6 @@ var returnRouter = function (io) {
                                             }
                                         }).then(data => {
                                         });
-
                                 });
                                 saveLog("Estimation added for project " + project_id + " !", user_id)
                             });
@@ -2361,14 +2319,12 @@ var returnRouter = function (io) {
                     });
                 });
             })
-
         }
         else {
             return res.status(401).send('Invalid User');
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get TeamHeadNotification
     // Params        : 
@@ -2403,9 +2359,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get notif by id
     // Params        : id
@@ -2437,7 +2391,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getCurrentEstimation
     // Params        : notification id
@@ -2494,7 +2447,6 @@ var returnRouter = function (io) {
                         // console.log(estimations)
                         res.json({ data: estimations });
                     }
-
                 });
             });
         }
@@ -2503,7 +2455,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getProfile
     // Params        : 
@@ -2554,7 +2505,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : updateUser
     // Params        : user data
@@ -2678,7 +2628,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : validateNo
     // Params        : number
@@ -2691,9 +2640,7 @@ var returnRouter = function (io) {
         var re = /^\d{9}|^\d{3}-\d{3}-\d{3}|^\d{3}\s\d{3}\s\d{3}$/;
         return re.test(no);
     }
-
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : validatePassword
     // Params        : password
@@ -2706,9 +2653,7 @@ var returnRouter = function (io) {
         var re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.])[A-Za-z\d$@$!%*#?&.]{6,}$/;
         return re.test(password);
     }
-
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : decodeBase64Image
     // Params        : base64encoded image
@@ -2717,22 +2662,18 @@ var returnRouter = function (io) {
     // Date          : 08-03-2018
     // Last Modified : 
     // Desc          : for decoding base64encoded image
-
     function decodeBase64Image(dataString) {
         // console.log(dataString);
         var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
         //   console.log(matches);
         var response = {};
-
         if (matches.length !== 3) {
             return new Error('Invalid input string');
         }
-
         response.type = matches[1];
         ext = matches[1].split("/");
         response.ext = ext[1];
         response.data = new Buffer(matches[2], 'base64');
-
         return response;
     }
     // ----------------------------------End-------------------------------------------
@@ -2744,7 +2685,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018, 
     // Desc          : get list of teams and stregth
-
     router.get('/getUserProjects', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -2773,7 +2713,6 @@ var returnRouter = function (io) {
                             }
                         }]
                     }],
-
                 }).then(resProjects => {
                     res.json(resProjects);
                 }).catch(err => {
@@ -2788,7 +2727,6 @@ var returnRouter = function (io) {
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        : 
@@ -2797,7 +2735,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018, 
     // Desc          : get list of teams and stregth
-
     router.get('/getUserProjectsDetails/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -2821,7 +2758,6 @@ var returnRouter = function (io) {
                         id: req.params.id,
                         cmp_id: cmp_id
                     },
-
                     include: [{
                         model: ProjectMemeberAssoc,
                         include: [{
@@ -2831,13 +2767,10 @@ var returnRouter = function (io) {
                         }]
                     }, {
                         model: Modules,
-
                         include: [{
                             model: Tasks,
-
                         }]
                     }],
-
                 }).then(resProjects => {
                     if (resProjects.length <= 0) {
                         res.json({
@@ -2857,12 +2790,9 @@ var returnRouter = function (io) {
                                     temp3.push(elem)
                                 });
                                 temp2.push({ id: ele.id, module_name: ele.module_name, project_id: ele.project_id, tbl_project_tasks: temp3, total_hour: time })
-
                                 // temp.push(ele)
-
                             });
                             temp.push({ id: element.id, planned_end_date: element.planned_end_date, planned_start_date: element.planned_start_date, project_name: element.project_name, tbl_project_member_assocs: element.tbl_project_member_assocs, project_code: element.project_code, status: element.status, tbl_project_modules: temp2 })
-
                         });
                         res.json(temp);
                         // res.json(resProjects);
@@ -2879,7 +2809,6 @@ var returnRouter = function (io) {
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Get company details by id
     // Params        : id
@@ -2888,7 +2817,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018, Jooshifa
     // Desc          : 
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getNewTaskRequestNotification
     // Params        : 
@@ -2949,7 +2877,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getTimeExtensionRequestNotification
     // Params        : 
@@ -3012,7 +2939,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of time extension request approval
     // Params        : notification id
@@ -3050,7 +2976,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of new task request approval
     // Params        : notification id
@@ -3098,7 +3023,6 @@ var returnRouter = function (io) {
             return false;
         })
     }
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Get logged in entity
     // Params        : 
@@ -3149,9 +3073,7 @@ var returnRouter = function (io) {
                 Project.findAll({
                     //    attributes:['id','project_name','planned_start_date','planned_end_date'],
                     required: true,
-
                     where: { cmp_id: cmp_id },
-
                     include: {
                         //   attributes:[],
                         model: Project_Module,
@@ -3165,11 +3087,9 @@ var returnRouter = function (io) {
                                 // {
                                 //     model: Complexity_percentage,  
                                 // },
-
                                 {
                                     model: Task_status_assocs,
                                     //  required:true,
-
                                     include: [
                                         {
                                             model: Task_status,
@@ -3185,7 +3105,6 @@ var returnRouter = function (io) {
                         }
                     }
                 }).then(project => {
-
                     res.json(project);
                 });
             });
@@ -3202,7 +3121,6 @@ var returnRouter = function (io) {
     // Date          : 03-04-2018
     // Last Modified : 03-04-2018,
     // Desc          : get task and details
-
     router.get('/getAccessRightsforRole', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -3223,7 +3141,6 @@ var returnRouter = function (io) {
     })
     // ----------------------------------End-----------------------------------
     module.exports = router;
-
     return router;
 }
 module.exports = returnRouter;

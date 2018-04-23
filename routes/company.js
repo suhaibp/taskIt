@@ -90,7 +90,6 @@ var Time_extension_request = models.tbl_time_extension_request;
 var Time_extension_request_notifications = models.tbl_time_extension_req_notification;
 var task_status_assoc = models.tbl_task_status_assoc;
 var task_statuses = models.tbl_task_status;
-
 'use strict';
 var returnRouter = function (io) {
     // ---------------------------------Start-------------------------------------------
@@ -517,7 +516,6 @@ var returnRouter = function (io) {
             } else {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
-
             Company.findOne({
                 order: [['id', 'DESC']],
                 required: true,
@@ -525,12 +523,9 @@ var returnRouter = function (io) {
                 include:
                 {
                     model: Plan,
-
                 }
-
             }).then(companyPlan => {
                 var no_members = parseInt(companyPlan.tbl_plan.no_members);
-
                 User.count({
                     where: { [Op.and]: [{ cmp_id: cmp_id }] }
                     // where: { cmp_id: cmp_id,delete_status:false },
@@ -543,7 +538,6 @@ var returnRouter = function (io) {
                             // return res.json("jh");
                         }
                         // return res.json(count1);
-
                         if (!isErr && req.body.f_name == '' || req.body.f_name == null) {
                             errMsg = "* Failed, Please Enter First Name!";
                             isErr = true;
@@ -691,7 +685,6 @@ var returnRouter = function (io) {
                                     })
                                 }
                             });
-
                         } else {
                             res.json({ success: false, msg: errMsg });
                         }
@@ -789,7 +782,6 @@ var returnRouter = function (io) {
                         require("fs").unlinkSync('../taskIt/public/assets/profile_upload/' + req.body.photoSrc);
                         require("fs").unlinkSync('../taskIt/angular/src/assets/profile_upload/' + req.body.photoSrc);
                     }
-
                     // console.log(req.body.editPhotoSrc);
                     ext = ['gif', 'png', 'jpg', 'jpeg']
                     var base64 = decodeBase64Image(req.body.editPhotoSrc);
@@ -1377,11 +1369,8 @@ var returnRouter = function (io) {
             var total_seconds = 0;
             async.eachOfSeries(datesBetween(startDate, endDate), (daterng, key, callback) => {
                 // console.log(daterng);
-
                 Public_holiday.findOne({
-
                     where: { date: daterng, cmp_id: cmp_id },
-
                 }).then(holiday => {
                     if (holiday) {
                         // console.log(daterng+"holiday")
@@ -1416,84 +1405,58 @@ var returnRouter = function (io) {
                                        where: {cmp_id: cmp_id},
 
                             }]
-
                         }).then(work_time => {
                             if (work_time) {
-
                                 // parse time using 24-hour clock and use UTC to prevent DST issues
                                 var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                 var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
-
                                 // account for crossing over to midnight the next day
                                 if (end.isBefore(start)) end.add(1, 'day');
-
                                 // calculate the duration
                                 var d = moment.duration(end.diff(start));
-
                                 // subtract the lunch break
                                 // d.subtract(30, 'minutes');
-
                                 // format a string result
                                 var s = moment.utc(+d).format('HH:mm:ss');
-
                                 // console.log("s" + s);
                                 var a = s.split(':'); // split it at the colons
-
                                 // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                 var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
-
                                 total_seconds = total_seconds + seconds;
-
                                 callback();
-
                             } else {
                                 cmp_work_time.findOne({
-
                                     required: true,
                                     where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
-
                                 }).then(work_time1 => {
                                     // if(work_time1){
                                     // parse time using 24-hour clock and use UTC to prevent DST issues
                                     var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                     var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-
                                     // account for crossing over to midnight the next day
                                     if (end.isBefore(start)) end.add(1, 'day');
-
                                     // calculate the duration
                                     var d1 = moment.duration(end.diff(start));
-
                                     // subtract the lunch break
                                     // d.subtract(30, 'minutes');
-
                                     // format a string result
                                     var s1 = moment.utc(+d1).format('HH:mm:ss');
-
                                     // console.log("e" + s1);
-
                                     var a1 = s1.split(':'); // split it at the colons
-
                                     // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                     var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
 
-
                                     total_seconds = total_seconds + seconds1;
-
                                     callback();
                                     // }
                                     // callback(); 
                                 });
-
                             }
-
                         });
                     }
-
                 });
             }
         });
-
 
             }, function (err) {
                 console.log("tot" + total_seconds);
@@ -1653,11 +1616,9 @@ var returnRouter = function (io) {
                                         var endavlhravailablehour = hh + ":" + mm + ":" + ss;
                                         console.log("d" + endavlhravailablehour);
                                         var a2 = startavailablehour.split(':'); // split it at the colons
-
                                         // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                         var seconds3 = (+a2[0]) * 60 * 60 + (+a2[1]) * 60 + (+a2[2]);
                                         var a3 = endavlhravailablehour.split(':'); // split it at the colons
-
                                         // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                         var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
                                         var leaveh = total_seconds - (seconds3 + seconds4);
@@ -1783,7 +1744,6 @@ var returnRouter = function (io) {
                 Public_holiday.findOne({
 
                     where: { date: daterng, cmp_id: cmp_id },
-
                 }).then(holiday => {
                     if (holiday) {
                         // console.log(daterng+"holiday")
@@ -1823,84 +1783,56 @@ var returnRouter = function (io) {
                                        where: {cmp_id: cmp_id},
 
                             }]
-
                         }).then(work_time => {
                             if (work_time) {
-
                                 // parse time using 24-hour clock and use UTC to prevent DST issues
                                 var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                 var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
-
                                 // account for crossing over to midnight the next day
                                 if (end.isBefore(start)) end.add(1, 'day');
-
                                 // calculate the duration
                                 var d = moment.duration(end.diff(start));
-
                                 // subtract the lunch break
                                 // d.subtract(30, 'minutes');
-
                                 // format a string result
                                 var s = moment.utc(+d).format('HH:mm:ss');
-
                                 // console.log("s" + s);
                                 var a = s.split(':'); // split it at the colons
-
                                 // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                 var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
-
                                 total_seconds = total_seconds + seconds;
-
                                 callback();
-
                             } else {
                                 cmp_work_time.findOne({
-
                                     required: true,
                                     where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
-
                                 }).then(work_time1 => {
-
                                     // parse time using 24-hour clock and use UTC to prevent DST issues
                                     var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                     var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-
                                     // account for crossing over to midnight the next day
                                     if (end.isBefore(start)) end.add(1, 'day');
-
                                     // calculate the duration
                                     var d1 = moment.duration(end.diff(start));
-
                                     // subtract the lunch break
                                     // d.subtract(30, 'minutes');
-
                                     // format a string result
                                     var s1 = moment.utc(+d1).format('HH:mm:ss');
-
                                     // console.log("e" + s1);
-
                                     var a1 = s1.split(':'); // split it at the colons
-
                                     // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                     var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
 
-
                                     total_seconds = total_seconds + seconds1;
-
                                     callback();
-
                                 });
-
                             }
-
                         });
                     }
-
                 });
             }
             
          });
-
 
             }, function (err) {
                 console.log("tot" + total_seconds);
@@ -2027,11 +1959,9 @@ var returnRouter = function (io) {
                                         var endavlhravailablehour = hh + ":" + mm + ":" + ss;
                                         console.log("d" + endavlhravailablehour);
                                         var a2 = startavailablehour.split(':'); // split it at the colons
-
                                         // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                         var seconds3 = (+a2[0]) * 60 * 60 + (+a2[1]) * 60 + (+a2[2]);
                                         var a3 = endavlhravailablehour.split(':'); // split it at the colons
-
                                         // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                         var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
                                         var leavehr = total_seconds - (seconds3 + seconds4);
@@ -2188,7 +2118,6 @@ var returnRouter = function (io) {
                         where: { [Op.and]: [{ block_status: false, delete_status: false, is_verified: true }] }
                     }
                 }
-
             }).then(emppendingleave => {
                 return res.json(emppendingleave);
             });
@@ -2216,7 +2145,6 @@ var returnRouter = function (io) {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
             Employeeleave.update({
-
                 is_admin_viewed: true
             }, {
                     where: {
@@ -2242,7 +2170,6 @@ var returnRouter = function (io) {
                     } else {
                         res.json({ success: false, msg: " user status change Failed" });
                     }
-
                 })
         } else {
             return res.status(401).send('Invalid User');
@@ -2316,17 +2243,14 @@ var returnRouter = function (io) {
                 where: { id: req.params.id },
                 include: {
                     model: User,
-
                     required: true,
                     include: [
                         {
                             model: Login,
                             required: true,
                         },
-
                     ]
                 }
-
             }).then(emppendingleave => {
                 var login_id = emppendingleave.tbl_user_profile.login_id;
                 User.findOne({
@@ -2349,23 +2273,17 @@ var returnRouter = function (io) {
                                 {
                                     model: Project_task,
                                     required: true,
-
                                     where: { assigned_to_id: userid },
-
                                 }
                             },
-
                         ],
                         order: [
                             [Project_modules, 'id', 'ASC'],
-
                         ]
-
 
                     }).then(myTasks => {
                         data = { 'leave': emppendingleave, 'mytask': myTasks }
                         return res.json(data);
-
                     });
                 });
             });
@@ -2389,7 +2307,6 @@ var returnRouter = function (io) {
             cmp_id = decoded.cmp_id;
             var isErr = false;
             errMsg = '';
-
             if (config.use_env_variable) {
                 var sequelize = new Sequelize(process.env[config.use_env_variable]);
             } else {
@@ -2400,7 +2317,6 @@ var returnRouter = function (io) {
                 isErr = true;
             }
             if (!isErr) {
-
                 Employeeleave.update({
                     reject_reason: req.body.reject_reason,
                     request_status: "Rejected"
@@ -2427,7 +2343,6 @@ var returnRouter = function (io) {
                         res.json({ success: true, msg: "Leave Reject Successfully" });
                     })
             }
-
             else {
                 res.json({ success: false, msg: errMsg });
             }
@@ -2452,7 +2367,6 @@ var returnRouter = function (io) {
             var isErr = false;
             errMsg = '';
             Employeeleave.update({
-
                 request_status: "Accepted"
             }, {
                     where: {
@@ -2479,7 +2393,6 @@ var returnRouter = function (io) {
                     } else {
                         res.json({ success: false, msg: "Failed" });
                     }
-
                 })
         } else {
             return res.status(401).send('Invalid User');
@@ -2525,7 +2438,6 @@ var returnRouter = function (io) {
                                     required: true,
                                     where: { [Op.and]: [{ block_status: false, delete_status: false }] }
                                 },
-
                             },
                             {
                                 model: Project_modules,
@@ -2557,7 +2469,6 @@ var returnRouter = function (io) {
     // Date          : 04-04-2018
     // Last Modified :
     // Desc          : time request details(single project)
-
     router.post('/timerequest', (req, res, next) => {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -2680,7 +2591,6 @@ var returnRouter = function (io) {
         } else {
             return res.status(401).send('Invalid User');
         }
-
     });
     // ----------------------------------End-----------------------------------------------
     // ---------------------------------Start-------------------------------------------
@@ -2824,7 +2734,6 @@ var returnRouter = function (io) {
                                     where: {
                                         cmp_id: cmp_id
                                     }
-
                                 }]
                             }, {
                                 model: User,
@@ -2839,7 +2748,6 @@ var returnRouter = function (io) {
                     }]
                 }).then(resReq => {
                     return res.json(resReq);
-
                 }).catch(err => {
                     res.json({
                         //   status: 0,
@@ -2869,7 +2777,6 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
             cmp_id = decoded.cmp_id;
             Time_extension_request_notifications.update({
-
                 is_admin_viewed: true
             }, {
                     where: {
@@ -2879,12 +2786,10 @@ var returnRouter = function (io) {
                     io.sockets.emit("adminviewstatuschange", {
                     });
                     if (data1) {
-
                         res.json({ success: true, msg: "admin status change Successfully" });
                     } else {
                         res.json({ success: false, msg: " admin status change Faild" });
                     }
-
                 })
         } else {
             return res.status(401).send('Invalid User');
@@ -2916,7 +2821,6 @@ var returnRouter = function (io) {
         }
     });
     // ----------------------------------End------------------------------------------- 
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get plan by id
     // Params        : 
@@ -3023,7 +2927,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get all projects
     // Params        : 
@@ -3376,7 +3279,6 @@ var returnRouter = function (io) {
                             // // console.log("Account deleted");
                         }
                         else if (login.role_id == 1 || login.role_id == 3) {
-
                             if (login.role_id == 1 && login.cmp_status == "Not Verified" || login.is_verified == false) {
                                 return res.json({ success: false, msg: 'Company not verified' });
                             }
@@ -3449,7 +3351,6 @@ var returnRouter = function (io) {
                                     });
                                 });
                         }
-
                         // else if (login.block_status == false && login.delete_status == false && login.is_profile_completed == true && login.is_verified == true) {
                         // else if (login.block_status == false && login.delete_status == false && login.is_verified == true && login.is_profile_completed == true && login.cmp_status != "Not Verified" ){
                     }
@@ -3568,7 +3469,6 @@ var returnRouter = function (io) {
             var authorization = req.headers.authorization.substring(4),
                 decoded;
             decoded = jwt.verify(authorization, Config.secret);
-
             res.json(decoded);
             // // console.log(decoded);
         } else {
@@ -3617,7 +3517,6 @@ var returnRouter = function (io) {
                                 const token = jwt.sign(login1.toJSON(), Config.secret, {
                                     expiresIn: 60400 // sec 1 week
                                 });
-
                                 return res.json({
                                     success: true,
                                     msg: "Successfully verified",
@@ -3628,7 +3527,6 @@ var returnRouter = function (io) {
                                     }
                                 });
                             }
-
                         });
                     });
             });
@@ -3726,9 +3624,7 @@ var returnRouter = function (io) {
                 // // console.log("Email found");
             }
         });
-
     });
-
     // ----------------------------------End-------------------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : Get company details by id
@@ -3755,7 +3651,6 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-------------------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : get-designer-users
@@ -3765,7 +3660,6 @@ var returnRouter = function (io) {
     // Date          : 14-03-2018
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/get-designer-users', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -3790,10 +3684,8 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // }
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : get_industries
     // Params        :
@@ -3802,7 +3694,6 @@ var returnRouter = function (io) {
     // Date          : 09-03-2018
     // Last Modified : 09-03-2018,
     // Desc          : get industry list
-
     router.get('/get_industries', function (req, res) {
         Industries.findAll().then(industries => {
             //// console.log(projects);
@@ -3832,7 +3723,6 @@ var returnRouter = function (io) {
     // Date          : 09-03-2018
     // Last Modified : 09-03-2018,
     // Desc          : company registration
-
     router.post('/register_company', function (req, res) {
         try {
             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
@@ -3846,13 +3736,11 @@ var returnRouter = function (io) {
             if (!reg.test(req.body[0].ans.toLowerCase()) || !(/^\d+$/.test(req.body[4].ans))) {
                 res.send({ status: 0, message: "Check email and phone number!" });
                 res.end();
-
             }
             else {
                 if (typeof req.body.id == 'undefined') {
                     Login.findAll(
                         { where: { email: req.body[0].ans } }
-
                     ).then(login => {
                         //// console.log(projects);
                         if (login.length == 0) {
@@ -3881,7 +3769,6 @@ var returnRouter = function (io) {
                                     // // console.log(newLogin);
                                     newLogin.save().then(resLogin => {
                                         // console.log(resLogin.id)
-
                                         // if(resLogin.length>0){
                                         // res.json(resLogin)
                                         // // console.log("hh")
@@ -3902,7 +3789,6 @@ var returnRouter = function (io) {
                                                 is_admin_viewed: false,
                                                 verification_code: req.body[9].ans
                                             })
-
                                             // // console.log(newCompany);
                                             newCompany.save().then((resCmp) => {
                                                 // console.log("resCmp");
@@ -3917,12 +3803,10 @@ var returnRouter = function (io) {
                                                         is_default: true
                                                     }).save().then(resTiming => {
                                                         res.json({ status: 1, message: "Registered! Check your Email!" })
-
                                                     }).catch(err => {
                                                         console.log(err);
                                                     })
                                                 })
-
                                             })
                                         }).catch(errorx => {
                                             // res.json({status: 0, message:"Failed!"});
@@ -3935,12 +3819,10 @@ var returnRouter = function (io) {
                                     })
                                 })
                             })
-
                         } else {
                             //email exist
                             res.json({ status: 0, message: "Already Registered!" });
                         }
-
                     });
                 } else {
                     //update for jooshifa
@@ -3957,7 +3839,6 @@ var returnRouter = function (io) {
                         is_admin_viewed: false,
                         verification_code: req.body[9].ans
                     })
-
                     Company.update({
                         cmp_name: req.body[1].ans,
                         cmp_code: req.body[2].ans,
@@ -3976,12 +3857,10 @@ var returnRouter = function (io) {
                         }).then(data1 => {
                         })
                 }
-
             }
         } catch (err) {
             res.json({ status: 0, message: "Already Registered!" });
         }
-
     });
     //  ---------------------------------End-------------------------------------------
     //  ---------------------------------Start-------------------------------------------
@@ -4033,14 +3912,12 @@ var returnRouter = function (io) {
                 })
         })
     });
-
     //  ---------------------------------End-------------------------------------------
     //   if (config.use_env_variable) {
     //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
     //   } else {
     //     var sequelize = new Sequelize(config.database, config.username, config.password, config);
     //   }
-
     //   sequelize.query("select * from GetAllSt();").spread(
     //     function (actualres, settingName2) {
     //       // console.log(actualres);
@@ -4048,7 +3925,6 @@ var returnRouter = function (io) {
     //       res.json(actualres);
     // });
     // ---------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Company verification
     // Params        : verification id
@@ -4063,7 +3939,6 @@ var returnRouter = function (io) {
                 verification_code: req.params.id
             }
         }).then(Company => {
-
             Login.findOne({
                 where: {
                     id: Company.login_id,
@@ -4072,14 +3947,12 @@ var returnRouter = function (io) {
                 Login.update({
                     is_verified: true,
                     cmp_status: "Trail"
-
                 }, {
                         where: {
                             id: Company.login_id,
                             cmp_status: "Not Verified"
                         }
                     }).then(data1 => {
-
                         Login.findOne({
                             where: {
                                 id: Company.login_id,
@@ -4093,7 +3966,6 @@ var returnRouter = function (io) {
                                 const token = jwt.sign(login1.toJSON(), Config.secret, {
                                     expiresIn: 60400 // sec 1 week
                                 });
-
                                 return res.json({
                                     success: true,
                                     msg: "Successfully verified",
@@ -4102,7 +3974,6 @@ var returnRouter = function (io) {
                                         id: login1.id,
                                         role: login1.role_id,
                                     }
-
                                 });
                             }
                         });
@@ -4110,9 +3981,7 @@ var returnRouter = function (io) {
             });
         });
     });
-
     // ----------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Get All Projects
     // Params        :
@@ -4141,7 +4010,6 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-------------------------------------------
     // ---------------------------------Start------------------------------------------------
     // Function      : get All Users by project id
@@ -4169,7 +4037,6 @@ var returnRouter = function (io) {
                         }
                     },
                     { model: Login, where: { [Op.and]: [{ block_status: false, delete_status: false }] }, required: true }
-
                 ],
                 raw: true
             }).then(data => {
@@ -4179,7 +4046,6 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-------------------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : getTeams
@@ -4211,12 +4077,9 @@ var returnRouter = function (io) {
                     })
                 }, () => {
                     res.json(team);
-
                 })
-
                 // });
             });
-
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -4564,7 +4427,6 @@ var returnRouter = function (io) {
         }
     });
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get-date-time 
     // Params        : 
@@ -4999,7 +4861,6 @@ var returnRouter = function (io) {
         }
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : edit project
     // Params        : data from form
@@ -6016,7 +5877,6 @@ var returnRouter = function (io) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
     // -----------------------------------End------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        :
@@ -6025,7 +5885,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018,
     // Desc          : get list of teams and stregth
-
     router.get('/getMembers/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -6059,7 +5918,6 @@ var returnRouter = function (io) {
                     }).then(resUser => {
                         // res.json(resUser);
                         // console.log(resUser)
-
                         if (resUser.length > 0) {
                             users[key].onTeam = true;
                             tmp3.push(element.id);
@@ -6086,18 +5944,14 @@ var returnRouter = function (io) {
                         res.json(tmp2);
                     })
                     //
-
                 })
-
                 // });
             });
-
         } else {
             return res.status(401).send('Invalid User');
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : assignMemeber5
     // Params        :
@@ -6106,7 +5960,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018,
     // Desc          : assign team members and head to a team
-
     router.post('/assignMemebers', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -6167,7 +6020,6 @@ var returnRouter = function (io) {
                             Message: "Some error occured!"
                         })
                     })
-
                 });
             }).catch(err => {
                 res.json({
@@ -6180,7 +6032,6 @@ var returnRouter = function (io) {
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getUserGroups
     // Params        :
@@ -6189,7 +6040,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018,
     // Desc          : get user groups  from db
-
     router.get('/getUserGroups', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -6206,13 +6056,11 @@ var returnRouter = function (io) {
                 res.json(Roles);
                 // });
             });
-
         } else {
             return res.status(401).send('Invalid User');
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : Login
     // Params        : username and password
@@ -6222,7 +6070,6 @@ var returnRouter = function (io) {
     // Last Modified : 06-3-2018, Jooshifa
     // Desc          : company and user direct login with username and password with google captcha
 
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getAccessRights
     // Params        :
@@ -6231,9 +6078,7 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018,
     // Desc          : get Access Rights  from db
-
     // router.get('/getAccessRights/:id', function(req, res) {
-
     //     var cmp_id = 1;
     //     var roleId = req.params.id;
     //     tmp=[];
@@ -6244,7 +6089,6 @@ var returnRouter = function (io) {
     //             id = element.id;
     //             name = element.name;
     //             // console.log(name);
-
     //             AccessRights.findAndCountAll({
     //               where:{
     //                 main_access_right_id: element.id
@@ -6263,13 +6107,10 @@ var returnRouter = function (io) {
     //               element.jijo = resx;
     //               rights[key] =element;
     //               callback();
-
     //             })
-
     //         },()=>{
     //              res.json(rights);
     //         })
-
 
     //     })
     // })
@@ -6282,7 +6123,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018,
     // Desc          : assign team members and head to a team
-
     router.get('/getAccessRights/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -6308,11 +6148,8 @@ var returnRouter = function (io) {
                             },
                             raw: true
                         }).then((resx) => {
-
                             tmp[key].sub = resx.rows;
-
                             async.eachOfSeries(resx.rows, (element1, key1, callback1) => {
-
                                 AccessRightsAssoc.findAndCountAll({
                                     where: {
                                         cmp_id: cmp_id,
@@ -6329,23 +6166,18 @@ var returnRouter = function (io) {
                                     }
                                     callback1();
                                 });
-
                             }, () => {
                                 if ((tmp[key].sub.length != 0) && (tmp[key].sub.length == trueCount)) {
                                     tmp[key].checked = true;
                                     tmp[key].intermediate;
-
                                 } else {
                                     tmp[key].checked = false;
                                     tmp[key].intermediate = false;
-
                                 }
                                 callback();
                             })
-
                             //callback();
                         });
-
                     }, () => {
                         res.json(tmp);
                     })
@@ -6365,11 +6197,8 @@ var returnRouter = function (io) {
                             },
                             raw: true
                         }).then((resx) => {
-
                             tmp[key].sub = resx.rows;
-
                             async.eachOfSeries(resx.rows, (element1, key1, callback1) => {
-
                                 AccessRightsAssoc.findAndCountAll({
                                     where: {
                                         cmp_id: cmp_id,
@@ -6386,23 +6215,18 @@ var returnRouter = function (io) {
                                     }
                                     callback1();
                                 });
-
                             }, () => {
                                 if ((tmp[key].sub.length != 0) && (tmp[key].sub.length == trueCount)) {
                                     tmp[key].checked = true;
                                     // tmp[key].intermediate = false;
-
                                 } else {
                                     tmp[key].checked = false;
                                     // tmp[key].intermediate = true;
-
                                 }
                                 callback();
                             })
-
                             //callback();
                         });
-
                     }, () => {
                         res.json(tmp);
                     })
@@ -6413,7 +6237,6 @@ var returnRouter = function (io) {
         }
     });
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : assignMemeber5
     // Params        :
@@ -6422,7 +6245,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018,
     // Desc          : assign team members and head to a team
-
     router.post('/assignRights/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -6431,7 +6253,6 @@ var returnRouter = function (io) {
             var cmp_id = decoded.cmp_id;
             // console.log(req.body)
             // var cmp_id = 1;
-
             role_id = parseInt(req.params.id);
             console.log(role_id);
             AccessRightsAssoc.destroy({
@@ -6458,13 +6279,11 @@ var returnRouter = function (io) {
                                         role_id: role_id
                                     })
                                     assoc.save().then(res => {
-
                                     }).catch(err => {
                                         // console.log(err);
                                     })
                                     // console.log(resAssoc.count)
                                 }
-
                             });
                         } callback();
                     },
@@ -6491,7 +6310,6 @@ var returnRouter = function (io) {
         } else {
             return res.status(401).send('Invalid User');
         }
-
     })
     //  ---------------------------------End-------------------------------------------
     //  ---------------------------------Start-------------------------------------------
@@ -6502,7 +6320,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018,
     // Desc          : get user groups  from db
-
     router.get('/getWorkingTimes', function (req, res) {
         if (req.headers && req.headers.authorization) {
           var authorization = req.headers.authorization.substring(4), decoded;
@@ -6527,7 +6344,6 @@ var returnRouter = function (io) {
                         model: WorkingTime
                     }]
                 }).then(resTime => {
-
                     Break.findAll({
                         where: {
                             cmp_id: cmp_id,
@@ -6540,17 +6356,14 @@ var returnRouter = function (io) {
                         timingArray.others = resTime;
                         res.json(timingArray);
                     })
-
                 })
                 // });
             });
-
         } else {
             return res.status(401).send('Invalid User');
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : assignMemeber5
     // Params        :
@@ -6559,7 +6372,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018,
     // Desc          : assign team members and head to a team
-
     router.post('/saveWorkingTimes', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -6610,13 +6422,11 @@ var returnRouter = function (io) {
                     })
                 })
             }
-
         } else {
             return res.status(401).send('Invalid User');
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : deleteBreak
     // Params        :
@@ -6691,7 +6501,6 @@ var returnRouter = function (io) {
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : deleteBreak
     // Params        :
@@ -6761,7 +6570,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018,
     // Desc          : get user groups  from db
-
     router.get('/getWeekHours', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -6786,7 +6594,6 @@ var returnRouter = function (io) {
                 let tmp = {};
                 tmp2 = {};
                 wrktime.forEach((element) => {
-
                     dayno = 0;
                     // element.tbl_cmp_work_time.forEach((ele) => {
                     if (dayno != element.day_no) {
@@ -6834,7 +6641,6 @@ var returnRouter = function (io) {
                             else {
                                 tp[j] = {}
                             }
-
                         }
                         // console.log(tp);
                         x[i] = tp
@@ -6843,13 +6649,11 @@ var returnRouter = function (io) {
                     res.json(x)
                 })
             });
-
         } else {
             return res.status(401).send('Invalid User');
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     router.get('/get-availablity/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
@@ -6859,7 +6663,6 @@ var returnRouter = function (io) {
             Emp_leave.findAll({
                 where: {
                     [Op.and]: [{ user_profile_id: req.params.id, request_status: 'Accept' }]
-
                 }
             }).then(empLeave => {
                 res.json(empLeave);
@@ -6870,7 +6673,6 @@ var returnRouter = function (io) {
         }
     });
     //  ---------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      :get_public-holidays
     // Params        :
@@ -6879,16 +6681,13 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc
-
     router.get('/get-public-holidays', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             Public_holiday.findAll({
-
                 where: { cmp_id: decoded.cmp_id },
                 // where: { cmp_id: 1 },
-
             }).then(PublicHoliday => {
                 res.json(PublicHoliday);
                 // console.log(PublicHoliday)
@@ -6898,9 +6697,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      :get_working-time
     // Params        :
@@ -6929,9 +6726,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get-off-days-assoc
     // Params        :
@@ -6940,7 +6735,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc
-
     router.get('/get-off-days-assoc', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -6961,9 +6755,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : get-break-time
     // Params        :
@@ -6972,7 +6764,6 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc
-
     router.get('/get-break-time', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -6993,9 +6784,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-----------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getUserGroups
     // Params        :
@@ -7026,7 +6815,6 @@ var returnRouter = function (io) {
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : deleteBreak
     // Params        :
@@ -7056,7 +6844,6 @@ var returnRouter = function (io) {
                 let endDate = '';
                 startDate = d + "-01-01";
                 endDate = d + "-12-31";
-
                 console.log(d);
                 Holiday.findAll({
                     where: {
@@ -7077,7 +6864,6 @@ var returnRouter = function (io) {
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : updateHoliday
     // Params        :
@@ -7161,10 +6947,8 @@ var returnRouter = function (io) {
         } else {
             return res.status(401).send('Invalid User');
         }
-
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : updateHoliday
     // Params        :
@@ -7222,7 +7006,6 @@ var returnRouter = function (io) {
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : saveHoliday
     // Params        :
@@ -7240,7 +7023,6 @@ var returnRouter = function (io) {
             // var cmp_id = 1;
             // role_id = req.params.id;
             // console.log(req.body.date + 5.5);
-
             console.log(new Date().getTimezoneOffset());
             if (req.body.title == '' || req.body.title == null) {
                 res.json({
@@ -7309,7 +7091,6 @@ var returnRouter = function (io) {
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     // //  ---------------------------------Start-------------------------------------------
     // // Function      : getMembers
     // // Params        :
@@ -7318,7 +7099,6 @@ var returnRouter = function (io) {
     // // Date          : 13-03-2018
     // // Last Modified : 13-03-2018,
     // // Desc          : get list of teams and stregth
-
     // router.get('/getNotifications', function (req, res) {
     //   // if (req.headers && req.headers.authorization) {
     //   //   var authorization = req.headers.authorization.substring(4), decoded;
@@ -7339,14 +7119,12 @@ var returnRouter = function (io) {
     //         model:Projects
     //       }]
     //     }],
-
     //   }).then( resProjects => {
     //     res.json(resProjects);
     //   })
     //   // }
     // })
     // //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        :
@@ -7355,7 +7133,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018,
     // Desc          : get list of teams and stregth
-
     router.get('/getUserProjects', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -7385,7 +7162,6 @@ var returnRouter = function (io) {
                             }
                         }]
                     }],
-
                 }).then(resProjects => {
                     res.json(resProjects);
                 }).catch(err => {
@@ -7400,13 +7176,11 @@ var returnRouter = function (io) {
                     message: "Error occured! Try again!"
                 })
             })
-
         } else {
             return res.status(401).send('Invalid User');
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        :
@@ -7415,7 +7189,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018,
     // Desc          : get list of teams and stregth
-
     router.get('/getUserProjectsDetails/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -7443,7 +7216,6 @@ var returnRouter = function (io) {
                     id: req.params.id,
                     cmp_id: cmp_id
                 },
-
                 include: [{
                     model: ProjectMemeberAssoc,
                     include: [{
@@ -7453,12 +7225,10 @@ var returnRouter = function (io) {
                     }]
                 }, {
                     model: Modules,
-
                     include: [{
                         model: Tasks,
                     }]
                 }],
-
             }).then(resProjects => {
                 if (resProjects.length <= 0) {
                     res.json({
@@ -7487,7 +7257,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018, jooshifa
     // Desc          : 
-
     router.get('/generateToken/:id', function (req, res) {
         Login.findOne({
             include: [{
@@ -7510,7 +7279,6 @@ var returnRouter = function (io) {
         });
     });
     // ----------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getProjects
     // Params        : 
@@ -7519,7 +7287,6 @@ var returnRouter = function (io) {
     // Date          : 14-03-2018
     // Last Modified : 14-03-2018, Jooshifa
     // Desc          : 
-
     router.get('/getProjects/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -7537,7 +7304,6 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-------------------------------------------
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
@@ -7547,7 +7313,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018,
     // Desc          : get list of teams and stregth
-
     router.post('/getUserProjectsOnStatus', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -7577,7 +7342,6 @@ var returnRouter = function (io) {
                             }
                         }]
                     }],
-
                 }).then(resProjects => {
                     if (resProjects.length <= 0) {
                         res.json({
@@ -7612,7 +7376,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018,
     // Desc          : get list of teams and stregth
-
     router.post('/getSelectedProjects', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -7643,7 +7406,6 @@ var returnRouter = function (io) {
                             }
                         }]
                     }],
-
                 }).then(resProjects => {
                     if (resProjects.length <= 0) {
                         res.json({
@@ -7665,13 +7427,11 @@ var returnRouter = function (io) {
                     message: "Error occured! Try again!"
                 })
             })
-
         } else {
             return res.status(401).send('Invalid User');
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        :
@@ -7680,7 +7440,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018,
     // Desc          : get list of teams and stregth
-
     router.get('/getNotifications', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -7715,7 +7474,6 @@ var returnRouter = function (io) {
                                     where: {
                                         cmp_id: cmp_id
                                     }
-
                                 }]
                             }, {
                                 model: Users,
@@ -7745,7 +7503,6 @@ var returnRouter = function (io) {
                     // response['back'] = resBack
                     response['req'] = resReq;
                     res.send(response);
-
                     //   }).catch(err =>{
                     //   res.json({
                     //     status: 0,
@@ -7761,9 +7518,7 @@ var returnRouter = function (io) {
                 })
             }
             else if (role == 1) {
-
             }
-
         } else {
             return res.status(401).send('Invalid User');
         }
@@ -7778,7 +7533,7 @@ var returnRouter = function (io) {
             // var cmp_id = 1;
             // res.json(req.body);
             var id = decoded.id;
-
+            // console.log(cmp_id);
             var user_id;
             var role = decoded.role_id;
             Users.find({
@@ -7788,7 +7543,6 @@ var returnRouter = function (io) {
             }).then(resUser => {
                 user_id = resUser.id;
                 if (role == 3) {
-
                     NewTaskNotification.findAll({
                         where: {
                             is_pm_viewed: false,
@@ -7801,14 +7555,12 @@ var returnRouter = function (io) {
                                 request_status: 'Pending'
                             },
                             include: [{
-
                                 model: Modules,
                                 include: [{
                                     model: Projects,
                                     where: {
                                         cmp_id: cmp_id
                                     }
-
                                 }]
                             }, {
                                 model: Users,
@@ -7832,7 +7584,6 @@ var returnRouter = function (io) {
                                     }
                                 },
                                 include: [{
-
                                     model: Modules,
                                     include: [{
                                         model: Projects,
@@ -7878,7 +7629,6 @@ var returnRouter = function (io) {
                                 request_status: 'Approval'
                             },
                             include: [{
-
                                 model: Modules,
                                 include: [{
                                     model: Projects,
@@ -7911,12 +7661,10 @@ var returnRouter = function (io) {
                     message: "Error occured! Try again!"
                 })
             })
-
         } else {
             return res.status(401).send('Invalid User');
         }
     })
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : closeNotifnewTaskReq
     // Params        :
@@ -7925,7 +7673,6 @@ var returnRouter = function (io) {
     // Date          : 29-03-2018
     // Last Modified : 29-03-2018,
     // Desc          : get list of teams and stregth
-
     router.post('/closeNotifnewTaskReq', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -7934,50 +7681,87 @@ var returnRouter = function (io) {
             var cmp_id = decoded.cmp_id;
             var role_id = decoded.role_id
             id = req.body.id;
-            closeNotifnewTaskReq(role_id, id);
+            // closeNotifnewTaskReq(role_id, id);
+            if (role_id == 3) {
+                NewTaskNotification.update({
+                    is_pm_viewed: true
+                }, {
+                        where: {
+                            id: id
+                        }
+                    }).then(resUpdate => {
+                        res.json({
+                            status: 1,
+                            message: "Notification closed!"
+                        })
+                    }).catch(err => {
+                        res.json({
+                            status: 1,
+                            message: "Notification closing failed!"
+                        })
+                    })
+            } else if (role_id == 1) {
+                NewTaskNotification.update({
+                    is_admin_viewed: true
+                }, {
+                        where: {
+                            id: id
+                        }
+                    }).then(resUpdate => {
+                        res.json({
+                            status: 1,
+                            message: "Notification closed!"
+                        })
+                    }).catch(err => {
+                        res.json({
+                            status: 1,
+                            message: "Notification closing failed!"
+                        })
+                    })
+            }
         } else {
             return res.status(401).send('Invalid User');
         }
     })
-    function closeNotifnewTaskReq(role_id, id) {
-        if (role_id == 3) {
-            NewTaskNotification.update({
-                is_pm_viewed: true
-            }, {
-                    where: {
-                        id: id
-                    }
-                }).then(resUpdate => {
-                    res.json({
-                        status: 1,
-                        message: "Notification closed!"
-                    })
-                }).catch(err => {
-                    res.json({
-                        status: 1,
-                        message: "Notification closing failed!"
-                    })
-                })
-        } else if (role_id == 1) {
-            NewTaskNotification.update({
-                is_admin_viewed: true
-            }, {
-                    where: {
-                        id: id
-                    }
-                }).then(resUpdate => {
-                    res.json({
-                        status: 1,
-                        message: "Notification closed!"
-                    })
-                }).catch(err => {
-                    res.json({
-                        status: 1,
-                        message: "Notification closing failed!"
-                    })
-                })
-        }
-    }
+    // function closeNotifnewTaskReq(role_id, id) {
+        // if (role_id == 3) {
+        //     NewTaskNotification.update({
+        //         is_pm_viewed: true
+        //     }, {
+        //             where: {
+        //                 id: id
+        //             }
+        //         }).then(resUpdate => {
+        //             res.json({
+        //                 status: 1,
+        //                 message: "Notification closed!"
+        //             })
+        //         }).catch(err => {
+        //             res.json({
+        //                 status: 1,
+        //                 message: "Notification closing failed!"
+        //             })
+        //         })
+        // } else if (role_id == 1) {
+        //     NewTaskNotification.update({
+        //         is_admin_viewed: true
+        //     }, {
+        //             where: {
+        //                 id: id
+        //             }
+        //         }).then(resUpdate => {
+        //             res.json({
+        //                 status: 1,
+        //                 message: "Notification closed!"
+        //             })
+        //         }).catch(err => {
+        //             res.json({
+        //                 status: 1,
+        //                 message: "Notification closing failed!"
+        //             })
+        //         })
+        // }
+    // }
     //  ---------------------------------Start-------------------------------------------
     // Function      : closeNotifnewTaskReq
     // Params        :
@@ -7986,7 +7770,6 @@ var returnRouter = function (io) {
     // Date          : 29-03-2018
     // Last Modified : 29-03-2018,
     // Desc          : get list of teams and stregth
-
     router.post('/closeNotifAproval', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -7996,7 +7779,6 @@ var returnRouter = function (io) {
             var role_id = decoded.role_id
             id = req.body.id;
             closeNotifApproval(role_id, id);
-
             // }
         } else {
             return res.status(401).send('Invalid User');
@@ -8049,7 +7831,6 @@ var returnRouter = function (io) {
     // Date          : 29-03-2018
     // Last Modified : 29-03-2018,
     // Desc          : get list of teams and stregth
-
     router.get('/getNewTaskRequests', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -8070,12 +7851,10 @@ var returnRouter = function (io) {
                     include: [{
                         model: NewTaskreq,
                         required: true,
-
                         // where: {
                         //     request_status: 'Pending'
                         // },
                         include: [{
-
                             model: Modules,
                             required: true,
                             // attributes: ["id", "module_name", "project_id"],
@@ -8083,7 +7862,6 @@ var returnRouter = function (io) {
                             include: [{
                                 model: Projects,
                                 required: true,
-
                                 where: {
                                     cmp_id: cmp_id
                                 }
@@ -8116,21 +7894,17 @@ var returnRouter = function (io) {
                     include: [{
                         model: NewTaskreq,
                         required: true,
-
                         // where: {
                         //     request_status: 'Approval'
                         // },
                         include: [{
-
                             model: Modules,
                             required: true,
-
                             // attributes: ["id", "module_name", "project_id"],
                             // as:"pmodule", 
                             include: [{
                                 model: Projects,
                                 required: true,
-
                                 where: {
                                     cmp_id: cmp_id
                                 }
@@ -8154,12 +7928,10 @@ var returnRouter = function (io) {
                     })
                 })
             }
-
         } else {
             return res.status(401).send('Invalid User');
         }
     })
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : get task request
     // Params        :
@@ -8168,10 +7940,9 @@ var returnRouter = function (io) {
     // Date          : 03-04-2018
     // Last Modified : 03-04-2018,
     // Desc          : get task and details
-
     router.get('/getNewTaskRequest/:id', function (req, res) {
-        console.log("con:" + Config.secret)
-        console.log("con:" + Config.secret)
+        // console.log("con:" + Config.secret)
+        // console.log("con:" + Config.secret)
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             //     try {
@@ -8184,7 +7955,6 @@ var returnRouter = function (io) {
             NewTaskreq.find({
                 where: {
                     id: id,
-
                 }, attributes: ['assigned_to_id', 'id', 'planned_hours', 'buffer_hours', 'description', 'planned_start_date', 'planned_end_date', 'attachment', 'reason', 'project_module_id', 'assigned_to_id', 'complexity_id', 'team_id', 'task_name', 'request_status'],
                 include: [{
                     model: Modules,
@@ -8219,7 +7989,6 @@ var returnRouter = function (io) {
                 //     model: Users
                 //   }]
                 // }).then( resMembers =>{
-
                 //   let response = {};
                 //   response["data"] = resBack;
                 //   response["members"] = resMembers;
@@ -8232,7 +8001,6 @@ var returnRouter = function (io) {
                 }
                 else {
                     res.json(resBack);
-
                 }
                 // }).catch(err => {
                 //   res.json({
@@ -8250,7 +8018,6 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     })
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        :
@@ -8259,7 +8026,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018,
     // Desc          : get list of teams and stregth
-
     router.get('/getProjectsDetails/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -8275,7 +8041,6 @@ var returnRouter = function (io) {
                     id: req.params.id,
                     cmp_id: cmp_id
                 },
-
                 include: [{
                     model: ProjectMemeberAssoc,
                     include: [{
@@ -8285,7 +8050,6 @@ var returnRouter = function (io) {
                     }]
                 }, {
                     model: Modules,
-
                     include: [{
                         model: Tasks,
                         include: [{
@@ -8293,7 +8057,6 @@ var returnRouter = function (io) {
                         }]
                     }]
                 }],
-
             }).then(resProjects => {
                 if (resProjects.length <= 0) {
                     res.json({
@@ -8308,7 +8071,6 @@ var returnRouter = function (io) {
                         });
                     });
                     // console.log(count)
-
                     res.json({ "data": resProjects, "hours": count });
                 }
             }).catch(err => {
@@ -8322,7 +8084,6 @@ var returnRouter = function (io) {
         }
     })
     //  ---------------------------------End-------------------------------------------
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getMembers
     // Params        :
@@ -8331,7 +8092,6 @@ var returnRouter = function (io) {
     // Date          : 13-03-2018
     // Last Modified : 13-03-2018,
     // Desc          : get list of teams and stregth
-
     router.get('/checkRole/', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -8353,14 +8113,12 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc          
-
     router.get('/get-complexity-percentage', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             // cmp_id = decoded.cmp_id;
             Complexity_percentage.findAll({
-
             }).then(Complexity_percentage => {
                 //console.log(projects);
                 res.json(Complexity_percentage);
@@ -8370,7 +8128,6 @@ var returnRouter = function (io) {
         }
     });
     // ----------------------------------End-----------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : approveTask
     // Params        : 
@@ -8379,7 +8136,6 @@ var returnRouter = function (io) {
     // Date          : 08-03-2018
     // Last Modified :
     // Desc          : approve a new task
-
     router.post('/approveTask', function (req, res) {
         // console.log("hreeee");
         if (req.headers && req.headers.authorization) {
@@ -8404,7 +8160,6 @@ var returnRouter = function (io) {
                 res.send({ success: false, msg: 'End datetime should be greater than start date time' });
             }
             else {
-
                 if (req.body.docSrc) {
                     timestamp = new Date().getTime().toString();
                     docName = req.body.id + timestamp + Math.floor(100000 + Math.random() * 900000);
@@ -8428,8 +8183,8 @@ var returnRouter = function (io) {
                     buffer_hour: req.body.buffer_hour,
                     description: req.body.description,
                     priority: req.body.priority,
-                    planned_start_date_time: startDate,
-                    planned_end_date_time: endDate,
+                    planned_start_date_time: req.body.p_start,
+                    planned_end_date_time: req.body.p_end,
                     project_module_id: req.body.module_id,
                     assigned_to_id: req.body.assigned_id,
                     complexity_id: req.body.complexity,
@@ -8461,16 +8216,13 @@ var returnRouter = function (io) {
                                         id: req.body.req_id
                                     }
                                     }).then(reqUpdate => {
-
                                         io.sockets.emit("newtaskrequestAccepted", {
                                             // expiredSocketId: newRequestNotification.id
                                         });
                                         res.send({ success: true, msg: "Request Approved!" });
                                     }).catch(err => {
                                         res.send({ success: false, msg: "Failed! Try again!" });
-
                                     })
-
                             });
                     } else {
                         NewTaskNotification.update({
@@ -8487,7 +8239,6 @@ var returnRouter = function (io) {
                                         id: req.body.req_id
                                     }
                                     }).then(reqUpdate => {
-
                                         io.sockets.emit("newtaskrequestAccepted", {
                                             // expiredSocketId: newRequestNotification.id
                                         });
@@ -8506,11 +8257,9 @@ var returnRouter = function (io) {
                                         res.send({ success: true, msg: "Request Approved!" });
                                     }).catch(err => {
                                         res.send({ success: false, msg: "Failed! Try again!" });
-
                                     })
                             });
                     }
-
                 });
             }
         } else {
@@ -8526,7 +8275,6 @@ var returnRouter = function (io) {
     // Date          : 08-03-2018
     // Last Modified :
     // Desc          : reject a new task
-
     router.post('/rejectTaskRequest/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -8550,7 +8298,6 @@ var returnRouter = function (io) {
                                     id: req.params.id
                                 }
                             }).then(reqUpdate => {
-
                                 io.sockets.emit("newtaskrequestRejected", {
                                     // expiredSocketId: newRequestNotification.id
                                 });
@@ -8569,9 +8316,7 @@ var returnRouter = function (io) {
                                 res.send({ success: true, msg: "Request rejected!" });
                             }).catch(err => {
                                 res.send({ success: false, msg: "Failed! Try again!" });
-
                             })
-
                     });
             } else if (role == 3) {
                 NewTaskNotification.update({
@@ -8588,7 +8333,6 @@ var returnRouter = function (io) {
                                     id: req.params.req_id
                                 }
                             }).then(reqUpdate => {
-
                                 io.sockets.emit("newtaskrequestRejected", {
                                     // expiredSocketId: newRequestNotification.id
                                 });
@@ -8607,12 +8351,10 @@ var returnRouter = function (io) {
                                 res.send({ success: true, msg: "Request rejected!" });
                             }).catch(err => {
                                 res.send({ success: false, msg: "Failed! Try again!" });
-
                             })
                     });
             } else {
                 res.send({ success: false, msg: "Error occured!" });
-
             }
         } else {
             return res.status(401).send('Invalid User');
@@ -8627,7 +8369,6 @@ var returnRouter = function (io) {
     // Date          : 08-03-2018
     // Last Modified :
     // Desc          : reject a new task
-
     router.post('/sendApproval/:id', function (req, res) {
         // console.log("hreeee");
         if (req.headers && req.headers.authorization) {
@@ -8635,7 +8376,6 @@ var returnRouter = function (io) {
             //     try {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
-
             NewTaskNotification.update({
                 is_admin_viewed: false,
                 is_pm_viewed: false,
@@ -8652,7 +8392,6 @@ var returnRouter = function (io) {
                                 id: req.params.id
                             }
                         }).then(reqUpdate => {
-
                             io.sockets.emit("newtaskrequestApproval", {
                                 // expiredSocketId: newRequestNotification.id
                             });
@@ -8671,7 +8410,6 @@ var returnRouter = function (io) {
                             res.send({ success: true, msg: "Send for Approval!" });
                         }).catch(err => {
                             res.send({ success: false, msg: "Failed! Try again!" });
-
                         })
                 });
         } else {
@@ -8679,7 +8417,6 @@ var returnRouter = function (io) {
         }
     });
     //  ---------------------------------End-------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getTasksByUser
     // Params        : pro_id, user_id
@@ -8703,7 +8440,6 @@ var returnRouter = function (io) {
                         include: [
                             {
                                 model: task_status_assoc,
-
                                 include: [
                                     {
                                         model: task_statuses,
@@ -8727,7 +8463,6 @@ var returnRouter = function (io) {
                         include: [
                             {
                                 model: task_status_assoc,
-
                                 include: [
                                     {
                                         model: task_statuses,
@@ -8741,10 +8476,8 @@ var returnRouter = function (io) {
                 res.send(myTasks);
             });
         }
-
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getTasksByProject
     // Params        : pro_id
@@ -8770,7 +8503,6 @@ var returnRouter = function (io) {
                     include: [
                         {
                             model: task_status_assoc,
-
                             include: [
                                 {
                                     model: task_statuses,
@@ -8785,7 +8517,6 @@ var returnRouter = function (io) {
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------Start-------------------------------------------
     // Function      : getTasksforResourceGraph
     // Params        : pro_id, users
@@ -8827,7 +8558,6 @@ var returnRouter = function (io) {
                         include: [
                             {
                                 model: task_status_assoc,
-
                                 include: [
                                     {
                                         model: task_statuses,
@@ -8884,12 +8614,10 @@ var returnRouter = function (io) {
                 callback();
             });
         }, () => {
-
             res.send(offensesByYear)
         });
     });
     // -----------------------------------End------------------------------------------
-
     // ---------------------------------new Start-------------------------------------------
     // Function      : getHoursforResourceGraph
     // Params        :
@@ -8995,7 +8723,6 @@ var returnRouter = function (io) {
                     callback();
                 });
             }, () => {
-
                 res.send(offensesByYear);
             });
             // });
@@ -9013,13 +8740,11 @@ var returnRouter = function (io) {
     // Date          : 12-4-2018
     // Last Modified : 12-4-2018,
     // Desc
-
     router.post('/getDayBreaks', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
-
             cmp_break.findAll({
                 where: { cmp_id: cmp_id },
                 include: [
@@ -9040,7 +8765,6 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-----------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : get-break-time
@@ -9050,7 +8774,6 @@ var returnRouter = function (io) {
     // Date          : 12-4-2018
     // Last Modified : 12-4-2018,
     // Desc
-
     router.post('/getDayDetails', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -9099,7 +8822,6 @@ var returnRouter = function (io) {
                     })
                 }
             })
-
             // cmp_break.findAll({
             //     where: { cmp_id: 1 },
             //     include: [
@@ -9120,7 +8842,6 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-----------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : get-break-time
@@ -9130,7 +8851,6 @@ var returnRouter = function (io) {
     // Date          : 12-4-2018
     // Last Modified : 12-4-2018,
     // Desc
-
     router.post('/saveDayBreak', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -9178,7 +8898,6 @@ var returnRouter = function (io) {
                             message: "An error occured! Try again!"
                         })
                     })
-
                 }).catch(err => {
                     res.json({
                         status: 0,
@@ -9191,7 +8910,6 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-----------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : get-break-time
@@ -9201,7 +8919,6 @@ var returnRouter = function (io) {
     // Date          : 12-4-2018
     // Last Modified : 12-4-2018,
     // Desc
-
     router.post('/deleteExtraBreak/:id', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -9243,7 +8960,6 @@ var returnRouter = function (io) {
                         message: "An error occured! Try again!"
                     })
                 })
-
             }).catch(err => {
                 res.json({
                     status: 0,
@@ -9255,7 +8971,6 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-
     // ----------------------------------End-----------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : saveDayBreak
@@ -9408,9 +9123,7 @@ var returnRouter = function (io) {
                                 })
                             }
                         })
-
                     }
-
                 }).catch(err => {
                     console.log(err)
                     res.json(err)
@@ -9513,7 +9226,6 @@ var returnRouter = function (io) {
                                                     message: "An error occured! Try again!"
                                                 })
                                             })
-
                                         }).catch(err => {
                                             console.log(err);
                                             res.json({
@@ -9595,7 +9307,6 @@ var returnRouter = function (io) {
                                                 message: "An error occured! Try again!"
                                             })
                                         })
-
                                     }).catch(err => {
                                         console.log(err);
                                         res.json({
@@ -9607,7 +9318,6 @@ var returnRouter = function (io) {
                             })
                         }
                     })
-
                 } else {
                     res.json({
                         satus: 0,
@@ -9628,7 +9338,6 @@ var returnRouter = function (io) {
     // Date          : 03-04-2018
     // Last Modified : 03-04-2018,
     // Desc          : get task and details
-
     router.get('/getAccessRightsforRole', function (req, res) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
@@ -9677,7 +9386,6 @@ var returnRouter = function (io) {
                         include: [
                             {
                                 model: task_status_assoc,
-
                                 include: [
                                     {
                                         model: task_statuses,
@@ -9692,19 +9400,56 @@ var returnRouter = function (io) {
                 callback();
             });
         }, () => {
-
             res.send(data);
         });
     });
     // -----------------------------------End------------------------------------------
-
+    // ---------------------------------Start-------------------------------------------
+    // Function      : getLastTaskDetails
+    // Params        : projects
+    // Returns       : 
+    // Author        : Manu 
+    // Date          :  19-04-2018
+    // Last Modified : 
+    // Desc          : 
+    router.post('/getLastTaskDetails/:id', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        var data = [];
+        projectId = req.params.id;
+        // async.eachOfSeries(projects, function (project, key, callback) {
+            Modules.findAll({
+                where: { project_id: parseInt(projectId) },
+                include: [
+                    
+                    {
+                        model: Tasks,
+                        where:{
+                            assigned_to_id:parseInt(req.body.assignedId) 
+                        },
+                        // order: [['planned_end_date_time', 'DES']]
+                        
+                    },
+                ],order: [
+                    [ Tasks, 'planned_end_date_time', 'DESC' ],
+                    
+                  ]
+            }).then(myTasks => {
+                res.json(myTasks)
+            });
+        // }, () => {
+        //     res.send(data);
+        // });
+    });
+    // -----------------------------------End------------------------------------------
     function compareTime(startTime, endTime) {
         console.log(startTime + '\n' + endTime)
-
         if (Date.parse('01/01/2011 ' + endTime) > Date.parse('01/01/2011 ' + startTime)) {
             return true;
         } else {
-
             return false;
         }
     }
@@ -9718,9 +9463,527 @@ var returnRouter = function (io) {
             return false;
         })
     }
+      // ---------------------------------Start-------------------------------------------
+    // Function      : userleavedata
+    // Params        : 
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 07-04-2018
+    // Last Modified : 
+    // Desc          : userleavedata
+    var planningRes;
+    var planningCmpId;
+    var planningModule;
+    var planningMembers;
+    var moduleIndex = 0;
+    var taskIndex = 0;
+    var memberIndex = 0;
+    router.post('/company-planning-enddate', (req, res, next) => {
+        moduleIndex = 0;
+        taskIndex = 0;
+        memberIndex = 0;
+        planningRes = res;
+        planningCmpId = req.body.teamMembers[0].cmp_id;
+        planningMembers = req.body.teamMembers;
+        // console.log(req.body);
+        planningModule = req.body.modules;
+        // req.body.teamMembers.forEach((members,key) => {
+        //     let firstTask = true;
+        //      let take_passing_start_time = true;
+        //     req.body.modules.forEach((module1,moduleIndex) => {
+        //         module1.tbl_estimation_tasks.forEach((task,taskIndex)=>{
+        //             if(task.assigned_person.id == members.id){
+        //                 plannedHr = task.planned_hour + task.buffer_hour;
+        //                 members.start_date = new Date(members.start_date);
+        //                  members.start_date.setHours(members.start_time.hour, members.start_time.minute, members.start_time.second);
+        //                 firstTask = false;
+        //                 isHoliday(task.id, members.id,members.start_date, plannedHr, members.cmp_id,take_passing_start_time, moduleIndex, taskIndex)
+        //             }
+        //         });
+        //     });
+        // });
+        if (req.body.modules[0]) {
+            if (req.body.modules[0].tbl_estimation_tasks[taskIndex]) {
+                if (req.body.teamMembers[memberIndex]) {
+                    if (getNextAvailableTask()) {
+                        chekingTask = planningModule[moduleIndex].tbl_estimation_tasks[taskIndex];
+                        plannedHr = chekingTask.planned_hour + chekingTask.buffer_hour;
+                        plannedHr = plannedHr*3600;
+                        planningMembers[memberIndex].start_date = new Date(planningMembers[memberIndex].start_date);
+                        planningMembers[memberIndex].start_date.setHours(planningMembers[memberIndex].start_time.hour, planningMembers[memberIndex].start_time.minute, planningMembers[memberIndex].start_time.second);
+                        take_passing_start_time = true;
+                        isHoliday(chekingTask.id, planningMembers[memberIndex].id, planningMembers[memberIndex].start_date, plannedHr, planningMembers[memberIndex].cmp_id, take_passing_start_time)
+                    }
+                } else {
+                    res.json({ success: false, msg: "No Member assigned" });
+                }
+            } else {
+                res.json({ success: false, msg: " No Task For first module" });
+            }
+        } else {
+            res.json({ success: false, msg: " No module selected" });
+        }
+    });
+    function getNextAvailableTask() {
+        console.log('modIndex ' + moduleIndex);
+        console.log('taskIndex ' + taskIndex);
+        if (planningModule[moduleIndex].tbl_estimation_tasks[taskIndex]) {
+            if (planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].assigned_person.id != planningMembers[memberIndex].id) {
+                taskIndex++
+                return getNextAvailableTask();
+            } else {
+                return true;
+            }
+        } else {
+            moduleIndex++;
+            taskIndex = 0;
+            if (getNextAvailableModule()) {
+                return getNextAvailableTask();
+            } else {
+                return false;
+            }
+        }
+    }
+    function getNextAvailableModule() {
+        if (planningModule[moduleIndex]) {
+            return true;
+        } else {
+            memberIndex++;
+            moduleIndex = 0;
+            taskIndex = 0;
+            if (getNextAvailableUser()) {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    function getNextAvailableUser() {
+        if (planningMembers[memberIndex]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function isHoliday(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time) {
+        console.log('-----init **********----');
+        console.log(plannedHr);
+        Holiday.findOne({
+            where: { [Op.and]: [{ cmp_id: cmp_id, date: start_date_time }] }
+        }).then(companyholiday => {
+            //console.log(companyholiday);
+            // if not null in holiday means that is holiday
+            if (companyholiday !== null) {
+                start_date_time = new Date(start_date_time);
+                console.log(start_date_time + " is an holiday ");
+                take_passing_start_time = false;
+                start_date_time = start_date_time.setDate(start_date_time.getDate() + 1);
+                isHoliday(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time);
+            } else {
+                isCompanyoff(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time);
+            }
+        });
+    }
+    function isCompanyoff(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time) {
+        // totaltaskHour = totaltaskHour;
+        // plannedStartDate = plannedStartDate;
+        // taskdate = taskdate;
+        // userid = userid;
+        // cmp_id = cmp_id;
+        // plannedstarttime = plannedstarttime
+        // is_not_planned_start_time[userid] = isstarttime;
+        var d = new Date(start_date_time);
+        var date = d.getDate(start_date_time);
+        var dayno = d.getDay(start_date_time);//start 1
+        var weekno = Math.ceil((date + (7 - dayno)) / 7);//start 0
+        cmp_off_day.findOne({
+            where: { [Op.and]: [{ day_no: parseInt(dayno), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+        }).then(offday => {
+            if (offday !== null) {
+                console.log(start_date_time + " is an off day ");
+                start_date_time = new Date(start_date_time);
+                take_passing_start_time = false;
+                start_date_time = start_date_time.setDate(start_date_time.getDate() + 1);
+                isHoliday(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time);
+            } else {
+                isUserleave(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time);
+            }
+        });
+    }
+    function isUserleave(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time) {
+        // totaltaskHour = totaltaskHour;
+        // plannedstarttime = plannedstarttime;
+        // plannedStartDate = plannedStartDate;
+        // taskdate = taskdate;
+        // userid = userid;
+        // cmp_id = cmp_id;
+        // is_not_planned_start_time[userid] = isstarttime;
+        Employeeleave.findOne({
+            where: {
+                user_profile_id: userId, request_status: 'Accepted',
+                start_date: { $lte: (moment(start_date_time).format('YYYY-MM-DD')) },
+                end_date: { $gte: (moment(start_date_time).format('YYYY-MM-DD')) },
+            },
+        }).then(userleave => {
+            if (!userleave) {
+                start_available_hrs = 0;
+                end_available_hrs = 0;
+                calculateEnddate(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time, start_available_hrs, end_available_hrs);
+            } else {
+                console.log(userleave.start_date + " - " + userleave.end_date + " empoye leave avl start " + userleave.start_available_hrs + "  avl end " + userleave.end_available_hrs);
+                if (userleave.start_date == (moment(taskdate).format('YYYY-MM-DD')) && userleave.start_available_hrs != 0) {
+                    start_available_hrs = timeToSec(userleave.start_available_hrs);
+                    end_available_hrs = 0;
+                    calculateEnddate(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time, start_available_hrs, end_available_hrs);
+                } else {
+                    if (userleave.end_date == (moment(taskdate).format('YYYY-MM-DD')) && userleave.end_available_hrs != 0) {
+                        start_available_hrs = 0;
+                        end_available_hrs = timeToSec(userleave.end_available_hrs);
+                        calculateEnddate(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time, start_available_hrs, end_available_hrs);
+                    } else {
+                        start_date_time = new Date(userleave.end_date);
+                        take_passing_start_time = false;
+                        if (userleave.end_available_hrs == 0) {
+                            start_date_time.setDate(start_date_time.getDate() + 1)
+                        }
+                        isHoliday(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time);
+                    }
+                }
+            }
+        });
+    }
+    function calculateEnddate(taskId, userId, start_date_time, plannedHr, cmp_id, take_passing_start_time, start_available_hrs, end_available_hrs) {
+        var d = new Date(start_date_time);
+        var date = d.getDate(start_date_time);
+        var dayno = d.getDay(start_date_time);//start 1
+        var weekno = Math.ceil((date + (7 - dayno)) / 7);//start 0
+        // console.log(weekno);
+        WorkingTimeAssoc.findOne({
+            required: true,
+            where: { [Op.and]: [{ day_no: parseInt(dayno), week_no: parseInt(weekno) }] },
+            include: [{
+                model: cmp_work_time,
+                required: true,
+                where: { cmp_id: cmp_id },
+            }]
+        }).then(work_timeAssoc => {
+             console.log('finael ' + work_timeAssoc);
+            // planningRes.json(work_timeAssoc.tbl_cmp_work_time);
+            if (!work_timeAssoc) {
+                cmp_work_time.findOne({
+                    required: true,
+                    where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
+                }).then(work_time => {
+                    console.log('work_time' + work_time);
+                    calculateWorkingHours(work_time, start_date_time, take_passing_start_time, plannedHr, start_available_hrs, end_available_hrs);
+                });
+            } else {
+                work_time = work_timeAssoc.tbl_cmp_work_time;
+                console.log('work_time ' + work_time);
+                calculateWorkingHours(work_time, start_date_time, take_passing_start_time, plannedHr, start_available_hrs, end_available_hrs);
+            }
+        });
+    }
+    function calculateWorkingHours(working_time, start_date_time, take_passing_start_time, plannedHr, start_available_hrs, end_available_hrs) {
+        console.log(' ----pln ----');
+        console.log(plannedHr);
+        if (take_passing_start_time) {
+            hr =start_date_time.getHours();
+            mnt = start_date_time.getMinutes();
+            sec = start_date_time.getSeconds();
+            startTime = hr+':'+mnt+":"+sec;
+            console.log("taske passing time")
+        } else {
+            startTime = working_time.start_time;
+            console.log("not taske passing time")
+        }
+        endTime = working_time.end_time
+        console.log(startTime + "   start time from calculate wotkinh hours " +planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name);
+        console.log(endTime + "   end from calculate wotkinh hours  " +planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name)
+        var d = new Date(start_date_time);
+        var date = d.getDate(start_date_time);
+        var dayno = d.getDay(start_date_time);//start 1
+        var weekno = Math.ceil((date + (7 - dayno)) / 7);//start 0
+        breakarray = [];
+        // console.log(breaksec)
+        cmp_break_assoc.findAll({
+            where: { [Op.and]: [{ day_no: parseInt(dayno), week_no: parseInt(weekno) }] },
+            include: [
+                {
+                    model: cmp_break,
+                    where: { cmp_id: planningCmpId },
+                    required: true
+                }
+            ]
+        }).then(cmp_break1 => {
+            cmp_break1.forEach(elm1 => {
+                breakarray.push(elm1.break_id);
+            });
+            cmp_break.findAll({
+                order: [['start_time', 'ASC']],
+                where: {
+                    [Op.or]: [
+                        { id: { [Op.in]: breakarray } }, { [Op.and]: [{ is_default: true, cmp_id: planningCmpId }] }
+                    ]
+                }
+            }).then(cmp_breakdefault => {
+                console.log('-------------************----------------- ');
+                console.log(startTime);
+                startTimeSec = timeToSec(startTime);
+                endTimeSec = timeToSec(endTime);
+                brkTtlhr = 0;
+                contineCalc = true;
+                if (cmp_breakdefault && cmp_breakdefault.length > 0) {
+                    cmp_breakdefault.forEach(elm => {
+                        if(timeToSec(elm.start_time) <= startTimeSec  && timeToSec(elm.end_time) >= endTimeSec){
+                            start_date_time = new Date(start_date_time);
+                            start_date_time = start_date_time.setDate(start_date_time.getDate() + 1);
+                            take_passing_start_time = false;
+                            isHoliday(planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].id, planningMembers[memberIndex].id, start_date_time, plannedHr, planningMembers[memberIndex].cmp_id, take_passing_start_time);
+                            contineCalc = false;
+                        }
+                        if(timeToSec(elm.start_time) <= startTimeSec  && timeToSec(elm.end_time) < endTimeSec){
+                            if(startTimeSec < timeToSec(elm.end_time)){
+                                startTimeSec = timeToSec(elm.end_time);
+                                startTime = elm.end_time;
+                            }
+                        }
+                        if(timeToSec(elm.start_time) > startTimeSec  && timeToSec(elm.end_time) >= endTimeSec){
+                            if(endTimeSec > timeToSec(elm.start_time)){
+                                endTimeSec = timeToSec(elm.start_time);
+                                endTime = elm.start_time;
+                            }
+                        }
+                    });
+                }
+            if(contineCalc){    
+                if (start_available_hrs != 0) {
+                    if (cmp_breakdefault && cmp_breakdefault.length > 0) {
+                        isSetEndTime = false;
+                        anyBreakTtl = false;
+                        cmp_breakdefault.forEach(elm => {
+                            // break start time - ofc start time
+                            if(timeToSec(elm.start_time) > startTimeSec && timeToSec(elm.end_time) < endTimeSec){
+                                diff = timeToSec(elm.start_time) - startTimeSec - brkTtlhr;
+                                if (diff >= start_available_hrs) {
+                                    endTimeSec = timeToSec(elm.start_time) - (diff - start_available_hrs);
+                                    endTime = secToTimeFormat(endTimeSec);
+                                    isSetEndTime = true;
+                                } else {
+                                    anyBreakTtl =true;
+                                    brkTtlhr += timeToSec(elm.end_time) - timeToSec(elm.start_time);
+                                }
+                            }
+                        });
+                        if(!isSetEndTime){
+                            if(anyBreakTtl){
+                                diff = endTimeSec - startTimeSec - brkTtlhr;
+                                endTimeSec = endTimeSec - (diff - start_available_hrs);
+                                endTime = secToTimeFormat(endTimeSec);
+                            }else{
+                                endTimeSec = startTimeSec + start_available_hrs;
+                                endTime = secToTimeFormat(endTimeSec);
+                            }
+                        }
+                    } else {
+                        endTimeSec = startTimeSec + start_available_hrs;
+                        endTime = secToTimeFormat(endTimeSec);
+                    }
+                }
+                brkTtlhr = 0;
+                if (end_available_hrs != 0) {
+                    if (cmp_breakdefault && cmp_breakdefault.length > 0) {
+                        arrLen = cmp_breakdefault.length;
+                        isSetStartTime = false;
+                        anyBreakTtl = false;
+                        for (i = arrLen; i == 0; i--) {
+                            if(timeToSec(cmp_breakdefault[i].start_time) > startTimeSec && timeToSec(cmp_breakdefault[i].end_time) < endTimeSec){
+                                diff = endTimeSec - timeToSec(cmp_breakdefault[i].end_time) - brkTtlhr;
+                                if (diff >= end_available_hrs) {
+                                    startTimeSec = timeToSec(cmp_breakdefault[i].end_time) + (diff - end_available_hrs);
+                                    startTime = secToTimeFormat(startTimeSec);
+                                    isSetStartTime = true;
+                                } else {
+                                    anyBreakTtl =true;
+                                    brkTtlhr += timeToSec(elm.end_time) - timeToSec(elm.start_time);
+                                }
+                            }
+                        }
+                        if(!isSetStartTime){
+                            if(anyBreakTtl){
+                                diff = endTimeSec - startTimeSec - brkTtlhr;
+                                startTimeSec = startTimeSec + (diff - end_available_hrs );
+                                startTime = secToTimeFormat(startTimeSec);
+                            }else{
+                                startTimeSec = endTimeSec - end_available_hrs ;
+                                startTime = secToTimeFormat(startTimeSec);
+                            }
+                        }
+                        // if(!gotanyBreak){
+                        //     startTimeSec = endTimeSec - (end_available_hrs * 3600);
+                        //     startTime = secToTimeFormat(startTimeSec);
+                        // }
+                    } else {
+                        startTimeSec = endTimeSec - end_available_hrs;
+                        startTime = secToTimeFormat(startTimeSec);
+                    }
+                }
+                //
+                ttlOfcSec = endTimeSec - startTimeSec;
+                // console.log('abcd');
+                ttlBreakSec = 0;
+                if (cmp_breakdefault && cmp_breakdefault.length > 0) {
+                    cmp_breakdefault.forEach(elm => {
+                        // breaktimearray.push({ start_time: elm.start_time , end_time: elm.end_time });
+                        //if(timeToSec(elm.start_time) > startTimeSec && timeToSec(elm.end_time) < endTimeSec){
+                            breakStartTimeSec = timeToSec(elm.start_time);
+                            breakEndTimeSec = timeToSec(elm.end_time);
+                            if (breakStartTimeSec > startTimeSec && breakStartTimeSec < endTimeSec) {
+                                ttlBreakSec += breakEndTimeSec - breakStartTimeSec;
+                            }
+                        //}
+                    });
+                }
+                ttlWorkingSec = ttlOfcSec - ttlBreakSec;
+                console.log('office working' + secToTimeFormat(ttlWorkingSec));
+                PlannedHrSec = plannedHr;
+                console.log(' task hour for  ' + planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name + "  " + secToTimeFormat(PlannedHrSec));
+                if (ttlWorkingSec < PlannedHrSec) {
+                    taskRemainingHrSec = (PlannedHrSec - ttlWorkingSec);
+                    take_passing_start_time = false;
+                    plannedHr = taskRemainingHrSec;
+                    if (!planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].start_date_time) {
+                        taskCanStartOn = new Date(start_date_time);
+                        // startTime = startTime.replace(/:/g, ',');
+                        // taskCanStartOn.setHours(startTime);
+                        var a3 = startTime.split(':');
+                        taskCanStartOn.setHours(a3[0], a3[1], a3[2]);
+                        console.log(' setting task start time 1 ' + taskCanStartOn);
+                        planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].start_date_time = taskCanStartOn;
+                    }
+                    start_date_time = new Date(start_date_time);
+                    start_date_time = start_date_time.setDate(start_date_time.getDate() + 1);
+                    isHoliday(planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].id, planningMembers[memberIndex].id, start_date_time, plannedHr, planningMembers[memberIndex].cmp_id, take_passing_start_time);
+                } else {
+                    console.log('task complete on the same day');
+                    brkTtlhr = 0;
+                    if (cmp_breakdefault && cmp_breakdefault.length > 0)  {
+                        console.log('there is break');
+                        gotanyBreak = false;
+                        cmp_breakdefault.forEach(elm => {
+                            console.log('break start time');
+                            console.log(elm.start_time);
+                            console.log(timeToSec(elm.start_time));
+                            console.log('office start time');
+                            console.log(startTime);
+                            console.log(startTimeSec);
+                            if(timeToSec(elm.start_time) > startTimeSec && timeToSec(elm.end_time) < endTimeSec){
+                                diff = timeToSec(elm.start_time) - (startTimeSec + brkTtlhr);
+                                console.log(diff);
+                                console.log(PlannedHrSec);
+                                if (diff >= PlannedHrSec) {
+                                    endTimePlannedSec = timeToSec(elm.start_time) - (diff - PlannedHrSec);
+                                    console.log(endTimePlannedSec);
+                                    console.log(secToTimeFormat(endTimePlannedSec));
+                                    console.log(' task End  ' + planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name + "  " + secToTimeFormat(endTimePlannedSec));
+                                    gotanyBreak = true;
+                                    getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
+                                    
+                                } else {
+                                    brkTtlhr += timeToSec(elm.end_time) - timeToSec(elm.start_time);
+                                }
+                            }
+                        });
+                        if(!gotanyBreak){
+                            endTimePlannedSec = startTimeSec + PlannedHrSec;
+                            console.log(' task End  ' + planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name + "  " + secToTimeFormat(endTimePlannedSec));
+                            getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
+                        }
+                    } else {
+                        endTimePlannedSec = startTimeSec + PlannedHrSec;
+                        console.log(' task End  ' + planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name + "  " + secToTimeFormat(endTimePlannedSec));
+                        getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
+                    }
+                }
+            }
+            })
+        })
+    }
+    function getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, work_time) {
+        endTimePlannedSec = secToTimeFormat(endTimePlannedSec);
+        taskCanEndOn = new Date(start_date_time);
+        var a3 = endTimePlannedSec.split(':');
+        taskCanEndOn.setHours(a3[0], a3[1], a3[2]);
+        console.log(' setting task End time 2 in funct ' + taskCanEndOn);
+        planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].end_date_time = taskCanEndOn;
+        if (!planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].start_date_time) {
+            taskCanStartOn = new Date(start_date_time);
+            var a3 = startTime.split(':');
+            taskCanStartOn.setHours(a3[0], a3[1], a3[2]);
+            console.log(' setting task start time 2 in funct ' + taskCanStartOn);
+            planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].start_date_time = taskCanStartOn;
+        }
+        planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].start_date_time_new = planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].start_date_time;
+        planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].start_date_time = '';
+        taskIndex++;
+        tmpMemberIndex = memberIndex;
+        if (getNextAvailableTask()) {
+            console.log('modIndex aa ' + moduleIndex);
+            console.log('taskIndex aa ' + taskIndex);
+            if (tmpMemberIndex == memberIndex) {
+                console.log('ttlWorkingSec' + ttlWorkingSec);
+                console.log('PlannedHrSec' + PlannedHrSec);
+                if ((ttlWorkingSec - PlannedHrSec) == 0) {
+                    chekingTask = planningModule[moduleIndex].tbl_estimation_tasks[taskIndex];
+                    plannedHr = chekingTask.planned_hour + chekingTask.buffer_hour;
+                    plannedHr = plannedHr*3600;
+                    start_date_time = start_date_time.setDate(start_date_time.getDate() + 1);
+                    take_passing_start_time = false;
+                    isHoliday(chekingTask.id, planningMembers[memberIndex].id, planningMembers[memberIndex].start_date, plannedHr, planningMembers[memberIndex].cmp_id, take_passing_start_time)
+                } else {
+                    console.log(' hours baki und');
+                    chekingTask = planningModule[moduleIndex].tbl_estimation_tasks[taskIndex];
+                    plannedHr = chekingTask.planned_hour + chekingTask.buffer_hour;
+                    plannedHr = plannedHr*3600;
+                    start_date_time = taskCanEndOn;
+                    console.log(' next task start time  ' + taskCanEndOn);
+                    take_passing_start_time = true;
+                    start_available_hrs = 0;
+                    end_available_hrs = 0;
+                    console.log(' before error');
+                    calculateWorkingHours(work_time, start_date_time, take_passing_start_time, plannedHr, start_available_hrs, end_available_hrs)
+                }
+            } else {
+                console.log(' aalu mari');
+                chekingTask = planningModule[moduleIndex].tbl_estimation_tasks[taskIndex];
+                plannedHr = chekingTask.planned_hour + chekingTask.buffer_hour;
+                plannedHr = plannedHr*3600;
+                planningMembers[memberIndex].start_date = new Date(planningMembers[memberIndex].start_date);
+                planningMembers[memberIndex].start_date.setHours(planningMembers[memberIndex].start_time.hour, planningMembers[memberIndex].start_time.minute, planningMembers[memberIndex].start_time.second);
+                take_passing_start_time = true;
+                isHoliday(chekingTask.id, planningMembers[memberIndex].id, planningMembers[memberIndex].start_date, plannedHr, planningMembers[memberIndex].cmp_id, take_passing_start_time)
+            }
+        } else {
+            planningRes.json({ success: true, msg: "Completed", data: planningModule });
+        }
+    }
+    function timeToSec(time) {
+        var a = time.split(':'); // split it at the colons
+        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+        return seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+    }
+    function secToTimeFormat(sec) {
+        ss = parseInt(sec%60);
+        hh = parseInt(sec/3600);
+        mm = parseInt((sec%3600)/60);
+        if (hh < 10) { hh = "0" + hh; }
+        if (mm < 10) { mm = "0" + mm; }
+        if (ss < 10) { ss = "0" + ss; }
+        return hh+ ':'+mm+ ":" +ss;
+        // return moment.duration(sec, "seconds").format("hh:mm:ss");
+    }
+    // ----------------------------End------------------------------------------- 
     module.exports = router;
     return router;
 }
 module.exports = returnRouter;
-
-

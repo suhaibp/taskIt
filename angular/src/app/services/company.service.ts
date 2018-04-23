@@ -2286,7 +2286,24 @@ deleteHoliday(data){
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
-   // ---------------------------------Start-------------------------------------------
+  
+  // ---------------------------------Start-------------------------------------------
+    // Function      : getLastTaskDetails
+    // Params        : projects
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          :  19-04-2018
+    // Last Modified : 
+    // Desc          : 
+  
+    getLastTaskDetails(projectId,assignedId) {
+      // let project = {project : projects};
+      let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'getLastTaskDetails/'+projectId, {assignedId:assignedId}, { headers: headers })
+      .map(res => res.json());
+  }
+  // -----------------------------------End------------------------------------------
+  // ---------------------------------Start-------------------------------------------
   // Function      : getUserleavedataplanning
   // Params        : id
   // Returns       : 
