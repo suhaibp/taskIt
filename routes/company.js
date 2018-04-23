@@ -1316,7 +1316,7 @@ var returnRouter = function (io) {
         }
     });
     // ----------------------------------End-----------------------------------------------  
-    // ---------------------------------Start-------------------------------------------
+   // ---------------------------------Start-------------------------------------------
     // Function      : addEmpleave
     // Params        : data
     // Returns       : 
@@ -1387,24 +1387,33 @@ var returnRouter = function (io) {
                         // console.log(daterng+"holiday")
                         callback();
                     } else {
+                        var d = new Date(daterng);
+                        var date = d.getDate(daterng);
+                        var day = d.getDay(daterng);//start 1
+                        var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+
+                        cmp_off_day.findOne({
+                            where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno),cmp_id: cmp_id}] },
+                            // where: { date: daterng, cmp_id: cmp_id },
+                        }).then(offday => {
+                            if (offday) {
+                                // console.log(daterng+"holiday")
+                                callback();
+                            } else {
                         // console.log(daterng+"not holiday")   
                         var d = new Date(daterng);
                         var date = d.getDate(daterng);
                         var day = d.getDay(daterng);//start 1
-
-                        var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
-                        var weekno = weekOfMonth + 1;
-                        //console.log(day);
-                        // console.log(weekno);
-                        //  console.log( parseInt(weekOfMonth));          
-
-                        cmp_off_day.findOne({
-
+                        var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+ 
+                        cmp_work_time_assocs.findOne({                 
                             required: true,
-                            where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
-                            include: [{
-                                model: cmp_work_time,
-                                required: true,
+                            // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
+                             include: [{
+                                       model: cmp_work_time,
+                                       required: true,
+                                       where: {cmp_id: cmp_id},
 
                             }]
 
@@ -1444,7 +1453,7 @@ var returnRouter = function (io) {
                                     where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
 
                                 }).then(work_time1 => {
-
+                                    // if(work_time1){
                                     // parse time using 24-hour clock and use UTC to prevent DST issues
                                     var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                     var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
@@ -1472,7 +1481,8 @@ var returnRouter = function (io) {
                                     total_seconds = total_seconds + seconds1;
 
                                     callback();
-
+                                    // }
+                                    // callback(); 
                                 });
 
                             }
@@ -1481,6 +1491,8 @@ var returnRouter = function (io) {
                     }
 
                 });
+            }
+        });
 
 
             }, function (err) {
@@ -1505,38 +1517,45 @@ var returnRouter = function (io) {
                                 errMsg = "* Failed, Please select end available minute!";
                                 isErr = true;
                             }
-                            public_holiday.findAll({
+                            Public_holiday.findAll({
                                 attributes: ['title', 'date'],
                                 required: true,
                                 where: { cmp_id: cmp_id },
-                            }).then(holiday => {
-                                // console.log(holiday.title); 
-                                holiday.forEach((element) => {
-                                    var startdate = dateFormat(req.body.startdate, "isoDate");
-                                    var enddate = dateFormat(req.body.enddate, "isoDate");
-                                    console.log("jk" + startdate);
-                                    console.log(element.date);
-                                    if (!isErr && startdate == element.date && enddate == element.date) {
-                                        errMsg = "*" + element.date + "" + element.title + "" + "Holiday! ";
-                                        isErr = true;
-                                    }
-                                }); callback();
-                            });
+
+                        }).then(holiday => {
+                            // console.log(holiday.title);
+                            holiday.forEach((element) => {
+                                var startdate = dateFormat(req.body.startdate, "isoDate");
+                                var enddate = dateFormat(req.body.enddate, "isoDate");
+                                console.log("jk" + startdate);
+                                console.log(element.date);
+                                if (!isErr && (startdate == element.date || enddate == element.date)) {
+                                    errMsg = "*" + element.date + "" + element.title + "" + "Holiday! ";
+                                    isErr = true;
+                                }
+                            }); callback();
+                        });
+
+
+
                         }, function (callback) {
                             var d = new Date(req.body.startdate);
                             var date = d.getDate(req.body.startdate);
                             var day = d.getDay(req.body.startdate);//start 1
-                            var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
-                            var weekno = weekOfMonth + 1;
+                            var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+                            // var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
+                            // var weekno = weekOfMonth + 1;
                             //console.log(day);
                             // console.log(weekno);
                             //  console.log( parseInt(weekOfMonth));          
-                            cmp_off_day.findOne({
+                            cmp_work_time_assocs.findOne({                 
                                 required: true,
-                                where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
-                                include: [{
-                                    model: cmp_work_time,
-                                    required: true,
+                                // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                                 where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
+                                 include: [{
+                                           model: cmp_work_time,
+                                           required: true,
+                                           where: {cmp_id: cmp_id},
                                 }]
                             }).then(work_time => {
                                 if (work_time) {
@@ -1567,6 +1586,7 @@ var returnRouter = function (io) {
                                         required: true,
                                         where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                     }).then(work_time1 => {
+                                        // if(work_time1){
                                         //  console.log(work_time1.start_time)
                                         //  console.log(work_time1.end_time)
                                         // parse time using 24-hour clock and use UTC to prevent DST issues
@@ -1589,6 +1609,8 @@ var returnRouter = function (io) {
                                         }
                                         callback();
                                         //else{  }
+                                    // }
+                                    // callback();
                                     });
                                 }
                             });
@@ -1598,6 +1620,9 @@ var returnRouter = function (io) {
                                     required: true,
                                     // where: {[Op.and]:[{start_date:req.body.startdate,end_date:req.body.enddate,cmp_id:cmp_id,user_profile_id:req.body.emp_id}]}
                                     where: {
+                                        // [Op.or]: [
+                                        //     { start_date: req.body.startdate, end_date: req.body.enddate},{[Op.and]: [{ cmp_id: cmp_id, user_profile_id: req.body.emp_id, delete_status: false }]}
+                                        //   ]
                                         [Op.and]: [{ cmp_id: cmp_id, user_profile_id: req.body.emp_id, delete_status: false }],
                                         [Op.or]: [{ start_date: req.body.startdate, end_date: req.body.enddate }]
                                     }
@@ -1635,7 +1660,8 @@ var returnRouter = function (io) {
 
                                         // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                         var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
-                                        var leavehr = total_seconds - (seconds3 + seconds4);
+                                        var leaveh = total_seconds - (seconds3 + seconds4);
+                                        var leavehr =Math.abs(leaveh);
                                         var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
                                         console.log(leavehrs);
                                         const addEmployeeleave = Employeeleave.build({
@@ -1691,7 +1717,7 @@ var returnRouter = function (io) {
             return res.status(401).send('Invalid User');
         }
     });
-    // ----------------------------------End-----------------------------------------------    
+    // ----------------------------------End----------------------------------------------- 
     // ---------------------------------Start-------------------------------------------
     // Function      : updateempleave
     // Params        : data
@@ -1754,7 +1780,7 @@ var returnRouter = function (io) {
             async.eachOfSeries(datesBetween(startDate, endDate), (daterng, key, callback) => {
                 // console.log(daterng);
 
-                public_holiday.findOne({
+                Public_holiday.findOne({
 
                     where: { date: daterng, cmp_id: cmp_id },
 
@@ -1763,24 +1789,38 @@ var returnRouter = function (io) {
                         // console.log(daterng+"holiday")
                         callback();
                     } else {
+                        var d = new Date(daterng);
+                        var date = d.getDate(daterng);
+                        var day = d.getDay(daterng);//start 1
+                        var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+
+                        cmp_off_day.findOne({
+                            where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno),cmp_id: cmp_id}] },
+                            // where: { date: daterng, cmp_id: cmp_id },
+                        }).then(offday => {
+                            if (offday) {
+                                // console.log(daterng+"holiday")
+                                callback();
+                            } else {
                         // console.log(daterng+"not holiday")   
                         var d = new Date(daterng);
                         var date = d.getDate(daterng);
                         var day = d.getDay(daterng);//start 1
-
-                        var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
-                        var weekno = weekOfMonth + 1;
+                        var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+                        // var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
+                        // var weekno = weekOfMonth + 1;
                         //console.log(day);
                         // console.log(weekno);
                         //  console.log( parseInt(weekOfMonth));          
 
-                        cmp_off_day.findOne({
-
+                        cmp_work_time_assocs.findOne({                 
                             required: true,
-                            where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
-                            include: [{
-                                model: cmp_work_time,
-                                required: true,
+                            // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
+                             include: [{
+                                       model: cmp_work_time,
+                                       required: true,
+                                       where: {cmp_id: cmp_id},
 
                             }]
 
@@ -1857,6 +1897,9 @@ var returnRouter = function (io) {
                     }
 
                 });
+            }
+            
+         });
 
 
             }, function (err) {
@@ -1865,7 +1908,7 @@ var returnRouter = function (io) {
                 if (!isErr) {
                     async.series([
                         function (callback) {
-                            public_holiday.findAll({
+                            Public_holiday.findAll({
                                 attributes: ['title', 'date'],
                                 required: true,
                                 where: { cmp_id: cmp_id },
@@ -1886,22 +1929,19 @@ var returnRouter = function (io) {
                             var d = new Date(req.body.start_date);
                             var date = d.getDate(req.body.start_date);
                             var day = d.getDay(req.body.start_date);//start 1
-                            var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
-                            var weekno = weekOfMonth + 1;
-                            //console.log(day);
-                            // console.log(weekno);
-                            //  console.log( parseInt(weekOfMonth));          
-                            cmp_off_day.findOne({
+                            var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+      
+                            cmp_work_time_assocs.findOne({                 
                                 required: true,
-                                where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
-                                include: [{
-                                    model: cmp_work_time,
-                                    required: true,
+                                // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                                 where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
+                                 include: [{
+                                           model: cmp_work_time,
+                                           required: true,
+                                           where: {cmp_id: cmp_id},
                                 }]
                             }).then(work_time => {
                                 if (work_time) {
-                                    // console.log(work_time.tbl_cmp_work_time.start_time)
-                                    // console.log(work_time.tbl_cmp_work_time.end_time)
                                     // parse time using 24-hour clock and use UTC to prevent DST issues
                                     var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                     var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
@@ -1927,8 +1967,6 @@ var returnRouter = function (io) {
                                         required: true,
                                         where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                     }).then(work_time1 => {
-                                        //  console.log(work_time1.start_time)
-                                        //  console.log(work_time1.end_time)
                                         // parse time using 24-hour clock and use UTC to prevent DST issues
                                         var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                         var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
@@ -1998,9 +2036,7 @@ var returnRouter = function (io) {
                                         var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
                                         var leavehr = total_seconds - (seconds3 + seconds4);
                                         var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
-                                        //    console.log("1"+seconds3);
-                                        //    console.log("1"+seconds3);
-                                        //    console.log("@"+seconds4);
+
                                         console.log(leavehrs);
                                         Employeeleave.update({
                                             start_date: req.body.start_date,
@@ -2513,7 +2549,7 @@ var returnRouter = function (io) {
         }
     });
     // ----------------------------------End-------------------------------------------  
-    // ---------------------------------Start-------------------------------------------
+   // ---------------------------------Start-------------------------------------------
     // Function      : timerequest
     // Params        : id
     // Returns       : 
@@ -2538,81 +2574,115 @@ var returnRouter = function (io) {
                 var sequelize = new Sequelize(config.database, config.username, config.password, config);
             }
             Time_extension_request.findOne({
-
-                required: true,
-                where: { id: reqid },
-
-            }).then(reqdetails => {
-
-                Project.findOne({
-
-                    required: true,
-                    where: { [Op.and]: [{ id: projid, cmp_id: cmp_id }] },
-
-                }).then(project => {
-
-                    Project_modules.findAll({
-
-                        required: true,
-                        where: { project_id: projid },
-                        include: {
-                            model: Project_task,
-                            order: [['id', 'planned_start_date_time']],
-                            required: true,
-                            include: {
-                                model: User,
-                                required: true,
-                            }
-                        }
-
-                    }).then(taskassign => {
-                        var names = [];
-                        taskassign.forEach((elm, i) => {
-                            elm.tbl_project_tasks.forEach((elm1, i) => {
-                                names.push(elm1.tbl_user_profile.f_name);
-                                // console.log(elm1.tbl_user_profile.f_name)
-                            });
-                        });
-                        console.log(names);
-                        uniqueArray = names.filter(function (elem, pos) {
-                            return names.indexOf(elem) == pos;
-                        })
-
-                        Project_modules.findAll({
-                            order: [['id', 'ASC']],
-                            where: { project_id: projid },
-                            include: [
-                                {
-                                    model: Project_task,
-                                    required: true,
-                                    include: [
-                                        {
-                                            model: User,
-                                            required: true,
-
-                                        }]
-                                },
-
-                            ],
-
-                        }).then(myTasks => {
-
-                            data = { 'reqdetails': reqdetails, 'project': project, 'teammembers': uniqueArray, 'myTasks': myTasks }
-                            return res.json(data);
-
-                        });
-
-                    });
-
-                });
-
-            });
+                
+                      required: true,
+                      where: { id: reqid },
+              
+                  }).then(reqdetails => { 
+                
+                               Project.findOne({
+                  
+                      required: true,
+                      where: { [Op.and]: [{ id: projid ,cmp_id:1 }] },
+               
+                  }).then(project => { 
+              
+                               Project_modules.findAll({
+                              
+                                  required: true,
+                                  where: { project_id: projid },
+                                  include:{
+                                          model: Project_task,
+                                          order: [['id', 'planned_start_date_time']],
+                                          required: true,
+                                              include:{
+                                                  model: User,
+                                                  required: true, 
+                                              }
+                                  }
+                      
+                              }).then(taskassign => { 
+                                  var names = [];
+                                  taskassign.forEach((elm, i) => {
+                                      elm.tbl_project_tasks.forEach((elm1, i) => {
+                                        if(elm1.id==reqdetails.task_id){
+                                            requestedUser = elm1.tbl_user_profile;
+                                        }
+                                          names.push(elm1.tbl_user_profile.f_name);
+                                          // console.log(elm1.tbl_user_profile.f_name)
+                                      });
+                                  });
+                                //  console.log(names);
+                                  uniqueArray = names.filter(function(elem, pos) {
+                                      return names.indexOf(elem) == pos;
+                                  })
+                               
+                                      Project_modules.findAll({
+                                          order: [['id', 'ASC']],
+                                          where: {project_id: projid},
+                                          include: [
+                                              {
+                                                  model:  Project_task,
+                                                  required: true,
+                                                  include:[
+                                                      {
+                                                          model: User,
+                                                          required: true,
+                                    
+                                                      }]
+                                              },
+                                          
+                                          ],  order: [
+                                             [ Project_task, 'id', 'ASC' ],
+                                             
+                                           ]
+                                       
+                                      }).then(myTasks => {
+                                         //  console.log(myTasks)
+                                         let module1 = {};
+                                         sumHr = 0;
+                                         myTasks.forEach((mdl, i) => {
+                                             ttlHr = 0;
+                                             mdl.tbl_project_tasks.forEach((tsk, j) => {
+                                                 if(!module1[mdl.id]){
+                                                     // module1[mdl.id][tsk.id] = tsk;
+                                                     let md = {};
+                                                     md.module = mdl;
+                                                     module1[mdl.id] = md;
+                                                 }
+                                                 // else{
+                                                 //     let md = {};
+                                                 //     md.module = mdl;
+                                                 //     module1[mdl.id] = md;
+                                                    
+                                                 // }
+                                                 
+                                                 module1[mdl.id][tsk.id] = tsk;
+                                                 ttlHr += tsk.planned_hour+tsk.buffer_hour;
+                                             });
+                                             module1[mdl.id].ttl = ttlHr;
+                                             sumHr += ttlHr;
+             
+                                         });
+             
+             
+                                 
+                                   data = {'reqdetails':reqdetails,'project' : project,'teammembers' : uniqueArray,'myTasks':myTasks,'newData' : module1,sumHr:sumHr,requestedUser:requestedUser}
+                                             return res.json(data);
+                                              
+                                          });
+             
+                                 });
+                                  
+                              });
+                                  
+                              });    
         } else {
             return res.status(401).send('Invalid User');
         }
 
     });
-    // ----------------------------------End-----------------------------------------------  
+    // ----------------------------------End-----------------------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : rejecttimeextreq
     // Params        : id

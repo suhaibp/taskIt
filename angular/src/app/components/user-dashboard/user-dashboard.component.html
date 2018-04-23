@@ -88,12 +88,12 @@
                                     <h1>Planned hours vs actual hours</h1>
                                     <div >
                                     <ul class="graph-ul-hour">
-                                            <li>
+                                            <li class="text-center2">
                                                 <div class="firstRow firstColumn">PROJECTS</div>
                                                 <div class="secondRow firstColumn">Progress</div>
                                                 <div class="ThirdRow firstColumn">Planned <br>vs<br> Actual Hours</div>
                                             </li>
-                                            <li  *ngFor="let project of allproject; let i = index">
+                                            <li class="text-center2" *ngFor="let project of allproject; let i = index">
                                                 <div class="prjtitle1">{{project.project_name}}</div>
                                                 <div class="col-md-8 mr-top">
                                                 <div class="datelabel">Start <span class="pull-right"> {{project.planned_start_date |  date: 'dd-MM-yyyy' }}</span></div>

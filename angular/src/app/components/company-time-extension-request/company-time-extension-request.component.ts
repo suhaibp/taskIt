@@ -14,6 +14,7 @@ export class CompanyTimeExtensionRequestComponent implements OnInit {
   projId;
   arr1=[];
   // reqtime:any;
+  requestedUser:any
   sum:any;
   oldtasktime:any;
   module_time:any;
@@ -24,6 +25,9 @@ export class CompanyTimeExtensionRequestComponent implements OnInit {
   myTasks:any;
   id:any;
   additional_hours:any
+  tmp = [];
+
+  reqModuleindex = 0;
 
   reqtime = {additional_hr : '',req_id:'',task_id:'',userid:'',cmp_id:''};
   showSpinner :boolean = false;
@@ -57,32 +61,88 @@ export class CompanyTimeExtensionRequestComponent implements OnInit {
       this.reqdetails=res.reqdetails;
       this.teammembers=res.teammembers;
       this.myTasks=res.myTasks;
+      this.requestedUser=res.requestedUser;
       
-this.additional_hours=this.reqdetails.additional_hours;
+      this.additional_hours=this.reqdetails.additional_hours;
+      let checkTask = false;
+      let assignedUser = '';
+      let modifiedTaskStartDateTime = ''
+      // let resultIndex = 0;
+      this.tmp = [];
       this.myTasks.forEach((element,key) => {
-     
+        var modifTasks  = [];
         this.module_time = 0;
         this.totalhr =0;
-        element.tbl_project_tasks.forEach(elm_tasks => {
+        element.tbl_project_tasks.forEach((elm_tasks,key1) => {
           if(elm_tasks.id==this.reqdetails.task_id){
             this.oldtasktime=(elm_tasks.planned_hour + elm_tasks.buffer_hour)
-            this.module_time = this.module_time + this.reqdetails.additional_hours;
+            this.module_time = this.module_time + elm_tasks.planned_hour + elm_tasks.buffer_hour + this.reqdetails.additional_hours;
+            assignedUser = elm_tasks.assigned_to_id
+            checkTask = true;
+            modifiedTaskStartDateTime = elm_tasks.planned_start_date_time;
           }else{
             this.module_time = this.module_time + elm_tasks.planned_hour + elm_tasks.buffer_hour;
           }
-         
+          if(checkTask){
+            if(assignedUser == elm_tasks.assigned_to_id){
+              if(elm_tasks.id==this.reqdetails.task_id){
+                elm_tasks.planned_hour_old = elm_tasks.planned_hour;
+                elm_tasks.planned_hour += this.reqdetails.additional_hours;
+                this.reqModuleindex = key;
+              }
+              elm_tasks.assigned_person = {id:elm_tasks.assigned_to_id}
+              modifTasks.push(elm_tasks);
+              this.tmp.push({'modIdnx':key,'keyIdnx':key1});
+              // resultIndex++;
+            }
+          }
+
 
         })
+        this.myTasks[key].tbl_estimation_tasks = modifTasks;
+
         this.myTasks[key].ttlModHour = this.module_time;
- 
-       this.arr1.push( this.module_time);
-       this.sum = this.arr1.reduce((a, b) => a + b, 0);
+  
+        this.arr1.push( this.module_time);
+        this.sum = this.arr1.reduce((a, b) => a + b, 0);
    
       });
+      console.log(this.tmp);
+
+      this.requestedUser.start_date = modifiedTaskStartDateTime;
+      let modifiedTaskStartTime = new Date(modifiedTaskStartDateTime);
+      let hr = modifiedTaskStartTime.getHours();
+      let mnt = modifiedTaskStartTime.getMinutes();
+      let sec = modifiedTaskStartTime.getSeconds();
+      this.requestedUser.start_time = {
+        hour:hr,
+        minute: mnt,
+        second:sec
+      };
+
+      this.calculateUpdatedTaskTime();
 
     });
   
     }
+
+
+    calculateUpdatedTaskTime(){
+      let data = {modules : this.myTasks, teamMembers :[this.requestedUser]};
+        this.companyService.getUserleavedataplanning(data).subscribe(data => {
+          console.log(data)
+          let Indexx = 0;
+          data.data.forEach(element => {
+            element.tbl_estimation_tasks.forEach((elm_tasks,key1) => {
+                let mdinx = this.tmp[Indexx].modIdnx;
+                let tskinx = this.tmp[Indexx].keyIdnx;
+                this.myTasks[mdinx].tbl_project_tasks[tskinx].planned_start_date_time = elm_tasks.start_date_time_new;
+                this.myTasks[mdinx].tbl_project_tasks[tskinx].planned_end_date_time = elm_tasks.end_date_time;
+            })
+          });
+        });
+    }
+
 
     getId(id){
       // this.showSpinner =false
@@ -93,7 +153,7 @@ this.additional_hours=this.reqdetails.additional_hours;
 
 //rejecttimeextreq
     rejecttimeextreq(id){  
-      console.log(id);
+      // console.log(id);
       this.showSpinner =true
         this.companyService.Rejecttimeextreq(id).subscribe(data=>{
          
@@ -117,7 +177,7 @@ this.additional_hours=this.reqdetails.additional_hours;
       }
 //sendtoadminModal
 sendtoadmin(id){  
-  console.log(id);
+  // console.log(id);
   this.showSpinner =true
     this.companyService.Sendtoadmin(id).subscribe(data=>{
      
@@ -139,30 +199,7 @@ sendtoadmin(id){
     });
 
   }  
-  //approved    
-  approved(id){  
-    console.log(id);
-    // this.showSpinner =true
-    //   this.companyService.ApprovedTimeextension(id).subscribe(data=>{
-       
-    //     if(data.success){
-    //       this.showSpinner =false
-    //       let snackBarRef =  this.snackBar.open(data.msg, '', {
-    //         duration: 2000
-    //       });
-    //       this.routes.navigate(['/company-request-management']); 
-         
-    //          }
-    //          else{
-    //           this.showSpinner =false
-    //           let snackBarRef =  this.snackBar.open(data.msg, '', {
-    //             duration: 2000
-    //           });
-    //         }
-            
-    //   });
-  
-    } 
+
 
 
 
@@ -177,30 +214,38 @@ sendtoadmin(id){
  }
  updateReqtime(reqtime){
      console.log(reqtime);
-
+     this.myTasks[this.reqModuleindex].tbl_estimation_tasks[0].planned_hour = 
+     parseInt(this.myTasks[this.reqModuleindex].tbl_estimation_tasks[0].planned_hour_old) + parseInt(this.reqtime.additional_hr);
+     this.calculateUpdatedTaskTime();
       this.showSpinner =true;
-      this.companyService.getUserleavedata(reqtime.userid).subscribe(data=>{
-        console.log(data)
-        // this.companyService.getCmppublicholidaydata(reqtime.cmp_id).subscribe(data1=>{
-        //   console.log(data1)
-        // });
-    //     if(!data.success){
-    //       this.showSpinner =false;
-    //       let snackBarRef =  this.snackBar.open(data.msg, '', {
-    //         duration: 2000
-    //     });
-    
-    //   }
-    //   else if(data.success){
-    //     this.showSpinner =false;
-    //     let snackBarRef =  this.snackBar.open(data.msg, '', {
-    //       duration: 2000
-    //   });
-    //   this.closeBtn1.nativeElement.click();
-    //   this.getUserid();
-    //  }
-         
-     });
+
     
     }
+
+      //approved    
+  approved(){  
+    console.log(this.reqtime.userid);
+    // this.showSpinner =true
+  //  var data ={}
+  // let data = { : this.myTasks, teamMembers :[this.requestedUser]};
+      this.companyService.ApprovedTimeextension(this.myTasks,this.reqtime.userid).subscribe(data=>{
+      //  console.log("data");
+        if(data.success){
+          this.showSpinner =false
+          let snackBarRef =  this.snackBar.open(data.msg, '', {
+            duration: 2000
+          });
+          this.routes.navigate(['/company-request-management']); 
+         
+             }
+             else{
+              this.showSpinner =false
+              let snackBarRef =  this.snackBar.open(data.msg, '', {
+                duration: 2000
+              });
+            }
+            
+     });
+  
+    } 
 }

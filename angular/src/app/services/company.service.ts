@@ -2286,4 +2286,39 @@ deleteHoliday(data){
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
+   // ---------------------------------Start-------------------------------------------
+  // Function      : getUserleavedataplanning
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          :  06-04-2018
+  // Last Modified : 
+  // Desc          : getUserleavedataplanning
+  //closeNotif6
+  getUserleavedataplanning(data) {
+    let headers = this.setHeader();
+    return this.http.post(this.serviceUrl + 'company-planning-enddate/', data, { headers: headers })
+    .map(res => res.json());
+ 
+   }
+    // -----------------------------------End------------------------------------------
+         // ---------------------------------Start-------------------------------------------
+  // Function      : ApprovedTimeextension
+  // Params        : id
+  // Returns       : 
+  // Author        : sudha
+  // Date          : 21-04-2018
+  // Last Modified : 
+  // Desc          : ApprovedTimeextension
+  //Sendtoadmin
+
+    ApprovedTimeextension(task,userid) {
+     var data={task:task,userid:userid}
+        let headers = this.setHeader();
+        return this.http.post(this.serviceUrl + 'ApprovedTimeextension', data, { headers: headers })
+        .map(res => res.json());
+     
+       }
+
+  // -----------------------------------End------------------------------------------
 }
