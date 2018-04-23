@@ -1083,7 +1083,6 @@ var returnRouter = function (io) {
                                 var date = d.getDate(daterng);
                                 var day = d.getDay(daterng);//start 1
                                 var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                 cmp_off_day.findOne({
                                     where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
                                     // where: { date: daterng, cmp_id: cmp_id },
@@ -1097,7 +1096,6 @@ var returnRouter = function (io) {
                                         var date = d.getDate(daterng);
                                         var day = d.getDay(daterng);//start 1
                                         var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                         cmp_work_time_assocs.findOne({
                                             required: true,
                                             // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1106,7 +1104,6 @@ var returnRouter = function (io) {
                                                 model: cmp_work_time,
                                                 required: true,
                                                 where: { cmp_id: cmp_id },
-
                                             }]
                                         }).then(work_time => {
                                             if (work_time) {
@@ -1198,13 +1195,11 @@ var returnRouter = function (io) {
                                             }
                                         }); callback();
                                     });
-
                                 }, function (callback) {
                                     var d = new Date(req.body.startdate);
                                     var date = d.getDate(req.body.startdate);
                                     var day = d.getDay(req.body.startdate);//start 1
                                     var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                     cmp_work_time_assocs.findOne({
                                         required: true,
                                         // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1216,7 +1211,6 @@ var returnRouter = function (io) {
                                         }]
                                     }).then(work_time => {
                                         if (work_time) {
-
                                             // parse time using 24-hour clock and use UTC to prevent DST issues
                                             var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                             var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
@@ -1283,7 +1277,6 @@ var returnRouter = function (io) {
                                                 [Op.and]: [{ cmp_id: cmp_id, user_profile_id: user_id, delete_status: false }],
                                                 [Op.or]: [{ start_date: req.body.startdate, end_date: req.body.enddate }]
                                             }
-
                                         }).then(leave => {
                                             // console.log(user);
                                             //return res.json(user);
@@ -1321,7 +1314,6 @@ var returnRouter = function (io) {
                                                 var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
                                                 //    var p= Math.abs(78)
                                                 // console.log(leavehrs);
-
                                                 const addleave = Employeeleave.build({
                                                     start_date: req.body.startdate,
                                                     end_date: req.body.enddate,
@@ -1474,7 +1466,6 @@ var returnRouter = function (io) {
                             var date = d.getDate(daterng);
                             var day = d.getDay(daterng);//start 1
                             var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                             cmp_off_day.findOne({
                                 where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
                                 // where: { date: daterng, cmp_id: cmp_id },
@@ -1483,13 +1474,11 @@ var returnRouter = function (io) {
                                     // console.log(daterng+"holiday")
                                     callback();
                                 } else {
-
                                     // console.log(daterng+"not holiday")
                                     var d = new Date(daterng);
                                     var date = d.getDate(daterng);
                                     var day = d.getDay(daterng);//start 1
                                     var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                     cmp_work_time_assocs.findOne({
                                         required: true,
                                         // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1549,9 +1538,7 @@ var returnRouter = function (io) {
                                 }
                             });
                         }
-
                     });
-
                 }, function (err) {
                     console.log("tot" + total_seconds);
                     // });
@@ -1576,14 +1563,11 @@ var returnRouter = function (io) {
                                         }
                                     }); callback();
                                 });
-
-
                             }, function (callback) {
                                 var d = new Date(req.body.start_date);
                                 var date = d.getDate(req.body.start_date);
                                 var day = d.getDay(req.body.start_date);//start 1
                                 var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                 cmp_work_time_assocs.findOne({
                                     required: true,
                                     // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1595,7 +1579,6 @@ var returnRouter = function (io) {
                                     }]
                                 }).then(work_time => {
                                     if (work_time) {
-
                                         // parse time using 24-hour clock and use UTC to prevent DST issues
                                         var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                         var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
@@ -1622,7 +1605,6 @@ var returnRouter = function (io) {
                                             where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                         }).then(work_time1 => {
                                             if (work_time1) {
-
                                                 // parse time using 24-hour clock and use UTC to prevent DST issues
                                                 var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                                 var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
@@ -1643,7 +1625,6 @@ var returnRouter = function (io) {
                                                 }
                                                 callback();
                                                 //else{ 
-
                                             }
                                             callback();
                                         });
@@ -1996,7 +1977,6 @@ var returnRouter = function (io) {
                                 model: Project_tasks,
                                 required: true,
                                 where: { assigned_to_id: user_id },
-
                                 include: [
                                     {
                                         model: Task_status_assocs,

@@ -1380,7 +1380,6 @@ var returnRouter = function (io) {
                         var date = d.getDate(daterng);
                         var day = d.getDay(daterng);//start 1
                         var weekno = Math.ceil((date + (7- day)) / 7);//start 0
-
                         cmp_off_day.findOne({
                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno),cmp_id: cmp_id}] },
                             // where: { date: daterng, cmp_id: cmp_id },
@@ -1403,7 +1402,6 @@ var returnRouter = function (io) {
                                        model: cmp_work_time,
                                        required: true,
                                        where: {cmp_id: cmp_id},
-
                             }]
                         }).then(work_time => {
                             if (work_time) {
@@ -1445,7 +1443,6 @@ var returnRouter = function (io) {
                                     var a1 = s1.split(':'); // split it at the colons
                                     // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                     var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
-
                                     total_seconds = total_seconds + seconds1;
                                     callback();
                                     // }
@@ -1457,7 +1454,6 @@ var returnRouter = function (io) {
                 });
             }
         });
-
             }, function (err) {
                 console.log("tot" + total_seconds);
                 // });
@@ -1484,7 +1480,6 @@ var returnRouter = function (io) {
                                 attributes: ['title', 'date'],
                                 required: true,
                                 where: { cmp_id: cmp_id },
-
                         }).then(holiday => {
                             // console.log(holiday.title);
                             holiday.forEach((element) => {
@@ -1498,9 +1493,6 @@ var returnRouter = function (io) {
                                 }
                             }); callback();
                         });
-
-
-
                         }, function (callback) {
                             var d = new Date(req.body.startdate);
                             var date = d.getDate(req.body.startdate);
@@ -1740,9 +1732,7 @@ var returnRouter = function (io) {
             var total_seconds = 0;
             async.eachOfSeries(datesBetween(startDate, endDate), (daterng, key, callback) => {
                 // console.log(daterng);
-
                 Public_holiday.findOne({
-
                     where: { date: daterng, cmp_id: cmp_id },
                 }).then(holiday => {
                     if (holiday) {
@@ -1753,7 +1743,6 @@ var returnRouter = function (io) {
                         var date = d.getDate(daterng);
                         var day = d.getDay(daterng);//start 1
                         var weekno = Math.ceil((date + (7- day)) / 7);//start 0
-
                         cmp_off_day.findOne({
                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno),cmp_id: cmp_id}] },
                             // where: { date: daterng, cmp_id: cmp_id },
@@ -1772,7 +1761,6 @@ var returnRouter = function (io) {
                         //console.log(day);
                         // console.log(weekno);
                         //  console.log( parseInt(weekOfMonth));          
-
                         cmp_work_time_assocs.findOne({                 
                             required: true,
                             // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1781,7 +1769,6 @@ var returnRouter = function (io) {
                                        model: cmp_work_time,
                                        required: true,
                                        where: {cmp_id: cmp_id},
-
                             }]
                         }).then(work_time => {
                             if (work_time) {
@@ -1822,7 +1809,6 @@ var returnRouter = function (io) {
                                     var a1 = s1.split(':'); // split it at the colons
                                     // minutes are worth 60 seconds. Hours are worth 60 minutes.
                                     var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
-
                                     total_seconds = total_seconds + seconds1;
                                     callback();
                                 });
@@ -1833,7 +1819,6 @@ var returnRouter = function (io) {
             }
             
          });
-
             }, function (err) {
                 console.log("tot" + total_seconds);
                 // });
@@ -1966,7 +1951,6 @@ var returnRouter = function (io) {
                                         var seconds4 = (+a3[0]) * 60 * 60 + (+a3[1]) * 60 + (+a3[2]);
                                         var leavehr = total_seconds - (seconds3 + seconds4);
                                         var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
-
                                         console.log(leavehrs);
                                         Employeeleave.update({
                                             start_date: req.body.start_date,
@@ -2280,7 +2264,6 @@ var returnRouter = function (io) {
                         order: [
                             [Project_modules, 'id', 'ASC'],
                         ]
-
                     }).then(myTasks => {
                         data = { 'leave': emppendingleave, 'mytask': myTasks }
                         return res.json(data);
@@ -6069,7 +6052,6 @@ var returnRouter = function (io) {
     // Date          : 06-3-2018
     // Last Modified : 06-3-2018, Jooshifa
     // Desc          : company and user direct login with username and password with google captcha
-
     //  ---------------------------------Start-------------------------------------------
     // Function      : getAccessRights
     // Params        :
@@ -6111,7 +6093,6 @@ var returnRouter = function (io) {
     //         },()=>{
     //              res.json(rights);
     //         })
-
     //     })
     // })
     //  ---------------------------------End-------------------------------------------
@@ -7951,7 +7932,7 @@ var returnRouter = function (io) {
             // var cmp_id = 1;
             var role_id = decoded.role_id;
             id = req.params.id;
-            //  console.log("\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+id);
+            //  console.log("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+id);
             NewTaskreq.find({
                 where: {
                     id: id,
