@@ -1,14 +1,11 @@
 <body class="home">
   <div class="container-fluid display-table">
     <div class="row display-table-row">
-
       <div class="col-md-1 col-xs-12 display-table-cell v-align box" id="navigation">
         <!-- sidebar-->
-
         <user-sidebar></user-sidebar>
         <!-- end sidebar-->
       </div>
-
       <div class="col-md-12 col-xs-12">
         <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
         <!-- topbar-->
@@ -23,7 +20,6 @@
               </div>
               <div class="modal-body">
                 <form role="form" #f="ngForm" (ngSubmit)="addTask(index);">
-
                   <div>
                     <div class="example-container">
                       <div class="col-md-4 col-xs-6"><label class="pad-top">Task Name * :</label></div>
@@ -38,13 +34,11 @@
                         <div class="col-md-7 col-xs-6" *ngFor="let userdata of  userData;">
                           {{userdata.f_name}} {{userdata.l_name}}
                         </div>
-
                         <div class="clearfix"></div>
                         <div class="example-container">
                           <div class="col-md-4 col-xs-6"><label class="pad-top">Complexity :</label></div>
                           <div class="col-md-7 col-xs-6">
                             <mat-form-field class="inputfileds">
-
                               <mat-select placeholder="Complexity" name='complexity' #group="ngModel" [(ngModel)]="newTasks.complexity">
                                 <mat-option [value]="complexity.id" *ngFor="let complexity of complexitys;">{{complexity.percentage}}</mat-option>
                               </mat-select>
@@ -58,17 +52,15 @@
                               <input type="number" matInput name="planned_hour" min="0" name='planned_hour' [(ngModel)]="newTasks.planned_hour" required>
                             </mat-form-field>
                           </div>
-
                           <div class="col-md-3 col-xs-6"><label class="pad-top">Buffer Hours :</label></div>
                           <div class="col-md-2 col-xs-6">
-
                             <mat-form-field class="wdth">
                               <input type="number" matInput name="buffer_time" min="0" name='buffer_hour' [(ngModel)]="newTasks.buffer_hour" required>
                             </mat-form-field>
                           </div>
                           <div class="clearfix"></div>
                           <br>
-                          <div class="col-md-4 col-xs-6"><label class="pad-top">Start Datetime *:</label></div>
+                          <!-- <div class="col-md-4 col-xs-6"><label class="pad-top">Start Datetime *:</label></div> -->
                           <!-- <div class="col-md-3 col-xs-6">
                         <mat-form-field>
                           <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date"
@@ -77,8 +69,7 @@
                           <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                       </div>  -->
-
-                          <div class="col-md-3 col-xs-6">
+                          <!-- <div class="col-md-3 col-xs-6">
                             <mat-form-field>
                               <input matInput [matDatepicker]="picker" placeholder="Choose a date" name='start_date' [(ngModel)]="newTasks.start_date">
                               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -86,7 +77,6 @@
                             </mat-form-field>
                           </div>
                           <div class="clearfix"></div>
-
                           <div class="clearfix"></div>
                           <ngb-timepicker [meridian]="meridian" name="start_time" [(ngModel)]="newTasks.start_time"></ngb-timepicker>
                           <hr>
@@ -100,12 +90,10 @@
                             </mat-form-field>
                           </div>
                           <div class="clearfix"></div>
-
                           <div class="clearfix"></div>
                           <ngb-timepicker [meridian]="meridian" name="end_time" [(ngModel)]="newTasks.end_time"></ngb-timepicker>
-                          <hr>
+                          <hr> -->
                           <div class="clearfix"></div>
-
 
                           <div class="example-container">
                             <div class="col-md-4 col-xs-6"><label class="pad-top">Task type :</label></div>
@@ -157,7 +145,6 @@
                                 <div class="col-md-4 col-xs-5"><label class="pad-top">Checklist :</label></div>
                                 <div class="col-md-5 col-xs-5">
                                   <div *ngFor="let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex">
-
                                     <mat-form-field class="example-form-field">
                                       <input matInput type="text" name="checklist{{i}}" required [(ngModel)]="newTasks.newChecklist[i].name" />
                                       <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
@@ -167,13 +154,11 @@
                                     <input type="button" value="X" (click)="closeChecklist(i)" class="close-bt">
                                   </div>
                                 </div> -->
-
                                 <!-- <div class="col-md-3 col-xs-2"><input type="button" value="Add More" (click)="addMore()" class="round-button padd-bt"></div> -->
                                 <div class="clearfix"></div>
                                 <div class="example-container">
                                   <div class="col-md-3 col-xs-6"><label class="pad-top">Attachment :</label></div>
                                   <div class="col-md-7 col-xs-6">
-
                                     <input (change)="displayDoc($event)" name="file" type="file" [(ngModel)]="newTasks.file" />
                                   </div>
                                   <div class="clearfix"></div>
@@ -193,9 +178,7 @@
             </div>
           </div>
         </div>
-
         <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->
-
         <!-- --------------------------------------------- add time extension ----------------------------------------------------------------- -->
         <div id="extentionTask" class="modal fade" role="dialog">
           <div class="modal-dialog">
@@ -206,12 +189,10 @@
               </div>
               <div class="modal-body">
                 <form role="form" #f="ngForm" (ngSubmit)="TimeExtention(newTasks);">
-
                   <div>
                     <div class="example-container">
                       <div class="col-md-4 col-xs-6"><label class="pad-top">Task Name  :</label></div>
                       <div class="col-md-7 col-xs-6">
-
                         <div class="col-md-7 col-xs-6">
                           {{newTasks.task_name}}
                         </div>
@@ -224,14 +205,12 @@
                         </div>
                         <div class="clearfix"></div>
                         <div class="example-container">
-
                           <div class="col-md-4 col-xs-6"><label class="pad-top">Complexity :</label></div>
                           <div class="col-md-7 col-xs-6">
                             <div *ngIf="newTasks.complexity_id!=null">
                               {{newTasks.tbl_complexity_percentage.percentage}}
                             </div>
                           </div>
-
                           <div class="clearfix"></div>
                           <br>
                           <div class="col-md-4 col-xs-6"><label class="pad-top">Planned Hours :</label></div>
@@ -241,16 +220,13 @@
                               <input type="number" matInput name="planned_hour" min="0" name='planned_hour' [(ngModel)]="newTasks.planned_hour" required>
                             </mat-form-field> -->
                           </div>
-
                           <div class="col-md-3 col-xs-6"><label class="pad-top">Buffer Hours :</label></div>
                           <div class="col-md-2 col-xs-6">
-
                             {{newTasks.buffer_hour}}
                           </div>
                           <!-- <mat-form-field class="wdth">
                               <input type="number" matInput name="buffer_time" min="0" name='buffer_hour' [(ngModel)]="newTasks.buffer_hour" required>
                             </mat-form-field> -->
-
                           <div class="clearfix"></div>
                           <br>
                           <div class="col-md-3 col-xs-6"><label class="pad-top"> Time required :*</label></div>
@@ -275,7 +251,6 @@
             </div>
           </div>
         </div>
-
         <!-- --------------------------------------------- end time extension ----------------------------------------------------------------- -->
         <!-- end topbar-->
         <div class="user-dashboard">
@@ -284,24 +259,34 @@
             <div class="col-md-6 col-sm-12 col-xs-12 gutter ">
               <div class="white project-planning">
                 <div class="pull-right">
+                  <!-- <p><span id="hr">00</span>:<span id="min">00</span>:<span id="sec">00</span></p>
+                    <div class="icons" id="xxx">
+                        <span class="stop-watch">
+                          <span class="sw-parts">
+                            <span class="sw-parts2" id="icn-clock-line"></span>
+                          </span>
+                        </span>
+                        <span class="label" id="label-start-stop">START</span>
+                      </div>
+                      <div class="btn btn-reset" id="btn-reset">
+                          <span class="bl-parts"></span>
+                          <span class="bl-parts"></span>
+                          <span class="btn-label">RESET</span>
+                        </div> -->
                   <mat-form-field class="filter">
                     <mat-select (change)="statusBasedData()" [(value)]="selected">
-
                       <mat-option value="all">All</mat-option>
                       <mat-option value="1">New </mat-option>
                       <mat-option value="2">Paused</mat-option>
                       <mat-option value="3">In Progress</mat-option>
                       <mat-option value="4">Hold</mat-option>
                       <mat-option value="5">Done</mat-option>
-
                     </mat-select>
                   </mat-form-field>
                 </div>
-
                 <div *ngFor="let myTask of showDetails; let i = index">
                   <div class="form-group">
                     <div class="col-md-4"><label for="">Project Name</label><span>:</span></div>
-
                     <div class="col-md-4">
                       <div class="row"><label for="" class="label2">{{myTask.tbl_project.project_name}}</label></div>
                     </div>
@@ -343,6 +328,7 @@
                           <div class="col-md-11 col-xs-12 pull-right">
                             <!-- <div class="task assigned" ng-style="background-color :task.status?.tbl_task_status?.color" > -->
                             <div class="task assigned" *ngIf="task.startdatenow == 'showtasks'" [ngStyle]="{'background-color': task.status?.tbl_task_status.color}">
+                              
                               <div>
                                 <div class="col-md-8 col-xs-7 martop">
                                   <!-- <h5> {{task.status?.tbl_task_status.color }}</h5>-->
@@ -358,17 +344,35 @@
                                     <div class="col-md-8 col-xs-5">
                                       <!-- ---------------------------------------------------------------------------------------------------- -- -->
                                       <ul class="taskedit">
-                                        <div class="wrapper">
-                                          
-                                          <p><span id="seconds">{{task.actual_hour}}</span></p>
-                                    
+                                        <!-- <p><span id="hr">{{task.appendHour}}</span>:<span id="min">{{task.appendMinute}}</span>:
+                                          <span
+                                            id="sec">{{task.appendSecond}}</span>
+                                        </p> -->
+                                        <!-- ----------------------------------------------------------------- -->
+                                        <div class="div1">
+                                          <div class="div">
+                                            <!-- <h1>StopWatch</h1> -->
+                                          </div>
+                                          <!-- <div id="ans" class="d">0:0:0</div> -->
+                                           <p><span id="hr">{{task.appendHour}}</span>:<span id="min">{{task.appendMinute}}</span>:
+                                          <span
+                                            id="sec">{{task.appendSecond}}</span>
+                                        </p>
+                                          <!-- <div id="ans" class="d">{{ans}}</div> -->
+                                          <div class="d2">
+                                           
+                                              <!-- <button class="button" id="but" (click)="start(task, myTask)"> START</button> -->
+                                              <!-- <button class="button" id="butt" (click)="pause1(task)">PAUSE sample</button> -->
+                                              <!-- <button class="button" data-toggle="dropdown" (click)="pauseTask(task)">PAUSE</button> -->
+                                              <!-- <button class="button" id="butt" (click)="resume1(task)">RESUME</button> -->
+                                          </div>
                                         </div>
-                                        <li *ngIf="pause[task.id] || task.status?.status_id == 3"><button title="Pause" class="iconButton" data-toggle="dropdown" (click)="clearReason()"><i class="fa fa-pause" aria-hidden="true"></i></button>
+                                        <!-- ---------------------------- -->
+                                        <li *ngIf="pause[task.id] || task.status?.status_id == 3"><button title="Pause" class="iconButton" data-toggle="dropdown" (click)="clearReason()" [disabled]="disableTask[task.id]"><i class="fa fa-pause" aria-hidden="true"></i></button>
                                           <ul class="dropdown-menu puase-popup" role="menu">
                                             <div class="col-md-8">
                                               <div class="col-md-4 col-xs-6"><label class="pad-top">Reason *</label></div>
                                               <textarea rows="4" cols="50" name="name" [(ngModel)]="newTasks.reason"> </textarea>
-                                              <!-- <input class="style" type="text" placeholder="Module Name" name="name" [(ngModel)]="module.module_name"> -->
                                             </div>
                                             <div class="clearfix"></div>
                                             <br>
@@ -377,9 +381,8 @@
                                             </div>
                                           </ul>
                                         </li>
-
                                         <li *ngIf="completed[task.id] || task.status?.status_id == 3"><button title="Completed" class="iconButton" data-toggle="collapse" data-target="#demo"
-                                            (click)="clearprogress()"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                            (click)="clearprogress()" [disabled]="disableTask[task.id]"><i class="fa fa-check" aria-hidden="true"></i></button>
                                           <ul class="collapse" id="demo">
                                             <div class="col-md-8">
                                               <mat-form-field class="inputfileds">
@@ -394,7 +397,6 @@
                                             </div>
                                           </ul>
                                         </li>
-
                                         <li *ngIf="hold[task.id] || task.status?.status_id == 3"><button title="Hold" class="iconButton" data-toggle="collapse" data-target="#demo1"
                                             (click)="clearhold()" [disabled]="disableTask[task.id]"><i class="fa fa-stop" aria-hidden="true"></i></button>
                                           <ul class="collapse" id="demo1">
@@ -406,7 +408,6 @@
                                               </mat-form-field>
                                               <div class="clearfix"></div>
                                               <div class="col-md-4 col-xs-6"><label class="pad-top">Reason *</label></div>
-
                                               <textarea rows="4" cols="50" name="name" [(ngModel)]="newTasks.reason"> </textarea>
                                             </div>
                                             <div class="clearfix"></div>
@@ -416,7 +417,6 @@
                                             </div>
                                           </ul>
                                         </li>
-
                                         <!-- <li *ngIf="hold[task.id]"><button title="Hold" class="iconButton" [disabled]="disableTask[task.id]"><i class="fa fa-stop" aria-hidden="true"></i></button>
                                           <ul class="collapse">
                                             <div class="col-md-8">
@@ -438,11 +438,11 @@
                                         </li> -->
                                         <!-- <li *ngIf="hold[task.id]"><button title="Hold" class="iconButton" [disabled]="disableTask[task.id]"><i class="fa fa-stop" aria-hidden="true"></i></button></li> -->
                                         <!-- <li *ngIf="completed[task.id]"><button title="Completed" class="iconButton" [disabled]="disableTask[task.id]" (click)="completed(task)"><i class="fa fa-check" aria-hidden="true"></i></button></li> -->
-                                        <div *ngIf="play[task.id] ">
-                                          <li><button title="Start" class="iconButton" [disabled]="disableTask[task.id]" (click)="startTask(myTask.id,task,j)"><i class="fa fa-play" aria-hidden="true"></i></button></li>
+                                        <div *ngIf="task.status?.status_id == 1">
+                                          <li><button title="Start" class="iconButton" [disabled]="disableTask[task.id]" (click)="start(task, myTask)"><i class="fa fa-play" aria-hidden="true"></i></button></li>
                                         </div>
                                         <li *ngIf="done[task.id] || task.status?.status_id == 3"><button title="Finish" class="iconButton" [disabled]="disableTask[task.id]" (click)="Done(task)"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button></li>
-                                        <li *ngIf="Resume[task.id] || task.status?.status_id == 2 || task.status?.status_id == 4"><button title="Resume" class="iconButton" [disabled]="disableTask[task.id]" (click)="resume(task)"><i class="fa fa-play" aria-hidden="true"></i></button></li>
+                                        <li *ngIf="Resume[task.id] || task.status?.status_id == 2 || task.status?.status_id == 4"><button title="Resume" class="iconButton" [disabled]="disableTask[task.id]" (click)="resumeTasks(task)"><i class="fa fa-play" aria-hidden="true"></i></button></li>
                                       </ul>
                                     </div>
                                   </div>

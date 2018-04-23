@@ -116,7 +116,7 @@ var returnRouter = function (io) {
             loginid = decoded.id
             array = [];
             array2 = [];
-            // loginid = 132;
+            loginid = 123;
             User_profile.findOne({
                 where: {
                     login_id: loginid
@@ -134,6 +134,9 @@ var returnRouter = function (io) {
                             include: [
                                 {
                                     model: Complexity_percentage,
+                                },
+                                {
+                                    model: Task_time_assoc,
                                 },
                                 {
                                     model: task_status_assoc,
@@ -177,7 +180,7 @@ var returnRouter = function (io) {
             loginid = decoded.id
             array = [];
             array2 = [];
-            loginid = 132;
+            loginid = 123;
             User_profile.findOne({
                 where: {
                     login_id: loginid
@@ -253,23 +256,14 @@ var returnRouter = function (io) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                const startTask = task_status_assoc.build({
-                    date_time: Date.now(),
-                    task_id: req.params.id,
-                    status_id: 3,
-                });
-                startTask.save().then(function (ResstartTask) {
-                    saveLog("Task started!", user_id)
-                    res.send({ success: true, msg: 'start suucessfully' });
-                });
-            })
+            const startTask = task_status_assoc.build({
+                date_time: Date.now(),
+                task_id: req.params.id,
+                status_id: 3,
+            });
+            startTask.save().then(function (ResstartTask) {
+                res.send({ success: true, msg: 'start suucessfully' });
+            });
         }
         else {
             return res.status(401).send('Invalid User');
@@ -289,24 +283,35 @@ var returnRouter = function (io) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                const DoneTask = task_status_assoc.build({
-                    date_time: Date.now(),
-                    task_id: req.params.id,
-                    status_id: 5,
-                    progress_id: 20
-                });
-                DoneTask.save().then(function (DoneTask1) {
-                    saveLog("Task " + req.params.id + " completed", user_id);
-                    res.send({ success: true, msg: 'done successfully' });
-                });
-            })
+            const DoneTask = task_status_assoc.build({
+                date_time: Date.now(),
+                task_id: req.body.id,
+                status_id: 5,
+                progress_id: 20,
+            });
+            DoneTask.save().then(function (DoneTask1) {
+                ProjectTask.update({
+                    actual_hour: req.body.hour
+                }, {
+                        where: {
+                            id: req.body.id
+                        }
+                    }).then(notif => {
+                        Task_time_assoc.update({
+                            hour: req.body.hour,
+                            minute: req.body.minutes,
+                            second: req.body.seconds,
+                            end_date_time: Date.now()
+                        }, {
+                                where: {
+                                    task_id: req.body.id,
+                                    end_date_time: null
+                                }
+                            }).then(data => {
+                                res.send({ success: true });
+                            });
+                    });
+            });
         }
         else {
             return res.status(401).send('Invalid User');
@@ -326,24 +331,38 @@ var returnRouter = function (io) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                const pauseTask = task_status_assoc.build({
-                    date_time: Date.now(),
-                    task_id: req.body.id,
-                    status_id: 2,
-                    reason: req.body.reason
-                });
-                pauseTask.save().then(function (pauseTask1) {
-                    saveLog("Task " + req.body.id + " paused!", user_id);
-                    res.send({ success: true, msg: 'puased successfully' });
-                });
-            })
+            const pauseTask = task_status_assoc.build({
+                date_time: Date.now(),
+                task_id: req.body.id,
+                status_id: 2,
+                reason: req.body.reason
+            });
+            pauseTask.save().then(function (pauseTask1) {
+                Task_time_assoc.update({
+                    hour: req.body.hour,
+                    minute: req.body.minutes,
+                    second: req.body.seconds,
+                    end_date_time: Date.now()
+                }, {
+                        where: {
+                            task_id: req.body.id,
+                            end_date_time: null
+                        }
+                    }).then(data => {
+                        if (data == 1) {
+                            const tasktime = Task_time_assoc.build({
+                                date_time: Date.now(),
+                                task_id: req.body.id
+                            });
+                            tasktime.save().then(function (tasktime1) {
+                                res.send({ success: true });
+                            })
+                        }
+                        else {
+                            res.send({ success: false });
+                        }
+                    });
+            });
         }
         else {
             return res.status(401).send('Invalid User');
@@ -363,24 +382,38 @@ var returnRouter = function (io) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                const completeTask = task_status_assoc.build({
-                    date_time: Date.now(),
-                    task_id: req.body.id,
-                    status_id: 3,
-                    progress_id: req.body.percentage
-                });
-                completeTask.save().then(function (completeTask1) {
-                    saveLog("Task " + req.body.id + " completed !", user_id);
-                    res.send({ success: true, msg: 'complete successfully' });
-                });
-            })
+            const completeTask = task_status_assoc.build({
+                date_time: Date.now(),
+                task_id: req.body.id,
+                status_id: 2,
+                progress_id: req.body.percentage
+            });
+            completeTask.save().then(function (completeTask1) {
+                Task_time_assoc.update({
+                    hour: req.body.hour,
+                    minute: req.body.minutes,
+                    second: req.body.seconds,
+                    end_date_time: Date.now()
+                }, {
+                        where: {
+                            task_id: req.body.id,
+                            end_date_time: null
+                        }
+                    }).then(data => {
+                        if (data == 1) {
+                            const tasktime = Task_time_assoc.build({
+                                date_time: Date.now(),
+                                task_id: req.body.id
+                            });
+                            tasktime.save().then(function (tasktime1) {
+                                res.send({ success: true });
+                            })
+                        }
+                        else {
+                            res.send({ success: false });
+                        }
+                    });
+            });
         }
         else {
             return res.status(401).send('Invalid User');
@@ -400,25 +433,39 @@ var returnRouter = function (io) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
             var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                const holdaTask = task_status_assoc.build({
-                    date_time: Date.now(),
-                    task_id: req.body.id,
-                    status_id: 4,
-                    progress_id: req.body.percentage,
-                    reason: req.body.reason
-                });
-                holdaTask.save().then(function (holdaTask1) {
-                    saveLog("Task " + req.body.id + " holded !", user_id);
-                    res.send({ success: true, msg: 'Hold successfully' });
-                });
-            })
+            const holdaTask = task_status_assoc.build({
+                date_time: Date.now(),
+                task_id: req.body.id,
+                status_id: 4,
+                progress_id: req.body.percentage,
+                reason: req.body.reason
+            });
+            holdaTask.save().then(function (holdaTask1) {
+                Task_time_assoc.update({
+                    hour: req.body.hour,
+                    minute: req.body.minutes,
+                    second: req.body.seconds,
+                    end_date_time: Date.now()
+                }, {
+                        where: {
+                            task_id: req.body.id,
+                            end_date_time: null
+                        }
+                    }).then(data => {
+                        if (data == 1) {
+                            const tasktime = Task_time_assoc.build({
+                                date_time: Date.now(),
+                                task_id: req.body.id
+                            });
+                            tasktime.save().then(function (tasktime1) {
+                                res.send({ success: true });
+                            })
+                        }
+                        else {
+                            res.send({ success: false });
+                        }
+                    });
+            });
         }
         else {
             return res.status(401).send('Invalid User');
@@ -519,7 +566,6 @@ var returnRouter = function (io) {
                         io.sockets.emit("newtaskrequest", {
                             expiredSocketId: newRequestNotification.id
                         });
-                        saveLog("New task requested!", req.body.assigned_id);
                         res.send({ success: true, msg: "Request Send successfully" });
                     });
                 });
@@ -542,43 +588,33 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                if (req.body.timerequired == '') {
-                    res.send({ success: false, msg: 'Please fill the required time' });
-                    console.log("firs");
-                }
-                else {
-                    var time_extension_request = models.tbl_time_extension_request;
-                    var time_extension_req_notification = models.tbl_time_extension_req_notification;
-                    const timeExtention = time_extension_request.build({
-                        additional_hours: req.body.timerequired,
-                        req_status: "Pending",
-                        task_id: req.body.id
+            if (req.body.timerequired == '') {
+                res.send({ success: false, msg: 'Please fill the required time' });
+                console.log("firs");
+            }
+            else {
+                var time_extension_request = models.tbl_time_extension_request;
+                var time_extension_req_notification = models.tbl_time_extension_req_notification;
+                const timeExtention = time_extension_request.build({
+                    additional_hours: req.body.timerequired,
+                    req_status: "Pending",
+                    task_id: req.body.id
+                });
+                timeExtention.save().then(function (newRequest) {
+                    const TimeExtNotif = time_extension_req_notification.build({
+                        is_pm_viewed: false,
+                        is_admin_viewed: false,
+                        is_user_viewed: false,
+                        request_id: newRequest.id
                     });
-                    timeExtention.save().then(function (newRequest) {
-                        const TimeExtNotif = time_extension_req_notification.build({
-                            is_pm_viewed: false,
-                            is_admin_viewed: false,
-                            is_user_viewed: false,
-                            request_id: newRequest.id
+                    TimeExtNotif.save().then(function (newRequestNotification) {
+                        io.sockets.emit("timeextention", {
+                            expiredSocketId: newRequestNotification.id
                         });
-                        TimeExtNotif.save().then(function (newRequestNotification) {
-                            io.sockets.emit("timeextention", {
-                                expiredSocketId: newRequestNotification.id
-                            });
-                            saveLog("Task time extention requested!", user_id);
-                            res.send({ success: true, msg: "Request Send successfully" });
-                        });
+                        res.send({ success: true, msg: "Request Send successfully" });
                     });
-                }
-            })
+                });
+            }
         }
         else {
             return res.status(401).send('Invalid User');
@@ -1083,7 +1119,6 @@ var returnRouter = function (io) {
                                 var date = d.getDate(daterng);
                                 var day = d.getDay(daterng);//start 1
                                 var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                 cmp_off_day.findOne({
                                     where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
                                     // where: { date: daterng, cmp_id: cmp_id },
@@ -1097,7 +1132,6 @@ var returnRouter = function (io) {
                                         var date = d.getDate(daterng);
                                         var day = d.getDay(daterng);//start 1
                                         var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                         cmp_work_time_assocs.findOne({
                                             required: true,
                                             // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1106,7 +1140,6 @@ var returnRouter = function (io) {
                                                 model: cmp_work_time,
                                                 required: true,
                                                 where: { cmp_id: cmp_id },
-
                                             }]
                                         }).then(work_time => {
                                             if (work_time) {
@@ -1198,13 +1231,11 @@ var returnRouter = function (io) {
                                             }
                                         }); callback();
                                     });
-
                                 }, function (callback) {
                                     var d = new Date(req.body.startdate);
                                     var date = d.getDate(req.body.startdate);
                                     var day = d.getDay(req.body.startdate);//start 1
                                     var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                     cmp_work_time_assocs.findOne({
                                         required: true,
                                         // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1216,7 +1247,6 @@ var returnRouter = function (io) {
                                         }]
                                     }).then(work_time => {
                                         if (work_time) {
-
                                             // parse time using 24-hour clock and use UTC to prevent DST issues
                                             var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                             var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
@@ -1283,7 +1313,6 @@ var returnRouter = function (io) {
                                                 [Op.and]: [{ cmp_id: cmp_id, user_profile_id: user_id, delete_status: false }],
                                                 [Op.or]: [{ start_date: req.body.startdate, end_date: req.body.enddate }]
                                             }
-
                                         }).then(leave => {
                                             // console.log(user);
                                             //return res.json(user);
@@ -1321,7 +1350,6 @@ var returnRouter = function (io) {
                                                 var leavehrs = moment.duration(leavehr, "seconds").format("hh:mm:ss");
                                                 //    var p= Math.abs(78)
                                                 // console.log(leavehrs);
-
                                                 const addleave = Employeeleave.build({
                                                     start_date: req.body.startdate,
                                                     end_date: req.body.enddate,
@@ -1474,7 +1502,6 @@ var returnRouter = function (io) {
                             var date = d.getDate(daterng);
                             var day = d.getDay(daterng);//start 1
                             var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                             cmp_off_day.findOne({
                                 where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
                                 // where: { date: daterng, cmp_id: cmp_id },
@@ -1483,13 +1510,11 @@ var returnRouter = function (io) {
                                     // console.log(daterng+"holiday")
                                     callback();
                                 } else {
-
                                     // console.log(daterng+"not holiday")
                                     var d = new Date(daterng);
                                     var date = d.getDate(daterng);
                                     var day = d.getDay(daterng);//start 1
                                     var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                     cmp_work_time_assocs.findOne({
                                         required: true,
                                         // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1549,9 +1574,7 @@ var returnRouter = function (io) {
                                 }
                             });
                         }
-
                     });
-
                 }, function (err) {
                     console.log("tot" + total_seconds);
                     // });
@@ -1576,14 +1599,11 @@ var returnRouter = function (io) {
                                         }
                                     }); callback();
                                 });
-
-
                             }, function (callback) {
                                 var d = new Date(req.body.start_date);
                                 var date = d.getDate(req.body.start_date);
                                 var day = d.getDay(req.body.start_date);//start 1
                                 var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                 cmp_work_time_assocs.findOne({
                                     required: true,
                                     // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -1595,7 +1615,6 @@ var returnRouter = function (io) {
                                     }]
                                 }).then(work_time => {
                                     if (work_time) {
-
                                         // parse time using 24-hour clock and use UTC to prevent DST issues
                                         var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
                                         var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
@@ -1622,7 +1641,6 @@ var returnRouter = function (io) {
                                             where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                         }).then(work_time1 => {
                                             if (work_time1) {
-
                                                 // parse time using 24-hour clock and use UTC to prevent DST issues
                                                 var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                                 var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
@@ -1643,7 +1661,6 @@ var returnRouter = function (io) {
                                                 }
                                                 callback();
                                                 //else{ 
-
                                             }
                                             callback();
                                         });
@@ -1996,7 +2013,6 @@ var returnRouter = function (io) {
                                 model: Project_tasks,
                                 required: true,
                                 where: { assigned_to_id: user_id },
-
                                 include: [
                                     {
                                         model: Task_status_assocs,
@@ -3140,6 +3156,96 @@ var returnRouter = function (io) {
         }
     })
     // ----------------------------------End-----------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /add-time-assoc
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc         
+    router.post('/add-time-assoc', function (req, res) {
+        const timeAssoc = Task_time_assoc.build({
+            date_time: Date.now(),
+            hour: req.body.hour,
+            minute: req.body.minutes,
+            second: req.body.seconds,
+            task_id: req.body.id
+        });
+        timeAssoc.save().then(function (timeAssoc1) {
+            res.send({ success: true, msg: 'time added succesfully' });
+        });
+    });
+    // ---------------------------------End-------------------------------------------
+     // ---------------------------------Start-------------------------------------------
+    // Function      :changeStausColor
+    // Params        :
+    // Returns       :
+    // Author        : Jooshifa
+    // Date          : 21-03-2018
+    // Last Modified :
+    // Desc          : u
+    router.post('/changeStausColor/:id', function (req, res) {
+        if (config.use_env_variable) {
+            var sequelize = new Sequelize(process.env[config.use_env_variable]);
+        } else {
+            var sequelize = new Sequelize(config.database, config.username, config.password, config);
+        }
+        task_status_assoc.findAll({
+            where: { task_id: req.params.id },
+            include: [
+                {
+                    model: task_statuses,
+                },
+            ]
+        }).then(taskStatusColor => {
+            res.send(taskStatusColor);
+        });
+    });
+    // ----------------------------------End-------------------------------------------
+      // ---------------------------------Start-------------------------------------------
+    // Function      : /resume-a-task
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc         
+    router.post('/resume-a-task', function (req, res) {
+        const resumeTasks = task_status_assoc.build({
+            date_time: Date.now(),
+            task_id: req.body.id,
+            status_id: 3,
+        });
+        resumeTasks.save().then(function (resumeTasks1) {
+            Task_time_assoc.update({
+                hour: req.body.hour,
+                minute: req.body.minutes,
+                second: req.body.seconds,
+                end_date_time: Date.now()
+            }, {
+                    where: {
+                        task_id: req.body.id,
+                        end_date_time: null
+                    }
+                }).then(data => {
+                    if (data == 1) {
+                        const tasktime = Task_time_assoc.build({
+                            date_time: Date.now(),
+                            task_id: req.body.id
+                        });
+                        tasktime.save().then(function (tasktime1) {
+                            res.send({ success: true });
+                        })
+                    }
+                    else {
+                        res.send({ success: false });
+                    }
+                });
+        });
+    });
+    // ---------------------------------End-------------------------------------------
+    
     module.exports = router;
     return router;
 }
