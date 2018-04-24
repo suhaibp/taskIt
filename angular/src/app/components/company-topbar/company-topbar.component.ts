@@ -178,6 +178,25 @@ export class CompanyTopbarComponent implements OnInit {
     });
     // ---------------------------------End-------------------------------------------
   }
+  closeNotif(notif_id) {
+    // ---------------------------------Start-------------------------------------------
+    // Function      : close notification of estimation approval
+    // Params        : notification id
+    // Returns       : 
+    // Author        : Rinsha
+    // Date          : 14-03-2018
+    // Last Modified : 14-03-2018, Rinsha
+    // Desc          : close notification when pm sees the estimation approval notification
+    this.companyService.closeNotif(notif_id).subscribe(res => {
+      if (res.success == false) {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+      }
+      this.assignHeadNotification();
+    });
+    // ---------------------------------End-------------------------------------------
+  }
   closeNotif2(notif_id) {
     // ---------------------------------Start-------------------------------------------
     // Function      : close notification of estimation approval

@@ -445,7 +445,7 @@ export class CompanyService {
   // Desc          : getTeamHeadsToEstimate
   getTeamHeadsToEstimate(p_id) {
     let headers = this.setHeaderWithAuthorization();
-    return this.http.post(this.serviceUrl + 'getTeamHeadsToEstimate/' + p_id, { headers: headers })
+    return this.http.post(this.serviceUrl + 'getTeamHeadsToEstimate/' + p_id, {},{ headers: headers })
       .map(res => res.json());
   }
   // -----------------------------------End------------------------------------------
@@ -685,7 +685,7 @@ export class CompanyService {
   // Last Modified : 13-03-2018, Jooshifa
   // Desc          : 
   getCompanyDetailsById(id) {
-    let h = this.setHeaderWithAuthorization();
+    let h = this.setHeader();
     return this.http.get(this.serviceUrl + "getCompanyDetails/" + id, { headers: h })
       .map(res => res.json());
   }
@@ -1362,7 +1362,7 @@ deleteHoliday(data){
   // Desc          : Get breaks in the day
   getDayDetails(day,week){
     // console.log("h")
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     let data = {
       day: day,
       week: week
@@ -1381,7 +1381,7 @@ deleteHoliday(data){
   // Desc          : Get breaks in the day
   saveDayBreak(day,week,xtime,ytime,title){
     // console.log("h")
-    let h = this.setHeader();
+    let h = this.setHeaderWithAuthorization();
     let data = {
       day: day,
       week: week,
@@ -2162,7 +2162,7 @@ deleteHoliday(data){
   // Desc          : getUserleavedataplanning
   //closeNotif6
   getUserleavedataplanning(data) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'company-planning-enddate/', data, { headers: headers })
     .map(res => res.json());
  
@@ -2184,7 +2184,6 @@ deleteHoliday(data){
         .map(res => res.json());
      
        }
-
   // -----------------------------------End------------------------------------------
   getProjectReport(data){
     let headers = this.setHeaderWithAuthorization();
@@ -2203,7 +2202,7 @@ deleteHoliday(data){
   // Last Modified : 21-03-2018, Jooshifa
   // Desc          : 
   savecompanyPlanning(data) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'save-company-planning-datas/', data, { headers: headers })
       .map(res => res.json());
   }

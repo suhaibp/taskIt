@@ -18,7 +18,7 @@ export class AdminDashboardPieComponent implements OnInit {
   }
   loadDetails(){
     this.superAdminService.getPieDataforAdminDashboard().subscribe(resData =>{
-      // console.log(resData)
+     console.log(resData)
       this.pieData = resData;
       this.drawPie();
       

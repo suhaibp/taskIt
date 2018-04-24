@@ -43,8 +43,9 @@ export class CompanyViewProjectComponent implements OnInit {
     console.log(this.projectId)
     
     this.companyService.getProjectDetails(this.projectId).subscribe(resProjects =>{
-      this.project = resProjects;
-      if(resProjects.length>0){
+      //console.log('manu response');
+      this.project = resProjects.data;
+      if(resProjects){
         this.showData = true;
         this.spinner = false;
       }

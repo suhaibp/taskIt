@@ -43,14 +43,22 @@ export class UserProjectsComponent implements OnInit {
   getUserProjects(){
     this.spinner = true;
     this.userService.getUserProjects().subscribe(resProjects =>{
+      console.log(resProjects);
       this.projects = resProjects;
-      if(resProjects[0].tbl_project_member_assocs.length>0){
-        this.noItems = false;        
+      // if(resProjects[0].tbl_project_member_assocs.length>0){
+      if(resProjects){
+        if(resProjects[0].tbl_project_member_assocs.length>0){
+          this.noItems = false;        
+          this.showxData = true;  
+          this.spinner = false;
+          this.proSelector = resProjects[0].tbl_project_member_assocs;
+          this.proCheckbox = resProjects[0].tbl_project_member_assocs;
+        }
+        
+      }else{
+        this.noItems = true;        
         this.showxData = true;  
         this.spinner = false;
-        this.proSelector = resProjects[0].tbl_project_member_assocs;
-        this.proCheckbox = resProjects[0].tbl_project_member_assocs;
-        
       }
       // console.log(resProjects)
       

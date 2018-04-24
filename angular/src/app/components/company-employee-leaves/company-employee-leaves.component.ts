@@ -107,6 +107,7 @@ constructor(
   ngOnInit() {
     this.refresh();
     this.companyService.getAllcompanyemployee().subscribe(res => {
+      console.log(res);
       this.companyemployee = res;
      });
 

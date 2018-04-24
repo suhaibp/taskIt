@@ -233,8 +233,8 @@ export class CompanyWorkingTimeComponent implements OnInit {
   }
 
   openModal(day,week){
-    // console.log('day:'+day)
-    // console.log('week:'+week)
+     console.log('day:'+day)
+     console.log('week:'+week)
     this.selectedWeek = week;
     this.selectedDay = day;
     this.getDayBreaks(day,week)

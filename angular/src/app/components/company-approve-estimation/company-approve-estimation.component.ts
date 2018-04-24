@@ -326,6 +326,7 @@ export class CompanyApproveEstimationComponent implements OnInit {
     // Last Modified : 16-03-2018, Rinsha
     // Desc          : getTeamHeadsToEstimate
     this.companyService.getTeamHeadsToEstimate(this.p_id).subscribe(team_heads => {
+      console.log(team_heads);
       this.teamheads = [];
       this.teamhead_count = team_heads.length;
       team_heads.forEach(teams => {

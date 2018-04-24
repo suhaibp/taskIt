@@ -95,6 +95,7 @@ var New_task = models.tbl_new_task_request;
 var Task_status_assocs = models.tbl_task_status_assoc;
 var Task_status = models.tbl_task_status;
 var Progress_percentages = models.tbl_progress_percentage;
+var Task_time_assoc = models.tbl_task_time_assoc;
 'use strict';
 var returnRouter = function (io) {
     // ---------------------------------Start-------------------------------------------
@@ -116,13 +117,15 @@ var returnRouter = function (io) {
             loginid = decoded.id
             array = [];
             array2 = [];
-            // loginid = 132;
+            //loginid = 123;
             User_profile.findOne({
                 where: {
                     login_id: loginid
                 }
             }).then(userProfile => {
+                console.log(userProfile);
                 Project_modules.findAll({
+                    // where: { id: 629 },
                     include: [
                         {
                             model: Projects,
@@ -136,6 +139,9 @@ var returnRouter = function (io) {
                                     model: Complexity_percentage,
                                 },
                                 {
+                                    model: Task_time_assoc,
+                                },
+                                {
                                     model: task_status_assoc,
                                     include: [
                                         {
@@ -144,8 +150,15 @@ var returnRouter = function (io) {
                                     ],
                                 }
                             ],
+                            // order: [
+                            //     [Task_time_assoc, 'id', 'DESC'],
+                            //     // [Project_tasks.tbl_task_status_assocs, 'id', 'DESC'],
+                            // ]
                         },
-                    ]
+                    ],
+                    order: [
+                        [Project_tasks, { model: Task_time_assoc }, 'id', 'DESC'], [Project_tasks, { model: task_status_assoc }, 'id', 'DESC']
+                    ],
                 }).then(myTasks => {
                     res.send(myTasks);
                 });
@@ -177,7 +190,7 @@ var returnRouter = function (io) {
             loginid = decoded.id
             array = [];
             array2 = [];
-            loginid = 132;
+            // loginid = 132;
             User_profile.findOne({
                 where: {
                     login_id: loginid
@@ -248,7 +261,8 @@ var returnRouter = function (io) {
     // Date          : 29-03-2018
     // Last Modified : 29-03-2018, Jooshifa
     // Desc         
-    router.post('/start-a-task/:id', function (req, res) {
+    router.post('/start-a-task', function (req, res) {
+        console.log( req.body);
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
@@ -259,17 +273,52 @@ var returnRouter = function (io) {
                     login_id: id
                 }
             }).then(resUser => {
+                console.log(resUser);
                 user_id = resUser.id;
                 const startTask = task_status_assoc.build({
                     date_time: Date.now(),
-                    task_id: req.params.id,
+                    task_id: req.body.id,
                     status_id: 3,
                 });
-                startTask.save().then(function (ResstartTask) {
-                    saveLog("Task started!", user_id)
-                    res.send({ success: true, msg: 'start suucessfully' });
-                });
-            })
+                startTask.save().then((ResstartTask) => {
+                    Task_time_assoc.findOne({
+                        where: { task_id: req.body.id },
+                    }).then(tasktTmeAssoc => {
+                        if (!tasktTmeAssoc) {
+                            Project.update({
+                                status: "In Progress",
+                                actual_start_date: Date.now()
+                            }, {
+                                    where: {
+                                        id: req.body.projectId                                        
+                                    }
+                                }).then(data => {
+                                    const timeAssoc = Task_time_assoc.build({
+                                        date_time: Date.now(),
+                                        hour: 0,
+                                        minute: 0,
+                                        second: 0,
+                                        task_id: req.body.id
+                                    });
+                                    timeAssoc.save().then(function (timeAssoc1) {
+                                        res.send({ success: true, msg: 'start suucessfully' });
+                                    });
+                                });
+                        } else {
+                            const timeAssoc = Task_time_assoc.build({
+                                date_time: Date.now(),
+                                hour: 0,
+                                minute: 0,
+                                second: 0,
+                                task_id: req.body.id
+                            });
+                            timeAssoc.save().then(function (timeAssoc1) {
+                                res.send({ success: true, msg: 'start suucessfully' });
+                            })
+                        }
+                    });
+                })
+            });
         }
         else {
             return res.status(401).send('Invalid User');
@@ -284,29 +333,89 @@ var returnRouter = function (io) {
     // Date          : 29-03-2018
     // Last Modified : 29-03-2018, Jooshifa
     // Desc         
-    router.post('/done-a-task/:id', function (req, res) {
+    router.post('/done-a-task', function (req, res) {
         if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4), decoded;
-            decoded = jwt.verify(authorization, Config.secret);
-            var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                const DoneTask = task_status_assoc.build({
-                    date_time: Date.now(),
-                    task_id: req.params.id,
-                    status_id: 5,
-                    progress_id: 20
-                });
-                DoneTask.save().then(function (DoneTask1) {
-                    saveLog("Task " + req.params.id + " completed", user_id);
-                    res.send({ success: true, msg: 'done successfully' });
-                });
-            })
+            const DoneTask = task_status_assoc.build({
+                date_time: Date.now(),
+                task_id: req.body.id,
+                status_id: 5,
+                progress_id: 20,
+            });
+            DoneTask.save().then(function (DoneTask1) {
+                // task_status_assoc.findAll({
+                //     where : {status_id: {
+                //         [Op.ne]: 5
+                //     }},
+                //     group: ['task_status_assoc.task_id'],
+                //     include: [
+                //         {
+                //             model: Project_tasks,
+                //             required: true,
+                //             include: [{
+                //                 model: Project_modules,
+                //                 required: true,
+                //                 include: [
+    
+                //                     {
+                //                         model: Projects,
+                //                         required: true,
+                //                         where: { id: req.body.projectId },
+    
+                //                     }
+                //                 ],
+                //                 }
+                //             ]
+                //         },
+                        
+                //     ],
+                // }).then(modulesAndTasks => {
+                //     console.log('-----------vishak-----------------------');
+                //     console.log(modulesAndTasks);
+                //     res.send(modulesAndTasks);
+                // });
+                var d2 = Date.now();
+                var d1 = new Date(req.body.tbl_task_time_assocs[0].date_time);
+                var seconds = (d2 - d1) / 1000;
+                ss = parseInt(seconds % 60);
+                hh = parseInt(seconds / 3600);
+                mm = parseInt((seconds % 3600) / 60);
+                Task_time_assoc.update({
+                    hour: hh,
+                    minute: mm,
+                    second: ss,
+                    end_date_time: d2
+                }, {
+                        where: {
+                            id: req.body.tbl_task_time_assocs[0].id,
+                        }
+                    }).then(data => {
+                        let totalHour = 0;
+                        let totalMinutes = 0;
+                        let totalSecond = 0;
+                        let totalHrinMS = 0;
+                        let totalMinutesinMS = 0;
+                        let totalSecondinMS = 0;
+                        req.body.tbl_task_time_assocs.forEach(element => {
+                            totalHour += element.hour;
+                            totalMinutes += element.minute;
+                            totalSecond += element.second;
+                        });
+                        totalSecondinMS = totalSecond + ss;
+                        totalMinutesinMS = totalMinutes + mm * 60;
+                        totalHrinMS = totalHour + hh * 60 * 60;
+                        let ttlSec = totalHrinMS + totalMinutesinMS + totalSecondinMS;
+                        actualHr = ttlSec / 3600;
+                        ProjectTask.update({
+                            actual_hour: actualHr
+                        }, {
+                                where: {
+                                    id: req.body.id
+                                }
+                            }).then(notif => {
+                                res.send({ success: true, msg: 'Done successfully' });
+                            });
+                    });
+            });
         }
         else {
             return res.status(401).send('Invalid User');
@@ -339,9 +448,27 @@ var returnRouter = function (io) {
                     status_id: 2,
                     reason: req.body.reason
                 });
-                pauseTask.save().then(function (pauseTask1) {
-                    saveLog("Task " + req.body.id + " paused!", user_id);
-                    res.send({ success: true, msg: 'puased successfully' });
+                pauseTask.save().then((pauseTask1) => {
+                    var d2 = Date.now();
+                    var d1 = new Date(req.body.tbl_task_time_assocs[0].date_time);
+                    var seconds = (d2 - d1) / 1000;
+                    ss = parseInt(seconds % 60);
+                    hh = parseInt(seconds / 3600);
+                    mm = parseInt((seconds % 3600) / 60);
+                    Task_time_assoc.update({
+                        hour: hh,
+                        minute: mm,
+                        second: ss,
+                        end_date_time: d2
+                    }, {
+                            where: {
+                                id: req.body.tbl_task_time_assocs[0].id,
+                            }
+                        }).then(data => {
+                            // res.send({ success: true });
+                            res.send({ success: true, msg: 'puased successfully' });
+                        });
+                    //   saveLog("Task " + req.body.id + " paused!", user_id);
                 });
             })
         }
@@ -360,29 +487,36 @@ var returnRouter = function (io) {
     // Desc         
     router.post('/complete-a-task', function (req, res) {
         if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4), decoded;
-            decoded = jwt.verify(authorization, Config.secret);
-            var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                const completeTask = task_status_assoc.build({
-                    date_time: Date.now(),
-                    task_id: req.body.id,
-                    status_id: 3,
-                    progress_id: req.body.percentage
-                });
-                completeTask.save().then(function (completeTask1) {
-                    saveLog("Task " + req.body.id + " completed !", user_id);
-                    res.send({ success: true, msg: 'complete successfully' });
-                });
-            })
-        }
-        else {
+            console.log(req.body);
+            const completeTask = task_status_assoc.build({
+                date_time: Date.now(),
+                task_id: req.body.id,
+                status_id: 2,
+                progress_id: req.body.percentage
+            });
+            completeTask.save().then(function (completeTask1) {
+                var d2 = Date.now();
+                var d1 = new Date(req.body.tbl_task_time_assocs[0].date_time);
+                var seconds = (d2 - d1) / 1000;
+                ss = parseInt(seconds % 60);
+                hh = parseInt(seconds / 3600);
+                mm = parseInt((seconds % 3600) / 60);
+                Task_time_assoc.update({
+                    hour: hh,
+                    minute: mm,
+                    second: ss,
+                    end_date_time: d2
+                }, {
+                        where: {
+                            id: req.body.tbl_task_time_assocs[0].id,
+                        }
+                    }).then(data => {
+                        // res.send({ success: true });
+                        res.send({ success: true, msg: 'completed successfully' });
+                    });
+                //   saveLog("Task " + req.body.id + " paused!", user_id);
+            });
+        } else {
             return res.status(401).send('Invalid User');
         }
     });
@@ -397,30 +531,34 @@ var returnRouter = function (io) {
     // Desc         
     router.post('/hold-a-task', function (req, res) {
         if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4), decoded;
-            decoded = jwt.verify(authorization, Config.secret);
-            var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                const holdaTask = task_status_assoc.build({
-                    date_time: Date.now(),
-                    task_id: req.body.id,
-                    status_id: 4,
-                    progress_id: req.body.percentage,
-                    reason: req.body.reason
-                });
-                holdaTask.save().then(function (holdaTask1) {
-                    saveLog("Task " + req.body.id + " holded !", user_id);
-                    res.send({ success: true, msg: 'Hold successfully' });
-                });
-            })
-        }
-        else {
+            const holdaTask = task_status_assoc.build({
+                date_time: Date.now(),
+                task_id: req.body.id,
+                status_id: 4,
+                progress_id: req.body.percentage,
+                reason: req.body.reason
+            });
+            holdaTask.save().then(function (holdaTask1) {
+                var d2 = Date.now();
+                var d1 = new Date(req.body.tbl_task_time_assocs[0].date_time);
+                var seconds = (d2 - d1) / 1000;
+                ss = parseInt(seconds % 60);
+                hh = parseInt(seconds / 3600);
+                mm = parseInt((seconds % 3600) / 60);
+                Task_time_assoc.update({
+                    hour: hh,
+                    minute: mm,
+                    second: ss,
+                    end_date_time: d2
+                }, {
+                        where: {
+                            id: req.body.tbl_task_time_assocs[0].id,
+                        }
+                    }).then(data => {
+                        res.send({ success: true, msg: 'hold task successfully' });
+                    });
+            });
+        } else {
             return res.status(401).send('Invalid User');
         }
     });
@@ -519,7 +657,6 @@ var returnRouter = function (io) {
                         io.sockets.emit("newtaskrequest", {
                             expiredSocketId: newRequestNotification.id
                         });
-                        saveLog("New task requested!", req.body.assigned_id);
                         res.send({ success: true, msg: "Request Send successfully" });
                     });
                 });
@@ -542,43 +679,30 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                if (req.body.timerequired == '') {
-                    res.send({ success: false, msg: 'Please fill the required time' });
-                    console.log("firs");
-                }
-                else {
-                    var time_extension_request = models.tbl_time_extension_request;
-                    var time_extension_req_notification = models.tbl_time_extension_req_notification;
-                    const timeExtention = time_extension_request.build({
-                        additional_hours: req.body.timerequired,
-                        req_status: "Pending",
-                        task_id: req.body.id
+            if (req.body.timerequired == '') {
+                res.send({ success: false, msg: 'Please fill the required time' });
+            }
+            else {
+                const timeExtention1 = time_extension_request.build({
+                    additional_hours: req.body.timerequired,
+                    req_status: "Pending",
+                    task_id: req.body.id
+                });
+                timeExtention1.save().then(function (newRequest) {
+                    const TimeExtNotif = time_extension_req_notification.build({
+                        is_pm_viewed: false,
+                        is_admin_viewed: false,
+                        is_user_viewed: false,
+                        request_id: newRequest.id
                     });
-                    timeExtention.save().then(function (newRequest) {
-                        const TimeExtNotif = time_extension_req_notification.build({
-                            is_pm_viewed: false,
-                            is_admin_viewed: false,
-                            is_user_viewed: false,
-                            request_id: newRequest.id
+                    TimeExtNotif.save().then(function (newRequestNotification) {
+                        io.sockets.emit("timeextention", {
+                            expiredSocketId: newRequestNotification.id
                         });
-                        TimeExtNotif.save().then(function (newRequestNotification) {
-                            io.sockets.emit("timeextention", {
-                                expiredSocketId: newRequestNotification.id
-                            });
-                            saveLog("Task time extention requested!", user_id);
-                            res.send({ success: true, msg: "Request Send successfully" });
-                        });
+                        res.send({ success: true, msg: "Request Send successfully" });
                     });
-                }
-            })
+                });
+            }
         }
         else {
             return res.status(401).send('Invalid User');
@@ -3120,6 +3244,86 @@ var returnRouter = function (io) {
         }
     })
     // ----------------------------------End-----------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /add-time-assoc
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc         
+    router.post('/add-time-assoc', function (req, res) {
+        if (req.headers && req.headers.authorization) {
+            const timeAssoc = Task_time_assoc.build({
+                date_time: Date.now(),
+                hour: req.body.hour,
+                minute: req.body.minutes,
+                second: req.body.seconds,
+                task_id: req.body.id
+            });
+            timeAssoc.save().then(function (timeAssoc1) {
+                res.send({ success: true, msg: 'time added succesfully' });
+            });
+        } else {
+            return res.status(401).send('Invalid User');
+        }
+    });
+    // ---------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      :changeStausColor
+    // Params        :
+    // Returns       :
+    // Author        : Jooshifa
+    // Date          : 21-03-2018
+    // Last Modified :
+    // Desc          : u
+    router.post('/changeStausColor/:id', function (req, res) {
+        if (req.headers && req.headers.authorization) {
+            if (config.use_env_variable) {
+                var sequelize = new Sequelize(process.env[config.use_env_variable]);
+            } else {
+                var sequelize = new Sequelize(config.database, config.username, config.password, config);
+            }
+            task_status_assoc.findAll({
+                where: { task_id: req.params.id },
+                include: [
+                    {
+                        model: task_statuses,
+                    },
+                ]
+            }).then(taskStatusColor => {
+                res.send(taskStatusColor);
+            });
+        } else {
+            return res.status(401).send('Invalid User');
+        }
+    });
+    // ----------------------------------End-------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+    // Function      : /resume-a-task
+    // Params        : user details
+    // Returns       : 
+    // Author        : Jooshifa
+    // Date          : 29-03-2018
+    // Last Modified : 29-03-2018, Jooshifa
+    // Desc         
+    router.post('/resume-a-task', function (req, res) {
+        const resumeTasks = task_status_assoc.build({
+            date_time: Date.now(),
+            task_id: req.body.id,
+            status_id: 3,
+        });
+        resumeTasks.save().then(function (resumeTasks1) {
+            const tasktime = Task_time_assoc.build({
+                date_time: Date.now(),
+                task_id: req.body.id
+            });
+            tasktime.save().then(function (tasktime1) {
+                res.send({ success: true });
+            })
+        })
+    });
+    // ---------------------------------End-------------------------------------------
     module.exports = router;
     return router;
 }

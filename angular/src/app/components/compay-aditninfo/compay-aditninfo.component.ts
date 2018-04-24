@@ -88,15 +88,32 @@ export class CompayAditninfoComponent implements OnInit {
 			this.companyService.getCompanyDetailsById(this.p_id).subscribe(data => {
 				// console.log("data" + data.is_profile_completed);
 				if (data.is_profile_completed == true) {
-					this.routes.navigate(['/company-dashboard']);
+					this.companyService.generateToken(params.id).subscribe(data4 => {
+						if (data4.success == true) {
+							this.companyService.storeUserData(data4.token, data4.login);
+							if (data.cmp_status == "Expired") {
+								this.routes.navigate(['/expired']);
+							} else {
+								this.routes.navigate(['/company-dashboard']);
+							}
+						}
+					});
+
 					// console.log("completed");
+				}
+				else {
+					this.companyService.generateToken(params.id).subscribe(data3 => {
+						if (data3.success) {
+							this.companyService.storeUserData(data3.token, data3.login);
+						}
+					});
 				}
 
 			});
 		});
 
 
-		this.companyService.getLoggedUSerDetails().subscribe(info => {
+		// this.companyService.getLoggedUSerDetails().subscribe(info => {
 			// console.log("sdsss" + info);
 			// if(info == null || info == ''){
 			//   this.routes.navigate(['/clogin']); 
@@ -121,7 +138,7 @@ export class CompayAditninfoComponent implements OnInit {
 			// 	this.routes.navigate(['/additnInfo', info.id]);
 			//   }
 			// }
-		});
+		// });
 		// console.log(this.questions);
 		this.getIndustries();
 		this.getCompanySize();
@@ -176,7 +193,7 @@ export class CompayAditninfoComponent implements OnInit {
 
 	validate(i) {
 		console.log(this.questions[i].ans);
-		
+
 		if (this.questions[this.counter].ans == '') {
 			this.errMessage = "Please fill the fields";
 		}
@@ -187,7 +204,7 @@ export class CompayAditninfoComponent implements OnInit {
 			else {
 				this.errMessage = "";
 				this.addCounter();
-	
+
 			}
 		}
 		else {

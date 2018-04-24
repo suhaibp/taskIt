@@ -90,6 +90,8 @@ var Time_extension_request = models.tbl_time_extension_request;
 var Time_extension_request_notifications = models.tbl_time_extension_req_notification;
 var task_status_assoc = models.tbl_task_status_assoc;
 var task_statuses = models.tbl_task_status;
+var Project_teams = models.tbl_project_team;
+var project_member_assocs = models.tbl_project_member_assoc;
 'use strict';
 var returnRouter = function (io) {
     // ---------------------------------Start-------------------------------------------
@@ -386,7 +388,7 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
             // cmp_id = decoded.cmp_id;
             Designation.findAll({
-                where: { delete_status: false }
+                // where: { delete_status: false }
             }).then(designation => {
                 //console.log(projects);
                 return res.json(designation);
@@ -670,16 +672,18 @@ var returnRouter = function (io) {
                                             emailTemplate.sendUsercredentialMail(req.body.email, req.body.f_name, password);
                                             // console.log(newUser);
                                             var id = decoded.id;
+                                            if(decoded.role_id == 3){
                                             // var role = req.body.id
-                                            var user_id;
-                                            Users.find({
-                                                where: {
-                                                    login_id: id
-                                                }
-                                            }).then(resUser => {
-                                                user_id = resUser.id;
-                                                saveLog("New User created!", user_id)
-                                            })
+                                                var user_id;
+                                                Users.find({
+                                                    where: {
+                                                        login_id: id
+                                                    }
+                                                }).then(resUser => {
+                                                    user_id = resUser.id;
+                                                    saveLog("New User created!", user_id)
+                                                })
+                                            }
                                             res.json({ success: true, msg: "NewUser Created Successfully" });
                                         })
                                     })
@@ -858,15 +862,17 @@ var returnRouter = function (io) {
                     });
                 var id = decoded.id;
                 // var role = req.body.id
-                var user_id;
-                Users.find({
-                    where: {
-                        login_id: id
-                    }
-                }).then(resUser => {
-                    user_id = resUser.id;
-                    saveLog("User profile updated!", user_id)
-                })
+                if(decoded.role_id == 3){
+                    var user_id;
+                    Users.find({
+                        where: {
+                            login_id: id
+                        }
+                    }).then(resUser => {
+                        user_id = resUser.id;
+                        saveLog("User profile updated!", user_id)
+                    })
+                }
                 res.json({ success: true, msg: "User Updated Successfully" });
             } else {
                 res.json({ success: false, msg: errMsg });
@@ -959,15 +965,17 @@ var returnRouter = function (io) {
                             } else {
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Category deleted!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Category deleted!", user_id)
+                                    })
+                                }
                                 return res.json({ success: true, msg: 'Delete Category Successfully' });
                             }
                         });
@@ -1025,17 +1033,19 @@ var returnRouter = function (io) {
                             // console.log(newPlan);
                             var id = decoded.id;
                             // var role = req.body.id
-                            console.log(id);
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                console.log(resUser)
-                                user_id = resUser.id;
-                                saveLog("Category " + req.body.name + " added!", user_id)
-                            })
+                            if(decoded.role_id == 3){
+                                console.log(id);
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    console.log(resUser)
+                                    user_id = resUser.id;
+                                    saveLog("Category " + req.body.name + " added!", user_id)
+                                })
+                            }
                             res.json({ success: true, msg: "Project Category Created Successfully" });
                         })
                     }
@@ -1125,15 +1135,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Category " + req.body.category_name + " updated!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Category " + req.body.category_name + " updated!", user_id)
+                                    })
+                                }
                                 res.json({ success: true, msg: "Project Category updated Successfully" });
                             })
                     }
@@ -1211,14 +1223,14 @@ var returnRouter = function (io) {
             }
             User.findAll({
                 attributes: ['id', 'f_name'],
-                "raw": true,
+                // "raw": true,
                 order: [['id', 'DESC']],
                 where: { cmp_id: cmp_id },
                 include: [{
                     model: Login,
                     attributes: [],
                     required: true,
-                    where: { [Op.and]: [{ block_status: false, delete_status: false, is_verified: true }] }
+                    where: { [Op.and]: [{ block_status: false, delete_status: false}] }
                 }]
             }).then(allemp => {
                 return res.json(allemp);
@@ -1263,15 +1275,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Category " + req.body.category_name + " updated!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Category " + req.body.category_name + " updated!", user_id)
+                            })
+                        }
                         return res.json({ success: true, msg: 'Delete Employee leave Successfully' });
                     }
                 });
@@ -1379,7 +1393,7 @@ var returnRouter = function (io) {
                         var d = new Date(daterng);
                         var date = d.getDate(daterng);
                         var day = d.getDay(daterng);//start 1
-                        var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+                        var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
                         cmp_off_day.findOne({
                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
                             // where: { date: daterng, cmp_id: cmp_id },
@@ -1388,72 +1402,71 @@ var returnRouter = function (io) {
                                 // console.log(daterng+"holiday")
                                 callback();
                             } else {
-                        // console.log(daterng+"not holiday")   
-                        var d = new Date(daterng);
-                        var date = d.getDate(daterng);
-                        var day = d.getDay(daterng);//start 1
-                        var weekno = Math.ceil((date + (7- day)) / 7);//start 0
- 
-                        cmp_work_time_assocs.findOne({                 
-                            required: true,
-                            // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
-                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
-                             include: [{
-                                       model: cmp_work_time,
-                                       required: true,
-                                       where: {cmp_id: cmp_id},
-                            }]
-                        }).then(work_time => {
-                            if (work_time) {
-                                // parse time using 24-hour clock and use UTC to prevent DST issues
-                                var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
-                                var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
-                                // account for crossing over to midnight the next day
-                                if (end.isBefore(start)) end.add(1, 'day');
-                                // calculate the duration
-                                var d = moment.duration(end.diff(start));
-                                // subtract the lunch break
-                                // d.subtract(30, 'minutes');
-                                // format a string result
-                                var s = moment.utc(+d).format('HH:mm:ss');
-                                // console.log("s" + s);
-                                var a = s.split(':'); // split it at the colons
-                                // minutes are worth 60 seconds. Hours are worth 60 minutes.
-                                var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
-                                total_seconds = total_seconds + seconds;
-                                callback();
-                            } else {
-                                cmp_work_time.findOne({
+                                // console.log(daterng+"not holiday")   
+                                var d = new Date(daterng);
+                                var date = d.getDate(daterng);
+                                var day = d.getDay(daterng);//start 1
+                                var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
+                                cmp_work_time_assocs.findOne({
                                     required: true,
-                                    where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
-                                }).then(work_time1 => {
-                                    // if(work_time1){
-                                    // parse time using 24-hour clock and use UTC to prevent DST issues
-                                    var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
-                                    var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-                                    // account for crossing over to midnight the next day
-                                    if (end.isBefore(start)) end.add(1, 'day');
-                                    // calculate the duration
-                                    var d1 = moment.duration(end.diff(start));
-                                    // subtract the lunch break
-                                    // d.subtract(30, 'minutes');
-                                    // format a string result
-                                    var s1 = moment.utc(+d1).format('HH:mm:ss');
-                                    // console.log("e" + s1);
-                                    var a1 = s1.split(':'); // split it at the colons
-                                    // minutes are worth 60 seconds. Hours are worth 60 minutes.
-                                    var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
-                                    total_seconds = total_seconds + seconds1;
-                                    callback();
-                                    // }
-                                    // callback(); 
+                                    // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                                    where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
+                                    include: [{
+                                        model: cmp_work_time,
+                                        required: true,
+                                        where: { cmp_id: cmp_id },
+                                    }]
+                                }).then(work_time => {
+                                    if (work_time) {
+                                        // parse time using 24-hour clock and use UTC to prevent DST issues
+                                        var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
+                                        var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
+                                        // account for crossing over to midnight the next day
+                                        if (end.isBefore(start)) end.add(1, 'day');
+                                        // calculate the duration
+                                        var d = moment.duration(end.diff(start));
+                                        // subtract the lunch break
+                                        // d.subtract(30, 'minutes');
+                                        // format a string result
+                                        var s = moment.utc(+d).format('HH:mm:ss');
+                                        // console.log("s" + s);
+                                        var a = s.split(':'); // split it at the colons
+                                        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                        var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+                                        total_seconds = total_seconds + seconds;
+                                        callback();
+                                    } else {
+                                        cmp_work_time.findOne({
+                                            required: true,
+                                            where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
+                                        }).then(work_time1 => {
+                                            // if(work_time1){
+                                            // parse time using 24-hour clock and use UTC to prevent DST issues
+                                            var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                            var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                            // account for crossing over to midnight the next day
+                                            if (end.isBefore(start)) end.add(1, 'day');
+                                            // calculate the duration
+                                            var d1 = moment.duration(end.diff(start));
+                                            // subtract the lunch break
+                                            // d.subtract(30, 'minutes');
+                                            // format a string result
+                                            var s1 = moment.utc(+d1).format('HH:mm:ss');
+                                            // console.log("e" + s1);
+                                            var a1 = s1.split(':'); // split it at the colons
+                                            // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                            var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
+                                            total_seconds = total_seconds + seconds1;
+                                            callback();
+                                            // }
+                                            // callback(); 
+                                        });
+                                    }
                                 });
                             }
                         });
                     }
                 });
-            }
-        });
             }, function (err) {
                 console.log("tot" + total_seconds);
                 // });
@@ -1480,19 +1493,19 @@ var returnRouter = function (io) {
                                 attributes: ['title', 'date'],
                                 required: true,
                                 where: { cmp_id: cmp_id },
-                        }).then(holiday => {
-                            // console.log(holiday.title);
-                            holiday.forEach((element) => {
-                                var startdate = dateFormat(req.body.startdate, "isoDate");
-                                var enddate = dateFormat(req.body.enddate, "isoDate");
-                                console.log("jk" + startdate);
-                                console.log(element.date);
-                                if (!isErr && (startdate == element.date || enddate == element.date)) {
-                                    errMsg = "*" + element.date + "" + element.title + "" + "Holiday! ";
-                                    isErr = true;
-                                }
-                            }); callback();
-                        });
+                            }).then(holiday => {
+                                // console.log(holiday.title);
+                                holiday.forEach((element) => {
+                                    var startdate = dateFormat(req.body.startdate, "isoDate");
+                                    var enddate = dateFormat(req.body.enddate, "isoDate");
+                                    console.log("jk" + startdate);
+                                    console.log(element.date);
+                                    if (!isErr && (startdate == element.date || enddate == element.date)) {
+                                        errMsg = "*" + element.date + "" + element.title + "" + "Holiday! ";
+                                        isErr = true;
+                                    }
+                                }); callback();
+                            });
                         }, function (callback) {
                             var d = new Date(req.body.startdate);
                             var date = d.getDate(req.body.startdate);
@@ -1648,15 +1661,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Leave added successfully!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Leave added successfully!", user_id)
+                                    })
+                                }
                                 res.json({ success: true, msg: "Leave added Successfully" });
                             } else {
                                 res.json({ success: false, msg: errMsg });
@@ -1742,7 +1757,7 @@ var returnRouter = function (io) {
                         var d = new Date(daterng);
                         var date = d.getDate(daterng);
                         var day = d.getDay(daterng);//start 1
-                        var weekno = Math.ceil((date + (7- day)) / 7);//start 0
+                        var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
                         cmp_off_day.findOne({
                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
                             // where: { date: daterng, cmp_id: cmp_id },
@@ -1751,73 +1766,73 @@ var returnRouter = function (io) {
                                 // console.log(daterng+"holiday")
                                 callback();
                             } else {
-                        // console.log(daterng+"not holiday")   
-                        var d = new Date(daterng);
-                        var date = d.getDate(daterng);
-                        var day = d.getDay(daterng);//start 1
-                        var weekno = Math.ceil((date + (7- day)) / 7);//start 0
-                        // var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
-                        // var weekno = weekOfMonth + 1;
-                        //console.log(day);
-                        // console.log(weekno);
-                        //  console.log( parseInt(weekOfMonth));          
-                        cmp_work_time_assocs.findOne({                 
-                            required: true,
-                            // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
-                             where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
-                             include: [{
-                                       model: cmp_work_time,
-                                       required: true,
-                                       where: {cmp_id: cmp_id},
-                            }]
-                        }).then(work_time => {
-                            if (work_time) {
-                                // parse time using 24-hour clock and use UTC to prevent DST issues
-                                var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
-                                var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
-                                // account for crossing over to midnight the next day
-                                if (end.isBefore(start)) end.add(1, 'day');
-                                // calculate the duration
-                                var d = moment.duration(end.diff(start));
-                                // subtract the lunch break
-                                // d.subtract(30, 'minutes');
-                                // format a string result
-                                var s = moment.utc(+d).format('HH:mm:ss');
-                                // console.log("s" + s);
-                                var a = s.split(':'); // split it at the colons
-                                // minutes are worth 60 seconds. Hours are worth 60 minutes.
-                                var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
-                                total_seconds = total_seconds + seconds;
-                                callback();
-                            } else {
-                                cmp_work_time.findOne({
+                                // console.log(daterng+"not holiday")   
+                                var d = new Date(daterng);
+                                var date = d.getDate(daterng);
+                                var day = d.getDay(daterng);//start 1
+                                var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
+                                // var weekOfMonth = Math.ceil((date - 1 - day) / 7);//start 0
+                                // var weekno = weekOfMonth + 1;
+                                //console.log(day);
+                                // console.log(weekno);
+                                //  console.log( parseInt(weekOfMonth));          
+                                cmp_work_time_assocs.findOne({
                                     required: true,
-                                    where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
-                                }).then(work_time1 => {
-                                    // parse time using 24-hour clock and use UTC to prevent DST issues
-                                    var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
-                                    var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-                                    // account for crossing over to midnight the next day
-                                    if (end.isBefore(start)) end.add(1, 'day');
-                                    // calculate the duration
-                                    var d1 = moment.duration(end.diff(start));
-                                    // subtract the lunch break
-                                    // d.subtract(30, 'minutes');
-                                    // format a string result
-                                    var s1 = moment.utc(+d1).format('HH:mm:ss');
-                                    // console.log("e" + s1);
-                                    var a1 = s1.split(':'); // split it at the colons
-                                    // minutes are worth 60 seconds. Hours are worth 60 minutes.
-                                    var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
-                                    total_seconds = total_seconds + seconds1;
-                                    callback();
+                                    // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
+                                    where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno) }] },
+                                    include: [{
+                                        model: cmp_work_time,
+                                        required: true,
+                                        where: { cmp_id: cmp_id },
+                                    }]
+                                }).then(work_time => {
+                                    if (work_time) {
+                                        // parse time using 24-hour clock and use UTC to prevent DST issues
+                                        var start = moment.utc('"' + work_time.tbl_cmp_work_time.start_time + '"', "HH:mm:ss");
+                                        var end = moment.utc('"' + work_time.tbl_cmp_work_time.end_time + '"', "HH:mm:ss");
+                                        // account for crossing over to midnight the next day
+                                        if (end.isBefore(start)) end.add(1, 'day');
+                                        // calculate the duration
+                                        var d = moment.duration(end.diff(start));
+                                        // subtract the lunch break
+                                        // d.subtract(30, 'minutes');
+                                        // format a string result
+                                        var s = moment.utc(+d).format('HH:mm:ss');
+                                        // console.log("s" + s);
+                                        var a = s.split(':'); // split it at the colons
+                                        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                        var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+                                        total_seconds = total_seconds + seconds;
+                                        callback();
+                                    } else {
+                                        cmp_work_time.findOne({
+                                            required: true,
+                                            where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
+                                        }).then(work_time1 => {
+                                            // parse time using 24-hour clock and use UTC to prevent DST issues
+                                            var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                            var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                            // account for crossing over to midnight the next day
+                                            if (end.isBefore(start)) end.add(1, 'day');
+                                            // calculate the duration
+                                            var d1 = moment.duration(end.diff(start));
+                                            // subtract the lunch break
+                                            // d.subtract(30, 'minutes');
+                                            // format a string result
+                                            var s1 = moment.utc(+d1).format('HH:mm:ss');
+                                            // console.log("e" + s1);
+                                            var a1 = s1.split(':'); // split it at the colons
+                                            // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                            var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
+                                            total_seconds = total_seconds + seconds1;
+                                            callback();
+                                        });
+                                    }
                                 });
                             }
                         });
                     }
                 });
-            }
-         });
             }, function (err) {
                 console.log("tot" + total_seconds);
                 // });
@@ -1984,15 +1999,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Leave updated!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Leave updated!", user_id)
+                                    })
+                                }
                                 res.json({ success: true, msg: "Leave updated Successfully" });
                             } else {
                                 res.json({ success: false, msg: errMsg });
@@ -2139,15 +2156,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("User status changed!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("User status changed!", user_id)
+                            })
+                        }
                         res.json({ success: true, msg: "user status change Successfully" });
                     } else {
                         res.json({ success: false, msg: " user status change Failed" });
@@ -2312,15 +2331,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Leave Rejected!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Leave Rejected!", user_id)
+                            })
+                        }
                         res.json({ success: true, msg: "Leave Reject Successfully" });
                     })
             }
@@ -2361,15 +2382,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Leave Accepted!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Leave Accepted!", user_id)
+                            })
+                        }
                         res.json({ success: true, msg: "Leave Accept Successfully" });
                     } else {
                         res.json({ success: false, msg: "Failed" });
@@ -2581,15 +2604,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Rejected Time extention request", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Rejected Time extention request", user_id)
+                            })
+                        }
                         return res.json({ success: true, msg: 'Rejected Successfully' });
                     }
                 });
@@ -2632,15 +2657,17 @@ var returnRouter = function (io) {
                             // console.log(newPlan);
                             var id = decoded.id;
                             // var role = req.body.id
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                user_id = resUser.id;
-                                saveLog("Time extention request sent to admin!", user_id)
-                            })
+                            if(decoded.role_id == 3){
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("Time extention request sent to admin!", user_id)
+                                })
+                            }
                             return res.json({ success: true, msg: 'send to admin Successfully' });
                         }
                     });
@@ -2855,15 +2882,17 @@ var returnRouter = function (io) {
                                             // console.log(newPlan);
                                             var id = decoded.id;
                                             // var role = req.body.id
-                                            var user_id;
-                                            Users.find({
-                                                where: {
-                                                    login_id: id
-                                                }
-                                            }).then(resUser => {
-                                                user_id = resUser.id;
-                                                saveLog("Subscription upgraded!", user_id)
-                                            })
+                                            if(decoded.role_id == 3){
+                                                var user_id;
+                                                Users.find({
+                                                    where: {
+                                                        login_id: id
+                                                    }
+                                                }).then(resUser => {
+                                                    user_id = resUser.id;
+                                                    saveLog("Subscription upgraded!", user_id)
+                                                })
+                                             }
                                             res.json({ success: true, msg: "Success" });
                                         }
                                         else {
@@ -3073,15 +3102,17 @@ var returnRouter = function (io) {
                                     // console.log(newPlan);
                                     var id = decoded.id;
                                     // var role = req.body.id
-                                    var user_id;
-                                    Users.find({
-                                        where: {
-                                            login_id: id
-                                        }
-                                    }).then(resUser => {
-                                        user_id = resUser.id;
-                                        saveLog("Project " + project_name + " created!", user_id)
-                                    })
+                                    if(decoded.role_id == 3){
+                                        var user_id;
+                                        Users.find({
+                                            where: {
+                                                login_id: id
+                                            }
+                                        }).then(resUser => {
+                                            user_id = resUser.id;
+                                            saveLog("Project " + project_name + " created!", user_id)
+                                        })
+                                }
                                     res.json({ success: true, msg: "Project Created Successfully, Your Project code is " + project.project_code, id: newProject.id });
                                 })
                             }
@@ -3237,7 +3268,7 @@ var returnRouter = function (io) {
                             // // console.log("Account deleted");
                         }
                         else if (login.role_id == 1 || login.role_id == 3) {
-                            if (login.role_id == 1 && login.cmp_status == "Not Verified" || login.is_verified == false) {
+                            if (login.role_id == 1 && (login.cmp_status == "Not Verified" || login.is_verified == false)) {
                                 return res.json({ success: false, msg: 'Company not verified' });
                             }
                             // if (login.is_profile_completed == false) {
@@ -3521,7 +3552,7 @@ var returnRouter = function (io) {
                 // // console.log("Account deleted");
                 return res.json({ success: false, msg: 'Account deleted' });
             }
-            else if (login.cmp_status == "Not Verified" || login.is_verified == false) {
+            else if ((login.cmp_status == "Not Verified" || login.is_verified == false) && login.role_id == 1) {
                 // // console.log("Company not verified'");
                 return res.json({ success: false, msg: 'Company not verified' });
             }
@@ -3596,7 +3627,7 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            // cmp_id = decoded.cmp_id;
+            cmp_id = decoded.cmp_id;
             Login.findOne({
                 include: [{
                     model: Company, where: { id: req.params.id }
@@ -4233,6 +4264,7 @@ var returnRouter = function (io) {
                         // console.log(resTeamAssoc);
                         // console.log(newPlan);
                         var id = decoded.id;
+                        if(decoded.role_id == 3){
                         // var role = req.body.id
                         var user_id;
                         Users.find({
@@ -4243,6 +4275,7 @@ var returnRouter = function (io) {
                             user_id = resUser.id;
                             saveLog("Team members assigned!", user_id)
                         })
+                    }
                         res.json({
                             status: 1,
                             Message: "Successfully assigned!"
@@ -4509,26 +4542,26 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc    
-    router.get('/get-off-days-assoc', function (req, res) {
-        if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4), decoded;
-            decoded = jwt.verify(authorization, Config.secret);
-            cmp_work_times.findAll({
-                // where: { cmp_id: decoded.cmp_id }
-                include: [
-                    {
-                        model: cmp_off_day_assoc,
-                    }
-                ]
-            }).then(offdays => {
-                // console.log(offdays);
-                res.json(offdays);
-            });
-        }
-        else {
-            return res.status(401).send('Invalid User');
-        }
-    });
+    // router.get('/get-off-days-assoc', function (req, res) {
+    //     if (req.headers && req.headers.authorization) {
+    //         var authorization = req.headers.authorization.substring(4), decoded;
+    //         decoded = jwt.verify(authorization, Config.secret);
+    //         cmp_work_times.findAll({
+    //             // where: { cmp_id: decoded.cmp_id }
+    //             include: [
+    //                 {
+    //                     model: cmp_off_day_assoc,
+    //                 }
+    //             ]
+    //         }).then(offdays => {
+    //             // console.log(offdays);
+    //             res.json(offdays);
+    //         });
+    //     }
+    //     else {
+    //         return res.status(401).send('Invalid User');
+    //     }
+    // });
     // ----------------------------------End-----------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : get-break-time
@@ -4883,15 +4916,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Project updated!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Project updated!", user_id)
+                                    })
+                                }
                                 res.json({ success: true, msg: "Success" });
                             }
                             else {
@@ -4957,15 +4992,17 @@ var returnRouter = function (io) {
                 // console.log(newPlan);
                 var id = decoded.id;
                 // var role = req.body.id
-                var user_id;
-                Users.find({
-                    where: {
-                        login_id: id
-                    }
-                }).then(resUser => {
-                    user_id = resUser.id;
-                    saveLog("Project deleted!", user_id)
-                })
+                if(decoded.role_id == 3){
+                    var user_id;
+                    Users.find({
+                        where: {
+                            login_id: id
+                        }
+                    }).then(resUser => {
+                        user_id = resUser.id;
+                        saveLog("Project deleted!", user_id)
+                    })
+                }
                 res.json({ success: true, msg: "Success" });
             });
         } else {
@@ -5542,16 +5579,18 @@ var returnRouter = function (io) {
                         });
                         // console.log(newPlan);
                         var id = decoded.id;
-                        // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Project plan accepted!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            // var role = req.body.id
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Project plan accepted!", user_id)
+                            })
+                        }
                     } else {
                         res.json({ success: false, msg: "Failed" });
                     }
@@ -5641,15 +5680,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Project submitted for re-estimation!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Project submitted for re-estimation!", user_id)
+                            })
+                        }
                         res.json({ success: true, msg: "Success" });
                     } else {
                         res.json({ success: false, msg: "Failed" });
@@ -5961,15 +6002,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("members and head assigned!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("members and head assigned!", user_id)
+                            })
+                        }
                         res.json({
                             status: 1,
                             Message: "Successfully assigned!"
@@ -6248,16 +6291,18 @@ var returnRouter = function (io) {
                         () => {
                             // console.log(newPlan);
                             var id = decoded.id;
-                            // var role = req.body.id
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                user_id = resUser.id;
-                                saveLog("Access rights assigned!", user_id)
-                            })
+                            if(decoded.role_id == 3){
+                                // var role = req.body.id
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("Access rights assigned!", user_id)
+                                })
+                            }
                             res.json({
                                 status: 1,
                                 message: "Successfully assigned!"
@@ -6338,7 +6383,8 @@ var returnRouter = function (io) {
             console.log(req.body)
             var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
-            if (req.body.start.hour == '' || !(/^\d+$/.test(req.body.start.hour)) || req.body.start.minute == '' || !(/^\d+$/.test(req.body.start.minute)) || req.body.end.hour == '' || !(/^\d+$/.test(req.body.end.hour)) || req.body.end.minute == '' || !(/^\d+$/.test(req.body.end.minute))) {
+            if (req.body.start.hour == ''  || req.body.start.minute == '' ||  req.body.end.hour == '' || req.body.end.minute == '' ) {
+            // if (req.body.start.hour == '' || !(/^\d+$/.test(req.body.start.hour)) || req.body.start.minute == '' || !(/^\d+$/.test(req.body.start.minute)) || req.body.end.hour == '' || !(/^\d+$/.test(req.body.end.hour)) || req.body.end.minute == '' || !(/^\d+$/.test(req.body.end.minute))) {
                 res.json({
                     status: 0,
                     message: "Error time format!"
@@ -6360,15 +6406,17 @@ var returnRouter = function (io) {
                     // console.log(newPlan);
                     var id = decoded.id;
                     // var role = req.body.id
-                    var user_id;
-                    Users.find({
-                        where: {
-                            login_id: id
-                        }
-                    }).then(resUser => {
-                        user_id = resUser.id;
-                        saveLog("Company working time saved!", user_id)
-                    })
+                    if(decoded.role_id == 3){
+                        var user_id;
+                        Users.find({
+                            where: {
+                                login_id: id
+                            }
+                        }).then(resUser => {
+                            user_id = resUser.id;
+                            saveLog("Company working time saved!", user_id)
+                        })
+                    }
                     res.json({
                         status: 1,
                         message: "Successfully saved!"
@@ -6433,15 +6481,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Break deleted!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Break deleted!", user_id)
+                            })
+                        }
                         res.json({
                             status: 1,
                             message: "Deleted Successfully!"
@@ -6494,15 +6544,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Break saved!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Break saved!", user_id)
+                            })
+                        }
                         res.json({
                             status: 1,
                             message: "Successfully saved!"
@@ -6693,26 +6745,26 @@ var returnRouter = function (io) {
     // Date          : 15-03-2018
     // Last Modified : 15-03-2018, Jooshifa
     // Desc
-    router.get('/get-off-days-assoc', function (req, res) {
-        if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4), decoded;
-            decoded = jwt.verify(authorization, Config.secret);
-            cmp_work_times.findAll({
-                where: { cmp_id: decoded.cmp_id },
-                include: [
-                    {
-                        model: cmp_off_day_assoc,
-                    }
-                ]
-            }).then(offdays => {
-                // console.log(offdays);
-                res.json(offdays);
-            });
-        }
-        else {
-            return res.status(401).send('Invalid User');
-        }
-    });
+    // router.get('/get-off-days-assoc', function (req, res) {
+    //     if (req.headers && req.headers.authorization) {
+    //         var authorization = req.headers.authorization.substring(4), decoded;
+    //         decoded = jwt.verify(authorization, Config.secret);
+    //         cmp_work_times.findAll({
+    //             where: { cmp_id: decoded.cmp_id },
+    //             include: [
+    //                 {
+    //                     model: cmp_off_day_assoc,
+    //                 }
+    //             ]
+    //         }).then(offdays => {
+    //             // console.log(offdays);
+    //             res.json(offdays);
+    //         });
+    //     }
+    //     else {
+    //         return res.status(401).send('Invalid User');
+    //     }
+    // });
     // ----------------------------------End-----------------------------------
     // ---------------------------------Start-------------------------------------------
     // Function      : get-break-time
@@ -6878,15 +6930,17 @@ var returnRouter = function (io) {
                                     // console.log(newPlan);
                                     var id = decoded.id;
                                     // var role = req.body.id
-                                    var user_id;
-                                    Users.find({
-                                        where: {
-                                            login_id: id
-                                        }
-                                    }).then(resUser => {
-                                        user_id = resUser.id;
-                                        saveLog("Holiday Updated!", user_id)
-                                    })
+                                    if(decoded.role_id == 3){
+                                        var user_id;
+                                        Users.find({
+                                            where: {
+                                                login_id: id
+                                            }
+                                        }).then(resUser => {
+                                            user_id = resUser.id;
+                                            saveLog("Holiday Updated!", user_id)
+                                        })
+                                    }
                                     res.json({
                                         status: 1,
                                         message: "Successfully Updated!"
@@ -6939,15 +6993,17 @@ var returnRouter = function (io) {
                     // console.log(newPlan);
                     var id = decoded.id;
                     // var role = req.body.id
-                    var user_id;
-                    Users.find({
-                        where: {
-                            login_id: id
-                        }
-                    }).then(resUser => {
-                        user_id = resUser.id;
-                        saveLog("Holiday deleted!", user_id)
-                    })
+                    if(decoded.role_id == 3){
+                        var user_id;
+                        Users.find({
+                            where: {
+                                login_id: id
+                            }
+                        }).then(resUser => {
+                            user_id = resUser.id;
+                            saveLog("Holiday deleted!", user_id)
+                        })
+                    }
                     res.json({
                         status: 1,
                         message: "Successfully deleted!"
@@ -7017,15 +7073,17 @@ var returnRouter = function (io) {
                             // console.log(newPlan);
                             var id = decoded.id;
                             // var role = req.body.id
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                user_id = resUser.id;
-                                saveLog("Holiday saved!", user_id)
-                            })
+                            if(decoded.role_id == 3){
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("Holiday saved!", user_id)
+                                })
+                            }
                             res.json({
                                 status: 1,
                                 message: "Successfully saved!"
@@ -7220,16 +7278,16 @@ var returnRouter = function (io) {
             include: [{
                 model: Company, where: { id: req.params.id }
             }]
-        }).then(newdata => {
-            const token = jwt.sign(login, Config.secret, {
+        }).then(login => {
+            const token = jwt.sign(login.toJSON(), Config.secret, {
                 expiresIn: 60400 // sec 1 week
             });
             return res.json({
                 success: true,
                 token: 'JWT ' + token,
                 login: {
-                    id: req.params.id,
-                    role: newdata.role_id,
+                    id: login.id,
+                    role: login.role_id,
                 }
             });
             // // console.log(projects);
@@ -8203,15 +8261,17 @@ var returnRouter = function (io) {
                                         // console.log(newPlan);
                                         var id = decoded.id;
                                         // var role = req.body.id
-                                        var user_id;
-                                        Users.find({
-                                            where: {
-                                                login_id: id
-                                            }
-                                        }).then(resUser => {
-                                            user_id = resUser.id;
-                                            saveLog("New task request approved!", user_id)
-                                        })
+                                        if(decoded.role_id == 3){
+                                            var user_id;
+                                            Users.find({
+                                                where: {
+                                                    login_id: id
+                                                }
+                                            }).then(resUser => {
+                                                user_id = resUser.id;
+                                                saveLog("New task request approved!", user_id)
+                                            })
+                                        }
                                         res.send({ success: true, msg: "Request Approved!" });
                                     }).catch(err => {
                                         res.send({ success: false, msg: "Failed! Try again!" });
@@ -8262,15 +8322,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("New task request rejected!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("New task request rejected!", user_id)
+                                    })
+                                }
                                 res.send({ success: true, msg: "Request rejected!" });
                             }).catch(err => {
                                 res.send({ success: false, msg: "Failed! Try again!" });
@@ -8297,15 +8359,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("New task request rejected!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("New task request rejected!", user_id)
+                                    })
+                                }
                                 res.send({ success: true, msg: "Request rejected!" });
                             }).catch(err => {
                                 res.send({ success: false, msg: "Failed! Try again!" });
@@ -8356,15 +8420,17 @@ var returnRouter = function (io) {
                             // console.log(newPlan);
                             var id = decoded.id;
                             // var role = req.body.id
-                            var user_id;
-                            Users.find({
-                                where: {
-                                    login_id: id
-                                }
-                            }).then(resUser => {
-                                user_id = resUser.id;
-                                saveLog("New task request send for approval!", user_id)
-                            })
+                            if(decoded.role_id == 3){
+                                var user_id;
+                                Users.find({
+                                    where: {
+                                        login_id: id
+                                    }
+                                }).then(resUser => {
+                                    user_id = resUser.id;
+                                    saveLog("New task request send for approval!", user_id)
+                                })
+                            }
                             res.send({ success: true, msg: "Send for Approval!" });
                         }).catch(err => {
                             res.send({ success: false, msg: "Failed! Try again!" });
@@ -8837,15 +8903,17 @@ var returnRouter = function (io) {
                         // console.log(newPlan);
                         var id = decoded.id;
                         // var role = req.body.id
-                        var user_id;
-                        Users.find({
-                            where: {
-                                login_id: id
-                            }
-                        }).then(resUser => {
-                            user_id = resUser.id;
-                            saveLog("Day break saved!", user_id)
-                        })
+                        if(decoded.role_id == 3){
+                            var user_id;
+                            Users.find({
+                                where: {
+                                    login_id: id
+                                }
+                            }).then(resUser => {
+                                user_id = resUser.id;
+                                saveLog("Day break saved!", user_id)
+                            })
+                        }
                         res.json({
                             status: 1,
                             message: "Successfully saved!"
@@ -8899,15 +8967,17 @@ var returnRouter = function (io) {
                     // console.log(newPlan);
                     var id = decoded.id;
                     // var role = req.body.id
-                    var user_id;
-                    Users.find({
-                        where: {
-                            login_id: id
-                        }
-                    }).then(resUser => {
-                        user_id = resUser.id;
-                        saveLog("Day break deleted!", user_id)
-                    })
+                    if(decoded.role_id == 3){
+                        var user_id;
+                        Users.find({
+                            where: {
+                                login_id: id
+                            }
+                        }).then(resUser => {
+                            user_id = resUser.id;
+                            saveLog("Day break deleted!", user_id)
+                        })
+                    }
                     res.json({
                         status: 1,
                         message: "Break deleted Successfully!"
@@ -8987,15 +9057,17 @@ var returnRouter = function (io) {
                                             // console.log(newPlan);
                                             var id = decoded.id;
                                             // var role = req.body.id
-                                            var user_id;
-                                            Users.find({
-                                                where: {
-                                                    login_id: id
-                                                }
-                                            }).then(resUser => {
-                                                user_id = resUser.id;
-                                                saveLog("Day work time saved!", user_id)
-                                            })
+                                            if(decoded.role_id == 3){
+                                                var user_id;
+                                                Users.find({
+                                                    where: {
+                                                        login_id: id
+                                                    }
+                                                }).then(resUser => {
+                                                    user_id = resUser.id;
+                                                    saveLog("Day work time saved!", user_id)
+                                                })
+                                            }
                                             res.json({
                                                 status: 1,
                                                 message: "Successfully saved!"
@@ -9037,15 +9109,17 @@ var returnRouter = function (io) {
                                 // console.log(newPlan);
                                 var id = decoded.id;
                                 // var role = req.body.id
-                                var user_id;
-                                Users.find({
-                                    where: {
-                                        login_id: id
-                                    }
-                                }).then(resUser => {
-                                    user_id = resUser.id;
-                                    saveLog("Assigned off day!", user_id)
-                                })
+                                if(decoded.role_id == 3){
+                                    var user_id;
+                                    Users.find({
+                                        where: {
+                                            login_id: id
+                                        }
+                                    }).then(resUser => {
+                                        user_id = resUser.id;
+                                        saveLog("Assigned off day!", user_id)
+                                    })
+                                }
                                 res.json({
                                     status: 0,
                                     message: "Already assigned as off day!"
@@ -9059,15 +9133,17 @@ var returnRouter = function (io) {
                                     // console.log(newPlan);
                                     var id = decoded.id;
                                     // var role = req.body.id
-                                    var user_id;
-                                    Users.find({
-                                        where: {
-                                            login_id: id
-                                        }
-                                    }).then(resUser => {
-                                        user_id = resUser.id;
-                                        saveLog("Assigned off day!", user_id)
-                                    })
+                                    if(decoded.role_id == 3){
+                                        var user_id;
+                                        Users.find({
+                                            where: {
+                                                login_id: id
+                                            }
+                                        }).then(resUser => {
+                                            user_id = resUser.id;
+                                            saveLog("Assigned off day!", user_id)
+                                        })
+                                    }
                                     res.json({
                                         status: 1,
                                         message: "Successfully saved!"
@@ -9127,15 +9203,17 @@ var returnRouter = function (io) {
                                                     // console.log(newPlan);
                                                     var id = decoded.id;
                                                     // var role = req.body.id
-                                                    var user_id;
-                                                    Users.find({
-                                                        where: {
-                                                            login_id: id
-                                                        }
-                                                    }).then(resUser => {
-                                                        user_id = resUser.id;
-                                                        saveLog("Day work time saved!", user_id)
-                                                    })
+                                                    if(decoded.role_id == 3){
+                                                        var user_id;
+                                                        Users.find({
+                                                            where: {
+                                                                login_id: id
+                                                            }
+                                                        }).then(resUser => {
+                                                            user_id = resUser.id;
+                                                            saveLog("Day work time saved!", user_id)
+                                                        })
+                                                    }
                                                     res.json({
                                                         status: 1,
                                                         message: "Successfully saved!"
@@ -9164,15 +9242,17 @@ var returnRouter = function (io) {
                                                 // console.log(newPlan);
                                                 var id = decoded.id;
                                                 // var role = req.body.id
-                                                var user_id;
-                                                Users.find({
-                                                    where: {
-                                                        login_id: id
-                                                    }
-                                                }).then(resUser => {
-                                                    user_id = resUser.id;
-                                                    saveLog("Day working time saved!", user_id)
-                                                })
+                                                if(decoded.role_id == 3){
+                                                    var user_id;
+                                                    Users.find({
+                                                        where: {
+                                                            login_id: id
+                                                        }
+                                                    }).then(resUser => {
+                                                        user_id = resUser.id;
+                                                        saveLog("Day working time saved!", user_id)
+                                                    })
+                                                }
                                                 res.json({
                                                     status: 1,
                                                     message: "Successfully saved!"
@@ -9245,15 +9325,17 @@ var returnRouter = function (io) {
                                             // console.log(newPlan);
                                             var id = decoded.id;
                                             // var role = req.body.id
-                                            var user_id;
-                                            Users.find({
-                                                where: {
-                                                    login_id: id
-                                                }
-                                            }).then(resUser => {
-                                                user_id = resUser.id;
-                                                saveLog("Day time saved!", user_id)
-                                            })
+                                            if(decoded.role_id == 3){
+                                                var user_id;
+                                                Users.find({
+                                                    where: {
+                                                        login_id: id
+                                                    }
+                                                }).then(resUser => {
+                                                    user_id = resUser.id;
+                                                    saveLog("Day time saved!", user_id)
+                                                })
+                                            }
                                             res.json({
                                                 status: 1,
                                                 message: "Successfully saved!"
@@ -9433,49 +9515,57 @@ var returnRouter = function (io) {
     var taskIndex = 0;
     var memberIndex = 0;
     router.post('/company-planning-enddate', (req, res, next) => {
-        moduleIndex = 0;
-        taskIndex = 0;
-        memberIndex = 0;
-        planningRes = res;
-        planningCmpId = req.body.teamMembers[0].cmp_id;
-        planningMembers = req.body.teamMembers;
-        // console.log(req.body);
-        planningModule = req.body.modules;
-        // req.body.teamMembers.forEach((members,key) => {
-        //     let firstTask = true;
-        //      let take_passing_start_time = true;
-        //     req.body.modules.forEach((module1,moduleIndex) => {
-        //         module1.tbl_estimation_tasks.forEach((task,taskIndex)=>{
-        //             if(task.assigned_person.id == members.id){
-        //                 plannedHr = task.planned_hour + task.buffer_hour;
-        //                 members.start_date = new Date(members.start_date);
-        //                  members.start_date.setHours(members.start_time.hour, members.start_time.minute, members.start_time.second);
-        //                 firstTask = false;
-        //                 isHoliday(task.id, members.id,members.start_date, plannedHr, members.cmp_id,take_passing_start_time, moduleIndex, taskIndex)
-        //             }
-        //         });
-        //     });
-        // });
-        if (req.body.modules[0]) {
-            if (req.body.modules[0].tbl_estimation_tasks[taskIndex]) {
-                if (req.body.teamMembers[memberIndex]) {
-                    if (getNextAvailableTask()) {
-                        chekingTask = planningModule[moduleIndex].tbl_estimation_tasks[taskIndex];
-                        plannedHr = chekingTask.planned_hour + chekingTask.buffer_hour;
-                        plannedHr = plannedHr * 3600;
-                        planningMembers[memberIndex].start_date = new Date(planningMembers[memberIndex].start_date);
-                        planningMembers[memberIndex].start_date.setHours(planningMembers[memberIndex].start_time.hour, planningMembers[memberIndex].start_time.minute, planningMembers[memberIndex].start_time.second);
-                        take_passing_start_time = true;
-                        isHoliday(chekingTask.id, planningMembers[memberIndex].id, planningMembers[memberIndex].start_date, plannedHr, planningMembers[memberIndex].cmp_id, take_passing_start_time)
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            moduleIndex = 0;
+            taskIndex = 0;
+            memberIndex = 0;
+            planningRes = res;
+            planningCmpId = req.body.teamMembers[0].cmp_id;
+            planningMembers = req.body.teamMembers;
+            // console.log(req.body);
+            planningModule = req.body.modules;
+            // req.body.teamMembers.forEach((members,key) => {
+            //     let firstTask = true;
+            //      let take_passing_start_time = true;
+            //     req.body.modules.forEach((module1,moduleIndex) => {
+            //         module1.tbl_estimation_tasks.forEach((task,taskIndex)=>{
+            //             if(task.assigned_person.id == members.id){
+            //                 plannedHr = task.planned_hour + task.buffer_hour;
+            //                 members.start_date = new Date(members.start_date);
+            //                  members.start_date.setHours(members.start_time.hour, members.start_time.minute, members.start_time.second);
+            //                 firstTask = false;
+            //                 isHoliday(task.id, members.id,members.start_date, plannedHr, members.cmp_id,take_passing_start_time, moduleIndex, taskIndex)
+            //             }
+            //         });
+            //     });
+            // });
+            if (req.body.modules[0]) {
+                if (req.body.modules[0].tbl_estimation_tasks[taskIndex]) {
+                    if (req.body.teamMembers[memberIndex]) {
+                        if (getNextAvailableTask()) {
+                            chekingTask = planningModule[moduleIndex].tbl_estimation_tasks[taskIndex];
+                            plannedHr = chekingTask.planned_hour + chekingTask.buffer_hour;
+                            plannedHr = plannedHr * 3600;
+                            planningMembers[memberIndex].start_date = new Date(planningMembers[memberIndex].start_date);
+                            planningMembers[memberIndex].start_date.setHours(planningMembers[memberIndex].start_time.hour, planningMembers[memberIndex].start_time.minute, planningMembers[memberIndex].start_time.second);
+                            take_passing_start_time = true;
+                            isHoliday(chekingTask.id, planningMembers[memberIndex].id, planningMembers[memberIndex].start_date, plannedHr, planningMembers[memberIndex].cmp_id, take_passing_start_time)
+                        }
+                    } else {
+                        res.json({ success: false, msg: "No Member assigned" });
                     }
                 } else {
-                    res.json({ success: false, msg: "No Member assigned" });
+                    res.json({ success: false, msg: " No Task For first module" });
                 }
             } else {
-                res.json({ success: false, msg: " No Task For first module" });
+                res.json({ success: false, msg: " No module selected" });
             }
-        } else {
-            res.json({ success: false, msg: " No module selected" });
+        }
+        else {
+            return res.status(401).send('Invalid User');
         }
     });
     function getNextAvailableTask() {
@@ -9641,7 +9731,7 @@ var returnRouter = function (io) {
     function calculateWorkingHours(working_time, start_date_time, take_passing_start_time, plannedHr, start_available_hrs, end_available_hrs) {
         console.log(' ----pln ----');
         console.log(plannedHr);
-        if (take_passing_start_time) {
+        if ((start_date_time <=working_time.start_time) && take_passing_start_time) {
             hr = start_date_time.getHours();
             mnt = start_date_time.getMinutes();
             sec = start_date_time.getSeconds();
@@ -9821,6 +9911,7 @@ var returnRouter = function (io) {
                     } else {
                         console.log('task complete on the same day');
                         brkTtlhr = 0;
+                        anyBreakTtl = false;
                         if (cmp_breakdefault && cmp_breakdefault.length > 0) {
                             console.log('there is break');
                             gotanyBreak = false;
@@ -9844,13 +9935,22 @@ var returnRouter = function (io) {
                                         getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
                                     } else {
                                         brkTtlhr += timeToSec(elm.end_time) - timeToSec(elm.start_time);
+                                        anyBreakTtl = true;
                                     }
                                 }
                             });
                             if (!gotanyBreak) {
-                                endTimePlannedSec = startTimeSec + PlannedHrSec;
-                                console.log(' task End  ' + planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name + "  " + secToTimeFormat(endTimePlannedSec));
-                                getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
+                                if(anyBreakTtl){
+                                    diff = endTimeSec - (startTimeSec + brkTtlhr);
+                                    endTimePlannedSec = endTimeSec - (diff - PlannedHrSec);
+                                    console.log(' task End  ' + planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name + "  " + secToTimeFormat(endTimePlannedSec));
+                                    gotanyBreak = true;
+                                    getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
+                                }else{
+                                    endTimePlannedSec = startTimeSec + PlannedHrSec;
+                                    console.log(' task End  ' + planningModule[moduleIndex].tbl_estimation_tasks[taskIndex].task_name + "  " + secToTimeFormat(endTimePlannedSec));
+                                    getTaskEndDateTime(endTimePlannedSec, start_date_time, ttlWorkingSec, PlannedHrSec, working_time);
+                                }
                             }
                         } else {
                             endTimePlannedSec = startTimeSec + PlannedHrSec;
@@ -9945,122 +10045,131 @@ var returnRouter = function (io) {
     // Last Modified :
     // Desc          : 
     router.post('/save-company-planning-datas', (req, res) => {
+        // console.log(req.body)
         // cmp_id = decoded.cmp_id;
-        cmp_id = 1
-        var isSuccess = true;
-        var msg = '';
-        Company.findById(cmp_id).then(cmp => {
-            Plans.findById(cmp.plan_id).then(plan => {
-                Modules.findAll({
-                }).then(modulesNumer => {
-                    Tasks.findAll({
-                    }).then(TasksNumer => {
-                        if (!req.body) {
-                            res.send({ success: false, msg: "No data found" });
-                        }
-                        else {
-                            if (req.body.length == 0) {
-                                isSuccess = false;
-                                msg = "Atleast one module should add";
-                            }
-                            if (plan.no_modules !== 'Unlimited' && (req.body.length + modulesNumer.length) > plan.no_modules) {
-                                var moduleDiffrnce = plan.no_modules - modulesNumer.length
-                                if (moduleDiffrnce > 0) {
-                                    isSuccess = false;
-                                    res.send({ success: false, msg: "You can add only add " + moduleDiffrnce + " modules more" });
-                                } else {
-                                    isSuccess = false;
-                                    res.send({ success: false, msg: "Plan limit exceed maximum number of modules are added" });
-                                }
+        if (req.headers && req.headers.authorization) {
+            var authorization = req.headers.authorization.substring(4), decoded;
+            decoded = jwt.verify(authorization, Config.secret);
+            var cmp_id = decoded.cmp_id;
+            var isSuccess = true;
+            var msg = '';
+            Company.findById(cmp_id).then(cmp => {
+                Plans.findById(cmp.plan_id).then(plan => {
+                    Modules.findAll({
+                    }).then(modulesNumer => {
+                        Tasks.findAll({
+                        }).then(TasksNumer => {
+                            if (!req.body) {
+                                res.send({ success: false, msg: "No data found" });
                             }
                             else {
-                                req.body.forEach((modules) => {
-                                    if (modules.tbl_estimation_tasks.length == 0) {
+                                if (req.body.length == 0) {
+                                    isSuccess = false;
+                                    msg = "Atleast one module should add";
+                                }
+                                if (plan.no_modules !== 'Unlimited' && (req.body.length + modulesNumer.length) > plan.no_modules) {
+                                    var moduleDiffrnce = plan.no_modules - modulesNumer.length
+                                    if (moduleDiffrnce > 0) {
                                         isSuccess = false;
-                                        msg = "Atleast one task needed for each module";
+                                        res.send({ success: false, msg: "Failed! You can only add only add " + moduleDiffrnce + " modules more in this plan" });
+                                    } else {
+                                        isSuccess = false;
+                                        res.send({ success: false, msg: "Plan limit exceed maximum number of modules are added" });
                                     }
-                                    if (plan.no_tasks !== 'Unlimited' && (modules.tbl_estimation_tasks.length + TasksNumer.length) > plan.no_tasks) {
-                                        var taskDiffrnce = plan.no_modules - TasksNumer.length
-                                        if (taskDiffrnce > 0) {
+                                }
+                                else {
+                                    req.body.forEach((modules) => {
+                                        if (modules.tbl_estimation_tasks.length == 0) {
                                             isSuccess = false;
-                                            res.send({ success: false, msg: "You can add only add " + taskDiffrnce + " tasks more" });
-                                        } else {
-                                            isSuccess = false;
-                                            res.send({ success: false, msg: "Plan limit exceed maximum number of tasks are added" });
+                                            msg = "Atleast one task needed for each module";
                                         }
-                                    }
-                                    else {
-                                        modules.tbl_estimation_tasks.forEach((tasks) => {
-                                            if (!tasks.assigned_person) {
+                                        if (plan.no_tasks !== 'Unlimited' && (modules.tbl_estimation_tasks.length + TasksNumer.length) > plan.no_tasks) {
+                                            var taskDiffrnce = plan.no_modules - TasksNumer.length
+                                            if (taskDiffrnce > 0) {
                                                 isSuccess = false;
-                                                msg = "Please assign team member to each task";
+                                                res.send({ success: false, msg: "You can add only add " + taskDiffrnce + " tasks more" });
+                                            } else {
+                                                isSuccess = false;
+                                                res.send({ success: false, msg: "Plan limit exceed maximum number of tasks are added" });
                                             }
-                                        });
-                                    }
-                                });
-                            }
-                            if (isSuccess) {
-                                async.eachOfSeries(req.body, (modules, key, callback) => {
-                                    const projectModules = Modules.build({
-                                        module_name: modules.module_name,
-                                        project_id: modules.tbl_estimation.project_id
-                                    })
-                                    projectModules.save().then(saveProjectModules => {
-                                        async.eachOfSeries(modules.tbl_estimation_tasks, (tasks, key1, callback1) => {
-                                            const ProjectTeams = Project_teams.build({
-                                                team_id: tasks.assigned_person.team_id,
-                                                project_id: modules.tbl_estimation.project_id
+                                        }
+                                        else {
+                                            modules.tbl_estimation_tasks.forEach((tasks) => {
+                                                if (!tasks.assigned_person) {
+                                                    isSuccess = false;
+                                                    msg = "Please assign team member to each task";
+                                                }
                                             });
-                                            ProjectTeams.save().then(saveProjectTeams => {
-                                                const projectMemberAssocs = project_member_assocs.build({
-                                                    user_profile_id: tasks.assigned_person.id,
-                                                    project_id: modules.tbl_estimation.project_id,
-                                                    project_team_id: saveProjectTeams.id
-                                                });
-                                                projectMemberAssocs.save().then(saveprojectMemberAssocs => {
-                                                    const projectTasks = Tasks.build({
-                                                        task_name: tasks.task_name,
-                                                        planned_hour: tasks.planned_hour,
-                                                        buffer_hour: tasks.buffer_hour,
-                                                        description: tasks.description,
-                                                        priority: tasks.priority,
-                                                        task_type: tasks.task_type,
-                                                        planned_start_date_time: tasks.start_date_time,
-                                                        planned_end_date_time: tasks.end_date_time,
-                                                        attachment: tasks.docSrc,
-                                                        project_module_id: saveProjectModules.id,
-                                                        assigned_to_id: tasks.assigned_person.id,
-                                                        complexity_id: tasks.complexity,
-                                                        project_team_id: saveprojectMemberAssocs.project_team_id
-                                                    });
-                                                    projectTasks.save().then(saveProjectTasks => {
-                                                        const task_status_assoc = tbl_task_status_assoc.build({
-                                                            task_id: saveProjectTasks.id,
-                                                            status_id: 1
-                                                        });
-                                                        task_status_assoc.save().then(saveTaskStatusAssoc => {
-                                                            isSuccess = true;
-                                                            msg = 'saved Successfully';
-                                                            callback1();
-                                                        });
-                                                    });
-                                                });
-                                            });
-                                        }, () => {
-                                            callback();
-                                        });
+                                        }
                                     });
-                                }, () => {
-                                    res.send({ success: isSuccess, msg: msg });
-                                });
-                            } else {
-                                // res.send({ success: isSuccess, msg: msg });
+                                }
+                                if (isSuccess) {
+                                    async.eachOfSeries(req.body, (modules, key, callback) => {
+                                        const projectModules = Modules.build({
+                                            module_name: modules.module_name,
+                                            project_id: modules.tbl_estimation.project_id
+                                        })
+                                        projectModules.save().then(saveProjectModules => {
+                                            async.eachOfSeries(modules.tbl_estimation_tasks, (tasks, key1, callback1) => {
+                                                console.log(tasks);
+                                                const ProjectTeams = Project_teams.build({
+                                                    team_id: tasks.assigned_person.team_id,
+                                                    project_id: modules.tbl_estimation.project_id
+                                                });
+                                                ProjectTeams.save().then(saveProjectTeams => {
+                                                    const projectMemberAssocs = project_member_assocs.build({
+                                                        user_profile_id: tasks.assigned_person.id,
+                                                        project_id: modules.tbl_estimation.project_id,
+                                                        project_team_id: saveProjectTeams.id
+                                                    });
+                                                    projectMemberAssocs.save().then(saveprojectMemberAssocs => {
+                                                        const projectTasks = Tasks.build({
+                                                            task_name: tasks.task_name,
+                                                            planned_hour: tasks.planned_hour,
+                                                            buffer_hour: tasks.buffer_hour,
+                                                            description: tasks.description,
+                                                            priority: tasks.priority,
+                                                            task_type: tasks.task_type,
+                                                            planned_start_date_time: tasks.start_date_time_new,
+                                                            planned_end_date_time: tasks.end_date_time,
+                                                            attachment: tasks.docSrc,
+                                                            project_module_id: saveProjectModules.id,
+                                                            assigned_to_id: tasks.assigned_person.id,
+                                                            complexity_id: tasks.complexity,
+                                                            project_team_id: saveprojectMemberAssocs.project_team_id
+                                                        });
+                                                        projectTasks.save().then(saveProjectTasks => {
+                                                            const taskStatusAssoc = task_status_assoc.build({
+                                                                task_id: saveProjectTasks.id,
+                                                                status_id: 1
+                                                            });
+                                                            taskStatusAssoc.save().then(saveTaskStatusAssoc => {
+                                                                isSuccess = true;
+                                                                msg = 'saved Successfully';
+                                                                callback1();
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            }, () => {
+                                                callback();
+                                            });
+                                        });
+                                    }, () => {
+                                        res.send({ success: isSuccess, msg: msg });
+                                    });
+                                } else {
+                                    // res.send({ success: isSuccess, msg: msg });
+                                }
                             }
-                        }
+                        });
                     });
                 });
             });
-        });
+        }
+        else {
+            return res.status(401).send('Invalid User');
+        }
     });
     // ----------------------------End------------------------------------------- 
     module.exports = router;

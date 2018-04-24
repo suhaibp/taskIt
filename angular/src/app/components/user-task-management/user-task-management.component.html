@@ -137,7 +137,7 @@
                                 <div class="col-md-4 col-xs-6"><label class="pad-top">Description :</label></div>
                                 <div class="col-md-7 col-xs-6">
                                   <mat-form-field>
-                                    <textarea matInput placeholder="Textarea" name='description' [(ngModel)]="newTasks.description"></textarea>
+                                    <textarea matInput  name='description' [(ngModel)]="newTasks.description"></textarea>
                                   </mat-form-field>
                                 </div>
                                 <br>
@@ -193,50 +193,56 @@
                     <div class="example-container">
                       <div class="col-md-4 col-xs-6"><label class="pad-top">Task Name  :</label></div>
                       <div class="col-md-7 col-xs-6">
-                        <div class="col-md-7 col-xs-6">
+                        <label class="pad-top">
                           {{newTasks.task_name}}
-                        </div>
+                        </label>
                       </div>
                       <br>
                       <div class="example-container">
                         <div class="col-md-4 col-xs-6"><label class="pad-top">Assigned person  :</label></div>
-                        <div class="col-md-7 col-xs-6" *ngFor="let userdata of  userData;">
+                        <label class="pad-top" *ngFor="let userdata of  userData;">
                           {{userdata.f_name}} {{userdata.l_name}}
-                        </div>
+                        </label>
                         <div class="clearfix"></div>
                         <div class="example-container">
                           <div class="col-md-4 col-xs-6"><label class="pad-top">Complexity :</label></div>
                           <div class="col-md-7 col-xs-6">
-                            <div *ngIf="newTasks.complexity_id!=null">
+                            <label class="pad-top"  *ngIf="newTasks.complexity_id!=null">
                               {{newTasks.tbl_complexity_percentage.percentage}}
-                            </div>
+                            </label>
                           </div>
                           <div class="clearfix"></div>
-                          <br>
+                          
                           <div class="col-md-4 col-xs-6"><label class="pad-top">Planned Hours :</label></div>
-                          <div class="col-md-2 col-xs-6">
+                          <div class="col-md-7 col-xs-6">
+                              
+                          <label class="pad-top">
                             {{newTasks.planned_hour}}
                             <!-- <mat-form-field class="wdth">
                               <input type="number" matInput name="planned_hour" min="0" name='planned_hour' [(ngModel)]="newTasks.planned_hour" required>
                             </mat-form-field> -->
+                          </label>
                           </div>
-                          <div class="col-md-3 col-xs-6"><label class="pad-top">Buffer Hours :</label></div>
-                          <div class="col-md-2 col-xs-6">
+                          <div class="col-md-4 col-xs-6"><label class="pad-top">Buffer Hours :</label></div>
+                          <div class="col-md-7 col-xs-6">
+                              
+                          <label class="pad-top">
                             {{newTasks.buffer_hour}}
+                          </label>
                           </div>
                           <!-- <mat-form-field class="wdth">
                               <input type="number" matInput name="buffer_time" min="0" name='buffer_hour' [(ngModel)]="newTasks.buffer_hour" required>
                             </mat-form-field> -->
                           <div class="clearfix"></div>
-                          <br>
-                          <div class="col-md-3 col-xs-6"><label class="pad-top"> Time required :*</label></div>
-                          <div class="col-md-2 col-xs-6">
+                          
+                          <div class="col-md-4 col-xs-6"><label class="pad-top"> Time required :*</label></div>
+                          <div class="col-md-4 col-xs-6">
                             <mat-form-field class="wdth">
                               <input type="number" matInput min="0" name='timerequired' [(ngModel)]="newTasks.timerequired" required>
                             </mat-form-field>
                           </div>
                           <div class="clearfix"></div>
-                          <br>
+                          
                           <div class="clearfix"></div>
                           <div class="clearfix"></div>
                           <div class="center">
@@ -327,7 +333,7 @@
                           <!-- <div *ngFor="let task1 of myTasks[i].tbl_project_tasks[j].tbl_task_status_assocs; let y = index"> -->
                           <div class="col-md-11 col-xs-12 pull-right">
                             <!-- <div class="task assigned" ng-style="background-color :task.status?.tbl_task_status?.color" > -->
-                            <div class="task assigned" *ngIf="task.startdatenow == 'showtasks'" [ngStyle]="{'background-color': task.status?.tbl_task_status.color}">
+                            <div class="task assigned" *ngIf="task.showThisTask" [ngStyle]="{'background-color': task.status?.tbl_task_status.color}">
                               
                               <div>
                                 <div class="col-md-8 col-xs-7 martop">
@@ -337,7 +343,7 @@
                                 </div>
                                 <div class="col-md-4">
                                   <div class="row">
-                                    <div class="col-md-4 col-xs-5">
+                                    <div class="col-md-4 col-xs-5" *ngIf="task.showRequest">
                                       <ul class="taskedit-request"><button title="Pause" (click)="getId1(task,i,j)" type="button" class="btn round-button request-bt"
                                           data-toggle="modal" data-target="#extentionTask">Request</button></ul>
                                     </div>
@@ -368,7 +374,7 @@
                                           </div>
                                         </div>
                                         <!-- ---------------------------- -->
-                                        <li *ngIf="pause[task.id] || task.status?.status_id == 3"><button title="Pause" class="iconButton" data-toggle="dropdown" (click)="clearReason()" [disabled]="disableTask[task.id]"><i class="fa fa-pause" aria-hidden="true"></i></button>
+                                        <li *ngIf="task.status?.status_id == 3"><button title="Pause" class="iconButton" data-toggle="dropdown" (click)="clearReason()" ><i class="fa fa-pause" aria-hidden="true"></i></button>
                                           <ul class="dropdown-menu puase-popup" role="menu">
                                             <div class="col-md-8">
                                               <div class="col-md-4 col-xs-6"><label class="pad-top">Reason *</label></div>
@@ -381,8 +387,8 @@
                                             </div>
                                           </ul>
                                         </li>
-                                        <li *ngIf="completed[task.id] || task.status?.status_id == 3"><button title="Completed" class="iconButton" data-toggle="collapse" data-target="#demo"
-                                            (click)="clearprogress()" [disabled]="disableTask[task.id]"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                        <li *ngIf="task.status?.status_id == 3"><button title="Completed" class="iconButton" data-toggle="collapse" data-target="#demo"
+                                            (click)="clearprogress()" ><i class="fa fa-check" aria-hidden="true"></i></button>
                                           <ul class="collapse" id="demo">
                                             <div class="col-md-8">
                                               <mat-form-field class="inputfileds">
@@ -397,8 +403,8 @@
                                             </div>
                                           </ul>
                                         </li>
-                                        <li *ngIf="hold[task.id] || task.status?.status_id == 3"><button title="Hold" class="iconButton" data-toggle="collapse" data-target="#demo1"
-                                            (click)="clearhold()" [disabled]="disableTask[task.id]"><i class="fa fa-stop" aria-hidden="true"></i></button>
+                                        <li *ngIf="task.status?.status_id == 3"><button title="Hold" class="iconButton" data-toggle="collapse" data-target="#demo1"
+                                            (click)="clearhold()" ><i class="fa fa-stop" aria-hidden="true"></i></button>
                                           <ul class="collapse" id="demo1">
                                             <div class="col-md-8">
                                               <mat-form-field class="inputfileds">
@@ -439,10 +445,10 @@
                                         <!-- <li *ngIf="hold[task.id]"><button title="Hold" class="iconButton" [disabled]="disableTask[task.id]"><i class="fa fa-stop" aria-hidden="true"></i></button></li> -->
                                         <!-- <li *ngIf="completed[task.id]"><button title="Completed" class="iconButton" [disabled]="disableTask[task.id]" (click)="completed(task)"><i class="fa fa-check" aria-hidden="true"></i></button></li> -->
                                         <div *ngIf="task.status?.status_id == 1">
-                                          <li><button title="Start" class="iconButton" [disabled]="disableTask[task.id]" (click)="start(task, myTask)"><i class="fa fa-play" aria-hidden="true"></i></button></li>
+                                          <li><button title="Start" class="iconButton"  (click)="start(task, myTask)"><i class="fa fa-play" aria-hidden="true"></i></button></li>
                                         </div>
-                                        <li *ngIf="done[task.id] || task.status?.status_id == 3"><button title="Finish" class="iconButton" [disabled]="disableTask[task.id]" (click)="Done(task)"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button></li>
-                                        <li *ngIf="Resume[task.id] || task.status?.status_id == 2 || task.status?.status_id == 4"><button title="Resume" class="iconButton" [disabled]="disableTask[task.id]" (click)="resumeTasks(task)"><i class="fa fa-play" aria-hidden="true"></i></button></li>
+                                        <li *ngIf="task.status?.status_id == 3"><button title="Finish" class="iconButton" (click)="Done(task)"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button></li>
+                                        <li *ngIf="task.status?.status_id == 2 || task.status?.status_id == 4"><button title="Resume" class="iconButton"  (click)="resumeTasks(task)"><i class="fa fa-play" aria-hidden="true"></i></button></li>
                                       </ul>
                                     </div>
                                   </div>

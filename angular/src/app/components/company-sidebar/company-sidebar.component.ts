@@ -24,7 +24,7 @@ export class CompanySidebarComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.checkRole()    
+    this.checkRole(); 
     // ---------------------------------Start-------------------------------------------
     // Function      : Get logged in entity
     // Params        : 
