@@ -524,7 +524,6 @@ var returnRouter = function (io) {
                         io.sockets.emit("newtaskrequest", {
                             expiredSocketId: newRequestNotification.id
                         });
-                        saveLog("New task requested!", req.body.assigned_id);
                         res.send({ success: true, msg: "Request Send successfully" });
                     });
                 });
@@ -547,43 +546,30 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            var id = decoded.id;
-            var user_id;
-            Users.find({
-                where: {
-                    login_id: id
-                }
-            }).then(resUser => {
-                user_id = resUser.id;
-                if (req.body.timerequired == '') {
-                    res.send({ success: false, msg: 'Please fill the required time' });
-                    console.log("firs");
-                }
-                else {
-                    var time_extension_request = models.tbl_time_extension_request;
-                    var time_extension_req_notification = models.tbl_time_extension_req_notification;
-                    const timeExtention = time_extension_request.build({
-                        additional_hours: req.body.timerequired,
-                        req_status: "Pending",
-                        task_id: req.body.id
+            if (req.body.timerequired == '') {
+                res.send({ success: false, msg: 'Please fill the required time' });
+            }
+            else {
+                const timeExtention1 = time_extension_request.build({
+                    additional_hours: req.body.timerequired,
+                    req_status: "Pending",
+                    task_id: req.body.id
+                });
+                timeExtention1.save().then(function (newRequest) {
+                    const TimeExtNotif = time_extension_req_notification.build({
+                        is_pm_viewed: false,
+                        is_admin_viewed: false,
+                        is_user_viewed: false,
+                        request_id: newRequest.id
                     });
-                    timeExtention.save().then(function (newRequest) {
-                        const TimeExtNotif = time_extension_req_notification.build({
-                            is_pm_viewed: false,
-                            is_admin_viewed: false,
-                            is_user_viewed: false,
-                            request_id: newRequest.id
+                    TimeExtNotif.save().then(function (newRequestNotification) {
+                        io.sockets.emit("timeextention", {
+                            expiredSocketId: newRequestNotification.id
                         });
-                        TimeExtNotif.save().then(function (newRequestNotification) {
-                            io.sockets.emit("timeextention", {
-                                expiredSocketId: newRequestNotification.id
-                            });
-                            saveLog("Task time extention requested!", user_id);
-                            res.send({ success: true, msg: "Request Send successfully" });
-                        });
+                        res.send({ success: true, msg: "Request Send successfully" });
                     });
-                }
-            })
+                });
+            }
         }
         else {
             return res.status(401).send('Invalid User');

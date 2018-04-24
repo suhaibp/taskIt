@@ -3554,7 +3554,7 @@ var returnRouter = function (io) {
                 // // console.log("Account deleted");
                 return res.json({ success: false, msg: 'Account deleted' });
             }
-            else if (login.cmp_status == "Not Verified" || login.is_verified == false) {
+            else if ((login.cmp_status == "Not Verified" || login.is_verified == false) && login.role_id == 1) {
                 // // console.log("Company not verified'");
                 return res.json({ success: false, msg: 'Company not verified' });
             }
