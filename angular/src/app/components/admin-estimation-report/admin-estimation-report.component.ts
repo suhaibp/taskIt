@@ -43,10 +43,10 @@ export class AdminEstimationReportComponent implements OnInit {
     this.getEstimation();
     this.companyService.getAllprojectcategory().subscribe(data => {
       this.category = data;
-      console.log(data);
+      // console.log(data);
     });
     this.companyService.getAllProject().subscribe(data => {
-      console.log(data);
+      // console.log(data);
       this.projects = data;
     });
   }
@@ -63,6 +63,7 @@ export class AdminEstimationReportComponent implements OnInit {
     this.adminService.getEstimatedProject(this.filters).subscribe(data => {
       // data.project_name = data.tbl_project.project_name;
       this.projectsFlt = data;
+      console.log(data)
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -121,7 +122,7 @@ exportPdf(){
     var members = '';
     this.projectsFlt.forEach((data, key) => {
       members = '';
-      data.tbl_project_estimation_team_members.forEach((d,k) => {
+      data.tbl_project_estimation_team.tbl_project_estimation_team_members.forEach((d,k) => {
         members += d.tbl_user_profile.f_name + ' ' +  d.tbl_user_profile.l_name + ', ';
       })
 
