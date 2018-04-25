@@ -264,6 +264,8 @@
           <div class="row">
             <div class="col-md-6 col-sm-12 col-xs-12 gutter ">
               <div class="white project-planning">
+                <h4 *ngIf="viewAllTasks" style="background-color: #f1f1f1;padding: 10px;" class="text-center">Showing all Assigned Task</h4>
+                <h4 *ngIf="!viewAllTasks" style="background-color: #f1f1f1;padding: 10px;" class="text-center">Showing Today's Task</h4>
                 <div class="pull-right">
                   <!-- <p><span id="hr">00</span>:<span id="min">00</span>:<span id="sec">00</span></p>
                     <div class="icons" id="xxx">
@@ -466,8 +468,12 @@
                     <div class="clearfix"></div>
                   </div>
                 </div>
-                <div class="col-md-12" *ngIf="viewAll1">
+                <div class="col-md-12" *ngIf="!viewAllTasks">
                   <button type="button" class="btn round-button dropdown-toggle mrg-tp pull-right" data-toggle="dropdown" (click)="viewAll()">View All</button>
+                  <!-- <button type="button" (click)="getId(i)" data-toggle="modal" data-target="#addTaskModal" class="btn round-button pull-right right-btn">Add Task</button> -->
+                </div>
+                <div class="col-md-12" *ngIf="viewAllTasks">
+                  <button type="button" class="btn round-button dropdown-toggle mrg-tp pull-right" data-toggle="dropdown" (click)="todayTask()">Show Today Task</button>
                   <!-- <button type="button" (click)="getId(i)" data-toggle="modal" data-target="#addTaskModal" class="btn round-button pull-right right-btn">Add Task</button> -->
                 </div>
               </div>
