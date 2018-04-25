@@ -121,7 +121,7 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Team Members</mat-header-cell>
                   <mat-cell *matCellDef="let row">
                      <!-- {{row.tbl_project_estimation_team_members[0].tbl_user_profile.f_name}} {{row.tbl_project_estimation_team_members[0].tbl_user_profile.l_name}} -->
-                     <div *ngFor="let member of row.tbl_project_estimation_team_members"> {{member.tbl_user_profile.f_name}} {{member.tbl_user_profile.l_name}}</div>
+                     <div *ngFor="let member of row.tbl_project_estimation_team.tbl_project_estimation_team_members"> {{member.tbl_user_profile.f_name}} {{member.tbl_user_profile.l_name}}</div>
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

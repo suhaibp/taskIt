@@ -54,7 +54,7 @@ export class CompanyTaskVsStatusComponent implements OnInit {
     this.companyService.getAllProject().subscribe(data => {
       this.projects = [];
       data.forEach(element => {
-        if (element.status == "Completed" || element.status == "In Progress") {
+        if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
           this.projects.push(element);
         }
       });
@@ -71,6 +71,7 @@ export class CompanyTaskVsStatusComponent implements OnInit {
   getUsers(projId) {
     this.companyService.getUsers(projId).subscribe(data => {
       this.users = data;
+      // console.log(data)
       if (this.users.length == 0) {
         // no data in charts
       } else {

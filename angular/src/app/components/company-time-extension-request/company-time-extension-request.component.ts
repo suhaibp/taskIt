@@ -33,6 +33,8 @@ export class CompanyTimeExtensionRequestComponent implements OnInit {
   showSpinner :boolean = false;
   @ViewChild('closeBtn') closeBtn: ElementRef;
   @ViewChild('closeBtn1') closeBtn1: ElementRef; 
+  @ViewChild('closeBtn2') closeBtn2: ElementRef; 
+  @ViewChild('closeBtn3') closeBtn3: ElementRef; 
   
 
   constructor(  private _activatedRoute: ActivatedRoute,
@@ -134,6 +136,7 @@ export class CompanyTimeExtensionRequestComponent implements OnInit {
           let Indexx = 0;
           data.data.forEach(element => {
             element.tbl_estimation_tasks.forEach((elm_tasks,key1) => {
+              
                 let mdinx = this.tmp[Indexx].modIdnx;
                 let tskinx = this.tmp[Indexx].keyIdnx;
                 this.myTasks[mdinx].tbl_project_tasks[tskinx].planned_start_date_time = elm_tasks.start_date_time_new;
@@ -162,6 +165,7 @@ export class CompanyTimeExtensionRequestComponent implements OnInit {
             let snackBarRef =  this.snackBar.open(data.msg, '', {
               duration: 2000
             });
+            this.closeBtn2.nativeElement.click();
             this.routes.navigate(['/company-request-management']); 
            
                }
@@ -186,6 +190,7 @@ sendtoadmin(id){
         let snackBarRef =  this.snackBar.open(data.msg, '', {
           duration: 2000
         });
+        this.closeBtn3.nativeElement.click();
         this.routes.navigate(['/company-request-management']); 
        
            }
@@ -214,12 +219,11 @@ sendtoadmin(id){
  }
  updateReqtime(reqtime){
      console.log(reqtime);
-     this.myTasks[this.reqModuleindex].tbl_estimation_tasks[0].planned_hour = 
-     parseInt(this.myTasks[this.reqModuleindex].tbl_estimation_tasks[0].planned_hour_old) + parseInt(this.reqtime.additional_hr);
+     this.myTasks[this.reqModuleindex].tbl_estimation_tasks[0].planned_hour =  parseInt(this.myTasks[this.reqModuleindex].tbl_estimation_tasks[0].planned_hour_old) + parseInt(this.reqtime.additional_hr);
      this.calculateUpdatedTaskTime();
       this.showSpinner =true;
 
-    
+      this.closeBtn1.nativeElement.click();
     }
 
       //approved    
@@ -235,6 +239,7 @@ sendtoadmin(id){
           let snackBarRef =  this.snackBar.open(data.msg, '', {
             duration: 2000
           });
+          this.closeBtn.nativeElement.click();
           this.routes.navigate(['/company-request-management']); 
          
              }

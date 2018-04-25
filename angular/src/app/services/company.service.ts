@@ -2184,7 +2184,6 @@ deleteHoliday(data){
         .map(res => res.json());
      
        }
-
   // -----------------------------------End------------------------------------------
   getProjectReport(data){
     let headers = this.setHeaderWithAuthorization();
@@ -2203,9 +2202,43 @@ deleteHoliday(data){
   // Last Modified : 21-03-2018, Jooshifa
   // Desc          : 
   savecompanyPlanning(data) {
+    console.log('rinshaaaaaaaamanu');
+    console.log(data)
+    // let x= data
     let headers = this.setHeaderWithAuthorization();
-    return this.http.post(this.serviceUrl + 'save-company-planning-datas/', data, { headers: headers })
+    return this.http.post(this.serviceUrl + 'save-company-planning-datas', {info:data,projectEndDate: data.projectEndDate,projectStartDate:data.projectStartDate}, { headers: headers })
       .map(res => res.json());
   }
   // ----------------------------------End------------------------------------------
+    // ---------------------------------Start-------------------------------------------
+  // Function      : close notification
+  // Params        : project id
+  // Returns       : 
+  // Author        : manu
+  // Date          : 12-03-2018
+  // Last Modified : 12-03-2018, Rinsha
+  // Desc          : close notification timeextension
+  closeNotif9(id) {
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.get(this.serviceUrl + 'closeNotif9/' + id, { headers: headers })
+      .map(res => res.json());
+
+  }
+  // -----------------------------------End------------------------------------------
+
+ // ---------------------------------Start------------------------------------------------
+  // Function      : getUserProjectsOnStatus
+  // Params        : 
+  // Returns       : 
+  // Author        : MANU PRASAD
+  // Date          : 26-03-2018
+  // Last Modified : 26-03-2018, 
+  // Desc          : get details of time extension pending
+  gettimeextentionNotifications(){
+    
+     let h = this.setHeaderWithAuthorization();
+     return this.http.get(this.serviceUrl + "getNotifications",  { headers: h })
+       .map((response: Response) => response.json());
+   }
+   // ---------------------------------------End--------------------------------------------
 }

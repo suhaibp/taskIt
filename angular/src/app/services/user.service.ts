@@ -111,7 +111,7 @@ export class UserService {
   // Desc          : 
   pauseTask(task) {
     let headers = this.setHeaderWithAuthorization();
-    return this.http.post(this.serviceUrl + 'pause-a-task', (task), { headers: headers })
+    return this.http.post(this.serviceUrl + 'pause-a-task', task, { headers: headers })
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
@@ -153,7 +153,7 @@ export class UserService {
   // Desc          : 
   startAtask(task) {
     let headers = this.setHeaderWithAuthorization();
-    return this.http.post(this.serviceUrl + 'start-a-task/' + task,{}, { headers: headers })
+    return this.http.post(this.serviceUrl + 'start-a-task/',task, { headers: headers })
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
@@ -715,8 +715,8 @@ export class UserService {
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
   addTimeAssoc(time) {
-    let headers = this.setHeader();
-    return this.http.post(this.serviceUrl + 'add-time-assoc', (time), { headers: headers })
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'add-time-assoc', time, { headers: headers })
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
@@ -729,8 +729,8 @@ export class UserService {
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
   changeStausColor(task) {
-    let headers = this.setHeader();
-    return this.http.post(this.serviceUrl + 'changeStausColor/' + task, { headers: headers })
+    let headers = this.setHeaderWithAuthorization();
+    return this.http.post(this.serviceUrl + 'changeStausColor/' + task,{}, { headers: headers })
       .map(res => res.json());
   }
   // ----------------------------------End-------------------------------------------
@@ -743,7 +743,7 @@ export class UserService {
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
   holdTask(task) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'hold-a-task', (task), { headers: headers })
       .map(res => res.json());
   }
@@ -757,7 +757,7 @@ export class UserService {
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
   donetask(task) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'done-a-task' ,(task) , { headers: headers })
       .map(res => res.json());
   }
@@ -771,7 +771,7 @@ export class UserService {
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
   completeTask(task) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'complete-a-task', (task), { headers: headers })
       .map(res => res.json());
   }
@@ -785,7 +785,7 @@ export class UserService {
   // Last Modified : 29-03-2018, Jooshifa
   // Desc          : 
   resumeTasks(task) {
-    let headers = this.setHeader();
+    let headers = this.setHeaderWithAuthorization();
     return this.http.post(this.serviceUrl + 'resume-a-task', (task), { headers: headers })
       .map(res => res.json());
   }

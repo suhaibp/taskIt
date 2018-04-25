@@ -179,3 +179,6 @@ label{font-size:15px;color:#4a4a4a;font-weight:normal;padding:5px 0;}
         margin-top: 23%;
     }
     .date-time{}
+    .assigned{background: rgb(229, 86, 60, .3);border-left: 3px solid #e5563c;}
+    .unassigned{background:#fbf1ef;border-left:3px solid #e5553d;}
+    .assigned ul li{padding: 6px}
