@@ -125,7 +125,7 @@ var returnRouter = function (io) {
             }).then(userProfile => {
                 console.log(userProfile);
                 Project_modules.findAll({
-                    // where: { id: 629 },
+                    where: { id: 629 },
                     include: [
                         {
                             model: Projects,
@@ -262,7 +262,7 @@ var returnRouter = function (io) {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc         
     router.post('/start-a-task', function (req, res) {
-        console.log( req.body);
+        console.log(req.body);
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
@@ -290,7 +290,7 @@ var returnRouter = function (io) {
                                 actual_start_date: Date.now()
                             }, {
                                     where: {
-                                        id: req.body.projectId                                        
+                                        id: req.body.projectId
                                     }
                                 }).then(data => {
                                     const timeAssoc = Task_time_assoc.build({
@@ -342,37 +342,7 @@ var returnRouter = function (io) {
                 progress_id: 20,
             });
             DoneTask.save().then(function (DoneTask1) {
-                // task_status_assoc.findAll({
-                //     where : {status_id: {
-                //         [Op.ne]: 5
-                //     }},
-                //     group: ['task_status_assoc.task_id'],
-                //     include: [
-                //         {
-                //             model: Project_tasks,
-                //             required: true,
-                //             include: [{
-                //                 model: Project_modules,
-                //                 required: true,
-                //                 include: [
-    
-                //                     {
-                //                         model: Projects,
-                //                         required: true,
-                //                         where: { id: req.body.projectId },
-    
-                //                     }
-                //                 ],
-                //                 }
-                //             ]
-                //         },
-                        
-                //     ],
-                // }).then(modulesAndTasks => {
-                //     console.log('-----------vishak-----------------------');
-                //     console.log(modulesAndTasks);
-                //     res.send(modulesAndTasks);
-                // });
+
                 var d2 = Date.now();
                 var d1 = new Date(req.body.tbl_task_time_assocs[0].date_time);
                 var seconds = (d2 - d1) / 1000;
@@ -412,7 +382,60 @@ var returnRouter = function (io) {
                                     id: req.body.id
                                 }
                             }).then(notif => {
-                                res.send({ success: true, msg: 'Done successfully' });
+
+                                // Projects.findOne({
+                                //     where: { id: req.body.projectId },
+                                //     include: [{
+                                Project_modules.findAll({
+                                    where: { project_id: req.body.projectId },
+                                    required: true,
+                                    include: [
+                                        {
+                                            model: Project_tasks,
+                                            required: true,
+                                            include: [
+                                                {
+                                                    model: task_status_assoc,
+                                                    required: true,
+                                                }
+                                            ],
+                                        }
+                                    ],
+                                    order: [
+                                        [Project_tasks, { model: task_status_assoc }, 'id', 'DESC']
+                                    ],
+                                }).then((resultModule) => {
+                                    console.log('-----done last---------');
+                                    completed = true;
+                                    resultModule.forEach((moule1) => {
+                                        moule1.tbl_project_tasks.forEach((task) => {
+                                            // st means status_id it stripped when more nested inclue , can change by using 'as'
+                                            // console.log(task.tbl_task_status_assocs[0]);
+                                            console.log(task.tbl_task_status_assocs[0].status_id);
+                                            // console.log(task.tbl_task_status_assocs[0].st);
+                                            if (task.tbl_task_status_assocs[0].status_id != 5) {
+                                                completed = false;
+                                            }
+                                        });
+
+                                    });
+                                    console.log('-----done last---------');
+                                    console.log('-----done last---------' + completed);
+                                    if (completed) {
+                                        Project.update({
+                                            status: "Completed",
+                                            actual_end_date: Date.now()
+                                        }, {
+                                                where: {
+                                                    id: req.body.projectId
+                                                }
+                                            }).then(data => {
+                                                res.send({ success: true, msg: 'Done successfully' });
+                                            });
+                                    } else {
+                                        res.send({ success: true, msg: 'Done successfully' });
+                                    }
+                                });
                             });
                     });
             });
@@ -739,20 +762,36 @@ var returnRouter = function (io) {
                 }
             }).then(resUser => {
                 user_id = resUser.id;
-                Users.findAll({
+                Projects.findAll({
+                    where: {
+                        cmp_id: cmp_id
+                    },
                     include: [{
                         model: ProjectMemeberAssoc,
                         where: {
                             user_profile_id: user_id
                         },
-                        include: [{
-                            model: Projects,
-                            where: {
-                                cmp_id: cmp_id
-                            }
+                        include:[{
+                            model: Users
                         }]
-                    }],
+                    }]
                 }).then(resProjects => {
+                    // resProjects.forEach((element, i) => {
+                    //     element.tbl_project_member_assocs.forEach((ele,x) => {
+                    //         console.log(ele[x]);
+                    //         // if (ele.project_id == )
+                    //     });
+                    // });
+                    // for(i = 0; i<resProjects.length; i++){
+                    //     console.log("dfd")
+                    //     for(j=0;j<resProjects[i].tbl_project_member_assocs.length;j++){
+                    //         console.log(resProjects[i].tbl_project_member_assocs[j].project_id)
+                    //         if(resProjects[i].tbl_project_member_assocs[j].project_id == resProjects[i].tbl_project_member_assocs[j-1].project_id){
+                    //             console("x"+resProjects[i])
+                    //             console("y"+resProjects[i].tbl_project_member_assocs[j-1])
+                    //         }
+                    //     }
+                    // }
                     res.json(resProjects);
                 }).catch(err => {
                     res.json({
@@ -781,6 +820,7 @@ var returnRouter = function (io) {
             //     try {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
+            var id = decoded.id;
             // var cmp_id = 1;
             var id = decoded.id;
             // res.json(req.body);
@@ -862,7 +902,7 @@ var returnRouter = function (io) {
             //     try {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
-            // var cmp_id = 1;
+            var id = decoded.id;
             // res.json(req.body);
             // var user_id = 74;
             var proId = req.body.id
@@ -873,20 +913,20 @@ var returnRouter = function (io) {
                 }
             }).then(resUser => {
                 user_id = resUser.id;
-                Users.findAll({
+                Projects.findAll({
+                    where: {
+                        cmp_id: cmp_id,
+                        id: proId
+                    },
                     include: [{
                         model: ProjectMemeberAssoc,
                         where: {
                             user_profile_id: user_id
                         },
-                        include: [{
-                            model: Projects,
-                            where: {
-                                cmp_id: cmp_id,
-                                id: proId
-                            }
+                        include:[{
+                            model: Users
                         }]
-                    }],
+                    }]
                 }).then(resProjects => {
                     if (resProjects.length <= 0) {
                         res.json({
@@ -2162,20 +2202,20 @@ var returnRouter = function (io) {
                 user_id = resUser.id;
                 // var user_id = 74;
                 var status = req.body.status
-                Users.findAll({
-                    include: [{
+                Projects.findAll({
+                    where: {
+                        cmp_id: cmp_id,
+                        status: status
+                    },
+                    include:[{
                         model: ProjectMemeberAssoc,
                         where: {
                             user_profile_id: user_id
                         },
-                        include: [{
-                            model: Projects,
-                            where: {
-                                cmp_id: cmp_id,
-                                status: status
-                            }
+                        include:[{
+                            model: Users
                         }]
-                    }],
+                    }]
                 }).then(resProjects => {
                     if (resProjects.length <= 0) {
                         res.json({
@@ -3331,6 +3371,11 @@ var returnRouter = function (io) {
             })
         })
     });
+
+    router.get('/testing', function (req, res) {
+
+    });
+
     // ---------------------------------End-------------------------------------------
     module.exports = router;
     return router;

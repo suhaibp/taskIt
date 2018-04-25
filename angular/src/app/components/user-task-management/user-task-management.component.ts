@@ -229,7 +229,11 @@ export class UserTaskManagementComponent implements OnInit {
     });
   }
   viewAll() {
-    this.selectbox = true;
+    this.viewAllTasks = true;
+    this.getmytasks();
+  }
+  todayTask() {
+    this.viewAllTasks = false;
     this.getmytasks();
   }
   addTask(index) {
@@ -362,7 +366,7 @@ export class UserTaskManagementComponent implements OnInit {
             this.lastStatus = task.tbl_task_status_assocs[0];
             if (this.lastStatus.status_id == this.selected || this.selected == 'all') {
                 task.projectId = module.project_id;
-                task.showRequest = true
+                task.showRequest = (this.lastStatus.status_id == 5) ? false : true;
                 task.planned_start_date_time = new Date(task.planned_start_date_time);
                 var nowDateTime = new Date();
                 nowDateTime.setHours(23,59,59,999);
@@ -610,10 +614,11 @@ export class UserTaskManagementComponent implements OnInit {
     // this.newTasks.seconds = task.appendSecond;
     this.userService.donetask(task).subscribe(status => {
       this.inProgressTaskId = '';
-      this.userService.changeStausColor(task.id).subscribe(data => {
-        task.status = data[data.length - 1];
-        this.showRequest[task.id]=false;        
-      });
+      this.getmytasks();
+      // this.userService.changeStausColor(task.id).subscribe(data => {
+      //   task.status = data[data.length - 1];
+      //   this.showRequest[task.id]=false;        
+      // });
     });
   }
   complete(task) {
