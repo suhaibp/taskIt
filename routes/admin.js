@@ -22,6 +22,7 @@ var EstimationTeamMember = models.tbl_project_estimation_team_members;
 var ProjectModule = models.tbl_project_modules;
 var Log = models.tbl_log;
 var ProjectTask = models.tbl_project_tasks;
+var ProjectCategory = models.tbl_project_category;
 var returnRouter = function (io) {
   if (config.use_env_variable) {
     var sequelize = new Sequelize(process.env[config.use_env_variable]);
@@ -796,22 +797,22 @@ var returnRouter = function (io) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //decoded = jwt.verify(authorization, Config.secret);
-      if (config.use_env_variable) {
-        var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      } else {
-        var sequelize = new Sequelize(config.database, config.username, config.password, config);
-      }
-      Company.findAll({
-        order: [['id', 'DESC']],
-        where: { is_admin_viewed: false },
-        include: [{
-          model: Login,
-          required: true,
-          where: { is_verified: true },
-        }]
-      }).then(company => {
-        return res.json(company);
-      })
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      order: [['id', 'DESC']],
+      where: { is_admin_viewed: false },
+      include: [{
+        model: Login,
+        required: true,
+        where: { is_verified: true },
+      }]
+    }).then(company => {
+      return res.json(company);
+    })
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -829,27 +830,27 @@ var returnRouter = function (io) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //decoded = jwt.verify(authorization, Config.secret);
-      if (config.use_env_variable) {
-        var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      } else {
-        var sequelize = new Sequelize(config.database, config.username, config.password, config);
-      }
-      Company.update({
-        is_admin_viewed: true
-      }, {
-          where: {
-            id: req.params.id
-          }
-        }).then(company => {
-          if (!company) {
-            return res.json({ success: false, msg: 'Faild to viewstatus company' });
-          } else {
-            io.sockets.emit("viewstatusadmin", {
-              //user_id : req.params.id
-            });
-            return res.json({ success: true, msg: 'viewstatus Successfully' });
-          }
-        });
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.update({
+      is_admin_viewed: true
+    }, {
+        where: {
+          id: req.params.id
+        }
+      }).then(company => {
+        if (!company) {
+          return res.json({ success: false, msg: 'Faild to viewstatus company' });
+        } else {
+          io.sockets.emit("viewstatusadmin", {
+            //user_id : req.params.id
+          });
+          return res.json({ success: true, msg: 'viewstatus Successfully' });
+        }
+      });
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -872,36 +873,36 @@ var returnRouter = function (io) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //decoded = jwt.verify(authorization, Config.secret);
-      var userCount;
-      var cmpCount;
-      var projectCount;
-      sequelize.query("select count(*) from tbl_logins where block_status != :status and delete_status != :status and role_id != 1 and role_id != 2", { replacements: { status: true } }).spread((myTableRows1) => {
+    var userCount;
+    var cmpCount;
+    var projectCount;
+    sequelize.query("select count(*) from tbl_logins where block_status != :status and delete_status != :status and role_id != 1 and role_id != 2", { replacements: { status: true } }).spread((myTableRows1) => {
+      // res.json(myTableRows)
+      userCount = myTableRows1[0].count;
+      sequelize.query("select count(*) from tbl_companies").spread(myTableRows2 => {
         // res.json(myTableRows)
-        userCount = myTableRows1[0].count ;
-        sequelize.query("select count(*) from tbl_companies").spread(myTableRows2 => {
+        cmpCount = myTableRows2[0].count;
+        sequelize.query("select count(*) from tbl_projects").spread(myTableRows3 => {
           // res.json(myTableRows)
-          cmpCount = myTableRows2[0].count;
-          sequelize.query("select count(*) from tbl_projects").spread(myTableRows3 => {
-            // res.json(myTableRows)
-            projectCount = myTableRows3[0].count;
-            res.json({
-              users: userCount,
-              companies: cmpCount,
-              projects: projectCount
-            })
+          projectCount = myTableRows3[0].count;
+          res.json({
+            users: userCount,
+            companies: cmpCount,
+            projects: projectCount
           })
         })
       })
-      /*___________________COUNT IN MODEL EXAMPLE______________________*/
-      // Login.findAndCountAll({
-      //   where: {
-      //     block_status: {
-      //       [Op.ne]:true
-      //     }
-      //   }
-      // }).then(projects => {
-      //   res.json(projects);
-      // })
+    })
+    /*___________________COUNT IN MODEL EXAMPLE______________________*/
+    // Login.findAndCountAll({
+    //   where: {
+    //     block_status: {
+    //       [Op.ne]:true
+    //     }
+    //   }
+    // }).then(projects => {
+    //   res.json(projects);
+    // })
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -918,39 +919,39 @@ var returnRouter = function (io) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //decoded = jwt.verify(authorization, Config.secret);
-      count = [];
+    count = [];
+    Login.findAndCountAll({
+      where: {
+        cmp_status: 'Not Verified'
+      }
+    }).then(dbres => {
+      count.push({ name: 'Not verified', value: dbres.count, color: '#E35594' });
       Login.findAndCountAll({
         where: {
-          cmp_status: 'Not Verified'
+          // is_verified: {
+          //   [Op.ne]: true
+          // },
+          cmp_status: 'Trail'
         }
-      }).then(dbres => {
-        count.push({ name: 'Not verified', value: dbres.count, color: '#E35594' });
+      }).then(dbres2 => {
+        count.push({ name: 'Trial', value: dbres2.count, color: '#E55537' });
         Login.findAndCountAll({
           where: {
-            // is_verified: {
-            //   [Op.ne]: true
-            // },
-            cmp_status: 'Trail'
+            cmp_status: 'Subscribed'
           }
-        }).then(dbres2 => {
-          count.push({ name: 'Trial', value: dbres2.count, color: '#E55537' });
+        }).then(dbres3 => {
+          count.push({ name: 'Subscribed', value: dbres3.count, color: '#12AB60' });
           Login.findAndCountAll({
             where: {
-              cmp_status: 'Subscribed'
+              cmp_status: 'Expired'
             }
-          }).then(dbres3 => {
-            count.push({ name: 'Subscribed', value: dbres3.count, color: '#12AB60' });
-            Login.findAndCountAll({
-              where: {
-                cmp_status: 'Expired'
-              }
-            }).then(dbres4 => {
-              count.push({ name: 'Expired', value: dbres4.count, color: '#00B0D9' });
-              res.json(count);
-            })
+          }).then(dbres4 => {
+            count.push({ name: 'Expired', value: dbres4.count, color: '#00B0D9' });
+            res.json(count);
           })
         })
       })
+    })
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -968,35 +969,35 @@ var returnRouter = function (io) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //decoded = jwt.verify(authorization, Config.secret);
-      // console.log('y')
-      count = [];
-      // Projects.findAll({
-      //   include: [{
-      //     model: Company
-      //   }],
-      // }).then(dbres2 => {
-      //   res.json(dbres2)
-      // })
-      Company.findAll({
-        include: [{
-          model: Projects
-          // where: {id: Sequelize.col('login.role_id')}
-        }]
-      }).then(companies => {
-        //console.log(projects);
-        res.json(companies);
-      });
-      //   if (config.use_env_variable) {
-      //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      //   } else {
-      //     var sequelize = new Sequelize(config.database, config.username, config.password, config);
-      //   }
-      //   sequelize.query("select * from GetAllSt();").spread(
-      //     function (actualres, settingName2) {
-      //       console.log(actualres);
-      //       console.log(settingName2);
-      //       res.json(actualres);
-      // });
+    // console.log('y')
+    count = [];
+    // Projects.findAll({
+    //   include: [{
+    //     model: Company
+    //   }],
+    // }).then(dbres2 => {
+    //   res.json(dbres2)
+    // })
+    Company.findAll({
+      include: [{
+        model: Projects
+        // where: {id: Sequelize.col('login.role_id')}
+      }]
+    }).then(companies => {
+      //console.log(projects);
+      res.json(companies);
+    });
+    //   if (config.use_env_variable) {
+    //     var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    //   } else {
+    //     var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    //   }
+    //   sequelize.query("select * from GetAllSt();").spread(
+    //     function (actualres, settingName2) {
+    //       console.log(actualres);
+    //       console.log(settingName2);
+    //       res.json(actualres);
+    // });
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -1146,75 +1147,75 @@ var returnRouter = function (io) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //decoded = jwt.verify(authorization, Config.secret);
-      // console.log(req.body);
-      planName = myTrim(req.body.plan_name);
-      if (config.use_env_variable) {
-        var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      } else {
-        var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    // console.log(req.body);
+    planName = myTrim(req.body.plan_name);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    plan_name = capitalizeFirstLetter(req.body.plan_name);
+    Plans.findAll().then(plans => {
+      if (plans.length >= 4) {
+        res.json({ success: false, msg: "Cant Add, Maximum number of plan reached" });
       }
-      plan_name = capitalizeFirstLetter(req.body.plan_name);
-      Plans.findAll().then(plans => {
-        if (plans.length >= 4) {
-          res.json({ success: false, msg: "Cant Add, Maximum number of plan reached" });
-        }
-        else {
-          Plans.findAll({
-            where: {
-              plan_name: req.body.plan_name
+      else {
+        Plans.findAll({
+          where: {
+            plan_name: req.body.plan_name
+          }
+        }).then(plans => {
+          if (plans.length != 0) {
+            res.json({ success: false, msg: "Plan Name Already Exists" });
+          }
+          else if (req.body.plan_name == '' || req.body.plan_price == '' || req.body.plan_price == null || req.body.no_projects == '' || req.body.no_members == '' || req.body.no_modules == '' || req.body.no_tasks == '') {
+            res.json({ success: false, msg: "All fields are required" });
+          }
+          else if (planName.length > 10 || planName.length < 3) {
+            res.json({ success: false, msg: "Plan Name between 3-10 characters" });
+          }
+          else if (req.body.plan_price < 1) {
+            res.json({ success: false, msg: "Plan price should be valid" });
+          }
+          else {
+            if (req.body.no_projects == 'Unlimited') {
+              no_projects = req.body.no_projects;
+            } else {
+              no_projects = req.body.value1;
             }
-          }).then(plans => {
-            if (plans.length != 0) {
-              res.json({ success: false, msg: "Plan Name Already Exists" });
+            if (req.body.no_members == 'Unlimited') {
+              no_members = req.body.no_members;
+            } else {
+              no_members = req.body.value2;
             }
-            else if (req.body.plan_name == '' || req.body.plan_price == '' || req.body.plan_price == null || req.body.no_projects == '' || req.body.no_members == '' || req.body.no_modules == '' || req.body.no_tasks == '') {
-              res.json({ success: false, msg: "All fields are required" });
+            if (req.body.no_modules == 'Unlimited') {
+              no_modules = req.body.no_modules;
+            } else {
+              no_modules = req.body.value3;
             }
-            else if (planName.length > 10 || planName.length < 3) {
-              res.json({ success: false, msg: "Plan Name between 3-10 characters" });
+            if (req.body.no_tasks == 'Unlimited') {
+              no_tasks = req.body.no_tasks;
+            } else {
+              no_tasks = req.body.value4;
             }
-            else if (req.body.plan_price < 1) {
-              res.json({ success: false, msg: "Plan price should be valid" });
-            }
-            else {
-              if (req.body.no_projects == 'Unlimited') {
-                no_projects = req.body.no_projects;
-              } else {
-                no_projects = req.body.value1;
-              }
-              if (req.body.no_members == 'Unlimited') {
-                no_members = req.body.no_members;
-              } else {
-                no_members = req.body.value2;
-              }
-              if (req.body.no_modules == 'Unlimited') {
-                no_modules = req.body.no_modules;
-              } else {
-                no_modules = req.body.value3;
-              }
-              if (req.body.no_tasks == 'Unlimited') {
-                no_tasks = req.body.no_tasks;
-              } else {
-                no_tasks = req.body.value4;
-              }
-              const plan = Plans.build({
-                plan_name: plan_name,
-                plan_price: req.body.plan_price,
-                no_projects: no_projects,
-                no_members: no_members,
-                no_modules: no_modules,
-                no_tasks: no_tasks
-              })
-              plan.save().then(function (newPlan) {
-                // console.log(newPlan);
-                io.sockets.emit("addPlan", {
-                });
-                res.json({ success: true, msg: "Plan Created Successfully" });
-              })
-            }
-          });
-        }
-      });
+            const plan = Plans.build({
+              plan_name: plan_name,
+              plan_price: req.body.plan_price,
+              no_projects: no_projects,
+              no_members: no_members,
+              no_modules: no_modules,
+              no_tasks: no_tasks
+            })
+            plan.save().then(function (newPlan) {
+              // console.log(newPlan);
+              io.sockets.emit("addPlan", {
+              });
+              res.json({ success: true, msg: "Plan Created Successfully" });
+            })
+          }
+        });
+      }
+    });
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -1244,38 +1245,38 @@ var returnRouter = function (io) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //decoded = jwt.verify(authorization, Config.secret);
-      // console.log(req.params.id + ":id," + req.body.status +":status")
-      if (config.use_env_variable) {
-        var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      } else {
-        var sequelize = new Sequelize(config.database, config.username, config.password, config);
-      }
-      Plans.update({
-        is_best_value: false
-      }, {
-          where: {
-            id: {
-              [Op.ne]: req.params.id
-            }
+    // console.log(req.params.id + ":id," + req.body.status +":status")
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Plans.update({
+      is_best_value: false
+    }, {
+        where: {
+          id: {
+            [Op.ne]: req.params.id
           }
-        }).then(data => {
-          Plans.update({
-            is_best_value: req.body.status
-          }, {
-              where: {
-                id: req.params.id
-              }
-            }).then(data1 => {
-              if (data1 == 1) {
-                io.sockets.emit("bestPlan", {
-                });
-                res.json({ success: true, msg: "Success" });
-              }
-              else {
-                res.json({ success: false, msg: "Failed" });
-              }
-            });
-        });
+        }
+      }).then(data => {
+        Plans.update({
+          is_best_value: req.body.status
+        }, {
+            where: {
+              id: req.params.id
+            }
+          }).then(data1 => {
+            if (data1 == 1) {
+              io.sockets.emit("bestPlan", {
+              });
+              res.json({ success: true, msg: "Success" });
+            }
+            else {
+              res.json({ success: false, msg: "Failed" });
+            }
+          });
+      });
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -1293,38 +1294,38 @@ var returnRouter = function (io) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //decoded = jwt.verify(authorization, Config.secret);
-      if (config.use_env_variable) {
-        var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      } else {
-        var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Company.findAll({
+      where: {
+        plan_id: req.params.id
       }
-      Company.findAll({
-        where: {
-          plan_id: req.params.id
-        }
-      }).then(company => {
-        if (company.length != 0) {
-          res.json({ success: false, msg: "Cant delete, it is already used by a company!" });
-        }
-        else {
-          Plans.findById(req.params.id).then(plans => {
-            if (plans.is_defualt == true) {
-              res.json({ success: false, msg: "Default plan can't delete!" });
-            }
-            else {
-              Plans.destroy({
-                where: {
-                  id: req.params.id
-                }
-              }).then(plan => {
-                io.sockets.emit("deletePlan", {
-                });
-                res.json({ success: true, msg: "Deleted Successfully" });
+    }).then(company => {
+      if (company.length != 0) {
+        res.json({ success: false, msg: "Cant delete, it is already used by a company!" });
+      }
+      else {
+        Plans.findById(req.params.id).then(plans => {
+          if (plans.is_defualt == true) {
+            res.json({ success: false, msg: "Default plan can't delete!" });
+          }
+          else {
+            Plans.destroy({
+              where: {
+                id: req.params.id
+              }
+            }).then(plan => {
+              io.sockets.emit("deletePlan", {
               });
-            }
-          });
-        }
-      });
+              res.json({ success: true, msg: "Deleted Successfully" });
+            });
+          }
+        });
+      }
+    });
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -1342,14 +1343,14 @@ var returnRouter = function (io) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //decoded = jwt.verify(authorization, Config.secret);
-      if (config.use_env_variable) {
-        var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      } else {
-        var sequelize = new Sequelize(config.database, config.username, config.password, config);
-      }
-      Plans.findById(req.params.id).then(plans => {
-        res.json(plans);
-      });
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    Plans.findById(req.params.id).then(plans => {
+      res.json(plans);
+    });
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -1367,84 +1368,84 @@ var returnRouter = function (io) {
     // if (req.headers && req.headers.authorization) {
     //   var authorization = req.headers.authorization.substring(4), decoded;
     //   //decoded = jwt.verify(authorization, Config.secret);
-      // console.log(req.body);
-      if (config.use_env_variable) {
-        var sequelize = new Sequelize(process.env[config.use_env_variable]);
-      } else {
-        var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    // console.log(req.body);
+    if (config.use_env_variable) {
+      var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    } else {
+      var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    }
+    // console.log("hhh")
+    // console.log(req.body.plan_name)
+    planName = myTrim(req.body.plan_name);
+    Plans.findAll({
+      where: {
+        plan_name: req.body.plan_name,
+        id: {
+          [Op.ne]: req.body.id
+        }
       }
-      // console.log("hhh")
-      // console.log(req.body.plan_name)
-      planName = myTrim(req.body.plan_name);
-      Plans.findAll({
-        where: {
-          plan_name: req.body.plan_name,
-          id: {
-            [Op.ne]: req.body.id
-          }
-        }
-      }).then(plans => {
-        if (plans.length != 0) {
-          res.json({ success: false, msg: "Plan Name Already Exists" });
-        }
-        else if (req.body.plan_name == '') {
+    }).then(plans => {
+      if (plans.length != 0) {
+        res.json({ success: false, msg: "Plan Name Already Exists" });
+      }
+      else if (req.body.plan_name == '') {
+        res.json({ success: false, msg: "All fields are required" });
+      }
+      else if (req.body.is_defualt == false) {
+        if (req.body.plan_price == '' || req.body.plan_price == null) {
           res.json({ success: false, msg: "All fields are required" });
         }
-        else if (req.body.is_defualt == false) {
-          if (req.body.plan_price == '' || req.body.plan_price == null) {
-            res.json({ success: false, msg: "All fields are required" });
-          }
+      }
+      else if (planName.length > 10 || planName.length < 3) {
+        res.json({ success: false, msg: "Plan Name between 3-10 characters" });
+      }
+      else if (req.body.is_defualt == false && req.body.plan_price < 1) {
+        res.json({ success: false, msg: "Plan price should be valid" });
+      }
+      else {
+        if (req.body.noprojects == 'Unlimited') {
+          no_projects = req.body.noprojects;
+        } else {
+          no_projects = req.body.no_projects;
         }
-        else if (planName.length > 10 || planName.length < 3) {
-          res.json({ success: false, msg: "Plan Name between 3-10 characters" });
+        if (req.body.nomembers == 'Unlimited') {
+          no_members = req.body.nomembers;
+        } else {
+          no_members = req.body.no_members;
         }
-        else if (req.body.is_defualt == false && req.body.plan_price < 1) {
-          res.json({ success: false, msg: "Plan price should be valid" });
+        if (req.body.notasks == 'Unlimited') {
+          no_tasks = req.body.notasks;
+        } else {
+          no_tasks = req.body.no_tasks;
         }
-        else {
-          if (req.body.noprojects == 'Unlimited') {
-            no_projects = req.body.noprojects;
-          } else {
-            no_projects = req.body.no_projects;
-          }
-          if (req.body.nomembers == 'Unlimited') {
-            no_members = req.body.nomembers;
-          } else {
-            no_members = req.body.no_members;
-          }
-          if (req.body.notasks == 'Unlimited') {
-            no_tasks = req.body.notasks;
-          } else {
-            no_tasks = req.body.no_tasks;
-          }
-          if (req.body.nomodules == 'Unlimited') {
-            no_modules = req.body.nomodules;
-          } else {
-            no_modules = req.body.no_modules;
-          }
-          Plans.update({
-            plan_name: req.body.plan_name,
-            plan_price: req.body.plan_price,
-            no_projects: no_projects,
-            no_members: no_members,
-            no_tasks: req.no_tasks,
-            no_modules: no_modules,
-          }, {
-              where: {
-                id: req.body.id
-              }
-            }).then(data1 => {
-              if (data1 == 1) {
-                io.sockets.emit("updatePlan", {
-                });
-                res.json({ success: true, msg: "Success" });
-              }
-              else {
-                res.json({ success: false, msg: "Failed" });
-              }
-            });
+        if (req.body.nomodules == 'Unlimited') {
+          no_modules = req.body.nomodules;
+        } else {
+          no_modules = req.body.no_modules;
         }
-      });
+        Plans.update({
+          plan_name: req.body.plan_name,
+          plan_price: req.body.plan_price,
+          no_projects: no_projects,
+          no_members: no_members,
+          no_tasks: req.no_tasks,
+          no_modules: no_modules,
+        }, {
+            where: {
+              id: req.body.id
+            }
+          }).then(data1 => {
+            if (data1 == 1) {
+              io.sockets.emit("updatePlan", {
+              });
+              res.json({ success: true, msg: "Success" });
+            }
+            else {
+              res.json({ success: false, msg: "Failed" });
+            }
+          });
+      }
+    });
     // } else {
     //   return res.status(401).send('Invalid User');
     // }
@@ -1462,7 +1463,7 @@ var returnRouter = function (io) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   // -----------------------------------End------------------------------------------
-  
+
   // ---------------------------------Start-------------------------------------------
   // Function      : Get logged in entity
   // Params        : 
@@ -1483,13 +1484,13 @@ var returnRouter = function (io) {
     }
   });
   // ----------------------------------End-------------------------------------------
-   // ---------------------------------Start-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
   // Function      : get all estimated project
   // Params        : 
   // Returns       : 
   // Author        : Yasir Poongadan
   // Date          : 06-04-2018
-// ---------------------------------Start-------------------------------------------
+  // ---------------------------------Start-------------------------------------------
   // Function      : getProjectReport
   // Params        : 
   // Returns       : 
@@ -1503,91 +1504,92 @@ var returnRouter = function (io) {
         decoded;
       decoded = jwt.verify(authorization, Config.secret);
       cmp_id = decoded.cmp_id;
-   //   res.json(decoded);
+      //   res.json(decoded);
       // // console.log(decoded);
-   
-    var start = new Date(req.body.sDate);
-    start.setHours(00, 00, 00, 000);
-    var end = new Date(req.body.eDate);
-    end.setHours(23, 59, 59, 999);
-    let whereCond = {
-      [Op.and]: [{cmp_id:cmp_id} 
-        , {[Op.or]: [
-            {planned_start_date: { $between: [start, end]}},
+
+      var start = new Date(req.body.sDate);
+      start.setHours(00, 00, 00, 000);
+      var end = new Date(req.body.eDate);
+      end.setHours(23, 59, 59, 999);
+      let whereCond = {
+        [Op.and]: [{ cmp_id: cmp_id }
+          , {
+          [Op.or]: [
+            { planned_start_date: { $between: [start, end] } },
             // {actual_start_date: { $between: [start, end]}},
           ]
-      }],
-    }
-    // let prjWhereCond = {}
-    if(req.body.selProj != 'All'){
+        }],
+      }
+      // let prjWhereCond = {}
+      if (req.body.selProj != 'All') {
         whereCond.id = req.body.selProj;
-    }
-    if(req.body.selCat != 'All'){
-      whereCond.category_id = req.body.selCat;
-    }
-    if(req.body.status != 'All'){
-      whereCond.status = req.body.status;
-    }
-    if(req.body.pm != 'All'){
-      whereCond.pm_id = req.body.pm;
-    }
-    Projects.findAll({  
+      }
+      if (req.body.selCat != 'All') {
+        whereCond.category_id = req.body.selCat;
+      }
+      if (req.body.status != 'All') {
+        whereCond.status = req.body.status;
+      }
+      if (req.body.pm != 'All') {
+        whereCond.pm_id = req.body.pm;
+      }
+      Projects.findAll({
         where: whereCond,
-      include: [
-            {
-              model: ProjectModule,
-              include: [
-                {
-                  model: ProjectTask,
-                  include: [
-                    {
-                      model: Users,
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              model: Login, as :'Pm_id',
-              include: [
-                {
-                  model: User
-                },
-                {
-                  model: Company
-                }
-              ]
-              
-            },
-            {
-              model: ProjectCategory
-            }
-          ]
-      
-    }).then((proj) => {
-      resp = [];
- 
-      proj.forEach(function(prjct,index) {
-        members = [];
-        mbrs = [];
-        ttlHr = 0;
-        prjct.tbl_project_modules.forEach((modules)=> {
-          modules.tbl_project_tasks.forEach((task)=> {
-            taskhr = task.planned_hour + task.buffer_hour;
-            ttlHr += taskhr;
-            if(task.assigned_to_id != null){
-              if (mbrs.indexOf(task.assigned_to_id) == -1) {
-                mbrs.push(task.assigned_to_id);
-                members.push(task.tbl_user_profile);
+        include: [
+          {
+            model: ProjectModule,
+            include: [
+              {
+                model: ProjectTask,
+                include: [
+                  {
+                    model: Users,
+                  }
+                ]
               }
-            }
+            ]
+          },
+          {
+            model: Login, as: 'Pm_id',
+            include: [
+              {
+                model: User
+              },
+              {
+                model: Company
+              }
+            ]
+
+          },
+          {
+            model: ProjectCategory
+          }
+        ]
+
+      }).then((proj) => {
+        resp = [];
+
+        proj.forEach(function (prjct, index) {
+          members = [];
+          mbrs = [];
+          ttlHr = 0;
+          prjct.tbl_project_modules.forEach((modules) => {
+            modules.tbl_project_tasks.forEach((task) => {
+              taskhr = task.planned_hour + task.buffer_hour;
+              ttlHr += taskhr;
+              if (task.assigned_to_id != null) {
+                if (mbrs.indexOf(task.assigned_to_id) == -1) {
+                  mbrs.push(task.assigned_to_id);
+                  members.push(task.tbl_user_profile);
+                }
+              }
+            });
           });
+          // proj[index].ttlHr = ttlHr;
+          resp.push({ prj: prjct, ttlHr: ttlHr, members: members });
         });
-         // proj[index].ttlHr = ttlHr;
-        resp.push({prj :prjct, ttlHr :ttlHr,members:members});
+        res.json(resp);
       });
-      res.json(resp);
-    });
     } else {
       return res.status(401).send('Invalid User');
     }
@@ -1608,34 +1610,34 @@ var returnRouter = function (io) {
         decoded;
       decoded = jwt.verify(authorization, Config.secret);
       cmp_id = decoded.cmp_id;
-    var start = new Date(req.body.sDate);
-    start.setHours(00, 00, 00, 000);
-    var end = new Date(req.body.eDate);
-    end.setHours(23, 59, 59, 999);
-    // let whereCond = {
-    //   [Op.and]: [{} 
-    //     , {[Op.or]: [
-    //         {planned_start_date: { $between: [start, end]}},
-    //         // {actual_start_date: { $between: [start, end]}},
-    //       ]
-    //   }],
-    // }
-    whereCond = {}; 
-    if(req.body.selUsers != 'All'){
-      whereCond.user_profile_id = req.body.selUsers;
-    }
-    Log.findAll({ 
-      where :  whereCond,
-      include: [
-        {
-          model: Users,
-          where :  {cmp_id : cmp_id},
-          required : true
-        }
-      ]
-    }).then((proj) => {
-      res.json(proj);
-    });
+      var start = new Date(req.body.sDate);
+      start.setHours(00, 00, 00, 000);
+      var end = new Date(req.body.eDate);
+      end.setHours(23, 59, 59, 999);
+      // let whereCond = {
+      //   [Op.and]: [{} 
+      //     , {[Op.or]: [
+      //         {planned_start_date: { $between: [start, end]}},
+      //         // {actual_start_date: { $between: [start, end]}},
+      //       ]
+      //   }],
+      // }
+      whereCond = {};
+      if (req.body.selUsers != 'All') {
+        whereCond.user_profile_id = req.body.selUsers;
+      }
+      Log.findAll({
+        where: whereCond,
+        include: [
+          {
+            model: Users,
+            where: { cmp_id: cmp_id },
+            required: true
+          }
+        ]
+      }).then((proj) => {
+        res.json(proj);
+      });
     } else {
       return res.status(401).send('Invalid User');
     }
@@ -1655,14 +1657,15 @@ var returnRouter = function (io) {
         decoded;
       decoded = jwt.verify(authorization, Config.secret);
       cmp_id = decoded.cmp_id;
-    Projects.findAll({  where :  {cmp_id : cmp_id}, 
-    }).then((proj) => {
-      res.json(proj);
-    });
+      Projects.findAll({
+        where: { cmp_id: cmp_id },
+      }).then((proj) => {
+        res.json(proj);
+      });
     } else {
       return res.status(401).send('Invalid User');
     }
-    
+
   });
   // -----------------------------------End------------------------------------------
   // ---------------------------------Start-------------------------------------------
@@ -1673,36 +1676,45 @@ var returnRouter = function (io) {
   // Date          : 09-04-2018
   // Last Modified : 09-04-2018, Rinsha
   // Desc          : get all estimated project
-  router.get('/getAllEstimatedProject', function (req, res) {
+  router.post('/getAllEstimatedProject', function (req, res) {
     if (req.headers && req.headers.authorization) {
       var authorization = req.headers.authorization.substring(4), decoded;
       decoded = jwt.verify(authorization, Config.secret);
-    // EstimationTeam.findAll({
-    //   include: [
-    //     {
-    //       model: EstimationTeamMember,
-  
-    //     }
-    // ]
-    // }).then(estimation => {
-    //   res.json(estimation);
-    // });
-    Estimations.findAll({
-      where: {
-        is_accepted: true,
-        is_resubmitted : false
-      },
-      include: [
-        {
-        model: Projects,
+      // EstimationTeam.findAll({
+      //   include: [
+      //     {
+      //       model: EstimationTeamMember,
+
+      //     }
+      // ]
+      // }).then(estimation => {
+      //   res.json(estimation);
+      // });
+      Estimations.findAll({
+        where: {
+          is_accepted: true,
+          is_resubmitted: false
         },
-      ]
-    }).then(estimation => {
-      res.json(estimation);
-    });
-  } else {
-    return res.status(401).send('Invalid User');
-  }
+        include: [
+          {
+            model: Projects,
+          },
+          {
+            model: EstimationTeam,
+            include: [{
+              model: Users
+            }, {
+              model: EstimationTeamMember
+            }
+            ],
+          }
+        ]
+      }).then(estimation => {
+        res.json(estimation);
+      });
+    } else {
+      return res.status(401).send('Invalid User');
+    }
   });
   // -----------------------------------End------------------------------------------
   module.exports = router;

@@ -57,7 +57,7 @@ export class CompanyManageAccessRightsComponent implements OnInit {
     this.showSpinner =true
     this.companyService.getUserGroups().subscribe(userGroups =>{
       this.showSpinner =false
-        console.log(userGroups);
+        // console.log(userGroups);
       if(userGroups.length <= 0 ){
         // console.log("theme is empty");
         this.existStatus = true;
@@ -92,7 +92,7 @@ export class CompanyManageAccessRightsComponent implements OnInit {
   getAccessRights(usergroupid){
     this.companyService.getAccessRights(usergroupid).subscribe(accessRights =>{
       this.accessRights = accessRights;
-      console.log(accessRights)
+      // console.log(accessRights)
       
     });
   

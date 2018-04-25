@@ -68,8 +68,8 @@ export class UserEditProfileComponent implements OnInit {
       let snackBarRef = this.snackBar.open(info.msg, '', {
         duration: 3000
       });
-      if (info.success == false) {
-        // this.routes.navigate(['/project']);
+      if (info.success == true) {
+        this.routes.navigate(['/user-dashboard']);
       }
     });
     // ---------------------------------End-------------------------------------------

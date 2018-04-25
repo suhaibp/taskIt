@@ -20,7 +20,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
   datepicker: Boolean = false;
   showstartdate: Boolean = false;
   endtime1: any;
-  displayedColumns = ['slno', 'user', 'start_date', 'start_time', 'end_date'];
+  displayedColumns = ['slno', 'user', 'start_date', 'start_time'];
   selected = '0';
   selected1 = '0';
   selected2 = '0';
@@ -65,7 +65,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
   getWorkingTime: any;
   i: any;
   j: any;
-  modules = [];
+  modules : any;
   name: '';
   p_id: '';
   spinner: Boolean = false;
@@ -105,7 +105,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
     developer: [],
     designer: [],
     qc: [],
-    start_time: ''
+    start_time: {hour: '', minute : '', second : ''}
   }
   newTasks = {
     task_name: '',
@@ -170,11 +170,11 @@ export class CompanyProjectPlanningComponent implements OnInit {
     //   dragulaService.setOptions('third-bag', {
     //   removeOnSpill: true
     // }); 
-    this.dragulaService.setOptions('third-bag', {
-      accepts: function (el, target, source, sibling) {
-        return !el.contains(target);
-      },
-    });
+    // this.dragulaService.setOptions('third-bag', {
+    //   accepts: function (el, target, source, sibling) {
+    //     return !el.contains(target);
+    //   },
+    // });
   }
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -182,6 +182,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
   ngOnInit() {
+    this.modules = [];
     this.myArray = [];
     this.myArray1 = [];
     this.myArray3 = [];
@@ -250,10 +251,10 @@ export class CompanyProjectPlanningComponent implements OnInit {
     this.companyService.getWorkingTime().subscribe(getWorkingTime => {
       this.getWorkingTime = getWorkingTime;
     });
-    this.companyService.getOffDays().subscribe(getOffDays => {
-      // });
-      // this.companyService.getbreakTime().subscribe(breakTime => {
-    });
+    // this.companyService.getOffDays().subscribe(getOffDays => {
+    //   // });
+    //   // this.companyService.getbreakTime().subscribe(breakTime => {
+    // });
   }
   chooseTeamMember() {
     let userOldArr = [];
@@ -646,13 +647,21 @@ export class CompanyProjectPlanningComponent implements OnInit {
     //not need now
   }
   calculateEnddate() {
-    this.projectSelectedTeam
-    this.modules
+    // this.projectSelectedTeam
+    // this.modules
     let data = { modules: this.modules, teamMembers: this.projectSelectedTeam };
-    console.log(data)
+    // console.log(data)
     this.companyService.getUserleavedataplanning(data).subscribe(data => {
-      // console.log(data)
+       console.log(data)
+      // console.log(this.Projects)
+      let tmp = data;
+      data.data.projectStartDate = new Date(this.Projects.start_date);
+      data.data.projectStartDate.setHours(this.Projects.start_time.hour, this.Projects.start_time.minute, this.Projects.start_time.second);
+      data.data.projectEndDate = data.projectEndDate;
+      //  console.log(tmp);
       this.modules = data.data;
+       console.log('moduleeeeee');
+       console.log( this.modules);
       // this.holidaydata = data.holidaydata;
       // this.leavedata = data.leavedata;
       // this.worktime = data.worktime;
@@ -880,7 +889,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
     return null;
   }
   savePlanningData() {
-    console.log(this.modules);
+    console.log(this.modules)
     this.companyService.savecompanyPlanning(this.modules).subscribe(data => {
       if (data.success) {
         this.routes.navigate(['/project']);

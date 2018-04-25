@@ -42,7 +42,7 @@ export class CompanyProjectVsHourComponent implements OnInit {
       this.projects = [];
       this.years = [];
       data.forEach(element => {
-        if (element.status == "Completed" || element.status == "In Progress") {
+        if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
           this.projects.push(element);
           this.years.push(element.project_name)
         }

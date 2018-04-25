@@ -23,9 +23,9 @@ module.exports = (sequelize, DataTypes) => {
     tbl_project_tasks.belongsTo(models.tbl_complexity_percentage, {
       foreignKey: 'complexity_id',
     });
-    tbl_project_tasks.belongsTo(models.tbl_project_team, {
-      foreignKey: 'project_team_id',
-    });
+    // tbl_project_tasks.belongsTo(models.tbl_project_team, {
+    //   foreignKey: 'project_team_id',
+    // });
     // tbl_project_tasks.hasMany(models.tbl_project_tasks, {
     //   foreignKey: 'task_id',
     // });
