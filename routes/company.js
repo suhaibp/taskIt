@@ -684,7 +684,6 @@ var returnRouter = function (io) {
                                                     saveLog("New User created!", user_id)
                                                 })
                                             }
-
                                             res.json({ success: true, msg: "NewUser Created Successfully" });
                                         })
                                     })
@@ -1409,7 +1408,6 @@ var returnRouter = function (io) {
                                 var date = d.getDate(daterng);
                                 var day = d.getDay(daterng);//start 1
                                 var weekno = Math.ceil((date + (7 - day)) / 7);//start 0
-
                                 cmp_work_time_assocs.findOne({
                                     required: true,
                                     // where: { [Op.and]: [{ day_no: parseInt(day), week_no: parseInt(weekno), cmp_id: cmp_id }] },
@@ -4021,6 +4019,7 @@ var returnRouter = function (io) {
                 //         [Op.ne]: 'false'
                 //     }
                 // },
+                // group: ['id'],
                 include: [
                     {
                         model: Projects_member_assoc,
@@ -4031,7 +4030,7 @@ var returnRouter = function (io) {
                     },
                     { model: Login, where: { [Op.and]: [{ block_status: false, delete_status: false }] }, required: true }
                 ],
-                raw: true
+                // raw: true
             }).then(data => {
                 return res.json(data);
             });
@@ -7970,7 +7969,7 @@ var returnRouter = function (io) {
             // var cmp_id = 1;
             var role_id = decoded.role_id;
             id = req.params.id;
-            //  console.log("\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+id);
+            //  console.log("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+id);
             NewTaskreq.find({
                 where: {
                     id: id,
@@ -10160,7 +10159,6 @@ var returnRouter = function (io) {
                                             project_id: modules.tbl_estimation.project_id
                                         })
                                         projectModules.save().then(saveProjectModules => {
-
                                             async.eachOfSeries(modules.tbl_estimation_tasks, (tasks, key1, callback1) => {
                                                 console.log(tasks);
                                                 const ProjectTeams = Project_teams.build({

@@ -5340,7 +5340,7 @@ var CompanyDashboardComponent = (function () {
         this.companyService.getAllProject().subscribe(function (data) {
             _this.projects = [];
             data.forEach(function (element) {
-                if (element.status == "Completed" || element.status == "In Progress") {
+                if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
                     _this.projects.push(element);
                 }
             });
@@ -9203,7 +9203,7 @@ var CompanyProjectVsHourComponent = (function () {
             _this.projects = [];
             _this.years = [];
             data.forEach(function (element) {
-                if (element.status == "Completed" || element.status == "In Progress") {
+                if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
                     _this.projects.push(element);
                     _this.years.push(element.project_name);
                 }
@@ -9517,7 +9517,7 @@ var CompanyProjectVsStatusComponent = (function () {
         this.companyService.getAllProject().subscribe(function (data) {
             _this.projects = [];
             data.forEach(function (element) {
-                if (element.status == "Completed" || element.status == "In Progress") {
+                if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
                     _this.projects.push(element);
                 }
             });
@@ -10166,7 +10166,7 @@ var CompanyResoureVsHourComponent = (function () {
         this.companyService.getAllProject().subscribe(function (data) {
             _this.projects = [];
             data.forEach(function (element) {
-                if (element.status == "Completed" || element.status == "In Progress") {
+                if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
                     _this.projects.push(element);
                 }
             });
@@ -11360,7 +11360,7 @@ var CompanyTaskVsStatusComponent = (function () {
         this.companyService.getAllProject().subscribe(function (data) {
             _this.projects = [];
             data.forEach(function (element) {
-                if (element.status == "Completed" || element.status == "In Progress") {
+                if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
                     _this.projects.push(element);
                 }
             });
@@ -11378,6 +11378,7 @@ var CompanyTaskVsStatusComponent = (function () {
         var _this = this;
         this.companyService.getUsers(projId).subscribe(function (data) {
             _this.users = data;
+            // console.log(data)
             if (_this.users.length == 0) {
                 // no data in charts
             }
@@ -14538,7 +14539,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user-activity-log/user-activity-log.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <user-sidebar></user-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <user-topbar></user-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                    <div class=\"user-dashboard\">\r\n                        <h2>Activity Log </h2>\r\n                        <ul class=\"breadcrumb\">\r\n                          <li><a href=\"#\">Activity Log</a></li>\r\n                          \r\n                          \r\n                          <li>Activity Log list </li>\r\n                        </ul>\r\n                    <div class=\"row\">\r\n                      <!-----------------------------------------------------------------table-------------------------------------->\r\n   \r\n  \r\n\r\n\r\n  <div class=\"col-md-12\">\r\n      <div class=\"row\">\r\n      <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\" >\r\n          <div class=\"\"  >\r\n              <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n              width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\r\n          <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n            <animateTransform attributeType=\"xml\"\r\n              attributeName=\"transform\"\r\n              type=\"rotate\"\r\n              from=\"0 25 25\"\r\n              to=\"360 25 25\"\r\n              dur=\"0.6s\"\r\n              repeatCount=\"indefinite\"/>\r\n            </path>\r\n          </svg>\r\n      </div>\r\n      </div>\r\n      \r\n  \r\n      <div class=\"col-md-12 optionz\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-4\">\r\n                <div class=\"example-header\">\r\n                    <mat-form-field>\r\n                      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                    </mat-form-field>\r\n                  </div>\r\n            </div> \r\n            \r\n           \r\n                <div class=\"col-md-5 col-xs-6 col-md-push-2\">\r\n                    <div class=\"row\">\r\n                          <div class=\"col-md-3 col-xs-4\">\r\n                            <label class=\"mr-top\">Date Range Filter</label>\r\n                          </div>\r\n                          <div class=\"col-md-5 col-xs-8\">\r\n                            <input type=\"text\" class=\"form-control form-control2\" name=\"daterangeInput\" daterangepicker [options]=\"options\" (selected)=\"selectedStartDate($event, daterange)\" />\r\n                          </div>\r\n                    </div>\r\n              \r\n           \r\n               </div>\r\n        </div>\r\n      </div>\r\n  \r\n  \r\n\r\n         \r\n      <div class=\"example-container mat-elevation-z8 \">\r\n    <mat-table [dataSource]=\"dataSource\" matSort>\r\n   <!-- Name Column -->\r\n   <ng-container matColumnDef=\"slno\">\r\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Sl_No </mat-header-cell>\r\n      <mat-cell *matCellDef=\"let row;let i = index\"> {{i+1}} </mat-cell>\r\n    </ng-container>\r\n      <!-- Name Column -->\r\n      <ng-container matColumnDef=\"date\">\r\n        <mat-header-cell *matHeaderCellDef mat-sort-header>DATE </mat-header-cell>\r\n        <mat-cell *matCellDef=\"let row\">{{row.createdAt | date:'EEE, d MMM,y'}}</mat-cell>\r\n      </ng-container>\r\n           <!-- Name Column -->\r\n      <ng-container matColumnDef=\"time\">\r\n        <mat-header-cell *matHeaderCellDef mat-sort-header>TIME </mat-header-cell>\r\n        <mat-cell *matCellDef=\"let row\"> {{row.createdAt | date:'shortTime'}} </mat-cell>\r\n      </ng-container>\r\n           <!-- Name Column -->\r\n      <ng-container matColumnDef=\"action\">\r\n        <mat-header-cell *matHeaderCellDef mat-sort-header>ACTION </mat-header-cell>\r\n        <mat-cell *matCellDef=\"let row\"> {{row.action}} </mat-cell>\r\n      </ng-container>\r\n  \r\n  \r\n\r\n  \r\n      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n      <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\r\n      </mat-row>\r\n    </mat-table>\r\n    <div class=\"col-md-15 \">\r\n    \r\n    </div>\r\n    <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\r\n        <div class=\"col-md-4 col-md-offset-4\">\r\n            <mat-toolbar   class=\"back-color\">No item found!</mat-toolbar>\r\n        </div>\r\n      </div>\r\n    <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n  </div>\r\n  \r\n  \r\n  </div>\r\n  </div>\r\n  \r\n  \r\n        \r\n       <!-----------------------------------------------------------------end table-------------------------------------->\r\n                    </div>\r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n                <user-footer></user-footer>\r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
+module.exports = "<body class=\"home\">\r\n    <div class=\"container-fluid display-table\">\r\n        <div class=\"row display-table-row\">\r\n      \r\n            <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n                 <!-- sidebar-->\r\n               \r\n                 <user-sidebar></user-sidebar> \r\n                 <!-- end sidebar-->\r\n            </div>\r\n            \r\n            <div class=\"col-md-12 col-xs-12\">\r\n                <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n                <!-- topbar-->\r\n                <user-topbar></user-topbar> \r\n                \r\n                    <!-- end topbar-->\r\n                    <div class=\"user-dashboard\">\r\n                        <h2>Activity Log </h2>\r\n                        <ul class=\"breadcrumb\">\r\n                          <li><a href=\"#\">Activity Log</a></li>\r\n                          \r\n                          \r\n                          <li>Activity Log list </li>\r\n                        </ul>\r\n                    <div class=\"row\">\r\n                      <!-----------------------------------------------------------------table-------------------------------------->\r\n   \r\n  \r\n\r\n\r\n  <div class=\"col-md-12\">\r\n      <div class=\"row\">\r\n      <!-- <div class=\"col-md-12 preloader2\" *ngIf=\"showSpinner\" >\r\n          <div class=\"\"  >\r\n              <svg version=\"1.1\" id=\"loader-1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n              width=\"50%\" height=\"59px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\r\n          <path fill=\"#000\" d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\r\n            <animateTransform attributeType=\"xml\"\r\n              attributeName=\"transform\"\r\n              type=\"rotate\"\r\n              from=\"0 25 25\"\r\n              to=\"360 25 25\"\r\n              dur=\"0.6s\"\r\n              repeatCount=\"indefinite\"/>\r\n            </path>\r\n          </svg>\r\n      </div>\r\n      </div> -->\r\n      \r\n  \r\n      <div class=\"col-md-12 optionz\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-4\">\r\n                <div class=\"example-header\">\r\n                    <mat-form-field>\r\n                      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n                    </mat-form-field>\r\n                  </div>\r\n            </div> \r\n            \r\n           \r\n                <div class=\"col-md-5 col-xs-6 col-md-push-2\">\r\n                    <div class=\"row\">\r\n                          <div class=\"col-md-3 col-xs-4\">\r\n                            <label class=\"mr-top\">Date Range Filter</label>\r\n                          </div>\r\n                          <div class=\"col-md-5 col-xs-8\">\r\n                            <input type=\"text\" class=\"form-control form-control2\" name=\"daterangeInput\" daterangepicker [options]=\"options\" (selected)=\"selectedStartDate($event, daterange)\" />\r\n                          </div>\r\n                    </div>\r\n              \r\n           \r\n               </div>\r\n        </div>\r\n      </div>\r\n  \r\n  \r\n\r\n         \r\n      <div class=\"example-container mat-elevation-z8 \">\r\n    <mat-table [dataSource]=\"dataSource\" matSort>\r\n   <!-- Name Column -->\r\n   <ng-container matColumnDef=\"slno\">\r\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Sl_No </mat-header-cell>\r\n      <mat-cell *matCellDef=\"let row;let i = index\"> {{i+1}} </mat-cell>\r\n    </ng-container>\r\n      <!-- Name Column -->\r\n      <ng-container matColumnDef=\"date\">\r\n        <mat-header-cell *matHeaderCellDef mat-sort-header>DATE </mat-header-cell>\r\n        <mat-cell *matCellDef=\"let row\">{{row.createdAt | date:'EEE, d MMM,y'}}</mat-cell>\r\n      </ng-container>\r\n           <!-- Name Column -->\r\n      <ng-container matColumnDef=\"time\">\r\n        <mat-header-cell *matHeaderCellDef mat-sort-header>TIME </mat-header-cell>\r\n        <mat-cell *matCellDef=\"let row\"> {{row.createdAt | date:'shortTime'}} </mat-cell>\r\n      </ng-container>\r\n           <!-- Name Column -->\r\n      <ng-container matColumnDef=\"action\">\r\n        <mat-header-cell *matHeaderCellDef mat-sort-header>ACTION </mat-header-cell>\r\n        <mat-cell *matCellDef=\"let row\"> {{row.action}} </mat-cell>\r\n      </ng-container>\r\n  \r\n  \r\n\r\n  \r\n      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n      <mat-row *matRowDef=\"let row; columns: displayedColumns;\">\r\n      </mat-row>\r\n    </mat-table>\r\n    <div class=\"col-md-15 \">\r\n    \r\n    </div>\r\n    <div class=\"col-md-12 noItemFound\" *ngIf=\"notExist\">\r\n        <div class=\"col-md-4 col-md-offset-4\">\r\n            <mat-toolbar   class=\"back-color\">No item found!</mat-toolbar>\r\n        </div>\r\n      </div>\r\n    <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\r\n  </div>\r\n  \r\n  \r\n  </div>\r\n  </div>\r\n  \r\n  \r\n        \r\n       <!-----------------------------------------------------------------end table-------------------------------------->\r\n                    </div>\r\n                </div>\r\n                \r\n            </div>\r\n                <!-- footer-->\r\n                <user-footer></user-footer>\r\n       <!-- end footer-->\r\n        </div>\r\n         </div>\r\n        <!-- Modal -->\r\n     </body>"
 
 /***/ }),
 
@@ -17455,7 +17456,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user-task-management/user-task-management.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n        <!-- sidebar-->\r\n        <user-sidebar></user-sidebar>\r\n        <!-- end sidebar-->\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n        <!-- topbar-->\r\n        <user-topbar></user-topbar>\r\n        <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->\r\n        <div id=\"additionalTask\" class=\"modal fade\" role=\"dialog\">\r\n          <div class=\"modal-dialog\">\r\n            <div class=\"modal-content\">\r\n              <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\r\n                <h4 class=\"modal-title\">Additional task request </h4>\r\n              </div>\r\n              <div class=\"modal-body\">\r\n                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addTask(index);\">\r\n                  <div>\r\n                    <div class=\"example-container\">\r\n                      <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\r\n                      <div class=\"col-md-7 col-xs-6\">\r\n                        <mat-form-field>\r\n                          <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\r\n                        </mat-form-field>\r\n                      </div>\r\n                      <br>\r\n                      <div class=\"example-container\">\r\n                        <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\r\n                        <div class=\"col-md-7 col-xs-6\" *ngFor=\"let userdata of  userData;\">\r\n                          {{userdata.f_name}} {{userdata.l_name}}\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <mat-form-field class=\"inputfileds\">\r\n                              <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\r\n                                <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\r\n                              </mat-select>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div> -->\r\n                          <!-- <div class=\"col-md-3 col-xs-6\">\r\n                        <mat-form-field>\r\n                          <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"picker\" placeholder=\"Choose a date\" [formControl]=\"date\"\r\n                            name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                          <mat-datepicker #picker1></mat-datepicker>\r\n                        </mat-form-field>\r\n                      </div>  -->\r\n                          <!-- <div class=\"col-md-3 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                              <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                              <mat-datepicker #picker></mat-datepicker>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <ngb-timepicker [meridian]=\"meridian\" name=\"start_time\" [(ngModel)]=\"newTasks.start_time\"></ngb-timepicker>\r\n                          <hr>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\r\n                          <div class=\"col-md-3 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput [matDatepicker]=\"picker1\" placeholder=\"Choose a date\" name='end_date' [(ngModel)]=\"newTasks.end_date\">\r\n                              <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\r\n                              <mat-datepicker #picker1></mat-datepicker>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <ngb-timepicker [meridian]=\"meridian\" name=\"end_time\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\r\n                          <hr> -->\r\n                          <div class=\"clearfix\"></div>\r\n\r\n                          <div class=\"example-container\">\r\n                            <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\r\n                            <div class=\"col-md-7 col-xs-6\">\r\n                              <mat-form-field class=\"inputfileds\">\r\n                                <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\r\n                                  <!-- <mat-option>None</mat-option> -->\r\n                                  <mat-option value=\"0\">Billable</mat-option>\r\n                                  <mat-option value=\"1\">Non Billable</mat-option>\r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n                            <div class=\"clearfix\"></div>\r\n                            <div class=\"example-container\">\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\r\n                              <div class=\"col-md-7 col-xs-6\">\r\n                                <mat-form-field class=\"inputfileds\">\r\n                                  <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\r\n                                    <!-- <mat-option>None</mat-option> -->\r\n                                    <mat-option value=\"0\">High</mat-option>\r\n                                    <mat-option value=\"1\">Medium</mat-option>\r\n                                    <mat-option value=\"2\">Low</mat-option>\r\n                                  </mat-select>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div *ngIf=\"showTeam\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Select Team *:</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field class=\"inputfileds\">\r\n                                    <mat-select [(value)]=\"selected3\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.team\">\r\n                                      <!-- <mat-option>None</mat-option> -->\r\n                                      <mat-option value=\"1\">Developer</mat-option>\r\n                                      <mat-option value=\"2\">Designer</mat-option>\r\n                                      <mat-option value=\"3\">QC</mat-option>\r\n                                    </mat-select>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                              <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Description :</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field>\r\n                                    <textarea matInput placeholder=\"Textarea\" name='description' [(ngModel)]=\"newTasks.description\"></textarea>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                                <br>\r\n                                <!-- <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                                <div class=\"col-md-5 col-xs-5\">\r\n                                  <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n                                    <mat-form-field class=\"example-form-field\">\r\n                                      <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                      <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                  <mat-icon>close</mat-icon>\r\n                                </button>\r\n                                    </mat-form-field>\r\n                                    <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                                  </div>\r\n                                </div> -->\r\n                                <!-- <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div> -->\r\n                                <div class=\"clearfix\"></div>\r\n                                <div class=\"example-container\">\r\n                                  <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\r\n                                  <div class=\"col-md-7 col-xs-6\">\r\n                                    <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\r\n                                  </div>\r\n                                  <div class=\"clearfix\"></div>\r\n                                  <div class=\"center\">\r\n                                    <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Send Request</button>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->\r\n        <!-- --------------------------------------------- add time extension ----------------------------------------------------------------- -->\r\n        <div id=\"extentionTask\" class=\"modal fade\" role=\"dialog\">\r\n          <div class=\"modal-dialog\">\r\n            <div class=\"modal-content\">\r\n              <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\r\n                <h4 class=\"modal-title\">Time Extension request </h4>\r\n              </div>\r\n              <div class=\"modal-body\">\r\n                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"TimeExtention(newTasks);\">\r\n                  <div>\r\n                    <div class=\"example-container\">\r\n                      <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name  :</label></div>\r\n                      <div class=\"col-md-7 col-xs-6\">\r\n                        <div class=\"col-md-7 col-xs-6\">\r\n                          {{newTasks.task_name}}\r\n                        </div>\r\n                      </div>\r\n                      <br>\r\n                      <div class=\"example-container\">\r\n                        <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person  :</label></div>\r\n                        <div class=\"col-md-7 col-xs-6\" *ngFor=\"let userdata of  userData;\">\r\n                          {{userdata.f_name}} {{userdata.l_name}}\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <div *ngIf=\"newTasks.complexity_id!=null\">\r\n                              {{newTasks.tbl_complexity_percentage.percentage}}\r\n                            </div>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            {{newTasks.planned_hour}}\r\n                            <!-- <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                            </mat-form-field> -->\r\n                          </div>\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            {{newTasks.buffer_hour}}\r\n                          </div>\r\n                          <!-- <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                            </mat-form-field> -->\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\"> Time required :*</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput min=\"0\" name='timerequired' [(ngModel)]=\"newTasks.timerequired\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"center\">\r\n                            <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Send Request</button>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <!-- --------------------------------------------- end time extension ----------------------------------------------------------------- -->\r\n        <!-- end topbar-->\r\n        <div class=\"user-dashboard\">\r\n          <!-- <h1>Hello, JS</h1> -->\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 col-sm-12 col-xs-12 gutter \">\r\n              <div class=\"white project-planning\">\r\n                <div class=\"pull-right\">\r\n                  <!-- <p><span id=\"hr\">00</span>:<span id=\"min\">00</span>:<span id=\"sec\">00</span></p>\r\n                    <div class=\"icons\" id=\"xxx\">\r\n                        <span class=\"stop-watch\">\r\n                          <span class=\"sw-parts\">\r\n                            <span class=\"sw-parts2\" id=\"icn-clock-line\"></span>\r\n                          </span>\r\n                        </span>\r\n                        <span class=\"label\" id=\"label-start-stop\">START</span>\r\n                      </div>\r\n                      <div class=\"btn btn-reset\" id=\"btn-reset\">\r\n                          <span class=\"bl-parts\"></span>\r\n                          <span class=\"bl-parts\"></span>\r\n                          <span class=\"btn-label\">RESET</span>\r\n                        </div> -->\r\n                  <mat-form-field class=\"filter\">\r\n                    <mat-select (change)=\"statusBasedData()\" [(value)]=\"selected\">\r\n                      <mat-option value=\"all\">All</mat-option>\r\n                      <mat-option value=\"1\">New </mat-option>\r\n                      <mat-option value=\"2\">Paused</mat-option>\r\n                      <mat-option value=\"3\">In Progress</mat-option>\r\n                      <mat-option value=\"4\">Hold</mat-option>\r\n                      <mat-option value=\"5\">Done</mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                </div>\r\n                <div *ngFor=\"let myTask of showDetails; let i = index\">\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-4\"><label for=\"\">Project Name</label><span>:</span></div>\r\n                    <div class=\"col-md-4\">\r\n                      <div class=\"row\"><label for=\"\" class=\"label2\">{{myTask.tbl_project.project_name}}</label></div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"clearfix\"></div>\r\n                  <div class=\"clearfix\"></div>\r\n                  <br>\r\n                  <div>\r\n                    <!-- <div  [dragula]='\"myBag\"' draggable=\"true\" [class]=\"'groupClass'\"> -->\r\n                    <div>\r\n                      <!-- <div *ngFor=\"let module of modules; let i = index\"> -->\r\n                      <div>\r\n                        <div class=\"col-md-12 col-xs-12 pull-right\">\r\n                          <div class=\"task\">\r\n                            <div class=\"col-md-10 col-xs-7\">\r\n                              <!-- <p>dfd</p> -->\r\n                              <h5>{{myTask.module_name}}</h5>\r\n                            </div>\r\n                            <div class=\"col-md-2 col-xs-5\">\r\n                              <ul class=\"taskedit\">\r\n                                <!-- {{module.time}} -->\r\n                                <!-- <li>22 Hr</li> -->\r\n                                <li class=\"pull-right\">\r\n                                  <!-- <div class=\"col-md-12\">\r\n            <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button>\r\n                                    </div> -->\r\n                                  <button (click)=\"getId(i,myTask.id)\" data-toggle=\"modal\" data-target=\"#additionalTask\" class=\"add-project\">+</button>\r\n                                </li>\r\n                                <!-- </div> -->\r\n                                <li class=\"pull-right\"></li>\r\n                              </ul>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                        <!-- <div [dragula]=\"'myBag'\"> -->\r\n                        <!-- <div *ngFor=\"let task of myTasks[i].tbl_project_tasks; let j = index\" > -->\r\n                        <div *ngFor=\"let task of myTask.tbl_project_tasks; let j = index\">\r\n                          <!-- <div *ngFor=\"let task1 of myTasks[i].tbl_project_tasks[j].tbl_task_status_assocs; let y = index\"> -->\r\n                          <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                            <!-- <div class=\"task assigned\" ng-style=\"background-color :task.status?.tbl_task_status?.color\" > -->\r\n                            <div class=\"task assigned\" *ngIf=\"task.startdatenow == 'showtasks'\" [ngStyle]=\"{'background-color': task.status?.tbl_task_status.color}\">\r\n                              \r\n                              <div>\r\n                                <div class=\"col-md-8 col-xs-7 martop\">\r\n                                  <!-- <h5> {{task.status?.tbl_task_status.color }}</h5>-->\r\n                                  <h5>{{task.task_name}}</h5>\r\n                                  <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>\r\n                                </div>\r\n                                <div class=\"col-md-4\">\r\n                                  <div class=\"row\">\r\n                                    <div class=\"col-md-4 col-xs-5\">\r\n                                      <ul class=\"taskedit-request\"><button title=\"Pause\" (click)=\"getId1(task,i,j)\" type=\"button\" class=\"btn round-button request-bt\"\r\n                                          data-toggle=\"modal\" data-target=\"#extentionTask\">Request</button></ul>\r\n                                    </div>\r\n                                    <div class=\"col-md-8 col-xs-5\">\r\n                                      <!-- ---------------------------------------------------------------------------------------------------- -- -->\r\n                                      <ul class=\"taskedit\">\r\n                                        <!-- <p><span id=\"hr\">{{task.appendHour}}</span>:<span id=\"min\">{{task.appendMinute}}</span>:\r\n                                          <span\r\n                                            id=\"sec\">{{task.appendSecond}}</span>\r\n                                        </p> -->\r\n                                        <!-- ----------------------------------------------------------------- -->\r\n                                        <div class=\"div1\">\r\n                                          <div class=\"div\">\r\n                                            <!-- <h1>StopWatch</h1> -->\r\n                                          </div>\r\n                                          <!-- <div id=\"ans\" class=\"d\">0:0:0</div> -->\r\n                                           <p><span id=\"hr\">{{task.appendHour}}</span>:<span id=\"min\">{{task.appendMinute}}</span>:\r\n                                          <span\r\n                                            id=\"sec\">{{task.appendSecond}}</span>\r\n                                        </p>\r\n                                          <!-- <div id=\"ans\" class=\"d\">{{ans}}</div> -->\r\n                                          <div class=\"d2\">\r\n                                           \r\n                                              <!-- <button class=\"button\" id=\"but\" (click)=\"start(task, myTask)\"> START</button> -->\r\n                                              <!-- <button class=\"button\" id=\"butt\" (click)=\"pause1(task)\">PAUSE sample</button> -->\r\n                                              <!-- <button class=\"button\" data-toggle=\"dropdown\" (click)=\"pauseTask(task)\">PAUSE</button> -->\r\n                                              <!-- <button class=\"button\" id=\"butt\" (click)=\"resume1(task)\">RESUME</button> -->\r\n                                          </div>\r\n                                        </div>\r\n                                        <!-- ---------------------------- -->\r\n                                        <li *ngIf=\"pause[task.id] || task.status?.status_id == 3\"><button title=\"Pause\" class=\"iconButton\" data-toggle=\"dropdown\" (click)=\"clearReason()\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-pause\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"dropdown-menu puase-popup\" role=\"menu\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Reason *</label></div>\r\n                                              <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <br>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"pauseTask(task)\" class=\"btn round-button\">Pause</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n                                        <li *ngIf=\"completed[task.id] || task.status?.status_id == 3\"><button title=\"Completed\" class=\"iconButton\" data-toggle=\"collapse\" data-target=\"#demo\"\r\n                                            (click)=\"clearprogress()\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\" id=\"demo\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"complete(task)\" class=\"btn round-button closepanel\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n                                        <li *ngIf=\"hold[task.id] || task.status?.status_id == 3\"><button title=\"Hold\" class=\"iconButton\" data-toggle=\"collapse\" data-target=\"#demo1\"\r\n                                            (click)=\"clearhold()\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\" id=\"demo1\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                              <div class=\"clearfix\"></div>\r\n                                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Reason *</label></div>\r\n                                              <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <br>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"holdTask(task)\" class=\"btn round-button closepane\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n                                        <!-- <li *ngIf=\"hold[task.id]\"><button title=\"Hold\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <div class=\"col-md-8\">\r\n                                                <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                               \r\n                                              </div>\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"hold(task)\" class=\"btn round-button closepane\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li> -->\r\n                                        <!-- <li *ngIf=\"hold[task.id]\"><button title=\"Hold\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button></li> -->\r\n                                        <!-- <li *ngIf=\"completed[task.id]\"><button title=\"Completed\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"completed(task)\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></button></li> -->\r\n                                        <div *ngIf=\"task.status?.status_id == 1\">\r\n                                          <li><button title=\"Start\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"start(task, myTask)\"><i class=\"fa fa-play\" aria-hidden=\"true\"></i></button></li>\r\n                                        </div>\r\n                                        <li *ngIf=\"done[task.id] || task.status?.status_id == 3\"><button title=\"Finish\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"Done(task)\"><i class=\"fa fa-check-circle-o\" aria-hidden=\"true\"></i></button></li>\r\n                                        <li *ngIf=\"Resume[task.id] || task.status?.status_id == 2 || task.status?.status_id == 4\"><button title=\"Resume\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"resumeTasks(task)\"><i class=\"fa fa-play\" aria-hidden=\"true\"></i></button></li>\r\n                                      </ul>\r\n                                    </div>\r\n                                  </div>\r\n                                </div>\r\n                                <div class=\"clearfix\"></div>\r\n                              </div>\r\n                            </div>\r\n                            <!-- </div> -->\r\n                          </div>\r\n                          <!-- </div> -->\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-md-12\" *ngIf=\"viewAll1\">\r\n                  <button type=\"button\" class=\"btn round-button dropdown-toggle mrg-tp pull-right\" data-toggle=\"dropdown\" (click)=\"viewAll()\">View All</button>\r\n                  <!-- <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button> -->\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</body>"
+module.exports = "<body class=\"home\">\r\n  <div class=\"container-fluid display-table\">\r\n    <div class=\"row display-table-row\">\r\n      <div class=\"col-md-1 col-xs-12 display-table-cell v-align box\" id=\"navigation\">\r\n        <!-- sidebar-->\r\n        <user-sidebar></user-sidebar>\r\n        <!-- end sidebar-->\r\n      </div>\r\n      <div class=\"col-md-12 col-xs-12\">\r\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\r\n        <!-- topbar-->\r\n        <user-topbar></user-topbar>\r\n        <!-- --------------------------------------------- add task modal ----------------------------------------------------------------- -->\r\n        <div id=\"additionalTask\" class=\"modal fade\" role=\"dialog\">\r\n          <div class=\"modal-dialog\">\r\n            <div class=\"modal-content\">\r\n              <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn>&times;</button>\r\n                <h4 class=\"modal-title\">Additional task request </h4>\r\n              </div>\r\n              <div class=\"modal-body\">\r\n                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"addTask(index);\">\r\n                  <div>\r\n                    <div class=\"example-container\">\r\n                      <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name * :</label></div>\r\n                      <div class=\"col-md-7 col-xs-6\">\r\n                        <mat-form-field>\r\n                          <input matInput name=\"task_name\" [(ngModel)]=\"newTasks.task_name\" autofocus>\r\n                        </mat-form-field>\r\n                      </div>\r\n                      <br>\r\n                      <div class=\"example-container\">\r\n                        <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person * :</label></div>\r\n                        <div class=\"col-md-7 col-xs-6\" *ngFor=\"let userdata of  userData;\">\r\n                          {{userdata.f_name}} {{userdata.l_name}}\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <mat-form-field class=\"inputfileds\">\r\n                              <mat-select placeholder=\"Complexity\" name='complexity' #group=\"ngModel\" [(ngModel)]=\"newTasks.complexity\">\r\n                                <mat-option [value]=\"complexity.id\" *ngFor=\"let complexity of complexitys;\">{{complexity.percentage}}</mat-option>\r\n                              </mat-select>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours *:</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                          <div class=\"col-md-2 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <br>\r\n                          <!-- <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Start Datetime *:</label></div> -->\r\n                          <!-- <div class=\"col-md-3 col-xs-6\">\r\n                        <mat-form-field>\r\n                          <input matInput [matDatepickerFilter]=\"myFilter\" [matDatepicker]=\"picker\" placeholder=\"Choose a date\" [formControl]=\"date\"\r\n                            name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                          <mat-datepicker #picker1></mat-datepicker>\r\n                        </mat-form-field>\r\n                      </div>  -->\r\n                          <!-- <div class=\"col-md-3 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" name='start_date' [(ngModel)]=\"newTasks.start_date\">\r\n                              <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\r\n                              <mat-datepicker #picker></mat-datepicker>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <ngb-timepicker [meridian]=\"meridian\" name=\"start_time\" [(ngModel)]=\"newTasks.start_time\"></ngb-timepicker>\r\n                          <hr>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">End Datetime *:</label></div>\r\n                          <div class=\"col-md-3 col-xs-6\">\r\n                            <mat-form-field>\r\n                              <input matInput [matDatepicker]=\"picker1\" placeholder=\"Choose a date\" name='end_date' [(ngModel)]=\"newTasks.end_date\">\r\n                              <mat-datepicker-toggle matSuffix [for]=\"picker1\"></mat-datepicker-toggle>\r\n                              <mat-datepicker #picker1></mat-datepicker>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <ngb-timepicker [meridian]=\"meridian\" name=\"end_time\" [(ngModel)]=\"newTasks.end_time\"></ngb-timepicker>\r\n                          <hr> -->\r\n                          <div class=\"clearfix\"></div>\r\n\r\n                          <div class=\"example-container\">\r\n                            <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task type :</label></div>\r\n                            <div class=\"col-md-7 col-xs-6\">\r\n                              <mat-form-field class=\"inputfileds\">\r\n                                <mat-select [(value)]=\"selected1\" name='task_type' #group=\"ngModel\" [(ngModel)]=\"newTasks.task_type\">\r\n                                  <!-- <mat-option>None</mat-option> -->\r\n                                  <mat-option value=\"0\">Billable</mat-option>\r\n                                  <mat-option value=\"1\">Non Billable</mat-option>\r\n                                </mat-select>\r\n                              </mat-form-field>\r\n                            </div>\r\n                            <div class=\"clearfix\"></div>\r\n                            <div class=\"example-container\">\r\n                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Priority *:</label></div>\r\n                              <div class=\"col-md-7 col-xs-6\">\r\n                                <mat-form-field class=\"inputfileds\">\r\n                                  <mat-select [(value)]=\"selected2\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.priority\">\r\n                                    <!-- <mat-option>None</mat-option> -->\r\n                                    <mat-option value=\"0\">High</mat-option>\r\n                                    <mat-option value=\"1\">Medium</mat-option>\r\n                                    <mat-option value=\"2\">Low</mat-option>\r\n                                  </mat-select>\r\n                                </mat-form-field>\r\n                              </div>\r\n                              <div *ngIf=\"showTeam\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Select Team *:</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field class=\"inputfileds\">\r\n                                    <mat-select [(value)]=\"selected3\" name='priority' #group=\"ngModel\" [(ngModel)]=\"newTasks.team\">\r\n                                      <!-- <mat-option>None</mat-option> -->\r\n                                      <mat-option value=\"1\">Developer</mat-option>\r\n                                      <mat-option value=\"2\">Designer</mat-option>\r\n                                      <mat-option value=\"3\">QC</mat-option>\r\n                                    </mat-select>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                              </div>\r\n                              <div class=\"clearfix\"></div>\r\n                              <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Description :</label></div>\r\n                                <div class=\"col-md-7 col-xs-6\">\r\n                                  <mat-form-field>\r\n                                    <textarea matInput  name='description' [(ngModel)]=\"newTasks.description\"></textarea>\r\n                                  </mat-form-field>\r\n                                </div>\r\n                                <br>\r\n                                <!-- <div class=\"example-container\">\r\n                                <div class=\"col-md-4 col-xs-5\"><label class=\"pad-top\">Checklist :</label></div>\r\n                                <div class=\"col-md-5 col-xs-5\">\r\n                                  <div *ngFor=\"let item of newTasks.newChecklist; let i = index; trackBy:trackByIndex\">\r\n                                    <mat-form-field class=\"example-form-field\">\r\n                                      <input matInput type=\"text\" name=\"checklist{{i}}\" required [(ngModel)]=\"newTasks.newChecklist[i].name\" />\r\n                                      <button mat-button *ngIf=\"value\" matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"value=''\">\r\n                                  <mat-icon>close</mat-icon>\r\n                                </button>\r\n                                    </mat-form-field>\r\n                                    <input type=\"button\" value=\"X\" (click)=\"closeChecklist(i)\" class=\"close-bt\">\r\n                                  </div>\r\n                                </div> -->\r\n                                <!-- <div class=\"col-md-3 col-xs-2\"><input type=\"button\" value=\"Add More\" (click)=\"addMore()\" class=\"round-button padd-bt\"></div> -->\r\n                                <div class=\"clearfix\"></div>\r\n                                <div class=\"example-container\">\r\n                                  <div class=\"col-md-3 col-xs-6\"><label class=\"pad-top\">Attachment :</label></div>\r\n                                  <div class=\"col-md-7 col-xs-6\">\r\n                                    <input (change)=\"displayDoc($event)\" name=\"file\" type=\"file\" [(ngModel)]=\"newTasks.file\" />\r\n                                  </div>\r\n                                  <div class=\"clearfix\"></div>\r\n                                  <div class=\"center\">\r\n                                    <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Send Request</button>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <!-- --------------------------------------------- end add modal ----------------------------------------------------------------- -->\r\n        <!-- --------------------------------------------- add time extension ----------------------------------------------------------------- -->\r\n        <div id=\"extentionTask\" class=\"modal fade\" role=\"dialog\">\r\n          <div class=\"modal-dialog\">\r\n            <div class=\"modal-content\">\r\n              <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" #closeBtn1>&times;</button>\r\n                <h4 class=\"modal-title\">Time Extension request </h4>\r\n              </div>\r\n              <div class=\"modal-body\">\r\n                <form role=\"form\" #f=\"ngForm\" (ngSubmit)=\"TimeExtention(newTasks);\">\r\n                  <div>\r\n                    <div class=\"example-container\">\r\n                      <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Task Name  :</label></div>\r\n                      <div class=\"col-md-7 col-xs-6\">\r\n                        <label class=\"pad-top\">\r\n                          {{newTasks.task_name}}\r\n                        </label>\r\n                      </div>\r\n                      <br>\r\n                      <div class=\"example-container\">\r\n                        <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Assigned person  :</label></div>\r\n                        <label class=\"pad-top\" *ngFor=\"let userdata of  userData;\">\r\n                          {{userdata.f_name}} {{userdata.l_name}}\r\n                        </label>\r\n                        <div class=\"clearfix\"></div>\r\n                        <div class=\"example-container\">\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Complexity :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                            <label class=\"pad-top\"  *ngIf=\"newTasks.complexity_id!=null\">\r\n                              {{newTasks.tbl_complexity_percentage.percentage}}\r\n                            </label>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          \r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Planned Hours :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                              \r\n                          <label class=\"pad-top\">\r\n                            {{newTasks.planned_hour}}\r\n                            <!-- <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"planned_hour\" min=\"0\" name='planned_hour' [(ngModel)]=\"newTasks.planned_hour\" required>\r\n                            </mat-form-field> -->\r\n                          </label>\r\n                          </div>\r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Buffer Hours :</label></div>\r\n                          <div class=\"col-md-7 col-xs-6\">\r\n                              \r\n                          <label class=\"pad-top\">\r\n                            {{newTasks.buffer_hour}}\r\n                          </label>\r\n                          </div>\r\n                          <!-- <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput name=\"buffer_time\" min=\"0\" name='buffer_hour' [(ngModel)]=\"newTasks.buffer_hour\" required>\r\n                            </mat-form-field> -->\r\n                          <div class=\"clearfix\"></div>\r\n                          \r\n                          <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\"> Time required :*</label></div>\r\n                          <div class=\"col-md-4 col-xs-6\">\r\n                            <mat-form-field class=\"wdth\">\r\n                              <input type=\"number\" matInput min=\"0\" name='timerequired' [(ngModel)]=\"newTasks.timerequired\" required>\r\n                            </mat-form-field>\r\n                          </div>\r\n                          <div class=\"clearfix\"></div>\r\n                          \r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"clearfix\"></div>\r\n                          <div class=\"center\">\r\n                            <button type=\"submit\" class=\"btn round-button dropdown-toggle mrg-tp\">Send Request</button>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <!-- --------------------------------------------- end time extension ----------------------------------------------------------------- -->\r\n        <!-- end topbar-->\r\n        <div class=\"user-dashboard\">\r\n          <!-- <h1>Hello, JS</h1> -->\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 col-sm-12 col-xs-12 gutter \">\r\n              <div class=\"white project-planning\">\r\n                <div class=\"pull-right\">\r\n                  <!-- <p><span id=\"hr\">00</span>:<span id=\"min\">00</span>:<span id=\"sec\">00</span></p>\r\n                    <div class=\"icons\" id=\"xxx\">\r\n                        <span class=\"stop-watch\">\r\n                          <span class=\"sw-parts\">\r\n                            <span class=\"sw-parts2\" id=\"icn-clock-line\"></span>\r\n                          </span>\r\n                        </span>\r\n                        <span class=\"label\" id=\"label-start-stop\">START</span>\r\n                      </div>\r\n                      <div class=\"btn btn-reset\" id=\"btn-reset\">\r\n                          <span class=\"bl-parts\"></span>\r\n                          <span class=\"bl-parts\"></span>\r\n                          <span class=\"btn-label\">RESET</span>\r\n                        </div> -->\r\n                  <mat-form-field class=\"filter\">\r\n                    <mat-select (change)=\"statusBasedData()\" [(value)]=\"selected\">\r\n                      <mat-option value=\"all\">All</mat-option>\r\n                      <mat-option value=\"1\">New </mat-option>\r\n                      <mat-option value=\"2\">Paused</mat-option>\r\n                      <mat-option value=\"3\">In Progress</mat-option>\r\n                      <mat-option value=\"4\">Hold</mat-option>\r\n                      <mat-option value=\"5\">Done</mat-option>\r\n                    </mat-select>\r\n                  </mat-form-field>\r\n                </div>\r\n                <div *ngFor=\"let myTask of showDetails; let i = index\">\r\n                  <div class=\"form-group\">\r\n                    <div class=\"col-md-4\"><label for=\"\">Project Name</label><span>:</span></div>\r\n                    <div class=\"col-md-4\">\r\n                      <div class=\"row\"><label for=\"\" class=\"label2\">{{myTask.tbl_project.project_name}}</label></div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"clearfix\"></div>\r\n                  <div class=\"clearfix\"></div>\r\n                  <br>\r\n                  <div>\r\n                    <!-- <div  [dragula]='\"myBag\"' draggable=\"true\" [class]=\"'groupClass'\"> -->\r\n                    <div>\r\n                      <!-- <div *ngFor=\"let module of modules; let i = index\"> -->\r\n                      <div>\r\n                        <div class=\"col-md-12 col-xs-12 pull-right\">\r\n                          <div class=\"task\">\r\n                            <div class=\"col-md-10 col-xs-7\">\r\n                              <!-- <p>dfd</p> -->\r\n                              <h5>{{myTask.module_name}}</h5>\r\n                            </div>\r\n                            <div class=\"col-md-2 col-xs-5\">\r\n                              <ul class=\"taskedit\">\r\n                                <!-- {{module.time}} -->\r\n                                <!-- <li>22 Hr</li> -->\r\n                                <li class=\"pull-right\">\r\n                                  <!-- <div class=\"col-md-12\">\r\n            <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button>\r\n                                    </div> -->\r\n                                  <button (click)=\"getId(i,myTask.id)\" data-toggle=\"modal\" data-target=\"#additionalTask\" class=\"add-project\">+</button>\r\n                                </li>\r\n                                <!-- </div> -->\r\n                                <li class=\"pull-right\"></li>\r\n                              </ul>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                        <!-- <div [dragula]=\"'myBag'\"> -->\r\n                        <!-- <div *ngFor=\"let task of myTasks[i].tbl_project_tasks; let j = index\" > -->\r\n                        <div *ngFor=\"let task of myTask.tbl_project_tasks; let j = index\">\r\n                          <!-- <div *ngFor=\"let task1 of myTasks[i].tbl_project_tasks[j].tbl_task_status_assocs; let y = index\"> -->\r\n                          <div class=\"col-md-11 col-xs-12 pull-right\">\r\n                            <!-- <div class=\"task assigned\" ng-style=\"background-color :task.status?.tbl_task_status?.color\" > -->\r\n                            <div class=\"task assigned\" *ngIf=\"task.showThisTask\" [ngStyle]=\"{'background-color': task.status?.tbl_task_status.color}\">\r\n                              \r\n                              <div>\r\n                                <div class=\"col-md-8 col-xs-7 martop\">\r\n                                  <!-- <h5> {{task.status?.tbl_task_status.color }}</h5>-->\r\n                                  <h5>{{task.task_name}}</h5>\r\n                                  <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>\r\n                                </div>\r\n                                <div class=\"col-md-4\">\r\n                                  <div class=\"row\">\r\n                                    <div class=\"col-md-4 col-xs-5\" *ngIf=\"task.showRequest\">\r\n                                      <ul class=\"taskedit-request\"><button title=\"Pause\" (click)=\"getId1(task,i,j)\" type=\"button\" class=\"btn round-button request-bt\"\r\n                                          data-toggle=\"modal\" data-target=\"#extentionTask\">Request</button></ul>\r\n                                    </div>\r\n                                    <div class=\"col-md-8 col-xs-5\">\r\n                                      <!-- ---------------------------------------------------------------------------------------------------- -- -->\r\n                                      <ul class=\"taskedit\">\r\n                                        <!-- <p><span id=\"hr\">{{task.appendHour}}</span>:<span id=\"min\">{{task.appendMinute}}</span>:\r\n                                          <span\r\n                                            id=\"sec\">{{task.appendSecond}}</span>\r\n                                        </p> -->\r\n                                        <!-- ----------------------------------------------------------------- -->\r\n                                        <div class=\"div1\">\r\n                                          <div class=\"div\">\r\n                                            <!-- <h1>StopWatch</h1> -->\r\n                                          </div>\r\n                                          <!-- <div id=\"ans\" class=\"d\">0:0:0</div> -->\r\n                                           <p><span id=\"hr\">{{task.appendHour}}</span>:<span id=\"min\">{{task.appendMinute}}</span>:\r\n                                          <span\r\n                                            id=\"sec\">{{task.appendSecond}}</span>\r\n                                        </p>\r\n                                          <!-- <div id=\"ans\" class=\"d\">{{ans}}</div> -->\r\n                                          <div class=\"d2\">\r\n                                           \r\n                                              <!-- <button class=\"button\" id=\"but\" (click)=\"start(task, myTask)\"> START</button> -->\r\n                                              <!-- <button class=\"button\" id=\"butt\" (click)=\"pause1(task)\">PAUSE sample</button> -->\r\n                                              <!-- <button class=\"button\" data-toggle=\"dropdown\" (click)=\"pauseTask(task)\">PAUSE</button> -->\r\n                                              <!-- <button class=\"button\" id=\"butt\" (click)=\"resume1(task)\">RESUME</button> -->\r\n                                          </div>\r\n                                        </div>\r\n                                        <!-- ---------------------------- -->\r\n                                        <li *ngIf=\"task.status?.status_id == 3\"><button title=\"Pause\" class=\"iconButton\" data-toggle=\"dropdown\" (click)=\"clearReason()\" ><i class=\"fa fa-pause\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"dropdown-menu puase-popup\" role=\"menu\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Reason *</label></div>\r\n                                              <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <br>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"pauseTask(task)\" class=\"btn round-button\">Pause</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n                                        <li *ngIf=\"task.status?.status_id == 3\"><button title=\"Completed\" class=\"iconButton\" data-toggle=\"collapse\" data-target=\"#demo\"\r\n                                            (click)=\"clearprogress()\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\" id=\"demo\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"complete(task)\" class=\"btn round-button closepanel\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n                                        <li *ngIf=\"task.status?.status_id == 3\"><button title=\"Hold\" class=\"iconButton\" data-toggle=\"collapse\" data-target=\"#demo1\"\r\n                                            (click)=\"clearhold()\" ><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\" id=\"demo1\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                              <div class=\"clearfix\"></div>\r\n                                              <div class=\"col-md-4 col-xs-6\"><label class=\"pad-top\">Reason *</label></div>\r\n                                              <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <br>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"holdTask(task)\" class=\"btn round-button closepane\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li>\r\n                                        <!-- <li *ngIf=\"hold[task.id]\"><button title=\"Hold\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button>\r\n                                          <ul class=\"collapse\">\r\n                                            <div class=\"col-md-8\">\r\n                                              <div class=\"col-md-8\">\r\n                                                <textarea rows=\"4\" cols=\"50\" name=\"name\" [(ngModel)]=\"newTasks.reason\"> </textarea>\r\n                               \r\n                                              </div>\r\n                                              <mat-form-field class=\"inputfileds\">\r\n                                                <mat-select placeholder=\"Progress\" name='progress' #group=\"ngModel\" [(ngModel)]=\"newTasks.percentage\">\r\n                                                  <mat-option [value]=\"percentage.id\" *ngFor=\"let percentage of percentages;\">{{percentage.percentage}}</mat-option>\r\n                                                </mat-select>\r\n                                              </mat-form-field>\r\n                                            </div>\r\n                                            <div class=\"clearfix\"></div>\r\n                                            <div class=\"col-md-4\">\r\n                                              <button type=\"submit\" (click)=\"hold(task)\" class=\"btn round-button closepane\">Save</button>\r\n                                            </div>\r\n                                          </ul>\r\n                                        </li> -->\r\n                                        <!-- <li *ngIf=\"hold[task.id]\"><button title=\"Hold\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\"><i class=\"fa fa-stop\" aria-hidden=\"true\"></i></button></li> -->\r\n                                        <!-- <li *ngIf=\"completed[task.id]\"><button title=\"Completed\" class=\"iconButton\" [disabled]=\"disableTask[task.id]\" (click)=\"completed(task)\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></button></li> -->\r\n                                        <div *ngIf=\"task.status?.status_id == 1\">\r\n                                          <li><button title=\"Start\" class=\"iconButton\"  (click)=\"start(task, myTask)\"><i class=\"fa fa-play\" aria-hidden=\"true\"></i></button></li>\r\n                                        </div>\r\n                                        <li *ngIf=\"task.status?.status_id == 3\"><button title=\"Finish\" class=\"iconButton\" (click)=\"Done(task)\"><i class=\"fa fa-check-circle-o\" aria-hidden=\"true\"></i></button></li>\r\n                                        <li *ngIf=\"task.status?.status_id == 2 || task.status?.status_id == 4\"><button title=\"Resume\" class=\"iconButton\"  (click)=\"resumeTasks(task)\"><i class=\"fa fa-play\" aria-hidden=\"true\"></i></button></li>\r\n                                      </ul>\r\n                                    </div>\r\n                                  </div>\r\n                                </div>\r\n                                <div class=\"clearfix\"></div>\r\n                              </div>\r\n                            </div>\r\n                            <!-- </div> -->\r\n                          </div>\r\n                          <!-- </div> -->\r\n                        </div>\r\n                        <div class=\"clearfix\"></div>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"clearfix\"></div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-md-12\" *ngIf=\"viewAll1\">\r\n                  <button type=\"button\" class=\"btn round-button dropdown-toggle mrg-tp pull-right\" data-toggle=\"dropdown\" (click)=\"viewAll()\">View All</button>\r\n                  <!-- <button type=\"button\" (click)=\"getId(i)\" data-toggle=\"modal\" data-target=\"#addTaskModal\" class=\"btn round-button pull-right right-btn\">Add Task</button> -->\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</body>"
 
 /***/ }),
 
@@ -17588,6 +17589,9 @@ var UserTaskManagementComponent = (function () {
             id: 0
         };
         this.showthisTask = [];
+        this.showRequest = [];
+        this.viewAllTasks = false;
+        this.inProgressTaskId = '';
     }
     UserTaskManagementComponent.prototype.getId = function (index, id) {
         this.module_id = id;
@@ -17630,64 +17634,6 @@ var UserTaskManagementComponent = (function () {
     };
     UserTaskManagementComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.hour = 0;
-        this.miniutes = 0;
-        this.second = 0;
-        this.appendHour = 0;
-        this.appendMinute = 0;
-        this.appendSecond = 0;
-        var task_time_id = 0;
-        this.lastStatus = '';
-        // this.userService.getMyTasks().subscribe(forDisable => {
-        //   forDisable.forEach(module => {
-        //     module.tbl_project_tasks.forEach(task => {
-        //       task.tbl_task_time_assocs.forEach(element => {
-        //         if (element.id > task_time_id) {
-        //           this.lastStatus = element;
-        //           task_time_id = element.id;
-        //         }
-        //         console.log(this.lastStatus.status_id)
-        //         if (this.lastStatus.status_id == 3 || this.lastStatus.status_id == 2) {
-        //           console.log(task.id)
-        //           console.log("status id");
-        //           this.disableTask[task.id] = true;
-        //         }
-        //         else {
-        //           console.log(task.id);
-        //           console.log("else");
-        //           this.disableTask[task.id] = false;
-        //         }
-        //       });
-        //     });
-        //   });
-        // });
-        // this.userService.getMyTasks().subscribe(forDisable => {
-        //   forDisable.forEach(module => {
-        //     module.tbl_project_tasks.forEach(task => {
-        //       this.task_id = task.id;
-        //       task.tbl_task_time_assocs.forEach(element => {
-        //         if (element.id > task_time_id) {
-        //           this.lastStatus = element;
-        //           task_time_id = element.id;
-        //         }
-        //       });
-        //       if (this.lastStatus !== undefined) {
-        //         if (this.lastStatus.status_id == 3 || this.lastStatus.status_id == 2) {
-        //           this.userService.getAllTasksInModule().subscribe(alltasks => {
-        //             this.alltask = alltasks;
-        //             this.alltask.forEach((element, index) => {
-        //               if (element.id == this.task_id) {
-        //                 this.disableTask[this.task_id] = false;
-        //               } else {
-        //                 this.disableTask[element.id] = true;
-        //               }
-        //             });
-        //           });
-        //         }
-        //       }
-        //     });
-        //   });
-        // });
         this.userService.getAllTasksInModule().subscribe(function (alltasks) {
             _this.alltask = alltasks;
         });
@@ -17712,12 +17658,11 @@ var UserTaskManagementComponent = (function () {
         this.companyService.getComplexity().subscribe(function (complexity) {
             _this.complexitys = complexity;
         });
+        this.selected = 'all';
+        this.getmytasks();
         this.userService.getPercentage().subscribe(function (percentage) {
             _this.percentages = percentage;
         });
-        this.selected = "all";
-        this.selectbox = false;
-        this.getmytasks();
     };
     UserTaskManagementComponent.prototype.viewAll = function () {
         this.selectbox = true;
@@ -17849,245 +17794,72 @@ var UserTaskManagementComponent = (function () {
     UserTaskManagementComponent.prototype.getmytasks = function () {
         var _this = this;
         this.myTasks = [];
-        var task_time_id = '';
-        this.showDetails1 = [];
+        // let task_time_id: any = '';
+        // this.showDetails1 = [];
         this.showDetails = [];
         this.lastStatus = "";
         this.taskToShow = "";
         // this. endDatetym ='';
         this.userService.getMyTasks().subscribe(function (data) {
+            console.log(data);
             _this.myTasks = data;
-            if (_this.selected == "all") {
-                data.forEach(function (module) {
-                    module.tbl_project_tasks.forEach(function (task) {
-                        _this.task_id = task.id;
+            data.forEach(function (module, mdKey) {
+                var newTask = [];
+                module.tbl_project_tasks.forEach(function (task, key) {
+                    console.log(task.tbl_task_status_assocs);
+                    _this.lastStatus = task.tbl_task_status_assocs[0];
+                    if (_this.lastStatus.status_id == _this.selected || _this.selected == 'all') {
+                        task.projectId = module.project_id;
+                        task.showRequest = true;
                         task.planned_start_date_time = new Date(task.planned_start_date_time);
-                        if (_this.selectbox == false) {
-                            _this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-                            if (_this.lastStatus !== undefined) {
-                                if (task.planned_start_date_time <= Date.now() && _this.lastStatus.status_id !== 5) {
-                                    task.startdatenow = 'showtasks';
-                                }
-                            }
-                            else {
-                                if (task.planned_start_date_time <= Date.now()) {
-                                    task.startdatenow = 'showtasks';
-                                }
+                        var nowDateTime = new Date();
+                        nowDateTime.setHours(23, 59, 59, 999);
+                        task.showThisTask = true;
+                        if (_this.viewAllTasks == false) {
+                            if (task.planned_start_date_time > nowDateTime || _this.lastStatus.status_id == 5) {
+                                task.showThisTask = false;
                             }
                         }
-                        else {
-                            task.startdatenow = 'showtasks';
+                        var totalHour_1 = 0;
+                        var totalMinutes_1 = 0;
+                        var totalSecond_1 = 0;
+                        var totalHrinMS = 0;
+                        var totalMinutesinMS = 0;
+                        var totalSecondinMS = 0;
+                        // this.lastStatusEndDate = task.tbl_task_time_assocs[0].end_date_time;
+                        task.tbl_task_time_assocs.forEach(function (element) {
+                            totalHour_1 += element.hour;
+                            totalMinutes_1 += element.minute;
+                            totalSecond_1 += element.second;
+                        });
+                        totalSecondinMS = totalSecond_1 * 1000;
+                        totalMinutesinMS = totalMinutes_1 * 1000 * 60;
+                        totalHrinMS = totalHour_1 * 1000 * 60 * 60;
+                        // });
+                        _this.diff = 0;
+                        if (_this.lastStatus.status_id == 3) {
+                            var taskStartTime1 = new Date(task.tbl_task_time_assocs[0].date_time);
+                            _this.diff = Math.abs(Date.now() - taskStartTime1);
                         }
-                        _this.appendHour = 0;
-                        _this.appendMinute = 0;
-                        _this.appendSecond = 0;
-                        _this.hours = 0;
-                        _this.minutes = 0;
-                        _this.seconds = 0;
-                        _this.taskTym = '';
-                        _this.endDatetym = '';
-                        if (task.tbl_task_time_assocs && task.tbl_task_time_assocs.length == 0) {
-                            task.appendHour = 0;
-                            task.appendMinute = 0;
-                            task.appendSecond = 0;
+                        var ttlSec = _this.diff + totalHrinMS + totalMinutesinMS + totalSecondinMS;
+                        task.appendSecond = Math.floor((ttlSec / 1000) % 60);
+                        task.appendMinute = Math.floor((ttlSec / (1000 * 60)) % 60);
+                        task.appendHour = Math.floor((ttlSec / (1000 * 60 * 60)) % 24);
+                        if (_this.lastStatus.status_id == 3) {
+                            _this.inProgressTaskId = task.id;
+                            _this.starttime(task);
                         }
-                        else {
-                            // this.taskTym = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1];
-                            _this.task_id = task.id;
-                            // console.log(this.showthisTask[task.id] + ":" + task.id)
-                            _this.appendHour = 0;
-                            _this.appendMinute = 0;
-                            _this.appendSecond = 0;
-                            task_time_id = 0;
-                            var totalHour_1 = 0;
-                            var totalMinutes_1 = 0;
-                            var totalSecond_1 = 0;
-                            var totalHrinMS_1 = 0;
-                            var totalMinutesinMS_1 = 0;
-                            var totalSecondinMS_1 = 0;
-                            _this.lastStatusEndDate = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1].end_date_time;
-                            if (_this.lastStatusEndDate == null && (_this.lastStatus.status_id == 1 || _this.lastStatus.status_id == 2 || _this.lastStatus.status_id == 4 || _this.lastStatus.status_id == 5)) {
-                                // no end date, refresh case
-                                task.tbl_task_time_assocs.forEach(function (element) {
-                                    totalHour_1 = totalHour_1 + element.hour;
-                                    totalMinutes_1 = totalMinutes_1 + element.minute;
-                                    totalSecond_1 = totalSecond_1 + element.second;
-                                    if (element.id > task_time_id) {
-                                        _this.taskTym = element;
-                                        task_time_id = element.id;
-                                    }
-                                });
-                                totalSecondinMS_1 = totalSecond_1 * 1000;
-                                totalMinutesinMS_1 = totalMinutes_1 * 1000 * 60;
-                                totalHrinMS_1 = totalHour_1 * 1000 * 60 * 60;
-                                // });
-                                _this.endDatetym = new Date(_this.taskTym.date_time);
-                                _this.diff = 0;
-                                _this.diff = Math.abs(Date.now() - _this.endDatetym);
-                            }
-                            else {
-                                // have end date
-                                task.tbl_task_time_assocs.forEach(function (element) {
-                                    totalHour_1 = totalHour_1 + element.hour;
-                                    totalMinutes_1 = totalMinutes_1 + element.minute;
-                                    totalSecond_1 = totalSecond_1 + element.second;
-                                    totalSecondinMS_1 = totalSecond_1 * 1000;
-                                    totalMinutesinMS_1 = totalMinutes_1 * 1000 * 60;
-                                    totalHrinMS_1 = totalHour_1 * 1000 * 60 * 60;
-                                    if (element.id > task_time_id) {
-                                        _this.taskTym = element;
-                                        task_time_id = element.id;
-                                    }
-                                    _this.diff = 0;
-                                });
-                            }
-                            ;
-                            var A = 0;
-                            A = _this.diff + totalHrinMS_1 + totalMinutesinMS_1 + totalSecondinMS_1;
-                            task.appendSecond = Math.floor((A / 1000) % 60);
-                            task.appendMinute = Math.floor((A / (1000 * 60)) % 60);
-                            task.appendHour = Math.floor((A / (1000 * 60 * 60)) % 24);
-                        }
-                        if (task.tbl_task_status_assocs == [] || task.tbl_task_status_assocs == null || task.tbl_task_status_assocs == '') {
-                            console.log("here");
-                            _this.showDetails1.push(module);
-                            // this.showDetails.push(module);
-                            // this.play[task.id] = true;
-                        }
-                        else {
-                            console.log("----------");
-                            _this.lastStatus = '';
-                            // this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-                            _this.lastStatusid = '';
-                            task.tbl_task_status_assocs.forEach(function (element) {
-                                if (element.id > _this.lastStatusid) {
-                                    _this.lastStatus = element;
-                                    _this.lastStatusid = element.id;
-                                }
-                            });
-                            // console.log(this.lastStatus)
-                            if (_this.lastStatusEndDate == null && _this.lastStatus.status_id == 3) {
-                                //continue the timer when it in inprogress and no end date(case: refresh)
-                                _this.starttime(task);
-                            }
-                            // if (this.lastStatus !== undefined) {
-                            task.status = _this.lastStatus;
-                            //   this.showDetails.push(module);
-                            // }
-                        }
-                    });
-                    _this.showDetails.push(module);
+                        task.status = _this.lastStatus;
+                        // this.showDetails.push(module);
+                        newTask.push(task);
+                        //  console.log(task);
+                    }
                 });
-                console.log(_this.showDetails);
-            }
-            else {
-                data.forEach(function (module) {
-                    module.tbl_project_tasks.forEach(function (task) {
-                        task.startdatenow = 'showtasks';
-                        _this.appendHour = 0;
-                        _this.appendMinute = 0;
-                        _this.appendSecond = 0;
-                        _this.hours = 0;
-                        _this.minutes = 0;
-                        _this.seconds = 0;
-                        _this.taskTym = '';
-                        _this.endDatetym = '';
-                        if (task.tbl_task_time_assocs && task.tbl_task_time_assocs.length == 0) {
-                            task.appendHour = 0;
-                            task.appendMinute = 0;
-                            task.appendSecond = 0;
-                        }
-                        else {
-                            // this.taskTym = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1];
-                            _this.task_id = task.id;
-                            task.planned_start_date_time = new Date(task.planned_start_date_time);
-                            // console.log(this.showthisTask[task.id] + ":" + task.id)
-                            _this.appendHour = 0;
-                            _this.appendMinute = 0;
-                            _this.appendSecond = 0;
-                            task_time_id = 0;
-                            var totalHour_2 = 0;
-                            var totalMinutes_2 = 0;
-                            var totalSecond_2 = 0;
-                            var totalHrinMS_2 = 0;
-                            var totalMinutesinMS_2 = 0;
-                            var totalSecondinMS_2 = 0;
-                            _this.lastStatusEndDate = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1].end_date_time;
-                            if (_this.lastStatusEndDate == null && (_this.lastStatus.status_id == 1 || _this.lastStatus.status_id == 2 || _this.lastStatus.status_id == 4 || _this.lastStatus.status_id == 5)) {
-                                // no end date, refresh case
-                                task.tbl_task_time_assocs.forEach(function (element) {
-                                    totalHour_2 = totalHour_2 + element.hour;
-                                    totalMinutes_2 = totalMinutes_2 + element.minute;
-                                    totalSecond_2 = totalSecond_2 + element.second;
-                                    if (element.id > task_time_id) {
-                                        _this.taskTym = element;
-                                        task_time_id = element.id;
-                                    }
-                                });
-                                totalSecondinMS_2 = totalSecond_2 * 1000;
-                                totalMinutesinMS_2 = totalMinutes_2 * 1000 * 60;
-                                totalHrinMS_2 = totalHour_2 * 1000 * 60 * 60;
-                                // });
-                                _this.endDatetym = new Date(_this.taskTym.date_time);
-                                _this.diff = 0;
-                                _this.diff = Math.abs(Date.now() - _this.endDatetym);
-                            }
-                            else {
-                                // have end date
-                                task.tbl_task_time_assocs.forEach(function (element) {
-                                    totalHour_2 = totalHour_2 + element.hour;
-                                    totalMinutes_2 = totalMinutes_2 + element.minute;
-                                    totalSecond_2 = totalSecond_2 + element.second;
-                                    totalSecondinMS_2 = totalSecond_2 * 1000;
-                                    totalMinutesinMS_2 = totalMinutes_2 * 1000 * 60;
-                                    totalHrinMS_2 = totalHour_2 * 1000 * 60 * 60;
-                                    if (element.id > task_time_id) {
-                                        _this.taskTym = element;
-                                        task_time_id = element.id;
-                                    }
-                                    _this.diff = 0;
-                                });
-                            }
-                            ;
-                            var A = 0;
-                            A = _this.diff + totalHrinMS_2 + totalMinutesinMS_2 + totalSecondinMS_2;
-                            task.appendSecond = Math.floor((A / 1000) % 60);
-                            task.appendMinute = Math.floor((A / (1000 * 60)) % 60);
-                            task.appendHour = Math.floor((A / (1000 * 60 * 60)) % 24);
-                        }
-                        if (task.tbl_task_status_assocs == [] || task.tbl_task_status_assocs == null || task.tbl_task_status_assocs == '') {
-                            // this.showDetails1.push(module);
-                            // this.showDetails.push(module);
-                            // this.play[task.id] = true;
-                            // if (this.selected == 1) {
-                            //   this.showDetails = this.showDetails1;
-                            // }
-                        }
-                        else {
-                            _this.lastStatus = '';
-                            // this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-                            _this.lastStatusid = '';
-                            task.tbl_task_status_assocs.forEach(function (element) {
-                                if (element.id > _this.lastStatusid) {
-                                    _this.lastStatus = element;
-                                    _this.lastStatusid = element.id;
-                                }
-                            });
-                            if (_this.lastStatusEndDate == null && _this.lastStatus.status_id == 3) {
-                                //continue the timer when it in inprogress and no end date(case: refresh)
-                                _this.starttime(task);
-                            }
-                            if (_this.lastStatus !== undefined) {
-                                if (_this.lastStatus.status_id == _this.selected) {
-                                    task.status = _this.lastStatus;
-                                    // this.showDetails.push(module);
-                                }
-                            }
-                        }
-                    });
-                    _this.showDetails.push(module);
-                });
-            }
+                module.tbl_project_tasks = newTask;
+                // this.myTasks[mdKey] = module
+                _this.showDetails.push(module);
+            });
+            console.log(_this.showDetails);
             // console.log(this.showDetails);
         });
     };
@@ -18104,49 +17876,51 @@ var UserTaskManagementComponent = (function () {
     // -------------------------stopwatch----------------
     UserTaskManagementComponent.prototype.start = function (task, myTask) {
         var _this = this;
-        this.a = [];
-        this.b = [];
-        this.countt = [];
-        // this.hour = 0
-        // this.miniutes = 0
-        // this.second = 0
-        // console.log(task)
-        this.a[task.id] = 0;
-        this.b[task.id] = 0;
-        this.countt[task.id] = 0;
-        this.intervel = 0;
-        this.task_id = task.id;
-        this.userService.getAllTasksInModule().subscribe(function (alltasks) {
-            _this.alltask = alltasks;
-            _this.alltask.forEach(function (element, index) {
-                // console.log(this.task_id)
-                if (element.id == _this.task_id) {
-                    // this.show[j] = true;
-                    _this.disableTask[_this.task_id] = false;
-                }
-                else {
-                    _this.disableTask[element.id] = true;
-                }
+        console.log(task);
+        console.log(myTask);
+        if (this.inProgressTaskId == '' || task.id == this.inProgressTaskId) {
+            this.a = [];
+            this.b = [];
+            this.countt = [];
+            // this.hour = 0
+            // this.miniutes = 0
+            // this.second = 0
+            // console.log(task)
+            this.a[task.id] = 0;
+            this.b[task.id] = 0;
+            this.countt[task.id] = 0;
+            this.intervel = 0;
+            this.task_id = task.id;
+            this.inProgressTaskId = task.id;
+            this.userService.startAtask(task).subscribe(function (status) {
+                _this.getmytasks();
+                //   this.inProgressTaskId = task.id;
+                // this.userService.addTimeAssoc(this.time).subscribe(assTimeAssocs => {
+                // this.userService.changeStausColor(task.id).subscribe(data => {
+                //   console.log("-----------")
+                //   console.log(data);
+                //   if(data.length > 0){
+                //     task.status = data[data.length-1];
+                //   }
+                //   this.starttime(task);
+                // });
+                // });
             });
-        });
-        this.userService.startAtask(task.id).subscribe(function (status) {
-        });
-        this.play[this.task_id] = false;
-        this.Resume[this.task_id] = false;
-        this.completed[this.task_id] = true;
-        this.pause[this.task_id] = true;
-        this.hold[this.task_id] = true;
-        this.done[this.task_id] = true;
-        this.time.hour = task.appendHour;
-        this.time.minutes = task.appendMinute;
-        this.time.seconds = task.appendSecond;
-        this.time.id = task.id;
-        this.userService.addTimeAssoc(this.time).subscribe(function (assTimeAssocs) {
-            _this.userService.changeStausColor(task.id).subscribe(function (data) {
-                task.status = data[0];
+            this.Resume[this.task_id] = false;
+            this.completed[this.task_id] = true;
+            this.pause[this.task_id] = true;
+            this.hold[this.task_id] = true;
+            this.done[this.task_id] = true;
+            this.time.hour = task.appendHour;
+            this.time.minutes = task.appendMinute;
+            this.time.seconds = task.appendSecond;
+            this.time.id = task.id;
+        }
+        else {
+            var snackBarRef = this.snackBar.open(' Another task alreay inprogress', '', {
+                duration: 2000
             });
-        });
-        this.starttime(task);
+        }
     };
     UserTaskManagementComponent.prototype.starttime = function (task) {
         var _this = this;
@@ -18190,33 +17964,34 @@ var UserTaskManagementComponent = (function () {
     };
     UserTaskManagementComponent.prototype.pauseTask = function (task) {
         var _this = this;
+        console.log(task);
         this.task_id = task.id;
-        this.userService.getAllTasksInModule().subscribe(function (alltasks) {
-            _this.alltask = alltasks;
-            _this.alltask.forEach(function (element, index) {
-                // console.log(this.task_id)
-                if (element.id == _this.task_id) {
-                    // this.show[j] = true;
-                    _this.disableTask[_this.task_id] = false;
-                }
-                else {
-                    _this.disableTask[element.id] = true;
-                }
-            });
-        });
-        this.Resume[this.task_id] = true;
-        this.play[this.task_id] = false;
-        this.pause[this.task_id] = false;
-        this.hold[this.task_id] = false;
-        this.done[this.task_id] = false;
-        this.completed[this.task_id] = false;
+        // this.userService.getAllTasksInModule().subscribe(alltasks => {
+        //   this.alltask = alltasks;
+        //   this.alltask.forEach((element, index) => {
+        //     // console.log(this.task_id)
+        //     if (element.id == this.task_id) {
+        //       // this.show[j] = true;
+        //       this.disableTask[this.task_id] = false;
+        //     } else {
+        //       this.disableTask[element.id] = true;
+        //     }
+        //   });
+        // });
+        // this.Resume[this.task_id] = true;
+        // this.play[this.task_id] = false;
+        // this.pause[this.task_id] = false;
+        // this.hold[this.task_id] = false;
+        // this.done[this.task_id] = false;
+        // this.completed[this.task_id] = false;
         this.a[task.id] = this.a[task.id] + 1;
         this.b[task.id] = 0;
-        this.newTasks.id = task.id;
-        this.newTasks.hour = task.appendHour;
-        this.newTasks.minutes = task.appendMinute;
-        this.newTasks.seconds = task.appendSecond;
-        this.userService.pauseTask(this.newTasks).subscribe(function (status) {
+        task.reason = this.newTasks.reason;
+        // this.newTasks.id = task.id;
+        // this.newTasks.hour = task.appendHour;
+        // this.newTasks.minutes = task.appendMinute;
+        // this.newTasks.seconds = task.appendSecond;
+        this.userService.pauseTask(task).subscribe(function (status) {
             _this.userService.changeStausColor(task.id).subscribe(function (data) {
                 task.status = data[data.length - 1];
             });
@@ -18226,31 +18001,20 @@ var UserTaskManagementComponent = (function () {
         var _this = this;
         this.a[task.id] = this.a[task.id] + 1;
         this.b[task.id] = 0;
-        this.newTasks.id = task.id;
-        this.newTasks.hour = task.appendHour;
-        this.newTasks.minutes = task.appendMinute;
-        this.newTasks.seconds = task.appendSecond;
+        task.reason = this.newTasks.reason;
+        task.percentage = this.newTasks.percentage;
+        // this.newTasks.id = task.id;
+        // this.newTasks.hour = task.appendHour;
+        // this.newTasks.minutes = task.appendMinute;
+        // this.newTasks.seconds = task.appendSecond;
         if (this.newTasks.percentage == '' || this.newTasks.percentage == null || this.newTasks.reason == '' || this.newTasks.reason == null) {
             var snackBarRef = this.snackBar.open(' Please fill all the fields', '', {
                 duration: 2000
             });
         }
         else {
-            this.userService.getAllTasksInModule().subscribe(function (alltasks) {
-                _this.alltask = alltasks;
-                // console.log(this.alltask);
-                _this.alltask.forEach(function (element, index) {
-                    _this.disableTask[element.id] = false;
-                });
-            });
-            this.task_id = task.id;
-            this.Resume[this.task_id] = true;
-            this.play[this.task_id] = false;
-            this.pause[this.task_id] = false;
-            this.hold[this.task_id] = false;
-            this.done[this.task_id] = false;
-            this.completed[this.task_id] = false;
-            this.userService.holdTask(this.newTasks).subscribe(function (status) {
+            this.userService.holdTask(task).subscribe(function (status) {
+                _this.inProgressTaskId = '';
                 _this.userService.changeStausColor(task.id).subscribe(function (data) {
                     task.status = data[data.length - 1];
                 });
@@ -18273,65 +18037,87 @@ var UserTaskManagementComponent = (function () {
     };
     UserTaskManagementComponent.prototype.Done = function (task) {
         var _this = this;
-        this.userService.getAllTasksInModule().subscribe(function (alltasks) {
-            _this.alltask = alltasks;
-            _this.alltask.forEach(function (element, index) {
-                _this.disableTask[element.id] = false;
-            });
-        });
-        this.newTasks.id = task.id;
-        this.Resume[this.task_id] = false;
-        this.play[this.task_id] = false;
-        this.completed[this.task_id] = false;
-        this.pause[this.task_id] = false;
-        this.hold[this.task_id] = false;
-        this.done[this.task_id] = false;
+        // this.userService.getAllTasksInModule().subscribe(alltasks => {
+        //   this.alltask = alltasks;
+        //   this.alltask.forEach((element, index) => {
+        //     this.disableTask[element.id] = false;
+        //   });
+        // });
+        // this.newTasks.id = task.id;
+        // this.Resume[this.task_id] = false;
+        // this.play[this.task_id] = false;
+        // this.completed[this.task_id] = false;
+        // this.pause[this.task_id] = false;
+        // this.hold[this.task_id] = false;
+        // this.done[this.task_id] = false;
         this.a[task.id] = this.a[task.id] + 1;
         this.b[task.id] = 0;
-        this.newTasks.id = task.id;
-        this.newTasks.hour = task.appendHour;
-        this.newTasks.minutes = task.appendMinute;
-        this.newTasks.seconds = task.appendSecond;
-        this.userService.donetask(this.newTasks).subscribe(function (status) {
+        // this.newTasks.id = task.id;
+        // this.newTasks.hour = task.appendHour;
+        // this.newTasks.minutes = task.appendMinute;
+        // this.newTasks.seconds = task.appendSecond;
+        this.userService.donetask(task).subscribe(function (status) {
+            _this.inProgressTaskId = '';
             _this.userService.changeStausColor(task.id).subscribe(function (data) {
                 task.status = data[data.length - 1];
+                _this.showRequest[task.id] = false;
             });
         });
     };
     UserTaskManagementComponent.prototype.complete = function (task) {
         var _this = this;
+        this.task_id = task.id;
         this.a[task.id] = this.a[task.id] + 1;
         this.b[task.id] = 0;
-        this.newTasks.id = task.id;
-        this.newTasks.hour = task.appendHour;
-        this.newTasks.minutes = task.appendMinute;
-        this.newTasks.seconds = task.appendSecond;
+        task.percentage = this.newTasks.percentage;
+        // this.newTasks.id = task.id;
+        // this.newTasks.hour = task.appendHour;
+        // this.newTasks.minutes = task.appendMinute;
+        // this.newTasks.seconds = task.appendSecond;
         if (this.newTasks.percentage == '' || this.newTasks.percentage == null) {
             var snackBarRef = this.snackBar.open(' Please select percentage of task', '', {
                 duration: 2000
             });
         }
         else {
-            this.userService.completeTask(this.newTasks).subscribe(function (status) {
+            this.userService.completeTask(task).subscribe(function (status) {
+                _this.inProgressTaskId = '';
                 _this.userService.changeStausColor(task.id).subscribe(function (data) {
                     task.status = data[data.length - 1];
                 });
             });
+            // this.Resume[this.task_id] = false;
+            // this.play[this.task_id] = false;
+            // this.completed[this.task_id] = false;
+            // this.pause[this.task_id] = false;
+            // this.hold[this.task_id] = false;
+            // this.done[this.task_id] = false;
         }
     };
     UserTaskManagementComponent.prototype.resumeTasks = function (task) {
         var _this = this;
-        this.b[task.id] = this.b[task.id] + 1;
-        this.showAns(task);
-        this.newTasks.id = task.id;
-        this.newTasks.hour = task.appendHour;
-        this.newTasks.minutes = task.appendMinute;
-        this.newTasks.seconds = task.appendSecond;
-        this.userService.resumeTasks(this.newTasks).subscribe(function (status) {
-            _this.userService.changeStausColor(task.id).subscribe(function (data) {
-                task.status = data[data.length - 1];
+        if (this.inProgressTaskId == '' || task.id == this.inProgressTaskId) {
+            this.b[task.id] = this.b[task.id] + 1;
+            this.showAns(task);
+            this.newTasks.id = task.id;
+            this.newTasks.hour = task.appendHour;
+            this.newTasks.minutes = task.appendMinute;
+            this.newTasks.seconds = task.appendSecond;
+            this.Resume[this.task_id] = false;
+            this.inProgressTaskId = task.id;
+            this.userService.resumeTasks(this.newTasks).subscribe(function (status) {
+                _this.getmytasks();
+                // this.inProgressTaskId = task.id;
+                // this.userService.changeStausColor(task.id).subscribe(data => {
+                //   task.status = data[data.length - 1];
+                // });
             });
-        });
+        }
+        else {
+            var snackBarRef = this.snackBar.open(' Another task alreay inprogress', '', {
+                duration: 2000
+            });
+        }
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('closeBtn'),
@@ -22451,7 +22237,7 @@ var UserService = (function () {
     // Desc          : 
     UserService.prototype.pauseTask = function (task) {
         var headers = this.setHeaderWithAuthorization();
-        return this.http.post(this.serviceUrl + 'pause-a-task', (task), { headers: headers })
+        return this.http.post(this.serviceUrl + 'pause-a-task', task, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // ----------------------------------End-------------------------------------------
@@ -22493,7 +22279,7 @@ var UserService = (function () {
     // Desc          : 
     UserService.prototype.startAtask = function (task) {
         var headers = this.setHeaderWithAuthorization();
-        return this.http.post(this.serviceUrl + 'start-a-task/' + task, {}, { headers: headers })
+        return this.http.post(this.serviceUrl + 'start-a-task/', task, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // ----------------------------------End-------------------------------------------
@@ -23045,8 +22831,8 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.addTimeAssoc = function (time) {
-        var headers = this.setHeader();
-        return this.http.post(this.serviceUrl + 'add-time-assoc', (time), { headers: headers })
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'add-time-assoc', time, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // ----------------------------------End-------------------------------------------
@@ -23059,8 +22845,8 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.changeStausColor = function (task) {
-        var headers = this.setHeader();
-        return this.http.post(this.serviceUrl + 'changeStausColor/' + task, { headers: headers })
+        var headers = this.setHeaderWithAuthorization();
+        return this.http.post(this.serviceUrl + 'changeStausColor/' + task, {}, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // ----------------------------------End-------------------------------------------
@@ -23073,7 +22859,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.holdTask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'hold-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -23087,7 +22873,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.donetask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'done-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -23101,7 +22887,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.completeTask = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'complete-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -23115,7 +22901,7 @@ var UserService = (function () {
     // Last Modified : 29-03-2018, Jooshifa
     // Desc          : 
     UserService.prototype.resumeTasks = function (task) {
-        var headers = this.setHeader();
+        var headers = this.setHeaderWithAuthorization();
         return this.http.post(this.serviceUrl + 'resume-a-task', (task), { headers: headers })
             .map(function (res) { return res.json(); });
     };

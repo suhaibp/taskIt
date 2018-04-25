@@ -2184,7 +2184,6 @@ deleteHoliday(data){
         .map(res => res.json());
      
        }
-
   // -----------------------------------End------------------------------------------
   getProjectReport(data){
     let headers = this.setHeaderWithAuthorization();

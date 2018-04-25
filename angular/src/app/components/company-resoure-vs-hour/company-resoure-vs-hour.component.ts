@@ -49,7 +49,7 @@ export class CompanyResoureVsHourComponent implements OnInit {
     this.companyService.getAllProject().subscribe(data => {
       this.projects = [];
       data.forEach(element => {
-        if (element.status == "Completed" || element.status == "In Progress") {
+        if (element.status == "Planned" || element.status == "Completed" || element.status == "In Progress") {
           this.projects.push(element);
         }
       });

@@ -189,66 +189,15 @@ export class UserTaskManagementComponent implements OnInit {
   diff: any;
   showthisTask = [];
   lastStatusid: any;
+  showRequest =[];
+
+
+  viewAllTasks = false;
+  inProgressTaskId = '';
+  
+
   constructor(private route: ActivatedRoute, private userService: UserService, private companyService: CompanyService, public snackBar: MatSnackBar, private st: SimpleTimer) { }
   ngOnInit() {
-    this.hour = 0
-    this.miniutes = 0
-    this.second = 0
-    this.appendHour = 0;
-    this.appendMinute = 0;
-    this.appendSecond = 0;
-    let task_time_id = 0;
-    this.lastStatus = ''
-    // this.userService.getMyTasks().subscribe(forDisable => {
-    //   forDisable.forEach(module => {
-    //     module.tbl_project_tasks.forEach(task => {
-    //       task.tbl_task_time_assocs.forEach(element => {
-    //         if (element.id > task_time_id) {
-    //           this.lastStatus = element;
-    //           task_time_id = element.id;
-    //         }
-    //         console.log(this.lastStatus.status_id)
-    //         if (this.lastStatus.status_id == 3 || this.lastStatus.status_id == 2) {
-    //           console.log(task.id)
-    //           console.log("status id");
-    //           this.disableTask[task.id] = true;
-    //         }
-    //         else {
-    //           console.log(task.id);
-    //           console.log("else");
-    //           this.disableTask[task.id] = false;
-    //         }
-    //       });
-    //     });
-    //   });
-    // });
-    // this.userService.getMyTasks().subscribe(forDisable => {
-    //   forDisable.forEach(module => {
-    //     module.tbl_project_tasks.forEach(task => {
-    //       this.task_id = task.id;
-    //       task.tbl_task_time_assocs.forEach(element => {
-    //         if (element.id > task_time_id) {
-    //           this.lastStatus = element;
-    //           task_time_id = element.id;
-    //         }
-    //       });
-    //       if (this.lastStatus !== undefined) {
-    //         if (this.lastStatus.status_id == 3 || this.lastStatus.status_id == 2) {
-    //           this.userService.getAllTasksInModule().subscribe(alltasks => {
-    //             this.alltask = alltasks;
-    //             this.alltask.forEach((element, index) => {
-    //               if (element.id == this.task_id) {
-    //                 this.disableTask[this.task_id] = false;
-    //               } else {
-    //                 this.disableTask[element.id] = true;
-    //               }
-    //             });
-    //           });
-    //         }
-    //       }
-    //     });
-    //   });
-    // });
     this.userService.getAllTasksInModule().subscribe(alltasks => {
       this.alltask = alltasks;
     });
@@ -273,12 +222,11 @@ export class UserTaskManagementComponent implements OnInit {
     this.companyService.getComplexity().subscribe(complexity => {
       this.complexitys = complexity;
     });
+    this.selected = 'all';
+    this.getmytasks();
     this.userService.getPercentage().subscribe(percentage => {
       this.percentages = percentage
     });
-    this.selected = "all";
-    this.selectbox = false;
-    this.getmytasks();
   }
   viewAll() {
     this.selectbox = true;
@@ -398,239 +346,76 @@ export class UserTaskManagementComponent implements OnInit {
   }
   getmytasks() {
     this.myTasks = [];
-    let task_time_id: any = '';
-    this.showDetails1 = [];
+    // let task_time_id: any = '';
+    // this.showDetails1 = [];
     this.showDetails = [];
     this.lastStatus = "";
     this.taskToShow = "";
     // this. endDatetym ='';
     this.userService.getMyTasks().subscribe(data => {
+      console.log(data);
       this.myTasks = data;
-      if (this.selected == "all") {
-        data.forEach(module => {
-          module.tbl_project_tasks.forEach(task => {
-            this.task_id = task.id;
-            task.planned_start_date_time = new Date(task.planned_start_date_time);
-            if (this.selectbox == false) {
-              this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-              if (this.lastStatus !== undefined) {
-                if (task.planned_start_date_time <= Date.now() && this.lastStatus.status_id !== 5) {
-                  task.startdatenow = 'showtasks';
-                }
-              } else {
-                if (task.planned_start_date_time <= Date.now()) {
-                  task.startdatenow = 'showtasks';
-                }
-              }
-            } else {
-              task.startdatenow = 'showtasks';
-            }
-            this.appendHour = 0;
-            this.appendMinute = 0;
-            this.appendSecond = 0;
-            this.hours = 0;
-            this.minutes = 0;
-            this.seconds = 0;
-            this.taskTym = '';
-            this.endDatetym = '';
-            if (task.tbl_task_time_assocs && task.tbl_task_time_assocs.length == 0) {
-              task.appendHour = 0;
-              task.appendMinute = 0;
-              task.appendSecond = 0;
-            }
-            else {
-              // this.taskTym = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1];
-              this.task_id = task.id;
-              // console.log(this.showthisTask[task.id] + ":" + task.id)
-              this.appendHour = 0;
-              this.appendMinute = 0;
-              this.appendSecond = 0;
-              task_time_id = 0;
-              let totalHour = 0;
-              let totalMinutes = 0;
-              let totalSecond = 0;
-              let totalHrinMS = 0;
-              let totalMinutesinMS = 0;
-              let totalSecondinMS = 0;
-              this.lastStatusEndDate = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1].end_date_time;
-              if (this.lastStatusEndDate == null && (this.lastStatus.status_id == 1 || this.lastStatus.status_id == 2 || this.lastStatus.status_id == 4 || this.lastStatus.status_id == 5)) {
-                // no end date, refresh case
+        data.forEach((module,mdKey) => {
+          let newTask = [];
+          module.tbl_project_tasks.forEach((task,key) => {
+            console.log(task.tbl_task_status_assocs);
+            this.lastStatus = task.tbl_task_status_assocs[0];
+            if (this.lastStatus.status_id == this.selected || this.selected == 'all') {
+                task.projectId = module.project_id;
+                task.showRequest = true
+                task.planned_start_date_time = new Date(task.planned_start_date_time);
+                var nowDateTime = new Date();
+                nowDateTime.setHours(23,59,59,999);
+                task.showThisTask = true;
+                if (this.viewAllTasks == false) {
+                      if (task.planned_start_date_time > nowDateTime || this.lastStatus.status_id == 5) {
+                        task.showThisTask = false;
+                      }
+                } 
+                let totalHour = 0;
+                let totalMinutes = 0;
+                let totalSecond = 0;
+                let totalHrinMS = 0;
+                let totalMinutesinMS = 0;
+                let totalSecondinMS = 0;
+                // this.lastStatusEndDate = task.tbl_task_time_assocs[0].end_date_time;
+
                 task.tbl_task_time_assocs.forEach(element => {
-                  totalHour = totalHour + element.hour;
-                  totalMinutes = totalMinutes + element.minute;
-                  totalSecond = totalSecond + element.second;
-                  if (element.id > task_time_id) {
-                    this.taskTym = element;
-                    task_time_id = element.id;
-                  }
+                  totalHour += element.hour;
+                  totalMinutes += element.minute;
+                  totalSecond += element.second;
                 });
                 totalSecondinMS = totalSecond * 1000;
                 totalMinutesinMS = totalMinutes * 1000 * 60;
                 totalHrinMS = totalHour * 1000 * 60 * 60;
                 // });
-                this.endDatetym = new Date(this.taskTym.date_time);
-                this.diff = 0;
-                this.diff = Math.abs(Date.now() - this.endDatetym);
-              }
-              else {
-                // have end date
-                task.tbl_task_time_assocs.forEach(element => {
-                  totalHour = totalHour + element.hour;
-                  totalMinutes = totalMinutes + element.minute;
-                  totalSecond = totalSecond + element.second;
-                  totalSecondinMS = totalSecond * 1000;
-                  totalMinutesinMS = totalMinutes * 1000 * 60;
-                  totalHrinMS = totalHour * 1000 * 60 * 60;
-                  if (element.id > task_time_id) {
-                    this.taskTym = element;
-                    task_time_id = element.id;
-                  }
-                  this.diff = 0;
-                });
-              };
-              let A = 0;
-              A = this.diff + totalHrinMS + totalMinutesinMS + totalSecondinMS;
-              task.appendSecond = Math.floor((A / 1000) % 60);
-              task.appendMinute = Math.floor((A / (1000 * 60)) % 60);
-              task.appendHour = Math.floor((A / (1000 * 60 * 60)) % 24);
-            }
-            if (task.tbl_task_status_assocs == [] || task.tbl_task_status_assocs == null || task.tbl_task_status_assocs == '') {
-              console.log("here");
-              this.showDetails1.push(module);
-              // this.showDetails.push(module);
-              // this.play[task.id] = true;
-            } else {
-              console.log("----------");
-              this.lastStatus = '';
-              // this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-              this.lastStatusid = '';
-              task.tbl_task_status_assocs.forEach(element => {
-                if (element.id > this.lastStatusid) {
-                  this.lastStatus = element;
-                  this.lastStatusid = element.id;
+                this.diff = 0
+                if(this.lastStatus.status_id == 3){
+                  let taskStartTime1:any = new Date(task.tbl_task_time_assocs[0].date_time);
+                  this.diff = Math.abs(Date.now() - taskStartTime1);
                 }
-              });
-              // console.log(this.lastStatus)
-              if (this.lastStatusEndDate == null && this.lastStatus.status_id == 3) {
-                //continue the timer when it in inprogress and no end date(case: refresh)
-                this.starttime(task);
-              }
-              // if (this.lastStatus !== undefined) {
+                let ttlSec = this.diff + totalHrinMS + totalMinutesinMS + totalSecondinMS;
+                task.appendSecond = Math.floor((ttlSec / 1000) % 60);
+                task.appendMinute = Math.floor((ttlSec / (1000 * 60)) % 60);
+                task.appendHour = Math.floor((ttlSec / (1000 * 60 * 60)) % 24);
+
+                if (this.lastStatus.status_id == 3) {
+                  this.inProgressTaskId = task.id;
+                  this.starttime(task);
+                }
                 task.status = this.lastStatus;
-              //   this.showDetails.push(module);
-              // }
-            }
+                    // this.showDetails.push(module);
+                newTask.push(task);
+              //  console.log(task);
+              }
           });
+          module.tbl_project_tasks = newTask;
+          // this.myTasks[mdKey] = module
           this.showDetails.push(module);
         });
         console.log(this.showDetails);
-      }
-      else {
-        data.forEach(module => {
-          module.tbl_project_tasks.forEach(task => {
-            task.startdatenow = 'showtasks';
-            this.appendHour = 0;
-            this.appendMinute = 0;
-            this.appendSecond = 0;
-            this.hours = 0;
-            this.minutes = 0;
-            this.seconds = 0;
-            this.taskTym = '';
-            this.endDatetym = '';
-            if (task.tbl_task_time_assocs && task.tbl_task_time_assocs.length == 0) {
-              task.appendHour = 0;
-              task.appendMinute = 0;
-              task.appendSecond = 0;
-            }
-            else {
-              // this.taskTym = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1];
-              this.task_id = task.id;
-              task.planned_start_date_time = new Date(task.planned_start_date_time);
-              // console.log(this.showthisTask[task.id] + ":" + task.id)
-              this.appendHour = 0;
-              this.appendMinute = 0;
-              this.appendSecond = 0;
-              task_time_id = 0;
-              let totalHour = 0;
-              let totalMinutes = 0;
-              let totalSecond = 0;
-              let totalHrinMS = 0;
-              let totalMinutesinMS = 0;
-              let totalSecondinMS = 0;
-              this.lastStatusEndDate = task.tbl_task_time_assocs[task.tbl_task_time_assocs.length - 1].end_date_time;
-              if (this.lastStatusEndDate == null && (this.lastStatus.status_id == 1 || this.lastStatus.status_id == 2 || this.lastStatus.status_id == 4 || this.lastStatus.status_id == 5)) {
-                // no end date, refresh case
-                task.tbl_task_time_assocs.forEach(element => {
-                  totalHour = totalHour + element.hour;
-                  totalMinutes = totalMinutes + element.minute;
-                  totalSecond = totalSecond + element.second;
-                  if (element.id > task_time_id) {
-                    this.taskTym = element;
-                    task_time_id = element.id;
-                  }
-                });
-                totalSecondinMS = totalSecond * 1000;
-                totalMinutesinMS = totalMinutes * 1000 * 60;
-                totalHrinMS = totalHour * 1000 * 60 * 60;
-                // });
-                this.endDatetym = new Date(this.taskTym.date_time);
-                this.diff = 0;
-                this.diff = Math.abs(Date.now() - this.endDatetym);
-              }
-              else {
-                // have end date
-                task.tbl_task_time_assocs.forEach(element => {
-                  totalHour = totalHour + element.hour;
-                  totalMinutes = totalMinutes + element.minute;
-                  totalSecond = totalSecond + element.second;
-                  totalSecondinMS = totalSecond * 1000;
-                  totalMinutesinMS = totalMinutes * 1000 * 60;
-                  totalHrinMS = totalHour * 1000 * 60 * 60;
-                  if (element.id > task_time_id) {
-                    this.taskTym = element;
-                    task_time_id = element.id;
-                  }
-                  this.diff = 0;
-                });
-              };
-              let A = 0;
-              A = this.diff + totalHrinMS + totalMinutesinMS + totalSecondinMS;
-              task.appendSecond = Math.floor((A / 1000) % 60);
-              task.appendMinute = Math.floor((A / (1000 * 60)) % 60);
-              task.appendHour = Math.floor((A / (1000 * 60 * 60)) % 24);
-            }
-            if (task.tbl_task_status_assocs == [] || task.tbl_task_status_assocs == null || task.tbl_task_status_assocs == '') {
-              // this.showDetails1.push(module);
-              // this.showDetails.push(module);
-              // this.play[task.id] = true;
-              // if (this.selected == 1) {
-              //   this.showDetails = this.showDetails1;
-              // }
-            } else {
-              this.lastStatus = '';
-              // this.lastStatus = task.tbl_task_status_assocs[task.tbl_task_status_assocs.length - 1];
-              this.lastStatusid = '';
-              task.tbl_task_status_assocs.forEach(element => {
-                if (element.id > this.lastStatusid) {
-                  this.lastStatus = element;
-                  this.lastStatusid = element.id;
-                }
-              });
-              if (this.lastStatusEndDate == null && this.lastStatus.status_id == 3) {
-                //continue the timer when it in inprogress and no end date(case: refresh)
-                this.starttime(task);
-              }
-              if (this.lastStatus !== undefined) {
-                if (this.lastStatus.status_id == this.selected) {
-                  task.status = this.lastStatus;
-                  // this.showDetails.push(module);
-                }
-              }
-            }
-          });
-          this.showDetails.push(module);
-        });
-      }
+      
+     
       // console.log(this.showDetails);
     });
   }
@@ -646,48 +431,53 @@ export class UserTaskManagementComponent implements OnInit {
   }
   // -------------------------stopwatch----------------
   start(task, myTask) {
-    this.a = [];
-    this.b = [];
-    this.countt = [];
-    // this.hour = 0
-    // this.miniutes = 0
-    // this.second = 0
-    // console.log(task)
-    this.a[task.id] = 0;
-    this.b[task.id] = 0;
-    this.countt[task.id] = 0;
-    this.intervel = 0;
-    this.task_id = task.id;
-    this.userService.getAllTasksInModule().subscribe(alltasks => {
-      this.alltask = alltasks;
-      this.alltask.forEach((element, index) => {
-        // console.log(this.task_id)
-        if (element.id == this.task_id) {
-          // this.show[j] = true;
-          this.disableTask[this.task_id] = false;
-        } else {
-          this.disableTask[element.id] = true;
-        }
+    console.log(task);
+    console.log(myTask);
+    if(this.inProgressTaskId == '' || task.id == this.inProgressTaskId){
+        this.a = [];
+        this.b = [];
+        this.countt = [];
+        // this.hour = 0
+        // this.miniutes = 0
+        // this.second = 0
+        // console.log(task)
+        this.a[task.id] = 0;
+        this.b[task.id] = 0;
+        this.countt[task.id] = 0;
+        this.intervel = 0;
+        this.task_id = task.id;
+      
+        this.inProgressTaskId = task.id;
+      
+        this.userService.startAtask(task).subscribe(status => {
+          this.getmytasks();
+       //   this.inProgressTaskId = task.id;
+          // this.userService.addTimeAssoc(this.time).subscribe(assTimeAssocs => {
+            // this.userService.changeStausColor(task.id).subscribe(data => {
+            //   console.log("-----------")
+            //   console.log(data);
+            //   if(data.length > 0){
+            //     task.status = data[data.length-1];
+            //   }
+            //   this.starttime(task);
+            // });
+          // });
+        });
+        
+        this.Resume[this.task_id] = false;
+        this.completed[this.task_id] = true;
+        this.pause[this.task_id] = true;
+        this.hold[this.task_id] = true;
+        this.done[this.task_id] = true;
+        this.time.hour = task.appendHour;
+        this.time.minutes = task.appendMinute;
+        this.time.seconds = task.appendSecond;
+        this.time.id = task.id
+    }else{
+      let snackBarRef = this.snackBar.open(' Another task alreay inprogress', '', {
+        duration: 2000
       });
-    });
-    this.userService.startAtask(task.id).subscribe(status => {
-    });
-    this.play[this.task_id] = false;
-    this.Resume[this.task_id] = false;
-    this.completed[this.task_id] = true;
-    this.pause[this.task_id] = true;
-    this.hold[this.task_id] = true;
-    this.done[this.task_id] = true;
-    this.time.hour = task.appendHour;
-    this.time.minutes = task.appendMinute;
-    this.time.seconds = task.appendSecond;
-    this.time.id = task.id
-    this.userService.addTimeAssoc(this.time).subscribe(assTimeAssocs => {
-      this.userService.changeStausColor(task.id).subscribe(data => {
-        task.status = data[0];
-      });
-    });
-    this.starttime(task);
+    }
   }
   starttime(task) {
     this.a[task.id] = 0;
@@ -729,32 +519,34 @@ export class UserTaskManagementComponent implements OnInit {
     this.b[task.id] = 0;
   }
   pauseTask(task) {
+    console.log(task);
     this.task_id = task.id;
-    this.userService.getAllTasksInModule().subscribe(alltasks => {
-      this.alltask = alltasks;
-      this.alltask.forEach((element, index) => {
-        // console.log(this.task_id)
-        if (element.id == this.task_id) {
-          // this.show[j] = true;
-          this.disableTask[this.task_id] = false;
-        } else {
-          this.disableTask[element.id] = true;
-        }
-      });
-    });
-    this.Resume[this.task_id] = true;
-    this.play[this.task_id] = false;
-    this.pause[this.task_id] = false;
-    this.hold[this.task_id] = false;
-    this.done[this.task_id] = false;
-    this.completed[this.task_id] = false;
+    // this.userService.getAllTasksInModule().subscribe(alltasks => {
+    //   this.alltask = alltasks;
+    //   this.alltask.forEach((element, index) => {
+    //     // console.log(this.task_id)
+    //     if (element.id == this.task_id) {
+    //       // this.show[j] = true;
+    //       this.disableTask[this.task_id] = false;
+    //     } else {
+    //       this.disableTask[element.id] = true;
+    //     }
+    //   });
+    // });
+    // this.Resume[this.task_id] = true;
+    // this.play[this.task_id] = false;
+    // this.pause[this.task_id] = false;
+    // this.hold[this.task_id] = false;
+    // this.done[this.task_id] = false;
+    // this.completed[this.task_id] = false;
     this.a[task.id] = this.a[task.id] + 1;
     this.b[task.id] = 0;
-    this.newTasks.id = task.id;
-    this.newTasks.hour = task.appendHour;
-    this.newTasks.minutes = task.appendMinute;
-    this.newTasks.seconds = task.appendSecond;
-    this.userService.pauseTask(this.newTasks).subscribe(status => {
+    task.reason = this.newTasks.reason
+    // this.newTasks.id = task.id;
+    // this.newTasks.hour = task.appendHour;
+    // this.newTasks.minutes = task.appendMinute;
+    // this.newTasks.seconds = task.appendSecond;
+    this.userService.pauseTask(task).subscribe(status => {
       this.userService.changeStausColor(task.id).subscribe(data => {
         task.status = data[data.length - 1];
       });
@@ -763,31 +555,21 @@ export class UserTaskManagementComponent implements OnInit {
   holdTask(task) {
     this.a[task.id] = this.a[task.id] + 1;
     this.b[task.id] = 0;
-    this.newTasks.id = task.id;
-    this.newTasks.hour = task.appendHour;
-    this.newTasks.minutes = task.appendMinute;
-    this.newTasks.seconds = task.appendSecond;
+    task.reason = this.newTasks.reason;
+    task.percentage = this.newTasks.percentage;
+    // this.newTasks.id = task.id;
+    // this.newTasks.hour = task.appendHour;
+    // this.newTasks.minutes = task.appendMinute;
+    // this.newTasks.seconds = task.appendSecond;
     if (this.newTasks.percentage == '' || this.newTasks.percentage == null || this.newTasks.reason == '' || this.newTasks.reason == null) {
       let snackBarRef = this.snackBar.open(' Please fill all the fields', '', {
         duration: 2000
       });
     }
     else {
-      this.userService.getAllTasksInModule().subscribe(alltasks => {
-        this.alltask = alltasks;
-        // console.log(this.alltask);
-        this.alltask.forEach((element, index) => {
-          this.disableTask[element.id] = false;
-        });
-      });
-      this.task_id = task.id;
-      this.Resume[this.task_id] = true;
-      this.play[this.task_id] = false;
-      this.pause[this.task_id] = false;
-      this.hold[this.task_id] = false;
-      this.done[this.task_id] = false;
-      this.completed[this.task_id] = false;
-      this.userService.holdTask(this.newTasks).subscribe(status => {
+     
+      this.userService.holdTask(task).subscribe(status => {
+        this.inProgressTaskId = '';
         this.userService.changeStausColor(task.id).subscribe(data => {
           task.status = data[data.length - 1];
         });
@@ -807,62 +589,84 @@ export class UserTaskManagementComponent implements OnInit {
     }
   }
   Done(task) {
-    this.userService.getAllTasksInModule().subscribe(alltasks => {
-      this.alltask = alltasks;
-      this.alltask.forEach((element, index) => {
-        this.disableTask[element.id] = false;
-      });
-    });
-    this.newTasks.id = task.id;
-    this.Resume[this.task_id] = false;
-    this.play[this.task_id] = false;
-    this.completed[this.task_id] = false;
-    this.pause[this.task_id] = false;
-    this.hold[this.task_id] = false;
-    this.done[this.task_id] = false;
+    // this.userService.getAllTasksInModule().subscribe(alltasks => {
+    //   this.alltask = alltasks;
+    //   this.alltask.forEach((element, index) => {
+    //     this.disableTask[element.id] = false;
+    //   });
+    // });
+    // this.newTasks.id = task.id;
+    // this.Resume[this.task_id] = false;
+    // this.play[this.task_id] = false;
+    // this.completed[this.task_id] = false;
+    // this.pause[this.task_id] = false;
+    // this.hold[this.task_id] = false;
+    // this.done[this.task_id] = false;
     this.a[task.id] = this.a[task.id] + 1;
     this.b[task.id] = 0;
-    this.newTasks.id = task.id;
-    this.newTasks.hour = task.appendHour;
-    this.newTasks.minutes = task.appendMinute;
-    this.newTasks.seconds = task.appendSecond;
-    this.userService.donetask(this.newTasks).subscribe(status => {
+    // this.newTasks.id = task.id;
+    // this.newTasks.hour = task.appendHour;
+    // this.newTasks.minutes = task.appendMinute;
+    // this.newTasks.seconds = task.appendSecond;
+    this.userService.donetask(task).subscribe(status => {
+      this.inProgressTaskId = '';
       this.userService.changeStausColor(task.id).subscribe(data => {
         task.status = data[data.length - 1];
+        this.showRequest[task.id]=false;        
       });
     });
   }
   complete(task) {
+    this.task_id = task.id;
     this.a[task.id] = this.a[task.id] + 1;
     this.b[task.id] = 0;
-    this.newTasks.id = task.id;
-    this.newTasks.hour = task.appendHour;
-    this.newTasks.minutes = task.appendMinute;
-    this.newTasks.seconds = task.appendSecond;
+    task.percentage = this.newTasks.percentage;
+    // this.newTasks.id = task.id;
+    // this.newTasks.hour = task.appendHour;
+    // this.newTasks.minutes = task.appendMinute;
+    // this.newTasks.seconds = task.appendSecond;
     if (this.newTasks.percentage == '' || this.newTasks.percentage == null) {
       let snackBarRef = this.snackBar.open(' Please select percentage of task', '', {
         duration: 2000
       });
     } else {
-      this.userService.completeTask(this.newTasks).subscribe(status => {
+      this.userService.completeTask(task).subscribe(status => {
+        this.inProgressTaskId = '';
         this.userService.changeStausColor(task.id).subscribe(data => {
           task.status = data[data.length - 1];
         });
       });
+      // this.Resume[this.task_id] = false;
+      // this.play[this.task_id] = false;
+      // this.completed[this.task_id] = false;
+      // this.pause[this.task_id] = false;
+      // this.hold[this.task_id] = false;
+      // this.done[this.task_id] = false;
     }
   }
   resumeTasks(task) {
-    this.b[task.id] = this.b[task.id] + 1;
-    this.showAns(task);
-    this.newTasks.id = task.id;
-    this.newTasks.hour = task.appendHour;
-    this.newTasks.minutes = task.appendMinute;
-    this.newTasks.seconds = task.appendSecond;
-    this.userService.resumeTasks(this.newTasks).subscribe(status => {
-      this.userService.changeStausColor(task.id).subscribe(data => {
-        task.status = data[data.length - 1];
+    if(this.inProgressTaskId == '' || task.id == this.inProgressTaskId){
+      this.b[task.id] = this.b[task.id] + 1;
+      this.showAns(task);
+      this.newTasks.id = task.id;
+      this.newTasks.hour = task.appendHour;
+      this.newTasks.minutes = task.appendMinute;
+      this.newTasks.seconds = task.appendSecond;
+      this.Resume[this.task_id] = false;
+      this.inProgressTaskId = task.id;
+      this.userService.resumeTasks(this.newTasks).subscribe(status => {
+        this.getmytasks();
+        // this.inProgressTaskId = task.id;
+        // this.userService.changeStausColor(task.id).subscribe(data => {
+        //   task.status = data[data.length - 1];
+        // });
       });
-    });
+    }else{
+      let snackBarRef = this.snackBar.open(' Another task alreay inprogress', '', {
+        duration: 2000
+      });
+    }
   }
+  
   // -------------------------stopwatch----------------
 }
