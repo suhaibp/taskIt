@@ -28,13 +28,13 @@
       <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
         <a routerLink="/company-team"><i class="fa fa-users fa-2x text-purple"></i> Team</a></li>
      
-      <li *ngIf="exist2(1,2,3,4,5)" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs" aria-hidden="true"></i><span class="">Master Settings</span></a>
+      <li *ngIf="exist2(1,2,3)" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs" aria-hidden="true"></i><span class="">Master Settings</span></a>
         <!-- *ngIf="exist2(1,2,3,4,5)" -->
         <ul class="dropdown-menu" role="menu" data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft">
           <!-- {{role}} -->
           <li *ngIf="(role == 3 && exist(3)) || role == 1"><a routerLink="/company-project-category">Project Category</a></li>
-          <li *ngIf="(role == 3 && exist(4)) || role == 1"><a routerLink="/company-access-rights">Access Rights</a></li>
-          <li *ngIf="(role == 3 && exist(5)) || role == 1"><a routerLink="/company-working-time">Office Time</a></li>
+          <li *ngIf="role == 1"><a routerLink="/company-access-rights">Access Rights</a></li>
+          <li *ngIf="role == 1"><a routerLink="/company-working-time">Office Time</a></li>
           <li *ngIf="(role == 3 && exist(1)) || role == 1"><a routerLink="/company-manage-holyday">Public Holiday</a></li>
           <li *ngIf="(role == 3 && exist(2)) || role == 1"><a routerLink="/company-employee-leaves">Employee Leaves</a></li>
 

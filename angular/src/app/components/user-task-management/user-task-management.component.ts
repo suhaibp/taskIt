@@ -288,6 +288,7 @@ export class UserTaskManagementComponent implements OnInit {
     // console.log(this.newTasks);
     this.newTasks.assigned_person = this.assigned_id;
     this.newTasks.module_id = this.module_id;
+    // console.log(this.newTasks)
     this.userService.newTaskRequest(this.newTasks).subscribe(data => {
       if (data.success) {
         this.closeBtn.nativeElement.click();

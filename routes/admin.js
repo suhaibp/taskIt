@@ -22,7 +22,6 @@ var EstimationTeamMember = models.tbl_project_estimation_team_members;
 var ProjectModule = models.tbl_project_modules;
 var Log = models.tbl_log;
 var ProjectTask = models.tbl_project_tasks;
-
 var returnRouter = function (io) {
   if (config.use_env_variable) {
     var sequelize = new Sequelize(process.env[config.use_env_variable]);
@@ -1609,7 +1608,6 @@ var returnRouter = function (io) {
         decoded;
       decoded = jwt.verify(authorization, Config.secret);
       cmp_id = decoded.cmp_id;
-
     var start = new Date(req.body.sDate);
     start.setHours(00, 00, 00, 000);
     var end = new Date(req.body.eDate);
@@ -1657,12 +1655,10 @@ var returnRouter = function (io) {
         decoded;
       decoded = jwt.verify(authorization, Config.secret);
       cmp_id = decoded.cmp_id;
-
     Projects.findAll({  where :  {cmp_id : cmp_id}, 
     }).then((proj) => {
       res.json(proj);
     });
-
     } else {
       return res.status(401).send('Invalid User');
     }

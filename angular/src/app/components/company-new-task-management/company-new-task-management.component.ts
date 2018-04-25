@@ -42,7 +42,7 @@ export class CompanyNewTaskManagementComponent implements OnInit {
     newChecklist: [{ name: '' }],
     status: '',
     tbl_complexity_percentage: { percentage: '' },
-    team_id:0,
+    // team_id:0,
     req_id:0,
     p_start:'',
     p_end:''
@@ -61,17 +61,17 @@ export class CompanyNewTaskManagementComponent implements OnInit {
     private route:ActivatedRoute) { }
 
   ngOnInit() {
-    // console.log("hd")
+    // //console.log("hd")
     this.checkRole();    
     this.companyService.getComplexity().subscribe(complexity => {
       this.complexitys = complexity;
-      // console.log(this.complexitys)
+      // //console.log(this.complexitys)
     });
     this.getNewTaskRequests();
   }
   checkRole(){
     this.companyService.checkRole().subscribe(role => {
-      // console.log(role);
+      // //console.log(role);
       this.role = role
     });
   }
@@ -88,7 +88,7 @@ export class CompanyNewTaskManagementComponent implements OnInit {
     this.showSpinner =true;
     this.route.params.subscribe(params => {
         this.id = params['id'];
-        // console.log(this.surveyId + "surveyid");
+        // //console.log(this.surveyId + "surveyid");
     });
     this.companyService.getNewTaskRequest(this.id).subscribe(requests =>{
       console.log(requests);
@@ -99,13 +99,13 @@ export class CompanyNewTaskManagementComponent implements OnInit {
           this.existStatus = true;
         }
         else{
-          // console.log(requests)
+          // //console.log(requests)
           this.newTasks.req_id = requests.id;
           this.taskRequest = requests;
           this.projectId = requests.tbl_project_module.project_id;
-          // console.log(this.projectId)
+          // //console.log(this.projectId)
           this.companyService.getProjectDetails(this.projectId).subscribe(projectDetails =>{
-            // console.log(projectDetails)
+            // //console.log(projectDetails)
             this.projectDetails = projectDetails.data;
             this.totalHours = projectDetails.hours;
           this.existStatus = false;
@@ -121,9 +121,9 @@ export class CompanyNewTaskManagementComponent implements OnInit {
         });
       }
       //  else {
-      // console.log(requests);
-      // console.log("theme is not empty");
-      //  console.log(this.existStatus);
+      // //console.log(requests);
+      // //console.log("theme is not empty");
+      //  //console.log(this.existStatus);
         
       
     // }  
@@ -167,20 +167,22 @@ export class CompanyNewTaskManagementComponent implements OnInit {
       this.newTasks.module_id = this.taskRequest.tbl_project_module.id;
       this.newTasks.description = this.taskRequest.description;
       this.newTasks.assigned_person = this.taskRequest.tbl_user_profile.id;
-      if(this.taskRequest.team_id != null || this.taskRequest.team_id != 'null'){
-        this.newTasks.team_id = this.taskRequest.team_id;
+      // if(this.taskRequest.team_id != null || this.taskRequest.team_id != 'null'){
+      //   this.newTasks.team_id = this.taskRequest.team_id;
 
-      }
-      let date = this.taskRequest.planned_start_date.split('T');
-      this.newTasks.start_date = date[0];
-      let time = date[1].split(':');
-      this.newTasks.start_time = {hour:parseInt(time[0]), minute: parseInt(time[1])};
-      // console.log(this.newTasks.start_time)
-      this.newTasks.start_date = date[0];
-      date = this.taskRequest.planned_end_date.split('T');
-      this.newTasks.end_date = date[0];
-      time = date[1].split(':');
-      this.newTasks.end_time = {hour:parseInt(time[0]), minute: parseInt(time[1])};
+      // }
+      // let date = this.taskRequest.planned_start_date.split('T');
+      // this.newTasks.start_date = date[0];
+      // let time = date[1].split(':');
+      // this.newTasks.start_time = {hour:parseInt(time[0]), minute: parseInt(time[1])};
+      this.newTasks.start_time = {hour:0, minute: 0};
+      // //console.log(this.newTasks.start_time)
+      // this.newTasks.start_date = date[0];
+      // date = this.taskRequest.planned_end_date.split('T');
+      // this.newTasks.end_date = date[0];
+      // time = date[1].split(':');
+      // this.newTasks.end_time = {hour:parseInt(time[0]), minute: parseInt(time[1])};
+      this.newTasks.end_time = {hour:0, minute: 0};
     }
   //  ---------------------------------end-----------------------------------------------
 
@@ -211,7 +213,7 @@ export class CompanyNewTaskManagementComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.newTasks);
+    //console.log(this.newTasks);
     $('#editModal').modal('hide'); 
     
   }
@@ -221,7 +223,7 @@ export class CompanyNewTaskManagementComponent implements OnInit {
     this.newTasks.newChecklist = [{ name: '' }];
   }
   approve(){
-    // console.log(this.newTasks);
+    // //console.log(this.newTasks);
     // var zero = 0;
     // var end_date_time = this.newTasks.end_date.setHours(end_time.hour,end_time.minute,zero);
     // var start_date_time = this.newTasks.start_date.setHours(start_time.hour,start_time.minute,zero);
@@ -245,10 +247,10 @@ export class CompanyNewTaskManagementComponent implements OnInit {
     // this.task.teamMembers[0].start_date = [this.lastDate];
     // let t = this.lastTime.split(':')
     // this.task.teamMembers[0].start_time = {hour: t[0], minute: t[1], second: t[2]};
-    console.log(this.task)
+    // //console.log(this.task)
     
     this.companyService.getUserleavedataplanning(this.task).subscribe(data => {
-      console.log(data)
+      // //console.log(data)
       let Indexx = 0;
       data.data.forEach(element => {
         element.tbl_estimation_tasks.forEach((elm_tasks,key1) => {
@@ -258,9 +260,9 @@ export class CompanyNewTaskManagementComponent implements OnInit {
             this.newTasks.p_end = elm_tasks.end_date_time;
         })
       })
-       // console.log(this.task)
+       // //console.log(this.task)
     this.companyService.approveTask(this.newTasks).subscribe(res => {
-      // console.log(res);
+      // //console.log(res);
       if(res.success == false){
         let snackBarRef = this.snackBar.open(res.msg, '', {
           duration: 2000
@@ -278,7 +280,7 @@ export class CompanyNewTaskManagementComponent implements OnInit {
    
   }
   reject(taskReqId){
-    // console.log("gg")
+    // //console.log("gg")
     this.companyService.rejectTask(taskReqId).subscribe(res => {
       if(res.success == false){
         let snackBarRef = this.snackBar.open(res.msg, '', {
@@ -294,9 +296,9 @@ export class CompanyNewTaskManagementComponent implements OnInit {
     })
   }
   sendApproval(taskReqId){
-    // console.log("sdsd")
+    // ////console.log("sdsd")
     this.companyService.sendApproval(taskReqId).subscribe(res => {
-      console.log(res);
+      //console.log(res);
       if(res.success == false){
         let snackBarRef = this.snackBar.open(res.msg, '', {
           duration: 2000
@@ -312,15 +314,15 @@ export class CompanyNewTaskManagementComponent implements OnInit {
   }
   getLastTaskDetails(){
     let assignId = this.taskRequest.tbl_user_profile.id;
-    // console.log(this.taskRequest);
-    // console.log(this.projectId);
+    // //console.log(this.taskRequest);
+    // //console.log(this.projectId);
     this.companyService.getLastTaskDetails(this.projectId, assignId).subscribe(res => {
       this.lastTask = res;
       this.lastDate = new Date(res[0].tbl_project_tasks[0].planned_end_date_time)
       let time = res[0].tbl_project_tasks[0].planned_end_date_time.split("T");
       let time2 = time[1].split('.')
       this.lastTime = time2[0];
-      // console.log(time2[0]);
+      // //console.log(time2[0]);
     })
   }
   approvePop(){

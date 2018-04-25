@@ -13,7 +13,7 @@ import { Config } from './../../config/config';
 export class CompanySidebarComponent implements OnInit {
   private socket: any;
   role ;
-  rights:any
+  rights = []
   disp = true;
   constructor(
     private companyService: CompanyService,
@@ -22,8 +22,10 @@ export class CompanySidebarComponent implements OnInit {
     private config: Config) {
       this.socket = socketIo(config.socketURL);  
    }
+   ngOnInit(){
 
-  ngOnInit() {
+   }
+  ngAfterViewInit() {
     this.checkRole(); 
     // ---------------------------------Start-------------------------------------------
     // Function      : Get logged in entity
@@ -130,10 +132,10 @@ export class CompanySidebarComponent implements OnInit {
     return x;
 
   }
-  exist2(a,b,c,d,e){
-    let arr = [a,b,c,d,e]
+  exist2(a,b,c){
+    let arr = [a,b,c]
     // console.log("gsg")
-    // console.log(arr);
+    // console.log(this.rights);
     // console.log("gsg")
     
     let trust = false;

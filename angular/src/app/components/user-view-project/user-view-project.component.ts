@@ -40,7 +40,7 @@ export class UserViewProjectComponent implements OnInit {
       this.projectId = params['id'];
       
     });
-    console.log(this.projectId)
+    // console.log(this.projectId)
     
     this.userService.getProjectDetails(this.projectId).subscribe(resProjects =>{
       this.project = resProjects;

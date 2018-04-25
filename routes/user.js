@@ -270,7 +270,7 @@ var returnRouter = function (io) {
                     task_id: req.params.id,
                     status_id: 3,
                 });
-                startTask.save().then(function (ResstartTask) {
+                startTask.save().then(ResstartTask => {
                     saveLog("Task started!", user_id)
                     res.send({ success: true, msg: 'start suucessfully' });
                 });
@@ -307,7 +307,8 @@ var returnRouter = function (io) {
                     status_id: 5,
                     progress_id: 20
                 });
-                DoneTask.save().then(function (DoneTask1) {
+                // DoneTask.save().then(function (DoneTask1) {
+                    DoneTask.save().then(DoneTask1 => {
                     saveLog("Task " + req.params.id + " completed", user_id);
                     res.send({ success: true, msg: 'done successfully' });
                 });
@@ -344,7 +345,8 @@ var returnRouter = function (io) {
                     status_id: 2,
                     reason: req.body.reason
                 });
-                pauseTask.save().then(function (pauseTask1) {
+                // pauseTask.save().then(function (pauseTask1) {
+                    pauseTask.save().then(pauseTask1 => {
                     saveLog("Task " + req.body.id + " paused!", user_id);
                     res.send({ success: true, msg: 'puased successfully' });
                 });
@@ -381,7 +383,8 @@ var returnRouter = function (io) {
                     status_id: 3,
                     progress_id: req.body.percentage
                 });
-                completeTask.save().then(function (completeTask1) {
+                // completeTask.save().then(function (completeTask1) {
+                    completeTask.save().then(completeTask1 => {
                     saveLog("Task " + req.body.id + " completed !", user_id);
                     res.send({ success: true, msg: 'complete successfully' });
                 });
@@ -419,7 +422,8 @@ var returnRouter = function (io) {
                     progress_id: req.body.percentage,
                     reason: req.body.reason
                 });
-                holdaTask.save().then(function (holdaTask1) {
+                // holdaTask.save().then(function (holdaTask1) {
+                    holdaTask.save().then(holdaTask1 => {
                     saveLog("Task " + req.body.id + " holded !", user_id);
                     res.send({ success: true, msg: 'Hold successfully' });
                 });
@@ -472,18 +476,24 @@ var returnRouter = function (io) {
         if (req.headers && req.headers.authorization) {
             var authorization = req.headers.authorization.substring(4), decoded;
             decoded = jwt.verify(authorization, Config.secret);
-            var startDate = new Date(req.body.start_date);
-            var endDate = new Date(req.body.end_date);
-            start_time = req.body.start_time;
-            end_time = req.body.end_time;
-            startDate.setHours(start_time.hour, start_time.minute, start_time.second);
-            endDate.setHours(end_time.hour, end_time.minute, end_time.second);
-            if (req.body.task_name == '' || req.body.planned_hour == 0 || req.body.assigned_person == '' || req.body.priority == '' || req.body.start_date == '' || req.body.start_time == '' || req.body.end_date == '' || req.body.end_time == '') {
+            // var startDate = new Date(req.body.start_date);
+            // var endDate = new Date(req.body.end_date);
+            // start_time = req.body.start_time;
+            // end_time = req.body.end_time;
+            // startDate.setHours(start_time.hour, start_time.minute, start_time.second);
+            // endDate.setHours(end_time.hour, end_time.minute, end_time.second);
+            // console.log(req.body.planned_hour)
+            // console.log(req.body.buffer_hour)
+            // // console.log(req.body.description)
+            // // console.log(req.body.priority)
+            // console.log(req.body.module_id)
+            // console.log(req.body.assigned_person)
+            // console.log(req.body.complexity)
+            // // console.log(req.body.team)
+            // console.log(req.body.task_name)
+            if (req.body.task_name == '' || req.body.planned_hour == 0 || req.body.assigned_person == '' || req.body.priority == '' ) {
                 res.send({ success: false, msg: 'Please fill all required fields' });
-                console.log("firs");
-            }
-            if (startDate >= endDate) {
-                res.send({ success: false, msg: 'End datetime should be greater than start date time' });
+                // console.log("firs");
             }
             else {
                 if (req.body.docSrc) {
@@ -504,11 +514,11 @@ var returnRouter = function (io) {
                     buffer_hours: req.body.buffer_hour,
                     description: req.body.description,
                     priority: req.body.priority,
-                    planned_start_date: req.body.start_date,
-                    planned_end_date: req.body.end_date,
+                    // planned_start_date: req.body.start_date,
+                    // planned_end_date: req.body.end_date,
                     request_status: "Pending",
                     project_module_id: req.body.module_id,
-                    assigned_to_id: req.body.assigned_id,
+                    assigned_to_id: req.body.assigned_person,
                     complexity_id: req.body.complexity,
                     team_id: req.body.team,
                     task_name: req.body.task_name
@@ -643,6 +653,7 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
             var cmp_id = decoded.cmp_id;
             // var cmp_id = 1;
+            var id = decoded.id;
             // res.json(req.body);
             var user_id;
             Users.find({
@@ -1120,7 +1131,7 @@ var returnRouter = function (io) {
                                                     required: true,
                                                     where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                                 }).then(work_time1 => {
-                                                    if (work_time1) {
+                                                    // if (work_time1) {
                                                         // parse time using 24-hour clock and use UTC to prevent DST issues
                                                         var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                                         var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
@@ -1138,8 +1149,8 @@ var returnRouter = function (io) {
                                                         var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
                                                         total_seconds = total_seconds + seconds1;
                                                         callback();
-                                                    }
-                                                    callback();
+                                                    // }
+                                                    // callback();
                                                 });
                                             }
                                         });
@@ -1228,7 +1239,7 @@ var returnRouter = function (io) {
                                                 required: true,
                                                 where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                             }).then(work_time1 => {
-                                                if (work_time1) {
+                                                // if (work_time1) {
                                                     //  console.log("w"+work_time1);
                                                     //  console.log(work_time1.end_time)
                                                     // parse time using 24-hour clock and use UTC to prevent DST issues
@@ -1250,9 +1261,9 @@ var returnRouter = function (io) {
                                                         isErr = true;
                                                     }
                                                     callback();
-                                                    //else{  }
-                                                }
-                                                callback();
+                                                //     //else{  }
+                                                // }
+                                                // callback();
                                             });
                                         }
                                     });
@@ -1318,7 +1329,8 @@ var returnRouter = function (io) {
                                                     is_admin_viewed: false,
                                                     is_user_viewed: false
                                                 })
-                                                addleave.save().then(function (leave) {
+                                                // addleave.save().then(function (leave) {
+                                                    addleave.save().then(leave => {
                                                     saveLog("Added Leave!", user_id);
                                                     callback();
                                                 })
@@ -1503,7 +1515,7 @@ var returnRouter = function (io) {
                                                 required: true,
                                                 where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                             }).then(work_time1 => {
-                                                if (work_time1) {
+                                                // if (work_time1) {
                                                     // parse time using 24-hour clock and use UTC to prevent DST issues
                                                     var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                                     var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
@@ -1521,8 +1533,8 @@ var returnRouter = function (io) {
                                                     var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
                                                     total_seconds = total_seconds + seconds1;
                                                     callback();
-                                                }
-                                                callback();
+                                                // }
+                                                // callback();
                                             });
                                         }
                                     });
@@ -1595,7 +1607,7 @@ var returnRouter = function (io) {
                                             required: true,
                                             where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                         }).then(work_time1 => {
-                                            if (work_time1) {
+                                            // if (work_time1) {
                                                 // parse time using 24-hour clock and use UTC to prevent DST issues
                                                 var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
                                                 var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
@@ -1616,8 +1628,8 @@ var returnRouter = function (io) {
                                                 }
                                                 callback();
                                                 //else{ 
-                                            }
-                                            callback();
+                                            // }
+                                            // callback();
                                         });
                                     }
                                 });
@@ -2281,7 +2293,7 @@ var returnRouter = function (io) {
                                         }).then(data => {
                                         });
                                 });
-                                saveLog("Estimation added for project " + project_id + " !", user_id)
+                                saveLog("Estimation added for project " + req.body.project_id + " !", decoded.id)
                             });
                             io.sockets.emit("approveEstimation", {
                             });
@@ -2990,7 +3002,7 @@ var returnRouter = function (io) {
             user_profile_id: userId
         }).save().then(resLog => {
             return true;
-        }).catchI(err => {
+        }).catch(err => {
             return false;
         })
     }

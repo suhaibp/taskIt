@@ -448,8 +448,8 @@
                 <form role="form" (ngSubmit)="addModule()" novalidate>
                   <div class="form-group">
                     <div class="col-md-4 col-xs-7 mrg-2">
-                      <button type="button" class="btn round-button dropdown-toggle mrg-tp" (click)="calculateEnddate()"> Calculate End date</button>
-                      <button type="button" class="btn round-button dropdown-toggle mrg-tp" (click)="savePlanningData()"> Save </button>
+                      <!-- <button type="button" class="btn round-button dropdown-toggle mrg-tp" (click)="calculateEnddate()"> Calculate End date</button>
+                      <button type="button" class="btn round-button dropdown-toggle mrg-tp" (click)="savePlanningData()"> Save </button> -->
                       <button type="button" class="btn round-button dropdown-toggle mrg-tp" data-toggle="dropdown" (click)="addModuleClear()">Add Module</button>
                       <br>
                       <ul class="dropdown-menu addmodule" role="menu">
@@ -562,6 +562,8 @@
                     </div>
                   </div>
                   <div class="clearfix"></div>
+                  <button type="button" class="btn round-button dropdown-toggle mrg-tp" (click)="calculateEnddate()"> Calculate End date</button>
+                  <button type="button" class="btn round-button dropdown-toggle mrg-tp" (click)="savePlanningData()"> Save </button>
                 </div>
               </div>
             </div>
@@ -624,10 +626,10 @@
                       </mat-cell>
                     </ng-container>
                     <!-- Progress Column -->
-                    <ng-container matColumnDef="end_date">
+                    <!-- <ng-container matColumnDef="end_date">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> END DATE</mat-header-cell>
                       <mat-cell *matCellDef="let row"> {{row.end_date | date:'EEE, d MMM,y'}} </mat-cell>
-                    </ng-container>
+                    </ng-container> -->
                     <!-- Progress Column -->
                     <!-- <ng-container matColumnDef="hours">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> TOTAL HOURS </mat-header-cell>

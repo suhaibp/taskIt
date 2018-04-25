@@ -21,6 +21,7 @@ export class CompanyTopbarComponent implements OnInit {
   entity: any;
   userpendingdata: any;
   adminnotifdata: any;
+  timeextreqdata:any;
   upgradeBtnShow: Boolean = true;
   assignHeadCount: number = 0;
   approveEstimationCount: number = 0;
@@ -29,6 +30,7 @@ export class CompanyTopbarComponent implements OnInit {
   resubmitEstimationCount: number = 0;
   userpendingdataCount: number = 0;
   adminnotifdataCount: number = 0;
+  timeextreqdataCount: number = 0;
   // entity:any;
   notifications: any;
   showNotifications = false;
@@ -138,6 +140,7 @@ export class CompanyTopbarComponent implements OnInit {
     this.socket.on('sendtoadmin', (data) => {
       this.getAllSendtoadminnotif();
     });
+    this.gettimeextentionNotifications();
   }
   assignHeadNotification() {
     // ---------------------------------Start-------------------------------------------
@@ -383,7 +386,7 @@ export class CompanyTopbarComponent implements OnInit {
     // Last Modified : 
     // Desc          : check user leave request
     this.companyService.getAllemppendingleavesnotifi().subscribe(res => {
-      // console.log(res)
+      console.log(res)
       this.userpendingdata = res;
       this.userpendingdataCount = 0;
       this.userpendingdataCount = this.userpendingdata.length;
@@ -459,7 +462,7 @@ export class CompanyTopbarComponent implements OnInit {
   refresh() {
     this.count = 0;
     this.count = this.assignHeadCount + this.approveEstimationCount + this.approveProjectCount + this.planProjectCount + this.resubmitEstimationCount + this.newTaskreqBackCount + this.newTaskreqCount
-      + this.userpendingdataCount + this.adminnotifdataCount;
+      + this.userpendingdataCount + this.adminnotifdataCount+this.timeextreqdataCount;
   }
 
 
@@ -504,6 +507,48 @@ export class CompanyTopbarComponent implements OnInit {
     });
     // ---------------------------------End-------------------------------------------
   }
+
+  gettimeextentionNotifications() {
+    // ---------------------------------Start-------------------------------------------
+    // Function      :  gettimeextentionNotifications
+    // Params        : 
+    // Returns       : notification data
+    // Author        :  manu
+    // Date          : 29-03-2018
+    // Last Modified : 
+    // Desc          : check  request
+    this.companyService.gettimeextentionNotifications().subscribe(res => {
+      // console.log(res)
+      this.timeextreqdata = res.req;
+      // this.timeextreqdataCount = 0;
+      this.timeextreqdataCount = this.timeextreqdata.length;
+      // console.log( this.userpendingdata);
+      this.refresh();
+    });
+    // ---------------------------------End-------------------------------------------
+  }
+
+  closeNotif9(notif_id) {
+    // console.log(notif_id);
+    // ---------------------------------Start-------------------------------------------
+    // Function      : gettimeextentionNotifications
+    // Params        : notification id
+    // Returns       : 
+    // Author        : manu
+    // Date          : 29-03-2018
+    // Last Modified : 
+    // Desc          : close notification user leave request
+    this.companyService.closeNotif9(notif_id).subscribe(res => {
+      if (res.success == false) {
+        let snackBarRef = this.snackBar.open(res.msg, '', {
+          duration: 3000
+        });
+      }
+      this.gettimeextentionNotifications();
+    });
+    // ---------------------------------End-------------------------------------------
+  }
+
 
 
 
