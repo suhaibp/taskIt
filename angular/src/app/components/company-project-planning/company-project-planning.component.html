@@ -393,8 +393,9 @@
                 <div class="form-group">
                   <div class="col-md-6">
                     <label for="">Project Start Date</label></div>
-                <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date" [(ngModel)]="Projects.start_date" (ngModelChange)="startDateSelect()" [min]="todayDate">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date" [(ngModel)]="Projects.start_date"
+                      (ngModelChange)="startDateSelect()" [min]="todayDate">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
@@ -532,13 +533,16 @@
                           <div class="col-md-11 col-xs-12 pull-right">
                             <div class="task assigned" [ngStyle]="{'background-color': task?.color, 'border-left': task?.bordercolor}">
                               <div class="col-md-9 col-xs-7 martop">
-                                <h5>{{task.task_name}}</h5>
+                                <a  data-toggle="tooltip" title="Task name"> <h5>{{task.task_name}}</h5></a>
                                 <!-- <div *ngFor=" let assigned of task.assigned_person"> -->
                                 <!-- <h5>{{task.assigned}} {{task.assigned1}}</h5> -->
                                 <!-- </div> -->
-                                <h5>{{task.planned_hour + task.buffer_hour}} hrs</h5>
-                                <h5>{{task?.start_date_time_new | date:'medium'}}</h5>
-                                <h5>{{task?.end_date_time | date:'medium'}}</h5>
+                                <div *ngIf="task.assigned_user">
+                                  <a  data-toggle="tooltip" title="Assigned user"><h5>{{task.assigned_user.f_name}} {{task.assigned_user.l_name}}</h5></a>
+                                </div>
+                                <a  data-toggle="tooltip" title="Hour"><h5>{{task.planned_hour + task.buffer_hour}} hrs</h5></a>
+                                <a  data-toggle="tooltip" title="Start Date time"><h5>{{task?.start_date_time_new | date:'medium'}}</h5></a>
+                                <a  data-toggle="tooltip" title="End Date time"><h5>{{task?.end_date_time | date:'medium'}}</h5></a>
                               </div>
                               <div class="col-md-3 col-xs-5">
                                 <ul class="taskedit">

@@ -14,6 +14,7 @@ button, input, optgroup, select, textarea{outline:none !important;}
     padding-top: 6px;
     display: table-cell;
     padding-right: 15px;
+    float:left;
 }
 .assigned ul li{padding: 6px}
 .mrg-tp{margin-top:15px !important;}

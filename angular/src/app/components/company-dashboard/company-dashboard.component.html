@@ -101,7 +101,7 @@
                                                 <hr>
                                                 <div id="projct-{{i}}-progress"></div>
                                                 <company-progress-graph [containerId]="'projct-'+ i +'-progress'" [progper]="project.per"></company-progress-graph>
-                                                <label>{{project?.in_progress_tasks}}/{{project?.total_tasks}} In Progress</label>
+                                                <label>{{project?.in_progress_tasks}}/{{project?.total_tasks}} tasks is In Progress</label>
                                                 <hr>
                                                 <div id="projct-{{i}}-bar"></div>
                                                 <company-bar-graph [containerId]="'projct-'+ i +'-bar'" [actual]="project.actual_hour" [planning]="project.planned_hour"></company-bar-graph>

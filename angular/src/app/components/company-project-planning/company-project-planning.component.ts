@@ -82,6 +82,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
   endDatetime = {
     start_Date: ''
   }
+  showUser = [];
   // -----assign task----
   assigntask = {
     // start_time: '',
@@ -516,6 +517,8 @@ export class CompanyProjectPlanningComponent implements OnInit {
   }
   editTask(i, j, users) {
     if (this.newTasks.assigned_person) {
+      // console.log(this.newTasks.assigned_person)
+      this.modules[i].tbl_estimation_tasks[j].assigned_user = this.newTasks.assigned_person;
       this.modules[i].tbl_estimation_tasks[j].color = '#e6ffe6';
       this.modules[i].tbl_estimation_tasks[j].bordercolor = '3px solid #6fa93b';
     }
