@@ -2206,7 +2206,7 @@ deleteHoliday(data){
     console.log(data)
     // let x= data
     let headers = this.setHeaderWithAuthorization();
-    return this.http.post(this.serviceUrl + 'save-company-planning-datas', {info:data,projectEndDate: data.projectEndDate,projectStartDate:data.projectStartDate}, { headers: headers })
+    return this.http.post(this.serviceUrl + 'save-company-planning-datas', {info:data,projectEndDate: data.projectEndDate,projectStartDate:data.projectStartDate,project_id:data.project_id}, { headers: headers })
       .map(res => res.json());
   }
   // ----------------------------------End------------------------------------------

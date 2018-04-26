@@ -661,6 +661,7 @@ export class CompanyProjectPlanningComponent implements OnInit {
       data.data.projectStartDate = new Date(this.Projects.start_date);
       data.data.projectStartDate.setHours(this.Projects.start_time.hour, this.Projects.start_time.minute, this.Projects.start_time.second);
       data.data.projectEndDate = data.projectEndDate;
+      data.data.project_id = this.p_id;
       //  console.log(tmp);
       this.modules = data.data;
        console.log('moduleeeeee');

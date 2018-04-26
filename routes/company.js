@@ -3642,40 +3642,7 @@ var returnRouter = function (io) {
         }
     });
     // ----------------------------------End-------------------------------------------
-    // ---------------------------------Start-------------------------------------------
-    // Function      : get-designer-users
-    // Params        : 
-    // Returns       : designer details
-    // Author        : Jooshifa
-    // Date          : 14-03-2018
-    // Last Modified : 14-03-2018, Jooshifa
-    // Desc          : 
-    router.get('/get-designer-users', function (req, res) {
-        if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4), decoded;
-            decoded = jwt.verify(authorization, Config.secret);
-            User_profile.findAll({
-                // where: { cmp_id: decoded.cmp_id },
-                include: [
-                    {
-                        model: Team_assoc,
-                        where: { team_id: 2 }
-                    },
-                    {
-                        model: Login,
-                        where: { [Op.and]: [{ delete_status: false, block_status: false }] }
-                    }
-                ]
-            }).then(DesignerUsers => {
-                //console.log(projects);
-                res.json(DesignerUsers);
-            });
-        } else {
-            return res.status(401).send('Invalid User');
-        }
-    });
-    // }
-    //  ---------------------------------End-------------------------------------------
+   
     //  ---------------------------------Start-------------------------------------------
     // Function      : get_industries
     // Params        :
@@ -9674,6 +9641,13 @@ var returnRouter = function (io) {
             taskIndex = 0;
             return true;
         } else {
+            // console.log('----jijo-----');
+            // console.log(moduleIndex - 1);
+            // console.log(taskIndex - 1);
+            // mInd = (moduleIndex == 0) ? 0 : moduleIndex - 1;
+            // tskInd = (taskIndex == 0) ? 0 : taskIndex - 1;
+            // console.log(mInd);
+            // console.log(tskInd);
             if (projectEndDate == '' || projectEndDate < planningModule[moduleIndex - 1].tbl_estimation_tasks[taskIndex - 1].end_date_time) {
                 projectEndDate = planningModule[moduleIndex - 1].tbl_estimation_tasks[taskIndex - 1].end_date_time;
             }
@@ -9814,9 +9788,16 @@ var returnRouter = function (io) {
         });
     }
     function calculateWorkingHours(working_time, start_date_time, take_passing_start_time, plannedHr, start_available_hrs, end_available_hrs) {
-        console.log(' ----pln ----');
-        console.log(plannedHr);
-        if ((start_date_time <= working_time.start_time) && take_passing_start_time) {
+     
+        var tmmpp = new Date(start_date_time);
+        hr = tmmpp.getHours();
+        mnt = tmmpp.getMinutes();
+        sec = tmmpp.getSeconds();
+        tmmpp = hr + ':' + mnt + ":" + sec;
+        // console.log(' ----manu kalla thadi ----');
+        // console.log(timeToSec(tmmpp));
+        // console.log(timeToSec(working_time.start_time));
+        if ((timeToSec(tmmpp) >= timeToSec(working_time.start_time)) && take_passing_start_time) {
             hr = start_date_time.getHours();
             mnt = start_date_time.getMinutes();
             sec = start_date_time.getSeconds();
@@ -10140,19 +10121,20 @@ var returnRouter = function (io) {
             decoded = jwt.verify(authorization, Config.secret);
             projectStartDate = req.body.projectStartDate;
             projectEndDate = req.body.projectEndDate;
+            project_id = req.body.project_id;
             req.body = req.body.info;
             // console.log(req.body.projectEndDate)
             // console.log("rinsha------")
             var cmp_id = decoded.cmp_id;
             var isSuccess = true;
             var msg = '';
-            var project_id = '';
+           // var project_id = '';
             Company.findById(cmp_id).then(cmp => {
                 Plans.findById(cmp.plan_id).then(plan => {
                     console.log('--body---');
                     console.log(req.body[0]);
                     Modules.findAll({
-                        where : {project_id:req.body[0].tbl_estimation.project_id}
+                        where : {project_id:project_id}
                     }).then(modulesNumer => {
                         Tasks.findAll({
                         }).then(TasksNumer => {
@@ -10206,22 +10188,22 @@ var returnRouter = function (io) {
                                 }
                                 if (isSuccess) {
                                     async.eachOfSeries(req.body, (modules, key, callback) => {
-                                        project_id = modules.tbl_estimation.project_id
+                                        project_id = project_id
                                         const projectModules = Modules.build({
                                             module_name: modules.module_name,
-                                            project_id: modules.tbl_estimation.project_id
+                                            project_id: project_id
                                         })
                                         projectModules.save().then(saveProjectModules => {
                                             async.eachOfSeries(modules.tbl_estimation_tasks, (tasks, key1, callback1) => {
                                                 console.log(tasks);
                                                 const ProjectTeams = Project_teams.build({
                                                     team_id: tasks.assigned_person.team_id,
-                                                    project_id: modules.tbl_estimation.project_id
+                                                    project_id: project_id
                                                 });
                                                 ProjectTeams.save().then(saveProjectTeams => {
                                                     const projectMemberAssocs = project_member_assocs.build({
                                                         user_profile_id: tasks.assigned_person.id,
-                                                        project_id: modules.tbl_estimation.project_id,
+                                                        project_id: project_id,
                                                         project_team_id: saveProjectTeams.id
                                                     });
                                                     projectMemberAssocs.save().then(saveprojectMemberAssocs => {

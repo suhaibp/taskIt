@@ -125,7 +125,7 @@ var returnRouter = function (io) {
             }).then(userProfile => {
                 console.log(userProfile);
                 Project_modules.findAll({
-                    where: { id: 629 },
+                   // where: { id: 629 },
                     include: [
                         {
                             model: Projects,

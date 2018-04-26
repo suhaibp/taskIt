@@ -8842,6 +8842,7 @@ var CompanyProjectPlanningComponent = (function () {
             data.data.projectStartDate = new Date(_this.Projects.start_date);
             data.data.projectStartDate.setHours(_this.Projects.start_time.hour, _this.Projects.start_time.minute, _this.Projects.start_time.second);
             data.data.projectEndDate = data.projectEndDate;
+            data.data.project_id = _this.p_id;
             //  console.log(tmp);
             _this.modules = data.data;
             console.log('moduleeeeee');
@@ -13248,6 +13249,7 @@ var CompanyViewProjectComponent = (function () {
         console.log(this.projectId);
         this.companyService.getProjectDetails(this.projectId).subscribe(function (resProjects) {
             //console.log('manu response');
+            _this.project = [];
             _this.project = resProjects.data;
             if (resProjects) {
                 _this.showData = true;
@@ -21990,7 +21992,7 @@ var CompanyService = (function () {
         console.log(data);
         // let x= data
         var headers = this.setHeaderWithAuthorization();
-        return this.http.post(this.serviceUrl + 'save-company-planning-datas', { info: data, projectEndDate: data.projectEndDate, projectStartDate: data.projectStartDate }, { headers: headers })
+        return this.http.post(this.serviceUrl + 'save-company-planning-datas', { info: data, projectEndDate: data.projectEndDate, projectStartDate: data.projectStartDate, project_id: data.project_id }, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // ----------------------------------End------------------------------------------
