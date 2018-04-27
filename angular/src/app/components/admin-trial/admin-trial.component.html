@@ -60,11 +60,11 @@
   <mat-table [dataSource]="dataSource" matSort>
  <!-- Name Column -->
  <ng-container matColumnDef="slno">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Sl_No </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef >Sl_No </mat-header-cell>
     <mat-cell *matCellDef="let row;let i = index"> {{i+1}} </mat-cell>
   </ng-container>
     <!-- Name Column -->
-    <ng-container matColumnDef="companyname">
+    <ng-container matColumnDef="cmp_name">
       <mat-header-cell *matHeaderCellDef mat-sort-header>COMPANY NAME </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.cmp_name}} </mat-cell>
     </ng-container>

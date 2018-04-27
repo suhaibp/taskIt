@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./admin-all-companies.component.css']
 })
 export class AdminAllCompaniesComponent implements OnInit {
-  displayedColumns = [ 'slno','companyname','email','contactnumber','companystatus','status','action'];
+  displayedColumns = [ 'slno','cmp_name','email','contactnumber','companystatus','status','action'];
   dataSource: MatTableDataSource<any>;
   notExist =false;
   id :any;
@@ -39,7 +39,7 @@ constructor(
           const company = [];
             if(this.selected == 'all'){
               this.adminService.getAllcompanies().subscribe(data=>{
-                console.log(data);
+                // console.log(data);
                 if(data.length != 0){
                   this.all_value=true;
                 }
@@ -86,6 +86,7 @@ constructor(
   }
   
   applyFilter(filterValue: string) {
+    // console.log(filterValue)
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
@@ -121,7 +122,7 @@ deleteCompany(id){
 
 //block company
 blockCompany(id){  
-  console.log(id);
+  // console.log(id);
   this.adminService.blockCompany(id).subscribe(data=>{
     // console.log(data);
     if(data.success){

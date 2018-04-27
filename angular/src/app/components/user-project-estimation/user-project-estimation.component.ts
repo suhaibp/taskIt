@@ -73,9 +73,9 @@ export class UserProjectEstimationComponent implements OnInit {
   copyModules = [];
   copiedModules = [];
   labelToExpand: any;
-  btnDisabled :boolean = false;
-  reasonforReject : any;
-  rejectReasonShow : Boolean = false;
+  btnDisabled: boolean = false;
+  reasonforReject: any;
+  rejectReasonShow: Boolean = false;
 
   @ViewChild('closeBtn1') closeBtn1: ElementRef;
   @ViewChild('closeBtn2') closeBtn2: ElementRef;
@@ -133,11 +133,11 @@ export class UserProjectEstimationComponent implements OnInit {
         // console.log(est);
         if (est.data !== null) {
           // then it is resubmitted estimation
-          if(est.data.reason != ''){
+          if (est.data.reason != '') {
             this.rejectReasonShow = true;
             this.reasonforReject = est.data.reason;
           }
-          else{
+          else {
             this.rejectReasonShow = false;
             this.reasonforReject = "";
           }
@@ -378,10 +378,17 @@ export class UserProjectEstimationComponent implements OnInit {
 
   editTask(i, j) {
     // console.log(this.modules[i].tasks[j]);
-    this.modules[i].tasks[j] = this.selectedTask;
-    this.modules[i].time = this.modules[i].time + this.selectedTask.planned_hour + this.selectedTask.buffer_time;
-    this.estimated_hour = this.estimated_hour + this.selectedTask.planned_hour + this.selectedTask.buffer_time;
-    this.closeBtn2.nativeElement.click();
+    if (this.selectedTask.name == '' || this.selectedTask.planned_hour == 0 || this.selectedTask.description == '') {
+      let snackBarRef = this.snackBar.open("All fields are required", '', {
+        duration: 2000
+      });
+    }
+    else {
+      this.modules[i].tasks[j] = this.selectedTask;
+      this.modules[i].time = this.modules[i].time + this.selectedTask.planned_hour + this.selectedTask.buffer_time;
+      this.estimated_hour = this.estimated_hour + this.selectedTask.planned_hour + this.selectedTask.buffer_time;
+      this.closeBtn2.nativeElement.click();
+    }
   }
 
   editModules(i) {
@@ -477,10 +484,10 @@ export class UserProjectEstimationComponent implements OnInit {
   }
 
   expand() {
-    if(this.labelToExpand == "View Less"){
+    if (this.labelToExpand == "View Less") {
       this.labelToExpand = "View More";
     }
-    else{
+    else {
       this.labelToExpand = "View Less";
     }
   }

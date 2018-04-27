@@ -112,10 +112,11 @@ var returnRouter = function (io) {
     // Returns       : boolean true or false
     // Author        : Rinsha
     // Date          : 06-03-2018
-    // Last Modified : 06-03-2018, Rinsha
+    // Last Modified : 27-04-2018, Rinsha
     // Desc          : for validate a number
     function validateNo(no) {
-        var re = /^\d{9}|^\d{3}-\d{3}-\d{3}|^\d{3}\s\d{3}\s\d{3}$/;
+        // var re = /^\d{9}|^\d{3}-\d{3}-\d{3}|^\d{3}\s\d{3}\s\d{3}$/;
+        var re =/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
         return re.test(no);
     }
     // -----------------------------------End------------------------------------------
@@ -527,6 +528,7 @@ var returnRouter = function (io) {
                     model: Plan,
                 }
             }).then(companyPlan => {
+                // console.log(companyPlan)
                 var no_members = parseInt(companyPlan.tbl_plan.no_members);
                 User.count({
                     where: { [Op.and]: [{ cmp_id: cmp_id }] }
@@ -3625,10 +3627,10 @@ var returnRouter = function (io) {
     // Last Modified : 13-03-2018, Jooshifa
     // Desc          : 
     router.get('/getCompanyDetails/:id', function (req, res) {
-        if (req.headers && req.headers.authorization) {
-            var authorization = req.headers.authorization.substring(4), decoded;
-            decoded = jwt.verify(authorization, Config.secret);
-            cmp_id = decoded.cmp_id;
+        // if (req.headers && req.headers.authorization) {
+        //     var authorization = req.headers.authorization.substring(4), decoded;
+        //     decoded = jwt.verify(authorization, Config.secret);
+        //     cmp_id = decoded.cmp_id;
             Login.findOne({
                 include: [{
                     model: Company, where: { id: req.params.id }
@@ -3637,9 +3639,9 @@ var returnRouter = function (io) {
                 // console.log(data.is_profile_completed);
                 res.json(data);
             });
-        } else {
-            return res.status(401).send('Invalid User');
-        }
+        // } else {
+        //     return res.status(401).send('Invalid User');
+        // }
     });
     // ----------------------------------End-------------------------------------------
    
@@ -5198,9 +5200,12 @@ var returnRouter = function (io) {
                     {
                         model: Estimation_modules,
                         include: {
-                            model: Estimation_tasks
+                            model: Estimation_tasks,
                         }
                     },
+                ],
+                 order: [
+                    [Estimation_modules, { model: Estimation_tasks }, 'id', 'ASC']
                 ]
             }).then(estimations => {
                 res.json(estimations);

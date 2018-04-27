@@ -31,3 +31,4 @@ header .dropdown-menu{top: 261%;}
 }
 .head{background: #fe6a07;color:#fff !important;}
 .head>a{color:#fff !important;}
+.list-inline li a{cursor:pointer;}

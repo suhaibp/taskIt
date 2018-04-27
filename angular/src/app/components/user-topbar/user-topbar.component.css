@@ -59,3 +59,4 @@ font-weight: 600;    margin-top: 2px;}
     padding: 14px 20px;
     
 }
+.list-inline li a{cursor:pointer;}

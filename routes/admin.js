@@ -181,6 +181,9 @@ var returnRouter = function (io) {
         model: Login,
         required: true,
         where: { cmp_status: 'Subscribed' }
+      },
+      {
+        model: Plans
       }]
     }).then(company => {
       return res.json(company);
@@ -214,6 +217,9 @@ var returnRouter = function (io) {
         model: Login,
         required: true,
         where: { [Op.and]: [{ cmp_status: 'Subscribed', delete_status: false, block_status: false }] }
+      },
+      {
+        model: Plans
       }]
     }).then(company => {
       return res.json(company);
@@ -246,7 +252,11 @@ var returnRouter = function (io) {
         model: Login,
         required: true,
         where: { [Op.and]: [{ cmp_status: 'Subscribed', delete_status: false, block_status: true }] }
-      }]
+      },
+      {
+        model: Plans
+      }
+      ]
     }).then(company => {
       return res.json(company);
     });
@@ -278,6 +288,9 @@ var returnRouter = function (io) {
         model: Login,
         required: true,
         where: { [Op.and]: [{ cmp_status: 'Subscribed', delete_status: true }] }
+      },
+      {
+        model: Plans
       }]
     }).then(company => {
       return res.json(company);
@@ -1157,7 +1170,7 @@ var returnRouter = function (io) {
     plan_name = capitalizeFirstLetter(req.body.plan_name);
     Plans.findAll().then(plans => {
       if (plans.length >= 4) {
-        res.json({ success: false, msg: "Cant Add, Maximum number of plan reached" });
+        res.json({ success: false, msg: "Can't Add, Maximum number of plan reached" });
       }
       else {
         Plans.findAll({
@@ -1305,7 +1318,7 @@ var returnRouter = function (io) {
       }
     }).then(company => {
       if (company.length != 0) {
-        res.json({ success: false, msg: "Cant delete, it is already used by a company!" });
+        res.json({ success: false, msg: "Can't delete, it is already used by a company!" });
       }
       else {
         Plans.findById(req.params.id).then(plans => {

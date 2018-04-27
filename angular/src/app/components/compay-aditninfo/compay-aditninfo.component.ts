@@ -26,9 +26,10 @@ export class CompayAditninfoComponent implements OnInit {
 		ans: ""
 	},
 	{
-		question: "Your Company Code?",
-		type: "text",
-		ans: ""
+		question:"Your Company Code?",
+		type:"text",
+		ans:"",
+		length:3
 	},
 	{
 		question: "Industry?",

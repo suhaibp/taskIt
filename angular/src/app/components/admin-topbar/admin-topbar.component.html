@@ -7,14 +7,14 @@
                         <!-- <li class=""><a href="#" class="add-project">Add Project</a></li> -->
                         
                         <li class="dropdown drp2">
-                            <a href="#" class="icon-info dropdown-toggle" data-toggle="dropdown">
+                            <a class="icon-info dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell" aria-hidden="true"></i>
                                 <span class="label label-primary">{{count}}</span>
  
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="head">
-                                    <a href="#"><div class="navbar-content">
+                                    <a><div class="navbar-content">
                                         <span>New Company Register</span>
                                         <!-- <p class="text-muted">
                                             Project Name
@@ -34,7 +34,7 @@
                                         <div class="media-body" >
                                             <div class='exclusaoNotificacao pull-right'><button class='btn btn-danger btn-xs button_exclusao closbtn' id='1'(click)="viewstatus(item.id)" >x</button>
                                              </div>
-                                                <h4 class="media-heading"  >{{item.cmp_name}}</h4><p>Registered newely</p>
+                                                <h4 class="media-heading"><b>{{item.cmp_name}}</b></h4><p>Registered newely</p>
                                                
                                         </div>
                                     </div>
@@ -65,7 +65,7 @@
                                 </li>
                             </ul>
                         </li> -->
-                        <li><a (click)="logout()" href="#"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
+                        <li><a (click)="logout()"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
             </div>

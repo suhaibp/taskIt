@@ -156,8 +156,6 @@ constructor(
   }
 
   addNewUser(){
-
-    
     //this.showSpinner =false;
     //this.showSpinnerDelete =false;
     this.newUser={email: '',
@@ -304,7 +302,7 @@ displayEditPhoto(fileInput){
 
 
 addUser(newUser){
-  console.log(newUser);
+  // console.log(newUser);
   this.showSpinner =true;
  // console.log(newUser);
     

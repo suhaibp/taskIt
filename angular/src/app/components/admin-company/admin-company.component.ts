@@ -13,7 +13,8 @@ export class AdminCompanyComponent implements OnInit {
   constructor(private routes: Router) { }
 
   ngOnInit() {
-    console.log(this.viewComp);
+    // console.log(this.viewComp);
+    this.viewComp = 'AllCompanies';
   }
   updateView(page){
     this.viewComp = page;

@@ -213,7 +213,7 @@ export class AdminDashboardBarComponent implements OnInit {
           .attr("x", 0 - (height / 2))
           .attr("dy", "3em")
           .style("text-anchor", "middle")
-          .text("No of Tasks"); 
+          .text("No of Projects"); 
       }else{
         // console.log("hhh")
         this.empty = true;

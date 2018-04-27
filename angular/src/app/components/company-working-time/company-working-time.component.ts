@@ -45,7 +45,7 @@ export class CompanyWorkingTimeComponent implements OnInit {
   ngOnInit() {
     this.getTimings();
     this.getWeekTimings()
-    console.log();
+    // console.log();
    
   }
 
@@ -85,7 +85,7 @@ export class CompanyWorkingTimeComponent implements OnInit {
 
   getWeekTimings(){
     this.companyService.getWeekTimes().subscribe(timings =>{
-       console.log(timings)
+      //  console.log(timings)
        this.timings = timings;
        this.showTbl = true;
       //  console.log(timings[1][0])

@@ -4,6 +4,7 @@
 .side-bar-menu li a:hover{background-color: #fe6a07;color:#fff;}
 .side-bar-menu li>a:focus{background-color: #fe6a07;color:#fff;}
 .side-bar-menu li>a:active{background-color: #fe6a07;color:#fff;}
+.side-bar-menu li>a:active1{background-color: #fe6a07;color:#fff;}
 
 ul.breadcrumb {
     padding: 10px 0;

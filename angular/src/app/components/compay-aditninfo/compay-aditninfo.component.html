@@ -13,6 +13,7 @@
 				</div>
 			</div>
 		</div>
+		<br>
 		<div class="col-md-4 bgz">
 			<h3>Registration</h3>
 			<section>
@@ -22,7 +23,7 @@
 						<div *ngFor="let item of questions;let i=index;">
 							<ng-container *ngIf="counter == i">
 								<label>{{item.question}}</label>
-								<input type="text" *ngIf="item.type == 'text' else password" [(ngModel)]="item.ans" name="item.ans">
+								<input type="text" [attr.maxlength]="item.length" *ngIf="item.type == 'text' else password" [(ngModel)]="item.ans" name="item.ans">
 								<ng-template #password>
 									<input type="password" *ngIf="item.type == 'password' else multiple" [(ngModel)]="item.ans" name="item.ans">
 									<ng-template #multiple>

@@ -125,7 +125,7 @@ var returnRouter = function (io) {
             }).then(userProfile => {
                 console.log(userProfile);
                 Project_modules.findAll({
-                   // where: { id: 629 },
+                    // where: { id: 629 },
                     include: [
                         {
                             model: Projects,
@@ -643,7 +643,7 @@ var returnRouter = function (io) {
             // console.log(req.body.complexity)
             // // console.log(req.body.team)
             // console.log(req.body.task_name)
-            if (req.body.task_name == '' || req.body.planned_hour == 0 || req.body.assigned_person == '' || req.body.priority == '' ) {
+            if (req.body.task_name == '' || req.body.planned_hour == 0 || req.body.assigned_person == '' || req.body.priority == '') {
                 res.send({ success: false, msg: 'Please fill all required fields' });
                 // console.log("firs");
             }
@@ -771,7 +771,7 @@ var returnRouter = function (io) {
                         where: {
                             user_profile_id: user_id
                         },
-                        include:[{
+                        include: [{
                             model: Users
                         }]
                     }]
@@ -923,7 +923,7 @@ var returnRouter = function (io) {
                         where: {
                             user_profile_id: user_id
                         },
-                        include:[{
+                        include: [{
                             model: Users
                         }]
                     }]
@@ -1301,23 +1301,23 @@ var returnRouter = function (io) {
                                                     where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                                 }).then(work_time1 => {
                                                     // if (work_time1) {
-                                                        // parse time using 24-hour clock and use UTC to prevent DST issues
-                                                        var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
-                                                        var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-                                                        // account for crossing over to midnight the next day
-                                                        if (end.isBefore(start)) end.add(1, 'day');
-                                                        // calculate the duration
-                                                        var d1 = moment.duration(end.diff(start));
-                                                        // subtract the lunch break
-                                                        // d.subtract(30, 'minutes');
-                                                        // format a string result
-                                                        var s1 = moment.utc(+d1).format('HH:mm:ss');
-                                                        // console.log("e" + s1);
-                                                        var a1 = s1.split(':'); // split it at the colons
-                                                        // minutes are worth 60 seconds. Hours are worth 60 minutes.
-                                                        var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
-                                                        total_seconds = total_seconds + seconds1;
-                                                        callback();
+                                                    // parse time using 24-hour clock and use UTC to prevent DST issues
+                                                    var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                                    var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                                    // account for crossing over to midnight the next day
+                                                    if (end.isBefore(start)) end.add(1, 'day');
+                                                    // calculate the duration
+                                                    var d1 = moment.duration(end.diff(start));
+                                                    // subtract the lunch break
+                                                    // d.subtract(30, 'minutes');
+                                                    // format a string result
+                                                    var s1 = moment.utc(+d1).format('HH:mm:ss');
+                                                    // console.log("e" + s1);
+                                                    var a1 = s1.split(':'); // split it at the colons
+                                                    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                                    var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
+                                                    total_seconds = total_seconds + seconds1;
+                                                    callback();
                                                     // }
                                                     // callback();
                                                 });
@@ -1409,27 +1409,27 @@ var returnRouter = function (io) {
                                                 where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                             }).then(work_time1 => {
                                                 // if (work_time1) {
-                                                    //  console.log("w"+work_time1);
-                                                    //  console.log(work_time1.end_time)
-                                                    // parse time using 24-hour clock and use UTC to prevent DST issues
-                                                    var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
-                                                    var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-                                                    // account for crossing over to midnight the next day
-                                                    if (end.isBefore(start)) end.add(1, 'day');
-                                                    // calculate the duration
-                                                    var d1 = moment.duration(end.diff(start));
-                                                    // subtract the lunch break
-                                                    // d.subtract(30, 'minutes');
-                                                    // format a string result
-                                                    var s1 = moment.utc(+d1).format('H');
-                                                    console.log("e" + s1);
-                                                    console.log(req.body.endavlhr.hour);
-                                                    //  res.json(work_time);
-                                                    if (!isErr && (parseFloat(s1) < parseFloat(req.body.endavlhr.hour))) {
-                                                        errMsg = "* Failed,working hour exceed available hour !";
-                                                        isErr = true;
-                                                    }
-                                                    callback();
+                                                //  console.log("w"+work_time1);
+                                                //  console.log(work_time1.end_time)
+                                                // parse time using 24-hour clock and use UTC to prevent DST issues
+                                                var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                                var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                                // account for crossing over to midnight the next day
+                                                if (end.isBefore(start)) end.add(1, 'day');
+                                                // calculate the duration
+                                                var d1 = moment.duration(end.diff(start));
+                                                // subtract the lunch break
+                                                // d.subtract(30, 'minutes');
+                                                // format a string result
+                                                var s1 = moment.utc(+d1).format('H');
+                                                console.log("e" + s1);
+                                                console.log(req.body.endavlhr.hour);
+                                                //  res.json(work_time);
+                                                if (!isErr && (parseFloat(s1) < parseFloat(req.body.endavlhr.hour))) {
+                                                    errMsg = "* Failed,working hour exceed available hour !";
+                                                    isErr = true;
+                                                }
+                                                callback();
                                                 //     //else{  }
                                                 // }
                                                 // callback();
@@ -1499,7 +1499,7 @@ var returnRouter = function (io) {
                                                     is_user_viewed: false
                                                 })
                                                 // addleave.save().then(function (leave) {
-                                                    addleave.save().then(leave => {
+                                                addleave.save().then(leave => {
                                                     saveLog("Added Leave!", user_id);
                                                     callback();
                                                 })
@@ -1685,23 +1685,23 @@ var returnRouter = function (io) {
                                                 where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                             }).then(work_time1 => {
                                                 // if (work_time1) {
-                                                    // parse time using 24-hour clock and use UTC to prevent DST issues
-                                                    var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
-                                                    var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-                                                    // account for crossing over to midnight the next day
-                                                    if (end.isBefore(start)) end.add(1, 'day');
-                                                    // calculate the duration
-                                                    var d1 = moment.duration(end.diff(start));
-                                                    // subtract the lunch break
-                                                    // d.subtract(30, 'minutes');
-                                                    // format a string result
-                                                    var s1 = moment.utc(+d1).format('HH:mm:ss');
-                                                    // console.log("e" + s1);
-                                                    var a1 = s1.split(':'); // split it at the colons
-                                                    // minutes are worth 60 seconds. Hours are worth 60 minutes.
-                                                    var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
-                                                    total_seconds = total_seconds + seconds1;
-                                                    callback();
+                                                // parse time using 24-hour clock and use UTC to prevent DST issues
+                                                var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                                var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                                // account for crossing over to midnight the next day
+                                                if (end.isBefore(start)) end.add(1, 'day');
+                                                // calculate the duration
+                                                var d1 = moment.duration(end.diff(start));
+                                                // subtract the lunch break
+                                                // d.subtract(30, 'minutes');
+                                                // format a string result
+                                                var s1 = moment.utc(+d1).format('HH:mm:ss');
+                                                // console.log("e" + s1);
+                                                var a1 = s1.split(':'); // split it at the colons
+                                                // minutes are worth 60 seconds. Hours are worth 60 minutes.
+                                                var seconds1 = (+a1[0]) * 60 * 60 + (+a1[1]) * 60 + (+a1[2]);
+                                                total_seconds = total_seconds + seconds1;
+                                                callback();
                                                 // }
                                                 // callback();
                                             });
@@ -1777,26 +1777,26 @@ var returnRouter = function (io) {
                                             where: { [Op.and]: [{ is_default: true, cmp_id: cmp_id }] },
                                         }).then(work_time1 => {
                                             // if (work_time1) {
-                                                // parse time using 24-hour clock and use UTC to prevent DST issues
-                                                var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
-                                                var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
-                                                // account for crossing over to midnight the next day
-                                                if (end.isBefore(start)) end.add(1, 'day');
-                                                // calculate the duration
-                                                var d1 = moment.duration(end.diff(start));
-                                                // subtract the lunch break
-                                                // d.subtract(30, 'minutes');
-                                                // format a string result
-                                                var s1 = moment.utc(+d1).format('H');
-                                                console.log("e" + s1);
-                                                console.log(req.body.endavlhr.hour);
-                                                //  res.json(work_time);
-                                                if (!isErr && (parseFloat(s1) < parseInt(req.body.endavlhr.hour))) {
-                                                    errMsg = "* Failed,working hour exceed available hour !";
-                                                    isErr = true;
-                                                }
-                                                callback();
-                                                //else{ 
+                                            // parse time using 24-hour clock and use UTC to prevent DST issues
+                                            var start = moment.utc('"' + work_time1.start_time + '"', "HH:mm:ss");
+                                            var end = moment.utc('"' + work_time1.end_time + '"', "HH:mm:ss");
+                                            // account for crossing over to midnight the next day
+                                            if (end.isBefore(start)) end.add(1, 'day');
+                                            // calculate the duration
+                                            var d1 = moment.duration(end.diff(start));
+                                            // subtract the lunch break
+                                            // d.subtract(30, 'minutes');
+                                            // format a string result
+                                            var s1 = moment.utc(+d1).format('H');
+                                            console.log("e" + s1);
+                                            console.log(req.body.endavlhr.hour);
+                                            //  res.json(work_time);
+                                            if (!isErr && (parseFloat(s1) < parseInt(req.body.endavlhr.hour))) {
+                                                errMsg = "* Failed,working hour exceed available hour !";
+                                                isErr = true;
+                                            }
+                                            callback();
+                                            //else{ 
                                             // }
                                             // callback();
                                         });
@@ -2207,12 +2207,12 @@ var returnRouter = function (io) {
                         cmp_id: cmp_id,
                         status: status
                     },
-                    include:[{
+                    include: [{
                         model: ProjectMemeberAssoc,
                         where: {
                             user_profile_id: user_id
                         },
-                        include:[{
+                        include: [{
                             model: Users
                         }]
                     }]
@@ -2418,14 +2418,15 @@ var returnRouter = function (io) {
                                     date_time: new Date(),
                                 });
                                 estimation.save().then(function (est) {
-                                    // console.log(est.id)
-                                    req.body.modules.forEach(moduleArray => {
+                                    async.eachOfSeries(req.body.modules, function (moduleArray, key, callback) {
+                                        // req.body.modules.forEach(moduleArray => {
                                         const est_modules = Estimation_modules.build({
                                             estimation_id: est.id,
                                             module_name: moduleArray.name
                                         });
                                         est_modules.save().then(function (modules) {
-                                            moduleArray.tasks.forEach(taskArray => {
+                                            // moduleArray.tasks.forEach(taskArray => {
+                                            async.eachOfSeries(moduleArray.tasks, (taskArray, key1, callback1) => {
                                                 Estimation_tasks.bulkCreate([
                                                     {
                                                         task_name: taskArray.name,
@@ -2435,9 +2436,15 @@ var returnRouter = function (io) {
                                                         estimation_module_id: modules.id,
                                                         estimation_team_id: req.body.team_id,
                                                     }
-                                                ]).then(tasks => { })
+                                                ]).then(tasks => { callback1(); })
+                                                // });
+                                            }, () => {
+                                                callback();
                                             });
                                         });
+                                        // });
+                                    }, () => {
+                                        // res.send({ success: isSuccess, msg: msg });
                                     });
                                     req.body.team_member.forEach(item => {
                                         Estimation_team_members.bulkCreate([
@@ -2581,6 +2588,9 @@ var returnRouter = function (io) {
                                 model: Estimation_tasks
                             }
                         },
+                    ],
+                    order: [
+                        [Estimation_modules, { model: Estimation_tasks }, 'id', 'ASC']
                     ]
                     // , raw: true
                 }).then(estimations => {

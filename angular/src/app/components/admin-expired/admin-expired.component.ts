@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./admin-expired.component.css']
 })
 export class AdminExpiredComponent implements OnInit {
-  displayedColumns = [ 'slno','companyname','email','contactnumber','companystatus','status','action'];
+  displayedColumns = [ 'slno','cmp_name','email','contactnumber','companystatus','status','action'];
   dataSource: MatTableDataSource<any>;
   notExist =false;
   id :any;

@@ -150,7 +150,7 @@ ValidateEmail(mail)
 	}
 
 	validate(i){
-		console.log("nkfdh")
+		// console.log("nkfdh")
 		$('input').focus();
 		if(this.questions[this.counter].ans == ''){
 			this.errMessage = "Please fill the fields";
